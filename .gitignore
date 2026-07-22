@@ -1,0 +1,13 @@
+.DS_Store
+.tmp/
+.venv/
+__pycache__/
+*.py[cod]
+*.aux.xml
+/AGENTS.md
+/CLAUDE.md
+/render_bathy_3d.py
+/render_depth_3d.py
+/render_depth_micro.py
+/render_depth_plan.py
+/render_surface_bathy.py

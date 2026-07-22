@@ -1,0 +1,22 @@
+{
+  "slug": "cap-la-houssaye",
+  "title": "Cap La Houssaye - zone elargie ouest",
+  "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
+  "focus_bbox_utm40s": [316438.8, 7674623.6, 317020.8, 7675051.2],
+  "context_bbox_utm40s": [316300.0, 7674350.0, 317160.0, 7675650.0],
+  "rotation_k": 0,
+  "max_depth_m": 20,
+  "topography_resolution_m": 0.5,
+  "camera_tilt": 0.34,
+  "coast_frame_fraction": 0.44,
+  "vertical_exaggeration": 7.6,
+  "paths": {
+    "context_depth_raw": ".tmp/bathy-renders/cap-la-houssaye-context-expanded-depth.tif",
+    "context_depth": ".tmp/bathy-renders/cap-la-houssaye-context-expanded-depth-positive.tif",
+    "context_elevation": ".tmp/bathy-renders/ign-rgealti-context-expanded-geotiff.tif",
+    "focus_depth": ".tmp/bathy-renders/cap-la-houssaye-pointe-westwide-depth-positive.tif",
+    "focus_elevation": ".tmp/bathy-renders/ign-rgealti-highres-westwide-geotiff.tif",
+    "output_2d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg",
+    "output_3d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg"
+  }
+}

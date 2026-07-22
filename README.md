@@ -1,0 +1,39 @@
+# Topo-bathymetrie des sites de plongee de La Reunion
+
+Pipeline reproductible pour produire un plan 2D et une vue 3D oblique a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN.
+
+Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, extrait les isobathes `-5`, `-10`, `-15` et `-20 m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
+
+## Exemple : Cap La Houssaye
+
+| Plan 2D | Vue 3D depuis le large |
+|---|---|
+| ![Plan 2D du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg) | ![Vue 3D du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg) |
+
+## Installation sur macOS
+
+Homebrew est requis. Le script installe Python et GDAL, puis cree un environnement local :
+
+```bash
+./bootstrap_macos.sh
+```
+
+## Regeneration complete
+
+```bash
+.venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --refresh
+```
+
+Sans `--refresh`, les GeoTIFF deja mis en cache sont reutilises. Pour refaire uniquement les images :
+
+```bash
+.venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --render-only
+```
+
+Les donnees sources et les extraits regenerables restent dans `.tmp/bathy-renders/` et ne sont pas versionnes.
+
+## Reutilisation
+
+Pour ajouter un site, copier `sites/cap-la-houssaye.json`, puis modifier le secteur HYSCORES, les emprises UTM 40S, l'orientation de la cote et les parametres de camera. Le moteur prend en charge les quatre orientations cardinales et recalcule automatiquement les compas 2D et 3D.
+
+Le processus complet, les sources, chaque parametre et les controles qualite sont documentes dans [WORKFLOW.md](WORKFLOW.md).
