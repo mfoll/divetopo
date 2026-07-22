@@ -216,6 +216,7 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         title,
         max_depth=float(config.get("max_depth_m", 20)),
         rotation_k=rotation_k,
+        output_scale=float(config.get("output_scale", 1.0)),
     )
     make_pretty_3d_from_offshore(
         paths["context_depth"],
@@ -227,8 +228,14 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         decorate=False,
         rotation_k=rotation_k,
         camera_tilt=float(config.get("camera_tilt", 0.34)),
+        north_south_projection_scale=float(config.get("north_south_projection_scale", 1.0)),
+        horizontal_crop_fraction=float(config.get("horizontal_crop_fraction", 0.0)),
+        east_crop_fraction=float(config.get("east_crop_fraction", config.get("horizontal_crop_fraction", 0.0))),
+        west_crop_fraction=float(config.get("west_crop_fraction", config.get("horizontal_crop_fraction", 0.0))),
+        south_crop_fraction=float(config.get("south_crop_fraction", 0.0)),
         coast_frame_fraction=float(config.get("coast_frame_fraction", 0.44)),
         vertical_exaggeration=float(config.get("vertical_exaggeration", 7.6)),
+        output_scale=float(config.get("output_scale", 1.0)),
     )
 
 

@@ -81,9 +81,16 @@ Pour la 3D, prevoir dans `context_bbox_utm40s` environ 300 a 400 m de donnees re
 
 - `max_depth_m` : profondeur maximale de la palette et du relief affiche, actuellement 20 m.
 - `camera_tilt` : angle apparent de la grille. Une valeur plus faible abaisse le point de vue.
+- `north_south_projection_scale` : amplification cartographique de l'axe nord-sud dans la vue 3D, sans modifier l'azimut de la camera.
+- `horizontal_crop_fraction` : valeur de repli pour retirer la meme part sur les bords est et ouest de la vue 3D.
+- `east_crop_fraction` et `west_crop_fraction` : parts retirees independamment de chaque cote de la vue 3D. Le plan 2D est recadre par son `focus_bbox_utm40s` afin de conserver une echelle metrique exacte.
+- `south_crop_fraction` : part retiree du cote sud, soit en haut de la vue 3D depuis le nord. Le plan 2D est recadre au sud dans son `focus_bbox_utm40s`.
+- `output_scale` : facteur de rendu natif des vecteurs, textes et annotations. Le fond raster est interpole avant leur trace, sans ajouter de detail spatial au-dela de la resolution des MNT sources.
 - `coast_frame_fraction` : hauteur de la cote dans l'image 3D, de 0 en haut a 1 en bas.
 - `vertical_exaggeration` : amplification verticale du relief.
 - `topography_resolution_m` : resolution demandee au WMS IGN. La requete est refusee au-dela de 5 000 pixels sur un axe.
+
+Lorsque `north_south_projection_scale` differe de `1`, la barre metrique de la vue 3D reste exacte sur l'axe est-ouest uniquement. Le plan 2D demeure la reference metrique dans toutes les directions.
 
 ## Controle qualite obligatoire
 

@@ -295,6 +295,7 @@ def choose_plan_label(
     width: int,
     height: int,
     occupied: list[tuple[float, float]],
+    ui_scale: float = 1.0,
 ) -> tuple[float, float] | None:
     best: tuple[float, float] | None = None
     best_score = -np.inf
@@ -304,16 +305,16 @@ def choose_plan_label(
         stride = max(1, len(line) // 120)
         for index in range(2, len(line) - 2, stride):
             x, y = line[index]
-            if not (45 < x < width - 95 and 25 < y < height - 30):
+            if not (45 * ui_scale < x < width - 95 * ui_scale and 25 * ui_scale < y < height - 30 * ui_scale):
                 continue
             dx = line[index + 2][0] - line[index - 2][0]
             dy = line[index + 2][1] - line[index - 2][1]
             horizontal = abs(dx) / (abs(dx) + abs(dy) + 1e-6)
             coast_gap = max(0.0, float(coast_y[int(np.clip(round(x), 0, width - 1))]) - y)
-            edge_gap = min(x - 45, width - 95 - x, y - 25, height - 30 - y)
-            separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=200.0)
+            edge_gap = min(x - 45 * ui_scale, width - 95 * ui_scale - x, y - 25 * ui_scale, height - 30 * ui_scale - y)
+            separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=200.0 * ui_scale)
             focus_penalty = 0.35 * abs(x - width * 0.64)
-            score = edge_gap + 0.55 * coast_gap + 35.0 * horizontal + min(separation, 120.0) - focus_penalty
+            score = edge_gap + 0.55 * coast_gap + 35.0 * ui_scale * horizontal + min(separation, 120.0 * ui_scale) - focus_penalty
             if score > best_score:
                 best_score = score
                 best = (x, y)
@@ -410,7 +411,10 @@ def build_fused_surface(depth_path: Path, elevation_path: Path, max_depth: float
 
 
 
-def make_clean_plan(depth_path: Path, elevation_path: Path, contours_path: Path, output: Path, title: str, max_depth: float = 20, rotation_k: int = 0) -> None:
+def make_clean_plan(depth_path: Path, elevation_path: Path, contours_path: Path, output: Path, title: str, max_depth: float = 20, rotation_k: int = 0, output_scale: float = 1.0) -> None:
+    if output_scale <= 0.0:
+        raise ValueError("output_scale must be positive")
+    ui = output_scale
     elev, coast_y, land_mask, land_weight, fused_depth, contours = build_fused_surface(depth_path, elevation_path, max_depth, rotation_k)
     d = np.clip(fused_depth, 0.0, max_depth)
     sea_mask = ~land_mask
@@ -426,65 +430,81 @@ def make_clean_plan(depth_path: Path, elevation_path: Path, contours_path: Path,
     rgb = rgb * (1 - land_weight[:, :, None]) + land_rgb * land_weight[:, :, None]
     rgb[~valid & (land_weight < 0.02)] = (7, 18, 55)
 
-    img = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB").convert("RGBA")
+    img = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB")
+    if ui != 1.0:
+        img = img.resize(
+            (int(np.floor(img.width * ui + 0.5)), int(np.floor(img.height * ui + 0.5))),
+            Image.Resampling.LANCZOS,
+        )
+    img = img.convert("RGBA")
     draw = ImageDraw.Draw(img, "RGBA")
 
-    label_font = load_font(18, True)
+    scaled_contours = {
+        level: [[(x * ui, y * ui) for x, y in line] for line in lines]
+        for level, lines in contours.items()
+    }
+    coast_y_scaled = np.interp(
+        np.arange(img.width, dtype=np.float32) / ui,
+        np.arange(len(coast_y), dtype=np.float32),
+        coast_y,
+    ) * ui
+
+    label_font = load_font(int(np.floor(18 * ui + 0.5)), True)
     occupied_labels: list[tuple[float, float]] = []
-    for level, lines in contours.items():
+    for level, lines in scaled_contours.items():
         for line in lines:
-            draw.line(line, fill=(242, 245, 230, 150), width=4, joint="curve")
-            draw.line(line, fill=(10, 15, 22, 205), width=2, joint="curve")
+            draw.line(line, fill=(242, 245, 230, 150), width=max(1, int(np.floor(4 * ui + 0.5))), joint="curve")
+            draw.line(line, fill=(10, 15, 22, 205), width=max(1, int(np.floor(2 * ui + 0.5))), joint="curve")
 
         open_lines = []
         for line in lines:
-            center = isolated_contour_center(line)
-            is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0
+            center = isolated_contour_center(line, min_width=55.0 * ui, min_height=28.0 * ui)
+            is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0 * ui
             if is_closed:
-                if center and all(np.hypot(center[0] - x, center[1] - y) > 70 for x, y in occupied_labels):
+                if center and all(np.hypot(center[0] - x, center[1] - y) > 70 * ui for x, y in occupied_labels):
                     x, y = center
                     occupied_labels.append(center)
-                    draw.text((x - 24, y - 11), f"-{level} m", font=label_font, fill=(5, 8, 15, 235), stroke_width=2, stroke_fill=(245, 244, 222, 230))
+                    draw.text((x - 24 * ui, y - 11 * ui), f"-{level} m", font=label_font, fill=(5, 8, 15, 235), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 244, 222, 230))
                 continue
             open_lines.append(line)
 
-        label_point = choose_plan_label(open_lines, coast_y, img.width, img.height, occupied_labels)
+        label_point = choose_plan_label(open_lines, coast_y_scaled, img.width, img.height, occupied_labels, ui_scale=ui)
         if label_point:
             x, y = label_point
             occupied_labels.append(label_point)
-            draw.text((x + 5, y - 11), f"-{level} m", font=label_font, fill=(5, 8, 15, 235), stroke_width=2, stroke_fill=(245, 244, 222, 230))
+            draw.text((x + 5 * ui, y - 11 * ui), f"-{level} m", font=label_font, fill=(5, 8, 15, 235), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 244, 222, 230))
 
-    coast_points = [(x, float(y)) for x, y in enumerate(coast_y)]
-    draw.line(coast_points, fill=(238, 230, 194, 210), width=5, joint="curve")
-    draw.line(coast_points, fill=(12, 12, 10, 245), width=3, joint="curve")
+    coast_points = [(float(x), float(y)) for x, y in enumerate(coast_y_scaled)]
+    draw.line(coast_points, fill=(238, 230, 194, 210), width=max(1, int(np.floor(5 * ui + 0.5))), joint="curve")
+    draw.line(coast_points, fill=(12, 12, 10, 245), width=max(1, int(np.floor(3 * ui + 0.5))), joint="curve")
 
     # North-up orientation and a scale based on the raster geotransform.
-    annotation_font = load_font(19, True)
+    annotation_font = load_font(int(np.floor(19 * ui + 0.5)), True)
     pixel_m = abs(gdal.Open(str(depth_path)).GetGeoTransform()[1])
-    bar_px = 50.0 / pixel_m
-    sx, sy = 48, img.height - 48
-    draw.line((sx, sy, sx + bar_px, sy), fill=(244, 241, 218, 240), width=7)
-    draw.line((sx, sy, sx + bar_px, sy), fill=(8, 10, 12, 250), width=3)
-    draw.line((sx, sy - 8, sx, sy + 8), fill=(8, 10, 12, 250), width=3)
-    draw.line((sx + bar_px, sy - 8, sx + bar_px, sy + 8), fill=(8, 10, 12, 250), width=3)
-    draw.text((sx + bar_px / 2 - 22, sy - 31), "50 m", font=annotation_font, fill=(8, 10, 12, 250), stroke_width=2, stroke_fill=(244, 241, 218, 235))
+    bar_px = 50.0 / pixel_m * ui
+    sx, sy = 48 * ui, img.height - 48 * ui
+    draw.line((sx, sy, sx + bar_px, sy), fill=(244, 241, 218, 240), width=max(1, int(np.floor(7 * ui + 0.5))))
+    draw.line((sx, sy, sx + bar_px, sy), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * ui + 0.5))))
+    draw.line((sx, sy - 8 * ui, sx, sy + 8 * ui), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * ui + 0.5))))
+    draw.line((sx + bar_px, sy - 8 * ui, sx + bar_px, sy + 8 * ui), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * ui + 0.5))))
+    draw.text((sx + bar_px / 2 - 22 * ui, sy - 31 * ui), "50 m", font=annotation_font, fill=(8, 10, 12, 250), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(244, 241, 218, 235))
 
-    cx, cy = img.width - 76, 82
+    cx, cy = img.width - 76 * ui, 82 * ui
     halo = (244, 241, 218, 240)
     ink = (8, 10, 12, 250)
-    draw.line((cx - 36, cy, cx + 36, cy), fill=halo, width=7)
-    draw.line((cx, cy - 36, cx, cy + 36), fill=halo, width=7)
-    draw.line((cx - 36, cy, cx + 36, cy), fill=ink, width=3)
-    draw.line((cx, cy - 36, cx, cy + 36), fill=ink, width=3)
-    draw.polygon([(cx, cy - 46), (cx - 8, cy - 29), (cx + 8, cy - 29)], fill=ink)
+    draw.line((cx - 36 * ui, cy, cx + 36 * ui, cy), fill=halo, width=max(1, int(np.floor(7 * ui + 0.5))))
+    draw.line((cx, cy - 36 * ui, cx, cy + 36 * ui), fill=halo, width=max(1, int(np.floor(7 * ui + 0.5))))
+    draw.line((cx - 36 * ui, cy, cx + 36 * ui, cy), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
+    draw.line((cx, cy - 36 * ui, cx, cy + 36 * ui), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
+    draw.polygon([(cx, cy - 46 * ui), (cx - 8 * ui, cy - 29 * ui), (cx + 8 * ui, cy - 29 * ui)], fill=ink)
     cardinals = plan_cardinals(rotation_k)
-    draw.text((cx, cy - 60), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-    draw.text((cx, cy + 54), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-    draw.text((cx - 52, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-    draw.text((cx + 52, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-
+    stroke = max(1, int(np.floor(2 * ui + 0.5)))
+    draw.text((cx, cy - 60 * ui), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((cx, cy + 54 * ui), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((cx - 52 * ui, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((cx + 52 * ui, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
     output.parent.mkdir(parents=True, exist_ok=True)
-    img.convert("RGB").save(output, quality=96)
+    img.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
 
 
 
@@ -498,8 +518,14 @@ def make_pretty_3d_from_offshore(
     decorate: bool = True,
     rotation_k: int = 0,
     camera_tilt: float = 0.34,
+    north_south_projection_scale: float = 1.0,
+    horizontal_crop_fraction: float = 0.0,
+    east_crop_fraction: float | None = None,
+    west_crop_fraction: float | None = None,
+    south_crop_fraction: float = 0.0,
     coast_frame_fraction: float = 0.44,
     vertical_exaggeration: float = 7.6,
+    output_scale: float = 1.0,
 ) -> None:
     elev_full, coast_full, land_full, land_weight_full, fused_depth, contours_full = build_fused_surface(
         depth_path, elevation_path, max_depth, rotation_k
@@ -598,7 +624,25 @@ def make_pretty_3d_from_offshore(
     }
 
     h, w = z.shape
-    final_canvas_w, final_canvas_h = 1455, 1069
+    if not 0.0 <= horizontal_crop_fraction < 0.5:
+        raise ValueError("horizontal_crop_fraction must be between 0 and 0.5")
+    east_crop_fraction = horizontal_crop_fraction if east_crop_fraction is None else east_crop_fraction
+    west_crop_fraction = horizontal_crop_fraction if west_crop_fraction is None else west_crop_fraction
+    if not 0.0 <= east_crop_fraction < 1.0 or not 0.0 <= west_crop_fraction < 1.0:
+        raise ValueError("east_crop_fraction and west_crop_fraction must be between 0 and 1")
+    if east_crop_fraction + west_crop_fraction >= 1.0:
+        raise ValueError("east and west crop fractions must retain a positive width")
+    if not 0.0 <= south_crop_fraction < 1.0:
+        raise ValueError("south_crop_fraction must be between 0 and 1")
+    if north_south_projection_scale <= 0.0:
+        raise ValueError("north_south_projection_scale must be positive")
+    if output_scale <= 0.0:
+        raise ValueError("output_scale must be positive")
+    ui = output_scale
+    base_canvas_w = 1455
+    base_canvas_h = 1069
+    final_canvas_w = base_canvas_w
+    final_canvas_h = base_canvas_h
     aa = 2
     canvas_w, canvas_h = final_canvas_w * aa, final_canvas_h * aa
     sky = np.array((198, 219, 228), dtype=np.float32)
@@ -626,7 +670,7 @@ def make_pretty_3d_from_offshore(
         # Observer au nord regardant vers le sud: l'est est a gauche et
         # l'ouest a droite, contrairement au plan 2D nord en haut.
         x = -(px - focus_x) * scale
-        y = -(py - h / 2) * tilt * scale - zv * zscale
+        y = -(py - h / 2) * tilt * scale * north_south_projection_scale - zv * zscale
         return x, y
 
     rx, ry = raw_project(xx, yy, z[yy, xx])
@@ -683,30 +727,43 @@ def make_pretty_3d_from_offshore(
     draw.line(projected_coast, fill=(242, 235, 204, 230), width=8 * aa, joint="curve")
     draw.line(projected_coast, fill=(3, 3, 3, 255), width=4 * aa, joint="curve")
 
-    canvas = canvas.resize((final_canvas_w, final_canvas_h), Image.Resampling.LANCZOS)
-    crop_left = 0
-    crop_top = 0
+    full_output_w = int(np.floor(base_canvas_w * ui + 0.5))
+    full_output_h = int(np.floor(base_canvas_h * ui + 0.5))
+    canvas = canvas.resize((full_output_w, full_output_h), Image.Resampling.LANCZOS)
+    projection_to_output = ui / aa
+    # Looking south mirrors east and west: east is on the left of the image.
+    crop_left_base = int(np.floor(base_canvas_w * east_crop_fraction + 0.5))
+    crop_right_base = int(np.floor(base_canvas_w * west_crop_fraction + 0.5))
+    crop_left = int(np.floor(crop_left_base * ui + 0.5))
+    crop_right = int(np.floor(crop_right_base * ui + 0.5))
+    # South is at the top of this offshore view. Crop after projection so the
+    # camera geometry and metre scale remain unchanged, then place labels in
+    # the retained image coordinates.
+    crop_top_base = int(np.floor(base_canvas_h * south_crop_fraction))
+    crop_top = int(np.floor(crop_top_base * ui + 0.5))
+    if crop_left or crop_right or crop_top:
+        canvas = canvas.crop((crop_left, crop_top, full_output_w - crop_right, full_output_h))
     draw = ImageDraw.Draw(canvas, "RGBA")
 
     if not decorate:
-        label_font = load_font(20, True)
+        label_font = load_font(int(np.floor(20 * ui + 0.5)), True)
         occupied: list[tuple[float, float]] = []
         for level in (5, 10, 15, 20):
             transformed_lines = [
-                [(x / aa - crop_left, y / aa - crop_top) for x, y in line]
+                [(x * projection_to_output - crop_left, y * projection_to_output - crop_top) for x, y in line]
                 for line in projected_contours.get(level, [])
             ]
             open_lines = []
             for line in transformed_lines:
-                center = isolated_contour_center(line, min_width=70.0, min_height=30.0)
-                is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0
+                center = isolated_contour_center(line, min_width=45.0 * ui, min_height=20.0 * ui)
+                is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0 * ui
                 if is_closed:
                     placed = False
-                    if center and 55 < center[0] < canvas.width - 100 and 35 < center[1] < canvas.height - 35:
-                        if all(np.hypot(center[0] - x, center[1] - y) > 80 for x, y in occupied):
+                    if center and 55 * ui < center[0] < canvas.width - 100 * ui and 35 * ui < center[1] < canvas.height - 35 * ui:
+                        if all(np.hypot(center[0] - x, center[1] - y) > 80 * ui for x, y in occupied):
                             x, y = center
                             occupied.append(center)
-                            draw.text((x - 27, y - 13), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=2, stroke_fill=(245, 239, 210, 235))
+                            draw.text((x - 27 * ui, y - 13 * ui), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 239, 210, 235))
                             placed = True
                     if placed:
                         continue
@@ -718,15 +775,15 @@ def make_pretty_3d_from_offshore(
                 stride = max(1, len(line) // 100)
                 for index in range(2, len(line) - 2, stride):
                     x, y = line[index]
-                    if not (55 < x < canvas.width - 100 and 35 < y < canvas.height - 35):
+                    if not (55 * ui < x < canvas.width - 100 * ui and 35 * ui < y < canvas.height - 35 * ui):
                         continue
                     dx = line[index + 2][0] - line[index - 2][0]
                     dy = line[index + 2][1] - line[index - 2][1]
                     horizontal = abs(dx) / (abs(dx) + abs(dy) + 1e-6)
-                    edge_gap = min(x - 55, canvas.width - 100 - x, y - 35, canvas.height - 35 - y)
-                    separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=250.0)
+                    edge_gap = min(x - 55 * ui, canvas.width - 100 * ui - x, y - 35 * ui, canvas.height - 35 * ui - y)
+                    separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=250.0 * ui)
                     focus_penalty = 0.32 * abs(x - canvas.width * 0.48)
-                    score = edge_gap + 55.0 * horizontal + min(separation, 160.0) - focus_penalty
+                    score = edge_gap + 55.0 * ui * horizontal + min(separation, 160.0 * ui) - focus_penalty
                     if score > best_score:
                         best_score = score
                         best = (x, y)
@@ -735,41 +792,42 @@ def make_pretty_3d_from_offshore(
                     (x, y)
                     for line in open_lines
                     for x, y in line
-                    if 55 < x < canvas.width - 100 and -25 < y < canvas.height + 25
+                    if 55 * ui < x < canvas.width - 100 * ui and -25 * ui < y < canvas.height + 25 * ui
                 ]
                 if near_frame:
                     x, y = min(near_frame, key=lambda point: abs(point[0] - canvas.width / 2))
-                    best = (x, float(np.clip(y, 35, canvas.height - 35)))
+                    best = (x, float(np.clip(y, 35 * ui, canvas.height - 35 * ui)))
             if best:
                 x, y = best
                 occupied.append(best)
-                draw.text((x + 6, y - 13), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=2, stroke_fill=(245, 239, 210, 235))
+                draw.text((x + 6 * ui, y - 13 * ui), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 239, 210, 235))
 
-        annotation_font = load_font(20, True)
+        annotation_font = load_font(int(np.floor(20 * ui + 0.5)), True)
         pixel_m = abs(gdal.Open(str(depth_path)).GetGeoTransform()[1])
-        bar_px = 50.0 * zoom / step / pixel_m
-        sx, sy = 55, canvas.height - 50
-        draw.line((sx, sy, sx + bar_px, sy), fill=(245, 239, 210, 245), width=8)
-        draw.line((sx, sy, sx + bar_px, sy), fill=(5, 7, 10, 255), width=3)
-        draw.line((sx, sy - 9, sx, sy + 9), fill=(5, 7, 10, 255), width=3)
-        draw.line((sx + bar_px, sy - 9, sx + bar_px, sy + 9), fill=(5, 7, 10, 255), width=3)
-        draw.text((sx + bar_px / 2 - 24, sy - 34), "50 m", font=annotation_font, fill=(5, 7, 10, 255), stroke_width=2, stroke_fill=(245, 239, 210, 235))
+        bar_px = 50.0 * zoom / step / pixel_m * ui
+        sx, sy = 55 * ui, canvas.height - 50 * ui
+        draw.line((sx, sy, sx + bar_px, sy), fill=(245, 239, 210, 245), width=max(1, int(np.floor(8 * ui + 0.5))))
+        draw.line((sx, sy, sx + bar_px, sy), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * ui + 0.5))))
+        draw.line((sx, sy - 9 * ui, sx, sy + 9 * ui), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * ui + 0.5))))
+        draw.line((sx + bar_px, sy - 9 * ui, sx + bar_px, sy + 9 * ui), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * ui + 0.5))))
+        draw.text((sx + bar_px / 2 - 24 * ui, sy - 34 * ui), "50 m", font=annotation_font, fill=(5, 7, 10, 255), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 239, 210, 235))
 
         # The observer is offshore: oriented-raster top is foreground/down;
         # horizontal directions are mirrored by the view toward land.
-        cx, cy = canvas.width - 92, 84
+        cx, cy = canvas.width - 92 * ui, 84 * ui
         halo = (245, 239, 210, 240)
         ink = (5, 7, 10, 255)
-        draw.line((cx - 42, cy, cx + 42, cy), fill=halo, width=8)
-        draw.line((cx, cy - 42, cx, cy + 42), fill=halo, width=8)
-        draw.line((cx - 42, cy, cx + 42, cy), fill=ink, width=3)
-        draw.line((cx, cy - 42, cx, cy + 42), fill=ink, width=3)
-        draw.polygon([(cx, cy + 51), (cx - 9, cy + 34), (cx + 9, cy + 34)], fill=ink)
+        draw.line((cx - 42 * ui, cy, cx + 42 * ui, cy), fill=halo, width=max(1, int(np.floor(8 * ui + 0.5))))
+        draw.line((cx, cy - 42 * ui, cx, cy + 42 * ui), fill=halo, width=max(1, int(np.floor(8 * ui + 0.5))))
+        draw.line((cx - 42 * ui, cy, cx + 42 * ui, cy), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
+        draw.line((cx, cy - 42 * ui, cx, cy + 42 * ui), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
+        draw.polygon([(cx, cy + 51 * ui), (cx - 9 * ui, cy + 34 * ui), (cx + 9 * ui, cy + 34 * ui)], fill=ink)
         cardinals = plan_cardinals(rotation_k)
-        draw.text((cx, cy + 64), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-        draw.text((cx, cy - 60), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-        draw.text((cx - 60, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
-        draw.text((cx + 60, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=2, stroke_fill=halo)
+        stroke = max(1, int(np.floor(2 * ui + 0.5)))
+        draw.text((cx, cy + 64 * ui), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+        draw.text((cx, cy - 60 * ui), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+        draw.text((cx - 60 * ui, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+        draw.text((cx + 60 * ui, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
 
     if decorate:
         title_font = load_font(44, True)
@@ -799,7 +857,7 @@ def make_pretty_3d_from_offshore(
 
         draw.text((1640, 1215), "observateur au nord, regard vers le sud", font=text_font, fill=(235, 243, 255, 235))
     output.parent.mkdir(parents=True, exist_ok=True)
-    canvas.convert("RGB").save(output, quality=95)
+    canvas.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
 
 
 def main() -> int:
