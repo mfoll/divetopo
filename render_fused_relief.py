@@ -234,7 +234,7 @@ def make_locator_map(
         attribution_font = load_font(round(output_width * 0.010), False)
         draw.text(
             (output_width - 24, output_height - 20),
-            "Relief marin : GEBCO WMS (GEBCO_LATEST)",
+            "Topographie : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid, doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f",
             anchor="rs",
             font=attribution_font,
             fill=ink,
@@ -686,6 +686,9 @@ def make_clean_plan(
     rotation_k: int = 0,
     output_scale: float = 1.0,
     land_imagery_path: Path | None = None,
+    copyright_text: str | None = None,
+    source_text: str | None = None,
+    open_label_offsets_px: dict[str, list[float]] | None = None,
 ) -> None:
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
@@ -739,12 +742,22 @@ def make_clean_plan(
     ) * ui
 
     label_font = load_font(int(np.floor(18 * ui + 0.5)), True)
+    label_draws: list[tuple[float, float, int]] = []
     occupied_labels: list[tuple[float, float]] = []
+    open_label_offsets_px = open_label_offsets_px or {}
+
+    # Draw every depth line first. Labels are collected below and painted only
+    # after all isobaths and the coastline, so no vector line can cross text.
     for level, lines in scaled_contours.items():
         for line in lines:
             draw.line(line, fill=(242, 245, 230, 150), width=max(1, int(np.floor(4 * ui + 0.5))), joint="curve")
             draw.line(line, fill=(10, 15, 22, 205), width=max(1, int(np.floor(2 * ui + 0.5))), joint="curve")
 
+    coast_points = [(float(x), float(y)) for x, y in enumerate(coast_y_scaled)]
+    draw.line(coast_points, fill=(238, 230, 194, 210), width=max(1, int(np.floor(5 * ui + 0.5))), joint="curve")
+    draw.line(coast_points, fill=(12, 12, 10, 245), width=max(1, int(np.floor(3 * ui + 0.5))), joint="curve")
+
+    for level, lines in scaled_contours.items():
         open_lines = []
         for line in lines:
             center = isolated_contour_center(line, min_width=55.0 * ui, min_height=28.0 * ui)
@@ -753,19 +766,28 @@ def make_clean_plan(
                 if center and all(np.hypot(center[0] - x, center[1] - y) > 70 * ui for x, y in occupied_labels):
                     x, y = center
                     occupied_labels.append(center)
-                    draw.text((x - 24 * ui, y - 11 * ui), f"-{level} m", font=label_font, fill=(5, 8, 15, 235), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 244, 222, 230))
+                    label_draws.append((x - 24 * ui, y - 11 * ui, level))
                 continue
             open_lines.append(line)
 
         label_point = choose_plan_label(open_lines, coast_y_scaled, img.width, img.height, occupied_labels, ui_scale=ui)
         if label_point:
             x, y = label_point
-            occupied_labels.append(label_point)
-            draw.text((x + 5 * ui, y - 11 * ui), f"-{level} m", font=label_font, fill=(5, 8, 15, 235), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 244, 222, 230))
+            offset = open_label_offsets_px.get(str(level), (0.0, 0.0))
+            x += float(offset[0]) * ui
+            y += float(offset[1]) * ui
+            occupied_labels.append((x, y))
+            label_draws.append((x + 5 * ui, y - 11 * ui, level))
 
-    coast_points = [(float(x), float(y)) for x, y in enumerate(coast_y_scaled)]
-    draw.line(coast_points, fill=(238, 230, 194, 210), width=max(1, int(np.floor(5 * ui + 0.5))), joint="curve")
-    draw.line(coast_points, fill=(12, 12, 10, 245), width=max(1, int(np.floor(3 * ui + 0.5))), joint="curve")
+    for x, y, level in label_draws:
+        draw.text(
+            (x, y),
+            f"-{level} m",
+            font=label_font,
+            fill=(5, 8, 15, 235),
+            stroke_width=max(1, int(np.floor(2 * ui + 0.5))),
+            stroke_fill=(245, 244, 222, 230),
+        )
 
     # North-up orientation and a scale based on the raster geotransform.
     annotation_font = load_font(int(np.floor(19 * ui + 0.5)), True)
@@ -792,6 +814,28 @@ def make_clean_plan(
     draw.text((cx, cy + 54 * ui), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
     draw.text((cx - 52 * ui, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
     draw.text((cx + 52 * ui, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    if copyright_text:
+        copyright_font = load_font(int(np.floor(13 * ui + 0.5)), True)
+        draw.text(
+            (img.width - 16 * ui, img.height - 12 * ui),
+            copyright_text,
+            anchor="rb",
+            font=copyright_font,
+            fill=(245, 239, 218, 235),
+            stroke_width=max(1, int(np.floor(2 * ui + 0.5))),
+            stroke_fill=(5, 9, 13, 225),
+        )
+    if source_text:
+        source_font = load_font(int(np.floor(10 * ui + 0.5)), False)
+        draw.text(
+            (16 * ui, img.height - 12 * ui),
+            source_text,
+            anchor="lb",
+            font=source_font,
+            fill=(245, 239, 218, 225),
+            stroke_width=max(1, int(np.floor(1.5 * ui + 0.5))),
+            stroke_fill=(5, 9, 13, 215),
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     img.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
 
@@ -817,6 +861,8 @@ def make_pretty_3d_from_offshore(
     output_scale: float = 1.0,
     land_imagery_path: Path | None = None,
     bridge_decks: list[dict] | None = None,
+    copyright_text: str | None = None,
+    source_text: str | None = None,
 ) -> None:
     elev_full, coast_full, land_full, land_weight_full, fused_depth, contours_full = build_fused_surface(
         depth_path, elevation_path, max_depth, rotation_k
@@ -1177,6 +1223,28 @@ def make_pretty_3d_from_offshore(
             draw.text((x + 4, y + 27), f"+{val} m", font=text_font, fill=(238, 244, 255, 245))
 
         draw.text((1640, 1215), "observateur au nord, regard vers le sud", font=text_font, fill=(235, 243, 255, 235))
+    if copyright_text:
+        copyright_font = load_font(int(np.floor(13 * ui + 0.5)), True)
+        draw.text(
+            (canvas.width - 16 * ui, canvas.height - 12 * ui),
+            copyright_text,
+            anchor="rb",
+            font=copyright_font,
+            fill=(245, 239, 218, 235),
+            stroke_width=max(1, int(np.floor(2 * ui + 0.5))),
+            stroke_fill=(5, 9, 13, 225),
+        )
+    if source_text:
+        source_font = load_font(int(np.floor(10 * ui + 0.5)), False)
+        draw.text(
+            (16 * ui, canvas.height - 12 * ui),
+            source_text,
+            anchor="lb",
+            font=source_font,
+            fill=(245, 239, 218, 225),
+            stroke_width=max(1, int(np.floor(1.5 * ui + 0.5))),
+            stroke_fill=(5, 9, 13, 215),
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     canvas.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
 

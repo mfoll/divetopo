@@ -9,7 +9,7 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
 ROOT = Path(__file__).resolve().parent
-TITLE_FONT = "/System/Library/Fonts/NewYork.ttf"
+TITLE_FONT = "/System/Library/Fonts/Supplemental/Baskerville.ttc"
 TEXT_FONT = "/System/Library/Fonts/Avenir Next.ttc"
 
 
@@ -46,13 +46,13 @@ def paste_panel(canvas: Image.Image, image: Image.Image, position: tuple[int, in
     shadow_draw = ImageDraw.Draw(shadow)
     shadow_draw.rectangle(
         (shadow_margin, shadow_margin, shadow_margin + image.width, shadow_margin + image.height),
-        fill=(0, 0, 0, 175),
+        fill=(20, 28, 32, 58),
     )
     shadow = shadow.filter(ImageFilter.GaussianBlur(18))
     canvas.alpha_composite(shadow, (x - shadow_margin + 10, y - shadow_margin + 14))
     canvas.alpha_composite(image.convert("RGBA"), (x, y))
     draw = ImageDraw.Draw(canvas, "RGBA")
-    draw.rectangle((x, y, x + image.width - 1, y + image.height - 1), outline=(234, 229, 211, 205), width=3)
+    draw.rectangle((x, y, x + image.width - 1, y + image.height - 1), outline=(180, 188, 190, 210), width=3)
 
 
 def compose(config: dict) -> Path:
@@ -63,14 +63,16 @@ def compose(config: dict) -> Path:
     relief = Image.open(project_path(paths[relief_key])).convert("RGB")
     locator = Image.open(project_path(paths["output_locator"])).convert("RGB")
 
-    canvas_width, canvas_height = 5400, 3700
-    canvas = Image.new("RGBA", (canvas_width, canvas_height), (9, 20, 28, 255))
+    canvas_width, canvas_height = 5400, 3820
+    canvas = Image.new("RGBA", (canvas_width, canvas_height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(canvas, "RGBA")
-    title_color = (244, 239, 224, 255)
-    secondary = (177, 200, 205, 255)
+    title_color = (24, 31, 35, 255)
+    secondary = (77, 91, 97, 255)
 
     title = str(config.get("plate_title", f"{config.get('locator_label', config['title'])}, La Reunion"))
     author = str(config.get("plate_author", ""))
+    copyright_year = int(config.get("copyright_year", 2026))
+    map_license = str(config.get("map_license", "")).strip()
     latitude, longitude = marker_wgs84(config["locator_marker_utm40s"])
     subtitle = f"{abs(latitude):.5f}° {'S' if latitude < 0 else 'N'}  ·  {abs(longitude):.5f}° {'O' if longitude < 0 else 'E'}"
 
@@ -79,7 +81,7 @@ def compose(config: dict) -> Path:
     footer_face = font(TEXT_FONT, 34)
     draw.text((canvas_width / 2, 142), title, anchor="mm", font=title_face, fill=title_color)
     draw.text((canvas_width / 2, 300), subtitle, anchor="mm", font=subtitle_face, fill=secondary)
-    draw.line((160, 395, canvas_width - 160, 395), fill=(176, 198, 200, 95), width=2)
+    draw.line((160, 395, canvas_width - 160, 395), fill=(92, 108, 114, 90), width=2)
 
     side_margin = 160
     panel_gap = 72
@@ -95,10 +97,17 @@ def compose(config: dict) -> Path:
     locator_y = 2285
     paste_panel(canvas, locator, (locator_x, locator_y))
 
-    source_note = "HYSCORES Ifremer · RGE ALTI et orthophoto IGN · Relief marin GEBCO"
-    draw.text((160, canvas_height - 55), source_note, anchor="ls", font=footer_face, fill=(145, 169, 174, 220))
+    source_lines = (
+        "Bathymétrie détaillée : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D",
+        "Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025 · Relief insulaire : GEBCO 2024 Grid",
+    )
+    draw.text((160, canvas_height - 92), source_lines[0], anchor="ls", font=footer_face, fill=(76, 89, 94, 235))
+    draw.text((160, canvas_height - 46), source_lines[1], anchor="ls", font=footer_face, fill=(76, 89, 94, 235))
     if author:
-        draw.text((canvas_width - 160, canvas_height - 55), f"© {author}", anchor="rs", font=footer_face, fill=title_color)
+        rights = f"© {copyright_year} {author}"
+        if map_license:
+            rights += f" · {map_license}"
+        draw.text((canvas_width - 160, canvas_height - 92), rights, anchor="rs", font=footer_face, fill=title_color)
 
     output = project_path(paths.get("output_plate", f"outputs/{config['slug']}-planche.jpg"))
     output.parent.mkdir(parents=True, exist_ok=True)

@@ -57,3 +57,11 @@ Pour assembler les trois cartes apres leur regeneration :
 Pour ajouter un site, copier `sites/cap-la-houssaye.json`, puis modifier le secteur HYSCORES, les emprises UTM 40S, l'orientation de la cote et les parametres de camera. Le moteur prend en charge les quatre orientations cardinales et recalcule automatiquement les compas 2D et 3D.
 
 Le processus complet, les sources, chaque parametre et les controles qualite sont documentes dans [WORKFLOW.md](WORKFLOW.md).
+
+## Licences
+
+- Le code Python et les scripts sont distribues sous licence [MIT](LICENSE).
+- Les cartes et figures de `outputs/` sont distribuees sous [CC BY-NC-SA 4.0](LICENSE-MAPS.md), sous reserve des droits attaches aux donnees sources.
+- Les licences, attributions obligatoires, versions des jeux de donnees et avertissements sont detailles dans [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+La licence `CC BY-NC-SA`, plutot que `CC BY-NC-ND`, est imposee par la clause de partage dans les memes conditions du MNT HYSCORES. Les cartes ne doivent pas etre utilisees pour la navigation ni comme seule base d'une decision engageant la securite en mer.

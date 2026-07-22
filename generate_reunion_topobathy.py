@@ -328,6 +328,17 @@ def acquire(config: dict, paths: dict[str, Path], refresh: bool) -> None:
 def render(config: dict, paths: dict[str, Path]) -> None:
     title = str(config["title"])
     rotation_k = int(config.get("rotation_k", 0))
+    author = str(config.get("plate_author", "")).strip()
+    copyright_year = int(config.get("copyright_year", 2026))
+    map_license = str(config.get("map_license", "")).strip()
+    copyright_text = f"© {copyright_year} {author}" if author else None
+    if copyright_text and map_license:
+        copyright_text += f" · {map_license}"
+    detailed_sources = (
+        "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, "
+        "incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
+    )
+    orthophoto_sources = detailed_sources + " · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
     for key in ("context_depth", "context_elevation", "focus_depth", "focus_elevation"):
         if not paths[key].exists():
             raise FileNotFoundError(f"Missing {paths[key]}; run without --render-only first")
@@ -357,6 +368,9 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         max_depth=float(config.get("max_depth_m", 20)),
         rotation_k=rotation_k,
         output_scale=float(config.get("output_scale", 1.0)),
+        copyright_text=copyright_text,
+        source_text=detailed_sources,
+        open_label_offsets_px=config.get("plan_open_label_offsets_px"),
     )
     if config.get("orthophoto_enabled", False):
         if not paths["focus_orthophoto"].exists():
@@ -371,6 +385,9 @@ def render(config: dict, paths: dict[str, Path]) -> None:
             rotation_k=rotation_k,
             output_scale=float(config.get("output_scale", 1.0)),
             land_imagery_path=paths["focus_orthophoto"],
+            copyright_text=copyright_text,
+            source_text=orthophoto_sources,
+            open_label_offsets_px=config.get("plan_open_label_offsets_px"),
         )
     make_pretty_3d_from_offshore(
         paths["context_depth"],
@@ -391,6 +408,8 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         vertical_exaggeration=float(config.get("vertical_exaggeration", 7.6)),
         output_scale=float(config.get("output_scale", 1.0)),
         bridge_decks=config.get("bridge_decks"),
+        copyright_text=copyright_text,
+        source_text=detailed_sources,
     )
     if config.get("orthophoto_enabled", False):
         if not paths["context_orthophoto"].exists():
@@ -415,6 +434,8 @@ def render(config: dict, paths: dict[str, Path]) -> None:
             output_scale=float(config.get("output_scale", 1.0)),
             land_imagery_path=paths["context_orthophoto"],
             bridge_decks=config.get("bridge_decks"),
+            copyright_text=copyright_text,
+            source_text=orthophoto_sources,
         )
 
 

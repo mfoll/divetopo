@@ -29,6 +29,9 @@
   "locator_gebco_blur_px": 9.0,
   "plate_title": "Cap La Houssaye, La Réunion",
   "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "plan_open_label_offsets_px": {"10": [-55, -22]},
   "coast_frame_fraction": 0.44,
   "vertical_exaggeration": 7.6,
   "bridge_decks": [
