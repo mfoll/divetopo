@@ -1,6 +1,6 @@
 # Topo-bathymetrie des sites de plongee de La Reunion
 
-Pipeline reproductible pour produire un plan 2D et une vue 3D oblique a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN.
+Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante 2D optionnelle remplace uniquement la terre par l'orthophoto IGN 20 cm georeferencee.
 
 Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, extrait les isobathes `-5`, `-10`, `-15` et `-20 m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
 
@@ -9,6 +9,16 @@ Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cell
 | Plan 2D | Vue 3D depuis le large |
 |---|---|
 | ![Plan 2D du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg) | ![Vue 3D du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg) |
+
+### Variantes avec orthophoto terrestre
+
+![Plan 2D hybride du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d-ortho.jpg)
+
+![Vue 3D hybride du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg)
+
+### Localisation dans l'ile
+
+![Localisation du Cap La Houssaye a La Reunion](outputs/cap-la-houssaye-localisation-reunion.jpg)
 
 ## Installation sur macOS
 

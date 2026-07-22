@@ -13,15 +13,44 @@
   "west_crop_fraction": 0.15,
   "south_crop_fraction": 0.2,
   "output_scale": 2.0,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_resolution_m": 0.2,
+  "orthophoto_3d_resolution_m": 0.4,
+  "locator_map_enabled": true,
+  "locator_bbox_utm40s": [305000.0, 7628000.0, 386000.0, 7696000.0],
+  "locator_resolution_m": 20.0,
+  "locator_marker_utm40s": [316820.0, 7674920.0],
+  "locator_label": "Cap La Houssaye",
+  "locator_output_width_px": 2400,
+  "locator_bathymetry_enabled": true,
+  "locator_gebco_layer": "GEBCO_LATEST",
+  "locator_gebco_request_width_px": 2000,
+  "locator_gebco_blur_px": 9.0,
   "coast_frame_fraction": 0.44,
   "vertical_exaggeration": 7.6,
+  "bridge_decks": [
+    {
+      "start_utm40s": [316839.2, 7674741.2],
+      "end_utm40s": [316862.0, 7674744.4],
+      "half_width_m": 5.5,
+      "feather_m": 2.0
+    }
+  ],
   "paths": {
     "context_depth_raw": ".tmp/bathy-renders/cap-la-houssaye-context-expanded-depth.tif",
     "context_depth": ".tmp/bathy-renders/cap-la-houssaye-context-expanded-depth-positive.tif",
     "context_elevation": ".tmp/bathy-renders/ign-rgealti-context-expanded-geotiff.tif",
+    "context_orthophoto": ".tmp/bathy-renders/cap-la-houssaye-context-ign-ortho-40cm.tif",
+    "locator_elevation": ".tmp/bathy-renders/reunion-locator-rgealti-20m.tif",
+    "locator_bathymetry": ".tmp/bathy-renders/reunion-locator-gebco-relief.tif",
     "focus_depth": ".tmp/bathy-renders/cap-la-houssaye-pointe-westwide-depth-positive.tif",
     "focus_elevation": ".tmp/bathy-renders/ign-rgealti-highres-westwide-geotiff.tif",
+    "focus_orthophoto": ".tmp/bathy-renders/cap-la-houssaye-ign-ortho-20cm.tif",
     "output_2d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg",
-    "output_3d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg"
+    "output_2d_ortho": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d-ortho.jpg",
+    "output_3d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg",
+    "output_3d_ortho": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg",
+    "output_locator": "outputs/cap-la-houssaye-localisation-reunion.jpg"
   }
 }

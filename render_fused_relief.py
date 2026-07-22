@@ -5,7 +5,7 @@ from functools import lru_cache
 from pathlib import Path
 
 import numpy as np
-from osgeo import gdal, ogr
+from osgeo import gdal, ogr, osr
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 
@@ -64,6 +64,188 @@ def land_palette(elevation: np.ndarray) -> np.ndarray:
     return result.astype(np.uint8)
 
 
+def island_palette(elevation: np.ndarray) -> np.ndarray:
+    stops = np.array([0, 150, 400, 800, 1300, 1900, 2500, 3100], dtype=np.float32)
+    colors = np.array(
+        [
+            [105, 174, 116], [137, 190, 126], [184, 204, 139], [222, 211, 151],
+            [205, 178, 125], [171, 137, 103], [137, 111, 94], [222, 215, 197],
+        ],
+        dtype=np.float32,
+    )
+    values = np.clip(elevation, stops[0], stops[-1])
+    result = np.zeros((*values.shape, 3), dtype=np.float32)
+    for index in range(len(stops) - 1):
+        low, high = stops[index], stops[index + 1]
+        selected = (values >= low) & (values <= high)
+        weight = ((values[selected] - low) / (high - low))[:, None]
+        result[selected] = colors[index] * (1 - weight) + colors[index + 1] * weight
+    result[values >= stops[-1]] = colors[-1]
+    return result.astype(np.uint8)
+
+
+def make_locator_map(
+    elevation_path: Path,
+    output: Path,
+    marker_utm40s: tuple[float, float],
+    marker_label: str,
+    output_width: int = 2400,
+    bathymetry_path: Path | None = None,
+    bathymetry_blur_px: float = 8.0,
+) -> None:
+    """Render an island-wide relief map with a geographic grid and site marker."""
+    dataset = gdal.Open(str(elevation_path))
+    if dataset is None:
+        raise RuntimeError(f"Cannot open locator elevation raster {elevation_path}")
+    elevation = dataset.GetRasterBand(1).ReadAsArray().astype(np.float32)
+    transform = dataset.GetGeoTransform()
+    land = np.isfinite(elevation) & (elevation > -1000.0) & (elevation >= 0.0)
+    terrain = np.where(land, np.clip(elevation, 0.0, 3200.0), 0.0)
+
+    gradient_row, gradient_col = np.gradient(terrain, abs(transform[5]), abs(transform[1]))
+    dz_east = gradient_col
+    dz_north = -gradient_row
+    nx, ny, nz = -dz_east, -dz_north, np.ones_like(terrain)
+    norm = np.sqrt(nx * nx + ny * ny + nz * nz)
+    nx, ny, nz = nx / norm, ny / norm, nz / norm
+    light = np.array([-0.48, 0.48, 0.73], dtype=np.float32)
+    light /= np.linalg.norm(light)
+    shade = np.clip(0.46 + 0.78 * np.clip(nx * light[0] + ny * light[1] + nz * light[2], 0.0, 1.0), 0.46, 1.22)
+
+    height, width = elevation.shape
+    ocean_y = np.linspace(0.0, 1.0, height, dtype=np.float32)[:, None, None]
+    ocean_top = np.array([100, 184, 218], dtype=np.float32)
+    ocean_bottom = np.array([60, 139, 187], dtype=np.float32)
+    ocean_gradient = np.repeat(ocean_top[None, None, :] * (1.0 - ocean_y) + ocean_bottom[None, None, :] * ocean_y, width, axis=1)
+    if bathymetry_path is None:
+        rgb = ocean_gradient
+    else:
+        bathymetry = load_rgb_raster(bathymetry_path, width, height)
+        bathymetry_image = Image.fromarray(np.clip(bathymetry, 0, 255).astype(np.uint8), "RGB")
+        bathymetry = np.asarray(bathymetry_image.filter(ImageFilter.GaussianBlur(bathymetry_blur_px)), dtype=np.float32)
+        rgb = bathymetry * 0.82 + ocean_gradient * 0.18
+
+    land_mask_image = Image.fromarray((land.astype(np.uint8) * 255), "L")
+    coastal_glow = np.asarray(land_mask_image.filter(ImageFilter.GaussianBlur(45)), dtype=np.float32) / 255.0
+    coastal_glow = np.clip(coastal_glow - land.astype(np.float32), 0.0, 1.0)
+    rgb += coastal_glow[:, :, None] * np.array([35.0, 40.0, 28.0], dtype=np.float32)
+
+    land_rgb = island_palette(terrain).astype(np.float32) * shade[:, :, None]
+    rgb[land] = np.clip(land_rgb[land], 0, 255)
+    image = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB")
+
+    output_height = int(round(output_width * height / width))
+    image = image.resize((output_width, output_height), Image.Resampling.LANCZOS).convert("RGBA")
+    scale_x = output_width / width
+    scale_y = output_height / height
+
+    coast_edge = land_mask_image.filter(ImageFilter.FIND_EDGES).resize(image.size, Image.Resampling.LANCZOS)
+    coast_alpha = coast_edge.point(lambda value: min(210, value * 2))
+    coast_layer = Image.new("RGBA", image.size, (23, 91, 102, 0))
+    coast_layer.putalpha(coast_alpha)
+    image = Image.alpha_composite(image, coast_layer)
+    draw = ImageDraw.Draw(image, "RGBA")
+
+    min_x = transform[0]
+    max_y = transform[3]
+
+    def map_xy(easting: float, northing: float) -> tuple[float, float]:
+        return (easting - min_x) / transform[1] * scale_x, (northing - max_y) / transform[5] * scale_y
+
+    geographic = osr.SpatialReference()
+    geographic.ImportFromEPSG(4326)
+    geographic.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+    projected = osr.SpatialReference()
+    projected.ImportFromEPSG(32740)
+    projected.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+    to_utm = osr.CoordinateTransformation(geographic, projected)
+
+    grid_color = (26, 84, 104, 78)
+    grid_width = max(1, round(output_width / 1200))
+    longitude_ticks = [55.0 + minute / 60.0 for minute in (10, 20, 30, 40, 50)]
+    latitude_ticks = [-(20.0 + minute / 60.0) for minute in (50, 60, 70, 80)]
+    for longitude in longitude_ticks:
+        points = []
+        for latitude in np.linspace(-21.48, -20.75, 160):
+            easting, northing, _ = to_utm.TransformPoint(longitude, float(latitude))
+            points.append(map_xy(easting, northing))
+        draw.line(points, fill=grid_color, width=grid_width)
+    for latitude in latitude_ticks:
+        points = []
+        for longitude in np.linspace(55.05, 55.98, 180):
+            easting, northing, _ = to_utm.TransformPoint(float(longitude), latitude)
+            points.append(map_xy(easting, northing))
+        draw.line(points, fill=grid_color, width=grid_width)
+
+    label_font = load_font(round(output_width * 0.015), True)
+    small_font = load_font(round(output_width * 0.013), True)
+    halo = (236, 244, 238, 235)
+    ink = (10, 39, 52, 240)
+    stroke = max(2, round(output_width / 1000))
+    for longitude in longitude_ticks:
+        easting, northing, _ = to_utm.TransformPoint(longitude, -20.80)
+        x, _ = map_xy(easting, northing)
+        degrees = int(longitude)
+        minutes = int(round((longitude - degrees) * 60))
+        draw.text((x, 18), f"{degrees}°{minutes:02d}′ E", anchor="ma", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+    for latitude in latitude_ticks:
+        easting, northing, _ = to_utm.TransformPoint(55.08, latitude)
+        _, y = map_xy(easting, northing)
+        absolute = abs(latitude)
+        degrees = int(absolute)
+        minutes = int(round((absolute - degrees) * 60))
+        y = max(34.0, min(output_height - 34.0, y))
+        draw.text((output_width - 18, y), f"{degrees}°{minutes:02d}′ S", anchor="rm", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+
+    marker_x, marker_y = map_xy(float(marker_utm40s[0]), float(marker_utm40s[1]))
+    radius = output_width * 0.012
+    draw.ellipse((marker_x - radius - 4, marker_y - radius - 4, marker_x + radius + 4, marker_y + radius + 4), fill=(8, 20, 25, 155))
+    draw.ellipse((marker_x - radius, marker_y - radius, marker_x + radius, marker_y + radius), fill=(220, 38, 38, 255), outline=(255, 247, 227, 255), width=max(4, round(output_width / 500)))
+    draw.ellipse((marker_x - radius * 0.40, marker_y - radius * 0.50, marker_x - radius * 0.05, marker_y - radius * 0.15), fill=(255, 155, 145, 220))
+    draw.text((marker_x + radius * 1.45, marker_y), marker_label, anchor="lm", font=label_font, fill=(13, 25, 26, 255), stroke_width=stroke + 1, stroke_fill=(249, 245, 224, 245))
+
+    metres_per_output_pixel = abs(transform[1]) / scale_x
+    bar_length = 20_000.0 / metres_per_output_pixel
+    bar_x = output_width * 0.055
+    bar_y = output_height * 0.935
+    segment = bar_length / 4.0
+    bar_h = max(14, round(output_width * 0.009))
+    for index in range(4):
+        fill = (8, 15, 18, 255) if index % 2 == 0 else (247, 243, 221, 255)
+        draw.rectangle((bar_x + index * segment, bar_y, bar_x + (index + 1) * segment, bar_y + bar_h), fill=fill, outline=(8, 15, 18, 255), width=2)
+    draw.text((bar_x, bar_y - 8), "0", anchor="ls", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((bar_x + bar_length, bar_y - 8), "20 km", anchor="rs", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+
+    compass_x, compass_y = output_width * 0.91, output_height * 0.115
+    arm = output_width * 0.032
+    compass_halo = max(8, round(output_width / 230))
+    compass_ink = max(3, round(output_width / 620))
+    draw.line((compass_x - arm, compass_y, compass_x + arm, compass_y), fill=halo, width=compass_halo)
+    draw.line((compass_x, compass_y - arm, compass_x, compass_y + arm), fill=halo, width=compass_halo)
+    draw.line((compass_x - arm, compass_y, compass_x + arm, compass_y), fill=ink, width=compass_ink)
+    draw.line((compass_x, compass_y - arm, compass_x, compass_y + arm), fill=ink, width=compass_ink)
+    draw.polygon([(compass_x, compass_y - arm * 1.30), (compass_x - arm * 0.24, compass_y - arm * 0.62), (compass_x + arm * 0.24, compass_y - arm * 0.62)], fill=ink)
+    draw.text((compass_x, compass_y - arm * 1.62), "N", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((compass_x, compass_y + arm * 1.50), "S", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((compass_x - arm * 1.48, compass_y), "O", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((compass_x + arm * 1.48, compass_y), "E", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
+
+    if bathymetry_path is not None:
+        attribution_font = load_font(round(output_width * 0.010), False)
+        draw.text(
+            (output_width - 24, output_height - 20),
+            "Relief marin : GEBCO WMS (GEBCO_LATEST)",
+            anchor="rs",
+            font=attribution_font,
+            fill=ink,
+            stroke_width=max(1, stroke - 1),
+            stroke_fill=halo,
+        )
+
+    output.parent.mkdir(parents=True, exist_ok=True)
+    image.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
+
+
 def hillshade(values: np.ndarray, mask: np.ndarray, strength: float) -> np.ndarray:
     filled = values.copy()
     fill_value = float(np.nanmedian(filled[mask])) if np.any(mask) else 0.0
@@ -104,6 +286,24 @@ def load_topography(path: Path, width: int, height: int) -> np.ndarray:
     # negative values. Those cells are not elevations.
     arr = np.where(arr < -1000, np.nan, arr)
     return arr
+
+
+def load_rgb_raster(path: Path, width: int, height: int) -> np.ndarray:
+    dataset = gdal.Open(str(path))
+    if dataset is None:
+        raise RuntimeError(f"Cannot open RGB raster {path}")
+    bands = min(dataset.RasterCount, 3)
+    values = [
+        dataset.GetRasterBand(index).ReadAsArray(
+            buf_xsize=width,
+            buf_ysize=height,
+            resample_alg=gdal.GRIORA_Cubic,
+        )
+        for index in range(1, bands + 1)
+    ]
+    if bands == 1:
+        values *= 3
+    return np.stack(values[:3], axis=-1).astype(np.float32)
 
 
 def soften_surface(z: np.ndarray, mask: np.ndarray, passes: int = 8) -> np.ndarray:
@@ -169,6 +369,71 @@ def soften_rgb(rgb: np.ndarray, mask: np.ndarray, passes: int = 8) -> np.ndarray
         )
         out = np.where(mask[:, :, None] & (weight[:, :, None] > 0), total / np.maximum(weight[:, :, None], 1), out)
     return np.clip(out, 0, 255)
+
+
+def apply_bridge_decks(
+    surface: np.ndarray,
+    source_transform: tuple,
+    source_width: int,
+    source_height: int,
+    rotation_k: int,
+    sample_step: int,
+    bridges: list[dict] | None,
+) -> np.ndarray:
+    """Replace terrain below bridge decks with narrow interpolated surfaces."""
+    if not bridges:
+        return surface
+
+    inverse = gdal.InvGeoTransform(source_transform)
+    if inverse is None:
+        raise ValueError("Could not invert the source raster geotransform")
+
+    def oriented_pixel(easting: float, northing: float) -> tuple[float, float]:
+        x = inverse[0] + inverse[1] * easting + inverse[2] * northing
+        y = inverse[3] + inverse[4] * easting + inverse[5] * northing
+        k = rotation_k % 4
+        if k == 1:
+            x, y = y, source_width - 1 - x
+        elif k == 2:
+            x, y = source_width - 1 - x, source_height - 1 - y
+        elif k == 3:
+            x, y = source_height - 1 - y, x
+        return x / sample_step, y / sample_step
+
+    pixel_m = abs(source_transform[1]) * sample_step
+    yy, xx = np.indices(surface.shape, dtype=np.float32)
+    corrected = surface.copy()
+    for bridge in bridges:
+        start = bridge["start_utm40s"]
+        end = bridge["end_utm40s"]
+        x0, y0 = oriented_pixel(float(start[0]), float(start[1]))
+        x1, y1 = oriented_pixel(float(end[0]), float(end[1]))
+        vx, vy = x1 - x0, y1 - y0
+        length2 = vx * vx + vy * vy
+        if length2 <= 0:
+            raise ValueError("Bridge deck endpoints must be distinct")
+
+        t = np.clip(((xx - x0) * vx + (yy - y0) * vy) / length2, 0.0, 1.0)
+        nearest_x = x0 + t * vx
+        nearest_y = y0 + t * vy
+        distance_m = np.hypot(xx - nearest_x, yy - nearest_y) * pixel_m
+        inner = float(bridge.get("half_width_m", 5.0))
+        feather = float(bridge.get("feather_m", 2.0))
+        if inner <= 0.0 or feather <= 0.0:
+            raise ValueError("Bridge deck width and feather must be positive")
+
+        ix0 = int(np.clip(round(x0), 0, corrected.shape[1] - 1))
+        iy0 = int(np.clip(round(y0), 0, corrected.shape[0] - 1))
+        ix1 = int(np.clip(round(x1), 0, corrected.shape[1] - 1))
+        iy1 = int(np.clip(round(y1), 0, corrected.shape[0] - 1))
+        z0 = float(corrected[iy0, ix0])
+        z1 = float(corrected[iy1, ix1])
+        deck = z0 + t * (z1 - z0)
+
+        weight = np.clip((inner + feather - distance_m) / feather, 0.0, 1.0)
+        weight = weight * weight * (3.0 - 2.0 * weight)
+        corrected = corrected * (1.0 - weight) + deck * weight
+    return corrected
 
 
 def resample_array(arr: np.ndarray, scale: int, mode: str = "F") -> np.ndarray:
@@ -411,7 +676,17 @@ def build_fused_surface(depth_path: Path, elevation_path: Path, max_depth: float
 
 
 
-def make_clean_plan(depth_path: Path, elevation_path: Path, contours_path: Path, output: Path, title: str, max_depth: float = 20, rotation_k: int = 0, output_scale: float = 1.0) -> None:
+def make_clean_plan(
+    depth_path: Path,
+    elevation_path: Path,
+    contours_path: Path,
+    output: Path,
+    title: str,
+    max_depth: float = 20,
+    rotation_k: int = 0,
+    output_scale: float = 1.0,
+    land_imagery_path: Path | None = None,
+) -> None:
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
     ui = output_scale
@@ -437,6 +712,20 @@ def make_clean_plan(depth_path: Path, elevation_path: Path, contours_path: Path,
             Image.Resampling.LANCZOS,
         )
     img = img.convert("RGBA")
+    if land_imagery_path is not None:
+        orthophoto = Image.open(land_imagery_path).convert("RGB")
+        if rotation_k % 4:
+            orthophoto = orthophoto.rotate(90 * (rotation_k % 4), expand=True)
+        if orthophoto.size != img.size:
+            orthophoto = orthophoto.resize(img.size, Image.Resampling.LANCZOS)
+        # Fade in strictly from the terrestrial side of the interpolated 0 m
+        # coastline. The binary mask prevents any orthophoto pixel from
+        # altering the bathymetric sea rendering.
+        land_alpha = np.where(land_mask, np.clip((land_weight - 0.5) * 2.0, 0.0, 1.0), 0.0)
+        alpha = Image.fromarray(np.uint8(np.clip(land_alpha * 255.0, 0, 255)), "L").resize(img.size, Image.Resampling.LANCZOS)
+        strict_land = Image.fromarray(np.uint8(land_mask) * 255, "L").resize(img.size, Image.Resampling.NEAREST)
+        alpha = Image.fromarray(np.minimum(np.asarray(alpha), np.asarray(strict_land)).astype(np.uint8), "L")
+        img = Image.composite(orthophoto.convert("RGBA"), img, alpha)
     draw = ImageDraw.Draw(img, "RGBA")
 
     scaled_contours = {
@@ -526,6 +815,8 @@ def make_pretty_3d_from_offshore(
     coast_frame_fraction: float = 0.44,
     vertical_exaggeration: float = 7.6,
     output_scale: float = 1.0,
+    land_imagery_path: Path | None = None,
+    bridge_decks: list[dict] | None = None,
 ) -> None:
     elev_full, coast_full, land_full, land_weight_full, fused_depth, contours_full = build_fused_surface(
         depth_path, elevation_path, max_depth, rotation_k
@@ -535,6 +826,21 @@ def make_pretty_3d_from_offshore(
     elev = elev_full[::step, ::step]
     land_mask = land_full[::step, ::step]
     land_weight = land_weight_full[::step, ::step]
+    land_imagery = None
+    if land_imagery_path is not None:
+        source_dataset = gdal.Open(str(depth_path))
+        if source_dataset is None:
+            raise RuntimeError(f"Cannot open source raster {depth_path}")
+        imagery_full = load_rgb_raster(
+            land_imagery_path,
+            source_dataset.RasterXSize,
+            source_dataset.RasterYSize,
+        )
+        if rotation_k % 4:
+            imagery_full = np.rot90(imagery_full, rotation_k).copy()
+        if imagery_full.shape[:2] != fused_depth.shape:
+            raise ValueError("Land imagery and fused relief do not share the same oriented dimensions")
+        land_imagery = imagery_full[::step, ::step]
     sea_mask = ~land_mask
     valid = sea_mask | land_mask
     coast_band = (land_weight > 0.02) & (land_weight < 0.98)
@@ -543,6 +849,18 @@ def make_pretty_3d_from_offshore(
     sea_z = soften_surface(sea_z, sea_mask, passes=2)
     land_z = np.clip(np.nan_to_num(elev, nan=0.0), 0, 55)
     land_z = soften_surface(land_z, land_mask, passes=10)
+    source_dataset = gdal.Open(str(depth_path))
+    if source_dataset is None:
+        raise RuntimeError(f"Cannot open source raster {depth_path}")
+    land_z = apply_bridge_decks(
+        land_z,
+        source_dataset.GetGeoTransform(),
+        source_dataset.RasterXSize,
+        source_dataset.RasterYSize,
+        rotation_k,
+        step,
+        bridge_decks,
+    )
     coast_sampled = coast_full[::step][: land_z.shape[1]]
     signed_coast_distance = np.arange(land_z.shape[0], dtype=np.float32)[:, None] * step - coast_sampled[None, :]
     land_ramp = np.clip(signed_coast_distance / 14.0, 0.0, 1.0)
@@ -551,8 +869,11 @@ def make_pretty_3d_from_offshore(
     z = sea_z * (1.0 - land_weight) + land_z * land_weight
 
     sea_rgb = palette(np.nan_to_num(d, nan=max_depth), max_depth=max_depth).astype(np.float32)
-    land_color_z = soften_surface(np.clip(np.nan_to_num(elev, nan=0.0), 0, 55), land_mask, passes=10)
-    land_rgb = land_palette(land_color_z).astype(np.float32)
+    if land_imagery is None:
+        land_color_z = soften_surface(np.clip(np.nan_to_num(elev, nan=0.0), 0, 55), land_mask, passes=10)
+        land_rgb = land_palette(land_color_z).astype(np.float32)
+    else:
+        land_rgb = land_imagery.astype(np.float32)
     colors = np.zeros((*d.shape, 3), dtype=np.float32)
     colors[sea_mask] = sea_rgb[sea_mask]
     colors[land_mask] = land_rgb[land_mask]
