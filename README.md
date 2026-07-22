@@ -22,7 +22,9 @@ Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cell
 
 ### Planche assemblee
 
-![Planche du Cap La Houssaye](outputs/cap-la-houssaye-planche.jpg)
+| Terre en orthophoto | Terre en relief topographique |
+|---|---|
+| ![Planche orthophoto du Cap La Houssaye](outputs/cap-la-houssaye-planche.jpg) | ![Planche topographique du Cap La Houssaye](outputs/cap-la-houssaye-planche-topographique.jpg) |
 
 ## Installation sur macOS
 
@@ -46,11 +48,13 @@ Sans `--refresh`, les GeoTIFF deja mis en cache sont reutilises. Pour refaire un
 
 Les donnees sources et les extraits regenerables restent dans `.tmp/bathy-renders/` et ne sont pas versionnes.
 
-Pour assembler les trois cartes apres leur regeneration :
+Pour assembler les deux planches apres leur regeneration :
 
 ```bash
 .venv/bin/python compose_site_plate.py sites/cap-la-houssaye.json
 ```
+
+L'option `--land-style orthophoto` ou `--land-style topography` permet de ne regenerer qu'une seule variante. Sans option, les deux sont produites.
 
 ## Reutilisation
 

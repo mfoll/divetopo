@@ -14,7 +14,7 @@ Cette notice decrit les donnees incorporees aux rendus. L'audit du 22 juillet 20
 
 Les profondeurs absentes des images hyperspectrales HYSCORES ont ete completees dans le produit diffuse par le MNT Litto3D 2009-2010, reechantillonne a 40 cm. Le pipeline ne telecharge donc pas un second jeu Litto3D independant : il utilise le raster composite fourni par l'Ifremer, tout en conservant la mention Litto3D dans les credits.
 
-Le projet extrait le raster, interpole et lisse la surface, calcule des isobathes et produit un nouveau rendu. Cette transformation doit etre consideree prudemment comme une adaptation. La clause ShareAlike exclut donc une licence de sortie CC BY-NC-ND et conduit a publier les cartes sous CC BY-NC-SA 4.0. La version de la licence source n'etant pas explicite, une confirmation de l'Ifremer reste recommandee avant une publication publique a fort enjeu.
+Le projet extrait le raster, interpole et lisse la surface, calcule des isobathes et produit un nouveau rendu. Cette transformation constitue une adaptation. La clause ShareAlike exclut donc une licence de sortie CC BY-NC-ND et conduit a publier les cartes sous CC BY-NC-SA 4.0.
 
 ## Topographie : IGN RGE ALTI
 

@@ -57,6 +57,7 @@
     "output_3d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg",
     "output_3d_ortho": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg",
     "output_locator": "outputs/cap-la-houssaye-localisation-reunion.jpg",
-    "output_plate": "outputs/cap-la-houssaye-planche.jpg"
+    "output_plate": "outputs/cap-la-houssaye-planche.jpg",
+    "output_plate_topography": "outputs/cap-la-houssaye-planche-topographique.jpg"
   }
 }

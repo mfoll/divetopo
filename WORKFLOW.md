@@ -55,7 +55,7 @@ Le fichier [sites/cap-la-houssaye.json](sites/cap-la-houssaye.json) contient tou
 9. Le plan 2D utilise l'emprise de mise au point. La 3D utilise la grande emprise de contexte, mais conserve le cadrage final sur le site.
 10. Les JPEG topo-bathymetriques recoivent une echelle de 50 m et une rose des vents recalculee selon la rotation.
 11. La carte de localisation reutilise un RGE ALTI insulaire a 20 m, ajoute une grille latitude-longitude, une echelle de 20 km et le repere UTM propre au site.
-12. `compose_site_plate.py` assemble les variantes orthophoto 2D/3D et la carte insulaire dans une planche haute resolution sur fond blanc. Le titre, l'auteur et les coordonnees WGS84 derivees du repere UTM sont produits depuis le JSON.
+12. `compose_site_plate.py` assemble la carte insulaire et les vues detaillees dans deux planches haute resolution sur fond blanc : une variante avec orthophoto terrestre et une variante sans image satellite, utilisant le relief topographique colore. Le bandeau superieur utilise un cartouche typographique centre : nom complet du site sur une seule ligne en sans-serif epaisse uniforme, lieu encadre par deux filets, puis latitude et longitude agrandies en deux blocs separes par un filet vertical. Un second filet separe le cartouche de la carte insulaire. Les vues 2D et 3D occupent ensemble la rangee inferieure. Les panneaux sont plats, sans ombre, avec un filet noir discret.
 
 ## Ajouter un site
 
@@ -97,16 +97,17 @@ Pour la 3D, prevoir dans `context_bbox_utm40s` environ 300 a 400 m de donnees re
 - `bridge_decks` : correction locale opt-in d'un pont absent du modele de terrain nu. Chaque tablier est defini par `start_utm40s`, `end_utm40s`, `half_width_m` et `feather_m`. Le Cap La Houssaye en contient une pour le pont de la Ravine Patent Slip. Ne jamais recopier cette correction dans un autre site : laisser le parametre absent, sauf anomalie confirmee visuellement et corrigee au cas par cas.
 - `locator_map_enabled`, `locator_bbox_utm40s`, `locator_marker_utm40s` et `locator_label` : activent la carte de localisation insulaire et placent le repere propre au site. Le fond RGE ALTI a 20 m est commun et reutilisable entre les sites.
 - `locator_bathymetry_enabled`, `locator_gebco_layer`, `locator_gebco_request_width_px` et `locator_gebco_blur_px` : ajoutent uniquement en mer le relief ombre generalise de GEBCO et lissent sa maille de 15 secondes d'arc a l'echelle d'affichage. Cette couche insulaire sert a la localisation et ne remplace jamais HYSCORES dans les cartes detaillees ou pour la navigation.
-- `plate_author`, `copyright_year` et `map_license` : signent discretement les sorties 2D et 3D originales ainsi que la planche, afin que l'attribution et la licence survivent a un recadrage d'une carte detaillee.
+- `plate_author`, `copyright_year` et `map_license` : signent discretement les sorties 2D et 3D originales afin que l'attribution et la licence survivent a un recadrage d'une carte detaillee. La planche ne les repete pas dans son bandeau superieur.
+- `paths.output_plate` et `paths.output_plate_topography` : sorties respectives de la planche orthophoto et de la planche topographique. La commande de composition genere les deux par defaut; `--land-style` limite la regeneration a une variante.
 
-Chaque JPEG porte ses propres credits de donnees. Les cartes detaillees reprennent l'attribution HYSCORES imposee, Litto3D et IGN RGE ALTI; les variantes hybrides ajoutent l'orthophoto IGN et sa campagne. La carte insulaire cite IGN RGE ALTI pour la terre et la reference GEBCO 2024 complete pour la mer. La planche reprend la liste complete.
+Chaque JPEG porte ses propres credits de donnees. Les cartes detaillees reprennent l'attribution HYSCORES imposee, Litto3D et IGN RGE ALTI; les variantes hybrides ajoutent l'orthophoto IGN et sa campagne. La carte insulaire cite IGN RGE ALTI pour la terre et la reference GEBCO 2024 complete pour la mer. La planche ne duplique ni ces sources deja lisibles dans chaque panneau, ni l'auteur et la licence deja presents sur les vues 2D et 3D.
 
 ## Licences et droits de reutilisation
 
 - Les scripts sont sous licence MIT.
 - Les cartes derivees de HYSCORES sont sous CC BY-NC-SA 4.0 pour respecter la clause `ShareAlike` de la source. Ne pas les marquer `CC BY-NC-ND` : la clause `NoDerivatives` ajouterait une restriction incompatible avec HYSCORES.
 - Les donnees tierces ne sont pas relicenciees par le projet. Le detail des licences, dates, citations et avertissements se trouve dans `THIRD-PARTY-NOTICES.md`.
-- La metadonnee HYSCORES ne donne pas de numero de version de sa licence CC BY-NC-SA. Avant une publication publique a fort enjeu, demander confirmation de la version a l'Ifremer; le passage a CC BY-NC-SA 4.0 suit ici la regle Creative Commons autorisant une version ulterieure pour les sources BY-NC-SA 2.0 ou suivantes.
+- La metadonnee HYSCORES ne donne pas de numero de version de sa licence CC BY-NC-SA. Les cartes du projet sont publiees sous CC BY-NC-SA 4.0.
 
 Les variantes orthophoto sont des sorties supplementaires. En 2D, la texture remplace le fond topographique uniquement a l'interieur du masque terrestre defini par la cote 0 m. En 3D, elle est drapee sur les altitudes lissees du RGE ALTI puis soumise au meme ombrage que le relief colore. La mer et les isobathes restent issues exclusivement du modele bathymetrique.
 - `coast_frame_fraction` : hauteur de la cote dans l'image 3D, de 0 en haut a 1 en bas.

@@ -5,11 +5,10 @@ import json
 from pathlib import Path
 
 from osgeo import osr
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parent
-TITLE_FONT = "/System/Library/Fonts/Supplemental/Baskerville.ttc"
 TEXT_FONT = "/System/Library/Fonts/Avenir Next.ttc"
 
 
@@ -18,8 +17,8 @@ def project_path(value: str) -> Path:
     return path if path.is_absolute() else ROOT / path
 
 
-def font(path: str, size: int) -> ImageFont.FreeTypeFont:
-    return ImageFont.truetype(path, size)
+def font(path: str, size: int, index: int = 0) -> ImageFont.FreeTypeFont:
+    return ImageFont.truetype(path, size, index=index)
 
 
 def marker_wgs84(marker: list[float]) -> tuple[float, float]:
@@ -41,75 +40,78 @@ def resized_width(image: Image.Image, width: int) -> Image.Image:
 
 def paste_panel(canvas: Image.Image, image: Image.Image, position: tuple[int, int]) -> None:
     x, y = position
-    shadow_margin = 28
-    shadow = Image.new("RGBA", (image.width + 2 * shadow_margin, image.height + 2 * shadow_margin), (0, 0, 0, 0))
-    shadow_draw = ImageDraw.Draw(shadow)
-    shadow_draw.rectangle(
-        (shadow_margin, shadow_margin, shadow_margin + image.width, shadow_margin + image.height),
-        fill=(20, 28, 32, 58),
-    )
-    shadow = shadow.filter(ImageFilter.GaussianBlur(18))
-    canvas.alpha_composite(shadow, (x - shadow_margin + 10, y - shadow_margin + 14))
     canvas.alpha_composite(image.convert("RGBA"), (x, y))
     draw = ImageDraw.Draw(canvas, "RGBA")
-    draw.rectangle((x, y, x + image.width - 1, y + image.height - 1), outline=(180, 188, 190, 210), width=3)
+    draw.rectangle((x, y, x + image.width - 1, y + image.height - 1), outline=(22, 27, 29, 255), width=3)
 
 
-def compose(config: dict) -> Path:
+def compose(config: dict, land_style: str) -> Path:
     paths = config["paths"]
-    plan_key = "output_2d_ortho" if config.get("orthophoto_enabled", False) else "output_2d"
-    relief_key = "output_3d_ortho" if config.get("orthophoto_enabled", False) else "output_3d"
+    use_orthophoto = land_style == "orthophoto"
+    if use_orthophoto and not config.get("orthophoto_enabled", False):
+        raise ValueError("The orthophoto plate requires orthophoto_enabled=true")
+    plan_key = "output_2d_ortho" if use_orthophoto else "output_2d"
+    relief_key = "output_3d_ortho" if use_orthophoto else "output_3d"
     plan = Image.open(project_path(paths[plan_key])).convert("RGB")
     relief = Image.open(project_path(paths[relief_key])).convert("RGB")
     locator = Image.open(project_path(paths["output_locator"])).convert("RGB")
 
-    canvas_width, canvas_height = 5400, 3820
+    canvas_width, canvas_height = 5400, 3250
     canvas = Image.new("RGBA", (canvas_width, canvas_height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(canvas, "RGBA")
     title_color = (24, 31, 35, 255)
     secondary = (77, 91, 97, 255)
 
-    title = str(config.get("plate_title", f"{config.get('locator_label', config['title'])}, La Reunion"))
-    author = str(config.get("plate_author", ""))
-    copyright_year = int(config.get("copyright_year", 2026))
-    map_license = str(config.get("map_license", "")).strip()
+    title = str(config.get("plate_title", config.get("locator_label", config["title"])))
+    title_lines = [part.strip() for part in title.split(",", 1)]
+    if len(title_lines) == 1:
+        title_lines.append("La Réunion")
     latitude, longitude = marker_wgs84(config["locator_marker_utm40s"])
-    subtitle = f"{abs(latitude):.5f}° {'S' if latitude < 0 else 'N'}  ·  {abs(longitude):.5f}° {'O' if longitude < 0 else 'E'}"
+    latitude_text = f"{abs(latitude):.5f}° {'S' if latitude < 0 else 'N'}"
+    longitude_text = f"{abs(longitude):.5f}° {'O' if longitude < 0 else 'E'}"
 
-    title_face = font(TITLE_FONT, 174)
-    subtitle_face = font(TEXT_FONT, 58)
-    footer_face = font(TEXT_FONT, 34)
-    draw.text((canvas_width / 2, 142), title, anchor="mm", font=title_face, fill=title_color)
-    draw.text((canvas_width / 2, 300), subtitle, anchor="mm", font=subtitle_face, fill=secondary)
-    draw.line((160, 395, canvas_width - 160, 395), fill=(92, 108, 114, 90), width=2)
+    title_face = font(TEXT_FONT, 280, index=8)
+    place_face = font(TEXT_FONT, 112, index=2)
+    coordinate_label_face = font(TEXT_FONT, 39, index=5)
+    coordinate_face = font(TEXT_FONT, 105, index=8)
 
-    side_margin = 160
-    panel_gap = 72
+    title_center_x = 1840
+    draw.text((title_center_x, 285), title_lines[0].upper(), anchor="mm", font=title_face, fill=title_color)
+
+    place_y = 595
+    place_bbox = draw.textbbox((0, 0), title_lines[1].upper(), font=place_face)
+    place_width = place_bbox[2] - place_bbox[0]
+    rule_gap = 52
+    rule_length = 430
+    draw.line((title_center_x - place_width / 2 - rule_gap - rule_length, place_y, title_center_x - place_width / 2 - rule_gap, place_y), fill=(24, 31, 35, 175), width=3)
+    draw.line((title_center_x + place_width / 2 + rule_gap, place_y, title_center_x + place_width / 2 + rule_gap + rule_length, place_y), fill=(24, 31, 35, 175), width=3)
+    draw.text((title_center_x, place_y), title_lines[1].upper(), anchor="mm", font=place_face, fill=title_color)
+
+    latitude_x, longitude_x = 1040, 2640
+    draw.text((latitude_x, 835), "LATITUDE", anchor="mm", font=coordinate_label_face, fill=secondary)
+    draw.text((longitude_x, 835), "LONGITUDE", anchor="mm", font=coordinate_label_face, fill=secondary)
+    draw.text((latitude_x, 1000), latitude_text, anchor="mm", font=coordinate_face, fill=title_color)
+    draw.text((longitude_x, 1000), longitude_text, anchor="mm", font=coordinate_face, fill=title_color)
+    draw.line((1840, 790, 1840, 1080), fill=(24, 31, 35, 130), width=3)
+    draw.line((3700, 90, 3700, 1280), fill=(24, 31, 35, 175), width=3)
+
+    side_margin = 80
+    panel_gap = 40
     panel_width = (canvas_width - 2 * side_margin - panel_gap) // 2
     plan = resized_width(plan, panel_width)
     relief = resized_width(relief, panel_width)
-    top_y = 470
-    paste_panel(canvas, plan, (side_margin, top_y))
-    paste_panel(canvas, relief, (side_margin + panel_width + panel_gap, top_y))
+    detail_y = canvas_height - 80 - max(plan.height, relief.height)
+    paste_panel(canvas, plan, (side_margin, detail_y))
+    paste_panel(canvas, relief, (side_margin + panel_width + panel_gap, detail_y))
 
-    locator = resized_width(locator, 1550)
-    locator_x = (canvas_width - locator.width) // 2
-    locator_y = 2285
+    locator = resized_width(locator, 1500)
+    locator_x = canvas_width - side_margin - locator.width
+    locator_y = 50
     paste_panel(canvas, locator, (locator_x, locator_y))
 
-    source_lines = (
-        "Bathymétrie détaillée : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D",
-        "Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025 · Relief insulaire : GEBCO 2024 Grid",
-    )
-    draw.text((160, canvas_height - 92), source_lines[0], anchor="ls", font=footer_face, fill=(76, 89, 94, 235))
-    draw.text((160, canvas_height - 46), source_lines[1], anchor="ls", font=footer_face, fill=(76, 89, 94, 235))
-    if author:
-        rights = f"© {copyright_year} {author}"
-        if map_license:
-            rights += f" · {map_license}"
-        draw.text((canvas_width - 160, canvas_height - 92), rights, anchor="rs", font=footer_face, fill=title_color)
-
-    output = project_path(paths.get("output_plate", f"outputs/{config['slug']}-planche.jpg"))
+    output_key = "output_plate" if use_orthophoto else "output_plate_topography"
+    default_name = f"outputs/{config['slug']}-planche.jpg" if use_orthophoto else f"outputs/{config['slug']}-planche-topographique.jpg"
+    output = project_path(paths.get(output_key, default_name))
     output.parent.mkdir(parents=True, exist_ok=True)
     canvas.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
     return output
@@ -118,9 +120,17 @@ def compose(config: dict) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Assemble the 2D, 3D and locator maps into one presentation plate")
     parser.add_argument("config", type=Path, help="Site JSON configuration")
+    parser.add_argument(
+        "--land-style",
+        choices=("orthophoto", "topography", "both"),
+        default="both",
+        help="Terrestrial rendering used in the detailed 2D and 3D panels",
+    )
     args = parser.parse_args()
     config = json.loads(args.config.expanduser().resolve().read_text(encoding="utf-8"))
-    print(compose(config))
+    styles = ("orthophoto", "topography") if args.land_style == "both" else (args.land_style,)
+    for style in styles:
+        print(compose(config, style))
     return 0
 
 
