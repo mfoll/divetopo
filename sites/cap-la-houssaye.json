@@ -27,6 +27,8 @@
   "locator_gebco_layer": "GEBCO_LATEST",
   "locator_gebco_request_width_px": 2000,
   "locator_gebco_blur_px": 9.0,
+  "plate_title": "Cap La Houssaye, La Réunion",
+  "plate_author": "Matthieu Foll",
   "coast_frame_fraction": 0.44,
   "vertical_exaggeration": 7.6,
   "bridge_decks": [
@@ -51,6 +53,7 @@
     "output_2d_ortho": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d-ortho.jpg",
     "output_3d": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg",
     "output_3d_ortho": "outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg",
-    "output_locator": "outputs/cap-la-houssaye-localisation-reunion.jpg"
+    "output_locator": "outputs/cap-la-houssaye-localisation-reunion.jpg",
+    "output_plate": "outputs/cap-la-houssaye-planche.jpg"
   }
 }

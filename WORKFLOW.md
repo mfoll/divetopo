@@ -55,6 +55,7 @@ Le fichier [sites/cap-la-houssaye.json](sites/cap-la-houssaye.json) contient tou
 9. Le plan 2D utilise l'emprise de mise au point. La 3D utilise la grande emprise de contexte, mais conserve le cadrage final sur le site.
 10. Les JPEG topo-bathymetriques recoivent une echelle de 50 m et une rose des vents recalculee selon la rotation.
 11. La carte de localisation reutilise un RGE ALTI insulaire a 20 m, ajoute une grille latitude-longitude, une echelle de 20 km et le repere UTM propre au site.
+12. `compose_site_plate.py` assemble les variantes orthophoto 2D/3D et la carte insulaire dans une planche haute resolution. Le titre, l'auteur et les coordonnees WGS84 derivees du repere UTM sont produits depuis le JSON.
 
 ## Ajouter un site
 
@@ -120,5 +121,6 @@ Avant de retenir une figure :
 - `generate_reunion_topobathy.py` : acquisition, cache, recadrage et orchestration.
 - `render_fused_relief.py` : fusion, lissage, isobathes et rendus 2D/3D.
 - `sites/*.json` : parametres reproductibles de chaque site.
+- `compose_site_plate.py` : composition reproductible des trois cartes et conversion du repere UTM en sous-titre GPS.
 - `.tmp/bathy-renders/` : sources et extraits regenerables, non destines a etre versionnes.
 - `outputs/` : figures finales.

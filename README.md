@@ -20,6 +20,10 @@ Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cell
 
 ![Localisation du Cap La Houssaye a La Reunion](outputs/cap-la-houssaye-localisation-reunion.jpg)
 
+### Planche assemblee
+
+![Planche du Cap La Houssaye](outputs/cap-la-houssaye-planche.jpg)
+
 ## Installation sur macOS
 
 Homebrew est requis. Le script installe Python et GDAL, puis cree un environnement local :
@@ -41,6 +45,12 @@ Sans `--refresh`, les GeoTIFF deja mis en cache sont reutilises. Pour refaire un
 ```
 
 Les donnees sources et les extraits regenerables restent dans `.tmp/bathy-renders/` et ne sont pas versionnes.
+
+Pour assembler les trois cartes apres leur regeneration :
+
+```bash
+.venv/bin/python compose_site_plate.py sites/cap-la-houssaye.json
+```
 
 ## Reutilisation
 
