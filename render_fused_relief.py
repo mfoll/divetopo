@@ -6,7 +6,7 @@ from pathlib import Path
 
 import numpy as np
 from osgeo import gdal, ogr, osr
-from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 def load_font(size: int, bold: bool = False):
@@ -22,6 +22,25 @@ def load_font(size: int, bold: bool = False):
     return ImageFont.load_default()
 
 
+def resize_exact_without_distortion(image: Image.Image, size: tuple[int, int] | list[int]) -> Image.Image:
+    """Resize to exact dimensions with one uniform scale factor.
+
+    Image.resize() accepts independent horizontal and vertical factors, which
+    silently distorted an oblique view when its post-crop aspect ratio did not
+    match the configured final size. ImageOps.fit preserves geometry and only
+    crops the minimum excess needed to reach the exact output dimensions.
+    """
+    width, height = map(int, size)
+    if width <= 0 or height <= 0:
+        raise ValueError("Final output dimensions must be positive")
+    return ImageOps.fit(
+        image,
+        (width, height),
+        method=Image.Resampling.LANCZOS,
+        centering=(0.5, 0.5),
+    )
+
+
 def palette(depth: np.ndarray, max_depth: float = 40) -> np.ndarray:
     stops = np.array([0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 30, 40], dtype=np.float32)
     colors = np.array(
@@ -32,7 +51,16 @@ def palette(depth: np.ndarray, max_depth: float = 40) -> np.ndarray:
         ],
         dtype=np.float32,
     )
-    values = np.clip(depth, stops[0], min(max_depth, stops[-1]))
+    # The standard orthophoto treatment is opaque to 1 m and fades out at
+    # 2 m. Make 2 m the chromatic zero so the first fully bathymetric pixels
+    # are red, while preserving the original colour at each site's maximum
+    # displayed depth.
+    shallow_red_depth = 2.0
+    if max_depth > shallow_red_depth:
+        remapped_depth = np.maximum(depth - shallow_red_depth, 0.0) * max_depth / (max_depth - shallow_red_depth)
+    else:
+        remapped_depth = np.maximum(depth - shallow_red_depth, 0.0)
+    values = np.clip(remapped_depth, stops[0], min(max_depth, stops[-1]))
     result = np.zeros((*values.shape, 3), dtype=np.float32)
     for index in range(len(stops) - 1):
         low, high = stops[index], stops[index + 1]
@@ -275,6 +303,122 @@ def plan_cardinals(rotation_k: int) -> dict[str, str]:
     return labels[rotation_k % 4]
 
 
+def default_view_bearing(rotation_k: int) -> float:
+    """Bearing, in degrees clockwise from north, at the top of the 3D view."""
+    return (180.0 + 90.0 * (rotation_k % 4)) % 360.0
+
+
+def rotate_surface_for_view(
+    z: np.ndarray,
+    colors: np.ndarray,
+    valid: np.ndarray,
+    land_mask: np.ndarray,
+    coast_points: list[list[tuple[float, float]]],
+    contour_points: dict[int, list[list[tuple[float, float]]]],
+    angle_deg: float,
+    deep_rgb: np.ndarray,
+    clip_outside: bool = False,
+) -> tuple[
+    np.ndarray,
+    np.ndarray,
+    np.ndarray,
+    np.ndarray,
+    list[list[tuple[float, float]]],
+    dict[int, list[list[tuple[float, float]]]],
+]:
+    """Rotate a prepared surface so the requested bearing points down-frame."""
+    angle_deg = ((angle_deg + 180.0) % 360.0) - 180.0
+    if abs(angle_deg) < 1e-8:
+        return z, colors, valid, land_mask, coast_points, contour_points
+
+    source_h, source_w = z.shape
+    z_image = Image.fromarray(z.astype(np.float32), mode="F")
+    z_rotated = np.asarray(
+        z_image.rotate(
+            angle_deg,
+            resample=Image.Resampling.BICUBIC,
+            expand=True,
+            fillcolor=float(np.nanmin(z)),
+        ),
+        dtype=np.float32,
+    )
+    output_h, output_w = z_rotated.shape
+
+    color_image = Image.fromarray(np.clip(colors, 0, 255).astype(np.uint8), mode="RGB")
+    color_rotated = np.asarray(
+        color_image.rotate(
+            angle_deg,
+            resample=Image.Resampling.BICUBIC,
+            expand=True,
+            fillcolor=tuple(int(value) for value in deep_rgb),
+        ),
+        dtype=np.float32,
+    )
+    valid_rotated = np.asarray(
+        Image.fromarray((valid > 0.5).astype(np.uint8) * 255, mode="L").rotate(
+            angle_deg,
+            resample=Image.Resampling.NEAREST,
+            expand=True,
+            fillcolor=0 if clip_outside else 255,
+        )
+    ) > 127
+    land_rotated = np.asarray(
+        Image.fromarray((land_mask > 0.5).astype(np.uint8) * 255, mode="L").rotate(
+            angle_deg,
+            # Keep the binary shoreline aligned with the smoothly rotated
+            # vector coastline. Nearest-neighbour rotation leaves a staircase
+            # mask that exposes shallow-water facets on the landward side.
+            resample=Image.Resampling.BICUBIC,
+            expand=True,
+            fillcolor=0,
+        )
+    ) > 127
+
+    radians = np.deg2rad(angle_deg)
+    cosine = float(np.cos(radians))
+    sine = float(np.sin(radians))
+    source_cx = source_w / 2.0
+    source_cy = source_h / 2.0
+    output_cx = output_w / 2.0
+    output_cy = output_h / 2.0
+
+    def rotate_point(point: tuple[float, float]) -> tuple[float, float]:
+        dx = point[0] - source_cx
+        dy = point[1] - source_cy
+        return (
+            cosine * dx + sine * dy + output_cx,
+            -sine * dx + cosine * dy + output_cy,
+        )
+
+    coast_rotated = [[rotate_point(point) for point in line] for line in coast_points]
+    contours_rotated = {
+        level: [[rotate_point(point) for point in line] for line in lines]
+        for level, lines in contour_points.items()
+    }
+    return z_rotated, color_rotated, valid_rotated, land_rotated, coast_rotated, contours_rotated
+
+
+def rotate_rgb_for_view(
+    rgb: np.ndarray,
+    angle_deg: float,
+    fill_rgb: tuple[int, int, int],
+) -> np.ndarray:
+    """Rotate an RGB texture with the exact raster geometry used by the mesh."""
+    angle_deg = ((angle_deg + 180.0) % 360.0) - 180.0
+    if abs(angle_deg) < 1e-8:
+        return rgb.copy()
+    image = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), mode="RGB")
+    return np.asarray(
+        image.rotate(
+            angle_deg,
+            resample=Image.Resampling.BICUBIC,
+            expand=True,
+            fillcolor=fill_rgb,
+        ),
+        dtype=np.float32,
+    )
+
+
 def load_topography(path: Path, width: int, height: int) -> np.ndarray:
     ds = gdal.Open(str(path))
     band = ds.GetRasterBand(1)
@@ -337,6 +481,42 @@ def soften_surface(z: np.ndarray, mask: np.ndarray, passes: int = 8) -> np.ndarr
         )
         out = np.where(mask & (weight > 0), total / np.maximum(weight, 1), out)
     return out
+
+
+def smooth_depth_mask(depth: np.ndarray, smoothing_m: float, pixel_m: float) -> np.ndarray:
+    """Low-pass a depth field for a clean thematic boundary, not for relief."""
+    if smoothing_m <= 0.0 or pixel_m <= 0.0:
+        return depth
+    factor = max(2, int(np.floor(smoothing_m / pixel_m + 0.5)))
+    height, width = depth.shape
+    reduced = Image.fromarray(depth.astype(np.float32), mode="F").resize(
+        (max(1, width // factor), max(1, height // factor)),
+        Image.Resampling.BOX,
+    )
+    return np.asarray(reduced.resize((width, height), Image.Resampling.BICUBIC), dtype=np.float32)
+
+
+def imagery_depth_alpha(
+    depth: np.ndarray,
+    legacy_limit_m: float | None,
+    legacy_feather_m: float,
+    full_depth_m: float | None,
+    max_depth_m: float | None,
+) -> np.ndarray | None:
+    """Return a smooth alpha that is opaque shallow and transparent deep."""
+    if full_depth_m is not None or max_depth_m is not None:
+        if full_depth_m is None or max_depth_m is None:
+            raise ValueError("imagery_sea_full_depth_m and imagery_sea_max_depth_m must be set together")
+        if max_depth_m <= full_depth_m:
+            raise ValueError("imagery_sea_max_depth_m must be greater than imagery_sea_full_depth_m")
+        alpha = np.clip((max_depth_m - depth) / (max_depth_m - full_depth_m), 0.0, 1.0)
+    elif legacy_limit_m is not None:
+        if legacy_feather_m <= 0.0:
+            raise ValueError("imagery_sea_feather_m must be positive")
+        alpha = np.clip((legacy_limit_m - depth) / legacy_feather_m, 0.0, 1.0)
+    else:
+        return None
+    return alpha * alpha * (3.0 - 2.0 * alpha)
 
 
 def soften_rgb(rgb: np.ndarray, mask: np.ndarray, passes: int = 8) -> np.ndarray:
@@ -466,13 +646,36 @@ def distance_from(mask: np.ndarray, max_steps: int) -> np.ndarray:
     return dist
 
 
+def shoreline_imagery_alpha(
+    land_mask: np.ndarray,
+    pixel_m: float,
+    full_width_m: float = 2.0,
+    max_width_m: float = 4.0,
+) -> np.ndarray:
+    """Keep orthophoto continuous across the smoothed shoreline boundary."""
+    if pixel_m <= 0.0 or full_width_m < 0.0 or max_width_m <= full_width_m:
+        raise ValueError("shoreline imagery widths and pixel size must be positive and ordered")
+    max_steps = max(1, int(np.ceil(max_width_m / pixel_m)))
+    distance_m = distance_from(land_mask, max_steps) * pixel_m
+    alpha = np.clip((max_width_m - distance_m) / (max_width_m - full_width_m), 0.0, 1.0)
+    alpha[land_mask] = 1.0
+    return alpha * alpha * (3.0 - 2.0 * alpha)
+
+
+def strict_land_imagery_mask(land_mask: np.ndarray, inset_pixels: int = 2) -> np.ndarray:
+    """Inset land imagery so a smoothed coastline can never expose it at sea."""
+    if inset_pixels <= 0:
+        return land_mask.copy()
+    return land_mask & (distance_from(~land_mask, inset_pixels) >= inset_pixels)
+
+
 def interpolate_coast_polygon(elev: np.ndarray) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
     """Build a continuous land polygon from the terrestrial DEM's 0 m contour."""
     h, w = elev.shape
     coast_y = np.full(w, np.nan, dtype=np.float32)
     stable_kernel = np.ones(9, dtype=np.int16)
 
-    # In this west-coast extent the sea is north (top) and the connected land
+    # In the simple profile mode, the sea is north (top) and the connected land
     # mass is south (bottom), so one sub-pixel crossing per column describes
     # the coastline without retaining the DEM's block-shaped raster edge.
     for x in range(w):
@@ -516,6 +719,71 @@ def interpolate_coast_polygon(elev: np.ndarray) -> tuple[np.ndarray, np.ndarray,
     land_weight = np.clip((signed_distance + 1.25) / 2.5, 0.0, 1.0)
     land_weight = land_weight * land_weight * (3.0 - 2.0 * land_weight)
     return coast_y, land_mask, land_weight
+
+
+def interpolate_coast_mask(elev: np.ndarray, sieve_threshold_px: int = 200) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Build a two-dimensional coast mask for bays, pool walls and islets."""
+    raw_land = np.isfinite(elev) & (elev >= 0.0)
+    height, width = raw_land.shape
+    source = gdal.GetDriverByName("MEM").Create("", width, height, 1, gdal.GDT_Byte)
+    target = gdal.GetDriverByName("MEM").Create("", width, height, 1, gdal.GDT_Byte)
+    source.GetRasterBand(1).WriteArray(raw_land.astype(np.uint8))
+    gdal.SieveFilter(source.GetRasterBand(1), None, target.GetRasterBand(1), sieve_threshold_px, 8)
+    sieved_land = target.GetRasterBand(1).ReadAsArray().astype(bool)
+
+    # Use one continuous, sub-pixel coastline for both the terrestrial fill
+    # and its vector outline. Keeping the fill strictly inside the 0.5 contour
+    # prevents square DEM cells from protruding beyond the smoothed line.
+    smoothed_land = np.asarray(
+        Image.fromarray(sieved_land.astype(np.uint8) * 255, "L").filter(
+            ImageFilter.GaussianBlur(radius=10.0)
+        ),
+        dtype=np.float32,
+    ) / 255.0
+    land_mask = smoothed_land >= 0.5
+    land_weight = smoothed_land * smoothed_land * (3.0 - 2.0 * smoothed_land)
+
+    coast_y = np.full(land_mask.shape[1], np.nan, dtype=np.float32)
+    for x in range(land_mask.shape[1]):
+        candidates = np.flatnonzero(land_mask[:, x])
+        if len(candidates):
+            y = int(candidates[-1])
+            while y > 0 and land_mask[y - 1, x]:
+                y -= 1
+            coast_y[x] = float(y)
+    known = np.isfinite(coast_y)
+    coast_y = np.interp(np.arange(len(coast_y)), np.flatnonzero(known), coast_y[known]).astype(np.float32)
+    return coast_y, land_mask, land_weight
+
+
+def extract_coastlines(land_surface: np.ndarray) -> list[list[tuple[float, float]]]:
+    """Extract all meaningful smoothed boundaries from a filtered land mask."""
+    h, w = land_surface.shape
+    nodata = -9999.0
+    raster = gdal.GetDriverByName("MEM").Create("", w, h, 1, gdal.GDT_Float32)
+    raster.SetGeoTransform((0, 1, 0, 0, 0, 1))
+    band = raster.GetRasterBand(1)
+    band.WriteArray(land_surface.astype(np.float32))
+    band.SetNoDataValue(nodata)
+    vectors = ogr.GetDriverByName("MEM").CreateDataSource("")
+    layer = vectors.CreateLayer("coast", geom_type=ogr.wkbLineString)
+    gdal.ContourGenerateEx(band, layer, ["FIXED_LEVELS=0.5", f"NODATA={nodata}"])
+
+    coastlines: list[list[tuple[float, float]]] = []
+    for feature in layer:
+        geometry = feature.GetGeometryRef()
+        parts = [geometry.GetGeometryRef(i) for i in range(geometry.GetGeometryCount())] if geometry.GetGeometryCount() else [geometry]
+        for part in parts:
+            # The raster surface has already been Gaussian-interpolated.
+            # Preserve its 0.5 contour exactly: another geometric smoothing
+            # pass would move the line away from the fill it is meant to bound.
+            points = [(part.GetX(i), part.GetY(i)) for i in range(part.GetPointCount())]
+            if len(points) < 7:
+                continue
+            length = float(np.linalg.norm(np.diff(np.asarray(points), axis=0), axis=1).sum())
+            if length >= 35.0:
+                coastlines.append(points)
+    return coastlines
 
 
 def fuse_bathymetry(depth: np.ndarray, bathy_mask: np.ndarray, elev: np.ndarray, land_mask: np.ndarray, max_depth: float) -> tuple[np.ndarray, np.ndarray]:
@@ -654,7 +922,7 @@ def extract_isobaths(depth: np.ndarray, sea_mask: np.ndarray, levels: tuple[int,
 
 
 @lru_cache(maxsize=4)
-def build_fused_surface(depth_path: Path, elevation_path: Path, max_depth: float, rotation_k: int = 0) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, dict[int, list[list[tuple[float, float]]]]]:
+def build_fused_surface(depth_path: Path, elevation_path: Path, max_depth: float, rotation_k: int = 0, coast_mode: str = "profile", land_sieve_threshold_px: int = 200) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, dict[int, list[list[tuple[float, float]]]], list[list[tuple[float, float]]]]:
     """Create the single continuous terrain model used by every renderer."""
     contour_ceiling = max_depth + 12.0
     source_depth, bathy_mask, _ = load_depth(depth_path, contour_ceiling)
@@ -664,15 +932,26 @@ def build_fused_surface(depth_path: Path, elevation_path: Path, max_depth: float
         source_depth = np.rot90(source_depth, rotation_k).copy()
         bathy_mask = np.rot90(bathy_mask, rotation_k).copy()
         elev = np.rot90(elev, rotation_k).copy()
-    coast_y, land_mask, land_weight = interpolate_coast_polygon(elev)
+    if coast_mode == "profile":
+        coast_y, land_mask, land_weight = interpolate_coast_polygon(elev)
+        coastlines = [[(float(x), float(y)) for x, y in enumerate(coast_y)]]
+    elif coast_mode == "mask":
+        coast_y, land_mask, land_weight = interpolate_coast_mask(elev, land_sieve_threshold_px)
+        coastlines = extract_coastlines(land_weight)
+    else:
+        raise ValueError("coast_mode must be 'profile' or 'mask'")
     fused_depth, sea_mask = fuse_bathymetry(source_depth, bathy_mask, elev, land_mask, contour_ceiling)
     fused_depth = edge_preserving_bathy(fused_depth, sea_mask)
-    signed_coast_distance = np.arange(fused_depth.shape[0], dtype=np.float32)[:, None] - coast_y[None, :]
-    sea_ramp = np.clip(-signed_coast_distance / 14.0, 0.0, 1.0)
+    if coast_mode == "profile":
+        signed_coast_distance = np.arange(fused_depth.shape[0], dtype=np.float32)[:, None] - coast_y[None, :]
+        sea_ramp = np.clip(-signed_coast_distance / 14.0, 0.0, 1.0)
+    else:
+        sea_ramp = np.clip(distance_from(land_mask, 14) / 14.0, 0.0, 1.0)
     sea_ramp = sea_ramp * sea_ramp * (3.0 - 2.0 * sea_ramp)
     fused_depth = np.where(sea_mask, fused_depth * sea_ramp, fused_depth)
-    contours = extract_isobaths(fused_depth, sea_mask)
-    return elev, coast_y, land_mask, land_weight, fused_depth, contours
+    contour_levels = tuple(range(5, int(max_depth // 5) * 5 + 1, 5))
+    contours = extract_isobaths(fused_depth, sea_mask, levels=contour_levels)
+    return elev, coast_y, land_mask, land_weight, fused_depth, contours, coastlines
 
 
 
@@ -684,19 +963,34 @@ def make_clean_plan(
     title: str,
     max_depth: float = 20,
     rotation_k: int = 0,
+    coast_mode: str = "profile",
     output_scale: float = 1.0,
     land_imagery_path: Path | None = None,
     copyright_text: str | None = None,
     source_text: str | None = None,
     open_label_offsets_px: dict[str, list[float]] | None = None,
+    final_output_size_px: tuple[int, int] | list[int] | None = None,
+    land_sieve_threshold_px: int = 200,
+    imagery_sea_depth_m: float | None = None,
+    imagery_sea_feather_m: float = 0.6,
+    imagery_sea_smoothing_m: float = 0.0,
+    imagery_sea_full_depth_m: float | None = None,
+    imagery_sea_max_depth_m: float | None = None,
+    coastline_visible: bool = True,
+    final_style_scale: float = 2.0,
 ) -> None:
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
+    if final_style_scale <= 0.0:
+        raise ValueError("final_style_scale must be positive")
     ui = output_scale
-    elev, coast_y, land_mask, land_weight, fused_depth, contours = build_fused_surface(depth_path, elevation_path, max_depth, rotation_k)
+    elev, coast_y, land_mask, land_weight, fused_depth, contours, coastlines = build_fused_surface(
+        depth_path, elevation_path, max_depth, rotation_k, coast_mode, land_sieve_threshold_px
+    )
     d = np.clip(fused_depth, 0.0, max_depth)
     sea_mask = ~land_mask
     valid = sea_mask | land_mask
+    land_blend = np.where(land_mask, land_weight, 0.0)
 
     sea_rgb = palette(np.nan_to_num(d, nan=max_depth), max_depth=max_depth).astype(np.float32)
     sea_rgb = np.clip(sea_rgb * hillshade(np.nan_to_num(d, nan=max_depth), sea_mask, 0.035)[:, :, None], 0, 255)
@@ -705,8 +999,8 @@ def make_clean_plan(
 
     rgb = sea_rgb.copy()
     rgb[~sea_mask] = (7, 18, 55)
-    rgb = rgb * (1 - land_weight[:, :, None]) + land_rgb * land_weight[:, :, None]
-    rgb[~valid & (land_weight < 0.02)] = (7, 18, 55)
+    rgb = rgb * (1 - land_blend[:, :, None]) + land_rgb * land_blend[:, :, None]
+    rgb[~valid & (land_blend < 0.02)] = (7, 18, 55)
 
     img = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB")
     if ui != 1.0:
@@ -725,23 +1019,56 @@ def make_clean_plan(
         # coastline. The binary mask prevents any orthophoto pixel from
         # altering the bathymetric sea rendering.
         land_alpha = np.where(land_mask, np.clip((land_weight - 0.5) * 2.0, 0.0, 1.0), 0.0)
-        alpha = Image.fromarray(np.uint8(np.clip(land_alpha * 255.0, 0, 255)), "L").resize(img.size, Image.Resampling.LANCZOS)
-        strict_land = Image.fromarray(np.uint8(land_mask) * 255, "L").resize(img.size, Image.Resampling.NEAREST)
-        alpha = Image.fromarray(np.minimum(np.asarray(alpha), np.asarray(strict_land)).astype(np.uint8), "L")
+        imagery_alpha = land_alpha
+        if imagery_sea_depth_m is not None or imagery_sea_full_depth_m is not None or imagery_sea_max_depth_m is not None:
+            depth_dataset = gdal.Open(str(depth_path))
+            pixel_m = abs(depth_dataset.GetGeoTransform()[1]) if depth_dataset is not None else 1.0
+            imagery_depth = smooth_depth_mask(d, imagery_sea_smoothing_m, pixel_m)
+            sea_alpha = imagery_depth_alpha(
+                imagery_depth,
+                imagery_sea_depth_m,
+                imagery_sea_feather_m,
+                imagery_sea_full_depth_m,
+                imagery_sea_max_depth_m,
+            )
+            assert sea_alpha is not None
+            # When imagery extends into shallow water, one continuous
+            # depth-driven alpha avoids exposing the raster land mask around
+            # pool walls, beaches and other complex 0 m features. A narrow
+            # distance-driven floor also prevents a red bathymetric seam where
+            # the smoothed vector coast and raster mask differ by sub-pixels.
+            coast_alpha = shoreline_imagery_alpha(land_mask, pixel_m)
+            imagery_alpha = np.maximum(sea_alpha, coast_alpha)
+        alpha = Image.fromarray(np.uint8(np.clip(imagery_alpha * 255.0, 0, 255)), "L").resize(img.size, Image.Resampling.LANCZOS)
+        if imagery_sea_depth_m is None and imagery_sea_full_depth_m is None and imagery_sea_max_depth_m is None:
+            strict_land_mask = strict_land_imagery_mask(land_mask)
+            strict_land = Image.fromarray(np.uint8(strict_land_mask) * 255, "L").resize(img.size, Image.Resampling.NEAREST)
+            alpha = Image.fromarray(np.minimum(np.asarray(alpha), np.asarray(strict_land)).astype(np.uint8), "L")
         img = Image.composite(orthophoto.convert("RGBA"), img, alpha)
+    if final_output_size_px is None:
+        final_resize_scale = 1.0
+    else:
+        final_width, final_height = map(int, final_output_size_px)
+        final_resize_scale = np.sqrt((final_width / img.width) * (final_height / img.height))
+    style = final_style_scale / final_resize_scale
     draw = ImageDraw.Draw(img, "RGBA")
 
     scaled_contours = {
         level: [[(x * ui, y * ui) for x, y in line] for line in lines]
         for level, lines in contours.items()
     }
-    coast_y_scaled = np.interp(
-        np.arange(img.width, dtype=np.float32) / ui,
-        np.arange(len(coast_y), dtype=np.float32),
-        coast_y,
-    ) * ui
+    if coast_mode == "profile":
+        coast_y_scaled = np.interp(
+            np.arange(img.width, dtype=np.float32) / ui,
+            np.arange(len(coast_y), dtype=np.float32),
+            coast_y,
+        ) * ui
+    else:
+        # A 2D coastline can cross a column several times, so the profile-only
+        # coast-distance heuristic is deliberately disabled for label scoring.
+        coast_y_scaled = np.zeros(img.width, dtype=np.float32)
 
-    label_font = load_font(int(np.floor(18 * ui + 0.5)), True)
+    label_font = load_font(int(np.floor(18 * style + 0.5)), True)
     label_draws: list[tuple[float, float, int]] = []
     occupied_labels: list[tuple[float, float]] = []
     open_label_offsets_px = open_label_offsets_px or {}
@@ -750,12 +1077,17 @@ def make_clean_plan(
     # after all isobaths and the coastline, so no vector line can cross text.
     for level, lines in scaled_contours.items():
         for line in lines:
-            draw.line(line, fill=(242, 245, 230, 150), width=max(1, int(np.floor(4 * ui + 0.5))), joint="curve")
-            draw.line(line, fill=(10, 15, 22, 205), width=max(1, int(np.floor(2 * ui + 0.5))), joint="curve")
+            draw.line(line, fill=(242, 245, 230, 150), width=max(1, int(np.floor(4 * style + 0.5))), joint="curve")
+            draw.line(line, fill=(10, 15, 22, 205), width=max(1, int(np.floor(2 * style + 0.5))), joint="curve")
 
-    coast_points = [(float(x), float(y)) for x, y in enumerate(coast_y_scaled)]
-    draw.line(coast_points, fill=(238, 230, 194, 210), width=max(1, int(np.floor(5 * ui + 0.5))), joint="curve")
-    draw.line(coast_points, fill=(12, 12, 10, 245), width=max(1, int(np.floor(3 * ui + 0.5))), joint="curve")
+    if coast_mode == "profile":
+        scaled_coastlines = [[(float(x), float(y)) for x, y in enumerate(coast_y_scaled)]]
+    else:
+        scaled_coastlines = [[(x * ui, y * ui) for x, y in line] for line in coastlines]
+    if coastline_visible:
+        for coast_line in scaled_coastlines:
+            draw.line(coast_line, fill=(238, 230, 194, 210), width=max(1, int(np.floor(5 * style + 0.5))), joint="curve")
+            draw.line(coast_line, fill=(12, 12, 10, 245), width=max(1, int(np.floor(3 * style + 0.5))), joint="curve")
 
     for level, lines in scaled_contours.items():
         open_lines = []
@@ -763,21 +1095,21 @@ def make_clean_plan(
             center = isolated_contour_center(line, min_width=55.0 * ui, min_height=28.0 * ui)
             is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0 * ui
             if is_closed:
-                if center and all(np.hypot(center[0] - x, center[1] - y) > 70 * ui for x, y in occupied_labels):
+                if center and all(np.hypot(center[0] - x, center[1] - y) > 70 * style for x, y in occupied_labels):
                     x, y = center
                     occupied_labels.append(center)
-                    label_draws.append((x - 24 * ui, y - 11 * ui, level))
+                    label_draws.append((x - 24 * style, y - 11 * style, level))
                 continue
             open_lines.append(line)
 
-        label_point = choose_plan_label(open_lines, coast_y_scaled, img.width, img.height, occupied_labels, ui_scale=ui)
+        label_point = choose_plan_label(open_lines, coast_y_scaled, img.width, img.height, occupied_labels, ui_scale=style)
         if label_point:
             x, y = label_point
             offset = open_label_offsets_px.get(str(level), (0.0, 0.0))
-            x += float(offset[0]) * ui
-            y += float(offset[1]) * ui
+            x += float(offset[0]) * style
+            y += float(offset[1]) * style
             occupied_labels.append((x, y))
-            label_draws.append((x + 5 * ui, y - 11 * ui, level))
+            label_draws.append((x + 5 * style, y - 11 * style, level))
 
     for x, y, level in label_draws:
         draw.text(
@@ -785,59 +1117,62 @@ def make_clean_plan(
             f"-{level} m",
             font=label_font,
             fill=(5, 8, 15, 235),
-            stroke_width=max(1, int(np.floor(2 * ui + 0.5))),
+            stroke_width=max(1, int(np.floor(2 * style + 0.5))),
             stroke_fill=(245, 244, 222, 230),
         )
 
     # North-up orientation and a scale based on the raster geotransform.
-    annotation_font = load_font(int(np.floor(19 * ui + 0.5)), True)
+    annotation_font = load_font(int(np.floor(19 * style + 0.5)), True)
     pixel_m = abs(gdal.Open(str(depth_path)).GetGeoTransform()[1])
     bar_px = 50.0 / pixel_m * ui
-    sx, sy = 48 * ui, img.height - 48 * ui
-    draw.line((sx, sy, sx + bar_px, sy), fill=(244, 241, 218, 240), width=max(1, int(np.floor(7 * ui + 0.5))))
-    draw.line((sx, sy, sx + bar_px, sy), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * ui + 0.5))))
-    draw.line((sx, sy - 8 * ui, sx, sy + 8 * ui), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * ui + 0.5))))
-    draw.line((sx + bar_px, sy - 8 * ui, sx + bar_px, sy + 8 * ui), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * ui + 0.5))))
-    draw.text((sx + bar_px / 2 - 22 * ui, sy - 31 * ui), "50 m", font=annotation_font, fill=(8, 10, 12, 250), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(244, 241, 218, 235))
+    sx, sy = 48 * style, img.height - 48 * style
+    draw.line((sx, sy, sx + bar_px, sy), fill=(244, 241, 218, 240), width=max(1, int(np.floor(7 * style + 0.5))))
+    draw.line((sx, sy, sx + bar_px, sy), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * style + 0.5))))
+    draw.line((sx, sy - 8 * style, sx, sy + 8 * style), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * style + 0.5))))
+    draw.line((sx + bar_px, sy - 8 * style, sx + bar_px, sy + 8 * style), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * style + 0.5))))
+    draw.text((sx + bar_px / 2 - 22 * style, sy - 31 * style), "50 m", font=annotation_font, fill=(8, 10, 12, 250), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(244, 241, 218, 235))
 
-    cx, cy = img.width - 76 * ui, 82 * ui
+    cx, cy = img.width - 76 * style, 82 * style
     halo = (244, 241, 218, 240)
     ink = (8, 10, 12, 250)
-    draw.line((cx - 36 * ui, cy, cx + 36 * ui, cy), fill=halo, width=max(1, int(np.floor(7 * ui + 0.5))))
-    draw.line((cx, cy - 36 * ui, cx, cy + 36 * ui), fill=halo, width=max(1, int(np.floor(7 * ui + 0.5))))
-    draw.line((cx - 36 * ui, cy, cx + 36 * ui, cy), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
-    draw.line((cx, cy - 36 * ui, cx, cy + 36 * ui), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
-    draw.polygon([(cx, cy - 46 * ui), (cx - 8 * ui, cy - 29 * ui), (cx + 8 * ui, cy - 29 * ui)], fill=ink)
+    draw.line((cx - 36 * style, cy, cx + 36 * style, cy), fill=halo, width=max(1, int(np.floor(7 * style + 0.5))))
+    draw.line((cx, cy - 36 * style, cx, cy + 36 * style), fill=halo, width=max(1, int(np.floor(7 * style + 0.5))))
+    draw.line((cx - 36 * style, cy, cx + 36 * style, cy), fill=ink, width=max(1, int(np.floor(3 * style + 0.5))))
+    draw.line((cx, cy - 36 * style, cx, cy + 36 * style), fill=ink, width=max(1, int(np.floor(3 * style + 0.5))))
+    draw.polygon([(cx, cy - 46 * style), (cx - 8 * style, cy - 29 * style), (cx + 8 * style, cy - 29 * style)], fill=ink)
     cardinals = plan_cardinals(rotation_k)
-    stroke = max(1, int(np.floor(2 * ui + 0.5)))
-    draw.text((cx, cy - 60 * ui), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((cx, cy + 54 * ui), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((cx - 52 * ui, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((cx + 52 * ui, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    stroke = max(1, int(np.floor(2 * style + 0.5)))
+    draw.text((cx, cy - 60 * style), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((cx, cy + 54 * style), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((cx - 52 * style, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw.text((cx + 52 * style, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
     if copyright_text:
-        copyright_font = load_font(int(np.floor(13 * ui + 0.5)), True)
+        copyright_font = load_font(int(np.floor(13 * style + 0.5)), True)
         draw.text(
-            (img.width - 16 * ui, img.height - 12 * ui),
+            (img.width - 16 * style, img.height - 12 * style),
             copyright_text,
             anchor="rb",
             font=copyright_font,
             fill=(245, 239, 218, 235),
-            stroke_width=max(1, int(np.floor(2 * ui + 0.5))),
+            stroke_width=max(1, int(np.floor(2 * style + 0.5))),
             stroke_fill=(5, 9, 13, 225),
         )
     if source_text:
-        source_font = load_font(int(np.floor(10 * ui + 0.5)), False)
+        source_font = load_font(int(np.floor(10 * style + 0.5)), False)
         draw.text(
-            (16 * ui, img.height - 12 * ui),
+            (16 * style, img.height - 12 * style),
             source_text,
             anchor="lb",
             font=source_font,
             fill=(245, 239, 218, 225),
-            stroke_width=max(1, int(np.floor(1.5 * ui + 0.5))),
+            stroke_width=max(1, int(np.floor(1.5 * style + 0.5))),
             stroke_fill=(5, 9, 13, 215),
         )
     output.parent.mkdir(parents=True, exist_ok=True)
-    img.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
+    rendered = img.convert("RGB")
+    if final_output_size_px is not None:
+        rendered = resize_exact_without_distortion(rendered, final_output_size_px)
+    rendered.save(output, quality=98, subsampling=0, optimize=True)
 
 
 
@@ -850,6 +1185,13 @@ def make_pretty_3d_from_offshore(
     max_depth: float = 20,
     decorate: bool = True,
     rotation_k: int = 0,
+    coast_mode: str = "profile",
+    view_bearing_deg: float | None = None,
+    view_crop_width_m: float | None = None,
+    view_crop_depth_m: float | None = None,
+    target_visible_width_m: float | None = None,
+    canvas_width_px: int = 1455,
+    canvas_height_px: int = 1069,
     camera_tilt: float = 0.34,
     north_south_projection_scale: float = 1.0,
     horizontal_crop_fraction: float = 0.0,
@@ -863,16 +1205,32 @@ def make_pretty_3d_from_offshore(
     bridge_decks: list[dict] | None = None,
     copyright_text: str | None = None,
     source_text: str | None = None,
+    final_output_size_px: tuple[int, int] | list[int] | None = None,
+    suppressed_label_levels: tuple[int, ...] | list[int] = (),
+    land_sieve_threshold_px: int = 200,
+    horizon_cleanup_fraction: float = 0.0,
+    imagery_sea_depth_m: float | None = None,
+    imagery_sea_feather_m: float = 0.6,
+    imagery_sea_smoothing_m: float = 0.0,
+    clip_rotated_outside: bool = False,
+    imagery_sea_full_depth_m: float | None = None,
+    imagery_sea_max_depth_m: float | None = None,
+    view_center_offset_east_m: float = 0.0,
+    view_center_offset_north_m: float = 0.0,
+    coastline_visible: bool = True,
+    final_style_scale: float = 2.0,
 ) -> None:
-    elev_full, coast_full, land_full, land_weight_full, fused_depth, contours_full = build_fused_surface(
-        depth_path, elevation_path, max_depth, rotation_k
+    elev_full, coast_full, land_full, land_weight_full, fused_depth, contours_full, coastlines_full = build_fused_surface(
+        depth_path, elevation_path, max_depth, rotation_k, coast_mode, land_sieve_threshold_px
     )
     step = 2
     d = np.clip(fused_depth[::step, ::step], 0.0, max_depth)
     elev = elev_full[::step, ::step]
     land_mask = land_full[::step, ::step]
     land_weight = land_weight_full[::step, ::step]
+    land_blend = np.where(land_mask, land_weight, 0.0)
     land_imagery = None
+    orthophoto_texture = None
     if land_imagery_path is not None:
         source_dataset = gdal.Open(str(depth_path))
         if source_dataset is None:
@@ -887,9 +1245,10 @@ def make_pretty_3d_from_offshore(
         if imagery_full.shape[:2] != fused_depth.shape:
             raise ValueError("Land imagery and fused relief do not share the same oriented dimensions")
         land_imagery = imagery_full[::step, ::step]
+        orthophoto_texture = land_imagery.copy()
     sea_mask = ~land_mask
     valid = sea_mask | land_mask
-    coast_band = (land_weight > 0.02) & (land_weight < 0.98)
+    coast_band = land_mask & (land_blend > 0.02) & (land_blend < 0.98)
 
     sea_z = -np.nan_to_num(d, nan=max_depth)
     sea_z = soften_surface(sea_z, sea_mask, passes=2)
@@ -898,6 +1257,7 @@ def make_pretty_3d_from_offshore(
     source_dataset = gdal.Open(str(depth_path))
     if source_dataset is None:
         raise RuntimeError(f"Cannot open source raster {depth_path}")
+    source_pixel_m = abs(source_dataset.GetGeoTransform()[1]) * step
     land_z = apply_bridge_decks(
         land_z,
         source_dataset.GetGeoTransform(),
@@ -907,12 +1267,18 @@ def make_pretty_3d_from_offshore(
         step,
         bridge_decks,
     )
-    coast_sampled = coast_full[::step][: land_z.shape[1]]
-    signed_coast_distance = np.arange(land_z.shape[0], dtype=np.float32)[:, None] * step - coast_sampled[None, :]
-    land_ramp = np.clip(signed_coast_distance / 14.0, 0.0, 1.0)
+    if coast_mode == "profile":
+        coast_sampled = coast_full[::step][: land_z.shape[1]]
+        signed_coast_distance = np.arange(land_z.shape[0], dtype=np.float32)[:, None] * step - coast_sampled[None, :]
+        land_ramp = np.clip(signed_coast_distance / 14.0, 0.0, 1.0)
+    else:
+        # Follow the same continuous surface as the sub-pixel coastline.
+        # A binary distance ramp creates cell-by-cell height jumps; mixed
+        # shoreline facets then rise as red teeth on the topographic render.
+        land_ramp = np.clip((land_weight - 0.5) / 0.5, 0.0, 1.0)
     land_ramp = land_ramp * land_ramp * (3.0 - 2.0 * land_ramp)
     land_z *= land_ramp
-    z = sea_z * (1.0 - land_weight) + land_z * land_weight
+    z = sea_z * (1.0 - land_blend) + land_z * land_blend
 
     sea_rgb = palette(np.nan_to_num(d, nan=max_depth), max_depth=max_depth).astype(np.float32)
     if land_imagery is None:
@@ -923,27 +1289,133 @@ def make_pretty_3d_from_offshore(
     colors = np.zeros((*d.shape, 3), dtype=np.float32)
     colors[sea_mask] = sea_rgb[sea_mask]
     colors[land_mask] = land_rgb[land_mask]
-    coastal_rgb = sea_rgb * (1 - land_weight[:, :, None]) + land_rgb * land_weight[:, :, None]
+    coastal_rgb = sea_rgb * (1 - land_blend[:, :, None]) + land_rgb * land_blend[:, :, None]
     colors[coast_band] = coastal_rgb[coast_band]
     colors = soften_rgb(colors, coast_band, passes=3)
+    sea_imagery_enabled = (
+        imagery_sea_depth_m is not None
+        or imagery_sea_full_depth_m is not None
+        or imagery_sea_max_depth_m is not None
+    )
+    if land_imagery is not None and sea_imagery_enabled:
+        imagery_depth = smooth_depth_mask(d, imagery_sea_smoothing_m, source_pixel_m)
+        sea_imagery_alpha = imagery_depth_alpha(
+            imagery_depth,
+            imagery_sea_depth_m,
+            imagery_sea_feather_m,
+            imagery_sea_full_depth_m,
+            imagery_sea_max_depth_m,
+        )
+        assert sea_imagery_alpha is not None
+        coast_imagery_alpha = shoreline_imagery_alpha(land_mask, source_pixel_m)
+        sea_imagery_alpha = np.where(
+            sea_mask,
+            np.maximum(sea_imagery_alpha, coast_imagery_alpha),
+            0.0,
+        )
+        colors = colors * (1.0 - sea_imagery_alpha[:, :, None]) + land_imagery * sea_imagery_alpha[:, :, None]
+    elif land_imagery is not None:
+        colors[sea_mask] = sea_rgb[sea_mask]
+        # The displayed coastline is a smoothed vector. Pull the orthophoto a
+        # metre inside its raw raster boundary so corners cannot protrude past
+        # that line after perspective projection.
+        strict_land = strict_land_imagery_mask(land_mask)
+        coast_inset = land_mask & ~strict_land
+        colors[coast_inset] = sea_rgb[coast_inset]
 
-    coast_points = [(x / step, float(y) / step) for x, y in enumerate(coast_full)]
+    coast_points = [
+        [(x / step, y / step) for x, y in line]
+        for line in coastlines_full
+    ]
     contour_points = {
         level: [[(x / step, y / step) for x, y in line] for line in lines]
         for level, lines in contours_full.items()
     }
 
+    bearing = default_view_bearing(rotation_k) if view_bearing_deg is None else float(view_bearing_deg) % 360.0
+    view_rotation = bearing - default_view_bearing(rotation_k)
+    deep_rgb = palette(np.array([max_depth], dtype=np.float32), max_depth=max_depth)[0]
+    z, colors, valid, land_mask, coast_points, contour_points = rotate_surface_for_view(
+        z,
+        colors,
+        valid,
+        land_mask,
+        coast_points,
+        contour_points,
+        view_rotation,
+        deep_rgb,
+        clip_rotated_outside,
+    )
+    if orthophoto_texture is not None:
+        orthophoto_texture = rotate_rgb_for_view(
+            orthophoto_texture,
+            view_rotation,
+            tuple(int(value) for value in deep_rgb),
+        )
+        if orthophoto_texture.shape[:2] != z.shape:
+            raise ValueError("Rotated orthophoto and relief mesh do not share the same dimensions")
+    # Bicubic rotation can overshoot across the sharp zero-elevation
+    # transition and give shallow-water cells positive heights. Reassert the
+    # physical domains before projection so those cells cannot become red
+    # spikes on the landward side of the coastline.
+    z = np.where(land_mask, np.maximum(z, 0.0), np.minimum(z, 0.0))
+
+    if view_crop_width_m is not None or view_crop_depth_m is not None:
+        pixel_m = abs(source_dataset.GetGeoTransform()[1]) * step
+        crop_w = z.shape[1] if view_crop_width_m is None else min(z.shape[1], int(round(float(view_crop_width_m) / pixel_m)))
+        crop_h = z.shape[0] if view_crop_depth_m is None else min(z.shape[0], int(round(float(view_crop_depth_m) / pixel_m)))
+        if crop_w <= 0 or crop_h <= 0:
+            raise ValueError("view crop dimensions must be positive")
+        source_dx = view_center_offset_east_m / pixel_m
+        source_dy = -view_center_offset_north_m / pixel_m
+        radians = np.deg2rad(view_rotation)
+        rotated_dx = np.cos(radians) * source_dx + np.sin(radians) * source_dy
+        rotated_dy = -np.sin(radians) * source_dx + np.cos(radians) * source_dy
+        crop_x = (z.shape[1] - crop_w) // 2 + int(np.floor(rotated_dx + 0.5))
+        crop_y = (z.shape[0] - crop_h) // 2 + int(np.floor(rotated_dy + 0.5))
+        crop_x = int(np.clip(crop_x, 0, z.shape[1] - crop_w))
+        crop_y = int(np.clip(crop_y, 0, z.shape[0] - crop_h))
+        z = z[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
+        colors = colors[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
+        if orthophoto_texture is not None:
+            orthophoto_texture = orthophoto_texture[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
+        valid = valid[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
+        land_mask = land_mask[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
+        coast_points = [
+            [(x - crop_x, y - crop_y) for x, y in line]
+            for line in coast_points
+        ]
+        contour_points = {
+            level: [[(x - crop_x, y - crop_y) for x, y in line] for line in lines]
+            for level, lines in contour_points.items()
+        }
+
     render_interp = 3 if not decorate else 2
     if render_interp > 1:
         z = resample_array(z, render_interp)
         colors = resample_array(colors, render_interp)
+        if orthophoto_texture is not None:
+            orthophoto_texture = resample_array(orthophoto_texture, render_interp)
         valid = resample_array(valid, render_interp)
         land_mask = resample_array(land_mask, render_interp)
-        coast_points = [(x * render_interp, y * render_interp) for x, y in coast_points]
+        # Bicubic enlargement can reintroduce the same shoreline overshoot.
+        z = np.where(land_mask, np.maximum(z, 0.0), np.minimum(z, 0.0))
+        coast_points = [
+            [(x * render_interp, y * render_interp) for x, y in line]
+            for line in coast_points
+        ]
         contour_points = {
             level: [[(x * render_interp, y * render_interp) for x, y in line] for line in lines]
             for level, lines in contour_points.items()
         }
+
+    if orthophoto_texture is not None:
+        rendered_pixel_m = source_pixel_m / render_interp
+        coast_texture_alpha = shoreline_imagery_alpha(land_mask, rendered_pixel_m)
+        colors = (
+            colors * (1.0 - coast_texture_alpha[:, :, None])
+            + orthophoto_texture * coast_texture_alpha[:, :, None]
+        )
 
     original_h, original_w = z.shape
     pad_x = 45 * render_interp
@@ -964,7 +1436,6 @@ def make_pretty_3d_from_offshore(
     local_edge_weight = (1.0 - blend) ** 8
     support_edge_z = smooth_edge_z + (z[0:1] - smooth_edge_z) * local_edge_weight
     foreground_z = -max_depth * (1.0 - edge_weight) + support_edge_z * edge_weight
-    deep_rgb = palette(np.array([max_depth], dtype=np.float32), max_depth=max_depth)[0]
     smooth_edge_colors = np.stack(
         [np.convolve(np.pad(colors[0, :, channel], 60, mode="reflect"), kernel, mode="valid") for channel in range(3)],
         axis=-1,
@@ -984,7 +1455,10 @@ def make_pretty_3d_from_offshore(
         [np.zeros((pad_north, land_mask.shape[1]), dtype=land_mask.dtype), land_mask, np.repeat(land_mask[-1:], pad_south, axis=0)],
         axis=0,
     )
-    coast_points = [(x + pad_x, y + pad_north) for x, y in coast_points]
+    coast_points = [
+        [(x + pad_x, y + pad_north) for x, y in line]
+        for line in coast_points
+    ]
     contour_points = {
         level: [[(x + pad_x, y + pad_north) for x, y in line] for line in lines]
         for level, lines in contour_points.items()
@@ -1005,12 +1479,27 @@ def make_pretty_3d_from_offshore(
         raise ValueError("north_south_projection_scale must be positive")
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
+    if final_style_scale <= 0.0:
+        raise ValueError("final_style_scale must be positive")
     ui = output_scale
-    base_canvas_w = 1455
-    base_canvas_h = 1069
+    base_canvas_w = int(canvas_width_px)
+    base_canvas_h = int(canvas_height_px)
+    if base_canvas_w <= 0 or base_canvas_h <= 0:
+        raise ValueError("3D canvas dimensions must be positive")
     final_canvas_w = base_canvas_w
     final_canvas_h = base_canvas_h
     aa = 2
+    pre_final_width = base_canvas_w * (1.0 - east_crop_fraction - west_crop_fraction) * ui
+    pre_final_height = base_canvas_h * (1.0 - south_crop_fraction) * ui
+    if final_output_size_px is None:
+        final_resize_scale = 1.0
+    else:
+        final_width, final_height = map(int, final_output_size_px)
+        final_resize_scale = np.sqrt(
+            (final_width / pre_final_width) * (final_height / pre_final_height)
+        )
+    style = final_style_scale / final_resize_scale
+    internal_style = style * aa / ui
     canvas_w, canvas_h = final_canvas_w * aa, final_canvas_h * aa
     sky = np.array((198, 219, 228), dtype=np.float32)
     abyss = deep_rgb.astype(np.float32)
@@ -1020,9 +1509,16 @@ def make_pretty_3d_from_offshore(
     canvas = Image.fromarray(background, "RGB").convert("RGBA")
     draw = ImageDraw.Draw(canvas, "RGBA")
 
-    # Same east-west footprint and scale as the 2D map: one source pixel maps
-    # to one final image pixel. North-south remains foreshortened by projection.
-    zoom = 2.0
+    # Match the transverse 3D scale to the 2D footprint when requested. The
+    # previous fixed zoom happened to match the Cap but over-zoomed wider sites.
+    retained_canvas_width = base_canvas_w * (1.0 - east_crop_fraction - west_crop_fraction)
+    if target_visible_width_m is not None:
+        if target_visible_width_m <= 0.0:
+            raise ValueError("target_visible_width_m must be positive")
+        source_pixel_m = abs(source_dataset.GetGeoTransform()[1])
+        zoom = retained_canvas_width * step * source_pixel_m / target_visible_width_m
+    else:
+        zoom = 2.0
     scale = zoom * aa / render_interp
     tilt = camera_tilt
     zscale = vertical_exaggeration * aa
@@ -1042,8 +1538,16 @@ def make_pretty_3d_from_offshore(
 
     rx, ry = raw_project(xx, yy, z[yy, xx])
     ox = canvas_w / 2
-    coast_xs = np.asarray([point[0] for point in coast_points], dtype=np.float32)
-    coast_ys = np.asarray([point[1] for point in coast_points], dtype=np.float32)
+    flat_coast = [
+        point
+        for line in coast_points
+        for point in line
+        if 0 <= point[0] < w and 0 <= point[1] < h
+    ]
+    if not flat_coast:
+        raise ValueError("No coastline remains inside the 3D view crop")
+    coast_xs = np.asarray([point[0] for point in flat_coast], dtype=np.float32)
+    coast_ys = np.asarray([point[1] for point in flat_coast], dtype=np.float32)
     _, raw_coast_y = raw_project(coast_xs, coast_ys, np.zeros_like(coast_xs))
     oy = canvas_h * coast_frame_fraction - float(np.median(raw_coast_y))
 
@@ -1073,7 +1577,29 @@ def make_pretty_3d_from_offshore(
                 project(i + 1, j + 1, float(z[j + 1, i + 1])),
                 project(i, j + 1, float(z[j + 1, i])),
             ]
-            c = colors[j, i].astype(np.float32)
+            corner_land = np.array(
+                [
+                    land_mask[j, i],
+                    land_mask[j, i + 1],
+                    land_mask[j + 1, i + 1],
+                    land_mask[j + 1, i],
+                ],
+                dtype=bool,
+            )
+            if np.any(corner_land) and not np.all(corner_land):
+                corner_colors = np.stack(
+                    [
+                        colors[j, i],
+                        colors[j, i + 1],
+                        colors[j + 1, i + 1],
+                        colors[j + 1, i],
+                    ]
+                )
+                # A shoreline quad must not inherit the red shallow-water
+                # colour from whichever corner happens to be visited first.
+                c = np.mean(corner_colors[corner_land], axis=0).astype(np.float32)
+            else:
+                c = colors[j, i].astype(np.float32)
             shade = float(relief_shade[j, i])
             if land_mask[j, i]:
                 shade = np.clip(shade * 1.05, 0.48, 1.28)
@@ -1087,12 +1613,38 @@ def make_pretty_3d_from_offshore(
             points = [project(x, y, -float(level)) for x, y in line]
             if len(points) >= 2:
                 projected_contours[level].append(points)
-                draw.line(points, fill=(242, 235, 204, 205), width=4 * aa, joint="curve")
-                draw.line(points, fill=(5, 7, 10, 235), width=2 * aa, joint="curve")
+                draw.line(
+                    points,
+                    fill=(242, 235, 204, 205),
+                    width=max(1, int(np.floor(4 * internal_style + 0.5))),
+                    joint="curve",
+                )
+                draw.line(
+                    points,
+                    fill=(5, 7, 10, 235),
+                    width=max(1, int(np.floor(2 * internal_style + 0.5))),
+                    joint="curve",
+                )
 
-    projected_coast = [project(x, y, 0.0) for x, y in coast_points]
-    draw.line(projected_coast, fill=(242, 235, 204, 230), width=8 * aa, joint="curve")
-    draw.line(projected_coast, fill=(3, 3, 3, 255), width=4 * aa, joint="curve")
+    projected_coastlines = [[project(x, y, 0.0) for x, y in line] for line in coast_points]
+    if coastline_visible:
+        for projected_coast in projected_coastlines:
+            # Cover the last sub-pixel mismatch between the smooth vector
+            # coastline and the rotated raster mesh before drawing the crisp
+            # cartographic stroke. This prevents shallow red facets from
+            # peeking through on the landward side.
+            draw.line(
+                projected_coast,
+                fill=(242, 235, 204, 230),
+                width=max(1, int(np.floor(12 * internal_style + 0.5))),
+                joint="curve",
+            )
+            draw.line(
+                projected_coast,
+                fill=(3, 3, 3, 255),
+                width=max(1, int(np.floor(4 * internal_style + 0.5))),
+                joint="curve",
+            )
 
     full_output_w = int(np.floor(base_canvas_w * ui + 0.5))
     full_output_h = int(np.floor(base_canvas_h * ui + 0.5))
@@ -1111,26 +1663,34 @@ def make_pretty_3d_from_offshore(
     if crop_left or crop_right or crop_top:
         canvas = canvas.crop((crop_left, crop_top, full_output_w - crop_right, full_output_h))
     draw = ImageDraw.Draw(canvas, "RGBA")
+    if horizon_cleanup_fraction:
+        if not 0.0 <= horizon_cleanup_fraction < 0.25:
+            raise ValueError("horizon_cleanup_fraction must be between 0 and 0.25")
+        horizon_y = int(np.floor(canvas.height * horizon_cleanup_fraction + 0.5))
+        draw.rectangle((0, 0, canvas.width, horizon_y), fill=(198, 219, 228, 255))
 
     if not decorate:
-        label_font = load_font(int(np.floor(20 * ui + 0.5)), True)
+        label_font = load_font(int(np.floor(20 * style + 0.5)), True)
         occupied: list[tuple[float, float]] = []
-        for level in (5, 10, 15, 20):
+        suppressed_labels = {int(level) for level in suppressed_label_levels}
+        for level in sorted(contour_points):
+            if int(level) in suppressed_labels:
+                continue
             transformed_lines = [
                 [(x * projection_to_output - crop_left, y * projection_to_output - crop_top) for x, y in line]
                 for line in projected_contours.get(level, [])
             ]
             open_lines = []
             for line in transformed_lines:
-                center = isolated_contour_center(line, min_width=45.0 * ui, min_height=20.0 * ui)
-                is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0 * ui
+                center = isolated_contour_center(line, min_width=45.0 * style, min_height=20.0 * style)
+                is_closed = len(line) >= 2 and np.linalg.norm(np.asarray(line[0]) - np.asarray(line[-1])) < 4.0 * style
                 if is_closed:
                     placed = False
-                    if center and 55 * ui < center[0] < canvas.width - 100 * ui and 35 * ui < center[1] < canvas.height - 35 * ui:
-                        if all(np.hypot(center[0] - x, center[1] - y) > 80 * ui for x, y in occupied):
+                    if center and 55 * style < center[0] < canvas.width - 100 * style and 35 * style < center[1] < canvas.height - 35 * style:
+                        if all(np.hypot(center[0] - x, center[1] - y) > 80 * style for x, y in occupied):
                             x, y = center
                             occupied.append(center)
-                            draw.text((x - 27 * ui, y - 13 * ui), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 239, 210, 235))
+                            draw.text((x - 27 * style, y - 13 * style), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(245, 239, 210, 235))
                             placed = True
                     if placed:
                         continue
@@ -1142,15 +1702,15 @@ def make_pretty_3d_from_offshore(
                 stride = max(1, len(line) // 100)
                 for index in range(2, len(line) - 2, stride):
                     x, y = line[index]
-                    if not (55 * ui < x < canvas.width - 100 * ui and 35 * ui < y < canvas.height - 35 * ui):
+                    if not (55 * style < x < canvas.width - 100 * style and 35 * style < y < canvas.height - 35 * style):
                         continue
                     dx = line[index + 2][0] - line[index - 2][0]
                     dy = line[index + 2][1] - line[index - 2][1]
                     horizontal = abs(dx) / (abs(dx) + abs(dy) + 1e-6)
-                    edge_gap = min(x - 55 * ui, canvas.width - 100 * ui - x, y - 35 * ui, canvas.height - 35 * ui - y)
-                    separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=250.0 * ui)
+                    edge_gap = min(x - 55 * style, canvas.width - 100 * style - x, y - 35 * style, canvas.height - 35 * style - y)
+                    separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=250.0 * style)
                     focus_penalty = 0.32 * abs(x - canvas.width * 0.48)
-                    score = edge_gap + 55.0 * ui * horizontal + min(separation, 160.0 * ui) - focus_penalty
+                    score = edge_gap + 55.0 * style * horizontal + min(separation, 160.0 * style) - focus_penalty
                     if score > best_score:
                         best_score = score
                         best = (x, y)
@@ -1159,42 +1719,59 @@ def make_pretty_3d_from_offshore(
                     (x, y)
                     for line in open_lines
                     for x, y in line
-                    if 55 * ui < x < canvas.width - 100 * ui and -25 * ui < y < canvas.height + 25 * ui
+                    if 55 * style < x < canvas.width - 100 * style and -25 * style < y < canvas.height + 25 * style
                 ]
                 if near_frame:
                     x, y = min(near_frame, key=lambda point: abs(point[0] - canvas.width / 2))
-                    best = (x, float(np.clip(y, 35 * ui, canvas.height - 35 * ui)))
+                    best = (x, float(np.clip(y, 35 * style, canvas.height - 35 * style)))
             if best:
                 x, y = best
                 occupied.append(best)
-                draw.text((x + 6 * ui, y - 13 * ui), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 239, 210, 235))
+                draw.text((x + 6 * style, y - 13 * style), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(245, 239, 210, 235))
 
-        annotation_font = load_font(int(np.floor(20 * ui + 0.5)), True)
+        annotation_font = load_font(int(np.floor(20 * style + 0.5)), True)
         pixel_m = abs(gdal.Open(str(depth_path)).GetGeoTransform()[1])
         bar_px = 50.0 * zoom / step / pixel_m * ui
-        sx, sy = 55 * ui, canvas.height - 50 * ui
-        draw.line((sx, sy, sx + bar_px, sy), fill=(245, 239, 210, 245), width=max(1, int(np.floor(8 * ui + 0.5))))
-        draw.line((sx, sy, sx + bar_px, sy), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * ui + 0.5))))
-        draw.line((sx, sy - 9 * ui, sx, sy + 9 * ui), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * ui + 0.5))))
-        draw.line((sx + bar_px, sy - 9 * ui, sx + bar_px, sy + 9 * ui), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * ui + 0.5))))
-        draw.text((sx + bar_px / 2 - 24 * ui, sy - 34 * ui), "50 m", font=annotation_font, fill=(5, 7, 10, 255), stroke_width=max(1, int(np.floor(2 * ui + 0.5))), stroke_fill=(245, 239, 210, 235))
+        sx, sy = 55 * style, canvas.height - 50 * style
+        draw.line((sx, sy, sx + bar_px, sy), fill=(245, 239, 210, 245), width=max(1, int(np.floor(8 * style + 0.5))))
+        draw.line((sx, sy, sx + bar_px, sy), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * style + 0.5))))
+        draw.line((sx, sy - 9 * style, sx, sy + 9 * style), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * style + 0.5))))
+        draw.line((sx + bar_px, sy - 9 * style, sx + bar_px, sy + 9 * style), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * style + 0.5))))
+        draw.text((sx + bar_px / 2 - 24 * style, sy - 34 * style), "50 m", font=annotation_font, fill=(5, 7, 10, 255), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(245, 239, 210, 235))
 
-        # The observer is offshore: oriented-raster top is foreground/down;
-        # horizontal directions are mirrored by the view toward land.
-        cx, cy = canvas.width - 92 * ui, 84 * ui
+        # Rotate the compass rose in the image plane so an arbitrary camera
+        # bearing remains geographically exact.
+        cx, cy = canvas.width - 92 * style, 84 * style
         halo = (245, 239, 210, 240)
         ink = (5, 7, 10, 255)
-        draw.line((cx - 42 * ui, cy, cx + 42 * ui, cy), fill=halo, width=max(1, int(np.floor(8 * ui + 0.5))))
-        draw.line((cx, cy - 42 * ui, cx, cy + 42 * ui), fill=halo, width=max(1, int(np.floor(8 * ui + 0.5))))
-        draw.line((cx - 42 * ui, cy, cx + 42 * ui, cy), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
-        draw.line((cx, cy - 42 * ui, cx, cy + 42 * ui), fill=ink, width=max(1, int(np.floor(3 * ui + 0.5))))
-        draw.polygon([(cx, cy + 51 * ui), (cx - 9 * ui, cy + 34 * ui), (cx + 9 * ui, cy + 34 * ui)], fill=ink)
-        cardinals = plan_cardinals(rotation_k)
-        stroke = max(1, int(np.floor(2 * ui + 0.5)))
-        draw.text((cx, cy + 64 * ui), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-        draw.text((cx, cy - 60 * ui), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-        draw.text((cx - 60 * ui, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-        draw.text((cx + 60 * ui, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+        radius = 42 * style
+
+        def compass_point(cardinal_bearing: float, distance: float) -> tuple[float, float]:
+            angle = np.deg2rad(cardinal_bearing - bearing)
+            return cx + float(np.sin(angle)) * distance, cy - float(np.cos(angle)) * distance
+
+        north = compass_point(0.0, radius)
+        south = compass_point(180.0, radius)
+        east = compass_point(90.0, radius)
+        west = compass_point(270.0, radius)
+        for start, end in ((north, south), (east, west)):
+            draw.line((*start, *end), fill=halo, width=max(1, int(np.floor(8 * style + 0.5))))
+            draw.line((*start, *end), fill=ink, width=max(1, int(np.floor(3 * style + 0.5))))
+        north_tip = compass_point(0.0, 51 * style)
+        north_left = compass_point(-11.0, 34 * style)
+        north_right = compass_point(11.0, 34 * style)
+        draw.polygon([north_tip, north_left, north_right], fill=ink)
+        stroke = max(1, int(np.floor(2 * style + 0.5)))
+        for label, cardinal_bearing in (("N", 0.0), ("E", 90.0), ("S", 180.0), ("O", 270.0)):
+            draw.text(
+                compass_point(cardinal_bearing, 64 * style),
+                label,
+                font=annotation_font,
+                anchor="mm",
+                fill=ink,
+                stroke_width=stroke,
+                stroke_fill=halo,
+            )
 
     if decorate:
         title_font = load_font(44, True)
@@ -1224,29 +1801,32 @@ def make_pretty_3d_from_offshore(
 
         draw.text((1640, 1215), "observateur au nord, regard vers le sud", font=text_font, fill=(235, 243, 255, 235))
     if copyright_text:
-        copyright_font = load_font(int(np.floor(13 * ui + 0.5)), True)
+        copyright_font = load_font(int(np.floor(13 * style + 0.5)), True)
         draw.text(
-            (canvas.width - 16 * ui, canvas.height - 12 * ui),
+            (canvas.width - 16 * style, canvas.height - 12 * style),
             copyright_text,
             anchor="rb",
             font=copyright_font,
             fill=(245, 239, 218, 235),
-            stroke_width=max(1, int(np.floor(2 * ui + 0.5))),
+            stroke_width=max(1, int(np.floor(2 * style + 0.5))),
             stroke_fill=(5, 9, 13, 225),
         )
     if source_text:
-        source_font = load_font(int(np.floor(10 * ui + 0.5)), False)
+        source_font = load_font(int(np.floor(10 * style + 0.5)), False)
         draw.text(
-            (16 * ui, canvas.height - 12 * ui),
+            (16 * style, canvas.height - 12 * style),
             source_text,
             anchor="lb",
             font=source_font,
             fill=(245, 239, 218, 225),
-            stroke_width=max(1, int(np.floor(1.5 * ui + 0.5))),
+            stroke_width=max(1, int(np.floor(1.5 * style + 0.5))),
             stroke_fill=(5, 9, 13, 215),
         )
     output.parent.mkdir(parents=True, exist_ok=True)
-    canvas.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
+    rendered = canvas.convert("RGB")
+    if final_output_size_px is not None:
+        rendered = resize_exact_without_distortion(rendered, final_output_size_px)
+    rendered.save(output, quality=98, subsampling=0, optimize=True)
 
 
 def main() -> int:

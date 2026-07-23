@@ -1,10 +1,16 @@
 # Topo-bathymetrie des sites de plongee de La Reunion
 
-Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante 2D optionnelle remplace uniquement la terre par l'orthophoto IGN 20 cm georeferencee.
+Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante optionnelle drape l'orthophoto IGN georeferencee sur la terre et, pour les grands lagons, jusqu'a une profondeur configurable.
+
+Le standard orthophoto courant est commun a tous les sites : image opaque jusqu'a `-1 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. L'orthophoto pure est transformee en parallele du relief 3D puis reappliquee dans une bande cotiere, ce qui supprime les filets rouges produits par l'interpolation terre-mer.
+
+Les trois sites utilisent les memes dimensions finales (`2474 x 1712 px`) et un facteur `map_style_scale` commun. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches affichent les coordonnees en degres, minutes et secondes.
 
 Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, extrait les isobathes `-5`, `-10`, `-15` et `-20 m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
 
 ## Exemple : Cap La Houssaye
+
+Le Cap applique le standard orthophoto `-1/-2 m` et la palette decalee, tout en conservant sa correction locale du pont dans le modele 3D. Sa vue oblique finale utilise une inclinaison de `0,29`, une amplification nord-sud de `1,35` et place la cote a 54 % de la hauteur afin de montrer les deux pointes sans consacrer trop d'espace au fond uniforme du large.
 
 | Plan 2D | Vue 3D depuis le large |
 |---|---|
@@ -25,6 +31,22 @@ Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cell
 | Terre en orthophoto | Terre en relief topographique |
 |---|---|
 | ![Planche orthophoto du Cap La Houssaye](outputs/cap-la-houssaye-planche.jpg) | ![Planche topographique du Cap La Houssaye](outputs/cap-la-houssaye-planche-topographique.jpg) |
+
+## Exemple : Boucan Canot
+
+La configuration Boucan utilise une cote bidimensionnelle pour la piscine naturelle et une camera orientee au sud-est (`135°`). Son cadrage 3D rapproche le relief sous-marin avec une largeur visible de `580 m`, independamment de l'emprise 2D. L'orthophoto est prolongee sans rupture jusqu'a `-1 m`, puis fondue progressivement jusqu'a `-2 m` afin d'eviter les artefacts du masque terrestre autour de la piscine.
+
+| Terre en orthophoto | Terre en relief topographique |
+|---|---|
+| ![Planche orthophoto de Boucan Canot](outputs/boucan-canot-planche.jpg) | ![Planche topographique de Boucan Canot](outputs/boucan-canot-planche-topographique.jpg) |
+
+## Exemple : Passe de l'Hermitage
+
+La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` vers l'est et `240 m` vers le nord, avec une largeur visible de `650 m` et la cote placee a 26 % de la hauteur pour garder la passe au coeur du cadrage sans donner trop de place au large. L'orthophoto reste opaque jusqu'a `-1 m`, puis disparait progressivement a `-2 m`, avec une limite bathymetrique lissee sur 5 m. Le trait de cote est masque sur la variante orthophoto et le premier plan conserve les isobathes au-dela de `-20 m`.
+
+| Terre et lagon en orthophoto | Relief topographique et bathymetrique |
+|---|---|
+| ![Planche orthophoto de la Passe de l'Hermitage](outputs/passe-hermitage-planche.jpg) | ![Planche topographique de la Passe de l'Hermitage](outputs/passe-hermitage-planche-topographique.jpg) |
 
 ## Installation sur macOS
 
@@ -58,7 +80,7 @@ L'option `--land-style orthophoto` ou `--land-style topography` permet de ne reg
 
 ## Reutilisation
 
-Pour ajouter un site, copier `sites/cap-la-houssaye.json`, puis modifier le secteur HYSCORES, les emprises UTM 40S, l'orientation de la cote et les parametres de camera. Le moteur prend en charge les quatre orientations cardinales et recalcule automatiquement les compas 2D et 3D.
+Pour ajouter un site, copier une configuration de `sites/`, puis modifier le secteur HYSCORES, les emprises UTM 40S, le traitement de la cote et les parametres de camera. Le plan 2D reste toujours nord en haut; la vue 3D accepte un azimut arbitraire et son compas est recalcule automatiquement. `sites/boucan-canot.json` montre comment traiter une cote non monotone; `sites/passe-hermitage.json` documente le cas d'un grand lagon et d'une vue oblique tournee a `45°`.
 
 Le processus complet, les sources, chaque parametre et les controles qualite sont documentes dans [WORKFLOW.md](WORKFLOW.md).
 

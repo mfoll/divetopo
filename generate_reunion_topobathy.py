@@ -286,7 +286,11 @@ def acquire(config: dict, paths: dict[str, Path], refresh: bool) -> None:
     if refresh or not paths["context_depth"].exists():
         positive_depth(paths["context_depth_raw"], paths["context_depth"])
     if refresh or not paths["context_elevation"].exists():
-        download_rge_alti(context, float(config.get("topography_resolution_m", 0.5)), paths["context_elevation"])
+        download_rge_alti(
+            context,
+            float(config.get("context_topography_resolution_m", config.get("topography_resolution_m", 0.5))),
+            paths["context_elevation"],
+        )
     if refresh or not paths["focus_depth"].exists():
         crop_raster(paths["context_depth"], focus, paths["focus_depth"])
     if refresh or not paths["focus_elevation"].exists():
@@ -328,6 +332,7 @@ def acquire(config: dict, paths: dict[str, Path], refresh: bool) -> None:
 def render(config: dict, paths: dict[str, Path]) -> None:
     title = str(config["title"])
     rotation_k = int(config.get("rotation_k", 0))
+    plan_rotation_k = 0
     author = str(config.get("plate_author", "")).strip()
     copyright_year = int(config.get("copyright_year", 2026))
     map_license = str(config.get("map_license", "")).strip()
@@ -339,6 +344,8 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         "incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
     )
     orthophoto_sources = detailed_sources + " · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+    focus_extent = bbox(config, "focus_bbox_utm40s")
+    focus_width_m = focus_extent[2] - focus_extent[0]
     for key in ("context_depth", "context_elevation", "focus_depth", "focus_elevation"):
         if not paths[key].exists():
             raise FileNotFoundError(f"Missing {paths[key]}; run without --render-only first")
@@ -366,11 +373,21 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         paths["output_2d"],
         title,
         max_depth=float(config.get("max_depth_m", 20)),
-        rotation_k=rotation_k,
-        output_scale=float(config.get("output_scale", 1.0)),
+        rotation_k=plan_rotation_k,
+        coast_mode=str(config.get("coast_mode", "profile")),
+        output_scale=float(config.get("plan_output_scale", config.get("output_scale", 1.0))),
         copyright_text=copyright_text,
         source_text=detailed_sources,
         open_label_offsets_px=config.get("plan_open_label_offsets_px"),
+        final_output_size_px=config.get("final_output_size_px"),
+        land_sieve_threshold_px=int(config.get("land_sieve_threshold_px", 200)),
+        imagery_sea_depth_m=config.get("imagery_sea_depth_m"),
+        imagery_sea_feather_m=float(config.get("imagery_sea_feather_m", 0.6)),
+        imagery_sea_smoothing_m=float(config.get("imagery_sea_smoothing_m", 0.0)),
+        imagery_sea_full_depth_m=config.get("imagery_sea_full_depth_m"),
+        imagery_sea_max_depth_m=config.get("imagery_sea_max_depth_m"),
+        coastline_visible=bool(config.get("coastline_visible", True)),
+        final_style_scale=float(config.get("map_style_scale", 2.0)),
     )
     if config.get("orthophoto_enabled", False):
         if not paths["focus_orthophoto"].exists():
@@ -382,12 +399,22 @@ def render(config: dict, paths: dict[str, Path]) -> None:
             paths["output_2d_ortho"],
             title,
             max_depth=float(config.get("max_depth_m", 20)),
-            rotation_k=rotation_k,
-            output_scale=float(config.get("output_scale", 1.0)),
+            rotation_k=plan_rotation_k,
+            coast_mode=str(config.get("coast_mode", "profile")),
+            output_scale=float(config.get("plan_output_scale", config.get("output_scale", 1.0))),
             land_imagery_path=paths["focus_orthophoto"],
             copyright_text=copyright_text,
             source_text=orthophoto_sources,
             open_label_offsets_px=config.get("plan_open_label_offsets_px"),
+            final_output_size_px=config.get("final_output_size_px"),
+            land_sieve_threshold_px=int(config.get("land_sieve_threshold_px", 200)),
+            imagery_sea_depth_m=config.get("imagery_sea_depth_m"),
+            imagery_sea_feather_m=float(config.get("imagery_sea_feather_m", 0.6)),
+            imagery_sea_smoothing_m=float(config.get("imagery_sea_smoothing_m", 0.0)),
+            imagery_sea_full_depth_m=config.get("imagery_sea_full_depth_m"),
+            imagery_sea_max_depth_m=config.get("imagery_sea_max_depth_m"),
+            coastline_visible=bool(config.get("orthophoto_coastline_visible", False)),
+            final_style_scale=float(config.get("map_style_scale", 2.0)),
         )
     make_pretty_3d_from_offshore(
         paths["context_depth"],
@@ -398,6 +425,13 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         max_depth=float(config.get("max_depth_m", 20)),
         decorate=False,
         rotation_k=rotation_k,
+        coast_mode=str(config.get("coast_mode", "profile")),
+        view_bearing_deg=config.get("view_bearing_deg"),
+        view_crop_width_m=config.get("view_crop_width_m"),
+        view_crop_depth_m=config.get("view_crop_depth_m"),
+        target_visible_width_m=float(config.get("view_visible_width_m", focus_width_m)),
+        canvas_width_px=int(config.get("view_canvas_width_px", 1455)),
+        canvas_height_px=int(config.get("view_canvas_height_px", 1069)),
         camera_tilt=float(config.get("camera_tilt", 0.34)),
         north_south_projection_scale=float(config.get("north_south_projection_scale", 1.0)),
         horizontal_crop_fraction=float(config.get("horizontal_crop_fraction", 0.0)),
@@ -406,10 +440,24 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         south_crop_fraction=float(config.get("south_crop_fraction", 0.0)),
         coast_frame_fraction=float(config.get("coast_frame_fraction", 0.44)),
         vertical_exaggeration=float(config.get("vertical_exaggeration", 7.6)),
-        output_scale=float(config.get("output_scale", 1.0)),
+        output_scale=float(config.get("relief_output_scale", config.get("output_scale", 1.0))),
         bridge_decks=config.get("bridge_decks"),
         copyright_text=copyright_text,
         source_text=detailed_sources,
+        final_output_size_px=config.get("final_output_size_px"),
+        suppressed_label_levels=config.get("relief_suppressed_label_levels", []),
+        land_sieve_threshold_px=int(config.get("land_sieve_threshold_px", 200)),
+        horizon_cleanup_fraction=float(config.get("horizon_cleanup_fraction", 0.0)),
+        imagery_sea_depth_m=config.get("imagery_sea_depth_m"),
+        imagery_sea_feather_m=float(config.get("imagery_sea_feather_m", 0.6)),
+        imagery_sea_smoothing_m=float(config.get("imagery_sea_smoothing_m", 0.0)),
+        clip_rotated_outside=bool(config.get("clip_rotated_outside", False)),
+        imagery_sea_full_depth_m=config.get("imagery_sea_full_depth_m"),
+        imagery_sea_max_depth_m=config.get("imagery_sea_max_depth_m"),
+        view_center_offset_east_m=float(config.get("view_center_offset_east_m", 0.0)),
+        view_center_offset_north_m=float(config.get("view_center_offset_north_m", 0.0)),
+        coastline_visible=bool(config.get("coastline_visible", True)),
+        final_style_scale=float(config.get("map_style_scale", 2.0)),
     )
     if config.get("orthophoto_enabled", False):
         if not paths["context_orthophoto"].exists():
@@ -423,6 +471,13 @@ def render(config: dict, paths: dict[str, Path]) -> None:
             max_depth=float(config.get("max_depth_m", 20)),
             decorate=False,
             rotation_k=rotation_k,
+            coast_mode=str(config.get("coast_mode", "profile")),
+            view_bearing_deg=config.get("view_bearing_deg"),
+            view_crop_width_m=config.get("view_crop_width_m"),
+            view_crop_depth_m=config.get("view_crop_depth_m"),
+            target_visible_width_m=float(config.get("view_visible_width_m", focus_width_m)),
+            canvas_width_px=int(config.get("view_canvas_width_px", 1455)),
+            canvas_height_px=int(config.get("view_canvas_height_px", 1069)),
             camera_tilt=float(config.get("camera_tilt", 0.34)),
             north_south_projection_scale=float(config.get("north_south_projection_scale", 1.0)),
             horizontal_crop_fraction=float(config.get("horizontal_crop_fraction", 0.0)),
@@ -431,11 +486,25 @@ def render(config: dict, paths: dict[str, Path]) -> None:
             south_crop_fraction=float(config.get("south_crop_fraction", 0.0)),
             coast_frame_fraction=float(config.get("coast_frame_fraction", 0.44)),
             vertical_exaggeration=float(config.get("vertical_exaggeration", 7.6)),
-            output_scale=float(config.get("output_scale", 1.0)),
+            output_scale=float(config.get("relief_output_scale", config.get("output_scale", 1.0))),
             land_imagery_path=paths["context_orthophoto"],
             bridge_decks=config.get("bridge_decks"),
             copyright_text=copyright_text,
             source_text=orthophoto_sources,
+            final_output_size_px=config.get("final_output_size_px"),
+            suppressed_label_levels=config.get("relief_suppressed_label_levels", []),
+            land_sieve_threshold_px=int(config.get("land_sieve_threshold_px", 200)),
+            horizon_cleanup_fraction=float(config.get("horizon_cleanup_fraction", 0.0)),
+            imagery_sea_depth_m=config.get("imagery_sea_depth_m"),
+            imagery_sea_feather_m=float(config.get("imagery_sea_feather_m", 0.6)),
+            imagery_sea_smoothing_m=float(config.get("imagery_sea_smoothing_m", 0.0)),
+            clip_rotated_outside=bool(config.get("clip_rotated_outside", False)),
+            imagery_sea_full_depth_m=config.get("imagery_sea_full_depth_m"),
+            imagery_sea_max_depth_m=config.get("imagery_sea_max_depth_m"),
+            view_center_offset_east_m=float(config.get("view_center_offset_east_m", 0.0)),
+            view_center_offset_north_m=float(config.get("view_center_offset_north_m", 0.0)),
+            coastline_visible=bool(config.get("orthophoto_coastline_visible", False)),
+            final_style_scale=float(config.get("map_style_scale", 2.0)),
         )
 
 

@@ -33,6 +33,16 @@ def marker_wgs84(marker: list[float]) -> tuple[float, float]:
     return latitude, longitude
 
 
+def format_dms(value: float, positive: str, negative: str) -> str:
+    absolute = abs(value)
+    degrees = int(absolute)
+    minute_value = (absolute - degrees) * 60.0
+    minutes = int(minute_value)
+    seconds = (minute_value - minutes) * 60.0
+    direction = negative if value < 0 else positive
+    return f'{degrees}° {minutes:02d}\' {seconds:04.1f}" {direction}'
+
+
 def resized_width(image: Image.Image, width: int) -> Image.Image:
     height = round(width * image.height / image.width)
     return image.resize((width, height), Image.Resampling.LANCZOS)
@@ -56,7 +66,8 @@ def compose(config: dict, land_style: str) -> Path:
     relief = Image.open(project_path(paths[relief_key])).convert("RGB")
     locator = Image.open(project_path(paths["output_locator"])).convert("RGB")
 
-    canvas_width, canvas_height = 5400, 3250
+    canvas_width = int(config.get("plate_canvas_width_px", 5400))
+    canvas_height = int(config.get("plate_canvas_height_px", 3250))
     canvas = Image.new("RGBA", (canvas_width, canvas_height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(canvas, "RGBA")
     title_color = (24, 31, 35, 255)
@@ -67,8 +78,8 @@ def compose(config: dict, land_style: str) -> Path:
     if len(title_lines) == 1:
         title_lines.append("La Réunion")
     latitude, longitude = marker_wgs84(config["locator_marker_utm40s"])
-    latitude_text = f"{abs(latitude):.5f}° {'S' if latitude < 0 else 'N'}"
-    longitude_text = f"{abs(longitude):.5f}° {'O' if longitude < 0 else 'E'}"
+    latitude_text = format_dms(latitude, "N", "S")
+    longitude_text = format_dms(longitude, "E", "O")
 
     title_face = font(TEXT_FONT, 280, index=8)
     place_face = font(TEXT_FONT, 112, index=2)
