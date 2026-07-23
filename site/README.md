@@ -28,7 +28,9 @@ sorties canoniques du dépôt :
 ```
 
 Les reliefs interactifs partagent une seule géométrie par site. Le bouton
-Topographie / Orthophoto change uniquement la texture :
+Topographie / Orthophoto change uniquement la texture. La caméra initiale
+reprend l’azimut de la perspective imprimable et se place à l’opposé, côté
+large ; la rotation horizontale reste libre sur 360° :
 
 ```bash
 ../.venv/bin/python ../export_web_terrain.py

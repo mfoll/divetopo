@@ -19,6 +19,12 @@ type TerrainMetadata = {
     validMaskFile: string;
   };
   verticalExaggeration: number;
+  view: {
+    lookBearingDeg: number;
+    gridLookBearingDeg: number;
+    cameraTilt: number;
+    alongViewProjectionScale: number;
+  };
   textures: {
     topographic: { file: string };
     orthophoto: { file: string };
@@ -175,7 +181,20 @@ export default function TerrainViewer({
         metadata.physicalSizeM.depth,
       );
       const verticalCenter = (minY + maxY) / 2;
-      camera.position.set(span * 0.65, span * 1.05, span * 0.72);
+      const targetY = verticalCenter * 0.32;
+      const viewBearing = THREE.MathUtils.degToRad(
+        metadata.view.gridLookBearingDeg,
+      );
+      const offshoreDistance = span * 1.35;
+      const cameraHeight =
+        offshoreDistance *
+        metadata.view.cameraTilt *
+        metadata.view.alongViewProjectionScale;
+      camera.position.set(
+        -Math.sin(viewBearing) * offshoreDistance,
+        targetY + cameraHeight,
+        Math.cos(viewBearing) * offshoreDistance,
+      );
       cameraRef.current = camera;
 
       const renderer = new THREE.WebGLRenderer({
@@ -188,22 +207,19 @@ export default function TerrainViewer({
       rendererRef.current = renderer;
 
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.target.set(0, verticalCenter * 0.32, 0);
+      controls.target.set(0, targetY, 0);
       controls.cursor.copy(controls.target);
       controls.enableDamping = false;
       controls.screenSpacePanning = true;
       controls.minDistance = span * 0.22;
       controls.maxDistance = span * 2.4;
-      controls.maxTargetRadius = span * 0.28;
-      // The exported terrain is an open heightfield, not a closed solid. Keep
-      // its orbit inside the useful oblique arc so the sheet cannot collapse
-      // into a misleading foreground ribbon when viewed almost edge-on.
-      controls.minPolarAngle = Math.PI * 0.16;
-      controls.maxPolarAngle = Math.PI * 0.26;
+      controls.maxTargetRadius = span * 0.5;
+      // Match the printable 3D perspective: start offshore and face the reef.
+      // Keep only the under-surface angles out of reach; horizontal rotation
+      // remains completely free.
+      controls.minPolarAngle = Math.PI * 0.12;
+      controls.maxPolarAngle = Math.PI * 0.4;
       controls.update();
-      const initialAzimuth = controls.getAzimuthalAngle();
-      controls.minAzimuthAngle = initialAzimuth - Math.PI * 0.18;
-      controls.maxAzimuthAngle = initialAzimuth + Math.PI * 0.18;
       controlsRef.current = controls;
       initialViewRef.current = {
         position: camera.position.clone(),

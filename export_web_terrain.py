@@ -16,6 +16,7 @@ from render_fused_relief import (
     apply_bridge_decks,
     blend_texture,
     build_fused_surface,
+    default_view_bearing,
     hillshade,
     imagery_alpha_across_shore,
     imagery_depth_alpha,
@@ -362,6 +363,9 @@ def export_site(
     west, east = sorted((raster_west, raster_east))
     south, north = sorted((raster_south, raster_north))
     rotation_k = int(config.get("rotation_k", 0)) % 4
+    view_bearing_deg = float(
+        config.get("view_bearing_deg", default_view_bearing(rotation_k))
+    ) % 360.0
     physical_width = east - west
     physical_depth = north - south
     if rotation_k % 2:
@@ -426,6 +430,16 @@ def export_site(
         "verticalExaggeration": float(
             config.get("vertical_exaggeration", DEFAULT_VERTICAL_EXAGGERATION)
         ),
+        "view": {
+            "lookBearingDeg": view_bearing_deg,
+            "gridLookBearingDeg": (
+                view_bearing_deg - 90.0 * rotation_k
+            ) % 360.0,
+            "cameraTilt": float(config.get("camera_tilt", 0.34)),
+            "alongViewProjectionScale": float(
+                config.get("along_view_projection_scale", 1.0)
+            ),
+        },
         "textures": {
             "width": texture_size[0],
             "height": texture_size[1],

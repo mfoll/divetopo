@@ -66,8 +66,10 @@ npm test
 ```
 
 Chaque relief interactif utilise une geometrie compacte commune aux deux styles.
-Le bouton Topographie / Orthophoto ne remplace que sa texture. Les GeoTIFF
-sources restent dans le cache local et ne sont jamais publies.
+Le bouton Topographie / Orthophoto ne remplace que sa texture. La camera
+initiale reprend l'azimut de la vue 3D imprimee et se place a l'oppose, cote
+large ; la rotation horizontale est libre sur 360 degres. Les GeoTIFF sources
+restent dans le cache local et ne sont jamais publies.
 
 ## Installation sur macOS
 

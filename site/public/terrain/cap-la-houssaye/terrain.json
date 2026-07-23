@@ -47,6 +47,12 @@
   },
   "heightValues": "physical metres before vertical exaggeration",
   "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 180.0,
+    "gridLookBearingDeg": 180.0,
+    "cameraTilt": 0.29,
+    "alongViewProjectionScale": 1.35
+  },
   "textures": {
     "width": 1237,
     "height": 856,
