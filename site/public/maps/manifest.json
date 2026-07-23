@@ -1,0 +1,552 @@
+{
+  "schemaVersion": 1,
+  "mapWidths": [
+    960,
+    1600,
+    2474
+  ],
+  "locatorWidth": 640,
+  "planchePreviewWidth": 1800,
+  "sites": [
+    {
+      "slug": "cap-la-houssaye",
+      "title": "Cap La Houssaye - zone elargie ouest",
+      "plateTitle": "Cap La Houssaye, La Réunion",
+      "config": "sites/cap-la-houssaye.json",
+      "verticalExaggeration": 3.9935327405,
+      "locator": {
+        "src": "/maps/cap-la-houssaye/locator-640.webp",
+        "width": 640,
+        "height": 537,
+        "bytes": 52718,
+        "sha256": "193264301f6df1281f1d9205f90a94d27cbd95187845b53cbeead03b64e09149"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cap-la-houssaye/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 60638,
+              "sha256": "4e000adec1ca64e1993d5ef94c74e7e86cdea2354b8ba2be98023aa4219b2968"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 122996,
+              "sha256": "0f760ad85c6b1c8c17a8f77d0b35f8142dbabb6455eb5b7306b6844c0e2f65fc"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 223242,
+              "sha256": "13ba62e8ad6a1964c616cb160364a7bb0af4462c8c256c025dace1375cc0c410"
+            }
+          ]
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cap-la-houssaye/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 124366,
+              "sha256": "fc3c3b501eeec0e220e58b9d7d757d23915f49ca7802336ad9a083eb65f5e235"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 264504,
+              "sha256": "332773cad7919323c718cdb4da831b4aa959fd99c88a84d657a30acf75a01ccc"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 459882,
+              "sha256": "2cccaa4a4b55168f4f933eccacb450c069a333071f960f1aa8d9dcd251000ceb"
+            }
+          ]
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cap-la-houssaye/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 54726,
+              "sha256": "61eeb0f30f8066910c72a18d0154a815b1db91cf1c0ed64795356ad73be12662"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 113548,
+              "sha256": "67f835f654db690c5be93b16a1a4227a3ab6084e6c7339952bfbae3dc987cedc"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 214594,
+              "sha256": "d60836aaf21ea36e1cecbfdf02bf61aa1a142d7e46e0186adcfe52912adee3a4"
+            }
+          ]
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cap-la-houssaye/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 118434,
+              "sha256": "9440e4dafaa05080a1296e247396c0e42b161c8b31039ea321c09545157bd053"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 240830,
+              "sha256": "0ccc214f0714a70836e93a886ade0a7926ff4dd017d273b0c91946d9dcaa1dec"
+            },
+            {
+              "src": "/maps/cap-la-houssaye/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 473140,
+              "sha256": "b2aee8f7794aba35b8c50c475f8c5b3254186b75c31ea5bc2b3a3a457d836736"
+            }
+          ]
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cap-la-houssaye/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 163654,
+            "sha256": "98de9689e7accc6943797358e70fd531f85da60804820d9353b1a5ac15b794d4"
+          },
+          "download": {
+            "src": "/maps/cap-la-houssaye/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5186635,
+            "sha256": "6bff6a46898245e1c7cb4a67ba4bdfc5b645dc633c83c2fe898ffb8c7a007594",
+            "filename": "cap-la-houssaye-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cap-la-houssaye/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 277180,
+            "sha256": "0cf5452df0ba117f628aa8dab905e36084f31bfd7be2910c22c1eff0705ce824"
+          },
+          "download": {
+            "src": "/maps/cap-la-houssaye/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 6768504,
+            "sha256": "533172b187d36ca6f65002e20290b66440ba441462a81365aba6e4cc36869049",
+            "filename": "cap-la-houssaye-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "boucan-canot",
+      "title": "Boucan Canot - Piscine naturelle",
+      "plateTitle": "Boucan Canot, La Réunion",
+      "config": "sites/boucan-canot.json",
+      "verticalExaggeration": 3.9935327405,
+      "locator": {
+        "src": "/maps/boucan-canot/locator-640.webp",
+        "width": 640,
+        "height": 537,
+        "bytes": 52774,
+        "sha256": "44078760308daa3ab24e90cbb5cb9bf641f52f90561eceb7a86f3910d1be024f"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/boucan-canot/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 74860,
+              "sha256": "63aa46624635aeecfbafc7a4b8fb0fe72a923350d68cc10c882dece5596a8a84"
+            },
+            {
+              "src": "/maps/boucan-canot/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 150034,
+              "sha256": "91791bb748feb962b4de2b5bc11a56c7c17983c29c55ed5c371680f7cc8abeac"
+            },
+            {
+              "src": "/maps/boucan-canot/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 276016,
+              "sha256": "0feb7636c273574f827e6ee5e16a7c48bc686788df478f99108adb941cbd6e0d"
+            }
+          ]
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/boucan-canot/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 126018,
+              "sha256": "ce2170962cc548e26ab01d110fa6db93741390e6aac15345bad10b1a51c9279f"
+            },
+            {
+              "src": "/maps/boucan-canot/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 285868,
+              "sha256": "8bee30ae96f7a5898cff17296f112b6d8bc74edb48b6d2f714a2a77c9022af91"
+            },
+            {
+              "src": "/maps/boucan-canot/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 533954,
+              "sha256": "aefbe897aad56ce8261106df169357f6ad39d3c24ae557e1049c250e9488f476"
+            }
+          ]
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/boucan-canot/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 58326,
+              "sha256": "22899d8fb343203477b31568126bf87b80ef2ae41a78587f327858d045f349e6"
+            },
+            {
+              "src": "/maps/boucan-canot/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 121538,
+              "sha256": "a852232eb76b35543d428e580d9ab3fc3a709a6496b4dd956f8c9330254b891e"
+            },
+            {
+              "src": "/maps/boucan-canot/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 225310,
+              "sha256": "e839e08ee3953e708ad9fafa155f32fe7ac6f58ef3ccd14c0a440bf942f20bec"
+            }
+          ]
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/boucan-canot/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 148016,
+              "sha256": "8c6af556885b3e96f0055f25727dda6164210518cd25f434853d6ca0c264866c"
+            },
+            {
+              "src": "/maps/boucan-canot/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 303872,
+              "sha256": "f96cf7e3c5bdccb36727fab39114b8ed7133aeeae84393fe7a85adbd672dc79f"
+            },
+            {
+              "src": "/maps/boucan-canot/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 558962,
+              "sha256": "b0918b506b02bd8ed8799ea861592944bb41d98e9388afe8b235e4262bea7799"
+            }
+          ]
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/boucan-canot/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 179626,
+            "sha256": "09a202b301f5d8592b8b46774b061a47a0210ea5231d8c60b20de980290fd6fa"
+          },
+          "download": {
+            "src": "/maps/boucan-canot/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5305735,
+            "sha256": "7ef396263bdf6019741a3bbeed0437464ab51152e08fb60aaa6df71e720c2aab",
+            "filename": "boucan-canot-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/boucan-canot/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 299590,
+            "sha256": "98815b3db263e004123c9d99d5e0f459a22a0469b72458b19fd33c35bcff58dd"
+          },
+          "download": {
+            "src": "/maps/boucan-canot/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 7103090,
+            "sha256": "9f534c0818e4a7ed82b6237f6d537cf665655d7fcea4eb94ddc27a739185ba63",
+            "filename": "boucan-canot-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "passe-hermitage",
+      "title": "Passe de l'Hermitage",
+      "plateTitle": "Passe de l'Hermitage, La Réunion",
+      "config": "sites/passe-hermitage.json",
+      "verticalExaggeration": 3.9935327405,
+      "locator": {
+        "src": "/maps/passe-hermitage/locator-640.webp",
+        "width": 640,
+        "height": 537,
+        "bytes": 53000,
+        "sha256": "0e06f6399c5cea94db7baa87fce3100d37dc1ddb0758dbcff7791f28544ae08e"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/passe-hermitage/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 70008,
+              "sha256": "b19d22cbe6362cf484b9d33ae3b2ef72519af670c9b3e3f1e49a302146ec594a"
+            },
+            {
+              "src": "/maps/passe-hermitage/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 143904,
+              "sha256": "5ccb7f7b066dcc1c2e66381626cc5fa88f4714e6804cd70a7508ace344a29eb5"
+            },
+            {
+              "src": "/maps/passe-hermitage/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 263728,
+              "sha256": "8cb054c17d96d20b66204ab799677be0cf388d423c9a98801cf7378dc1194b60"
+            }
+          ]
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/passe-hermitage/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 159576,
+              "sha256": "2425fe680698a06a79d72a809f1691566e2a8da4063092e28f6c9aa4be7edbb2"
+            },
+            {
+              "src": "/maps/passe-hermitage/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 389548,
+              "sha256": "5b9c5a62f1985037447af5706726affbeb4719b9921dd059e7fc343b75b0906b"
+            },
+            {
+              "src": "/maps/passe-hermitage/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 781208,
+              "sha256": "97c9e2af5a610e2587b8d7585b962250bc5219697454ceb00e191dafaafc3d0f"
+            }
+          ]
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/passe-hermitage/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 64710,
+              "sha256": "0e2ad1a5b0bd562b16caf8619b029ecfcde0cc45950a0d06c414d6abe75ccd35"
+            },
+            {
+              "src": "/maps/passe-hermitage/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 136064,
+              "sha256": "41e4379482aedc33ecb022b0ef7500bfc7fcb19a056a7e9eceb2369252898210"
+            },
+            {
+              "src": "/maps/passe-hermitage/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 243116,
+              "sha256": "90ed4033268712a83feb52bf09b007f69f36ab002eb689b1aacadc64d5ef6afd"
+            }
+          ]
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/passe-hermitage/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 117136,
+              "sha256": "ad1c9127c9e9e6093096cc63ff21e776d26cbd6c7ba5b75373c6bd9852d9f913"
+            },
+            {
+              "src": "/maps/passe-hermitage/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 247728,
+              "sha256": "2e11300c9a9131916476421d6dbb2fa457c58cd5d1e426b787dabb548dde525e"
+            },
+            {
+              "src": "/maps/passe-hermitage/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 440602,
+              "sha256": "12fe5addd303b733ec6a2c2514f1501dccd601a09f55b8f33406a4f3f27e4e30"
+            }
+          ]
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/passe-hermitage/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 179868,
+            "sha256": "6df92aa228b1ed897f5d642c7156d845184ff6ae93a11624f534d40abc46e02f"
+          },
+          "download": {
+            "src": "/maps/passe-hermitage/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5149135,
+            "sha256": "5d768229f66a85c4e1a34ef52ef555c10c83f10048aeebf2e7ba6ec73dfa4789",
+            "filename": "passe-hermitage-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/passe-hermitage/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 297954,
+            "sha256": "5cc0549b9a30bea6886797db737fa7b0a21aac55f743f4dd6e03c8d51206239c"
+          },
+          "download": {
+            "src": "/maps/passe-hermitage/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 7362370,
+            "sha256": "a42cc5d72b516de9f4505c6e7c3d48e2b883029ae7a0b665160676108878f9f0",
+            "filename": "passe-hermitage-planche.jpg"
+          }
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "assetFiles": 51,
+    "webOptimizedBytes": 9947366,
+    "downloadBytes": 36875469,
+    "totalBytes": 46822835
+  }
+}

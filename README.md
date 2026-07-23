@@ -48,6 +48,27 @@ La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` ve
 |---|---|
 | ![Planche orthophoto de la Passe de l'Hermitage](outputs/passe-hermitage-planche.jpg) | ![Planche topographique de la Passe de l'Hermitage](outputs/passe-hermitage-planche-topographique.jpg) |
 
+## Atlas web
+
+Le site `Reliefs de l'Ouest` se trouve dans `site/`. Il presente les rendus
+responsifs, conserve un seul visuel actif lorsque le fond topographique ou
+l'orthophoto change, propose les planches HD au telechargement et ajoute un
+relief interactif par site avec rotation, zoom, deplacement et remise a zero de
+la camera.
+
+Les ressources web restent des derives reproductibles des memes configurations :
+
+```bash
+cd site
+../.venv/bin/python scripts/build_map_assets.py
+../.venv/bin/python ../export_web_terrain.py
+npm test
+```
+
+Chaque relief interactif utilise une geometrie compacte commune aux deux styles.
+Le bouton Topographie / Orthophoto ne remplace que sa texture. Les GeoTIFF
+sources restent dans le cache local et ne sont jamais publies.
+
 ## Installation sur macOS
 
 Homebrew est requis. Le script installe Python et GDAL, puis cree un environnement local :

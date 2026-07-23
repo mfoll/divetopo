@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "sites": [
+    {
+      "slug": "boucan-canot",
+      "title": "Boucan Canot, La Réunion",
+      "metadata": "boucan-canot/terrain.json"
+    },
+    {
+      "slug": "cap-la-houssaye",
+      "title": "Cap La Houssaye, La Réunion",
+      "metadata": "cap-la-houssaye/terrain.json"
+    },
+    {
+      "slug": "passe-hermitage",
+      "title": "Passe de l'Hermitage, La Réunion",
+      "metadata": "passe-hermitage/terrain.json"
+    }
+  ]
+}
