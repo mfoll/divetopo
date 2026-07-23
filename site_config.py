@@ -9,7 +9,7 @@ from typing import Any, Mapping, Sequence
 
 ROOT = Path(__file__).resolve().parent
 DEFAULT_CACHE = ROOT / ".tmp" / "bathy-renders"
-DEFAULT_VERTICAL_EXAGGERATION = 3.04
+DEFAULT_VERTICAL_EXAGGERATION = 3.9935327405
 
 _SLUG_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 

@@ -55,7 +55,7 @@
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
   "coast_frame_fraction": 0.44,
-  "vertical_exaggeration": 3.04,
+  "vertical_exaggeration": 3.9935327405,
   "clip_rotated_outside": true,
   "paths": {
     "focus_depth": ".tmp/bathy-renders/boucan-canot-focus-south20-east20-depth-positive.tif",

@@ -5,7 +5,13 @@ import json
 import unittest
 from pathlib import Path
 
-from site_config import DEFAULT_CACHE, ROOT, paths_for, validate_config
+from site_config import (
+    DEFAULT_CACHE,
+    DEFAULT_VERTICAL_EXAGGERATION,
+    ROOT,
+    paths_for,
+    validate_config,
+)
 
 
 SITES = ROOT / "sites"
@@ -37,6 +43,14 @@ class SiteConfigTests(unittest.TestCase):
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
                 validate_config(config)
+
+    def test_reference_sites_share_the_default_vertical_exaggeration(self) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                self.assertEqual(
+                    config["vertical_exaggeration"],
+                    DEFAULT_VERTICAL_EXAGGERATION,
+                )
 
     def test_invalid_bbox_is_rejected(self) -> None:
         config = copy.deepcopy(self.configs[0])
