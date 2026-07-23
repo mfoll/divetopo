@@ -1,16 +1,16 @@
 # Topo-bathymetrie des sites de plongee de La Reunion
 
-Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante optionnelle drape l'orthophoto IGN georeferencee sur la terre et, pour les grands lagons, jusqu'a une profondeur configurable.
+Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante optionnelle drape l'orthophoto IGN georeferencee sur la terre et, pour les grands lagons, jusqu'a une profondeur configurable. Chaque site porte ses propres emprises, dates de prise de vue et references de sources dans un fichier JSON.
 
-Le standard orthophoto courant est commun a tous les sites : image opaque jusqu'a `-1 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. L'orthophoto pure est transformee en parallele du relief 3D puis reappliquee dans une bande cotiere, ce qui supprime les filets rouges produits par l'interpolation terre-mer.
+Le standard orthophoto courant est commun aux trois sites de reference : image opaque jusqu'a `-1 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
 
 Les trois sites utilisent les memes dimensions finales (`2474 x 1712 px`) et un facteur `map_style_scale` commun. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches affichent les coordonnees en degres, minutes et secondes.
 
-Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, extrait les isobathes `-5`, `-10`, `-15` et `-20 m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
+Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, conserve les lacunes comme donnees absentes, extrait les isobathes tous les 5 m jusqu'a `max_depth_m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
 
 ## Exemple : Cap La Houssaye
 
-Le Cap applique le standard orthophoto `-1/-2 m` et la palette decalee, tout en conservant sa correction locale du pont dans le modele 3D. Sa vue oblique finale utilise une inclinaison de `0,29`, une amplification nord-sud de `1,35` et place la cote a 54 % de la hauteur afin de montrer les deux pointes sans consacrer trop d'espace au fond uniforme du large.
+Le Cap applique le standard orthophoto `-1/-2 m` et la palette decalee, tout en conservant sa correction locale du pont dans le modele 3D. Sa vue oblique finale utilise une inclinaison de `0,29`, une amplification dans l'axe de vue de `1,35` et place la cote a 54 % de la hauteur afin de montrer les deux pointes sans consacrer trop d'espace au fond uniforme du large.
 
 | Plan 2D | Vue 3D depuis le large |
 |---|---|
@@ -42,7 +42,7 @@ La configuration Boucan utilise une cote bidimensionnelle pour la piscine nature
 
 ## Exemple : Passe de l'Hermitage
 
-La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` vers l'est et `240 m` vers le nord, avec une largeur visible de `650 m` et la cote placee a 26 % de la hauteur pour garder la passe au coeur du cadrage sans donner trop de place au large. L'orthophoto reste opaque jusqu'a `-1 m`, puis disparait progressivement a `-2 m`, avec une limite bathymetrique lissee sur 5 m. Le trait de cote est masque sur la variante orthophoto et le premier plan conserve les isobathes au-dela de `-20 m`.
+La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` vers l'est et `240 m` vers le nord, avec une largeur visible de `650 m` et la cote placee a 26 % de la hauteur pour garder la passe au coeur du cadrage sans donner trop de place au large. L'orthophoto reste opaque jusqu'a `-1 m`, puis disparait progressivement a `-2 m`, avec une limite bathymetrique lissee sur 5 m. Le trait de cote est masque sur la variante orthophoto et le premier plan conserve les isobathes jusqu'a la profondeur maximale du site, soit `-30 m`.
 
 | Terre et lagon en orthophoto | Relief topographique et bathymetrique |
 |---|---|
@@ -56,6 +56,8 @@ Homebrew est requis. Le script installe Python et GDAL, puis cree un environneme
 ./bootstrap_macos.sh
 ```
 
+L'environnement de reference enregistre pour les trois sites publies est Python 3.14, GDAL 3.13.1, NumPy 2.5.1 et Pillow 12.3.0. NumPy et Pillow sont epingles dans `requirements.txt`; Python et GDAL proviennent de Homebrew. Le preflight exige les polices macOS Arial, Arial Bold et Avenir Next utilisees par les cartes et les planches, au lieu de substituer silencieusement une police differente.
+
 ## Regeneration complete
 
 ```bash
@@ -68,7 +70,13 @@ Sans `--refresh`, les GeoTIFF deja mis en cache sont reutilises. Pour refaire un
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --render-only
 ```
 
-Les donnees sources et les extraits regenerables restent dans `.tmp/bathy-renders/` et ne sont pas versionnes.
+Avant toute reutilisation, le script controle que les rasters du cache correspondent aux URL et couches configurees, a la projection, aux emprises, aux resolutions, au nombre de bandes et aux plages de valeurs attendus. Un manifeste local conserve aussi le SHA-256 de chaque raster. `--render-only` refuse donc un cache absent, modifie ou obsolete au lieu de rendre silencieusement des donnees incompatibles. Pour verifier seulement la configuration, les sources declarees et le cache sans produire d'image :
+
+```bash
+.venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --check
+```
+
+`--refresh`, `--render-only` et `--check` sont mutuellement exclusifs. Les donnees sources, les extraits regenerables et le manifeste `<slug>-cache-manifest.json` restent dans `.tmp/bathy-renders/` et ne sont pas versionnes. Toute modification d'une URL, d'une couche, d'une date, d'une emprise ou d'une resolution impose `--refresh`.
 
 Pour assembler les deux planches apres leur regeneration :
 
@@ -80,9 +88,11 @@ L'option `--land-style orthophoto` ou `--land-style topography` permet de ne reg
 
 ## Reutilisation
 
-Pour ajouter un site, copier une configuration de `sites/`, puis modifier le secteur HYSCORES, les emprises UTM 40S, le traitement de la cote et les parametres de camera. Le plan 2D reste toujours nord en haut; la vue 3D accepte un azimut arbitraire et son compas est recalcule automatiquement. `sites/boucan-canot.json` montre comment traiter une cote non monotone; `sites/passe-hermitage.json` documente le cas d'un grand lagon et d'une vue oblique tournee a `45°`.
+Pour ajouter un site, copier une configuration de `sites/`, puis modifier le raster HYSCORES exact dans `hyscores_tiff_url`, les emprises UTM 40S, les resolutions, la date de l'orthophoto, le traitement de la cote et les parametres de camera. Ne pas recopier une date de prise de vue ou une correction locale depuis un autre site. Le plan 2D reste toujours nord en haut; la vue 3D accepte un azimut arbitraire et son compas est recalcule automatiquement. `sites/boucan-canot.json` montre comment traiter une cote non monotone; `sites/passe-hermitage.json` documente le cas d'un grand lagon et d'une vue oblique tournee a `45°`.
 
 Le processus complet, les sources, chaque parametre et les controles qualite sont documentes dans [WORKFLOW.md](WORKFLOW.md).
+
+Ces cartes sont des aides a la lecture du relief et a l'orientation generale. Elles ne prouvent ni l'acces au site, ni son autorisation, ni les conditions presentes, et ne remplacent jamais les informations locales ou une evaluation de securite.
 
 ## Licences
 
@@ -90,4 +100,4 @@ Le processus complet, les sources, chaque parametre et les controles qualite son
 - Les cartes et figures de `outputs/` sont distribuees sous [CC BY-NC-SA 4.0](LICENSE-MAPS.md), sous reserve des droits attaches aux donnees sources.
 - Les licences, attributions obligatoires, versions des jeux de donnees et avertissements sont detailles dans [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-La licence `CC BY-NC-SA`, plutot que `CC BY-NC-ND`, est imposee par la clause de partage dans les memes conditions du MNT HYSCORES. Les cartes ne doivent pas etre utilisees pour la navigation ni comme seule base d'une decision engageant la securite en mer.
+La licence `CC BY-NC-SA`, plutot que `CC BY-NC-ND`, est imposee par la clause de partage dans les memes conditions du MNT HYSCORES. Les cartes ne doivent pas etre utilisees pour la navigation ni comme base d'une decision engageant la securite en mer.

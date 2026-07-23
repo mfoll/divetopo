@@ -3,22 +3,26 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+from typing import Mapping
 
 from osgeo import osr
 from PIL import Image, ImageDraw, ImageFont
 
+from site_config import paths_for, validate_config
 
-ROOT = Path(__file__).resolve().parent
 TEXT_FONT = "/System/Library/Fonts/Avenir Next.ttc"
+PLATE_CANVAS_WIDTH_PX = 5400
 
-
-def project_path(value: str) -> Path:
-    path = Path(value).expanduser()
-    return path if path.is_absolute() else ROOT / path
+osr.UseExceptions()
 
 
 def font(path: str, size: int, index: int = 0) -> ImageFont.FreeTypeFont:
-    return ImageFont.truetype(path, size, index=index)
+    try:
+        return ImageFont.truetype(path, size, index=index)
+    except OSError as error:
+        raise RuntimeError(
+            f"Unable to load the plate font {path!r} (face index {index})"
+        ) from error
 
 
 def marker_wgs84(marker: list[float]) -> tuple[float, float]:
@@ -34,11 +38,12 @@ def marker_wgs84(marker: list[float]) -> tuple[float, float]:
 
 
 def format_dms(value: float, positive: str, negative: str) -> str:
-    absolute = abs(value)
-    degrees = int(absolute)
-    minute_value = (absolute - degrees) * 60.0
-    minutes = int(minute_value)
-    seconds = (minute_value - minutes) * 60.0
+    # Round before splitting the fields so 59.95+ seconds carries into the
+    # minute (and, where necessary, the degree) instead of displaying 60.0".
+    total_tenths = round(abs(value) * 36_000)
+    degrees, remaining_tenths = divmod(total_tenths, 36_000)
+    minutes, seconds_tenths = divmod(remaining_tenths, 600)
+    seconds = seconds_tenths / 10.0
     direction = negative if value < 0 else positive
     return f'{degrees}° {minutes:02d}\' {seconds:04.1f}" {direction}'
 
@@ -55,19 +60,48 @@ def paste_panel(canvas: Image.Image, image: Image.Image, position: tuple[int, in
     draw.rectangle((x, y, x + image.width - 1, y + image.height - 1), outline=(22, 27, 29, 255), width=3)
 
 
-def compose(config: dict, land_style: str) -> Path:
-    paths = config["paths"]
+def _plate_paths(
+    config: Mapping[str, object],
+    land_style: str,
+) -> tuple[Path, Path, Path, Path]:
     use_orthophoto = land_style == "orthophoto"
     if use_orthophoto and not config.get("orthophoto_enabled", False):
         raise ValueError("The orthophoto plate requires orthophoto_enabled=true")
+    paths = paths_for(config)
     plan_key = "output_2d_ortho" if use_orthophoto else "output_2d"
     relief_key = "output_3d_ortho" if use_orthophoto else "output_3d"
-    plan = Image.open(project_path(paths[plan_key])).convert("RGB")
-    relief = Image.open(project_path(paths[relief_key])).convert("RGB")
-    locator = Image.open(project_path(paths["output_locator"])).convert("RGB")
+    output_key = "output_plate" if use_orthophoto else "output_plate_topography"
+    return paths[plan_key], paths[relief_key], paths["output_locator"], paths[output_key]
+
+
+def _load_input(path: Path, description: str) -> Image.Image:
+    if not path.is_file():
+        raise FileNotFoundError(
+            f"Missing {description} image: {path}. "
+            "Generate the site maps before composing the plate."
+        )
+    try:
+        with Image.open(path) as image:
+            return image.convert("RGB")
+    except OSError as error:
+        raise RuntimeError(f"Unable to read {description} image: {path}") from error
+
+
+def compose(config: dict, land_style: str) -> Path:
+    validate_config(config)
 
     canvas_width = int(config.get("plate_canvas_width_px", 5400))
+    if canvas_width != PLATE_CANVAS_WIDTH_PX:
+        raise ValueError(
+            f"plate_canvas_width_px must be {PLATE_CANVAS_WIDTH_PX}; "
+            "the current plate layout uses fixed 5400 px coordinates"
+        )
     canvas_height = int(config.get("plate_canvas_height_px", 3250))
+    plan_path, relief_path, locator_path, output = _plate_paths(config, land_style)
+    plan = _load_input(plan_path, "2D detail")
+    relief = _load_input(relief_path, "3D relief")
+    locator = _load_input(locator_path, "locator")
+
     canvas = Image.new("RGBA", (canvas_width, canvas_height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(canvas, "RGBA")
     title_color = (24, 31, 35, 255)
@@ -120,9 +154,6 @@ def compose(config: dict, land_style: str) -> Path:
     locator_y = 50
     paste_panel(canvas, locator, (locator_x, locator_y))
 
-    output_key = "output_plate" if use_orthophoto else "output_plate_topography"
-    default_name = f"outputs/{config['slug']}-planche.jpg" if use_orthophoto else f"outputs/{config['slug']}-planche-topographique.jpg"
-    output = project_path(paths.get(output_key, default_name))
     output.parent.mkdir(parents=True, exist_ok=True)
     canvas.convert("RGB").save(output, quality=98, subsampling=0, optimize=True)
     return output
@@ -138,10 +169,18 @@ def main() -> int:
         help="Terrestrial rendering used in the detailed 2D and 3D panels",
     )
     args = parser.parse_args()
-    config = json.loads(args.config.expanduser().resolve().read_text(encoding="utf-8"))
+    config_path = args.config.expanduser().resolve()
+    try:
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        validate_config(config)
+    except (OSError, json.JSONDecodeError, ValueError) as error:
+        parser.error(f"Invalid site configuration {config_path}: {error}")
     styles = ("orthophoto", "topography") if args.land_style == "both" else (args.land_style,)
-    for style in styles:
-        print(compose(config, style))
+    try:
+        for style in styles:
+            print(compose(config, style))
+    except (FileNotFoundError, OSError, RuntimeError, ValueError) as error:
+        parser.error(str(error))
     return 0
 
 

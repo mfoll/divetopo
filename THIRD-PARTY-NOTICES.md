@@ -34,17 +34,17 @@ La Licence Ouverte 2.0 autorise la reproduction, la transformation, la redistrib
 - Fiche : <https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO>
 - Licence : Licence Ouverte 2.0.
 - Attribution : `IGN BD ORTHO`.
-- Image utilisee au Cap La Houssaye : resolution 20 cm, prise de vue du 22 juillet 2025, d'apres une requete `GetFeatureInfo` au centre de l'emprise; metadonnee revisee le 9 juillet 2026.
+- Images utilisees : resolution 20 cm; prises de vue du 22 juillet 2025 au Cap La Houssaye et a Boucan Canot, et du 2 aout 2025 a la Passe de l'Hermitage. Ces dates proviennent d'une requete `GetFeatureInfo` au repere de chaque site; la metadonnee du produit a ete revisee le 9 juillet 2026.
 
-Le decoupage au masque terrestre et le drapage sur le relief sont autorises par la Licence Ouverte 2.0, avec conservation de l'attribution et de la date de la source.
+Le decoupage au masque terrestre et le drapage sur le relief sont autorises par la Licence Ouverte 2.0, avec conservation de l'attribution et de la date propre a chaque image source.
 
 ## Relief marin insulaire : GEBCO 2024
 
-- Couche WMS : `GEBCO_LATEST`, servie lors de la regeneration a partir du GEBCO 2024 Grid.
-- Service : <https://wms.gebco.net/mapserv>
+- Couche WMS epinglee : `GEBCO_2024`.
+- Service versionne : <https://wms.gebco.net/2024/mapserv>.
 - Conditions : <https://www.gebco.net/data-products/gridded-bathymetry/terms-of-use>
 - Attribution requise : `GEBCO Compilation Group (2024) GEBCO 2024 Grid (doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f)`.
 
-GEBCO place cette grille dans le domaine public et autorise la copie, l'adaptation et l'exploitation commerciale. La source doit etre reconnue, aucune approbation de GEBCO, de l'OHI ou de la COI ne doit etre suggeree, et les donnees ne doivent pas etre presentees de maniere trompeuse.
+L'endpoint et la couche versionnes sont conserves dans le pipeline afin qu'une future mise a jour de l'alias `GEBCO_LATEST` ne change pas silencieusement les cartes publiees. GEBCO place cette grille dans le domaine public et autorise la copie, l'adaptation et l'exploitation commerciale. La source doit etre reconnue, aucune approbation de GEBCO, de l'OHI ou de la COI ne doit etre suggeree, et les donnees ne doivent pas etre presentees de maniere trompeuse.
 
 **Avertissement GEBCO : cette grille ne doit pas etre utilisee pour la navigation ni pour une finalite impliquant la securite en mer.** Sa resolution nominale de 15 secondes d'arc ne represente pas la precision des mesures sous-jacentes. Elle n'est utilisee ici que pour le relief generalise de la carte de localisation de l'ile, jamais pour les plans detailles du site.
