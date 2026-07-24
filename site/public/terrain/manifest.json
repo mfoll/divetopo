@@ -4,17 +4,98 @@
     {
       "slug": "boucan-canot",
       "title": "Boucan Canot, La Réunion",
-      "metadata": "boucan-canot/terrain.json"
+      "metadata": "boucan-canot/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "boucan-canot/terrain.json",
+          "bytes": 2530,
+          "sha256": "ca24a51145ecad6009547e36fdbd062376e0456ed0c0b6adbc64d53bc44aaabe"
+        },
+        "height": {
+          "path": "boucan-canot/height.bin",
+          "bytes": 91492,
+          "sha256": "e73a6cf887a4dfce75e7f919370cf17731433a954b66098f4aa570e066b3025c"
+        },
+        "validMask": {
+          "path": "boucan-canot/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "034f748f47b8407e732938cbb67687e0cf52f176ac485a9265806a82704b914d"
+        },
+        "topographicTexture": {
+          "path": "boucan-canot/topographic.webp",
+          "bytes": 114358,
+          "sha256": "51507a3d6a1032288768fd1a0ae4835278625077e71d19dba92895539602984a"
+        },
+        "orthophotoTexture": {
+          "path": "boucan-canot/orthophoto.webp",
+          "bytes": 264376,
+          "sha256": "1f3bd4c0e860a6fa9fa51c1d852f6e9d5bbb794c6b6f3259ac1f0794ed552e09"
+        }
+      }
     },
     {
       "slug": "cap-la-houssaye",
       "title": "Cap La Houssaye, La Réunion",
-      "metadata": "cap-la-houssaye/terrain.json"
+      "metadata": "cap-la-houssaye/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "cap-la-houssaye/terrain.json",
+          "bytes": 2535,
+          "sha256": "ff219b31991788a0c56d1c76ebd8557666fc1a9d8ff17c670a75e1f50281a150"
+        },
+        "height": {
+          "path": "cap-la-houssaye/height.bin",
+          "bytes": 91492,
+          "sha256": "09df2043e3c8542d7a967e52569bbecabe4fd0fcd61ab7977cec533586092f0d"
+        },
+        "validMask": {
+          "path": "cap-la-houssaye/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "ac087ce8de70ddd8c2211ed6b127f6542c621e391c5214ee6178cc4d1459f052"
+        },
+        "topographicTexture": {
+          "path": "cap-la-houssaye/topographic.webp",
+          "bytes": 57136,
+          "sha256": "db0c259a276d779e62d3ed6f5da3ea851c21241d7a7dd658d6d5ee5655f94d96"
+        },
+        "orthophotoTexture": {
+          "path": "cap-la-houssaye/orthophoto.webp",
+          "bytes": 141146,
+          "sha256": "71550075848b43520f4dc3d276b31157e61f2d0000ac95c5333cdad3c1d983fd"
+        }
+      }
     },
     {
       "slug": "passe-hermitage",
       "title": "Passe de l'Hermitage, La Réunion",
-      "metadata": "passe-hermitage/terrain.json"
+      "metadata": "passe-hermitage/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "passe-hermitage/terrain.json",
+          "bytes": 2538,
+          "sha256": "a85059e5f6b78d3cf8042930160704ea06fa5267e29d2ce0aa79c72bae9bee83"
+        },
+        "height": {
+          "path": "passe-hermitage/height.bin",
+          "bytes": 91492,
+          "sha256": "37714969c03b58c530d98f8d15fb1b2e8fd25fdfa506e2759ca979bb1b3e76dd"
+        },
+        "validMask": {
+          "path": "passe-hermitage/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "ac087ce8de70ddd8c2211ed6b127f6542c621e391c5214ee6178cc4d1459f052"
+        },
+        "topographicTexture": {
+          "path": "passe-hermitage/topographic.webp",
+          "bytes": 116180,
+          "sha256": "b83b12c694db30a9c3dcbf894538bb157e7c7bf7c5ff8576d6e83eccfae80b73"
+        },
+        "orthophotoTexture": {
+          "path": "passe-hermitage/orthophoto.webp",
+          "bytes": 430714,
+          "sha256": "e4b1cfdbedfce5f8a1f3b02f6cd5a429464a885dbb9f48606f089d1db32f17cc"
+        }
+      }
     }
   ]
 }

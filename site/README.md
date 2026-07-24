@@ -29,16 +29,21 @@ sorties canoniques du dépôt :
 ../.venv/bin/python scripts/build_map_assets.py
 ```
 
-Les reliefs interactifs partagent une seule géométrie par site. Le bouton
-Topographie / Orthophoto change uniquement la texture. La caméra orthographique
-initiale reprend l’azimut et la pente visuelle de la perspective imprimable,
-depuis le large vers le récif ; la rotation horizontale reste libre sur 360° :
+Les reliefs interactifs sont générés par le pipeline cartographique sous
+`../outputs/interactive-terrain/`. Le site ne recalcule ni leur géométrie, ni
+leurs textures, ni leur caméra. Il copie le paquet canonique après vérification
+des tailles et empreintes SHA-256 :
 
 ```bash
-../.venv/bin/python ../export_web_terrain.py
+../.venv/bin/python scripts/sync_interactive_terrain.py
 ```
 
-Les fichiers web générés sont versionnés sous `public/maps/` et
+Chaque relief partage une seule géométrie entre les textures Topographie et
+Orthophoto. La caméra orthographique initiale reprend l’azimut et la pente
+visuelle de la perspective imprimable, depuis le large vers le récif ; la
+rotation horizontale reste libre sur 360°.
+
+Les fichiers web dérivés sont versionnés sous `public/maps/` et
 `public/terrain/`. Les GeoTIFF sources restent locaux et ne sont jamais publiés.
 
 ## Publication
