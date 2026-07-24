@@ -49,3 +49,8 @@ produit une application compatible Cloudflare Workers :
 ```bash
 npm run build
 ```
+
+Le déploiement canonique utilise l’adresse
+<https://plans-sites-plongee-reunion.m-foll.chatgpt.site>. L’ancien projet
+<https://reliefs-ouest-reunion.m-foll.chatgpt.site> reste en ligne séparément ;
+sa configuration est conservée dans le commit `b9bca34`.

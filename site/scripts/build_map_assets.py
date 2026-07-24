@@ -15,6 +15,7 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
+from osgeo import osr
 from PIL import Image, ImageOps
 
 
@@ -22,11 +23,13 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 SITE_ROOT = SCRIPT_DIR.parent
 PROJECT_ROOT = SITE_ROOT.parent
 CONFIG_ROOT = PROJECT_ROOT / "sites"
+SITE_DETAILS_PATH = SITE_ROOT / "content" / "site-details.json"
 PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "maps"
 
 MAP_WIDTHS = (960, 1600, 2474)
 LOCATOR_WIDTH = 640
+LOCATOR_LARGE_WIDTH = 1600
 PLANCHE_PREVIEW_WIDTH = 1800
 
 MAP_WEBP_QUALITY = 84
@@ -44,6 +47,8 @@ PLANCHE_SOURCES = (
     ("topographic", "output_plate_topography"),
     ("orthophoto", "output_plate"),
 )
+
+osr.UseExceptions()
 
 
 def sha256(path: Path) -> str:
@@ -116,13 +121,46 @@ def configured_source(config: dict[str, Any], key: str) -> Path:
     return source
 
 
+def marker_wgs84(marker: list[float]) -> tuple[float, float]:
+    projected = osr.SpatialReference()
+    projected.ImportFromEPSG(32740)
+    projected.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+    geographic = osr.SpatialReference()
+    geographic.ImportFromEPSG(4326)
+    geographic.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
+    transform = osr.CoordinateTransformation(projected, geographic)
+    longitude, latitude, _ = transform.TransformPoint(
+        float(marker[0]),
+        float(marker[1]),
+    )
+    return latitude, longitude
+
+
+def load_site_details() -> dict[str, dict[str, str]]:
+    with SITE_DETAILS_PATH.open(encoding="utf-8") as stream:
+        details = json.load(stream)
+    if not isinstance(details, dict):
+        raise TypeError(f"{SITE_DETAILS_PATH}: expected a JSON object")
+    for slug, item in details.items():
+        if not isinstance(item, dict) or not str(item.get("city", "")).strip():
+            raise ValueError(f"{SITE_DETAILS_PATH}: {slug!r} requires a non-empty city")
+    return details
+
+
 def load_configs() -> list[dict[str, Any]]:
+    site_details = load_site_details()
     configs: list[dict[str, Any]] = []
     for path in sorted(CONFIG_ROOT.glob("*.json")):
         with path.open(encoding="utf-8") as stream:
             config = json.load(stream)
         if not config.get("orthophoto_enabled"):
             raise ValueError(f"{path.name}: the website requires orthophoto variants")
+        try:
+            config["_site_details"] = site_details[config["slug"]]
+        except KeyError as exc:
+            raise KeyError(
+                f"{SITE_DETAILS_PATH}: missing website details for {config['slug']!r}"
+            ) from exc
         config["_config_path"] = path.relative_to(PROJECT_ROOT).as_posix()
         configs.append(config)
 
@@ -185,6 +223,19 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         locator_width,
         locator_height,
     )
+    locator_large_path = site_root / f"locator-{LOCATOR_LARGE_WIDTH}.webp"
+    locator_large_width, locator_large_height = write_webp(
+        locator_image,
+        locator_large_path,
+        width=LOCATOR_LARGE_WIDTH,
+        quality=LOCATOR_WEBP_QUALITY,
+    )
+    locator_large = image_record(
+        locator_large_path,
+        build_root,
+        locator_large_width,
+        locator_large_height,
+    )
 
     planches: list[dict[str, Any]] = []
     for style, source_key in PLANCHE_SOURCES:
@@ -224,12 +275,19 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             }
         )
 
+    latitude, longitude = marker_wgs84(config["locator_marker_utm40s"])
+
     return {
         "slug": slug,
         "displayName": config["locator_label"],
         "title": config["title"],
         "plateTitle": config["plate_title"],
         "config": config["_config_path"],
+        "location": {
+            "city": config["_site_details"]["city"],
+            "latitude": round(latitude, 8),
+            "longitude": round(longitude, 8),
+        },
         "maxDepthM": config["max_depth_m"],
         "verticalExaggeration": config["vertical_exaggeration"],
         "orthophotoCaptureDate": config["orthophoto_capture_date"],
@@ -237,6 +295,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "copyrightYear": config["copyright_year"],
         "mapLicense": config["map_license"],
         "locator": locator,
+        "locatorLarge": locator_large,
         "maps": maps,
         "planches": planches,
     }
@@ -249,7 +308,8 @@ def manifest_totals(manifest: dict[str, Any]) -> dict[str, int]:
 
     for site in manifest["sites"]:
         web_bytes += site["locator"]["bytes"]
-        asset_files += 1
+        web_bytes += site["locatorLarge"]["bytes"]
+        asset_files += 2
         for map_item in site["maps"]:
             for variant in map_item["variants"]:
                 web_bytes += variant["bytes"]
@@ -289,9 +349,10 @@ def main() -> None:
         build_root.mkdir()
 
         manifest: dict[str, Any] = {
-            "schemaVersion": 2,
+            "schemaVersion": 3,
             "mapWidths": list(MAP_WIDTHS),
             "locatorWidth": LOCATOR_WIDTH,
+            "locatorLargeWidth": LOCATOR_LARGE_WIDTH,
             "planchePreviewWidth": PLANCHE_PREVIEW_WIDTH,
             "sites": [build_site(config, build_root) for config in configs],
         }

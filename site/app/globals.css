@@ -189,6 +189,7 @@ img {
 .site-navigator,
 .atlas-main,
 .locator-panel {
+  align-self: start;
   min-width: 0;
 }
 
@@ -299,6 +300,66 @@ img {
   gap: 0.8rem;
   justify-content: space-between;
   margin-bottom: 0.8rem;
+}
+
+.active-site-heading {
+  align-items: end;
+  display: flex;
+  gap: 1.25rem;
+  justify-content: space-between;
+  margin-bottom: 0.85rem;
+  min-width: 0;
+  padding: 0.1rem 0.25rem 0;
+}
+
+.active-site-heading > div {
+  min-width: 0;
+}
+
+.active-site-heading h2 {
+  font-size: clamp(1.35rem, 2.1vw, 1.85rem);
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.active-site-heading p {
+  align-items: center;
+  color: var(--ink-soft);
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 0.7rem;
+  gap: 0.25rem 0.48rem;
+  margin: 0.45rem 0 0;
+}
+
+.active-site-heading p span:first-child {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.active-site-heading > a {
+  background: var(--surface);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  color: var(--accent-dark);
+  flex: 0 0 auto;
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 0.68rem 0.9rem;
+  text-decoration: none;
+  transition:
+    background 170ms ease,
+    color 170ms ease,
+    transform 170ms ease;
+  white-space: nowrap;
+}
+
+.active-site-heading > a:hover {
+  background: var(--accent);
+  color: white;
+  transform: translateY(-1px);
 }
 
 .segmented-control {
@@ -571,12 +632,41 @@ img {
   font-weight: 650;
 }
 
-.locator-panel img {
+.locator-open {
   background: var(--navy);
+  border: 0;
   border-radius: 13px;
-  height: auto;
+  cursor: zoom-in;
+  display: block;
   margin-top: 0.85rem;
+  overflow: hidden;
+  padding: 0;
+  position: relative;
   width: 100%;
+}
+
+.locator-open img {
+  background: var(--navy);
+  height: auto;
+  transition: transform 220ms ease;
+  width: 100%;
+}
+
+.locator-open > span {
+  backdrop-filter: blur(10px);
+  background: rgba(6, 28, 36, 0.82);
+  border-radius: 999px;
+  bottom: 0.55rem;
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 0.45rem 0.62rem;
+  position: absolute;
+  right: 0.55rem;
+}
+
+.locator-open:hover img {
+  transform: scale(1.018);
 }
 
 .locator-panel p {
@@ -812,6 +902,19 @@ img {
   width: 100%;
 }
 
+.locator-dialog[open] {
+  align-items: center;
+  display: grid;
+  justify-items: center;
+}
+
+.locator-dialog img {
+  height: auto;
+  max-height: calc(100dvh - 6rem);
+  max-width: min(calc(100vw - 6rem), 100rem);
+  width: auto;
+}
+
 .dialog-close {
   background: white;
   border: 0;
@@ -908,9 +1011,14 @@ img {
     gap: 0.2rem;
   }
 
-  .locator-panel img {
+  .locator-open {
     grid-row: span 2;
     margin: 0;
+  }
+
+  .locator-open img {
+    height: 100%;
+    object-fit: cover;
   }
 
   .locator-panel p {
@@ -1006,6 +1114,18 @@ img {
     min-height: 0;
   }
 
+  .active-site-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+
+  .active-site-heading > a {
+    text-align: center;
+    white-space: normal;
+    width: 100%;
+  }
+
   .viewer-meta span:first-child {
     white-space: normal;
   }
@@ -1055,6 +1175,11 @@ img {
 
   .map-dialog {
     padding: 3.5rem 0.5rem 0.5rem;
+  }
+
+  .locator-dialog img {
+    max-height: calc(100dvh - 4rem);
+    max-width: calc(100vw - 1rem);
   }
 }
 

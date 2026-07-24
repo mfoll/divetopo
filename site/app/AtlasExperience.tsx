@@ -34,10 +34,17 @@ type PlancheAsset = {
   download: AssetVariant & { filename: string };
 };
 
+type SiteLocation = {
+  city: string;
+  latitude: number;
+  longitude: number;
+};
+
 type AtlasAssetSite = {
   slug: string;
   displayName: string;
   plateTitle: string;
+  location: SiteLocation;
   maxDepthM: number;
   verticalExaggeration: number;
   orthophotoCaptureDate: string;
@@ -45,6 +52,7 @@ type AtlasAssetSite = {
   copyrightYear: number;
   mapLicense: string;
   locator: AssetVariant;
+  locatorLarge: AssetVariant;
   maps: MapAsset[];
   planches: PlancheAsset[];
 };
@@ -156,6 +164,31 @@ function viewLabel(view: ViewMode) {
   if (view === "2d") return "Plan 2D";
   if (view === "3d") return "Vue 3D";
   return "3D interactive";
+}
+
+function formatDms(value: number, positive: string, negative: string) {
+  const totalTenths = Math.round(Math.abs(value) * 36_000);
+  const degrees = Math.floor(totalTenths / 36_000);
+  const remainingTenths = totalTenths % 36_000;
+  const minutes = Math.floor(remainingTenths / 600);
+  const seconds = (remainingTenths % 600) / 10;
+  const direction = value < 0 ? negative : positive;
+  return `${degrees}° ${String(minutes).padStart(2, "0")}′ ${seconds
+    .toFixed(1)
+    .padStart(4, "0")}″ ${direction}`;
+}
+
+function gpsLabel(location: SiteLocation) {
+  return `${formatDms(location.latitude, "N", "S")} · ${formatDms(
+    location.longitude,
+    "E",
+    "O",
+  )}`;
+}
+
+function googleMapsUrl(location: SiteLocation) {
+  const query = `${location.latitude.toFixed(8)},${location.longitude.toFixed(8)}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
 function SurfaceToggle({
@@ -315,6 +348,7 @@ export function AtlasExperience() {
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const locatorDialogRef = useRef<HTMLDialogElement>(null);
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
@@ -331,6 +365,12 @@ export function AtlasExperience() {
     if (event.target === dialogRef.current) dialogRef.current.close();
   }
 
+  function closeLocatorOnBackdrop(event: React.MouseEvent<HTMLDialogElement>) {
+    if (event.target === locatorDialogRef.current) {
+      locatorDialogRef.current.close();
+    }
+  }
+
   const mapAlt =
     staticView === "2d"
       ? `Plan topo-bathymétrique 2D de ${activeSite.displayName}, nord en haut, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, profondeurs affichées jusqu’à −${activeSite.maxDepthM} m.`
@@ -342,7 +382,7 @@ export function AtlasExperience() {
         <div className="masthead-inner">
           <a className="brand" href="#atlas">
             <span className="brand-mark" aria-hidden="true" />
-            <span>Plans de plongée · La Réunion</span>
+            <span>Plan des sites de plongée · La Réunion</span>
           </a>
           <nav aria-label="Navigation principale">
             <a href="#atlas">Explorer</a>
@@ -370,7 +410,7 @@ export function AtlasExperience() {
             className="atlas-main"
             id="atlas-panel"
             role="tabpanel"
-            aria-labelledby={`site-tab-${activeSite.slug}`}
+            aria-labelledby={`active-site-title-${activeSite.slug}`}
           >
             <div className="viewer-toolbar">
               <ViewToggle value={viewMode} onChange={setViewMode} />
@@ -379,6 +419,26 @@ export function AtlasExperience() {
                 onChange={setSurfaceStyle}
               />
             </div>
+
+            <header className="active-site-heading">
+              <div>
+                <h2 id={`active-site-title-${activeSite.slug}`}>
+                  {activeSite.displayName}
+                </h2>
+                <p>
+                  <span>{activeSite.location.city}, La Réunion</span>
+                  <span aria-hidden="true">·</span>
+                  <span>{gpsLabel(activeSite.location)}</span>
+                </p>
+              </div>
+              <a
+                href={googleMapsUrl(activeSite.location)}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Voir le site sur Google Maps
+              </a>
+            </header>
 
             <div
               className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
@@ -423,8 +483,7 @@ export function AtlasExperience() {
 
             <div className="viewer-meta" aria-live="polite">
               <span>
-                {activeSite.displayName} · {viewLabel(viewMode)} ·{" "}
-                {surfaceLabel(surfaceStyle)}
+                {viewLabel(viewMode)} · {surfaceLabel(surfaceStyle)}
               </span>
               {viewMode === "interactive" ? (
                 <span>
@@ -463,14 +522,23 @@ export function AtlasExperience() {
               <h2 id="locator-title">Sur l’île</h2>
               <span>La Réunion</span>
             </div>
-            <img
-              key={`${activeSite.slug}-locator`}
-              src={activeSite.locator.src}
-              width={activeSite.locator.width}
-              height={activeSite.locator.height}
-              alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
-            />
-            <p>{activeSite.displayName}</p>
+            <button
+              type="button"
+              className="locator-open"
+              aria-haspopup="dialog"
+              aria-label={`Ouvrir la carte de localisation de ${activeSite.displayName} en grand`}
+              onClick={() => locatorDialogRef.current?.showModal()}
+            >
+              <img
+                key={`${activeSite.slug}-locator`}
+                src={activeSite.locator.src}
+                width={activeSite.locator.width}
+                height={activeSite.locator.height}
+                alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
+              />
+              <span>Agrandir la carte</span>
+            </button>
+            <p>Repère : {activeSite.displayName}</p>
           </aside>
         </div>
       </section>
@@ -517,7 +585,7 @@ export function AtlasExperience() {
           <div className="method-panel">
             <div>
               <span className="method-label">Traitement cartographique</span>
-              <h3>Une même chaîne de production pour tous les formats</h3>
+              <h3>Méthode de production</h3>
             </div>
             <ul>
               {METHOD_STEPS.map((step) => (
@@ -570,7 +638,7 @@ export function AtlasExperience() {
       <footer className="site-footer">
         <a className="brand" href="#top">
           <span className="brand-mark" aria-hidden="true" />
-          <span>Plans de plongée · La Réunion</span>
+          <span>Plan des sites de plongée · La Réunion</span>
         </a>
         <span>
           Plans © {initialSite.copyrightYear} {initialSite.plateAuthor} ·{" "}
@@ -597,6 +665,27 @@ export function AtlasExperience() {
           width={mapLargest.width}
           height={mapLargest.height}
           alt={mapAlt}
+        />
+      </dialog>
+
+      <dialog
+        className="map-dialog locator-dialog"
+        ref={locatorDialogRef}
+        onClick={closeLocatorOnBackdrop}
+        aria-label={`Localisation de ${activeSite.displayName} sur l’île de La Réunion en grand`}
+      >
+        <button
+          type="button"
+          className="dialog-close"
+          onClick={() => locatorDialogRef.current?.close()}
+        >
+          Fermer
+        </button>
+        <img
+          src={activeSite.locatorLarge.src}
+          width={activeSite.locatorLarge.width}
+          height={activeSite.locatorLarge.height}
+          alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
         />
       </dialog>
     </main>
