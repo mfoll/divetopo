@@ -96,22 +96,22 @@
               "src": "/maps/cap-la-houssaye/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 54726,
-              "sha256": "61eeb0f30f8066910c72a18d0154a815b1db91cf1c0ed64795356ad73be12662"
+              "bytes": 58350,
+              "sha256": "fd23c3232193927d8ff066bffc2ff3efc29a11f2333f1d05a5375082da68292d"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 113548,
-              "sha256": "67f835f654db690c5be93b16a1a4227a3ab6084e6c7339952bfbae3dc987cedc"
+              "bytes": 120484,
+              "sha256": "e89ce2d8d0a1f45054aa91dcccd2ad211a8f1fac6a2c09cf158b9749d339c90d"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 214594,
-              "sha256": "d60836aaf21ea36e1cecbfdf02bf61aa1a142d7e46e0186adcfe52912adee3a4"
+              "bytes": 220294,
+              "sha256": "fa35814c1e5519bebc9b75701c3fae00c8ff4d2a1cf302ada5138638b4adc59e"
             }
           ]
         },
@@ -127,22 +127,22 @@
               "src": "/maps/cap-la-houssaye/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 118434,
-              "sha256": "9440e4dafaa05080a1296e247396c0e42b161c8b31039ea321c09545157bd053"
+              "bytes": 106162,
+              "sha256": "05644f0113e140cc2d9388945546a323eb6922443dac35cdc639442fa13d9f0d"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 240830,
-              "sha256": "0ccc214f0714a70836e93a886ade0a7926ff4dd017d273b0c91946d9dcaa1dec"
+              "bytes": 211214,
+              "sha256": "30ada62ed5a63d692305e7a763dab96c429206af41d185e810cfffa5765cc24f"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 473140,
-              "sha256": "b2aee8f7794aba35b8c50c475f8c5b3254186b75c31ea5bc2b3a3a457d836736"
+              "bytes": 397082,
+              "sha256": "2cfe1964df51e5f8b04da0009cc3ed4a48cf4ab40f25dde98e8dae8084dfab37"
             }
           ]
         }
@@ -154,15 +154,15 @@
             "src": "/maps/cap-la-houssaye/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 163654,
-            "sha256": "98de9689e7accc6943797358e70fd531f85da60804820d9353b1a5ac15b794d4"
+            "bytes": 167552,
+            "sha256": "f3c206df47c8a660fc8e15335aea6358c1366b6646349c036b99596ef321074b"
           },
           "download": {
             "src": "/maps/cap-la-houssaye/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5186635,
-            "sha256": "6bff6a46898245e1c7cb4a67ba4bdfc5b645dc633c83c2fe898ffb8c7a007594",
+            "bytes": 5157909,
+            "sha256": "54934098456bc14f66824f322196ba5ec871952cafdb7794008bbe305f33ef96",
             "filename": "cap-la-houssaye-planche-topographique.jpg"
           }
         },
@@ -172,15 +172,15 @@
             "src": "/maps/cap-la-houssaye/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 277180,
-            "sha256": "0cf5452df0ba117f628aa8dab905e36084f31bfd7be2910c22c1eff0705ce824"
+            "bytes": 265810,
+            "sha256": "f9e36b17381338dbeba10166d66f86abcd2437580c2349579de4ec743b7dd7c0"
           },
           "download": {
             "src": "/maps/cap-la-houssaye/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 6768504,
-            "sha256": "533172b187d36ca6f65002e20290b66440ba441462a81365aba6e4cc36869049",
+            "bytes": 6527894,
+            "sha256": "77d49facc6f5f4b1b44707748ffcd926c2c099e02e179160c574c70a07ab5218",
             "filename": "cap-la-houssaye-planche.jpg"
           }
         }
@@ -274,22 +274,22 @@
               "src": "/maps/boucan-canot/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 58326,
-              "sha256": "22899d8fb343203477b31568126bf87b80ef2ae41a78587f327858d045f349e6"
+              "bytes": 73364,
+              "sha256": "969e2eb4c4313b5b4b69569e394a1247b72e3d3df18c33e385229295c98e74c9"
             },
             {
               "src": "/maps/boucan-canot/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 121538,
-              "sha256": "a852232eb76b35543d428e580d9ab3fc3a709a6496b4dd956f8c9330254b891e"
+              "bytes": 150986,
+              "sha256": "6605729947ac8fba5848bdfcc630383686ffb24272ddc5b9d593dcb32f6198a4"
             },
             {
               "src": "/maps/boucan-canot/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 225310,
-              "sha256": "e839e08ee3953e708ad9fafa155f32fe7ac6f58ef3ccd14c0a440bf942f20bec"
+              "bytes": 268144,
+              "sha256": "46cd09420bc6344695d207455f90d90424246f632ac4e847fc8130ded1114369"
             }
           ]
         },
@@ -305,22 +305,22 @@
               "src": "/maps/boucan-canot/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 148016,
-              "sha256": "8c6af556885b3e96f0055f25727dda6164210518cd25f434853d6ca0c264866c"
+              "bytes": 140146,
+              "sha256": "8458aa23a986f29fbbfb1558d7f2995a001e5f659c6cdd63b37ee0053eb72883"
             },
             {
               "src": "/maps/boucan-canot/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 303872,
-              "sha256": "f96cf7e3c5bdccb36727fab39114b8ed7133aeeae84393fe7a85adbd672dc79f"
+              "bytes": 296766,
+              "sha256": "d1082c5976c779d6e18c3b5db5cc0800f53350ffb45944f1b1737a41af365572"
             },
             {
               "src": "/maps/boucan-canot/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 558962,
-              "sha256": "b0918b506b02bd8ed8799ea861592944bb41d98e9388afe8b235e4262bea7799"
+              "bytes": 516456,
+              "sha256": "84aabfa8f0adcc8fc54d82d377ae0a792697cf1e25f1dfc41fc8261e1ce88cb2"
             }
           ]
         }
@@ -332,15 +332,15 @@
             "src": "/maps/boucan-canot/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 179626,
-            "sha256": "09a202b301f5d8592b8b46774b061a47a0210ea5231d8c60b20de980290fd6fa"
+            "bytes": 192780,
+            "sha256": "f9bdc2e7560ea443786ba3dbe44c01da4026dcb81ee5cecfd9b2bbe807e906d5"
           },
           "download": {
             "src": "/maps/boucan-canot/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5305735,
-            "sha256": "7ef396263bdf6019741a3bbeed0437464ab51152e08fb60aaa6df71e720c2aab",
+            "bytes": 5435538,
+            "sha256": "9a7b72cd077a55f509d26642ba432689ee1b1319b42ed4e86dc6f5e14683fb93",
             "filename": "boucan-canot-planche-topographique.jpg"
           }
         },
@@ -350,15 +350,15 @@
             "src": "/maps/boucan-canot/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 299590,
-            "sha256": "98815b3db263e004123c9d99d5e0f459a22a0469b72458b19fd33c35bcff58dd"
+            "bytes": 298502,
+            "sha256": "3362ee4f830f9c4d75ecb9bf3f393ce210c72d0aee9eed14968447aaf561a14d"
           },
           "download": {
             "src": "/maps/boucan-canot/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7103090,
-            "sha256": "9f534c0818e4a7ed82b6237f6d537cf665655d7fcea4eb94ddc27a739185ba63",
+            "bytes": 6970275,
+            "sha256": "8cf8f93e93da7e7b3bfcdd614ad5b0810b4d48d05303be666c321b99c4376c7c",
             "filename": "boucan-canot-planche.jpg"
           }
         }
@@ -452,22 +452,22 @@
               "src": "/maps/passe-hermitage/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 64710,
-              "sha256": "0e2ad1a5b0bd562b16caf8619b029ecfcde0cc45950a0d06c414d6abe75ccd35"
+              "bytes": 79496,
+              "sha256": "31453fe159d8bc353cb1a41a27a85d495fab32c9e9d58a6c21719d4eec89a523"
             },
             {
               "src": "/maps/passe-hermitage/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 136064,
-              "sha256": "41e4379482aedc33ecb022b0ef7500bfc7fcb19a056a7e9eceb2369252898210"
+              "bytes": 166752,
+              "sha256": "b2b8b55843fc10bd3ec85a412eb570f90405117c5fb605eceef64995607964d7"
             },
             {
               "src": "/maps/passe-hermitage/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 243116,
-              "sha256": "90ed4033268712a83feb52bf09b007f69f36ab002eb689b1aacadc64d5ef6afd"
+              "bytes": 301090,
+              "sha256": "a1f34fe7c33d0c790dcdb84619c16cba9239857b5d36cdd3c18b6b9911398c69"
             }
           ]
         },
@@ -483,22 +483,22 @@
               "src": "/maps/passe-hermitage/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 117136,
-              "sha256": "ad1c9127c9e9e6093096cc63ff21e776d26cbd6c7ba5b75373c6bd9852d9f913"
+              "bytes": 120808,
+              "sha256": "573c587a96539e8d4226e3985908a71b839121bd852421da2c7fd00418f6223a"
             },
             {
               "src": "/maps/passe-hermitage/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 247728,
-              "sha256": "2e11300c9a9131916476421d6dbb2fa457c58cd5d1e426b787dabb548dde525e"
+              "bytes": 252730,
+              "sha256": "3d43a41f7e88b74c32a5c371b5aa58d6a15f1f81b0b13b94e450e7fbf380ef63"
             },
             {
               "src": "/maps/passe-hermitage/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 440602,
-              "sha256": "12fe5addd303b733ec6a2c2514f1501dccd601a09f55b8f33406a4f3f27e4e30"
+              "bytes": 452612,
+              "sha256": "1911f3c2a13b42f324ac6a0f61496940e537670cf811ee275cea832139be2f90"
             }
           ]
         }
@@ -510,15 +510,15 @@
             "src": "/maps/passe-hermitage/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 179868,
-            "sha256": "6df92aa228b1ed897f5d642c7156d845184ff6ae93a11624f534d40abc46e02f"
+            "bytes": 194480,
+            "sha256": "3ff1a016e51404a71791f58e28bde987128699423d81e39f846e1f5169545040"
           },
           "download": {
             "src": "/maps/passe-hermitage/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5149135,
-            "sha256": "5d768229f66a85c4e1a34ef52ef555c10c83f10048aeebf2e7ba6ec73dfa4789",
+            "bytes": 5470497,
+            "sha256": "ee583fad11b9bbb991449945dbdba178bdb6c100a9ecaf175432ccbbbb257328",
             "filename": "passe-hermitage-planche-topographique.jpg"
           }
         },
@@ -528,15 +528,15 @@
             "src": "/maps/passe-hermitage/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 297954,
-            "sha256": "5cc0549b9a30bea6886797db737fa7b0a21aac55f743f4dd6e03c8d51206239c"
+            "bytes": 306706,
+            "sha256": "14171a56313380078bf0bf739c0ba4d7a5532d2e376f48df0cdd863aba12bce2"
           },
           "download": {
             "src": "/maps/passe-hermitage/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7362370,
-            "sha256": "a42cc5d72b516de9f4505c6e7c3d48e2b883029ae7a0b665160676108878f9f0",
+            "bytes": 7394812,
+            "sha256": "7f3e5ecc177a7a3ab788c7cfb8d557675558e53f7b143d5fcd1becbf93e05850",
             "filename": "passe-hermitage-planche.jpg"
           }
         }
@@ -545,8 +545,8 @@
   ],
   "totals": {
     "assetFiles": 51,
-    "webOptimizedBytes": 9947366,
-    "downloadBytes": 36875469,
-    "totalBytes": 46822835
+    "webOptimizedBytes": 10027608,
+    "downloadBytes": 36956925,
+    "totalBytes": 46984533
   }
 }

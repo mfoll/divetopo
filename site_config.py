@@ -94,6 +94,11 @@ _ALLOWED_KEYS = frozenset(
         "plate_canvas_width_px",
         "plate_title",
         "relief_output_scale",
+        "relief_hemisphere_intensity",
+        "relief_key_light_bearing_deg",
+        "relief_key_light_elevation_deg",
+        "relief_key_light_intensity",
+        "relief_normal_sample_spacing_m",
         "relief_suppressed_label_levels",
         "rotation_k",
         "slug",
@@ -428,6 +433,9 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "view_crop_width_m",
         "view_crop_depth_m",
         "view_visible_width_m",
+        "relief_hemisphere_intensity",
+        "relief_key_light_intensity",
+        "relief_normal_sample_spacing_m",
     ):
         if key in config:
             _positive(config, key)
@@ -490,6 +498,18 @@ def validate_config(config: Mapping[str, Any]) -> None:
         bearing = _number(config, "view_bearing_deg")
         if not 0.0 <= bearing < 360.0:
             raise ValueError("view_bearing_deg must be between 0 (inclusive) and 360 (exclusive)")
+    if "relief_key_light_bearing_deg" in config:
+        bearing = _number(config, "relief_key_light_bearing_deg")
+        if not 0.0 <= bearing < 360.0:
+            raise ValueError(
+                "relief_key_light_bearing_deg must be between 0 (inclusive) and 360 (exclusive)"
+            )
+    if "relief_key_light_elevation_deg" in config:
+        elevation = _number(config, "relief_key_light_elevation_deg")
+        if not 0.0 < elevation < 90.0:
+            raise ValueError(
+                "relief_key_light_elevation_deg must be between 0 and 90 degrees"
+            )
 
     explicit_imagery = {
         "imagery_sea_full_depth_m",

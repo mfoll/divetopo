@@ -19,6 +19,7 @@ from render_fused_relief import (
     make_pretty_3d_from_offshore,
     raster_bounds,
     sieve_land_components,
+    webgl_lit_colors,
     warp_to_reference,
 )
 from site_config import DEFAULT_VERTICAL_EXAGGERATION
@@ -157,6 +158,36 @@ class ConfigurationDefaultTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RuntimeError, "required map font"):
                 load_font(20)
+
+
+class ReliefLightingTests(unittest.TestCase):
+    def test_webgl_lighting_preserves_shape_and_display_range(self) -> None:
+        colors = np.full((5, 7, 3), 128.0, dtype=np.float32)
+        z = np.tile(np.linspace(-4.0, 4.0, 7, dtype=np.float32), (5, 1))
+
+        lit = webgl_lit_colors(
+            colors,
+            z,
+            pixel_size_m=1.0,
+            vertical_exaggeration=DEFAULT_VERTICAL_EXAGGERATION,
+            view_bearing_deg=180.0,
+        )
+
+        self.assertEqual(lit.shape, colors.shape)
+        self.assertTrue(np.all(np.isfinite(lit)))
+        self.assertGreaterEqual(float(lit.min()), 0.0)
+        self.assertLessEqual(float(lit.max()), 255.0)
+        self.assertGreater(float(np.ptp(lit[:, :, 0])), 0.0)
+
+    def test_webgl_lighting_rejects_non_metric_pixel_size(self) -> None:
+        with self.assertRaisesRegex(ValueError, "pixel_size_m"):
+            webgl_lit_colors(
+                np.ones((2, 2, 3), dtype=np.float32),
+                np.zeros((2, 2), dtype=np.float32),
+                pixel_size_m=0.0,
+                vertical_exaggeration=DEFAULT_VERTICAL_EXAGGERATION,
+                view_bearing_deg=180.0,
+            )
 
 
 if __name__ == "__main__":

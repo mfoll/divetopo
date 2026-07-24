@@ -107,7 +107,20 @@ Pour assembler les deux planches apres leur regeneration :
 .venv/bin/python compose_site_plate.py sites/cap-la-houssaye.json
 ```
 
+Pour recalculer uniquement les deux perspectives 3D sans toucher aux plans 2D
+ni a la carte de localisation :
+
+```bash
+.venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --render-only --relief-only
+```
+
 L'option `--land-style orthophoto` ou `--land-style topography` permet de ne regenerer qu'une seule variante. Sans option, les deux sont produites.
+
+Les perspectives statiques utilisent le meme langage lumineux que le relief
+WebGL : normales metriques calculees avec l'exageration verticale, lumiere
+hemispherique froide et lumiere directionnelle chaude venant du nord-est. Le
+calcul est effectue en espace colorimetrique lineaire avant le dessin des
+isobathes, du trait de cote et des annotations.
 
 ## Reutilisation
 

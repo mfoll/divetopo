@@ -46,6 +46,10 @@ Les deux options sont mutuellement exclusives. Avant un rendu, le script valide 
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --check
 ```
 
+Apres un changement limite au modele lumineux ou a la projection 3D,
+`--render-only --relief-only` valide le cache puis regenere uniquement les deux
+perspectives 3D. Les plans 2D et la carte de localisation restent inchanges.
+
 Le fichier [sites/cap-la-houssaye.json](sites/cap-la-houssaye.json) contient tous les parametres propres au site et les chemins des sorties canoniques.
 
 ## Etapes executees
@@ -99,6 +103,7 @@ Pour la 3D, prevoir dans `context_bbox_utm40s` environ 300 a 400 m de donnees re
 - `coast_mode` : `profile` conserve la cote simple historique, decrite par une traversee terre/eau par colonne; `mask` extrait un masque terrestre bidimensionnel pour les baies, ilots, pointes et piscines naturelles. Utiliser `mask` lorsque la cote n'est pas monotone dans l'orientation choisie. En mode `mask`, le remplissage terrestre et le trait 0 m proviennent de la meme surface continue lissee : le trait suit exactement son isovaleur 0,5 et aucun pixel terrestre ne peut depasser en mer.
 - `view_bearing_deg` : azimut regarde par la camera 3D, en degres horaires depuis le nord. S'il est absent, la camera regarde vers le bas du raster oriente; `135` correspond au sud-est. Le maillage, ses textures et ses vecteurs sont tournes par interpolation avant projection, et non comme une simple image apres rendu.
 - `view_crop_width_m` et `view_crop_depth_m` : emprise metrique conservee apres la rotation arbitraire du maillage. Extraire un contexte plus large que ce cadre permet de garder les bords du GeoTIFF et les isobathes tronquees hors champ sans augmenter inutilement le nombre de facettes rendues.
+- `relief_hemisphere_intensity`, `relief_key_light_intensity`, `relief_key_light_bearing_deg`, `relief_key_light_elevation_deg` et `relief_normal_sample_spacing_m` : modèle lumineux des perspectives statiques, calé sur le relief WebGL. Les normales sont calculées avec l’espacement métrique réel et l’exagération verticale affichée, puis lissées à 2 m par défaut, comme le maillage interactif. Une lumière hémisphérique froide conserve le détail des versants à l’ombre et une lumière directionnelle chaude venant du nord-est modèle mer et terre en espace colorimétrique linéaire. Ces paramètres sont communs aux textures topographiques et orthophoto ; les traits de côte, isobathes et annotations sont dessinés ensuite et ne sont pas recolorés.
 - La projection 3D calcule automatiquement son zoom transversal a partir de la largeur de `focus_bbox_utm40s`. La 2D et la 3D ont ainsi une echelle proche, et identique sur l'axe de la barre de 50 m lorsque `view_visible_width_m` n'est pas surcharge. Cette egalite n'est pas un objectif absolu : `view_visible_width_m` permet de cadrer la perspective sur le relief utile sans modifier l'emprise 2D. Boucan utilise `580 m` et l'Hermitage `650 m`.
 - `camera_tilt` : angle apparent de la grille. Une valeur plus faible abaisse le point de vue.
 - `along_view_projection_scale` : amplification cartographique dans l'axe de vue 3D, apres application de l'azimut. Ce nom reste valable pour toutes les orientations de camera.
@@ -125,6 +130,24 @@ Pour la 3D, prevoir dans `context_bbox_utm40s` environ 300 a 400 m de donnees re
 - `orthophoto_enabled` : genere un second plan 2D hybride sans modifier le plan topographique original.
 - `orthophoto_layer`, `orthophoto_resolution_m` et `orthophoto_capture_date` : couche WMS IGN, resolution et date ISO de l'orthophoto georeferencee. La couche par defaut `HR.ORTHOIMAGERY.ORTHOPHOTOS` est diffusee a 20 cm. La date est propre a chaque site et doit etre verifiee par `GetFeatureInfo` lors de l'ajout ou du rafraichissement d'un site.
 - `orthophoto_3d_resolution_m` : resolution de la texture drapee sur le maillage altimetrique terrestre de la vue 3D. Une maille de 40 cm suffit generalement; l'Hermitage utilise 80 cm afin que son contexte de `3300 x 3600 m` respecte la limite de 5000 pixels par axe du service IGN.
+
+### Nettete de l'orthophoto en 3D
+
+La vue WebGL parait plus nette que la perspective statique meme lorsqu'elles
+partent de la meme BD ORTHO IGN. L'interactif utilise l'orthophoto de l'emprise
+`focus` a 20 cm/pixel, exportee en texture jusqu'a 2048 pixels, puis applique
+une interpolation perspective et un filtrage anisotrope sur le GPU. Le rendu
+statique utilise l'orthophoto de contexte a 40 cm/pixel, ou 80 cm a
+l'Hermitage, et remplit actuellement chaque facette avec la moyenne de ses
+quatre couleurs eclairees. Ce remplissage uniforme, suivi du reechantillonnage
+final et de l'encodage JPEG, attenue les details sur les surfaces obliques.
+
+Augmenter seulement la resolution du GeoTIFF de contexte depasserait la limite
+de 5000 pixels par axe du service IGN pour ces emprises. Une amelioration
+robuste devra donc soit telecharger la texture par tuiles et interpoler les
+coordonnees de texture dans chaque triangle, soit reutiliser un moteur 3D
+hors-ecran a la resolution finale. Elle ne doit pas modifier la geometrie, le
+modele lumineux ni les surimpressions cartographiques valides.
 - `bridge_decks` : correction locale opt-in d'un pont absent du modele de terrain nu. Chaque tablier est defini par `start_utm40s`, `end_utm40s`, `half_width_m` et `feather_m`. Le Cap La Houssaye en contient une pour le pont de la Ravine Patent Slip. Ne jamais recopier cette correction dans un autre site : laisser le parametre absent, sauf anomalie confirmee visuellement et corrigee au cas par cas.
 - `locator_map_enabled`, `locator_bbox_utm40s`, `locator_marker_utm40s` et `locator_label` : activent la carte de localisation insulaire et placent le repere propre au site. Le fond RGE ALTI a 20 m est commun et reutilisable entre les sites.
 - `locator_bathymetry_enabled`, `locator_gebco_wms_url`, `locator_gebco_layer`, `locator_gebco_attribution`, `locator_gebco_request_width_px` et `locator_gebco_blur_px` : ajoutent uniquement en mer le relief ombre generalise de GEBCO 2024 et lissent sa maille de 15 secondes d'arc a l'echelle d'affichage. L'endpoint, la couche et l'attribution sont explicites dans chaque configuration. Cette couche insulaire sert a la localisation et ne remplace jamais HYSCORES dans les cartes detaillees ou pour la navigation.

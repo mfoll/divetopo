@@ -728,7 +728,12 @@ def validate_cached_inputs(config: dict, paths: dict[str, Path], *, include_raw:
             )
 
 
-def render(config: dict, paths: dict[str, Path]) -> None:
+def render(
+    config: dict,
+    paths: dict[str, Path],
+    *,
+    relief_only: bool = False,
+) -> None:
     title = str(config["title"])
     rotation_k = int(config.get("rotation_k", 0))
     author = str(config.get("plate_author", "")).strip()
@@ -750,7 +755,7 @@ def render(config: dict, paths: dict[str, Path]) -> None:
     focus_extent = bbox(config, "focus_bbox_utm40s")
     focus_width_m = focus_extent[2] - focus_extent[0]
 
-    if config.get("locator_map_enabled", False):
+    if not relief_only and config.get("locator_map_enabled", False):
         marker = tuple(map(float, config["locator_marker_utm40s"]))
         locator_attribution = "Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
         if config.get("locator_bathymetry_enabled", False):
@@ -785,25 +790,26 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         "final_style_scale": float(config.get("map_style_scale", 2.0)),
         "max_land_elevation_m": float(config.get("max_land_elevation_m", 55.0)),
     }
-    make_clean_plan(
-        paths["focus_depth"],
-        paths["focus_elevation"],
-        paths["output_2d"],
-        **plan_options,
-    )
-    if config.get("orthophoto_enabled", False):
-        orthophoto_plan_options = {
-            **plan_options,
-            "land_imagery_path": paths["focus_orthophoto"],
-            "source_text": orthophoto_sources,
-            "coastline_visible": bool(config.get("orthophoto_coastline_visible", False)),
-        }
+    if not relief_only:
         make_clean_plan(
             paths["focus_depth"],
             paths["focus_elevation"],
-            paths["output_2d_ortho"],
-            **orthophoto_plan_options,
+            paths["output_2d"],
+            **plan_options,
         )
+        if config.get("orthophoto_enabled", False):
+            orthophoto_plan_options = {
+                **plan_options,
+                "land_imagery_path": paths["focus_orthophoto"],
+                "source_text": orthophoto_sources,
+                "coastline_visible": bool(config.get("orthophoto_coastline_visible", False)),
+            }
+            make_clean_plan(
+                paths["focus_depth"],
+                paths["focus_elevation"],
+                paths["output_2d_ortho"],
+                **orthophoto_plan_options,
+            )
 
     legacy_symmetric_crop = float(config.get("horizontal_crop_fraction", 0.0))
     left_crop = float(
@@ -866,6 +872,21 @@ def render(config: dict, paths: dict[str, Path]) -> None:
         "coastline_visible": bool(config.get("coastline_visible", True)),
         "final_style_scale": float(config.get("map_style_scale", 2.0)),
         "max_land_elevation_m": float(config.get("max_land_elevation_m", 55.0)),
+        "hemisphere_intensity": float(
+            config.get("relief_hemisphere_intensity", 1.7)
+        ),
+        "key_light_intensity": float(
+            config.get("relief_key_light_intensity", 2.1)
+        ),
+        "key_light_bearing_deg": float(
+            config.get("relief_key_light_bearing_deg", 45.0)
+        ),
+        "key_light_elevation_deg": float(
+            config.get("relief_key_light_elevation_deg", 58.0)
+        ),
+        "normal_sample_spacing_m": float(
+            config.get("relief_normal_sample_spacing_m", 2.0)
+        ),
     }
     make_pretty_3d_from_offshore(
         paths["context_depth"],
@@ -901,7 +922,14 @@ def main() -> int:
         action="store_true",
         help="Validate the configuration and cached rasters without downloading or rendering",
     )
+    parser.add_argument(
+        "--relief-only",
+        action="store_true",
+        help="Render only the topographic and orthophoto 3D perspectives",
+    )
     args = parser.parse_args()
+    if args.check and args.relief_only:
+        parser.error("--relief-only cannot be combined with --check")
 
     config_path = args.config.expanduser().resolve()
     config = json.loads(config_path.read_text(encoding="utf-8"))
@@ -931,7 +959,7 @@ def main() -> int:
     except (FileNotFoundError, ValueError) as error:
         suggestion = "Run with --refresh to rebuild the configured source rasters."
         raise type(error)(f"{error}\n{suggestion}") from error
-    render(config, paths)
+    render(config, paths, relief_only=args.relief_only)
 
     print("\nSources")
     print(raster_summary(paths["focus_depth"]))

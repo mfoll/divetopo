@@ -18,6 +18,10 @@ osr.UseExceptions()
 NO_DATA_RGB = np.array([69, 78, 82], dtype=np.float32)
 MAP_FONT = "/System/Library/Fonts/Supplemental/Arial.ttf"
 MAP_FONT_BOLD = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
+WEBGL_MATERIAL_RGB = (216, 224, 213)
+WEBGL_HEMISPHERE_SKY_RGB = (223, 251, 255)
+WEBGL_HEMISPHERE_GROUND_RGB = (16, 38, 45)
+WEBGL_KEY_LIGHT_RGB = (255, 242, 216)
 
 
 def load_font(size: int, bold: bool = False):
@@ -287,6 +291,132 @@ def hillshade(values: np.ndarray, mask: np.ndarray, strength: float) -> np.ndarr
     gradient_y, gradient_x = np.gradient(filled)
     shade = 1.0 - strength * gradient_x + strength * 0.75 * gradient_y
     return np.clip(shade, 0.62, 1.28)
+
+
+def srgb_to_linear(rgb: np.ndarray) -> np.ndarray:
+    """Convert 0..255 sRGB values to the linear-light domain used by WebGL."""
+    values = np.clip(rgb.astype(np.float32) / 255.0, 0.0, 1.0)
+    return np.where(
+        values <= 0.04045,
+        values / 12.92,
+        ((values + 0.055) / 1.055) ** 2.4,
+    )
+
+
+def linear_to_srgb(rgb: np.ndarray) -> np.ndarray:
+    """Convert linear RGB values to 0..255 display-referred sRGB."""
+    values = np.clip(rgb.astype(np.float32), 0.0, 1.0)
+    encoded = np.where(
+        values <= 0.0031308,
+        values * 12.92,
+        1.055 * np.power(values, 1.0 / 2.4) - 0.055,
+    )
+    return encoded * 255.0
+
+
+def smooth_surface_for_normals(
+    z: np.ndarray,
+    pixel_size_m: float,
+    sample_spacing_m: float,
+) -> np.ndarray:
+    """Low-pass only the lighting normals to match the WebGL heightfield mesh."""
+    if pixel_size_m <= 0.0:
+        raise ValueError("pixel_size_m must be positive")
+    if sample_spacing_m <= pixel_size_m:
+        return z.astype(np.float32, copy=True)
+    factor = max(2, int(np.floor(sample_spacing_m / pixel_size_m + 0.5)))
+    height, width = z.shape
+    reduced = Image.fromarray(z.astype(np.float32), mode="F").resize(
+        (max(2, width // factor), max(2, height // factor)),
+        Image.Resampling.BOX,
+    )
+    return np.asarray(
+        reduced.resize((width, height), Image.Resampling.BICUBIC),
+        dtype=np.float32,
+    )
+
+
+def webgl_lit_colors(
+    colors: np.ndarray,
+    z: np.ndarray,
+    *,
+    pixel_size_m: float,
+    vertical_exaggeration: float,
+    view_bearing_deg: float,
+    hemisphere_intensity: float = 1.7,
+    key_light_intensity: float = 2.1,
+    key_light_bearing_deg: float = 45.0,
+    key_light_elevation_deg: float = 58.0,
+    normal_sample_spacing_m: float = 2.0,
+    material_rgb: tuple[int, int, int] = WEBGL_MATERIAL_RGB,
+    hemisphere_sky_rgb: tuple[int, int, int] = WEBGL_HEMISPHERE_SKY_RGB,
+    hemisphere_ground_rgb: tuple[int, int, int] = WEBGL_HEMISPHERE_GROUND_RGB,
+    key_light_rgb: tuple[int, int, int] = WEBGL_KEY_LIGHT_RGB,
+) -> np.ndarray:
+    """Approximate TerrainViewer's MeshStandardMaterial lighting in linear RGB.
+
+    The static renderer keeps its cartographic texture and projection, but uses
+    the same cool hemisphere / warm directional-light language as Three.js.
+    Normals are derived from metric horizontal spacing and the displayed
+    vertical exaggeration instead of arbitrary array-gradient coefficients.
+    """
+    if colors.shape[:2] != z.shape or colors.shape[-1] != 3:
+        raise ValueError("colors and z must describe the same RGB surface")
+    for value, name in (
+        (vertical_exaggeration, "vertical_exaggeration"),
+        (hemisphere_intensity, "hemisphere_intensity"),
+        (key_light_intensity, "key_light_intensity"),
+        (normal_sample_spacing_m, "normal_sample_spacing_m"),
+    ):
+        if value <= 0.0:
+            raise ValueError(f"{name} must be positive")
+    if not 0.0 < key_light_elevation_deg < 90.0:
+        raise ValueError("key_light_elevation_deg must be between 0 and 90 degrees")
+
+    normal_z = smooth_surface_for_normals(
+        z,
+        pixel_size_m,
+        normal_sample_spacing_m,
+    )
+    gradient_y, gradient_x = np.gradient(
+        normal_z * vertical_exaggeration,
+        pixel_size_m,
+        pixel_size_m,
+    )
+    nx = -gradient_x
+    ny = -gradient_y
+    nz = np.ones_like(normal_z)
+    norm = np.sqrt(nx * nx + ny * ny + nz * nz)
+    nx, ny, nz = nx / norm, ny / norm, nz / norm
+
+    # Rows point toward the selected bearing; columns point 90 degrees to its
+    # left in geographic space. Rotate the fixed north-east WebGL key light
+    # into these view-relative axes so all three site azimuths stay coherent.
+    bearing = np.deg2rad(float(view_bearing_deg) % 360.0)
+    light_bearing = np.deg2rad(float(key_light_bearing_deg) % 360.0)
+    elevation = np.deg2rad(key_light_elevation_deg)
+    horizontal = np.cos(elevation)
+    light_x = horizontal * np.cos(light_bearing - (bearing - np.pi / 2.0))
+    light_y = horizontal * np.cos(light_bearing - bearing)
+    light_z = np.sin(elevation)
+    diffuse = np.clip(nx * light_x + ny * light_y + nz * light_z, 0.0, 1.0)
+
+    sky = srgb_to_linear(np.asarray(hemisphere_sky_rgb, dtype=np.float32))
+    ground = srgb_to_linear(np.asarray(hemisphere_ground_rgb, dtype=np.float32))
+    key = srgb_to_linear(np.asarray(key_light_rgb, dtype=np.float32))
+    material = srgb_to_linear(np.asarray(material_rgb, dtype=np.float32))
+    sky_weight = np.clip(nz * 0.5 + 0.5, 0.0, 1.0)
+    hemisphere = (
+        ground[None, None, :] * (1.0 - sky_weight[:, :, None])
+        + sky[None, None, :] * sky_weight[:, :, None]
+    ) * hemisphere_intensity
+    direct = key[None, None, :] * (
+        key_light_intensity * diffuse[:, :, None]
+    )
+    irradiance = (hemisphere + direct) / np.pi
+
+    texture = srgb_to_linear(colors)
+    return linear_to_srgb(texture * material[None, None, :] * irradiance)
 
 
 def open_raster(path: Path, description: str = "raster"):
@@ -1377,6 +1507,11 @@ def make_pretty_3d_from_offshore(
     coastline_visible: bool = True,
     final_style_scale: float = 2.0,
     max_land_elevation_m: float = 55.0,
+    hemisphere_intensity: float = 1.7,
+    key_light_intensity: float = 2.1,
+    key_light_bearing_deg: float = 45.0,
+    key_light_elevation_deg: float = 58.0,
+    normal_sample_spacing_m: float = 2.0,
 ) -> None:
     (
         elev_full,
@@ -1743,18 +1878,19 @@ def make_pretty_3d_from_offshore(
         x, y = raw_project(px, py, zv)
         return ox + float(x), oy + float(y)
 
-    gy, gx = np.gradient(z)
-    nx = -gx * 0.52
-    ny = -gy * 0.52
-    nz = np.ones_like(z)
-    norm = np.sqrt(nx * nx + ny * ny + nz * nz)
-    nx, ny, nz = nx / norm, ny / norm, nz / norm
-    light = np.array([-0.55, -0.45, 0.70], dtype=np.float32)
-    light = light / np.linalg.norm(light)
-    diffuse = np.clip(nx * light[0] + ny * light[1] + nz * light[2], 0, 1)
-    relief_shade = np.clip(0.35 + 0.93 * diffuse, 0.35, 1.28)
-    cast_shadow = np.clip(1.0 - 0.032 * np.maximum(gy, 0) - 0.020 * np.maximum(gx, 0), 0.70, 1.0)
-    relief_shade *= cast_shadow
+    lighting_pixel_m = source_pixel_m * step / render_interp
+    lit_colors = webgl_lit_colors(
+        colors,
+        z,
+        pixel_size_m=lighting_pixel_m,
+        vertical_exaggeration=vertical_exaggeration,
+        view_bearing_deg=bearing,
+        hemisphere_intensity=hemisphere_intensity,
+        key_light_intensity=key_light_intensity,
+        key_light_bearing_deg=key_light_bearing_deg,
+        key_light_elevation_deg=key_light_elevation_deg,
+        normal_sample_spacing_m=normal_sample_spacing_m,
+    )
     for j in range(h - 2, -1, -1):
         for i in range(w - 1):
             if not (valid[j, i] and valid[j + 1, i] and valid[j, i + 1] and valid[j + 1, i + 1]):
@@ -1765,33 +1901,31 @@ def make_pretty_3d_from_offshore(
                 project(i + 1, j + 1, float(z[j + 1, i + 1])),
                 project(i, j + 1, float(z[j + 1, i])),
             ]
-            corner_land = np.array(
-                [
-                    land_mask[j, i],
-                    land_mask[j, i + 1],
-                    land_mask[j + 1, i + 1],
-                    land_mask[j + 1, i],
-                ],
-                dtype=bool,
-            )
+            corner_land = np.array([
+                land_mask[j, i],
+                land_mask[j, i + 1],
+                land_mask[j + 1, i + 1],
+                land_mask[j + 1, i],
+            ], dtype=bool)
+            corner_colors = np.stack([
+                lit_colors[j, i],
+                lit_colors[j, i + 1],
+                lit_colors[j + 1, i + 1],
+                lit_colors[j + 1, i],
+            ])
             if np.any(corner_land) and not np.all(corner_land):
-                corner_colors = np.stack(
-                    [
-                        colors[j, i],
-                        colors[j, i + 1],
-                        colors[j + 1, i + 1],
-                        colors[j + 1, i],
-                    ]
-                )
                 # A shoreline quad must not inherit the red shallow-water
                 # colour from whichever corner happens to be visited first.
                 c = np.mean(corner_colors[corner_land], axis=0).astype(np.float32)
             else:
-                c = colors[j, i].astype(np.float32)
-            shade = float(relief_shade[j, i])
-            if land_mask[j, i]:
-                shade = np.clip(shade * 1.05, 0.48, 1.28)
-            draw.polygon(pts, fill=tuple(np.clip(c * shade, 0, 255).astype(np.uint8).tolist()) + (255,))
+                # WebGL interpolates vertex normals and texture samples across
+                # each triangle. Averaging the four sub-pixel corners removes
+                # the column-aligned flat-shading streaks of the old renderer.
+                c = np.mean(corner_colors, axis=0).astype(np.float32)
+            draw.polygon(
+                pts,
+                fill=tuple(np.clip(c, 0, 255).astype(np.uint8).tolist()) + (255,),
+            )
 
     # Vector lines are projected on the same surface after the mesh, so they
     # remain smooth and readable even across steep submarine walls.
