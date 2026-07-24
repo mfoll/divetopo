@@ -239,7 +239,7 @@ img {
 }
 
 .site-picker-heading {
-  align-content: start;
+  align-content: end;
   display: grid;
   padding: 0.1rem 0.25rem 0;
 }
