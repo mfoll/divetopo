@@ -266,17 +266,22 @@ export default function TerrainViewer({
       if (!metadata || !material) return;
       let texture = textureCacheRef.current[nextStyle];
       if (!texture) {
-        texture = await new THREE.TextureLoader().loadAsync(
+        const loadedTexture = await new THREE.TextureLoader().loadAsync(
           `/terrain/${slug}/${metadata.textures[nextStyle].file}`,
         );
-        texture.colorSpace = THREE.SRGBColorSpace;
-        texture.anisotropy = Math.min(
+        if (cancelled || !rendererRef.current || !materialRef.current) {
+          loadedTexture.dispose();
+          return;
+        }
+        loadedTexture.colorSpace = THREE.SRGBColorSpace;
+        loadedTexture.anisotropy = Math.min(
           rendererRef.current?.capabilities.getMaxAnisotropy() ?? 1,
           8,
         );
-        textureCacheRef.current[nextStyle] = texture;
+        textureCacheRef.current[nextStyle] = loadedTexture;
+        texture = loadedTexture;
       }
-      if (cancelled) return;
+      if (cancelled || !materialRef.current) return;
       material.map = texture;
       material.needsUpdate = true;
     }
@@ -319,11 +324,20 @@ export default function TerrainViewer({
     async function updateTexture() {
       let texture = textureCacheRef.current[style];
       if (!texture) {
-        texture = await new THREE.TextureLoader().loadAsync(
+        const loadedTexture = await new THREE.TextureLoader().loadAsync(
           `/terrain/${slug}/${metadata!.textures[style].file}`,
         );
-        texture.colorSpace = THREE.SRGBColorSpace;
-        textureCacheRef.current[style] = texture;
+        if (cancelled || !materialRef.current || !rendererRef.current) {
+          loadedTexture.dispose();
+          return;
+        }
+        loadedTexture.colorSpace = THREE.SRGBColorSpace;
+        loadedTexture.anisotropy = Math.min(
+          rendererRef.current.capabilities.getMaxAnisotropy(),
+          8,
+        );
+        textureCacheRef.current[style] = loadedTexture;
+        texture = loadedTexture;
       }
       if (cancelled || !materialRef.current) return;
       materialRef.current.map = texture;

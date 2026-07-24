@@ -226,10 +226,16 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
 
     return {
         "slug": slug,
+        "displayName": config["locator_label"],
         "title": config["title"],
         "plateTitle": config["plate_title"],
         "config": config["_config_path"],
+        "maxDepthM": config["max_depth_m"],
         "verticalExaggeration": config["vertical_exaggeration"],
+        "orthophotoCaptureDate": config["orthophoto_capture_date"],
+        "plateAuthor": config["plate_author"],
+        "copyrightYear": config["copyright_year"],
+        "mapLicense": config["map_license"],
         "locator": locator,
         "maps": maps,
         "planches": planches,
@@ -283,7 +289,7 @@ def main() -> None:
         build_root.mkdir()
 
         manifest: dict[str, Any] = {
-            "schemaVersion": 1,
+            "schemaVersion": 2,
             "mapWidths": list(MAP_WIDTHS),
             "locatorWidth": LOCATOR_WIDTH,
             "planchePreviewWidth": PLANCHE_PREVIEW_WIDTH,

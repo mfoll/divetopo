@@ -31,14 +31,62 @@ test("server-renders the finished atlas", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Reliefs de l’Ouest<\/title>/i);
-  assert.match(html, /Lire la côte sous la surface/);
+  assert.match(html, /<title>Cartes de plongée à La Réunion<\/title>/i);
+  assert.match(html, /Cartes de plongée à La Réunion/);
   assert.match(html, /Cap La Houssaye/);
+  assert.match(html, /3d-orthophoto-2474\.webp/);
+  assert.match(html, /locator-640\.webp/);
+  assert.match(html, /Planche imprimable/);
+  assert.match(html, /Télécharger la planche HD/);
   assert.match(html, /Topographie/);
   assert.match(html, /Orthophoto/);
-  assert.match(html, /Explorer en 3D/);
-  assert.match(html, /Une carte pour comprendre, pas pour naviguer/);
+  assert.match(html, /3D interactive/);
+  assert.match(html, /Méthode, sources et licences/);
+  assert.match(html, /https:\/\/github\.com\/mfoll\/reunion-topobathy/);
+  assert.match(html, /https:\/\/doi\.org\/10\.12770\/ee059de2/);
+  assert.doesNotMatch(html, /Lire la côte sous la surface/);
+  assert.doesNotMatch(html, /Trois reliefs, trois lectures de la côte/);
+  assert.doesNotMatch(html, /02\s*\/\s*Les sites/i);
+  assert.doesNotMatch(html, /id="explorer"/);
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/);
+});
+
+test("map manifest supports adding future sites without component changes", async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL("../public/maps/manifest.json", import.meta.url),
+      "utf8",
+    ),
+  );
+
+  assert.equal(manifest.schemaVersion, 2);
+  assert.ok(manifest.sites.length >= 3);
+
+  for (const site of manifest.sites) {
+    assert.equal(typeof site.slug, "string");
+    assert.equal(typeof site.displayName, "string");
+    assert.ok(site.displayName.length > 0);
+    assert.equal(typeof site.maxDepthM, "number");
+    assert.ok(site.locator?.src);
+
+    const mapPairs = new Set(
+      site.maps.map((map) => `${map.view}/${map.style}`),
+    );
+    assert.deepEqual(
+      [...mapPairs].sort(),
+      [
+        "2d/orthophoto",
+        "2d/topographic",
+        "3d/orthophoto",
+        "3d/topographic",
+      ],
+    );
+
+    const plancheStyles = site.planches
+      .map((planche) => planche.style)
+      .sort();
+    assert.deepEqual(plancheStyles, ["orthophoto", "topographic"]);
+  }
 });
 
 test("removes disposable starter artifacts", async () => {

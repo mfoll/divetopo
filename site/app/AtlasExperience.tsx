@@ -1,11 +1,10 @@
 "use client";
 
-/* eslint-disable @next/next/no-img-element -- responsive derivatives are prebuilt and one native image is intentionally swapped in place */
+/* eslint-disable @next/next/no-img-element -- responsive map derivatives are generated locally and swapped in place */
 
 import {
   lazy,
   Suspense,
-  useMemo,
   useRef,
   useState,
   type KeyboardEvent,
@@ -14,6 +13,7 @@ import mapManifestJson from "../public/maps/manifest.json";
 
 type SurfaceStyle = "topographic" | "orthophoto";
 type MapView = "2d" | "3d";
+type ViewMode = MapView | "interactive";
 
 type AssetVariant = {
   src: string;
@@ -36,8 +36,14 @@ type PlancheAsset = {
 
 type AtlasAssetSite = {
   slug: string;
+  displayName: string;
   plateTitle: string;
+  maxDepthM: number;
   verticalExaggeration: number;
+  orthophotoCaptureDate: string;
+  plateAuthor: string;
+  copyrightYear: number;
+  mapLicense: string;
   locator: AssetVariant;
   maps: MapAsset[];
   planches: PlancheAsset[];
@@ -47,51 +53,41 @@ type MapManifest = {
   sites: AtlasAssetSite[];
 };
 
-type SiteCopy = {
-  name: string;
-  shortName: string;
-  description: string;
-  coordinates: [string, string];
-  extent: string;
-  depth: number;
-  orthophotoDate: string;
-};
-
 const TerrainViewer = lazy(() => import("./TerrainViewer"));
 const mapManifest = mapManifestJson as MapManifest;
+const initialSite = mapManifest.sites[0];
 
-const SITE_COPY: Record<string, SiteCopy> = {
-  "cap-la-houssaye": {
-    name: "Cap La Houssaye",
-    shortName: "Cap La Houssaye",
-    description:
-      "Une lecture resserrée des deux pointes du Cap et du relief côtier jusqu’à −20 m. La côte reste au cœur du cadre, là où les formes sont les plus lisibles.",
-    coordinates: ["21° 01′ 02.5″ S", "55° 14′ 14.8″ E"],
-    extent: "≈ 495 × 342 m",
-    depth: 20,
-    orthophotoDate: "22 juillet 2025",
+if (!initialSite) {
+  throw new Error("The dive atlas requires at least one site");
+}
+
+const SOURCE_LINKS = [
+  {
+    label: "HYSCORES 2015",
+    href: "https://doi.org/10.12770/ee059de2-2c81-46ce-88de-0fb5517046af",
   },
-  "boucan-canot": {
-    name: "Boucan Canot",
-    shortName: "Boucan Canot",
-    description:
-      "Autour de la piscine naturelle, une emprise de 800 × 554 m et une perspective orientée vers le sud-est, jusqu’à −30 m.",
-    coordinates: ["21° 01′ 36.7″ S", "55° 13′ 32.9″ E"],
-    extent: "800 × 554 m",
-    depth: 30,
-    orthophotoDate: "22 juillet 2025",
+  { label: "Ifremer", href: "https://www.ifremer.fr/fr" },
+  {
+    label: "Université de Bretagne Occidentale",
+    href: "https://www.univ-brest.fr/fr",
   },
-  "passe-hermitage": {
-    name: "Passe de l’Hermitage",
-    shortName: "Passe de l’Hermitage",
-    description:
-      "Une emprise d’un kilomètre centrée sur la passe et le grand lagon, prolongée jusqu’à −30 m. La perspective regarde vers le nord-est.",
-    coordinates: ["21° 05′ 06.7″ S", "55° 13′ 26.6″ E"],
-    extent: "1 000 × 692 m",
-    depth: 30,
-    orthophotoDate: "2 août 2025",
+  {
+    label: "Office de l’eau Réunion",
+    href: "https://donnees.eaureunion.fr/",
   },
-};
+  {
+    label: "IGN RGE ALTI",
+    href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI",
+  },
+  {
+    label: "IGN BD ORTHO",
+    href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO",
+  },
+  {
+    label: "GEBCO 2024 Grid",
+    href: "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid",
+  },
+] as const;
 
 function assetSrcSet(variants: AssetVariant[]) {
   return variants.map((variant) => `${variant.src} ${variant.width}w`).join(", ");
@@ -117,33 +113,39 @@ function selectedPlanche(site: AtlasAssetSite, style: SurfaceStyle) {
   return asset;
 }
 
+function surfaceLabel(style: SurfaceStyle) {
+  return style === "orthophoto" ? "Orthophoto" : "Topographie";
+}
+
+function viewLabel(view: ViewMode) {
+  if (view === "2d") return "Plan 2D";
+  if (view === "3d") return "Vue 3D";
+  return "3D interactive";
+}
+
 function SurfaceToggle({
   value,
   onChange,
-  dark = false,
 }: {
   value: SurfaceStyle;
   onChange: (style: SurfaceStyle) => void;
-  dark?: boolean;
 }) {
   return (
-    <fieldset
-      className={`segmented-control surface-control${dark ? " is-dark" : ""}`}
-    >
+    <fieldset className="segmented-control surface-control">
       <legend>Fond de carte</legend>
-      <button
-        type="button"
-        aria-pressed={value === "topographic"}
-        onClick={() => onChange("topographic")}
-      >
-        Topographie
-      </button>
       <button
         type="button"
         aria-pressed={value === "orthophoto"}
         onClick={() => onChange("orthophoto")}
       >
         Orthophoto
+      </button>
+      <button
+        type="button"
+        aria-pressed={value === "topographic"}
+        onClick={() => onChange("topographic")}
+      >
+        Topographie
       </button>
     </fieldset>
   );
@@ -152,11 +154,9 @@ function SurfaceToggle({
 function ViewToggle({
   value,
   onChange,
-  onExplore,
 }: {
-  value: MapView;
-  onChange: (view: MapView) => void;
-  onExplore: () => void;
+  value: ViewMode;
+  onChange: (view: ViewMode) => void;
 }) {
   return (
     <fieldset className="segmented-control view-control">
@@ -173,391 +173,363 @@ function ViewToggle({
         aria-pressed={value === "3d"}
         onClick={() => onChange("3d")}
       >
-        Perspective 3D
+        Vue 3D
       </button>
-      <button type="button" className="explore-control" onClick={onExplore}>
-        Explorer en 3D
+      <button
+        type="button"
+        aria-pressed={value === "interactive"}
+        onClick={() => onChange("interactive")}
+      >
+        3D interactive
       </button>
     </fieldset>
   );
 }
 
-function SiteRail({
+function SiteNavigator({
   activeSlug,
   onSelect,
-  compact = false,
 }: {
   activeSlug: string;
   onSelect: (slug: string) => void;
-  compact?: boolean;
 }) {
+  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
+  function selectAndFocus(index: number) {
+    const site = mapManifest.sites[index];
+    if (!site) return;
+    onSelect(site.slug);
+    requestAnimationFrame(() => {
+      const button = buttonRefs.current[site.slug];
+      button?.focus();
+      button?.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+  }
+
+  function handleKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
+    let nextIndex: number | null = null;
+    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
+      nextIndex = (index + 1) % mapManifest.sites.length;
+    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
+      nextIndex =
+        (index - 1 + mapManifest.sites.length) % mapManifest.sites.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = mapManifest.sites.length - 1;
+    }
+    if (nextIndex === null) return;
+    event.preventDefault();
+    selectAndFocus(nextIndex);
+  }
+
   return (
-    <div
-      className={`site-rail${compact ? " is-compact" : ""}`}
-      role="tablist"
-      aria-label="Choisir un site"
-    >
-      {mapManifest.sites.map((site, index) => {
-        const copy = SITE_COPY[site.slug];
-        return (
-          <button
-            key={site.slug}
-            type="button"
-            role="tab"
-            aria-selected={activeSlug === site.slug}
-            onClick={() => onSelect(site.slug)}
-          >
-            <span aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-            {copy.shortName}
-          </button>
-        );
-      })}
-    </div>
+    <aside className="site-navigator" aria-labelledby="site-navigator-title">
+      <h2 id="site-navigator-title">Sites de plongée</h2>
+      <label className="site-select-label">
+        <span>Choisir un site</span>
+        <select
+          value={activeSlug}
+          onChange={(event) => onSelect(event.target.value)}
+        >
+          {mapManifest.sites.map((site) => (
+            <option key={site.slug} value={site.slug}>
+              {site.displayName}
+            </option>
+          ))}
+        </select>
+      </label>
+      <div
+        className="site-list"
+        role="tablist"
+        aria-label="Choisir un site de plongée"
+        aria-orientation="vertical"
+      >
+        {mapManifest.sites.map((site, index) => {
+          const selected = activeSlug === site.slug;
+          return (
+            <button
+              key={site.slug}
+              id={`site-tab-${site.slug}`}
+              ref={(node) => {
+                buttonRefs.current[site.slug] = node;
+              }}
+              type="button"
+              role="tab"
+              aria-controls="atlas-panel"
+              aria-selected={selected}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => onSelect(site.slug)}
+              onKeyDown={(event) => handleKey(event, index)}
+            >
+              {site.displayName}
+            </button>
+          );
+        })}
+      </div>
+    </aside>
   );
 }
 
 export function AtlasExperience() {
-  const [activeSlug, setActiveSlug] = useState("cap-la-houssaye");
+  const [activeSlug, setActiveSlug] = useState(() => initialSite.slug);
   const [surfaceStyle, setSurfaceStyle] =
-    useState<SurfaceStyle>("topographic");
-  const [mapView, setMapView] = useState<MapView>("2d");
-  const [explorerActive, setExplorerActive] = useState(false);
+    useState<SurfaceStyle>("orthophoto");
+  const [viewMode, setViewMode] = useState<ViewMode>("3d");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const activeSite = useMemo(
-    () =>
-      mapManifest.sites.find((site) => site.slug === activeSlug) ??
-      mapManifest.sites[0],
-    [activeSlug],
-  );
-  const copy = SITE_COPY[activeSite.slug];
-  const mapAsset = selectedMap(activeSite, mapView, surfaceStyle);
+  const activeSite =
+    mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
+  const staticView: MapView = viewMode === "2d" ? "2d" : "3d";
+  const mapAsset = selectedMap(activeSite, staticView, surfaceStyle);
   const mapLargest = mapAsset.variants.at(-1) ?? mapAsset.variants[0];
   const planche = selectedPlanche(activeSite, surfaceStyle);
 
-  function selectSite(slug: string) {
-    setActiveSlug(slug);
-  }
-
-  function openExplorer() {
-    setExplorerActive(true);
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    document
-      .getElementById("explorer")
-      ?.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth" });
-  }
-
   function openMapDialog() {
-    dialogRef.current?.showModal();
+    if (viewMode !== "interactive") dialogRef.current?.showModal();
   }
 
   function closeOnBackdrop(event: React.MouseEvent<HTMLDialogElement>) {
     if (event.target === dialogRef.current) dialogRef.current.close();
   }
 
-  function handleSiteKeys(event: KeyboardEvent<HTMLDivElement>) {
-    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-    const currentIndex = mapManifest.sites.findIndex(
-      (site) => site.slug === activeSlug,
-    );
-    const direction = event.key === "ArrowRight" ? 1 : -1;
-    const nextIndex =
-      (currentIndex + direction + mapManifest.sites.length) %
-      mapManifest.sites.length;
-    selectSite(mapManifest.sites[nextIndex].slug);
-  }
+  const mapAlt =
+    staticView === "2d"
+      ? `Plan topo-bathymétrique 2D de ${activeSite.displayName}, nord en haut, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, profondeurs affichées jusqu’à −${activeSite.maxDepthM} m.`
+      : `Perspective 3D oblique de ${activeSite.displayName}, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, relief vertical exagéré environ quatre fois.`;
 
   return (
     <main>
       <header className="masthead" id="top">
-        <a className="brand" href="#atlas" aria-label="Reliefs de l’Ouest">
-          Reliefs de l’Ouest
+        <a className="brand" href="#atlas">
+          Plongée à La Réunion
         </a>
         <nav aria-label="Navigation principale">
-          <a href="#sites">Les sites</a>
-          <a href="#method">La méthode</a>
-          <a href="#credits">À propos</a>
+          <a href="#atlas">Les cartes</a>
+          <a href="#sources">Méthode et crédits</a>
+          <a
+            href="https://github.com/mfoll/reunion-topobathy"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+          </a>
         </nav>
       </header>
 
-      <section className="atlas-hero" id="atlas" aria-labelledby="hero-title">
-        <div className="hero-topline">
-          <div className="hero-copy">
-            <h1 id="hero-title">
-              <span>Lire la côte</span>
-              <span>sous la surface</span>
-            </h1>
-            <p>
-              Trois sites de plongée, cartographiés du rivage jusqu’aux fonds
-              marins.
-            </p>
-          </div>
-          <div onKeyDown={handleSiteKeys}>
-            <SiteRail activeSlug={activeSlug} onSelect={selectSite} compact />
-          </div>
+      <section className="atlas-section" id="atlas" aria-labelledby="atlas-title">
+        <div className="atlas-intro">
+          <h1 id="atlas-title">Cartes de plongée à La Réunion</h1>
+          <p>Plans 2D, vues 3D et reliefs interactifs.</p>
         </div>
 
-        <div className="map-toolbar">
-          <ViewToggle
-            value={mapView}
-            onChange={setMapView}
-            onExplore={openExplorer}
-          />
-          <SurfaceToggle
-            value={surfaceStyle}
-            onChange={setSurfaceStyle}
-          />
-        </div>
+        <div className="atlas-workspace">
+          <SiteNavigator activeSlug={activeSlug} onSelect={setActiveSlug} />
 
-        <figure className="map-stage">
-          <button
-            type="button"
-            className="map-open"
-            onClick={openMapDialog}
-            aria-label={`Ouvrir la carte de ${copy.name} en grand`}
+          <article
+            className="atlas-main"
+            id="atlas-panel"
+            role="tabpanel"
+            aria-labelledby={`site-tab-${activeSite.slug}`}
           >
-            <img
-              key={`${activeSite.slug}-${mapView}-${surfaceStyle}`}
-              src={mapLargest.src}
-              srcSet={assetSrcSet(mapAsset.variants)}
-              sizes="(max-width: 760px) 100vw, 92vw"
-              width={mapLargest.width}
-              height={mapLargest.height}
-              alt={
-                mapView === "2d"
-                  ? `Plan topo-bathymétrique 2D de ${copy.name}, nord en haut, fond ${surfaceStyle === "topographic" ? "topographique" : "orthophoto"}, profondeurs affichées jusqu’à −${copy.depth} m.`
-                  : `Perspective 3D oblique de ${copy.name}, fond ${surfaceStyle === "topographic" ? "topographique" : "orthophoto"}, relief vertical exagéré environ quatre fois.`
-              }
-              fetchPriority="high"
-            />
-            <span>Ouvrir en grand</span>
-          </button>
-          <figcaption>
-            <strong>{copy.name}</strong>
-            <span>
-              {mapView === "2d" ? "Plan métrique" : "Lecture du relief"}
-              {" · "}
-              {surfaceStyle === "topographic"
-                ? "Relief topographique"
-                : "Orthophoto"}
-            </span>
-          </figcaption>
-        </figure>
-
-        <a className="scroll-cue" href="#sites">
-          Découvrir les cartes
-        </a>
-      </section>
-
-      <section className="site-section" id="sites" aria-labelledby="sites-title">
-        <div className="section-index" aria-hidden="true">
-          02 / Les sites
-        </div>
-        <div className="site-layout">
-          <aside className="site-index">
-            <SiteRail activeSlug={activeSlug} onSelect={selectSite} />
-          </aside>
-          <article className="site-story">
-            <h2 id="sites-title">Trois reliefs, trois lectures de la côte</h2>
-            <div className="story-grid">
-              <div className="story-copy">
-                <h3>{copy.name}</h3>
-                <p>{copy.description}</p>
-                <dl>
-                  <div>
-                    <dt>Coordonnées</dt>
-                    <dd>
-                      {copy.coordinates[0]}
-                      <br />
-                      {copy.coordinates[1]}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Emprise du plan 2D</dt>
-                    <dd>{copy.extent}</dd>
-                  </div>
-                  <div>
-                    <dt>Lecture</dt>
-                    <dd>
-                      Isobathes · 5 m
-                      <br />
-                      Relief 3D · ≈ ×4
-                    </dd>
-                  </div>
-                </dl>
-                <a
-                  className="download-link"
-                  href={planche.download.src}
-                  download={planche.download.filename}
-                >
-                  Télécharger la planche HD
-                </a>
-              </div>
-              <figure className="planche-frame">
-                <img
-                  key={`${activeSite.slug}-planche-${surfaceStyle}`}
-                  src={planche.preview.src}
-                  width={planche.preview.width}
-                  height={planche.preview.height}
-                  loading="lazy"
-                  alt={`Planche complète de ${copy.name} réunissant localisation, plan 2D et perspective 3D, fond ${surfaceStyle === "topographic" ? "topographique" : "orthophoto"}.`}
+            <div className="viewer-heading">
+              <h2>{activeSite.displayName}</h2>
+              <div className="viewer-toolbar">
+                <ViewToggle value={viewMode} onChange={setViewMode} />
+                <SurfaceToggle
+                  value={surfaceStyle}
+                  onChange={setSurfaceStyle}
                 />
-                <figcaption>
-                  Planche imprimable · 5 400 × 3 250 px
-                </figcaption>
-              </figure>
+              </div>
+            </div>
+
+            <div
+              className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
+              data-testid="atlas-viewer"
+            >
+              {viewMode === "interactive" ? (
+                <Suspense
+                  fallback={
+                    <div className="terrain-loading" role="status">
+                      Préparation du relief…
+                    </div>
+                  }
+                >
+                  <TerrainViewer
+                    key={activeSite.slug}
+                    slug={activeSite.slug}
+                    siteName={activeSite.displayName}
+                    style={surfaceStyle}
+                  />
+                </Suspense>
+              ) : (
+                <button
+                  type="button"
+                  className="map-open"
+                  onClick={openMapDialog}
+                  aria-label={`Ouvrir la carte de ${activeSite.displayName} en grand`}
+                >
+                  <img
+                    key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
+                    src={mapLargest.src}
+                    srcSet={assetSrcSet(mapAsset.variants)}
+                    sizes="(max-width: 980px) 100vw, 68vw"
+                    width={mapLargest.width}
+                    height={mapLargest.height}
+                    alt={mapAlt}
+                    fetchPriority="high"
+                  />
+                  <span>Ouvrir en grand</span>
+                </button>
+              )}
+            </div>
+
+            <div className="viewer-meta" aria-live="polite">
+              <span>
+                {viewLabel(viewMode)} · {surfaceLabel(surfaceStyle)}
+              </span>
+              {viewMode === "interactive" ? (
+                <span>
+                  Glisser pour tourner · Molette ou pincement pour zoomer · Clic
+                  droit ou Ctrl + glisser pour déplacer
+                </span>
+              ) : null}
+            </div>
+
+            <div className="planche-download">
+              <img
+                key={`${activeSite.slug}-planche-${surfaceStyle}`}
+                src={planche.preview.src}
+                width={planche.preview.width}
+                height={planche.preview.height}
+                loading="lazy"
+                alt={`Aperçu de la planche imprimable de ${activeSite.displayName}, fond ${surfaceLabel(surfaceStyle).toLowerCase()}.`}
+              />
+              <div>
+                <strong>Planche imprimable</strong>
+                <span>
+                  {activeSite.displayName} · {surfaceLabel(surfaceStyle)}
+                </span>
+              </div>
+              <a
+                href={planche.download.src}
+                download={planche.download.filename}
+              >
+                Télécharger la planche HD
+              </a>
             </div>
           </article>
+
+          <aside className="locator-panel" aria-labelledby="locator-title">
+            <h2 id="locator-title">La Réunion</h2>
+            <img
+              key={`${activeSite.slug}-locator`}
+              src={activeSite.locator.src}
+              width={activeSite.locator.width}
+              height={activeSite.locator.height}
+              alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
+            />
+          </aside>
         </div>
       </section>
 
       <section
-        className="explorer-section"
-        id="explorer"
-        aria-labelledby="explorer-title"
+        className="sources-section"
+        id="sources"
+        aria-labelledby="sources-title"
       >
-        <div className="explorer-canvas">
-          {explorerActive ? (
-            <Suspense
-              fallback={
-                <div className="terrain-loading" role="status">
-                  Préparation du relief…
-                </div>
-              }
-            >
-              <TerrainViewer
-                key={activeSite.slug}
-                slug={activeSite.slug}
-                siteName={copy.name}
-                style={surfaceStyle}
-              />
-            </Suspense>
-          ) : (
-            <button
-              type="button"
-              className="terrain-poster"
-              onClick={() => setExplorerActive(true)}
-            >
-              <img
-                src={selectedMap(activeSite, "3d", surfaceStyle).variants[1].src}
-                width={1600}
-                height={1107}
-                loading="lazy"
-                alt=""
-              />
-              <span>Activer le relief interactif</span>
-            </button>
-          )}
-        </div>
-        <div className="explorer-copy">
-          <h2 id="explorer-title">Explorer le relief</h2>
-          <p>
-            Faites pivoter la carte, zoomez et suivez la côte du regard.
-          </p>
-          <div className="explorer-site">
-            <span>Site sélectionné</span>
-            <strong>{copy.name}</strong>
-          </div>
-          <SurfaceToggle
-            value={surfaceStyle}
-            onChange={setSurfaceStyle}
-            dark
-          />
-          <div className="gesture-help">
-            <p>
-              Glisser pour tourner · Molette ou pincement pour zoomer · clic
-              droit ou Ctrl + glisser pour déplacer
-            </p>
-            <p>
-              Relief vertical ≈ ×4 · Le plan 2D reste la référence métrique
-            </p>
-          </div>
-          <SiteRail activeSlug={activeSlug} onSelect={selectSite} compact />
-        </div>
-      </section>
+        <img
+          className="sources-map"
+          src="/maps/passe-hermitage/2d-orthophoto-1600.webp"
+          width={1600}
+          height={1107}
+          loading="lazy"
+          alt=""
+          aria-hidden="true"
+        />
+        <div className="sources-inner">
+          <h2 id="sources-title">Méthode, sources et licences</h2>
 
-      <section className="method-section" id="method" aria-labelledby="method-title">
-        <div className="method-intro">
-          <div>
-            <h2 id="method-title">Du relevé au relief</h2>
-            <p>
-              Bathymétrie, topographie et orthophoto sont réunies dans un même
-              référentiel pour produire une lecture continue de la côte.
-            </p>
+          <div className="method-grid">
+            <article>
+              <h3>Bathymétrie</h3>
+              <p>HYSCORES 2015</p>
+            </article>
+            <article>
+              <h3>Topographie</h3>
+              <p>IGN RGE ALTI</p>
+            </article>
+            <article>
+              <h3>Orthophoto</h3>
+              <p>IGN BD ORTHO</p>
+            </article>
+            <article>
+              <h3>Cartes et reliefs</h3>
+              <p>Isobathes tous les 5 m · relief vertical ≈ ×4</p>
+            </article>
           </div>
-          <img
-            src="/maps/passe-hermitage/2d-orthophoto-1600.webp"
-            width={1600}
-            height={1107}
-            loading="lazy"
-            alt="Détail du raccord entre bathymétrie, trait de côte et orthophoto à la Passe de l’Hermitage."
-          />
-        </div>
-        <ol className="method-steps">
-          <li>
-            <span>01</span>
-            <h3>Bathymétrie</h3>
-            <p>
-              HYSCORES 2015 · Ifremer, UBO, Office de l’Eau Réunion
-            </p>
-          </li>
-          <li>
-            <span>02</span>
-            <h3>Raccord terre–mer</h3>
-            <p>RGE ALTI et continuité calculée au trait de côte</p>
-          </li>
-          <li>
-            <span>03</span>
-            <h3>Relief et textures</h3>
-            <p>Isobathes tous les 5 m · relief vertical ≈ ×4</p>
-          </li>
-          <li>
-            <span>04</span>
-            <h3>Composition</h3>
-            <p>Plan 2D, perspective 3D, orthophoto et planche imprimable</p>
-          </li>
-        </ol>
-      </section>
 
-      <aside className="safety-notice" aria-labelledby="safety-title">
-        <h2 id="safety-title">Une carte pour comprendre, pas pour naviguer</h2>
-        <p>
-          Ces cartes sont des aides à la lecture du relief et à l’orientation
-          générale. Elles ne remplacent ni les informations locales, ni l’état
-          de mer, ni les consignes des autorités, ni l’évaluation d’un
-          professionnel.
-        </p>
-      </aside>
-
-      <section className="credits-section" id="credits" aria-labelledby="credits-title">
-        <h2 id="credits-title">Crédits et licences</h2>
-        <div className="credits-grid">
-          <p>
-            Cartes © 2026 Matthieu Foll · CC BY-NC-SA 4.0. Le partage et
-            l’adaptation sont permis pour un usage non commercial, avec
-            attribution, indication des modifications et partage sous la même
-            licence.
-          </p>
-          <p>
-            Bathymétrie : Projet HYSCORES, Ifremer, UBO et Office de l’Eau
-            Réunion, 2015, incluant Litto3D. Topographie : IGN RGE ALTI.
-            Orthophoto : IGN BD ORTHO, prise de vue du {copy.orthophotoDate}.
-          </p>
-          <p>
-            Localisation insulaire : GEBCO Compilation Group (2024), GEBCO
-            2024 Grid. Les données tierces conservent leurs propres conditions
-            d’utilisation.
-          </p>
+          <div className="information-grid">
+            <article>
+              <h3>Sources</h3>
+              <ul className="source-links">
+                {SOURCE_LINKS.map((source) => (
+                  <li key={source.href}>
+                    <a
+                      href={source.href}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {source.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </article>
+            <article>
+              <h3>Licence</h3>
+              <p>
+                Cartes © {initialSite.copyrightYear} {initialSite.plateAuthor}
+              </p>
+              <p>
+                <a
+                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {initialSite.mapLicense}
+                </a>
+              </p>
+              <p>
+                <a
+                  href="https://github.com/mfoll/reunion-topobathy"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Code source sur GitHub
+                </a>
+              </p>
+            </article>
+            <article>
+              <h3>Sécurité</h3>
+              <p>
+                Ces cartes ne remplacent pas les informations locales, les
+                conditions de mer, les consignes des autorités ou l’avis d’un
+                professionnel.
+              </p>
+            </article>
+          </div>
         </div>
       </section>
 
       <footer className="site-footer">
         <a className="brand" href="#top">
-          Reliefs de l’Ouest
+          Plongée à La Réunion
         </a>
-        <span>Cartes © 2026 Matthieu Foll · CC BY-NC-SA 4.0</span>
+        <span>
+          Cartes © {initialSite.copyrightYear} {initialSite.plateAuthor} ·{" "}
+          {initialSite.mapLicense}
+        </span>
         <a href="#top">Haut de page</a>
       </footer>
 
@@ -565,7 +537,7 @@ export function AtlasExperience() {
         className="map-dialog"
         ref={dialogRef}
         onClick={closeOnBackdrop}
-        aria-label={`Carte de ${copy.name} en grand`}
+        aria-label={`Carte de ${activeSite.displayName} en grand`}
       >
         <button
           type="button"
@@ -578,7 +550,7 @@ export function AtlasExperience() {
           src={mapLargest.src}
           width={mapLargest.width}
           height={mapLargest.height}
-          alt=""
+          alt={mapAlt}
         />
       </dialog>
     </main>

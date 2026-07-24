@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "mapWidths": [
     960,
     1600,
@@ -10,10 +10,16 @@
   "sites": [
     {
       "slug": "cap-la-houssaye",
+      "displayName": "Cap La Houssaye",
       "title": "Cap La Houssaye - zone elargie ouest",
       "plateTitle": "Cap La Houssaye, La Réunion",
       "config": "sites/cap-la-houssaye.json",
+      "maxDepthM": 20,
       "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-07-22",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
       "locator": {
         "src": "/maps/cap-la-houssaye/locator-640.webp",
         "width": 640,
@@ -188,10 +194,16 @@
     },
     {
       "slug": "boucan-canot",
+      "displayName": "Boucan Canot",
       "title": "Boucan Canot - Piscine naturelle",
       "plateTitle": "Boucan Canot, La Réunion",
       "config": "sites/boucan-canot.json",
+      "maxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-07-22",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
       "locator": {
         "src": "/maps/boucan-canot/locator-640.webp",
         "width": 640,
@@ -366,10 +378,16 @@
     },
     {
       "slug": "passe-hermitage",
+      "displayName": "Passe de l'Hermitage",
       "title": "Passe de l'Hermitage",
       "plateTitle": "Passe de l'Hermitage, La Réunion",
       "config": "sites/passe-hermitage.json",
+      "maxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-08-02",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
       "locator": {
         "src": "/maps/passe-hermitage/locator-640.webp",
         "width": 640,

@@ -1,12 +1,14 @@
-# Reliefs de l’Ouest
+# Cartes de plongée à La Réunion
 
-Site éditorial de l’atlas topo-bathymétrique de la côte ouest de La Réunion.
-Il réunit les plans 2D, les perspectives 3D, les planches imprimables et un
-explorateur de relief interactif pour Cap La Houssaye, Boucan Canot et la Passe
-de l’Hermitage.
+Site de partage des cartes topo-bathymétriques de sites de plongée à La Réunion.
+Un visualiseur unique réunit les plans 2D, les perspectives 3D et les reliefs
+interactifs. Il s’ouvre sur la perspective 3D avec orthophoto ; le choix du fond
+ne duplique ni la carte affichée ni la géométrie interactive.
 
 Le site reste dans le dépôt des cartes afin que les nouveaux sites, les crédits
-et les rendus web dérivent des mêmes configurations.
+et les rendus web dérivent des mêmes configurations. La navigation, la carte de
+situation et les téléchargements sont entièrement alimentés par le manifeste
+généré.
 
 ## Développement
 

@@ -16,19 +16,19 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: {
-      default: "Reliefs de l’Ouest",
-      template: "%s · Reliefs de l’Ouest",
+      default: "Cartes de plongée à La Réunion",
+      template: "%s · Plongée à La Réunion",
     },
     description:
-      "Plans 2D, perspectives et reliefs 3D interactifs de la côte ouest de La Réunion.",
+      "Plans 2D, vues 3D et reliefs interactifs des sites de plongée à La Réunion.",
     icons: {
       icon: "/favicon.png",
       shortcut: "/favicon.png",
     },
     openGraph: {
-      title: "Reliefs de l’Ouest",
+      title: "Cartes de plongée à La Réunion",
       description:
-        "Lire la côte sous la surface, du plan 2D au relief 3D interactif.",
+        "Plans 2D, vues 3D et reliefs interactifs des sites de plongée à La Réunion.",
       locale: "fr_FR",
       type: "website",
       images: [
@@ -36,15 +36,15 @@ export async function generateMetadata(): Promise<Metadata> {
           url: socialImage,
           width: 1200,
           height: 630,
-          alt: "Reliefs de l’Ouest — Lire la côte sous la surface",
+          alt: "Cartes de plongée à La Réunion",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Reliefs de l’Ouest",
+      title: "Cartes de plongée à La Réunion",
       description:
-        "Lire la côte sous la surface, du plan 2D au relief 3D interactif.",
+        "Plans 2D, vues 3D et reliefs interactifs des sites de plongée à La Réunion.",
       images: [socialImage],
     },
   };
