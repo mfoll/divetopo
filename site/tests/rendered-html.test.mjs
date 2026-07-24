@@ -64,6 +64,8 @@ test("server-renders the finished atlas", async () => {
   assert.match(html, /Grille bathymétrique GEBCO 2024/);
   assert.match(html, /Méthode de production/);
   assert.match(html, /https:\/\/github\.com\/mfoll\/reunion-topobathy/);
+  assert.match(html, /GitHub \(nouvelle fenêtre\)/);
+  assert.match(html, /Sélectionnez un site sur la carte\./);
   assert.match(html, /https:\/\/doi\.org\/10\.12770\/ee059de2/);
   assert.doesNotMatch(html, /Lire la côte sous la surface/);
   assert.doesNotMatch(html, /Trois reliefs, trois lectures de la côte/);

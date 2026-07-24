@@ -278,8 +278,9 @@ function SitePicker({
   return (
     <aside className="site-picker" aria-label="Choisir un site de plongée">
       <label className="site-picker-select">
-        <span>Choisir un site</span>
+        <span>Sites :</span>
         <select
+          aria-label="Choisir un site"
           value={activeSlug}
           onChange={(event) => onSelect(event.target.value)}
         >
@@ -292,22 +293,10 @@ function SitePicker({
       </label>
 
       <div className="site-picker-maps">
-        <button
-          type="button"
-          className="reunion-overview"
-          aria-label="Ouvrir la carte de La Réunion en grand"
-          onClick={onOpenOverview}
-        >
-          <div className="reunion-overview-map">
-            <img
-              src={mapManifest.reunionOverview.src}
-              width={mapManifest.reunionOverview.width}
-              height={mapManifest.reunionOverview.height}
-              alt="Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest détaillée ci-dessous."
-            />
-            <span className="reunion-overview-extent" aria-hidden="true" />
-          </div>
-        </button>
+        <header className="site-picker-heading">
+          <h2>Sites :</h2>
+          <p>Sélectionnez un site sur la carte.</p>
+        </header>
 
         <div className="site-picker-map">
           <img
@@ -363,6 +352,23 @@ function SitePicker({
             <strong>5 km</strong>
           </div>
         </div>
+
+        <button
+          type="button"
+          className="reunion-overview"
+          aria-label="Ouvrir la carte de La Réunion en grand"
+          onClick={onOpenOverview}
+        >
+          <div className="reunion-overview-map">
+            <img
+              src={mapManifest.reunionOverview.src}
+              width={mapManifest.reunionOverview.width}
+              height={mapManifest.reunionOverview.height}
+              alt="Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest détaillée ci-dessus."
+            />
+            <span className="reunion-overview-extent" aria-hidden="true" />
+          </div>
+        </button>
       </div>
     </aside>
   );
@@ -416,11 +422,14 @@ export function AtlasExperience() {
             <a href="#atlas">Explorer</a>
             <a href="#sources">Méthode et sources</a>
             <a
+              className="external-link"
               href="https://github.com/mfoll/reunion-topobathy"
               target="_blank"
               rel="noreferrer"
+              aria-label="GitHub (nouvelle fenêtre)"
             >
-              GitHub
+              <span>GitHub</span>
+              <span className="external-link-icon" aria-hidden="true" />
             </a>
           </nav>
         </div>

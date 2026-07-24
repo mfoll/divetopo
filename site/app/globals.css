@@ -148,6 +148,41 @@ img {
   transform: scaleX(1);
 }
 
+.masthead nav a.external-link {
+  align-items: center;
+  display: inline-flex;
+  gap: 0.4rem;
+}
+
+.external-link-icon {
+  display: inline-block;
+  flex: 0 0 auto;
+  height: 0.78rem;
+  position: relative;
+  width: 0.78rem;
+}
+
+.external-link-icon::before {
+  border: 1.4px solid currentColor;
+  border-radius: 2px;
+  bottom: 0;
+  content: "";
+  height: 0.5rem;
+  left: 0;
+  position: absolute;
+  width: 0.5rem;
+}
+
+.external-link-icon::after {
+  content: "↗";
+  font-size: 0.72rem;
+  font-weight: 780;
+  line-height: 1;
+  position: absolute;
+  right: -0.02rem;
+  top: -0.13rem;
+}
+
 .atlas-section {
   background:
     radial-gradient(circle at 82% 4%, rgba(14, 146, 149, 0.1), transparent 26rem),
@@ -200,30 +235,51 @@ img {
 .site-picker-maps {
   display: grid;
   gap: var(--atlas-row-gap);
-  grid-template-rows: var(--atlas-head-height) auto;
+  grid-template-rows: var(--atlas-head-height) auto auto;
+}
+
+.site-picker-heading {
+  align-content: start;
+  display: grid;
+  padding: 0.1rem 0.25rem 0;
+}
+
+.site-picker-heading h2 {
+  font-size: clamp(1.8rem, 2.45vw, 2.35rem);
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.site-picker-heading p {
+  color: var(--ink-soft);
+  font-size: clamp(0.76rem, 0.82vw, 0.88rem);
+  margin: 0.45rem 0 0;
 }
 
 .reunion-overview {
   align-items: center;
-  background:
-    radial-gradient(circle at center, rgba(90, 183, 206, 0.2), transparent 58%),
-    var(--navy);
-  border: 1px solid rgba(255, 255, 255, 0.42);
+  aspect-ratio: 81 / 68;
+  background: transparent;
+  border: 0;
   border-radius: var(--radius-map);
-  box-shadow: var(--shadow-map);
+  box-shadow: var(--shadow-sm);
   cursor: zoom-in;
   display: flex;
   justify-content: center;
   overflow: hidden;
-  padding: 0.45rem;
+  padding: 0;
   width: 100%;
 }
 
 .reunion-overview-map {
   aspect-ratio: 81 / 68;
   height: 100%;
+  overflow: hidden;
   position: relative;
   transition: transform 180ms ease;
+  width: 100%;
 }
 
 .reunion-overview:hover .reunion-overview-map {
@@ -1147,13 +1203,11 @@ img {
   }
 
   .site-picker-select > span {
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    height: 1px;
-    overflow: hidden;
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 750;
+    letter-spacing: -0.02em;
+    margin: 0.1rem 0.25rem 0.45rem;
   }
 
   .site-picker-select select {
