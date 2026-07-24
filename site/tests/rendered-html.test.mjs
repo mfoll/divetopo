@@ -127,3 +127,20 @@ test("removes disposable starter artifacts", async () => {
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   await assert.rejects(access(new URL("../app/_sites-preview", templateRoot)));
 });
+
+test("interactive terrain matches the static linear-light exposure", async () => {
+  const terrainViewer = await readFile(
+    new URL("../app/TerrainViewer.tsx", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(terrainViewer, /const RELIEF_EXPOSURE = 1\.55;/);
+  assert.match(
+    terrainViewer,
+    /renderer\.toneMapping = THREE\.LinearToneMapping;/,
+  );
+  assert.match(
+    terrainViewer,
+    /renderer\.toneMappingExposure = RELIEF_EXPOSURE;/,
+  );
+});

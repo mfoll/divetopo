@@ -4,7 +4,7 @@ Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte
 
 Le standard orthophoto courant est commun aux trois sites de reference : image opaque jusqu'a `-1 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
 
-Les trois sites utilisent les memes dimensions finales (`2474 x 1712 px`) et un facteur `map_style_scale` commun. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches affichent les coordonnees en degres, minutes et secondes.
+Les trois sites utilisent les memes dimensions finales (`2474 x 1712 px`) et un facteur `map_style_scale` commun. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches affichent les coordonnees en degres, minutes et secondes. Leur cartouche utilise toujours trois lignes distinctes : un seul nom canonique de site, la commune, puis `La Reunion` seule.
 
 Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, conserve les lacunes comme donnees absentes, extrait les isobathes tous les 5 m jusqu'a `max_depth_m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
 

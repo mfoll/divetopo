@@ -49,6 +49,8 @@
   "locator_gebco_attribution": "Bathymétrie : GEBCO Compilation Group (2024), GEBCO 2024 Grid, doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f",
   "locator_gebco_request_width_px": 2000,
   "locator_gebco_blur_px": 9.0,
+  "plate_site_name": "Boucan Canot",
+  "plate_city": "Saint-Paul",
   "plate_title": "Boucan Canot, La Réunion",
   "plate_canvas_height_px": 3250,
   "plate_author": "Matthieu Foll",

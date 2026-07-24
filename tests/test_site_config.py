@@ -95,6 +95,29 @@ class SiteConfigTests(unittest.TestCase):
                 with self.assertRaisesRegex(ValueError, key):
                     validate_config(config)
 
+    def test_plate_identity_requires_one_site_one_city_and_one_island_line(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        for invalid_name in (
+            "Cap Homard / Cap de Tonton",
+            "Sec Jaune, Pointe au Sel",
+            "Pont Rouge · La Tortue",
+            "Cap La Houssaye, La Réunion",
+        ):
+            config["plate_site_name"] = invalid_name
+            with self.subTest(plate_site_name=invalid_name):
+                with self.assertRaisesRegex(
+                    ValueError,
+                    "plate_site_name",
+                ):
+                    validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        for invalid_city in ("Saint-Paul, La Réunion", "Saint-Leu / Réunion"):
+            config["plate_city"] = invalid_city
+            with self.subTest(plate_city=invalid_city):
+                with self.assertRaisesRegex(ValueError, "plate_city"):
+                    validate_config(config)
+
     def test_orthophoto_provenance_is_required_and_must_be_iso(self) -> None:
         config = copy.deepcopy(self.configs[0])
         config.pop("orthophoto_capture_date", None)

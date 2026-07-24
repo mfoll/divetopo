@@ -93,6 +93,8 @@ _ALLOWED_KEYS = frozenset(
         "plate_author",
         "plate_canvas_height_px",
         "plate_canvas_width_px",
+        "plate_city",
+        "plate_site_name",
         "plate_title",
         "relief_output_scale",
         "relief_hemisphere_intensity",
@@ -391,11 +393,37 @@ def validate_config(config: Mapping[str, Any]) -> None:
         if not isinstance(config[key], bool):
             raise ValueError(f"{key} must be true or false")
 
-    for key in ("slug", "title"):
+    for key in ("slug", "title", "plate_site_name", "plate_city"):
         _non_empty_string(config, key, required=True)
     slug = str(config["slug"])
     if not _SLUG_PATTERN.fullmatch(slug):
         raise ValueError("slug must use lowercase letters, digits, and single hyphens")
+
+    plate_site_name = str(config["plate_site_name"]).strip()
+    forbidden_name_separators = (",", "·", "/", "|", " - ", " & ")
+    if any(separator in plate_site_name for separator in forbidden_name_separators):
+        raise ValueError(
+            "plate_site_name must contain one canonical site name only, "
+            "without aliases or location separators"
+        )
+    folded_site_name = plate_site_name.casefold()
+    if "la réunion" in folded_site_name or "la reunion" in folded_site_name:
+        raise ValueError(
+            "plate_site_name must not contain La Réunion; "
+            "the island is rendered on its own line"
+        )
+
+    plate_city = str(config["plate_city"]).strip()
+    if any(separator in plate_city for separator in (",", "·", "/", "|")):
+        raise ValueError(
+            "plate_city must contain the municipality only, without region or island"
+        )
+    folded_city = plate_city.casefold()
+    if "la réunion" in folded_city or "la reunion" in folded_city:
+        raise ValueError(
+            "plate_city must not contain La Réunion; "
+            "the island is rendered on its own line"
+        )
 
     _non_empty_string(config, "hyscores_tiff_url", required=True)
     if "hyscores_directory" in config:

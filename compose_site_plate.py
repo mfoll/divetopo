@@ -25,6 +25,24 @@ def font(path: str, size: int, index: int = 0) -> ImageFont.FreeTypeFont:
         ) from error
 
 
+def fitted_font(
+    text: str,
+    *,
+    max_width: int,
+    max_size: int,
+    min_size: int,
+    index: int,
+) -> ImageFont.FreeTypeFont:
+    for size in range(max_size, min_size - 1, -4):
+        face = font(TEXT_FONT, size, index=index)
+        left, _, right, _ = face.getbbox(text)
+        if right - left <= max_width:
+            return face
+    raise ValueError(
+        f"Plate text {text!r} does not fit on one line at {min_size}px"
+    )
+
+
 def marker_wgs84(marker: list[float]) -> tuple[float, float]:
     projected = osr.SpatialReference()
     projected.ImportFromEPSG(32740)
@@ -107,37 +125,114 @@ def compose(config: dict, land_style: str) -> Path:
     title_color = (24, 31, 35, 255)
     secondary = (77, 91, 97, 255)
 
-    title = str(config.get("plate_title", config.get("locator_label", config["title"])))
-    title_lines = [part.strip() for part in title.split(",", 1)]
-    if len(title_lines) == 1:
-        title_lines.append("La Réunion")
+    site_name = str(config["plate_site_name"]).strip().upper()
+    city = str(config["plate_city"]).strip().upper()
+    island = "LA RÉUNION"
     latitude, longitude = marker_wgs84(config["locator_marker_utm40s"])
     latitude_text = format_dms(latitude, "N", "S")
     longitude_text = format_dms(longitude, "E", "O")
 
-    title_face = font(TEXT_FONT, 280, index=8)
-    place_face = font(TEXT_FONT, 112, index=2)
-    coordinate_label_face = font(TEXT_FONT, 39, index=5)
-    coordinate_face = font(TEXT_FONT, 105, index=8)
+    title_face = fitted_font(
+        site_name,
+        max_width=3380,
+        max_size=300,
+        min_size=168,
+        index=8,
+    )
+    city_face = font(TEXT_FONT, 138, index=8)
+    island_face = font(TEXT_FONT, 82, index=5)
+    coordinate_label_face = font(TEXT_FONT, 42, index=5)
+    coordinate_face = font(TEXT_FONT, 112, index=8)
 
     title_center_x = 1840
-    draw.text((title_center_x, 285), title_lines[0].upper(), anchor="mm", font=title_face, fill=title_color)
+    draw.text(
+        (title_center_x, 240),
+        site_name,
+        anchor="mm",
+        font=title_face,
+        fill=title_color,
+    )
 
-    place_y = 595
-    place_bbox = draw.textbbox((0, 0), title_lines[1].upper(), font=place_face)
-    place_width = place_bbox[2] - place_bbox[0]
-    rule_gap = 52
-    rule_length = 430
-    draw.line((title_center_x - place_width / 2 - rule_gap - rule_length, place_y, title_center_x - place_width / 2 - rule_gap, place_y), fill=(24, 31, 35, 175), width=3)
-    draw.line((title_center_x + place_width / 2 + rule_gap, place_y, title_center_x + place_width / 2 + rule_gap + rule_length, place_y), fill=(24, 31, 35, 175), width=3)
-    draw.text((title_center_x, place_y), title_lines[1].upper(), anchor="mm", font=place_face, fill=title_color)
+    draw.text(
+        (title_center_x, 555),
+        city,
+        anchor="mm",
+        font=city_face,
+        fill=title_color,
+    )
 
-    latitude_x, longitude_x = 1040, 2640
-    draw.text((latitude_x, 835), "LATITUDE", anchor="mm", font=coordinate_label_face, fill=secondary)
-    draw.text((longitude_x, 835), "LONGITUDE", anchor="mm", font=coordinate_label_face, fill=secondary)
-    draw.text((latitude_x, 1000), latitude_text, anchor="mm", font=coordinate_face, fill=title_color)
-    draw.text((longitude_x, 1000), longitude_text, anchor="mm", font=coordinate_face, fill=title_color)
-    draw.line((1840, 790, 1840, 1080), fill=(24, 31, 35, 130), width=3)
+    island_y = 720
+    island_bbox = draw.textbbox((0, 0), island, font=island_face)
+    island_width = island_bbox[2] - island_bbox[0]
+    rule_gap = 50
+    draw.line(
+        (
+            390,
+            island_y,
+            title_center_x - island_width / 2 - rule_gap,
+            island_y,
+        ),
+        fill=(24, 31, 35, 150),
+        width=3,
+    )
+    draw.line(
+        (
+            title_center_x + island_width / 2 + rule_gap,
+            island_y,
+            3290,
+            island_y,
+        ),
+        fill=(24, 31, 35, 150),
+        width=3,
+    )
+    draw.text(
+        (title_center_x, island_y),
+        island,
+        anchor="mm",
+        font=island_face,
+        fill=title_color,
+    )
+
+    draw.line(
+        (220, 830, 3460, 830),
+        fill=(24, 31, 35, 105),
+        width=3,
+    )
+    draw.line(
+        (1840, 880, 1840, 1185),
+        fill=(24, 31, 35, 105),
+        width=3,
+    )
+    latitude_x = 990
+    longitude_x = 2690
+    draw.text(
+        (latitude_x, 915),
+        "LATITUDE",
+        anchor="mm",
+        font=coordinate_label_face,
+        fill=secondary,
+    )
+    draw.text(
+        (longitude_x, 915),
+        "LONGITUDE",
+        anchor="mm",
+        font=coordinate_label_face,
+        fill=secondary,
+    )
+    draw.text(
+        (latitude_x, 1070),
+        latitude_text,
+        anchor="mm",
+        font=coordinate_face,
+        fill=title_color,
+    )
+    draw.text(
+        (longitude_x, 1070),
+        longitude_text,
+        anchor="mm",
+        font=coordinate_face,
+        fill=title_color,
+    )
     draw.line((3700, 90, 3700, 1280), fill=(24, 31, 35, 175), width=3)
 
     side_margin = 80

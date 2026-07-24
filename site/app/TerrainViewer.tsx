@@ -6,6 +6,8 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 
 type SurfaceStyle = "topographic" | "orthophoto";
 
+const RELIEF_EXPOSURE = 1.55;
+
 type TerrainMetadata = {
   physicalSizeM: { width: number; depth: number };
   grid: {
@@ -299,6 +301,10 @@ export default function TerrainViewer({
         powerPreference: "high-performance",
       });
       renderer.outputColorSpace = THREE.SRGBColorSpace;
+      // Match the static relief pipeline: apply exposure in linear light
+      // before the final sRGB conversion instead of brightening the canvas.
+      renderer.toneMapping = THREE.LinearToneMapping;
+      renderer.toneMappingExposure = RELIEF_EXPOSURE;
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
       mount.appendChild(renderer.domElement);
       rendererRef.current = renderer;
