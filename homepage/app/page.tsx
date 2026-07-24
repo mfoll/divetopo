@@ -2,27 +2,6 @@
 
 import { regions } from "../content/regions";
 
-const CAPABILITIES = [
-  {
-    number: "01",
-    title: "Plans 2D",
-    description:
-      "Des vues lisibles du littoral et des profondeurs pour situer les formes du relief.",
-  },
-  {
-    number: "02",
-    title: "Perspectives 3D",
-    description:
-      "Des reliefs obliques qui rendent visibles les pentes, tombants et continuités terre-mer.",
-  },
-  {
-    number: "03",
-    title: "Reliefs interactifs",
-    description:
-      "Une exploration libre des modèles disponibles, directement dans le navigateur.",
-  },
-] as const;
-
 export default function Home() {
   return (
     <>
@@ -34,7 +13,6 @@ export default function Home() {
           </a>
           <nav aria-label="Navigation principale">
             <a href="#regions">Régions</a>
-            <a href="#projet">Le projet</a>
           </nav>
         </div>
       </header>
@@ -42,7 +20,7 @@ export default function Home() {
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-inner">
-            <p className="eyebrow">Atlas topo-bathymétriques</p>
+            <p className="eyebrow">Cartographies de sites de plongée</p>
             <h1 id="hero-title">Le relief sous-marin, région par région.</h1>
             <p className="hero-lead">
               DiveTopo réunit des cartes de sites de plongée qui prolongent le
@@ -63,8 +41,8 @@ export default function Home() {
                 <h2 id="regions-title">Choisissez une région</h2>
               </div>
               <p>
-                Chaque atlas rassemble les cartes disponibles pour un même
-                territoire.
+                Chaque région rassemble les cartes disponibles pour certains
+                sites de son territoire.
               </p>
             </div>
 
@@ -75,7 +53,7 @@ export default function Home() {
                   data-testid={`region-${region.slug}`}
                   href={region.href}
                   key={region.slug}
-                  aria-label={`Explorer l’atlas de ${region.name}`}
+                  aria-label={`Explorer les cartes de ${region.name}`}
                 >
                   <div className="region-visual">
                     <img
@@ -101,7 +79,10 @@ export default function Home() {
                       </span>
                     </div>
                     <p className="region-description">{region.description}</p>
-                    <ul className="region-features" aria-label="Contenu de l’atlas">
+                    <ul
+                      className="region-features"
+                      aria-label="Contenu disponible"
+                    >
                       {region.features.map((feature) => (
                         <li key={feature}>{feature}</li>
                       ))}
@@ -116,46 +97,11 @@ export default function Home() {
                 +
               </span>
               <p>
-                <strong>Un atlas pensé pour grandir.</strong> De nouvelles
-                régions viendront rejoindre cette page au fil des prochaines
-                cartographies.
+                <strong>Une page prête à accueillir d’autres régions.</strong>{" "}
+                Elles apparaîtront ici au fil des sites effectivement
+                cartographiés.
               </p>
             </aside>
-          </div>
-        </section>
-
-        <section
-          className="project-section"
-          id="projet"
-          aria-labelledby="project-title"
-        >
-          <div className="project-inner">
-            <div className="project-heading">
-              <p className="eyebrow">Une lecture du terrain</p>
-              <h2 id="project-title">
-                Comprendre les formes qui continuent sous l’eau.
-              </h2>
-              <p>
-                Chaque région conserve sa géographie, ses sources et ses
-                échelles. DiveTopo leur donne un langage visuel commun.
-              </p>
-            </div>
-
-            <ol className="capability-grid">
-              {CAPABILITIES.map((capability) => (
-                <li key={capability.number}>
-                  <span>{capability.number}</span>
-                  <h3>{capability.title}</h3>
-                  <p>{capability.description}</p>
-                </li>
-              ))}
-            </ol>
-
-            <p className="orientation-note">
-              Ces cartes sont des aides à la lecture du relief et à
-              l’orientation générale. Elles ne remplacent ni les informations
-              locales, ni l’évaluation des conditions et de la sécurité.
-            </p>
           </div>
         </section>
       </main>

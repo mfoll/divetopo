@@ -15,7 +15,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const socialImage = new URL("/og.png", origin).toString();
 
   return {
-    title: "DiveTopo · Atlas topo-bathymétriques",
+    title: "DiveTopo · Cartes de sites de plongée",
     description:
       "Explorez des cartes topo-bathymétriques de sites de plongée, région par région.",
     icons: {
@@ -33,7 +33,7 @@ export async function generateMetadata(): Promise<Metadata> {
           url: socialImage,
           width: 1200,
           height: 630,
-          alt: "DiveTopo, atlas topo-bathymétriques régionaux",
+          alt: "DiveTopo, cartographies de sites de plongée",
         },
       ],
     },

@@ -32,7 +32,7 @@ test("server-renders the DiveTopo regional homepage", async () => {
   assert.match(html, /<html lang="fr">/);
   assert.match(
     html,
-    /<title>DiveTopo · Atlas topo-bathymétriques<\/title>/i,
+    /<title>DiveTopo · Cartes de sites de plongée<\/title>/i,
   );
   assert.match(html, /Le relief sous-marin, région par région\./);
   assert.match(html, /La Réunion/);
@@ -41,8 +41,13 @@ test("server-renders the DiveTopo regional homepage", async () => {
     html,
     /href="https:\/\/reunion\.divetopo\.com"/,
   );
-  assert.match(html, /aria-label="Explorer l’atlas de La Réunion"/);
-  assert.match(html, /Un atlas pensé pour grandir\./);
+  assert.match(html, /aria-label="Explorer les cartes de La Réunion"/);
+  assert.match(html, /Une page prête à accueillir d’autres régions\./);
+  const forbiddenProjectTerm = ["at", "las"].join("");
+  assert.doesNotMatch(
+    html,
+    new RegExp(`${forbiddenProjectTerm}|Le projet|project-section`, "i"),
+  );
   assert.match(html, /IGN RGE ALTI/);
   assert.match(html, /GEBCO Compilation Group \(2024\)/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);

@@ -4,7 +4,7 @@ export const regions = [
     name: "La Réunion",
     location: "Océan Indien",
     href: "https://reunion.divetopo.com",
-    status: "Atlas disponible",
+    status: "Cartes disponibles",
     description:
       "Explorez sept sites de la côte ouest à travers leurs plans, perspectives et reliefs interactifs.",
     features: ["7 sites", "Plans 2D", "Vues 3D", "Reliefs interactifs"],
