@@ -2,7 +2,10 @@ from __future__ import annotations
 
 import argparse
 import gc
+import hashlib
 import json
+import shutil
+import tempfile
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -36,10 +39,26 @@ from site_config import (
 )
 
 
-DEFAULT_OUTPUT = ROOT / "site" / "public" / "terrain"
+DEFAULT_OUTPUT = ROOT / "outputs" / "interactive-terrain"
 DEFAULT_GRID_MAX = 257
 DEFAULT_TEXTURE_MAX = 2048
 SCHEMA_VERSION = 1
+
+
+def sha256(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def artifact_record(path: Path, output_root: Path) -> dict[str, Any]:
+    return {
+        "path": path.relative_to(output_root).as_posix(),
+        "bytes": path.stat().st_size,
+        "sha256": sha256(path),
+    }
 
 
 def load_config(path: Path) -> dict[str, Any]:
@@ -439,16 +458,20 @@ def export_site(
             "alongViewProjectionScale": float(
                 config.get("along_view_projection_scale", 1.0)
             ),
-            "visibleWidthM": float(
-                config.get("view_visible_width_m", physical_width)
+            "visibleWidthM": round(
+                float(config.get("view_visible_width_m", physical_width)),
+                6,
             ),
-            "coastFrameFraction": (
-                float(config.get("coast_frame_fraction", 0.44))
-                - float(config.get("view_top_crop_fraction", 0.0))
-            )
-            / (
-                1.0
-                - float(config.get("view_top_crop_fraction", 0.0))
+            "coastFrameFraction": round(
+                (
+                    float(config.get("coast_frame_fraction", 0.44))
+                    - float(config.get("view_top_crop_fraction", 0.0))
+                )
+                / (
+                    1.0
+                    - float(config.get("view_top_crop_fraction", 0.0))
+                ),
+                4,
             ),
         },
         "textures": {
@@ -470,7 +493,8 @@ def export_site(
             "requiredDisplay": f"{copyright_text} · {attribution_orthophoto}",
         },
     }
-    (site_output / "terrain.json").write_text(
+    metadata_path = site_output / "terrain.json"
+    metadata_path.write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
@@ -482,11 +506,33 @@ def export_site(
         "slug": slug,
         "title": metadata["title"],
         "metadata": f"{slug}/terrain.json",
+        "files": {
+            "metadata": artifact_record(metadata_path, output_root),
+            "height": artifact_record(site_output / "height.bin", output_root),
+            "validMask": artifact_record(
+                site_output / "valid-mask.bin",
+                output_root,
+            ),
+            "topographicTexture": artifact_record(
+                site_output / "topographic.webp",
+                output_root,
+            ),
+            "orthophotoTexture": artifact_record(
+                site_output / "orthophoto.webp",
+                output_root,
+            ),
+        },
     }
 
 
 def validate_export(output_root: Path, manifest: dict[str, Any]) -> None:
     for item in manifest["sites"]:
+        for record in item["files"].values():
+            artifact_path = output_root / record["path"]
+            if artifact_path.stat().st_size != int(record["bytes"]):
+                raise ValueError(f"Unexpected artifact size: {artifact_path}")
+            if sha256(artifact_path) != record["sha256"]:
+                raise ValueError(f"Unexpected artifact digest: {artifact_path}")
         metadata_path = output_root / item["metadata"]
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
         grid = metadata["grid"]
@@ -507,18 +553,35 @@ def validate_export(output_root: Path, manifest: dict[str, Any]) -> None:
                     raise ValueError(f"Texture dimensions do not match metadata: {texture_path}")
 
 
+def swap_output(build_root: Path, output_root: Path) -> None:
+    previous_root = build_root.parent / "previous"
+    if output_root.exists():
+        output_root.rename(previous_root)
+    try:
+        build_root.rename(output_root)
+    except Exception:
+        if previous_root.exists():
+            previous_root.rename(output_root)
+        raise
+    if previous_root.exists():
+        shutil.rmtree(previous_root)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(
         description=(
             "Export compact heightfields and matched map textures for the "
-            "interactive web terrain viewer."
+            "canonical interactive terrain package."
         )
     )
     parser.add_argument(
         "configs",
         nargs="*",
         type=Path,
-        help="Site JSON files (defaults to every sites/*.json file)",
+        help=(
+            "Site JSON files forming the complete package "
+            "(defaults to every sites/*.json file)"
+        ),
     )
     parser.add_argument(
         "--output",
@@ -548,25 +611,32 @@ def main() -> int:
     if not configs:
         parser.error("No site configurations found")
     output_root = args.output.expanduser().resolve()
-    output_root.mkdir(parents=True, exist_ok=True)
-    sites = [
-        export_site(
-            path.expanduser().resolve(),
-            output_root,
-            args.grid_max,
-            args.texture_max,
+    output_root.parent.mkdir(parents=True, exist_ok=True)
+    with tempfile.TemporaryDirectory(
+        prefix=".interactive-terrain-build-",
+        dir=output_root.parent,
+    ) as temporary_directory:
+        build_root = Path(temporary_directory) / "interactive-terrain"
+        build_root.mkdir()
+        sites = [
+            export_site(
+                path.expanduser().resolve(),
+                build_root,
+                args.grid_max,
+                args.texture_max,
+            )
+            for path in configs
+        ]
+        manifest = {
+            "schemaVersion": SCHEMA_VERSION,
+            "sites": sites,
+        }
+        (build_root / "manifest.json").write_text(
+            json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
         )
-        for path in configs
-    ]
-    manifest = {
-        "schemaVersion": SCHEMA_VERSION,
-        "sites": sites,
-    }
-    (output_root / "manifest.json").write_text(
-        json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
-        encoding="utf-8",
-    )
-    validate_export(output_root, manifest)
+        validate_export(build_root, manifest)
+        swap_output(build_root, output_root)
     for item in sites:
         print(output_root / item["metadata"])
     return 0

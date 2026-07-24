@@ -10,6 +10,7 @@ from typing import Any, Mapping, Sequence
 ROOT = Path(__file__).resolve().parent
 DEFAULT_CACHE = ROOT / ".tmp" / "bathy-renders"
 DEFAULT_VERTICAL_EXAGGERATION = 3.9935327405
+DEFAULT_RELIEF_EXPOSURE = 1.55
 
 _SLUG_PATTERN = re.compile(r"[a-z0-9]+(?:-[a-z0-9]+)*\Z")
 
@@ -95,10 +96,12 @@ _ALLOWED_KEYS = frozenset(
         "plate_title",
         "relief_output_scale",
         "relief_hemisphere_intensity",
+        "relief_exposure",
         "relief_key_light_bearing_deg",
         "relief_key_light_elevation_deg",
         "relief_key_light_intensity",
         "relief_normal_sample_spacing_m",
+        "relief_texture_triangle_min_area_px",
         "relief_suppressed_label_levels",
         "rotation_k",
         "slug",
@@ -296,12 +299,14 @@ def _validate_wms_grid(
     extent: tuple[float, float, float, float],
     resolution: float,
     description: str,
+    *,
+    allow_tiling: bool = False,
 ) -> None:
     width = int(round((extent[2] - extent[0]) / resolution))
     height = int(round((extent[3] - extent[1]) / resolution))
     if width <= 0 or height <= 0:
         raise ValueError(f"{description} has no pixels at {resolution:g} m resolution")
-    if width > 5000 or height > 5000:
+    if not allow_tiling and (width > 5000 or height > 5000):
         raise ValueError(
             f"{description} would request {width} x {height} pixels; "
             "the WMS limit is 5000 pixels per axis"
@@ -434,8 +439,10 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "view_crop_depth_m",
         "view_visible_width_m",
         "relief_hemisphere_intensity",
+        "relief_exposure",
         "relief_key_light_intensity",
         "relief_normal_sample_spacing_m",
+        "relief_texture_triangle_min_area_px",
     ):
         if key in config:
             _positive(config, key)
@@ -551,11 +558,13 @@ def validate_config(config: Mapping[str, Any]) -> None:
             focus,
             _number(config, "orthophoto_resolution_m", 0.2),
             "focus orthophoto request",
+            allow_tiling=True,
         )
         _validate_wms_grid(
             context,
             _number(config, "orthophoto_3d_resolution_m", 0.4),
             "context orthophoto request",
+            allow_tiling=True,
         )
 
     locator_enabled = config.get("locator_map_enabled", False)

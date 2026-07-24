@@ -8,21 +8,26 @@ from unittest.mock import patch
 
 import numpy as np
 from osgeo import gdal, osr
+from PIL import Image
 
 from render_fused_relief import (
+    bboxes_intersect,
     blend_texture,
+    draw_interpolated_triangle,
     edge_preserving_bathy,
+    expanded_bbox,
     fuse_bathymetry,
     imagery_alpha_across_shore,
     imagery_depth_alpha,
     load_font,
     make_pretty_3d_from_offshore,
+    polyline_intersects_bbox,
     raster_bounds,
     sieve_land_components,
     webgl_lit_colors,
     warp_to_reference,
 )
-from site_config import DEFAULT_VERTICAL_EXAGGERATION
+from site_config import DEFAULT_RELIEF_EXPOSURE, DEFAULT_VERTICAL_EXAGGERATION
 
 
 def write_raster(
@@ -160,7 +165,80 @@ class ConfigurationDefaultTests(unittest.TestCase):
                 load_font(20)
 
 
+class IsobathLabelPlacementTests(unittest.TestCase):
+    def test_label_clearance_detects_a_nearby_isobath(self) -> None:
+        text_bbox = (20.0, 15.0, 60.0, 28.0)
+        nearby_isobath = [(0.0, 8.0), (80.0, 8.0)]
+
+        self.assertFalse(polyline_intersects_bbox(nearby_isobath, text_bbox))
+        self.assertTrue(
+            polyline_intersects_bbox(
+                nearby_isobath,
+                expanded_bbox(text_bbox, 8.0),
+            )
+        )
+
+    def test_expanded_label_boxes_prevent_near_collisions(self) -> None:
+        first = (10.0, 10.0, 40.0, 25.0)
+        second = (45.0, 10.0, 75.0, 25.0)
+
+        self.assertFalse(bboxes_intersect(first, second))
+        self.assertTrue(
+            bboxes_intersect(
+                expanded_bbox(first, 4.0),
+                expanded_bbox(second, 4.0),
+            )
+        )
+
+
 class ReliefLightingTests(unittest.TestCase):
+    def test_default_exposure_brightens_radiance_before_srgb_conversion(self) -> None:
+        colors = np.full((3, 3, 3), 128.0, dtype=np.float32)
+        z = np.zeros((3, 3), dtype=np.float32)
+
+        reference = webgl_lit_colors(
+            colors,
+            z,
+            pixel_size_m=1.0,
+            vertical_exaggeration=DEFAULT_VERTICAL_EXAGGERATION,
+            view_bearing_deg=180.0,
+            exposure=1.0,
+        )
+        exposed = webgl_lit_colors(
+            colors,
+            z,
+            pixel_size_m=1.0,
+            vertical_exaggeration=DEFAULT_VERTICAL_EXAGGERATION,
+            view_bearing_deg=180.0,
+        )
+
+        self.assertEqual(
+            inspect.signature(webgl_lit_colors).parameters["exposure"].default,
+            DEFAULT_RELIEF_EXPOSURE,
+        )
+        self.assertGreater(float(np.mean(exposed)), float(np.mean(reference)))
+
+    def test_triangle_texture_interpolates_vertex_colors(self) -> None:
+        canvas = Image.new("RGB", (12, 12), (0, 0, 0))
+
+        draw_interpolated_triangle(
+            canvas,
+            [(1.0, 1.0), (10.0, 1.0), (1.0, 10.0)],
+            np.asarray(
+                [
+                    [255.0, 0.0, 0.0],
+                    [0.0, 255.0, 0.0],
+                    [0.0, 0.0, 255.0],
+                ],
+                dtype=np.float32,
+            ),
+        )
+
+        pixels = np.asarray(canvas)
+        interior = pixels[np.any(pixels > 0, axis=2)]
+        self.assertGreater(len(np.unique(interior, axis=0)), 10)
+        self.assertTrue(np.any(np.all(interior > 0, axis=1)))
+
     def test_webgl_lighting_preserves_shape_and_display_range(self) -> None:
         colors = np.full((5, 7, 3), 128.0, dtype=np.float32)
         z = np.tile(np.linspace(-4.0, 4.0, 7, dtype=np.float32), (5, 1))

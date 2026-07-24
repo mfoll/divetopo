@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "slug": "passe-hermitage",
+  "title": "Passe de l'Hermitage, La Réunion",
+  "crs": "EPSG:32740",
+  "sourceBboxUtm40s": {
+    "west": 314880.0,
+    "south": 7666904.0,
+    "east": 315880.0,
+    "north": 7667596.0
+  },
+  "physicalSizeM": {
+    "width": 1000.0,
+    "depth": 692.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 257,
+    "height": 178,
+    "triangleCount": 90624,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -30.0,
+      "scaleMPerUnit": 0.0005292089760162524,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    }
+  },
+  "elevationRangeM": {
+    "min": -30.0,
+    "max": 4.681710243225098
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 45.0,
+    "gridLookBearingDeg": 45.0,
+    "cameraTilt": 0.29,
+    "alongViewProjectionScale": 1.1,
+    "visibleWidthM": 650.0,
+    "coastFrameFraction": 0.075
+  },
+  "textures": {
+    "width": 2048,
+    "height": 1417,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2025-08-02",
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 02-08-2025"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 02-08-2025"
+  }
+}

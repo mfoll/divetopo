@@ -30,6 +30,7 @@ from cache_manifest import (
 )
 from render_fused_relief import make_clean_plan, make_locator_map, make_pretty_3d_from_offshore
 from site_config import (
+    DEFAULT_RELIEF_EXPOSURE,
     DEFAULT_VERTICAL_EXAGGERATION,
     bbox,
     paths_for,
@@ -38,6 +39,8 @@ from site_config import (
 
 gdal.UseExceptions()
 osr.UseExceptions()
+
+WMS_MAX_TILE_PIXELS = 4096
 
 
 def run(command: list[str]) -> None:
@@ -332,13 +335,14 @@ def download_rge_alti(extent: tuple[float, float, float, float], resolution: flo
         raise
 
 
-def download_orthophoto(extent: tuple[float, float, float, float], resolution: float, layer: str, output: Path) -> None:
+def _orthophoto_query(
+    extent: tuple[float, float, float, float],
+    width: int,
+    height: int,
+    layer: str,
+) -> str:
     min_x, min_y, max_x, max_y = extent
-    width = int(round((max_x - min_x) / resolution))
-    height = int(round((max_y - min_y) / resolution))
-    if width > 5000 or height > 5000:
-        raise ValueError(f"Orthophoto WMS request is too large: {width} x {height}; enlarge the resolution")
-    query = urllib.parse.urlencode(
+    return urllib.parse.urlencode(
         {
             "SERVICE": "WMS",
             "VERSION": "1.3.0",
@@ -352,9 +356,93 @@ def download_orthophoto(extent: tuple[float, float, float, float], resolution: f
             "FORMAT": "image/geotiff",
         }
     )
+
+
+def download_orthophoto(
+    extent: tuple[float, float, float, float],
+    resolution: float,
+    layer: str,
+    output: Path,
+) -> None:
+    """Download an IGN orthophoto, tiling requests without changing resolution."""
+    min_x, min_y, max_x, max_y = extent
+    width = int(round((max_x - min_x) / resolution))
+    height = int(round((max_y - min_y) / resolution))
+    if width <= 0 or height <= 0:
+        raise ValueError(f"Orthophoto request has no pixels at {resolution:g} m resolution")
     output.parent.mkdir(parents=True, exist_ok=True)
     temporary = temporary_path(output)
-    download_file(f"{RGE_ALTI_WMS}?{query}", temporary)
+    temporary.unlink(missing_ok=True)
+    if width <= WMS_MAX_TILE_PIXELS and height <= WMS_MAX_TILE_PIXELS:
+        query = _orthophoto_query(extent, width, height, layer)
+        download_file(f"{RGE_ALTI_WMS}?{query}", temporary)
+    else:
+        spatial_ref = osr.SpatialReference()
+        spatial_ref.ImportFromEPSG(32740)
+        driver = gdal.GetDriverByName("GTiff")
+        target = driver.Create(
+            str(temporary),
+            width,
+            height,
+            3,
+            gdal.GDT_Byte,
+            options=[
+                "TILED=YES",
+                "COMPRESS=DEFLATE",
+                "BIGTIFF=IF_SAFER",
+                "INTERLEAVE=PIXEL",
+            ],
+        )
+        if target is None:
+            raise RuntimeError(f"Failed to create tiled orthophoto target: {temporary}")
+        target.SetGeoTransform((min_x, resolution, 0.0, max_y, 0.0, -resolution))
+        target.SetProjection(spatial_ref.ExportToWkt())
+        tile_path = temporary.with_name(f"{temporary.stem}-tile.tif")
+        try:
+            for y_offset in range(0, height, WMS_MAX_TILE_PIXELS):
+                tile_height = min(WMS_MAX_TILE_PIXELS, height - y_offset)
+                tile_max_y = max_y - y_offset * resolution
+                tile_min_y = tile_max_y - tile_height * resolution
+                for x_offset in range(0, width, WMS_MAX_TILE_PIXELS):
+                    tile_width = min(WMS_MAX_TILE_PIXELS, width - x_offset)
+                    tile_min_x = min_x + x_offset * resolution
+                    tile_max_x = tile_min_x + tile_width * resolution
+                    tile_extent = (
+                        tile_min_x,
+                        tile_min_y,
+                        tile_max_x,
+                        tile_max_y,
+                    )
+                    query = _orthophoto_query(
+                        tile_extent,
+                        tile_width,
+                        tile_height,
+                        layer,
+                    )
+                    download_file(f"{RGE_ALTI_WMS}?{query}", tile_path)
+                    tile = open_raster(tile_path, "downloaded IGN orthophoto tile")
+                    if tile.RasterCount < 3:
+                        raise ValueError(
+                            f"Orthophoto tile has {tile.RasterCount} bands instead of 3"
+                        )
+                    for band_index in range(1, 4):
+                        values = tile.GetRasterBand(band_index).ReadAsArray()
+                        target.GetRasterBand(band_index).WriteArray(
+                            values,
+                            xoff=x_offset,
+                            yoff=y_offset,
+                        )
+                    tile = None
+                    tile_path.unlink(missing_ok=True)
+            target.FlushCache()
+        except Exception:
+            target = None
+            tile_path.unlink(missing_ok=True)
+            temporary.unlink(missing_ok=True)
+            raise
+        finally:
+            target = None
+            tile_path.unlink(missing_ok=True)
     try:
         validate_raster(
             temporary,
@@ -392,6 +480,7 @@ def verify_orthophoto_capture_date(config: dict[str, Any]) -> None:
             "BBOX": f"{x - 1.0},{y - 1.0},{x + 1.0},{y + 1.0}",
             "WIDTH": 3,
             "HEIGHT": 3,
+            "FORMAT": "image/geotiff",
             "I": 1,
             "J": 1,
             "INFO_FORMAT": "application/json",
@@ -468,6 +557,7 @@ def download_gebco_relief(
         result = gdal.Warp(
             str(projected_tiff),
             str(geographic_tiff),
+            format="GTiff",
             dstSRS=EXPECTED_CRS,
             outputBounds=extent_utm40s,
             width=target_width,
@@ -506,6 +596,7 @@ def crop_raster(
     result = gdal.Translate(
         str(temporary),
         str(source),
+        format="GTiff",
         projWin=[min_x, max_y, max_x, min_y],
         creationOptions=["TILED=YES", "COMPRESS=DEFLATE", "PREDICTOR=3"],
     )
@@ -733,7 +824,10 @@ def render(
     paths: dict[str, Path],
     *,
     relief_only: bool = False,
+    land_style: str | None = None,
 ) -> None:
+    if land_style not in (None, "topography", "orthophoto"):
+        raise ValueError("land_style must be 'topography' or 'orthophoto'")
     title = str(config["title"])
     rotation_k = int(config.get("rotation_k", 0))
     author = str(config.get("plate_author", "")).strip()
@@ -887,15 +981,25 @@ def render(
         "normal_sample_spacing_m": float(
             config.get("relief_normal_sample_spacing_m", 2.0)
         ),
+        "exposure": float(
+            config.get("relief_exposure", DEFAULT_RELIEF_EXPOSURE)
+        ),
+        "texture_triangle_min_area_px": float(
+            config.get("relief_texture_triangle_min_area_px", 12.0)
+        ),
     }
-    make_pretty_3d_from_offshore(
-        paths["context_depth"],
-        paths["context_elevation"],
-        paths["output_3d"],
-        title,
-        **relief_options,
-    )
-    if config.get("orthophoto_enabled", False):
+    if land_style in (None, "topography"):
+        make_pretty_3d_from_offshore(
+            paths["context_depth"],
+            paths["context_elevation"],
+            paths["output_3d"],
+            title,
+            **relief_options,
+        )
+    if (
+        land_style in (None, "orthophoto")
+        and config.get("orthophoto_enabled", False)
+    ):
         orthophoto_relief_options = {
             **relief_options,
             "land_imagery_path": paths["context_orthophoto"],
@@ -926,6 +1030,11 @@ def main() -> int:
         "--relief-only",
         action="store_true",
         help="Render only the topographic and orthophoto 3D perspectives",
+    )
+    parser.add_argument(
+        "--land-style",
+        choices=("topography", "orthophoto"),
+        help="Render only one 3D land texture",
     )
     args = parser.parse_args()
     if args.check and args.relief_only:
@@ -959,7 +1068,12 @@ def main() -> int:
     except (FileNotFoundError, ValueError) as error:
         suggestion = "Run with --refresh to rebuild the configured source rasters."
         raise type(error)(f"{error}\n{suggestion}") from error
-    render(config, paths, relief_only=args.relief_only)
+    render(
+        config,
+        paths,
+        relief_only=args.relief_only,
+        land_style=args.land_style,
+    )
 
     print("\nSources")
     print(raster_summary(paths["focus_depth"]))

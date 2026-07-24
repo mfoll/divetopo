@@ -48,20 +48,32 @@ La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` ve
 |---|---|
 | ![Planche orthophoto de la Passe de l'Hermitage](outputs/passe-hermitage-planche.jpg) | ![Planche topographique de la Passe de l'Hermitage](outputs/passe-hermitage-planche-topographique.jpg) |
 
-## Atlas web
+## Reliefs interactifs et atlas web
 
-Le site `Reliefs de l'Ouest` se trouve dans `site/`. Il presente les rendus
-responsifs, conserve un seul visuel actif lorsque le fond topographique ou
-l'orthophoto change, propose les planches HD au telechargement et ajoute un
-relief interactif par site avec rotation, zoom, deplacement et remise a zero de
-la camera.
+Les reliefs 3D interactifs appartiennent au pipeline cartographique. Ils sont
+generes sous `outputs/interactive-terrain/`, independamment du site :
 
-Les ressources web restent des derives reproductibles des memes configurations :
+```bash
+.venv/bin/python generate_interactive_terrain.py
+```
+
+Chaque site produit un paquet compact compose d'un champ d'altitude, d'un
+masque de validite, de deux textures et d'un fichier de metadonnees. Le format
+et sa frontiere avec le site sont documentes dans
+[INTERACTIVE-TERRAIN.md](INTERACTIVE-TERRAIN.md).
+
+Le site se trouve dans `site/`. Il presente les rendus responsifs, conserve un
+seul visuel actif lorsque le fond topographique ou l'orthophoto change, propose
+les planches HD au telechargement et visualise les paquets 3D avec rotation,
+zoom, deplacement et remise a zero de la camera.
+
+Les ressources publiees restent des derives reproductibles des sorties
+cartographiques canoniques :
 
 ```bash
 cd site
 ../.venv/bin/python scripts/build_map_assets.py
-../.venv/bin/python ../export_web_terrain.py
+../.venv/bin/python scripts/sync_interactive_terrain.py
 npm test
 ```
 
@@ -119,8 +131,16 @@ L'option `--land-style orthophoto` ou `--land-style topography` permet de ne reg
 Les perspectives statiques utilisent le meme langage lumineux que le relief
 WebGL : normales metriques calculees avec l'exageration verticale, lumiere
 hemispherique froide et lumiere directionnelle chaude venant du nord-est. Le
-calcul est effectue en espace colorimetrique lineaire avant le dessin des
-isobathes, du trait de cote et des annotations.
+calcul est effectue en espace colorimetrique lineaire avec une exposition
+commune de `1.55`, avant le dessin des isobathes, du trait de cote et des
+annotations. Cette exposition fait partie du modele lumineux ; ce n'est pas
+une correction appliquee au JPEG final.
+
+L'orthophoto 3D peut etre demandee a sa resolution native de 20 cm sur une
+grande emprise : le telechargement est automatiquement decoupe en tuiles IGN
+puis assemble sur une grille georeferencee unique. Le moteur conserve cette
+texture haute resolution independamment du maillage et interpole les facettes
+qui occupent plusieurs pixels dans l'image finale.
 
 ## Reutilisation
 

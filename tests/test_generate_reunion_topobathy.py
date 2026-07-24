@@ -4,6 +4,7 @@ import io
 import json
 import tempfile
 import unittest
+import urllib.parse
 from pathlib import Path
 from unittest.mock import patch
 
@@ -17,6 +18,9 @@ from cache_manifest import (
 )
 from generate_reunion_topobathy import (
     acquire,
+    crop_raster,
+    download_gebco_relief,
+    download_orthophoto,
     resolve_hyscores_tiff,
     validate_raster,
     verify_orthophoto_capture_date,
@@ -43,6 +47,63 @@ def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None
 
 
 class CacheContractTests(unittest.TestCase):
+    def test_gebco_warp_declares_gtiff_for_part_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "locator.tif"
+
+            def fake_download(_url: str, path: Path) -> None:
+                path.write_bytes(b"source")
+
+            def fake_warp(path: str, *_args, **_kwargs) -> object:
+                Path(path).write_bytes(b"projected")
+                return object()
+
+            with (
+                patch(
+                    "generate_reunion_topobathy.download_file",
+                    side_effect=fake_download,
+                ),
+                patch(
+                    "generate_reunion_topobathy.gdal.Warp",
+                    side_effect=fake_warp,
+                ) as warp,
+                patch("generate_reunion_topobathy.validate_raster"),
+            ):
+                download_gebco_relief(
+                    (305000.0, 7628000.0, 386000.0, 7696000.0),
+                    10,
+                    10,
+                    20,
+                    "GEBCO_2024",
+                    "https://example.invalid/wms",
+                    output,
+                )
+
+            self.assertEqual(warp.call_args.kwargs["format"], "GTiff")
+            self.assertTrue(output.exists())
+
+    def test_crop_raster_declares_gtiff_for_part_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.tif"
+            output = root / "crop.tif"
+            write_raster(source)
+            dataset = gdal.Open(str(source), gdal.GA_Update)
+            dataset.GetRasterBand(1).WriteArray(
+                np.arange(1, 101, dtype=np.float32).reshape((10, 10))
+            )
+            dataset = None
+
+            crop_raster(
+                source,
+                (102.0, 192.0, 108.0, 198.0),
+                output,
+                content_kind="positive_depth",
+            )
+
+            self.assertTrue(output.exists())
+            self.assertFalse((root / "crop.tif.part").exists())
+
     def test_expected_grid_passes_and_stale_resolution_fails(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "source.tif"
@@ -182,6 +243,72 @@ class CacheContractTests(unittest.TestCase):
 
 
 class OrthophotoProvenanceTests(unittest.TestCase):
+    def test_large_orthophoto_is_downloaded_as_aligned_tiles(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "orthophoto.tif"
+            calls: list[tuple[int, int]] = []
+
+            def write_tile(url: str, path: Path, *, timeout: int = 120) -> None:
+                del timeout
+                query = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+                width = int(query["WIDTH"][0])
+                height = int(query["HEIGHT"][0])
+                min_x, min_y, max_x, max_y = map(
+                    float,
+                    query["BBOX"][0].split(","),
+                )
+                calls.append((width, height))
+                dataset = gdal.GetDriverByName("GTiff").Create(
+                    str(path),
+                    width,
+                    height,
+                    3,
+                    gdal.GDT_Byte,
+                )
+                spatial_ref = osr.SpatialReference()
+                spatial_ref.ImportFromEPSG(32740)
+                dataset.SetProjection(spatial_ref.ExportToWkt())
+                dataset.SetGeoTransform(
+                    (
+                        min_x,
+                        (max_x - min_x) / width,
+                        0.0,
+                        max_y,
+                        0.0,
+                        -(max_y - min_y) / height,
+                    )
+                )
+                gradient = np.add.outer(
+                    np.arange(height, dtype=np.uint8),
+                    np.arange(width, dtype=np.uint8),
+                )
+                for band_index in range(1, 4):
+                    dataset.GetRasterBand(band_index).WriteArray(
+                        gradient + band_index * 20
+                    )
+                dataset = None
+
+            with (
+                patch("generate_reunion_topobathy.WMS_MAX_TILE_PIXELS", 4),
+                patch(
+                    "generate_reunion_topobathy.download_file",
+                    side_effect=write_tile,
+                ),
+            ):
+                download_orthophoto(
+                    (100.0, 190.0, 110.0, 200.0),
+                    1.0,
+                    "test-layer",
+                    output,
+                )
+
+            dataset = gdal.Open(str(output))
+            self.assertEqual((dataset.RasterXSize, dataset.RasterYSize), (10, 10))
+            self.assertEqual(dataset.RasterCount, 3)
+            self.assertEqual(dataset.GetGeoTransform(), (100.0, 1.0, 0.0, 200.0, 0.0, -1.0))
+            self.assertEqual(len(calls), 9)
+            self.assertTrue(all(width <= 4 and height <= 4 for width, height in calls))
+
     def test_capture_date_must_match_live_metadata(self) -> None:
         config = {
             "focus_bbox_utm40s": [0.0, 0.0, 10.0, 10.0],
@@ -197,8 +324,12 @@ class OrthophotoProvenanceTests(unittest.TestCase):
         with patch(
             "generate_reunion_topobathy.urllib.request.urlopen",
             return_value=io.BytesIO(json.dumps(response).encode()),
-        ):
+        ) as urlopen:
             verify_orthophoto_capture_date(config)
+        query = urllib.parse.parse_qs(
+            urllib.parse.urlparse(urlopen.call_args.args[0]).query
+        )
+        self.assertEqual(query["FORMAT"], ["image/geotiff"])
 
         config["orthophoto_capture_date"] = "2025-07-22"
         with patch(

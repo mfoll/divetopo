@@ -9,7 +9,7 @@ import numpy as np
 from osgeo import gdal, ogr, osr
 from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
-from site_config import DEFAULT_VERTICAL_EXAGGERATION
+from site_config import DEFAULT_RELIEF_EXPOSURE, DEFAULT_VERTICAL_EXAGGERATION
 
 
 gdal.UseExceptions()
@@ -348,6 +348,7 @@ def webgl_lit_colors(
     key_light_bearing_deg: float = 45.0,
     key_light_elevation_deg: float = 58.0,
     normal_sample_spacing_m: float = 2.0,
+    exposure: float = DEFAULT_RELIEF_EXPOSURE,
     material_rgb: tuple[int, int, int] = WEBGL_MATERIAL_RGB,
     hemisphere_sky_rgb: tuple[int, int, int] = WEBGL_HEMISPHERE_SKY_RGB,
     hemisphere_ground_rgb: tuple[int, int, int] = WEBGL_HEMISPHERE_GROUND_RGB,
@@ -367,6 +368,7 @@ def webgl_lit_colors(
         (hemisphere_intensity, "hemisphere_intensity"),
         (key_light_intensity, "key_light_intensity"),
         (normal_sample_spacing_m, "normal_sample_spacing_m"),
+        (exposure, "exposure"),
     ):
         if value <= 0.0:
             raise ValueError(f"{name} must be positive")
@@ -416,7 +418,8 @@ def webgl_lit_colors(
     irradiance = (hemisphere + direct) / np.pi
 
     texture = srgb_to_linear(colors)
-    return linear_to_srgb(texture * material[None, None, :] * irradiance)
+    radiance = texture * material[None, None, :] * irradiance
+    return linear_to_srgb(radiance * exposure)
 
 
 def open_raster(path: Path, description: str = "raster"):
@@ -666,6 +669,19 @@ def load_rgb_raster(
     return np.stack(values[:3], axis=-1).astype(np.float32)
 
 
+def resize_rgb(rgb: np.ndarray, width: int, height: int) -> np.ndarray:
+    """Resize an RGB texture without quantizing its geometry arrays."""
+    if width <= 0 or height <= 0:
+        raise ValueError("RGB target dimensions must be positive")
+    if rgb.shape[:2] == (height, width):
+        return rgb.astype(np.float32, copy=True)
+    image = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), mode="RGB")
+    return np.asarray(
+        image.resize((width, height), Image.Resampling.LANCZOS),
+        dtype=np.float32,
+    )
+
+
 def soften_surface(z: np.ndarray, mask: np.ndarray, passes: int = 8) -> np.ndarray:
     out = np.where(mask, z, np.nan).astype(np.float32)
     fill = float(np.nanmedian(out)) if np.any(np.isfinite(out)) else 0.0
@@ -869,6 +885,57 @@ def resample_array(arr: np.ndarray, scale: int, mode: str = "F") -> np.ndarray:
         return np.asarray(img.resize((arr.shape[1] * scale, arr.shape[0] * scale), Image.Resampling.BICUBIC)).astype(np.float32)
     img = Image.fromarray(arr.astype(np.float32), mode)
     return np.asarray(img.resize((arr.shape[1] * scale, arr.shape[0] * scale), Image.Resampling.BICUBIC), dtype=np.float32)
+
+
+def draw_interpolated_triangle(
+    canvas: Image.Image,
+    points: list[tuple[float, float]],
+    colors: np.ndarray,
+) -> None:
+    """Rasterize one orthographic triangle with barycentric RGB interpolation."""
+    if len(points) != 3 or colors.shape != (3, 3):
+        raise ValueError("A textured triangle needs three points and three RGB colors")
+    xs = np.asarray([point[0] for point in points], dtype=np.float32)
+    ys = np.asarray([point[1] for point in points], dtype=np.float32)
+    x0 = max(0, int(np.floor(float(np.min(xs)))))
+    y0 = max(0, int(np.floor(float(np.min(ys)))))
+    x1 = min(canvas.width, int(np.ceil(float(np.max(xs)))) + 1)
+    y1 = min(canvas.height, int(np.ceil(float(np.max(ys)))) + 1)
+    if x1 <= x0 or y1 <= y0:
+        return
+    denominator = (
+        (ys[1] - ys[2]) * (xs[0] - xs[2])
+        + (xs[2] - xs[1]) * (ys[0] - ys[2])
+    )
+    if abs(float(denominator)) < 1e-8:
+        return
+    sample_x, sample_y = np.meshgrid(
+        np.arange(x0, x1, dtype=np.float32) + 0.5,
+        np.arange(y0, y1, dtype=np.float32) + 0.5,
+    )
+    weight0 = (
+        (ys[1] - ys[2]) * (sample_x - xs[2])
+        + (xs[2] - xs[1]) * (sample_y - ys[2])
+    ) / denominator
+    weight1 = (
+        (ys[2] - ys[0]) * (sample_x - xs[2])
+        + (xs[0] - xs[2]) * (sample_y - ys[2])
+    ) / denominator
+    weight2 = 1.0 - weight0 - weight1
+    inside = (weight0 >= -1e-5) & (weight1 >= -1e-5) & (weight2 >= -1e-5)
+    if not np.any(inside):
+        return
+    interpolated = (
+        weight0[:, :, None] * colors[0]
+        + weight1[:, :, None] * colors[1]
+        + weight2[:, :, None] * colors[2]
+    )
+    patch = Image.fromarray(
+        np.clip(interpolated, 0, 255).astype(np.uint8),
+        mode="RGB",
+    )
+    mask = Image.fromarray(inside.astype(np.uint8) * 255, mode="L")
+    canvas.paste(patch, (x0, y0), mask)
 
 
 def distance_from(mask: np.ndarray, max_steps: int) -> np.ndarray:
@@ -1115,6 +1182,68 @@ def isolated_contour_center(line: list[tuple[float, float]], min_width: float = 
     if x1 - x0 < min_width or y1 - y0 < min_height:
         return None
     return float((x0 + x1) / 2.0), float((y0 + y1) / 2.0)
+
+
+def expanded_bbox(
+    bbox: tuple[float, float, float, float],
+    padding: float,
+) -> tuple[float, float, float, float]:
+    left, top, right, bottom = bbox
+    return left - padding, top - padding, right + padding, bottom + padding
+
+
+def bboxes_intersect(
+    first: tuple[float, float, float, float],
+    second: tuple[float, float, float, float],
+) -> bool:
+    return not (
+        first[2] <= second[0]
+        or second[2] <= first[0]
+        or first[3] <= second[1]
+        or second[3] <= first[1]
+    )
+
+
+def segment_intersects_bbox(
+    start: tuple[float, float],
+    end: tuple[float, float],
+    bbox: tuple[float, float, float, float],
+) -> bool:
+    """Return whether a segment crosses an axis-aligned rectangle."""
+    left, top, right, bottom = bbox
+    x0, y0 = start
+    x1, y1 = end
+    dx = x1 - x0
+    dy = y1 - y0
+    t_min = 0.0
+    t_max = 1.0
+    for origin, delta, low, high in (
+        (x0, dx, left, right),
+        (y0, dy, top, bottom),
+    ):
+        if abs(delta) < 1e-12:
+            if origin < low or origin > high:
+                return False
+            continue
+        t0 = (low - origin) / delta
+        t1 = (high - origin) / delta
+        if t0 > t1:
+            t0, t1 = t1, t0
+        t_min = max(t_min, t0)
+        t_max = min(t_max, t1)
+        if t_min > t_max:
+            return False
+    return True
+
+
+def polyline_intersects_bbox(
+    line: list[tuple[float, float]],
+    bbox: tuple[float, float, float, float],
+) -> bool:
+    return any(
+        segment_intersects_bbox(start, end, bbox)
+        for start, end in zip(line, line[1:])
+    )
 
 
 def smooth_polyline(points: list[tuple[float, float]], passes: int = 3) -> list[tuple[float, float]]:
@@ -1512,6 +1641,8 @@ def make_pretty_3d_from_offshore(
     key_light_bearing_deg: float = 45.0,
     key_light_elevation_deg: float = 58.0,
     normal_sample_spacing_m: float = 2.0,
+    exposure: float = DEFAULT_RELIEF_EXPOSURE,
+    texture_triangle_min_area_px: float = 12.0,
 ) -> None:
     (
         elev_full,
@@ -1537,16 +1668,27 @@ def make_pretty_3d_from_offshore(
     orthophoto_alpha = None
     if land_imagery_path is not None:
         source_dataset = open_raster(depth_path, "source raster")
-        imagery_full = load_rgb_raster(
+        imagery_dataset = open_raster(land_imagery_path, "land imagery")
+        orthophoto_texture = load_rgb_raster(
             land_imagery_path,
             depth_path,
+            width=imagery_dataset.RasterXSize,
+            height=imagery_dataset.RasterYSize,
+        )
+        imagery_full = resize_rgb(
+            orthophoto_texture,
+            fused_depth.shape[1],
+            fused_depth.shape[0],
         )
         if rotation_k % 4:
             imagery_full = np.rot90(imagery_full, rotation_k).copy()
+            orthophoto_texture = np.rot90(
+                orthophoto_texture,
+                rotation_k,
+            ).copy()
         if imagery_full.shape[:2] != fused_depth.shape:
             raise ValueError("Land imagery and fused relief do not share the same oriented dimensions")
         land_imagery = imagery_full[::step, ::step]
-        orthophoto_texture = land_imagery.copy()
     sea_mask = surface_valid & ~land_mask
     valid = surface_valid
     coast_band = land_mask & (land_blend > 0.02) & (land_blend < 0.98)
@@ -1662,8 +1804,6 @@ def make_pretty_3d_from_offshore(
             view_rotation,
             tuple(int(value) for value in deep_rgb),
         )
-        if orthophoto_texture.shape[:2] != z.shape:
-            raise ValueError("Rotated orthophoto and relief mesh do not share the same dimensions")
     if orthophoto_alpha is not None:
         orthophoto_alpha = rotate_scalar_for_view(orthophoto_alpha, view_rotation)
         if orthophoto_alpha.shape != z.shape:
@@ -1689,10 +1829,19 @@ def make_pretty_3d_from_offshore(
         crop_y = (z.shape[0] - crop_h) // 2 + int(np.floor(rotated_dy + 0.5))
         crop_x = int(np.clip(crop_x, 0, z.shape[1] - crop_w))
         crop_y = int(np.clip(crop_y, 0, z.shape[0] - crop_h))
+        mesh_height, mesh_width = z.shape
         z = z[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
         colors = colors[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
         if orthophoto_texture is not None:
-            orthophoto_texture = orthophoto_texture[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
+            texture_height, texture_width = orthophoto_texture.shape[:2]
+            texture_x0 = int(np.floor(crop_x * texture_width / mesh_width))
+            texture_x1 = int(np.ceil((crop_x + crop_w) * texture_width / mesh_width))
+            texture_y0 = int(np.floor(crop_y * texture_height / mesh_height))
+            texture_y1 = int(np.ceil((crop_y + crop_h) * texture_height / mesh_height))
+            orthophoto_texture = orthophoto_texture[
+                texture_y0:texture_y1,
+                texture_x0:texture_x1,
+            ]
         if orthophoto_alpha is not None:
             orthophoto_alpha = orthophoto_alpha[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
         valid = valid[crop_y : crop_y + crop_h, crop_x : crop_x + crop_w]
@@ -1718,8 +1867,6 @@ def make_pretty_3d_from_offshore(
     if render_interp > 1:
         z = resample_array(z, render_interp)
         colors = resample_array(colors, render_interp)
-        if orthophoto_texture is not None:
-            orthophoto_texture = resample_array(orthophoto_texture, render_interp)
         if orthophoto_alpha is not None:
             orthophoto_alpha = resample_array(orthophoto_alpha, render_interp)
             orthophoto_alpha = np.clip(orthophoto_alpha, 0.0, 1.0)
@@ -1737,6 +1884,11 @@ def make_pretty_3d_from_offshore(
         }
 
     if orthophoto_texture is not None and orthophoto_alpha is not None:
+        orthophoto_texture = resize_rgb(
+            orthophoto_texture,
+            z.shape[1],
+            z.shape[0],
+        )
         colors = blend_texture(colors, orthophoto_texture, orthophoto_alpha)
 
     original_w = z.shape[1]
@@ -1808,6 +1960,8 @@ def make_pretty_3d_from_offshore(
         raise ValueError("output_scale must be positive")
     if final_style_scale <= 0.0:
         raise ValueError("final_style_scale must be positive")
+    if texture_triangle_min_area_px <= 0.0:
+        raise ValueError("texture_triangle_min_area_px must be positive")
     ui = output_scale
     base_canvas_w = int(canvas_width_px)
     base_canvas_h = int(canvas_height_px)
@@ -1890,6 +2044,7 @@ def make_pretty_3d_from_offshore(
         key_light_bearing_deg=key_light_bearing_deg,
         key_light_elevation_deg=key_light_elevation_deg,
         normal_sample_spacing_m=normal_sample_spacing_m,
+        exposure=exposure,
     )
     for j in range(h - 2, -1, -1):
         for i in range(w - 1):
@@ -1917,15 +2072,38 @@ def make_pretty_3d_from_offshore(
                 # A shoreline quad must not inherit the red shallow-water
                 # colour from whichever corner happens to be visited first.
                 c = np.mean(corner_colors[corner_land], axis=0).astype(np.float32)
+                draw.polygon(
+                    pts,
+                    fill=tuple(np.clip(c, 0, 255).astype(np.uint8).tolist()) + (255,),
+                )
             else:
-                # WebGL interpolates vertex normals and texture samples across
-                # each triangle. Averaging the four sub-pixel corners removes
-                # the column-aligned flat-shading streaks of the old renderer.
-                c = np.mean(corner_colors, axis=0).astype(np.float32)
-            draw.polygon(
-                pts,
-                fill=tuple(np.clip(c, 0, 255).astype(np.uint8).tolist()) + (255,),
-            )
+                span_x = max(point[0] for point in pts) - min(point[0] for point in pts)
+                span_y = max(point[1] for point in pts) - min(point[1] for point in pts)
+                if (
+                    land_imagery_path is not None
+                    and span_x * span_y >= texture_triangle_min_area_px
+                ):
+                    # The camera is orthographic, so barycentric interpolation
+                    # across the two projected triangles is the exact texture
+                    # mapping needed here. Restrict it to facets spanning
+                    # several internal pixels; sub-pixel facets are correctly
+                    # represented by their area-average and stay much faster.
+                    draw_interpolated_triangle(
+                        canvas,
+                        [pts[0], pts[1], pts[2]],
+                        corner_colors[[0, 1, 2]],
+                    )
+                    draw_interpolated_triangle(
+                        canvas,
+                        [pts[0], pts[2], pts[3]],
+                        corner_colors[[0, 2, 3]],
+                    )
+                else:
+                    c = np.mean(corner_colors, axis=0).astype(np.float32)
+                    draw.polygon(
+                        pts,
+                        fill=tuple(np.clip(c, 0, 255).astype(np.uint8).tolist()) + (255,),
+                    )
 
     # Vector lines are projected on the same surface after the mesh, so they
     # remain smooth and readable even across steep submarine walls.
@@ -1991,15 +2169,93 @@ def make_pretty_3d_from_offshore(
 
     if not decorate:
         label_font = load_font(int(np.floor(20 * style + 0.5)), True)
-        occupied: list[tuple[float, float]] = []
+        label_stroke = max(1, int(np.floor(2 * style + 0.5)))
+        label_clearance = 8.0 * style
+        transformed_contours = {
+            level: [
+                [
+                    (
+                        x * projection_to_output - crop_left,
+                        y * projection_to_output - crop_top,
+                    )
+                    for x, y in line
+                ]
+                for line in projected_contours.get(level, [])
+            ]
+            for level in contour_points
+        }
+        occupied_label_bboxes: list[tuple[float, float, float, float]] = []
+
+        def label_placement(
+            level: int,
+            anchor: tuple[float, float],
+            *,
+            centered: bool,
+        ) -> tuple[
+            tuple[float, float],
+            tuple[float, float, float, float],
+        ]:
+            x, y = anchor
+            position = (
+                (x - 27 * style, y - 13 * style)
+                if centered
+                else (x + 6 * style, y - 13 * style)
+            )
+            bbox = tuple(
+                float(value)
+                for value in draw.textbbox(
+                    position,
+                    f"-{level} m",
+                    font=label_font,
+                    stroke_width=label_stroke,
+                )
+            )
+            return position, bbox
+
+        def label_position_is_clear(
+            level: int,
+            bbox: tuple[float, float, float, float],
+        ) -> bool:
+            safe_bbox = expanded_bbox(bbox, label_clearance)
+            if not (
+                0.0 < safe_bbox[0]
+                and safe_bbox[2] < canvas.width
+                and 0.0 < safe_bbox[1]
+                and safe_bbox[3] < canvas.height
+            ):
+                return False
+            if any(
+                bboxes_intersect(safe_bbox, expanded_bbox(other, label_clearance))
+                for other in occupied_label_bboxes
+            ):
+                return False
+            return not any(
+                polyline_intersects_bbox(line, safe_bbox)
+                for other_level, lines in transformed_contours.items()
+                if int(other_level) != int(level)
+                for line in lines
+            )
+
+        def draw_isobath_label(
+            level: int,
+            position: tuple[float, float],
+            bbox: tuple[float, float, float, float],
+        ) -> None:
+            occupied_label_bboxes.append(bbox)
+            draw.text(
+                position,
+                f"-{level} m",
+                font=label_font,
+                fill=(3, 4, 6, 245),
+                stroke_width=label_stroke,
+                stroke_fill=(245, 239, 210, 235),
+            )
+
         suppressed_labels = {int(level) for level in suppressed_label_levels}
         for level in sorted(contour_points):
             if int(level) in suppressed_labels:
                 continue
-            transformed_lines = [
-                [(x * projection_to_output - crop_left, y * projection_to_output - crop_top) for x, y in line]
-                for line in projected_contours.get(level, [])
-            ]
+            transformed_lines = transformed_contours[level]
             open_lines = []
             for line in transformed_lines:
                 center = isolated_contour_center(line, min_width=45.0 * style, min_height=20.0 * style)
@@ -2007,10 +2263,9 @@ def make_pretty_3d_from_offshore(
                 if is_closed:
                     placed = False
                     if center and 55 * style < center[0] < canvas.width - 100 * style and 35 * style < center[1] < canvas.height - 35 * style:
-                        if all(np.hypot(center[0] - x, center[1] - y) > 80 * style for x, y in occupied):
-                            x, y = center
-                            occupied.append(center)
-                            draw.text((x - 27 * style, y - 13 * style), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(245, 239, 210, 235))
+                        position, bbox = label_placement(level, center, centered=True)
+                        if label_position_is_clear(level, bbox):
+                            draw_isobath_label(level, position, bbox)
                             placed = True
                     if placed:
                         continue
@@ -2024,16 +2279,28 @@ def make_pretty_3d_from_offshore(
                     x, y = line[index]
                     if not (55 * style < x < canvas.width - 100 * style and 35 * style < y < canvas.height - 35 * style):
                         continue
+                    position, bbox = label_placement(level, (x, y), centered=False)
+                    if not label_position_is_clear(level, bbox):
+                        continue
                     dx = line[index + 2][0] - line[index - 2][0]
                     dy = line[index + 2][1] - line[index - 2][1]
                     horizontal = abs(dx) / (abs(dx) + abs(dy) + 1e-6)
                     edge_gap = min(x - 55 * style, canvas.width - 100 * style - x, y - 35 * style, canvas.height - 35 * style - y)
-                    separation = min((np.hypot(x - ox, y - oy) for ox, oy in occupied), default=250.0 * style)
+                    separation = min(
+                        (
+                            np.hypot(
+                                x - (other[0] + other[2]) / 2.0,
+                                y - (other[1] + other[3]) / 2.0,
+                            )
+                            for other in occupied_label_bboxes
+                        ),
+                        default=250.0 * style,
+                    )
                     focus_penalty = 0.32 * abs(x - canvas.width * 0.48)
                     score = edge_gap + 55.0 * style * horizontal + min(separation, 160.0 * style) - focus_penalty
                     if score > best_score:
                         best_score = score
-                        best = (x, y)
+                        best = (position, bbox)
             if best is None:
                 near_frame = [
                     (x, y)
@@ -2042,12 +2309,21 @@ def make_pretty_3d_from_offshore(
                     if 55 * style < x < canvas.width - 100 * style and -25 * style < y < canvas.height + 25 * style
                 ]
                 if near_frame:
-                    x, y = min(near_frame, key=lambda point: abs(point[0] - canvas.width / 2))
-                    best = (x, float(np.clip(y, 35 * style, canvas.height - 35 * style)))
+                    for x, y in sorted(
+                        near_frame,
+                        key=lambda point: abs(point[0] - canvas.width / 2),
+                    ):
+                        anchor = (
+                            x,
+                            float(np.clip(y, 35 * style, canvas.height - 35 * style)),
+                        )
+                        position, bbox = label_placement(level, anchor, centered=False)
+                        if label_position_is_clear(level, bbox):
+                            best = (position, bbox)
+                            break
             if best:
-                x, y = best
-                occupied.append(best)
-                draw.text((x + 6 * style, y - 13 * style), f"-{level} m", font=label_font, fill=(3, 4, 6, 245), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(245, 239, 210, 235))
+                position, bbox = best
+                draw_isobath_label(level, position, bbox)
 
         annotation_font = load_font(int(np.floor(20 * style + 0.5)), True)
         pixel_m = abs(gdal.Open(str(depth_path)).GetGeoTransform()[1])

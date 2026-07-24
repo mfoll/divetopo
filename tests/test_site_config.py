@@ -7,6 +7,7 @@ from pathlib import Path
 
 from site_config import (
     DEFAULT_CACHE,
+    DEFAULT_RELIEF_EXPOSURE,
     DEFAULT_VERTICAL_EXAGGERATION,
     ROOT,
     paths_for,
@@ -15,6 +16,11 @@ from site_config import (
 
 
 SITES = ROOT / "sites"
+REFERENCE_SITE_SLUGS = {
+    "boucan-canot",
+    "cap-la-houssaye",
+    "passe-hermitage",
+}
 
 
 def migrated_config(path: Path) -> dict:
@@ -39,7 +45,11 @@ class SiteConfigTests(unittest.TestCase):
         ]
 
     def test_all_site_configs_validate_before_or_after_planned_migration(self) -> None:
-        self.assertEqual(len(self.configs), 3)
+        self.assertTrue(
+            REFERENCE_SITE_SLUGS.issubset(
+                {config["slug"] for config in self.configs}
+            )
+        )
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
                 validate_config(config)
@@ -50,6 +60,15 @@ class SiteConfigTests(unittest.TestCase):
                 self.assertEqual(
                     config["vertical_exaggeration"],
                     DEFAULT_VERTICAL_EXAGGERATION,
+                )
+
+    def test_reference_sites_share_the_default_relief_exposure(self) -> None:
+        self.assertEqual(DEFAULT_RELIEF_EXPOSURE, 1.55)
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                self.assertEqual(
+                    config.get("relief_exposure", DEFAULT_RELIEF_EXPOSURE),
+                    DEFAULT_RELIEF_EXPOSURE,
                 )
 
     def test_invalid_bbox_is_rejected(self) -> None:
