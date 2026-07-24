@@ -71,6 +71,14 @@ class SiteConfigTests(unittest.TestCase):
                     DEFAULT_RELIEF_EXPOSURE,
                 )
 
+    def test_all_orthophoto_sites_share_the_standard_sea_fade(self) -> None:
+        for config in self.configs:
+            if not config.get("orthophoto_enabled", False):
+                continue
+            with self.subTest(slug=config["slug"]):
+                self.assertEqual(config.get("imagery_sea_full_depth_m"), 1.5)
+                self.assertEqual(config.get("imagery_sea_max_depth_m"), 2.0)
+
     def test_invalid_bbox_is_rejected(self) -> None:
         config = copy.deepcopy(self.configs[0])
         config["focus_bbox_utm40s"] = [0, 0, 10, 10]

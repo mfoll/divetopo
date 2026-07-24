@@ -2,7 +2,7 @@
 
 Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante optionnelle drape l'orthophoto IGN georeferencee sur la terre et, pour les grands lagons, jusqu'a une profondeur configurable. Chaque site porte ses propres emprises, dates de prise de vue et references de sources dans un fichier JSON.
 
-Le standard orthophoto courant est commun aux trois sites de reference : image opaque jusqu'a `-1 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
+Le standard orthophoto courant est commun aux trois sites de reference : image opaque jusqu'a `-1,5 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
 
 Les trois sites utilisent les memes dimensions finales (`2474 x 1712 px`) et un facteur `map_style_scale` commun. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches affichent les coordonnees en degres, minutes et secondes. Leur cartouche utilise toujours trois lignes distinctes : un seul nom canonique de site, la commune, puis `La Reunion` seule.
 
@@ -10,7 +10,7 @@ Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cell
 
 ## Exemple : Cap La Houssaye
 
-Le Cap applique le standard orthophoto `-1/-2 m` et la palette decalee, tout en conservant sa correction locale du pont dans le modele 3D. Sa vue oblique finale utilise une inclinaison de `0,29`, une amplification dans l'axe de vue de `1,35` et place la cote a 54 % de la hauteur afin de montrer les deux pointes sans consacrer trop d'espace au fond uniforme du large.
+Le Cap applique le standard orthophoto `-1,5/-2 m` et la palette decalee, tout en conservant sa correction locale du pont dans le modele 3D. Sa vue oblique finale utilise une inclinaison de `0,29`, une amplification dans l'axe de vue de `1,35` et place la cote a 54 % de la hauteur afin de montrer les deux pointes sans consacrer trop d'espace au fond uniforme du large.
 
 | Plan 2D | Vue 3D depuis le large |
 |---|---|
@@ -34,7 +34,7 @@ Le Cap applique le standard orthophoto `-1/-2 m` et la palette decalee, tout en 
 
 ## Exemple : Boucan Canot
 
-La configuration Boucan utilise une cote bidimensionnelle pour la piscine naturelle et une camera orientee au sud-est (`135°`). Son cadrage 3D rapproche le relief sous-marin avec une largeur visible de `580 m`, independamment de l'emprise 2D. L'orthophoto est prolongee sans rupture jusqu'a `-1 m`, puis fondue progressivement jusqu'a `-2 m` afin d'eviter les artefacts du masque terrestre autour de la piscine.
+La configuration Boucan utilise une cote bidimensionnelle pour la piscine naturelle et une camera orientee au sud-est (`135°`). Son cadrage 3D rapproche le relief sous-marin avec une largeur visible de `580 m`, independamment de l'emprise 2D. L'orthophoto est prolongee sans rupture jusqu'a `-1,5 m`, puis fondue progressivement jusqu'a `-2 m` afin d'eviter les artefacts du masque terrestre autour de la piscine.
 
 | Terre en orthophoto | Terre en relief topographique |
 |---|---|
@@ -42,7 +42,7 @@ La configuration Boucan utilise une cote bidimensionnelle pour la piscine nature
 
 ## Exemple : Passe de l'Hermitage
 
-La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` vers l'est et `240 m` vers le nord, avec une largeur visible de `650 m` et la cote placee a 26 % de la hauteur pour garder la passe au coeur du cadrage sans donner trop de place au large. L'orthophoto reste opaque jusqu'a `-1 m`, puis disparait progressivement a `-2 m`, avec une limite bathymetrique lissee sur 5 m. Le trait de cote est masque sur la variante orthophoto et le premier plan conserve les isobathes jusqu'a la profondeur maximale du site, soit `-30 m`.
+La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` vers l'est et `240 m` vers le nord, avec une largeur visible de `650 m` et la cote placee a 26 % de la hauteur pour garder la passe au coeur du cadrage sans donner trop de place au large. L'orthophoto reste opaque jusqu'a `-1,5 m`, puis disparait progressivement a `-2 m`, avec une limite bathymetrique lissee sur 5 m. Le trait de cote est masque sur la variante orthophoto et le premier plan conserve les isobathes jusqu'a la profondeur maximale du site, soit `-30 m`.
 
 | Terre et lagon en orthophoto | Relief topographique et bathymetrique |
 |---|---|

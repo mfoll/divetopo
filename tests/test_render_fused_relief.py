@@ -121,16 +121,16 @@ class SurfaceValidityTests(unittest.TestCase):
 
 class ImageryMaskTests(unittest.TestCase):
     def test_orthophoto_depth_alpha_has_a_strict_maximum_depth(self) -> None:
-        depths = np.array([0.0, 1.0, 1.5, 2.0, 2.1, 8.0], dtype=np.float32)
+        depths = np.array([0.0, 1.49, 1.5, 1.75, 2.0, 2.1, 8.0], dtype=np.float32)
 
-        alpha = imagery_depth_alpha(depths, None, 0.6, 1.0, 2.0)
+        alpha = imagery_depth_alpha(depths, None, 0.6, 1.5, 2.0)
 
         self.assertIsNotNone(alpha)
         assert alpha is not None
-        np.testing.assert_allclose(alpha[:2], 1.0)
-        self.assertGreater(float(alpha[2]), 0.0)
-        self.assertLess(float(alpha[2]), 1.0)
-        np.testing.assert_allclose(alpha[3:], 0.0)
+        np.testing.assert_allclose(alpha[:3], 1.0)
+        self.assertGreater(float(alpha[3]), 0.0)
+        self.assertLess(float(alpha[3]), 1.0)
+        np.testing.assert_allclose(alpha[4:], 0.0)
 
     def test_shallow_water_imagery_has_no_zero_alpha_seam_on_land(self) -> None:
         land = np.array([[False, False, True, True]])

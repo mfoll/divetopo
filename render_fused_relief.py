@@ -61,7 +61,7 @@ def palette(depth: np.ndarray, max_depth: float = 40) -> np.ndarray:
         ],
         dtype=np.float32,
     )
-    # The standard orthophoto treatment is opaque to 1 m and fades out at
+    # The standard orthophoto treatment is opaque to 1.5 m and fades out at
     # 2 m. Make 2 m the chromatic zero so the first fully bathymetric pixels
     # are red, while preserving the original colour at each site's maximum
     # displayed depth.

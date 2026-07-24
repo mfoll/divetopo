@@ -21,7 +21,7 @@
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.061,
-  "imagery_sea_full_depth_m": 1.0,
+  "imagery_sea_full_depth_m": 1.5,
   "imagery_sea_max_depth_m": 2.0,
   "imagery_sea_smoothing_m": 5.0,
   "output_scale": 2.0,
