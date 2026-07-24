@@ -16,19 +16,19 @@ export async function generateMetadata(): Promise<Metadata> {
 
   return {
     title: {
-      default: "Cartes de plongée à La Réunion",
-      template: "%s · Plongée à La Réunion",
+      default: "Plans des sites de plongée à La Réunion",
+      template: "%s · Plans de plongée à La Réunion",
     },
     description:
-      "Plans 2D, vues 3D et reliefs interactifs des sites de plongée à La Réunion.",
+      "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
     icons: {
       icon: "/favicon.png",
       shortcut: "/favicon.png",
     },
     openGraph: {
-      title: "Cartes de plongée à La Réunion",
+      title: "Plans des sites de plongée à La Réunion",
       description:
-        "Plans 2D, vues 3D et reliefs interactifs des sites de plongée à La Réunion.",
+        "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
       locale: "fr_FR",
       type: "website",
       images: [
@@ -36,15 +36,15 @@ export async function generateMetadata(): Promise<Metadata> {
           url: socialImage,
           width: 1200,
           height: 630,
-          alt: "Cartes de plongée à La Réunion",
+          alt: "Plans des sites de plongée à La Réunion",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: "Cartes de plongée à La Réunion",
+      title: "Plans des sites de plongée à La Réunion",
       description:
-        "Plans 2D, vues 3D et reliefs interactifs des sites de plongée à La Réunion.",
+        "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
       images: [socialImage],
     },
   };

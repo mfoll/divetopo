@@ -51,7 +51,9 @@
     "lookBearingDeg": 180.0,
     "gridLookBearingDeg": 180.0,
     "cameraTilt": 0.29,
-    "alongViewProjectionScale": 1.35
+    "alongViewProjectionScale": 1.35,
+    "visibleWidthM": 494.8,
+    "coastFrameFraction": 0.425
   },
   "textures": {
     "width": 1237,

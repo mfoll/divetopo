@@ -439,6 +439,17 @@ def export_site(
             "alongViewProjectionScale": float(
                 config.get("along_view_projection_scale", 1.0)
             ),
+            "visibleWidthM": float(
+                config.get("view_visible_width_m", physical_width)
+            ),
+            "coastFrameFraction": (
+                float(config.get("coast_frame_fraction", 0.44))
+                - float(config.get("view_top_crop_fraction", 0.0))
+            )
+            / (
+                1.0
+                - float(config.get("view_top_crop_fraction", 0.0))
+            ),
         },
         "textures": {
             "width": texture_size[0],

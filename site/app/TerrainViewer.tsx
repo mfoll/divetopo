@@ -24,6 +24,8 @@ type TerrainMetadata = {
     gridLookBearingDeg: number;
     cameraTilt: number;
     alongViewProjectionScale: number;
+    visibleWidthM?: number;
+    coastFrameFraction?: number;
   };
   textures: {
     topographic: { file: string };
@@ -51,6 +53,15 @@ function filterIndices(
   return new Uint32Array(retained);
 }
 
+function median(values: number[]) {
+  if (!values.length) return 0;
+  values.sort((a, b) => a - b);
+  const middle = Math.floor(values.length / 2);
+  return values.length % 2
+    ? values[middle]
+    : (values[middle - 1] + values[middle]) / 2;
+}
+
 export default function TerrainViewer({
   slug,
   siteName,
@@ -65,7 +76,7 @@ export default function TerrainViewer({
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
-  const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+  const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
   const textureCacheRef = useRef<
     Partial<Record<SurfaceStyle, THREE.Texture>>
   >({});
@@ -73,6 +84,7 @@ export default function TerrainViewer({
   const initialViewRef = useRef<{
     position: THREE.Vector3;
     target: THREE.Vector3;
+    zoom: number;
   } | null>(null);
   const styleRef = useRef(style);
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
@@ -126,6 +138,8 @@ export default function TerrainViewer({
 
       const positions = geometry.getAttribute("position");
       const heights = new DataView(heightBuffer);
+      const mask = new Uint8Array(maskBuffer);
+      const elevations = new Float32Array(width * height);
       const offsetM = metadata.grid.heightEncoding.offsetM;
       const scaleM = metadata.grid.heightEncoding.scaleMPerUnit;
       let minY = Number.POSITIVE_INFINITY;
@@ -133,6 +147,7 @@ export default function TerrainViewer({
       for (let index = 0; index < width * height; index += 1) {
         const elevationM =
           offsetM + heights.getUint16(index * 2, true) * scaleM;
+        elevations[index] = elevationM;
         const y = elevationM * metadata.verticalExaggeration;
         positions.setY(index, y);
         minY = Math.min(minY, y);
@@ -144,7 +159,7 @@ export default function TerrainViewer({
       if (sourceIndex) {
         geometry.setIndex(
           new THREE.BufferAttribute(
-            filterIndices(sourceIndex, new Uint8Array(maskBuffer)),
+            filterIndices(sourceIndex, mask),
             1,
           ),
         );
@@ -153,7 +168,6 @@ export default function TerrainViewer({
       geometry.computeBoundingSphere();
 
       scene = new THREE.Scene();
-      scene.background = new THREE.Color("#07151c");
       sceneRef.current = scene;
 
       const material = new THREE.MeshStandardMaterial({
@@ -175,30 +189,113 @@ export default function TerrainViewer({
       );
       scene.add(keyLight);
 
-      const camera = new THREE.PerspectiveCamera(34, 1, 0.5, 6000);
       const span = Math.max(
         metadata.physicalSizeM.width,
         metadata.physicalSizeM.depth,
       );
       const verticalCenter = (minY + maxY) / 2;
-      const targetY = verticalCenter * 0.32;
       const viewBearing = THREE.MathUtils.degToRad(
         metadata.view.gridLookBearingDeg,
       );
-      const offshoreDistance = span * 1.35;
-      const cameraHeight =
-        offshoreDistance *
+      const projectionSlope =
         metadata.view.cameraTilt *
         metadata.view.alongViewProjectionScale;
-      camera.position.set(
-        -Math.sin(viewBearing) * offshoreDistance,
-        targetY + cameraHeight,
-        Math.cos(viewBearing) * offshoreDistance,
+      const cameraElevation = Math.atan(projectionSlope);
+      const verticalStretch = Math.sqrt(1 + projectionSlope ** 2);
+      const visibleWidth = Math.min(
+        metadata.view.visibleWidthM ?? metadata.physicalSizeM.width,
+        span * 1.1,
       );
+      const initialAspect =
+        Math.max(mount.clientWidth, 1) / Math.max(mount.clientHeight, 1);
+      const halfWidth = visibleWidth / 2;
+      const halfHeight = halfWidth / (initialAspect * verticalStretch);
+
+      const shoreXs: number[] = [];
+      const shoreZs: number[] = [];
+      const recordCrossing = (first: number, second: number) => {
+        if (!validAt(mask, first) || !validAt(mask, second)) return;
+        const firstElevation = elevations[first];
+        const secondElevation = elevations[second];
+        if (
+          (firstElevation < 0 && secondElevation >= 0) ||
+          (secondElevation < 0 && firstElevation >= 0)
+        ) {
+          const denominator =
+            Math.abs(firstElevation) + Math.abs(secondElevation);
+          const mix =
+            denominator > 1e-6
+              ? Math.abs(firstElevation) / denominator
+              : 0.5;
+          shoreXs.push(
+            THREE.MathUtils.lerp(
+              positions.getX(first),
+              positions.getX(second),
+              mix,
+            ),
+          );
+          shoreZs.push(
+            THREE.MathUtils.lerp(
+              positions.getZ(first),
+              positions.getZ(second),
+              mix,
+            ),
+          );
+        }
+      };
+      for (let row = 0; row < height; row += 1) {
+        for (let column = 0; column < width; column += 1) {
+          const index = row * width + column;
+          if (column + 1 < width) recordCrossing(index, index + 1);
+          if (row + 1 < height) recordCrossing(index, index + width);
+        }
+      }
+
+      const shore = new THREE.Vector3(
+        shoreXs.length ? median(shoreXs) : 0,
+        0,
+        shoreZs.length ? median(shoreZs) : 0,
+      );
+      const horizontalForward = new THREE.Vector3(
+        Math.sin(viewBearing),
+        0,
+        -Math.cos(viewBearing),
+      );
+      const screenUp = new THREE.Vector3(
+        Math.sin(cameraElevation) * horizontalForward.x,
+        Math.cos(cameraElevation),
+        Math.sin(cameraElevation) * horizontalForward.z,
+      );
+      const coastFrame = THREE.MathUtils.clamp(
+        metadata.view.coastFrameFraction ?? 0.42,
+        0.05,
+        0.55,
+      );
+      const target = shore
+        .clone()
+        .addScaledVector(screenUp, -(0.5 - coastFrame) * halfHeight * 2);
+      if (!shoreXs.length) target.y = verticalCenter * 0.25;
+
+      const camera = new THREE.OrthographicCamera(
+        -halfWidth,
+        halfWidth,
+        halfHeight,
+        -halfHeight,
+        0.5,
+        span * 12,
+      );
+      const offshoreDistance = span * 2.2;
+      camera.position
+        .copy(target)
+        .addScaledVector(horizontalForward, -offshoreDistance)
+        .add(new THREE.Vector3(0, offshoreDistance * projectionSlope, 0));
+      camera.lookAt(target);
+      camera.updateProjectionMatrix();
       cameraRef.current = camera;
 
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
+        alpha: true,
         powerPreference: "high-performance",
       });
       renderer.outputColorSpace = THREE.SRGBColorSpace;
@@ -207,23 +304,25 @@ export default function TerrainViewer({
       rendererRef.current = renderer;
 
       const controls = new OrbitControls(camera, renderer.domElement);
-      controls.target.set(0, targetY, 0);
+      controls.target.copy(target);
       controls.cursor.copy(controls.target);
       controls.enableDamping = false;
       controls.screenSpacePanning = true;
-      controls.minDistance = span * 0.22;
-      controls.maxDistance = span * 2.4;
+      controls.minZoom = 0.65;
+      controls.maxZoom = 8;
+      controls.zoomToCursor = true;
       controls.maxTargetRadius = span * 0.5;
       // Match the printable 3D perspective: start offshore and face the reef.
       // Keep only the under-surface angles out of reach; horizontal rotation
       // remains completely free.
       controls.minPolarAngle = Math.PI * 0.12;
-      controls.maxPolarAngle = Math.PI * 0.4;
+      controls.maxPolarAngle = Math.PI * 0.42;
       controls.update();
       controlsRef.current = controls;
       initialViewRef.current = {
         position: camera.position.clone(),
         target: controls.target.clone(),
+        zoom: camera.zoom,
       };
 
       const render = () => {
@@ -245,7 +344,13 @@ export default function TerrainViewer({
         lastWidth = widthPx;
         lastHeight = heightPx;
         currentRenderer.setSize(widthPx, heightPx, false);
-        currentCamera.aspect = widthPx / heightPx;
+        const aspect = widthPx / heightPx;
+        const resizedHalfHeight =
+          halfWidth / (aspect * verticalStretch);
+        currentCamera.left = -halfWidth;
+        currentCamera.right = halfWidth;
+        currentCamera.top = resizedHalfHeight;
+        currentCamera.bottom = -resizedHalfHeight;
         currentCamera.updateProjectionMatrix();
         render();
       };
@@ -365,6 +470,8 @@ export default function TerrainViewer({
     const renderer = rendererRef.current;
     if (!initial || !camera || !controls || !renderer) return;
     camera.position.copy(initial.position);
+    camera.zoom = initial.zoom;
+    camera.updateProjectionMatrix();
     controls.target.copy(initial.target);
     controls.update();
   }

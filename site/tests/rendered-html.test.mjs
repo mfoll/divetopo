@@ -31,21 +31,29 @@ test("server-renders the finished atlas", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Cartes de plongée à La Réunion<\/title>/i);
-  assert.match(html, /Cartes de plongée à La Réunion/);
+  assert.match(
+    html,
+    /<title>Plans des sites de plongée à La Réunion<\/title>/i,
+  );
+  assert.match(html, /Plans des sites de plongée à La Réunion/);
   assert.match(html, /Cap La Houssaye/);
   assert.match(html, /3d-orthophoto-2474\.webp/);
   assert.match(html, /locator-640\.webp/);
-  assert.match(html, /Planche imprimable/);
+  assert.match(html, /Planche HD à imprimer/);
   assert.match(html, /Télécharger la planche HD/);
   assert.match(html, /Topographie/);
   assert.match(html, /Orthophoto/);
   assert.match(html, /3D interactive/);
-  assert.match(html, /Méthode, sources et licences/);
+  assert.match(html, /Données, méthode et licences/);
+  assert.match(html, /données bathymétriques/);
+  assert.match(html, /UTM 40S, EPSG:32740/);
+  assert.match(html, /Grille bathymétrique GEBCO 2024/);
   assert.match(html, /https:\/\/github\.com\/mfoll\/reunion-topobathy/);
   assert.match(html, /https:\/\/doi\.org\/10\.12770\/ee059de2/);
   assert.doesNotMatch(html, /Lire la côte sous la surface/);
   assert.doesNotMatch(html, /Trois reliefs, trois lectures de la côte/);
+  assert.doesNotMatch(html, /Plans 2D, vues 3D et reliefs interactifs\./);
+  assert.doesNotMatch(html, /Cartes et reliefs/);
   assert.doesNotMatch(html, /02\s*\/\s*Les sites/i);
   assert.doesNotMatch(html, /id="explorer"/);
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/);

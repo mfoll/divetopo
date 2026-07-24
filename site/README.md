@@ -1,6 +1,6 @@
-# Cartes de plongée à La Réunion
+# Plans des sites de plongée à La Réunion
 
-Site de partage des cartes topo-bathymétriques de sites de plongée à La Réunion.
+Site de partage des plans topo-bathymétriques de sites de plongée à La Réunion.
 Un visualiseur unique réunit les plans 2D, les perspectives 3D et les reliefs
 interactifs. Il s’ouvre sur la perspective 3D avec orthophoto ; le choix du fond
 ne duplique ni la carte affichée ni la géométrie interactive.
@@ -30,9 +30,9 @@ sorties canoniques du dépôt :
 ```
 
 Les reliefs interactifs partagent une seule géométrie par site. Le bouton
-Topographie / Orthophoto change uniquement la texture. La caméra initiale
-reprend l’azimut de la perspective imprimable et se place à l’opposé, côté
-large ; la rotation horizontale reste libre sur 360° :
+Topographie / Orthophoto change uniquement la texture. La caméra orthographique
+initiale reprend l’azimut et la pente visuelle de la perspective imprimable,
+depuis le large vers le récif ; la rotation horizontale reste libre sur 360° :
 
 ```bash
 ../.venv/bin/python ../export_web_terrain.py

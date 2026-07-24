@@ -61,32 +61,67 @@ if (!initialSite) {
   throw new Error("The dive atlas requires at least one site");
 }
 
-const SOURCE_LINKS = [
+const DATA_SOURCES = [
   {
-    label: "HYSCORES 2015",
-    href: "https://doi.org/10.12770/ee059de2-2c81-46ce-88de-0fb5517046af",
+    title: "Bathymétrie",
+    description:
+      "Relief sous-marin issu du levé HYSCORES 2015, incluant les données Litto3D.",
+    links: [
+      {
+        label: "HYSCORES 2015",
+        href: "https://doi.org/10.12770/ee059de2-2c81-46ce-88de-0fb5517046af",
+      },
+      { label: "Ifremer", href: "https://www.ifremer.fr/fr" },
+      {
+        label: "UBO",
+        href: "https://www.univ-brest.fr/fr",
+      },
+      {
+        label: "Office de l’eau Réunion",
+        href: "https://donnees.eaureunion.fr/",
+      },
+    ],
   },
-  { label: "Ifremer", href: "https://www.ifremer.fr/fr" },
   {
-    label: "Université de Bretagne Occidentale",
-    href: "https://www.univ-brest.fr/fr",
+    title: "Topographie",
+    description:
+      "Modèle numérique de terrain RGE ALTI pour le relief de la partie terrestre.",
+    links: [
+      {
+        label: "IGN RGE ALTI",
+        href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI",
+      },
+    ],
   },
   {
-    label: "Office de l’eau Réunion",
-    href: "https://donnees.eaureunion.fr/",
+    title: "Orthophoto",
+    description:
+      "Orthophotographies géoréférencées BD ORTHO pour le fond aérien haute résolution.",
+    links: [
+      {
+        label: "IGN BD ORTHO",
+        href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO",
+      },
+    ],
   },
   {
-    label: "IGN RGE ALTI",
-    href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI",
+    title: "Carte de situation",
+    description:
+      "Grille bathymétrique GEBCO 2024 pour replacer chaque site à l’échelle de l’île.",
+    links: [
+      {
+        label: "GEBCO 2024",
+        href: "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid",
+      },
+    ],
   },
-  {
-    label: "IGN BD ORTHO",
-    href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO",
-  },
-  {
-    label: "GEBCO 2024 Grid",
-    href: "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid",
-  },
+] as const;
+
+const METHOD_STEPS = [
+  "Toutes les données sont reprojetées dans le même système de coordonnées : UTM 40S, EPSG:32740.",
+  "Le relief terrestre et les fonds marins sont assemblés en une surface continue le long du littoral.",
+  "Les isobathes sont générées tous les 5 m ; les vues 3D utilisent une exagération verticale d’environ ×4.",
+  "Plans 2D, vues 3D, reliefs interactifs et planches HD sont produits à partir des mêmes paramètres de site.",
 ] as const;
 
 function assetSrcSet(variants: AssetVariant[]) {
@@ -225,7 +260,10 @@ function SiteNavigator({
 
   return (
     <aside className="site-navigator" aria-labelledby="site-navigator-title">
-      <h2 id="site-navigator-title">Sites de plongée</h2>
+      <div className="site-navigator-heading">
+        <h2 id="site-navigator-title">Sites</h2>
+        <span>{mapManifest.sites.length}</span>
+      </div>
       <label className="site-select-label">
         <span>Choisir un site</span>
         <select
@@ -301,26 +339,28 @@ export function AtlasExperience() {
   return (
     <main>
       <header className="masthead" id="top">
-        <a className="brand" href="#atlas">
-          Plongée à La Réunion
-        </a>
-        <nav aria-label="Navigation principale">
-          <a href="#atlas">Les cartes</a>
-          <a href="#sources">Méthode et crédits</a>
-          <a
-            href="https://github.com/mfoll/reunion-topobathy"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
+        <div className="masthead-inner">
+          <a className="brand" href="#atlas">
+            <span className="brand-mark" aria-hidden="true" />
+            <span>Plans de plongée · La Réunion</span>
           </a>
-        </nav>
+          <nav aria-label="Navigation principale">
+            <a href="#atlas">Explorer</a>
+            <a href="#sources">Méthode et sources</a>
+            <a
+              href="https://github.com/mfoll/reunion-topobathy"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+            </a>
+          </nav>
+        </div>
       </header>
 
       <section className="atlas-section" id="atlas" aria-labelledby="atlas-title">
         <div className="atlas-intro">
-          <h1 id="atlas-title">Cartes de plongée à La Réunion</h1>
-          <p>Plans 2D, vues 3D et reliefs interactifs.</p>
+          <h1 id="atlas-title">Plans des sites de plongée à La Réunion</h1>
         </div>
 
         <div className="atlas-workspace">
@@ -332,15 +372,12 @@ export function AtlasExperience() {
             role="tabpanel"
             aria-labelledby={`site-tab-${activeSite.slug}`}
           >
-            <div className="viewer-heading">
-              <h2>{activeSite.displayName}</h2>
-              <div className="viewer-toolbar">
-                <ViewToggle value={viewMode} onChange={setViewMode} />
-                <SurfaceToggle
-                  value={surfaceStyle}
-                  onChange={setSurfaceStyle}
-                />
-              </div>
+            <div className="viewer-toolbar">
+              <ViewToggle value={viewMode} onChange={setViewMode} />
+              <SurfaceToggle
+                value={surfaceStyle}
+                onChange={setSurfaceStyle}
+              />
             </div>
 
             <div
@@ -386,7 +423,8 @@ export function AtlasExperience() {
 
             <div className="viewer-meta" aria-live="polite">
               <span>
-                {viewLabel(viewMode)} · {surfaceLabel(surfaceStyle)}
+                {activeSite.displayName} · {viewLabel(viewMode)} ·{" "}
+                {surfaceLabel(surfaceStyle)}
               </span>
               {viewMode === "interactive" ? (
                 <span>
@@ -406,7 +444,7 @@ export function AtlasExperience() {
                 alt={`Aperçu de la planche imprimable de ${activeSite.displayName}, fond ${surfaceLabel(surfaceStyle).toLowerCase()}.`}
               />
               <div>
-                <strong>Planche imprimable</strong>
+                <strong>Planche HD à imprimer</strong>
                 <span>
                   {activeSite.displayName} · {surfaceLabel(surfaceStyle)}
                 </span>
@@ -421,7 +459,10 @@ export function AtlasExperience() {
           </article>
 
           <aside className="locator-panel" aria-labelledby="locator-title">
-            <h2 id="locator-title">La Réunion</h2>
+            <div className="locator-heading">
+              <h2 id="locator-title">Sur l’île</h2>
+              <span>La Réunion</span>
+            </div>
             <img
               key={`${activeSite.slug}-locator`}
               src={activeSite.locator.src}
@@ -429,6 +470,7 @@ export function AtlasExperience() {
               height={activeSite.locator.height}
               alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
             />
+            <p>{activeSite.displayName}</p>
           </aside>
         </div>
       </section>
@@ -438,84 +480,87 @@ export function AtlasExperience() {
         id="sources"
         aria-labelledby="sources-title"
       >
-        <img
-          className="sources-map"
-          src="/maps/passe-hermitage/2d-orthophoto-1600.webp"
-          width={1600}
-          height={1107}
-          loading="lazy"
-          alt=""
-          aria-hidden="true"
-        />
         <div className="sources-inner">
-          <h2 id="sources-title">Méthode, sources et licences</h2>
-
-          <div className="method-grid">
-            <article>
-              <h3>Bathymétrie</h3>
-              <p>HYSCORES 2015</p>
-            </article>
-            <article>
-              <h3>Topographie</h3>
-              <p>IGN RGE ALTI</p>
-            </article>
-            <article>
-              <h3>Orthophoto</h3>
-              <p>IGN BD ORTHO</p>
-            </article>
-            <article>
-              <h3>Cartes et reliefs</h3>
-              <p>Isobathes tous les 5 m · relief vertical ≈ ×4</p>
-            </article>
+          <div className="sources-heading">
+            <h2 id="sources-title">Données, méthode et licences</h2>
+            <p>
+              Ce projet est rendu possible par des données bathymétriques,
+              topographiques et aériennes librement accessibles, mises à
+              disposition par des organismes publics et scientifiques.
+            </p>
           </div>
 
-          <div className="information-grid">
-            <article>
-              <h3>Sources</h3>
-              <ul className="source-links">
-                {SOURCE_LINKS.map((source) => (
-                  <li key={source.href}>
+          <div className="source-cards">
+            {DATA_SOURCES.map((source, index) => (
+              <article key={source.title}>
+                <span className="source-number">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <h3>{source.title}</h3>
+                <p>{source.description}</p>
+                <div className="source-links">
+                  {source.links.map((link) => (
                     <a
-                      href={source.href}
+                      key={link.href}
+                      href={link.href}
                       target="_blank"
                       rel="noreferrer"
                     >
-                      {source.label}
+                      {link.label}
                     </a>
-                  </li>
-                ))}
-              </ul>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div className="method-panel">
+            <div>
+              <span className="method-label">Traitement cartographique</span>
+              <h3>Une même chaîne de production pour tous les formats</h3>
+            </div>
+            <ul>
+              {METHOD_STEPS.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="project-notes">
+            <article>
+              <h3>Crédits et licence</h3>
+              <p>
+                Plans et visualisations © {initialSite.copyrightYear}{" "}
+                {initialSite.plateAuthor}.
+              </p>
+              <a
+                href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {initialSite.mapLicense}
+              </a>
             </article>
             <article>
-              <h3>Licence</h3>
+              <h3>Code source</h3>
               <p>
-                Cartes © {initialSite.copyrightYear} {initialSite.plateAuthor}
+                La chaîne de production et le code du site sont disponibles sur
+                GitHub.
               </p>
-              <p>
-                <a
-                  href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {initialSite.mapLicense}
-                </a>
-              </p>
-              <p>
-                <a
-                  href="https://github.com/mfoll/reunion-topobathy"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  Code source sur GitHub
-                </a>
-              </p>
+              <a
+                href="https://github.com/mfoll/reunion-topobathy"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Voir le dépôt GitHub
+              </a>
             </article>
             <article>
               <h3>Sécurité</h3>
               <p>
-                Ces cartes ne remplacent pas les informations locales, les
-                conditions de mer, les consignes des autorités ou l’avis d’un
-                professionnel.
+                Ces plans ne sont pas destinés à la navigation et ne remplacent
+                pas les informations locales, les conditions de mer, les
+                consignes des autorités ou l’avis d’un professionnel.
               </p>
             </article>
           </div>
@@ -524,10 +569,11 @@ export function AtlasExperience() {
 
       <footer className="site-footer">
         <a className="brand" href="#top">
-          Plongée à La Réunion
+          <span className="brand-mark" aria-hidden="true" />
+          <span>Plans de plongée · La Réunion</span>
         </a>
         <span>
-          Cartes © {initialSite.copyrightYear} {initialSite.plateAuthor} ·{" "}
+          Plans © {initialSite.copyrightYear} {initialSite.plateAuthor} ·{" "}
           {initialSite.mapLicense}
         </span>
         <a href="#top">Haut de page</a>
