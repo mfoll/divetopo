@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import warnings
+from collections import deque
 from functools import lru_cache
 from pathlib import Path
 
@@ -100,6 +101,209 @@ def land_palette(elevation: np.ndarray) -> np.ndarray:
         result[selected] = colors[index] * (1 - weight) + colors[index + 1] * weight
     result[values >= stops[-1]] = colors[-1]
     return result.astype(np.uint8)
+
+
+def deep_edge_nodata_display_mask(
+    depth: np.ndarray,
+    surface_valid: np.ndarray,
+    land_mask: np.ndarray,
+    max_depth: float,
+    *,
+    deep_fraction: float = 0.9,
+    min_boundary_pixels: int = 8,
+) -> np.ndarray:
+    """Identify offshore edge gaps that may use the maximum-depth colour.
+
+    This mask is deliberately display-only. It never changes surface validity,
+    bathymetry, contours, or the 3D terrain. An invalid component qualifies
+    only when it reaches the map edge, has a sufficiently long boundary with
+    known sea, never touches known land, and every known sea neighbour is
+    already within the deepest 10% of the displayed scale.
+    """
+    if depth.shape != surface_valid.shape or land_mask.shape != surface_valid.shape:
+        raise ValueError("Depth, validity, and land masks must have identical shapes")
+    if max_depth <= 0.0:
+        raise ValueError("Maximum depth must be positive")
+    if not 0.0 < deep_fraction <= 1.0:
+        raise ValueError("Deep-edge fraction must be in (0, 1]")
+    if min_boundary_pixels <= 0:
+        raise ValueError("Minimum boundary length must be positive")
+
+    invalid = ~surface_valid
+    display_mask = np.zeros_like(invalid)
+    visited = np.zeros_like(invalid)
+    height, width = invalid.shape
+    if height == 0 or width == 0:
+        return display_mask
+
+    edge_seeds = [
+        *((0, x) for x in range(width)),
+        *((height - 1, x) for x in range(width)),
+        *((y, 0) for y in range(1, height - 1)),
+        *((y, width - 1) for y in range(1, height - 1)),
+    ]
+    deep_threshold = max_depth * deep_fraction
+
+    for seed_y, seed_x in edge_seeds:
+        if visited[seed_y, seed_x] or not invalid[seed_y, seed_x]:
+            continue
+
+        queue = deque([(seed_y, seed_x)])
+        visited[seed_y, seed_x] = True
+        component_y: list[int] = []
+        component_x: list[int] = []
+        sea_boundary_depths: list[float] = []
+        touches_land = False
+
+        while queue:
+            y, x = queue.popleft()
+            component_y.append(y)
+            component_x.append(x)
+            for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                neighbor_y = y + dy
+                neighbor_x = x + dx
+                if not (0 <= neighbor_y < height and 0 <= neighbor_x < width):
+                    continue
+                if invalid[neighbor_y, neighbor_x]:
+                    if not visited[neighbor_y, neighbor_x]:
+                        visited[neighbor_y, neighbor_x] = True
+                        queue.append((neighbor_y, neighbor_x))
+                    continue
+                if land_mask[neighbor_y, neighbor_x]:
+                    touches_land = True
+                    continue
+                neighbor_depth = float(depth[neighbor_y, neighbor_x])
+                if np.isfinite(neighbor_depth):
+                    sea_boundary_depths.append(neighbor_depth)
+
+        if (
+            not touches_land
+            and len(sea_boundary_depths) >= min_boundary_pixels
+            and min(sea_boundary_depths) >= deep_threshold
+        ):
+            display_mask[component_y, component_x] = True
+
+    return display_mask
+
+
+def small_internal_mesh_gap_mask(
+    surface_valid: np.ndarray,
+    land_mask: np.ndarray,
+    max_component_pixels: int,
+) -> np.ndarray:
+    """Select tiny enclosed sea-data gaps that may be interpolated for 3D only.
+
+    Edge-connected gaps, large components, and gaps adjoining known land stay
+    invalid. The returned mask is intended for the relief mesh after contours
+    have already been extracted from the unmodified source surface.
+    """
+    if surface_valid.shape != land_mask.shape:
+        raise ValueError("Validity and land masks must have identical shapes")
+    if max_component_pixels <= 0:
+        raise ValueError("Maximum component size must be positive")
+
+    invalid = ~surface_valid
+    selected = np.zeros_like(invalid)
+    visited = np.zeros_like(invalid)
+    height, width = invalid.shape
+
+    for seed_y, seed_x in zip(*np.nonzero(invalid)):
+        if visited[seed_y, seed_x]:
+            continue
+        queue = deque([(int(seed_y), int(seed_x))])
+        visited[seed_y, seed_x] = True
+        component: list[tuple[int, int]] = []
+        touches_edge = False
+        touches_land = False
+        has_valid_boundary = False
+
+        while queue:
+            y, x = queue.popleft()
+            component.append((y, x))
+            touches_edge |= y in (0, height - 1) or x in (0, width - 1)
+            for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                neighbor_y = y + dy
+                neighbor_x = x + dx
+                if not (0 <= neighbor_y < height and 0 <= neighbor_x < width):
+                    continue
+                if invalid[neighbor_y, neighbor_x]:
+                    if not visited[neighbor_y, neighbor_x]:
+                        visited[neighbor_y, neighbor_x] = True
+                        queue.append((neighbor_y, neighbor_x))
+                    continue
+                has_valid_boundary = True
+                touches_land |= bool(land_mask[neighbor_y, neighbor_x])
+
+        if (
+            len(component) <= max_component_pixels
+            and not touches_edge
+            and not touches_land
+            and has_valid_boundary
+        ):
+            ys, xs = zip(*component)
+            selected[ys, xs] = True
+
+    return selected
+
+
+def interpolate_mesh_gaps(
+    values: np.ndarray,
+    fill_mask: np.ndarray,
+    source_valid: np.ndarray,
+) -> np.ndarray:
+    """Interpolate selected mesh gaps from their valid four-neighbour boundary."""
+    if values.shape[:2] != fill_mask.shape or fill_mask.shape != source_valid.shape:
+        raise ValueError("Values, fill mask, and validity mask must share a grid")
+    result = values.copy()
+    visited = np.zeros_like(fill_mask)
+    height, width = fill_mask.shape
+
+    for seed_y, seed_x in zip(*np.nonzero(fill_mask)):
+        if visited[seed_y, seed_x]:
+            continue
+        queue = deque([(int(seed_y), int(seed_x))])
+        visited[seed_y, seed_x] = True
+        component: list[tuple[int, int]] = []
+        boundary: set[tuple[int, int]] = set()
+
+        while queue:
+            y, x = queue.popleft()
+            component.append((y, x))
+            for dy, dx in ((-1, 0), (1, 0), (0, -1), (0, 1)):
+                neighbor_y = y + dy
+                neighbor_x = x + dx
+                if not (0 <= neighbor_y < height and 0 <= neighbor_x < width):
+                    continue
+                if fill_mask[neighbor_y, neighbor_x]:
+                    if not visited[neighbor_y, neighbor_x]:
+                        visited[neighbor_y, neighbor_x] = True
+                        queue.append((neighbor_y, neighbor_x))
+                elif source_valid[neighbor_y, neighbor_x]:
+                    boundary.add((neighbor_y, neighbor_x))
+
+        if not boundary:
+            continue
+        boundary_coordinates = np.asarray(sorted(boundary), dtype=np.float32)
+        boundary_values = result[
+            boundary_coordinates[:, 0].astype(int),
+            boundary_coordinates[:, 1].astype(int),
+        ]
+        for y, x in component:
+            squared_distance = (
+                (boundary_coordinates[:, 0] - y) ** 2
+                + (boundary_coordinates[:, 1] - x) ** 2
+            )
+            weights = 1.0 / np.maximum(squared_distance, 0.25)
+            if values.ndim == 2:
+                result[y, x] = np.average(boundary_values, weights=weights)
+            else:
+                result[y, x] = np.average(
+                    boundary_values,
+                    axis=0,
+                    weights=weights,
+                )
+
+    return result
 
 
 def island_palette(elevation: np.ndarray) -> np.ndarray:
@@ -393,7 +597,7 @@ def webgl_lit_colors(
 
     # Rows point toward the selected bearing; columns point 90 degrees to its
     # left in geographic space. Rotate the fixed north-east WebGL key light
-    # into these view-relative axes so all three site azimuths stay coherent.
+    # into these view-relative axes so every site azimuth stays coherent.
     bearing = np.deg2rad(float(view_bearing_deg) % 360.0)
     light_bearing = np.deg2rad(float(key_light_bearing_deg) % 360.0)
     elevation = np.deg2rad(key_light_elevation_deg)
@@ -1246,6 +1450,77 @@ def polyline_intersects_bbox(
     )
 
 
+def clip_polyline_to_bbox(
+    line: list[tuple[float, float]],
+    bbox: tuple[float, float, float, float],
+) -> list[list[tuple[float, float]]]:
+    """Clip a polyline to an axis-aligned data footprint."""
+    if len(line) < 2:
+        return []
+    left, top, right, bottom = bbox
+    clipped_lines: list[list[tuple[float, float]]] = []
+    current: list[tuple[float, float]] = []
+
+    for start, end in zip(line, line[1:]):
+        x0, y0 = start
+        dx = end[0] - x0
+        dy = end[1] - y0
+        t_min = 0.0
+        t_max = 1.0
+        accepted = True
+        for origin, delta, low, high in (
+            (x0, dx, left, right),
+            (y0, dy, top, bottom),
+        ):
+            if abs(delta) < 1e-12:
+                if origin < low or origin > high:
+                    accepted = False
+                    break
+                continue
+            t0 = (low - origin) / delta
+            t1 = (high - origin) / delta
+            if t0 > t1:
+                t0, t1 = t1, t0
+            t_min = max(t_min, t0)
+            t_max = min(t_max, t1)
+            if t_min > t_max:
+                accepted = False
+                break
+
+        if not accepted:
+            if len(current) >= 2:
+                clipped_lines.append(current)
+            current = []
+            continue
+
+        clipped_start = (x0 + t_min * dx, y0 + t_min * dy)
+        clipped_end = (x0 + t_max * dx, y0 + t_max * dy)
+        if current and np.hypot(
+            current[-1][0] - clipped_start[0],
+            current[-1][1] - clipped_start[1],
+        ) < 1e-6:
+            current.append(clipped_end)
+        else:
+            if len(current) >= 2:
+                clipped_lines.append(current)
+            current = [clipped_start, clipped_end]
+
+    if len(current) >= 2:
+        clipped_lines.append(current)
+    return clipped_lines
+
+
+def clip_polylines_to_bbox(
+    lines: list[list[tuple[float, float]]],
+    bbox: tuple[float, float, float, float],
+) -> list[list[tuple[float, float]]]:
+    return [
+        clipped
+        for line in lines
+        for clipped in clip_polyline_to_bbox(line, bbox)
+    ]
+
+
 def smooth_polyline(points: list[tuple[float, float]], passes: int = 3) -> list[tuple[float, float]]:
     if len(points) < 7:
         return points
@@ -1390,13 +1665,26 @@ def make_clean_plan(
     sea_mask = surface_valid & ~land_mask
     valid = surface_valid
     land_blend = np.where(land_mask, land_weight, 0.0)
+    deep_edge_nodata = deep_edge_nodata_display_mask(
+        fused_depth,
+        valid,
+        land_mask,
+        max_depth,
+    )
     invalid_fraction = float(np.count_nonzero(~valid) / valid.size)
     if invalid_fraction > 0.001:
-        warnings.warn(
-            f"{invalid_fraction:.1%} of the 2D footprint has neither bathymetry nor elevation; "
-            "those cells are rendered as no-data",
-            stacklevel=2,
+        deep_edge_fraction = float(np.count_nonzero(deep_edge_nodata) / valid.size)
+        warning = (
+            f"{invalid_fraction:.1%} of the 2D footprint has neither bathymetry nor elevation"
         )
+        if deep_edge_fraction > 0.0:
+            warning += (
+                f"; {deep_edge_fraction:.1%} is a deep offshore edge gap shown with the "
+                "maximum-depth colour while remaining excluded from contours and terrain"
+            )
+        else:
+            warning += "; those cells are rendered as no-data"
+        warnings.warn(warning, stacklevel=2)
 
     sea_rgb = palette(np.nan_to_num(d, nan=max_depth), max_depth=max_depth).astype(np.float32)
     sea_rgb = np.clip(sea_rgb * hillshade(np.nan_to_num(d, nan=max_depth), sea_mask, 0.035)[:, :, None], 0, 255)
@@ -1411,6 +1699,10 @@ def make_clean_plan(
     rgb[sea_mask] = sea_rgb[sea_mask]
     rgb = rgb * (1 - land_blend[:, :, None]) + land_rgb * land_blend[:, :, None]
     rgb[~valid] = NO_DATA_RGB
+    rgb[deep_edge_nodata] = palette(
+        np.asarray(max_depth, dtype=np.float32),
+        max_depth=max_depth,
+    )
 
     img = Image.fromarray(np.clip(rgb, 0, 255).astype(np.uint8), "RGB")
     if ui != 1.0:
@@ -1643,6 +1935,7 @@ def make_pretty_3d_from_offshore(
     normal_sample_spacing_m: float = 2.0,
     exposure: float = DEFAULT_RELIEF_EXPOSURE,
     texture_triangle_min_area_px: float = 12.0,
+    mesh_gap_fill_max_area_m2: float | None = None,
 ) -> None:
     (
         elev_full,
@@ -1662,6 +1955,31 @@ def make_pretty_3d_from_offshore(
     land_mask = land_full[::step, ::step]
     land_weight = land_weight_full[::step, ::step]
     surface_valid = surface_valid_full[::step, ::step]
+    source_dataset = open_raster(depth_path, "source raster")
+    source_pixel_m = abs(source_dataset.GetGeoTransform()[1]) * step
+    if mesh_gap_fill_max_area_m2 is not None:
+        if mesh_gap_fill_max_area_m2 <= 0.0:
+            raise ValueError("Mesh gap fill maximum area must be positive")
+        max_component_pixels = int(
+            np.floor(mesh_gap_fill_max_area_m2 / (source_pixel_m**2))
+        )
+        if max_component_pixels >= 1:
+            mesh_gap_fill = small_internal_mesh_gap_mask(
+                surface_valid,
+                land_mask,
+                max_component_pixels,
+            )
+            if np.any(mesh_gap_fill):
+                original_valid = surface_valid.copy()
+                d = interpolate_mesh_gaps(d, mesh_gap_fill, original_valid)
+                surface_valid = surface_valid | mesh_gap_fill
+                filled_cells = int(np.count_nonzero(mesh_gap_fill))
+                warnings.warn(
+                    f"Interpolated {filled_cells} cells "
+                    f"({filled_cells * source_pixel_m**2:.1f} m²) in the static "
+                    "3D mesh only; contours remain source-derived",
+                    stacklevel=2,
+                )
     land_blend = np.where(land_mask, land_weight, 0.0)
     land_imagery = None
     orthophoto_texture = None
@@ -1699,8 +2017,6 @@ def make_pretty_3d_from_offshore(
         raise ValueError("max_land_elevation_m must be positive")
     land_z = np.clip(np.nan_to_num(elev, nan=0.0), 0, max_land_elevation_m)
     land_z = soften_surface(land_z, land_mask, passes=10)
-    source_dataset = open_raster(depth_path, "source raster")
-    source_pixel_m = abs(source_dataset.GetGeoTransform()[1]) * step
     land_z = apply_bridge_decks(
         land_z,
         source_dataset.GetGeoTransform(),
@@ -1852,6 +2168,12 @@ def make_pretty_3d_from_offshore(
         ]
         contour_points = {
             level: [[(x - crop_x, y - crop_y) for x, y in line] for line in lines]
+            for level, lines in contour_points.items()
+        }
+        crop_bbox = (0.0, 0.0, float(crop_w - 1), float(crop_h - 1))
+        coast_points = clip_polylines_to_bbox(coast_points, crop_bbox)
+        contour_points = {
+            level: clip_polylines_to_bbox(lines, crop_bbox)
             for level, lines in contour_points.items()
         }
 

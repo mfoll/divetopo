@@ -866,7 +866,9 @@ def render(
         )
 
     plan_options = {
-        "max_depth": float(config.get("max_depth_m", 20)),
+        "max_depth": float(
+            config.get("plan_max_depth_m", config.get("max_depth_m", 20))
+        ),
         "rotation_k": 0,
         "coast_mode": str(config.get("coast_mode", "profile")),
         "output_scale": float(config.get("plan_output_scale", config.get("output_scale", 1.0))),
@@ -986,6 +988,9 @@ def render(
         ),
         "texture_triangle_min_area_px": float(
             config.get("relief_texture_triangle_min_area_px", 12.0)
+        ),
+        "mesh_gap_fill_max_area_m2": config.get(
+            "relief_mesh_gap_fill_max_area_m2"
         ),
     }
     if land_style in (None, "topography"):

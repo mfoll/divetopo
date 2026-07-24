@@ -9,27 +9,59 @@
         "metadata": {
           "path": "boucan-canot/terrain.json",
           "bytes": 2530,
-          "sha256": "ca24a51145ecad6009547e36fdbd062376e0456ed0c0b6adbc64d53bc44aaabe"
+          "sha256": "43a20b02a8c6044c1f9158b13e9e0b2b2423ce80addbd5abdc3d4d7dfdae6fad"
         },
         "height": {
           "path": "boucan-canot/height.bin",
           "bytes": 91492,
-          "sha256": "e73a6cf887a4dfce75e7f919370cf17731433a954b66098f4aa570e066b3025c"
+          "sha256": "3e746e3587055dd704fc5dde7a5170a5d4d748caf033444f99e392a5210f0aad"
         },
         "validMask": {
           "path": "boucan-canot/valid-mask.bin",
           "bytes": 5719,
-          "sha256": "034f748f47b8407e732938cbb67687e0cf52f176ac485a9265806a82704b914d"
+          "sha256": "ac087ce8de70ddd8c2211ed6b127f6542c621e391c5214ee6178cc4d1459f052"
         },
         "topographicTexture": {
           "path": "boucan-canot/topographic.webp",
-          "bytes": 114358,
-          "sha256": "51507a3d6a1032288768fd1a0ae4835278625077e71d19dba92895539602984a"
+          "bytes": 114014,
+          "sha256": "ba1f5697ace513b824c934ca66cdebf63243320a44b1b28b847b5d0b86220905"
         },
         "orthophotoTexture": {
           "path": "boucan-canot/orthophoto.webp",
-          "bytes": 264376,
-          "sha256": "1f3bd4c0e860a6fa9fa51c1d852f6e9d5bbb794c6b6f3259ac1f0794ed552e09"
+          "bytes": 277628,
+          "sha256": "6b8814113f4886b18bc184022f7af500ceef837956556ab7994ba3923506c9fb"
+        }
+      }
+    },
+    {
+      "slug": "cap-homard",
+      "title": "Cap Homard, Cap de Tonton · La Réunion",
+      "metadata": "cap-homard/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "cap-homard/terrain.json",
+          "bytes": 2555,
+          "sha256": "484caa7ce0929d83350baa53f6048cff143a043f1546be9777cb27cbe7985313"
+        },
+        "height": {
+          "path": "cap-homard/height.bin",
+          "bytes": 91492,
+          "sha256": "581e8fd08928471bd215129ad90ce8b3f92723c59be73630d035810d4b18105c"
+        },
+        "validMask": {
+          "path": "cap-homard/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "ac087ce8de70ddd8c2211ed6b127f6542c621e391c5214ee6178cc4d1459f052"
+        },
+        "topographicTexture": {
+          "path": "cap-homard/topographic.webp",
+          "bytes": 100200,
+          "sha256": "7bf081103de42379bb528c54a40fa3a958d01707f46f72d4cd1ee078e0920439"
+        },
+        "orthophotoTexture": {
+          "path": "cap-homard/orthophoto.webp",
+          "bytes": 566746,
+          "sha256": "baf025bbb9eb4910434fe9cbaad1223fd06d34776019a8410ee34de9f70c3a6b"
         }
       }
     },
@@ -60,8 +92,8 @@
         },
         "orthophotoTexture": {
           "path": "cap-la-houssaye/orthophoto.webp",
-          "bytes": 141146,
-          "sha256": "71550075848b43520f4dc3d276b31157e61f2d0000ac95c5333cdad3c1d983fd"
+          "bytes": 142294,
+          "sha256": "023f07f95780dd1017f36f5958f5ba1910f55c818a4676ec77e1c368c5d115cf"
         }
       }
     },
@@ -92,8 +124,104 @@
         },
         "orthophotoTexture": {
           "path": "passe-hermitage/orthophoto.webp",
-          "bytes": 430714,
-          "sha256": "e4b1cfdbedfce5f8a1f3b02f6cd5a429464a885dbb9f48606f089d1db32f17cc"
+          "bytes": 437766,
+          "sha256": "1d29f6598b209aba31195f29893572493224e26b28600244c0c40a5568a5ef69"
+        }
+      }
+    },
+    {
+      "slug": "plage-cimetiere-saint-leu",
+      "title": "Plage du Cimetière, Saint-Leu · La Réunion",
+      "metadata": "plage-cimetiere-saint-leu/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "plage-cimetiere-saint-leu/terrain.json",
+          "bytes": 2561,
+          "sha256": "e5c225e4a9cabd67219d9b8b4faa70c35f1bb17a47a5d7d4a8322a46874bb1ec"
+        },
+        "height": {
+          "path": "plage-cimetiere-saint-leu/height.bin",
+          "bytes": 91492,
+          "sha256": "164564cba0afefec291e5a5e0b612d6cbab38bf2b11b27f1be5b0a6702b71876"
+        },
+        "validMask": {
+          "path": "plage-cimetiere-saint-leu/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "ac087ce8de70ddd8c2211ed6b127f6542c621e391c5214ee6178cc4d1459f052"
+        },
+        "topographicTexture": {
+          "path": "plage-cimetiere-saint-leu/topographic.webp",
+          "bytes": 90784,
+          "sha256": "66081747b411e331599bfeba458aeac00ac2f340cc33378c3965baa0c2b30743"
+        },
+        "orthophotoTexture": {
+          "path": "plage-cimetiere-saint-leu/orthophoto.webp",
+          "bytes": 447416,
+          "sha256": "9f3fd82232d71d4802d45c199c179c2b22c33c937b34455a0bd9d4e67a46b1fa"
+        }
+      }
+    },
+    {
+      "slug": "pointe-au-sel-sec-jaune",
+      "title": "Sec Jaune, Pointe au Sel · La Réunion",
+      "metadata": "pointe-au-sel-sec-jaune/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-au-sel-sec-jaune/terrain.json",
+          "bytes": 2553,
+          "sha256": "273e633903913f427f7f0e608c77cca38b7c7ca3c26659e21ae7fbb8bcdc37e5"
+        },
+        "height": {
+          "path": "pointe-au-sel-sec-jaune/height.bin",
+          "bytes": 91492,
+          "sha256": "8c95416cff22693c5d5fda9b8a5d0d55556c8a459e222a963843dad726c2e4a5"
+        },
+        "validMask": {
+          "path": "pointe-au-sel-sec-jaune/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "d8c0e0e3bc38f9d3a214bc59317455e48d180e556343a04012e70b568f554926"
+        },
+        "topographicTexture": {
+          "path": "pointe-au-sel-sec-jaune/topographic.webp",
+          "bytes": 99876,
+          "sha256": "4dca69244509a1bc990c06631984f707d89c3b5d22655cf7dd1b551669213822"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-au-sel-sec-jaune/orthophoto.webp",
+          "bytes": 309780,
+          "sha256": "dd90c7d2cf305e7fbc1b4251de873a41fbb027bdfbb0b9c3f9930cc7a59ceb13"
+        }
+      }
+    },
+    {
+      "slug": "pont-rouge-la-tortue",
+      "title": "Pont Rouge, La Réunion",
+      "metadata": "pont-rouge-la-tortue/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pont-rouge-la-tortue/terrain.json",
+          "bytes": 2519,
+          "sha256": "f67a13bf5f6b97d23e1b00daa9c2fbd969f28cee1cfd467015fc477fd5145cec"
+        },
+        "height": {
+          "path": "pont-rouge-la-tortue/height.bin",
+          "bytes": 91492,
+          "sha256": "42eb8880d50cc9640cd8a084ad7c18b0fd0cc696863c2cd724b7f75ac77db973"
+        },
+        "validMask": {
+          "path": "pont-rouge-la-tortue/valid-mask.bin",
+          "bytes": 5719,
+          "sha256": "ac087ce8de70ddd8c2211ed6b127f6542c621e391c5214ee6178cc4d1459f052"
+        },
+        "topographicTexture": {
+          "path": "pont-rouge-la-tortue/topographic.webp",
+          "bytes": 96604,
+          "sha256": "6ca761a177143226f96843429ff1b449258c3925db0a715ceda917f66ada1f56"
+        },
+        "orthophotoTexture": {
+          "path": "pont-rouge-la-tortue/orthophoto.webp",
+          "bytes": 380120,
+          "sha256": "5dbbfd308c8f1f211190d87a57a588b3a1de53a85e76f5523162b3775c299024"
         }
       }
     }

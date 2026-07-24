@@ -3,7 +3,7 @@
   "title": "Boucan Canot - Piscine naturelle",
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
-  "focus_bbox_utm40s": [315060.0, 7673642.4, 315860.0, 7674196.0],
+  "focus_bbox_utm40s": [315072.0, 7673642.4, 315872.0, 7674196.0],
   "context_bbox_utm40s": [314600.0, 7673000.0, 316500.0, 7674700.0],
   "rotation_k": 0,
   "coast_mode": "mask",
@@ -60,9 +60,6 @@
   "vertical_exaggeration": 3.9935327405,
   "clip_rotated_outside": true,
   "paths": {
-    "focus_depth": ".tmp/bathy-renders/boucan-canot-focus-south20-east20-depth-positive.tif",
-    "focus_elevation": ".tmp/bathy-renders/boucan-canot-focus-south20-east20-elevation.tif",
-    "focus_orthophoto": ".tmp/bathy-renders/boucan-canot-focus-south20-east20-orthophoto-20cm.tif",
     "locator_elevation": ".tmp/bathy-renders/reunion-locator-rgealti-20m.tif",
     "locator_bathymetry": ".tmp/bathy-renders/reunion-locator-gebco-relief.tif",
     "output_2d": "outputs/boucan-canot-topobathy-2d.jpg",

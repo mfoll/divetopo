@@ -16,45 +16,35 @@ from site_config import (
 
 
 SITES = ROOT / "sites"
-REFERENCE_SITE_SLUGS = {
+PUBLISHED_SITE_SLUGS = {
     "boucan-canot",
+    "cap-homard",
     "cap-la-houssaye",
     "passe-hermitage",
+    "plage-cimetiere-saint-leu",
+    "pointe-au-sel-sec-jaune",
+    "pont-rouge-la-tortue",
 }
-
-
-def migrated_config(path: Path) -> dict:
-    config = json.loads(path.read_text(encoding="utf-8"))
-    if config.get("orthophoto_enabled", False):
-        config.setdefault("orthophoto_capture_date", "2025-07-22")
-    if config.get("locator_bathymetry_enabled", False):
-        config.setdefault(
-            "locator_gebco_attribution",
-            "GEBCO Compilation Group, version pinned by the site configuration",
-        )
-    config.setdefault("max_land_elevation_m", 55.0)
-    return config
 
 
 class SiteConfigTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:
         cls.configs = [
-            migrated_config(path)
+            json.loads(path.read_text(encoding="utf-8"))
             for path in sorted(SITES.glob("*.json"))
         ]
 
-    def test_all_site_configs_validate_before_or_after_planned_migration(self) -> None:
-        self.assertTrue(
-            REFERENCE_SITE_SLUGS.issubset(
-                {config["slug"] for config in self.configs}
-            )
+    def test_all_published_site_configs_validate(self) -> None:
+        self.assertEqual(
+            {config["slug"] for config in self.configs},
+            PUBLISHED_SITE_SLUGS,
         )
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
                 validate_config(config)
 
-    def test_reference_sites_share_the_default_vertical_exaggeration(self) -> None:
+    def test_published_sites_share_the_default_vertical_exaggeration(self) -> None:
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
                 self.assertEqual(
@@ -62,7 +52,7 @@ class SiteConfigTests(unittest.TestCase):
                     DEFAULT_VERTICAL_EXAGGERATION,
                 )
 
-    def test_reference_sites_share_the_default_relief_exposure(self) -> None:
+    def test_published_sites_share_the_default_relief_exposure(self) -> None:
         self.assertEqual(DEFAULT_RELIEF_EXPOSURE, 1.55)
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
@@ -78,11 +68,53 @@ class SiteConfigTests(unittest.TestCase):
             with self.subTest(slug=config["slug"]):
                 self.assertEqual(config.get("imagery_sea_full_depth_m"), 1.5)
                 self.assertEqual(config.get("imagery_sea_max_depth_m"), 2.0)
+                self.assertEqual(config.get("imagery_sea_smoothing_m"), 5.0)
+
+    def test_published_sites_share_map_dimensions_and_graphic_scale(self) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                self.assertEqual(config["final_output_size_px"], [2474, 1712])
+                self.assertEqual(config["map_style_scale"], 2.0)
+
+    def test_pointe_source_edge_uses_documented_depth_limits(self) -> None:
+        configs = {config["slug"]: config for config in self.configs}
+        pointe = configs["pointe-au-sel-sec-jaune"]
+        self.assertEqual(pointe["max_depth_m"], 40)
+        self.assertEqual(pointe["plan_max_depth_m"], 20)
+        self.assertEqual(pointe["interactive_max_depth_m"], 20)
+        self.assertEqual(pointe["relief_mesh_gap_fill_max_area_m2"], 64.0)
+        for slug, config in configs.items():
+            if slug == "pointe-au-sel-sec-jaune":
+                continue
+            with self.subTest(slug=slug):
+                self.assertNotIn("plan_max_depth_m", config)
+                self.assertNotIn("interactive_max_depth_m", config)
+                self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
 
     def test_invalid_bbox_is_rejected(self) -> None:
         config = copy.deepcopy(self.configs[0])
         config["focus_bbox_utm40s"] = [0, 0, 10, 10]
         with self.assertRaisesRegex(ValueError, "must contain focus"):
+            validate_config(config)
+
+    def test_plan_depth_must_not_exceed_relief_depth(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["plan_max_depth_m"] = config["max_depth_m"] + 1
+        with self.assertRaisesRegex(ValueError, "at most max_depth_m"):
+            validate_config(config)
+
+        config["plan_max_depth_m"] = config["max_depth_m"]
+        validate_config(config)
+
+        config["interactive_max_depth_m"] = config["max_depth_m"] + 1
+        with self.assertRaisesRegex(ValueError, "interactive_max_depth_m"):
+            validate_config(config)
+
+        config["interactive_max_depth_m"] = config["max_depth_m"]
+        validate_config(config)
+
+        config["relief_mesh_gap_fill_max_area_m2"] = 0
+        with self.assertRaisesRegex(ValueError, "relief_mesh_gap_fill_max_area_m2"):
             validate_config(config)
 
     def test_unknown_typo_is_rejected(self) -> None:

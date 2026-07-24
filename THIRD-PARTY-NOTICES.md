@@ -34,7 +34,7 @@ La Licence Ouverte 2.0 autorise la reproduction, la transformation, la redistrib
 - Fiche : <https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO>
 - Licence : Licence Ouverte 2.0.
 - Attribution : `IGN BD ORTHO`.
-- Images utilisees : resolution 20 cm; prises de vue du 22 juillet 2025 au Cap La Houssaye et a Boucan Canot, et du 2 aout 2025 a la Passe de l'Hermitage. Ces dates proviennent d'une requete `GetFeatureInfo` au repere de chaque site; la metadonnee du produit a ete revisee le 9 juillet 2026.
+- Images utilisees : couche source diffusee a 20 cm. Les GeoTIFF de mise au point sont demandes a 20 cm, sauf Pointe au Sel a 40 cm. Les textures de contexte des perspectives 3D statiques sont demandees a 20 cm au Cap La Houssaye; 40 cm a Boucan Canot, Cap Homard et la Plage du Cimetière; 50 cm a Pointe au Sel et Pont Rouge; 80 cm a la Passe de l'Hermitage. Les prises de vue sont datees du 22 juillet 2025 au Cap La Houssaye, a Boucan Canot, au Cap Homard, a Pointe au Sel, a Pont Rouge et a la Plage du Cimetière; celle de la Passe de l'Hermitage est datee du 2 aout 2025. Ces dates proviennent d'une requete `GetFeatureInfo` au repere de chaque site; la metadonnee du produit a ete revisee le 9 juillet 2026.
 
 Le decoupage au masque terrestre et le drapage sur le relief sont autorises par la Licence Ouverte 2.0, avec conservation de l'attribution et de la date propre a chaque image source.
 

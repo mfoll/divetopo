@@ -52,6 +52,7 @@ type AtlasAssetSite = {
   location: SiteLocation;
   westCoastLocatorPosition: WestCoastLocatorPosition;
   maxDepthM: number;
+  planMaxDepthM: number;
   verticalExaggeration: number;
   orthophotoCaptureDate: string;
   plateAuthor: string;
@@ -145,7 +146,7 @@ const METHOD_STEPS = [
   {
     title: "Plans et perspectives",
     description:
-      "Les isobathes sont extraites et lissées tous les 5 m, jusqu’à −20 ou −30 m selon le site. Le plan 2D reste nord en haut sur l’emprise fine ; la perspective 3D utilise une emprise élargie, un azimut et un cadrage propres au site, une caméra placée depuis le large et une exagération verticale de ×4.",
+      "Les isobathes sont extraites et lissées tous les 5 m, jusqu’à −20, −30 ou −40 m selon le site. Le plan 2D reste nord en haut sur l’emprise fine ; la perspective 3D utilise une emprise élargie, un azimut et un cadrage propres au site, une caméra placée depuis le large et une exagération verticale de ×4.",
   },
   {
     title: "Relief et formats de sortie",
@@ -279,7 +280,11 @@ function ViewToggle({
 const SITE_LABEL_LAYOUT = {
   "cap-la-houssaye": "right-up",
   "boucan-canot": "left-down",
+  "cap-homard": "right",
   "passe-hermitage": "right",
+  "pont-rouge-la-tortue": "left",
+  "plage-cimetiere-saint-leu": "left-up",
+  "pointe-au-sel-sec-jaune": "left",
 } as const;
 
 function SitePicker({
@@ -423,7 +428,7 @@ export function AtlasExperience() {
 
   const mapAlt =
     staticView === "2d"
-      ? `Plan topo-bathymétrique 2D de ${activeSite.displayName}, nord en haut, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, profondeurs affichées jusqu’à −${activeSite.maxDepthM} m.`
+      ? `Plan topo-bathymétrique 2D de ${activeSite.displayName}, nord en haut, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, profondeurs affichées jusqu’à −${activeSite.planMaxDepthM} m.`
       : `Perspective 3D oblique de ${activeSite.displayName}, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, relief vertical exagéré environ quatre fois.`;
 
   return (

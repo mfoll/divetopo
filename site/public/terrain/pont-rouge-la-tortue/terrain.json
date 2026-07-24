@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "slug": "pont-rouge-la-tortue",
+  "title": "Pont Rouge, La Réunion",
+  "crs": "EPSG:32740",
+  "sourceBboxUtm40s": {
+    "west": 321100.0,
+    "south": 7659400.0,
+    "east": 321900.0,
+    "north": 7659953.6
+  },
+  "physicalSizeM": {
+    "width": 800.0,
+    "depth": 553.6
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 257,
+    "height": 178,
+    "triangleCount": 90624,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -20.0,
+      "scaleMPerUnit": 0.0011444266422522317,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    }
+  },
+  "elevationRangeM": {
+    "min": -20.0,
+    "max": 55.0
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 45.0,
+    "gridLookBearingDeg": 45.0,
+    "cameraTilt": 0.29,
+    "alongViewProjectionScale": 1.1,
+    "visibleWidthM": 620.0,
+    "coastFrameFraction": 0.325
+  },
+  "textures": {
+    "width": 2000,
+    "height": 1384,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2025-07-22",
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+  }
+}

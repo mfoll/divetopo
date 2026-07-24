@@ -13,17 +13,21 @@ from PIL import Image
 from render_fused_relief import (
     bboxes_intersect,
     blend_texture,
+    clip_polyline_to_bbox,
+    deep_edge_nodata_display_mask,
     draw_interpolated_triangle,
     edge_preserving_bathy,
     expanded_bbox,
     fuse_bathymetry,
     imagery_alpha_across_shore,
     imagery_depth_alpha,
+    interpolate_mesh_gaps,
     load_font,
     make_pretty_3d_from_offshore,
     polyline_intersects_bbox,
     raster_bounds,
     sieve_land_components,
+    small_internal_mesh_gap_mask,
     webgl_lit_colors,
     warp_to_reference,
 )
@@ -57,6 +61,14 @@ def write_raster(
 
 
 class RasterAlignmentTests(unittest.TestCase):
+    def test_polyline_is_clipped_to_the_view_crop(self) -> None:
+        lines = clip_polyline_to_bbox(
+            [(-2.0, 1.0), (2.0, 1.0), (6.0, 1.0)],
+            (0.0, 0.0, 4.0, 4.0),
+        )
+
+        self.assertEqual(lines, [[(0.0, 1.0), (2.0, 1.0), (4.0, 1.0)]])
+
     def test_warp_uses_geography_instead_of_array_dimensions(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -117,6 +129,123 @@ class SurfaceValidityTests(unittest.TestCase):
 
         self.assertFalse(np.any(sieved & ~land))
         self.assertFalse(np.any(sieved[18:22, 18:22]))
+
+    def test_deep_offshore_edge_gap_gets_display_only_fill(self) -> None:
+        depth = np.full((5, 6), 19.0, dtype=np.float32)
+        valid = np.ones((5, 6), dtype=bool)
+        valid[:, :2] = False
+        land = np.zeros((5, 6), dtype=bool)
+
+        display_mask = deep_edge_nodata_display_mask(
+            depth,
+            valid,
+            land,
+            max_depth=20.0,
+            min_boundary_pixels=5,
+        )
+
+        np.testing.assert_array_equal(display_mask, ~valid)
+        self.assertFalse(np.any(display_mask & valid))
+
+    def test_shallow_or_land_adjacent_edge_gaps_remain_no_data(self) -> None:
+        depth = np.full((5, 6), 19.0, dtype=np.float32)
+        valid = np.ones((5, 6), dtype=bool)
+        valid[:, :2] = False
+        depth[2, 2] = 8.0
+        land = np.zeros((5, 6), dtype=bool)
+
+        shallow_mask = deep_edge_nodata_display_mask(
+            depth,
+            valid,
+            land,
+            max_depth=20.0,
+            min_boundary_pixels=5,
+        )
+        self.assertFalse(np.any(shallow_mask))
+
+        depth[2, 2] = 19.0
+        land[2, 2] = True
+        land_mask = deep_edge_nodata_display_mask(
+            depth,
+            valid,
+            land,
+            max_depth=20.0,
+            min_boundary_pixels=5,
+        )
+        self.assertFalse(np.any(land_mask))
+
+    def test_internal_deep_gap_remains_no_data(self) -> None:
+        depth = np.full((5, 5), 19.0, dtype=np.float32)
+        valid = np.ones((5, 5), dtype=bool)
+        valid[2, 2] = False
+        land = np.zeros((5, 5), dtype=bool)
+
+        display_mask = deep_edge_nodata_display_mask(
+            depth,
+            valid,
+            land,
+            max_depth=20.0,
+            min_boundary_pixels=1,
+        )
+
+        self.assertFalse(np.any(display_mask))
+
+    def test_small_internal_sea_gap_can_be_interpolated_for_the_mesh(self) -> None:
+        valid = np.ones((5, 5), dtype=bool)
+        valid[2, 2] = False
+        land = np.zeros((5, 5), dtype=bool)
+        values = np.add.outer(
+            np.arange(5, dtype=np.float32),
+            np.arange(5, dtype=np.float32),
+        )
+
+        fill = small_internal_mesh_gap_mask(valid, land, max_component_pixels=1)
+        interpolated = interpolate_mesh_gaps(values, fill, valid)
+
+        self.assertTrue(fill[2, 2])
+        self.assertAlmostEqual(float(interpolated[2, 2]), 4.0)
+        self.assertFalse(valid[2, 2])
+
+    def test_mesh_gap_fill_rejects_edges_large_gaps_and_land_neighbors(self) -> None:
+        land = np.zeros((5, 5), dtype=bool)
+
+        edge_valid = np.ones((5, 5), dtype=bool)
+        edge_valid[0, 2] = False
+        self.assertFalse(
+            np.any(
+                small_internal_mesh_gap_mask(
+                    edge_valid,
+                    land,
+                    max_component_pixels=2,
+                )
+            )
+        )
+
+        large_valid = np.ones((5, 5), dtype=bool)
+        large_valid[2, 2:4] = False
+        self.assertFalse(
+            np.any(
+                small_internal_mesh_gap_mask(
+                    large_valid,
+                    land,
+                    max_component_pixels=1,
+                )
+            )
+        )
+
+        coastal_valid = np.ones((5, 5), dtype=bool)
+        coastal_valid[2, 2] = False
+        coastal_land = land.copy()
+        coastal_land[2, 1] = True
+        self.assertFalse(
+            np.any(
+                small_internal_mesh_gap_mask(
+                    coastal_valid,
+                    coastal_land,
+                    max_component_pixels=1,
+                )
+            )
+        )
 
 
 class ImageryMaskTests(unittest.TestCase):

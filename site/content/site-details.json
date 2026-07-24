@@ -2,10 +2,22 @@
   "cap-la-houssaye": {
     "city": "Saint-Paul"
   },
+  "cap-homard": {
+    "city": "Saint-Paul"
+  },
   "boucan-canot": {
     "city": "Saint-Paul"
   },
   "passe-hermitage": {
     "city": "Saint-Paul"
+  },
+  "pont-rouge-la-tortue": {
+    "city": "Saint-Leu"
+  },
+  "plage-cimetiere-saint-leu": {
+    "city": "Saint-Leu"
+  },
+  "pointe-au-sel-sec-jaune": {
+    "city": "Saint-Leu"
   }
 }

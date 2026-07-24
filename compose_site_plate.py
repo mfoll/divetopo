@@ -145,6 +145,10 @@ def compose(config: dict, land_style: str) -> Path:
     coordinate_face = font(TEXT_FONT, 112, index=8)
 
     title_center_x = 1840
+    city_y = 535
+    island_y = 700
+    coordinate_label_y = 870
+    coordinate_value_y = 1050
     draw.text(
         (title_center_x, 240),
         site_name,
@@ -154,14 +158,13 @@ def compose(config: dict, land_style: str) -> Path:
     )
 
     draw.text(
-        (title_center_x, 555),
+        (title_center_x, city_y),
         city,
         anchor="mm",
         font=city_face,
         fill=title_color,
     )
 
-    island_y = 720
     island_bbox = draw.textbbox((0, 0), island, font=island_face)
     island_width = island_bbox[2] - island_bbox[0]
     rule_gap = 50
@@ -194,40 +197,35 @@ def compose(config: dict, land_style: str) -> Path:
     )
 
     draw.line(
-        (220, 830, 3460, 830),
-        fill=(24, 31, 35, 105),
-        width=3,
-    )
-    draw.line(
-        (1840, 880, 1840, 1185),
+        (1840, 830, 1840, 1190),
         fill=(24, 31, 35, 105),
         width=3,
     )
     latitude_x = 990
     longitude_x = 2690
     draw.text(
-        (latitude_x, 915),
+        (latitude_x, coordinate_label_y),
         "LATITUDE",
         anchor="mm",
         font=coordinate_label_face,
         fill=secondary,
     )
     draw.text(
-        (longitude_x, 915),
+        (longitude_x, coordinate_label_y),
         "LONGITUDE",
         anchor="mm",
         font=coordinate_label_face,
         fill=secondary,
     )
     draw.text(
-        (latitude_x, 1070),
+        (latitude_x, coordinate_value_y),
         latitude_text,
         anchor="mm",
         font=coordinate_face,
         fill=title_color,
     )
     draw.text(
-        (longitude_x, 1070),
+        (longitude_x, coordinate_value_y),
         longitude_text,
         anchor="mm",
         font=coordinate_face,

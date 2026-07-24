@@ -3,6 +3,15 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const templateRoot = new URL("../", import.meta.url);
+const publishedSiteSlugs = new Set([
+  "boucan-canot",
+  "cap-homard",
+  "cap-la-houssaye",
+  "passe-hermitage",
+  "plage-cimetiere-saint-leu",
+  "pointe-au-sel-sec-jaune",
+  "pont-rouge-la-tortue",
+]);
 
 async function render() {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -37,7 +46,13 @@ test("server-renders the finished atlas", async () => {
   );
   assert.match(html, /Plan des sites de plongée · La Réunion/);
   assert.match(html, /Plans des sites de plongée à La Réunion/);
+  assert.match(html, /Boucan Canot/);
   assert.match(html, /Cap La Houssaye/);
+  assert.match(html, /Cap Homard/);
+  assert.match(html, /Passe de l(?:'|&#x27;)Hermitage/);
+  assert.match(html, /Pont Rouge/);
+  assert.match(html, /Plage du Cimetière/);
+  assert.match(html, /Pointe au Sel/);
   assert.match(html, /Saint-Paul/);
   assert.match(html, /21° 01′ 02\.5″ S/);
   assert.match(html, /Voir le site sur Google Maps/);
@@ -93,7 +108,16 @@ test("map manifest supports adding future sites without component changes", asyn
   );
 
   assert.equal(manifest.schemaVersion, 5);
-  assert.ok(manifest.sites.length >= 3);
+  assert.equal(manifest.sites.length, 7);
+  assert.deepEqual(
+    new Set(manifest.sites.map((site) => site.slug)),
+    publishedSiteSlugs,
+  );
+  assert.equal(
+    manifest.sites.find((site) => site.slug === "pointe-au-sel-sec-jaune")
+      ?.displayName,
+    "Pointe au Sel",
+  );
   assert.equal(manifest.reunionOverview.src, "/reunion-overview.webp");
   assert.equal(manifest.reunionOverview.width, 1000);
   assert.equal(manifest.reunionOverview.height, 840);
@@ -106,6 +130,7 @@ test("map manifest supports adding future sites without component changes", asyn
     assert.equal(typeof site.displayName, "string");
     assert.ok(site.displayName.length > 0);
     assert.equal(typeof site.maxDepthM, "number");
+    assert.equal(typeof site.planMaxDepthM, "number");
     assert.equal(
       typeof site.westCoastLocatorPosition?.xPercent,
       "number",
@@ -141,6 +166,27 @@ test("map manifest supports adding future sites without component changes", asyn
       .sort();
     assert.deepEqual(plancheStyles, ["orthophoto", "topographic"]);
   }
+  assert.equal(
+    manifest.sites.find((site) => site.slug === "pointe-au-sel-sec-jaune")
+      ?.planMaxDepthM,
+    20,
+  );
+});
+
+test("interactive terrain manifest covers the same seven sites", async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL("../public/terrain/manifest.json", import.meta.url),
+      "utf8",
+    ),
+  );
+
+  assert.equal(manifest.schemaVersion, 1);
+  assert.equal(manifest.sites.length, 7);
+  assert.deepEqual(
+    new Set(manifest.sites.map((site) => site.slug)),
+    publishedSiteSlugs,
+  );
 });
 
 test("removes disposable starter artifacts", async () => {

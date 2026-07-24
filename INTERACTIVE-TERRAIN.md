@@ -13,6 +13,9 @@ La commande canonique est :
 Elle reconstruit les paquets de tous les fichiers `sites/*.json` a partir des
 GeoTIFF valides du cache local et les ecrit dans
 `outputs/interactive-terrain/`.
+La profondeur maximale reprend `max_depth_m`, sauf lorsqu'une configuration
+documente explicitement une limite `interactive_max_depth_m` inferieure pour
+ecarter une marge de couverture source non fiable.
 
 ## Format
 

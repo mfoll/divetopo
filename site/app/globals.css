@@ -408,6 +408,7 @@ img {
   left: var(--site-x);
   margin: -1.375rem 0 0 -1.375rem;
   padding: 0;
+  pointer-events: none;
   position: absolute;
   top: var(--site-y);
   transition:
@@ -426,6 +427,7 @@ img {
     0 3px 8px rgba(6, 46, 54, 0.28);
   height: 0.78rem;
   left: calc(50% - 0.39rem);
+  pointer-events: auto;
   position: absolute;
   top: calc(50% - 0.39rem);
   transition:
@@ -484,9 +486,14 @@ img {
 }
 
 .site-map-marker.label-left .site-map-marker-label,
+.site-map-marker.label-left-up .site-map-marker-label,
 .site-map-marker.label-left-down .site-map-marker-label {
   right: 2.3rem;
   top: 0.15rem;
+}
+
+.site-map-marker.label-left-up .site-map-marker-label {
+  top: -0.85rem;
 }
 
 .site-map-marker.label-left-down .site-map-marker-label {
@@ -505,9 +512,15 @@ img {
 }
 
 .site-map-marker.label-left .site-map-marker-line,
+.site-map-marker.label-left-up .site-map-marker-line,
 .site-map-marker.label-left-down .site-map-marker-line {
   right: 1.55rem;
   top: 1.35rem;
+}
+
+.site-map-marker.label-left-up .site-map-marker-line {
+  top: 0.9rem;
+  transform: rotate(23deg);
 }
 
 .site-map-marker.label-left-down .site-map-marker-line {

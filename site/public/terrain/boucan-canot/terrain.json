@@ -4,9 +4,9 @@
   "title": "Boucan Canot, La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 315060.0,
+    "west": 315072.0,
     "south": 7673642.4,
-    "east": 315860.0,
+    "east": 315872.0,
     "north": 7674196.0
   },
   "physicalSizeM": {
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -30.0,
-      "scaleMPerUnit": 0.0007350432096961398,
+      "scaleMPerUnit": 0.0007426386104347122,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -43,7 +43,7 @@
   },
   "elevationRangeM": {
     "min": -30.0,
-    "max": 18.171056747436523
+    "max": 18.668821334838867
   },
   "heightValues": "physical metres before vertical exaggeration",
   "verticalExaggeration": 3.9935327405,

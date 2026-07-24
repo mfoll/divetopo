@@ -45,6 +45,10 @@ DEFAULT_TEXTURE_MAX = 2048
 SCHEMA_VERSION = 1
 
 
+def interactive_max_depth(config: dict[str, Any]) -> float:
+    return float(config.get("interactive_max_depth_m", config.get("max_depth_m", 20.0)))
+
+
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
     with path.open("rb") as stream:
@@ -106,7 +110,7 @@ def make_surface(
     config: dict[str, Any],
     paths: dict[str, Path],
 ) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
-    max_depth = float(config.get("max_depth_m", 20.0))
+    max_depth = interactive_max_depth(config)
     max_land_elevation = float(config.get("max_land_elevation_m", 55.0))
     rotation_k = int(config.get("rotation_k", 0))
     coast_mode = str(config.get("coast_mode", "profile"))
@@ -180,7 +184,7 @@ def make_textures(
     land_weight: np.ndarray,
     valid: np.ndarray,
 ) -> tuple[Image.Image, Image.Image]:
-    max_depth = float(config.get("max_depth_m", 20.0))
+    max_depth = interactive_max_depth(config)
     max_land_elevation = float(config.get("max_land_elevation_m", 55.0))
     sea_mask = valid & ~land_mask
     land_blend = np.where(land_mask, land_weight, 0.0)
@@ -321,7 +325,7 @@ def export_site(
     grid_surface = resize_scalar(surface, grid_size)
     grid_valid = resize_mask(valid, grid_size)
     grid_land = resize_mask(land_mask, grid_size)
-    max_depth = float(config.get("max_depth_m", 20.0))
+    max_depth = interactive_max_depth(config)
     max_land_elevation = float(config.get("max_land_elevation_m", 55.0))
     grid_surface = np.where(
         grid_land,

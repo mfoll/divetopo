@@ -2,11 +2,27 @@
 
 Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante optionnelle drape l'orthophoto IGN georeferencee sur la terre et, pour les grands lagons, jusqu'a une profondeur configurable. Chaque site porte ses propres emprises, dates de prise de vue et references de sources dans un fichier JSON.
 
-Le standard orthophoto courant est commun aux trois sites de reference : image opaque jusqu'a `-1,5 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
+Le standard orthophoto courant est commun aux sept sites : image opaque jusqu'a `-1,5 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
 
-Les trois sites utilisent les memes dimensions finales (`2474 x 1712 px`) et un facteur `map_style_scale` commun. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches affichent les coordonnees en degres, minutes et secondes. Leur cartouche utilise toujours trois lignes distinctes : un seul nom canonique de site, la commune, puis `La Reunion` seule.
+Les sept sites utilisent les memes dimensions finales (`2474 x 1712 px`) et le meme facteur `map_style_scale: 2.0`. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches mesurent toutes `5400 x 3250 px` et affichent les coordonnees en degres, minutes et secondes. Leur cartouche utilise toujours trois lignes distinctes : un seul nom canonique de site, la commune, puis `La Reunion` seule. Deux filets courts encadrent lateralement `La Reunion`; aucun filet horizontal ne la souligne et aucun cadre ou fond gris n'enferme le texte.
 
 Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, conserve les lacunes comme donnees absentes, extrait les isobathes tous les 5 m jusqu'a `max_depth_m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
+
+Pointe au Sel constitue une exception explicite de presentation : la marge sud-ouest du raster HYSCORES contient des facettes triangulees peu fiables en grande profondeur. Les cartes 2D et le relief interactif s'arretent donc a `-20 m`, tandis que la perspective 3D statique conserve la profondeur source mais cadre uniquement le Sec Jaune, les arches du sud et le debut du tombant. Une lacune interne de `19,2 m²` est interpolee uniquement dans le maillage 3D statique, apres l'extraction des isobathes; les cartes 2D, les contours, les cellules valides et le paquet interactif restent strictement derives de la source. Les grandes lacunes et toutes celles qui touchent la terre ou le bord restent exclues.
+
+## Sites publies
+
+| Site imprime | Commune | Configuration | Orthophoto 2D | Texture orthophoto 3D | Prise de vue |
+|---|---|---|---:|---:|---|
+| Cap La Houssaye | Saint-Paul | [`cap-la-houssaye.json`](sites/cap-la-houssaye.json) | 20 cm | 20 cm | 22 juillet 2025 |
+| Boucan Canot | Saint-Paul | [`boucan-canot.json`](sites/boucan-canot.json) | 20 cm | 40 cm | 22 juillet 2025 |
+| Passe de l'Hermitage | Saint-Paul | [`passe-hermitage.json`](sites/passe-hermitage.json) | 20 cm | 80 cm | 2 aout 2025 |
+| Cap Homard | Saint-Paul | [`cap-homard.json`](sites/cap-homard.json) | 20 cm | 40 cm | 22 juillet 2025 |
+| Pointe au Sel | Saint-Leu | [`pointe-au-sel-sec-jaune.json`](sites/pointe-au-sel-sec-jaune.json) | 40 cm | 50 cm | 22 juillet 2025 |
+| Pont Rouge | Saint-Leu | [`pont-rouge-la-tortue.json`](sites/pont-rouge-la-tortue.json) | 20 cm | 50 cm | 22 juillet 2025 |
+| Plage du Cimetière | Saint-Leu | [`plage-cimetiere-saint-leu.json`](sites/plage-cimetiere-saint-leu.json) | 20 cm | 40 cm | 22 juillet 2025 |
+
+Les trois sections suivantes montrent des exemples de planches; les sept configurations et leurs sorties canoniques suivent le meme workflow.
 
 ## Exemple : Cap La Houssaye
 
@@ -34,7 +50,7 @@ Le Cap applique le standard orthophoto `-1,5/-2 m` et la palette decalee, tout e
 
 ## Exemple : Boucan Canot
 
-La configuration Boucan utilise une cote bidimensionnelle pour la piscine naturelle et une camera orientee au sud-est (`135°`). Son cadrage 3D rapproche le relief sous-marin avec une largeur visible de `580 m`, independamment de l'emprise 2D. L'orthophoto est prolongee sans rupture jusqu'a `-1,5 m`, puis fondue progressivement jusqu'a `-2 m` afin d'eviter les artefacts du masque terrestre autour de la piscine.
+La configuration Boucan utilise une cote bidimensionnelle pour la piscine naturelle et une camera orientee au sud-est (`135°`). Son emprise 2D est decalee de 12 m vers l'est afin d'exclure une couture sans donnee situee dans le grand fond nord-ouest, sans retirer la piscine ni les reliefs utiles. Son cadrage 3D rapproche le relief sous-marin avec une largeur visible de `580 m`, independamment de l'emprise 2D. L'orthophoto est prolongee sans rupture jusqu'a `-1,5 m`, puis fondue progressivement jusqu'a `-2 m` afin d'eviter les artefacts du masque terrestre autour de la piscine.
 
 | Terre en orthophoto | Terre en relief topographique |
 |---|---|
@@ -83,6 +99,11 @@ initiale reprend l'azimut de la vue 3D imprimee et se place a l'oppose, cote
 large ; la rotation horizontale est libre sur 360 degres. Les GeoTIFF sources
 restent dans le cache local et ne sont jamais publies.
 
+Les textures WebGL sont produites depuis les rasters de mise au point, puis
+reechantillonnees au besoin avec un maximum de `2048 px` sur leur plus grand
+cote. Elles sont distinctes des textures de contexte utilisees par les JPEG 3D
+statiques, dont la resolution configuree varie de 20 a 80 cm selon l'emprise.
+
 ## Installation sur macOS
 
 Homebrew est requis. Le script installe Python et GDAL, puis cree un environnement local :
@@ -91,7 +112,7 @@ Homebrew est requis. Le script installe Python et GDAL, puis cree un environneme
 ./bootstrap_macos.sh
 ```
 
-L'environnement de reference enregistre pour les trois sites publies est Python 3.14, GDAL 3.13.1, NumPy 2.5.1 et Pillow 12.3.0. NumPy et Pillow sont epingles dans `requirements.txt`; Python et GDAL proviennent de Homebrew. Le preflight exige les polices macOS Arial, Arial Bold et Avenir Next utilisees par les cartes et les planches, au lieu de substituer silencieusement une police differente.
+L'environnement de reference enregistre pour les sept sites publies est Python 3.14, GDAL 3.13.1, NumPy 2.5.1 et Pillow 12.3.0. NumPy et Pillow sont epingles dans `requirements.txt`; Python et GDAL proviennent de Homebrew. Le preflight exige les polices macOS Arial, Arial Bold et Avenir Next utilisees par les cartes et les planches, au lieu de substituer silencieusement une police differente.
 
 ## Regeneration complete
 
@@ -136,11 +157,13 @@ commune de `1.55`, avant le dessin des isobathes, du trait de cote et des
 annotations. Cette exposition fait partie du modele lumineux ; ce n'est pas
 une correction appliquee au JPEG final.
 
-L'orthophoto 3D peut etre demandee a sa resolution native de 20 cm sur une
-grande emprise : le telechargement est automatiquement decoupe en tuiles IGN
-puis assemble sur une grille georeferencee unique. Le moteur conserve cette
-texture haute resolution independamment du maillage et interpole les facettes
-qui occupent plusieurs pixels dans l'image finale.
+La couche BD ORTHO est diffusee a 20 cm, mais la resolution de travail de la
+texture 3D statique est choisie par site en fonction de l'emprise et du cout de
+calcul. Les valeurs publiees vont de 20 a 80 cm, comme indique dans le tableau
+ci-dessus. Le telechargement est automatiquement decoupe en tuiles IGN puis
+assemble sur une grille georeferencee unique. Le moteur conserve cette texture
+independamment du maillage et interpole les facettes qui occupent plusieurs
+pixels dans l'image finale.
 
 ## Reutilisation
 

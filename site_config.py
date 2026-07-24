@@ -62,6 +62,7 @@ _ALLOWED_KEYS = frozenset(
         "imagery_sea_full_depth_m",
         "imagery_sea_max_depth_m",
         "imagery_sea_smoothing_m",
+        "interactive_max_depth_m",
         "land_sieve_threshold_px",
         "locator_bathymetry_enabled",
         "locator_bbox_utm40s",
@@ -96,12 +97,14 @@ _ALLOWED_KEYS = frozenset(
         "plate_city",
         "plate_site_name",
         "plate_title",
+        "plan_max_depth_m",
         "relief_output_scale",
         "relief_hemisphere_intensity",
         "relief_exposure",
         "relief_key_light_bearing_deg",
         "relief_key_light_elevation_deg",
         "relief_key_light_intensity",
+        "relief_mesh_gap_fill_max_area_m2",
         "relief_normal_sample_spacing_m",
         "relief_texture_triangle_min_area_px",
         "relief_suppressed_label_levels",
@@ -441,6 +444,18 @@ def validate_config(config: Mapping[str, Any]) -> None:
     max_depth = _number(config, "max_depth_m", 20.0)
     if not 0.0 < max_depth <= 40.0:
         raise ValueError("max_depth_m must be greater than 0 and at most 40")
+    if "plan_max_depth_m" in config:
+        plan_max_depth = _number(config, "plan_max_depth_m")
+        if not 0.0 < plan_max_depth <= max_depth:
+            raise ValueError(
+                "plan_max_depth_m must be greater than 0 and at most max_depth_m"
+            )
+    if "interactive_max_depth_m" in config:
+        interactive_max_depth = _number(config, "interactive_max_depth_m")
+        if not 0.0 < interactive_max_depth <= max_depth:
+            raise ValueError(
+                "interactive_max_depth_m must be greater than 0 and at most max_depth_m"
+            )
     coast_mode = config.get("coast_mode", "profile")
     if not isinstance(coast_mode, str):
         raise ValueError("coast_mode must be 'profile' or 'mask'")
@@ -469,6 +484,7 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "relief_hemisphere_intensity",
         "relief_exposure",
         "relief_key_light_intensity",
+        "relief_mesh_gap_fill_max_area_m2",
         "relief_normal_sample_spacing_m",
         "relief_texture_triangle_min_area_px",
     ):

@@ -320,7 +320,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
 
     return {
         "slug": slug,
-        "displayName": config["locator_label"],
+        "displayName": config["plate_site_name"],
         "title": config["title"],
         "plateTitle": config["plate_title"],
         "config": config["_config_path"],
@@ -333,6 +333,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             config["locator_marker_utm40s"]
         ),
         "maxDepthM": config["max_depth_m"],
+        "planMaxDepthM": config.get("plan_max_depth_m", config["max_depth_m"]),
         "verticalExaggeration": config["vertical_exaggeration"],
         "orthophotoCaptureDate": config["orthophoto_capture_date"],
         "plateAuthor": config["plate_author"],
