@@ -1,13 +1,24 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "mapWidths": [
     960,
     1600,
     2474
   ],
-  "locatorWidth": 640,
-  "locatorLargeWidth": 1600,
   "planchePreviewWidth": 1800,
+  "westCoastLocator": {
+    "src": "/west-coast-locator.webp",
+    "width": 850,
+    "height": 1300,
+    "bytes": 106950,
+    "sha256": "92594462497ea99f09c52f741c5f364b5b28403602abeb0d7dd838f09bb86db3",
+    "boundsUtm40s": {
+      "minEasting": 309000.0,
+      "minNorthing": 7652000.0,
+      "maxEasting": 326000.0,
+      "maxNorthing": 7678000.0
+    }
+  },
   "sites": [
     {
       "slug": "cap-la-houssaye",
@@ -20,26 +31,16 @@
         "latitude": -21.0173632,
         "longitude": 55.23745137
       },
+      "westCoastLocatorPosition": {
+        "xPercent": 46.0,
+        "yPercent": 11.8462
+      },
       "maxDepthM": 20,
       "verticalExaggeration": 3.9935327405,
       "orthophotoCaptureDate": "2025-07-22",
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
-      "locator": {
-        "src": "/maps/cap-la-houssaye/locator-640.webp",
-        "width": 640,
-        "height": 537,
-        "bytes": 52718,
-        "sha256": "193264301f6df1281f1d9205f90a94d27cbd95187845b53cbeead03b64e09149"
-      },
-      "locatorLarge": {
-        "src": "/maps/cap-la-houssaye/locator-1600.webp",
-        "width": 1600,
-        "height": 1343,
-        "bytes": 273642,
-        "sha256": "672cde009015b05f9cac02af29a19368b71a2f405acb3f8cdcd8d6207b8d1aeb"
-      },
       "maps": [
         {
           "view": "2d",
@@ -216,26 +217,16 @@
         "latitude": -21.0268708,
         "longitude": 55.2257987
       },
+      "westCoastLocatorPosition": {
+        "xPercent": 38.9433,
+        "yPercent": 15.9462
+      },
       "maxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
       "orthophotoCaptureDate": "2025-07-22",
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
-      "locator": {
-        "src": "/maps/boucan-canot/locator-640.webp",
-        "width": 640,
-        "height": 537,
-        "bytes": 52774,
-        "sha256": "44078760308daa3ab24e90cbb5cb9bf641f52f90561eceb7a86f3910d1be024f"
-      },
-      "locatorLarge": {
-        "src": "/maps/boucan-canot/locator-1600.webp",
-        "width": 1600,
-        "height": 1343,
-        "bytes": 273368,
-        "sha256": "206e787741e244b85fd95cbd177c3d4fd8ec850c305c2dc23a4a3591745f4cc8"
-      },
       "maps": [
         {
           "view": "2d",
@@ -412,26 +403,16 @@
         "latitude": -21.0851875,
         "longitude": 55.2240625
       },
+      "westCoastLocatorPosition": {
+        "xPercent": 38.3047,
+        "yPercent": 40.7864
+      },
       "maxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
       "orthophotoCaptureDate": "2025-08-02",
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
-      "locator": {
-        "src": "/maps/passe-hermitage/locator-640.webp",
-        "width": 640,
-        "height": 537,
-        "bytes": 53000,
-        "sha256": "0e06f6399c5cea94db7baa87fce3100d37dc1ddb0758dbcff7791f28544ae08e"
-      },
-      "locatorLarge": {
-        "src": "/maps/passe-hermitage/locator-1600.webp",
-        "width": 1600,
-        "height": 1343,
-        "bytes": 273984,
-        "sha256": "9ca24ef703aa812a92b6727e8b8406f427f96da77b55f04d25457cd60d5d519f"
-      },
       "maps": [
         {
           "view": "2d",
@@ -599,9 +580,9 @@
     }
   ],
   "totals": {
-    "assetFiles": 54,
-    "webOptimizedBytes": 11523944,
+    "assetFiles": 49,
+    "webOptimizedBytes": 10651408,
     "downloadBytes": 38143982,
-    "totalBytes": 49667926
+    "totalBytes": 48795390
   }
 }

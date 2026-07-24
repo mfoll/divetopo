@@ -7,7 +7,7 @@ import {
   Suspense,
   useRef,
   useState,
-  type KeyboardEvent,
+  type CSSProperties,
 } from "react";
 import mapManifestJson from "../public/maps/manifest.json";
 
@@ -40,24 +40,29 @@ type SiteLocation = {
   longitude: number;
 };
 
+type WestCoastLocatorPosition = {
+  xPercent: number;
+  yPercent: number;
+};
+
 type AtlasAssetSite = {
   slug: string;
   displayName: string;
   plateTitle: string;
   location: SiteLocation;
+  westCoastLocatorPosition: WestCoastLocatorPosition;
   maxDepthM: number;
   verticalExaggeration: number;
   orthophotoCaptureDate: string;
   plateAuthor: string;
   copyrightYear: number;
   mapLicense: string;
-  locator: AssetVariant;
-  locatorLarge: AssetVariant;
   maps: MapAsset[];
   planches: PlancheAsset[];
 };
 
 type MapManifest = {
+  westCoastLocator: AssetVariant;
   sites: AtlasAssetSite[];
 };
 
@@ -113,9 +118,9 @@ const DATA_SOURCES = [
     ],
   },
   {
-    title: "Carte de situation",
+    title: "Relief régional",
     description:
-      "Grille bathymétrique GEBCO 2024 pour replacer chaque site à l’échelle de l’île.",
+      "Grille bathymétrique GEBCO 2024 pour la carte de sélection de la côte ouest.",
     links: [
       {
         label: "GEBCO 2024",
@@ -254,50 +259,22 @@ function ViewToggle({
   );
 }
 
-function SiteNavigator({
+const SITE_LABEL_LAYOUT = {
+  "cap-la-houssaye": "right-up",
+  "boucan-canot": "left-down",
+  "passe-hermitage": "right",
+} as const;
+
+function SitePicker({
   activeSlug,
   onSelect,
 }: {
   activeSlug: string;
   onSelect: (slug: string) => void;
 }) {
-  const buttonRefs = useRef<Record<string, HTMLButtonElement | null>>({});
-
-  function selectAndFocus(index: number) {
-    const site = mapManifest.sites[index];
-    if (!site) return;
-    onSelect(site.slug);
-    requestAnimationFrame(() => {
-      const button = buttonRefs.current[site.slug];
-      button?.focus();
-      button?.scrollIntoView({ block: "nearest", inline: "nearest" });
-    });
-  }
-
-  function handleKey(event: KeyboardEvent<HTMLButtonElement>, index: number) {
-    let nextIndex: number | null = null;
-    if (event.key === "ArrowDown" || event.key === "ArrowRight") {
-      nextIndex = (index + 1) % mapManifest.sites.length;
-    } else if (event.key === "ArrowUp" || event.key === "ArrowLeft") {
-      nextIndex =
-        (index - 1 + mapManifest.sites.length) % mapManifest.sites.length;
-    } else if (event.key === "Home") {
-      nextIndex = 0;
-    } else if (event.key === "End") {
-      nextIndex = mapManifest.sites.length - 1;
-    }
-    if (nextIndex === null) return;
-    event.preventDefault();
-    selectAndFocus(nextIndex);
-  }
-
   return (
-    <aside className="site-navigator" aria-labelledby="site-navigator-title">
-      <div className="site-navigator-heading">
-        <h2 id="site-navigator-title">Sites</h2>
-        <span>{mapManifest.sites.length}</span>
-      </div>
-      <label className="site-select-label">
+    <aside className="site-picker" aria-label="Choisir un site de plongée">
+      <label className="site-picker-select">
         <span>Choisir un site</span>
         <select
           value={activeSlug}
@@ -310,33 +287,61 @@ function SiteNavigator({
           ))}
         </select>
       </label>
-      <div
-        className="site-list"
-        role="tablist"
-        aria-label="Choisir un site de plongée"
-        aria-orientation="vertical"
-      >
+
+      <div className="site-picker-map">
+        <img
+          src={mapManifest.westCoastLocator.src}
+          width={mapManifest.westCoastLocator.width}
+          height={mapManifest.westCoastLocator.height}
+          alt="Relief terrestre et sous-marin de la côte ouest de La Réunion, du Cap La Houssaye à Saint-Leu."
+        />
+        <div className="site-picker-range" aria-hidden="true">
+          <strong>Côte ouest</strong>
+          <span>Cap → Saint-Leu</span>
+        </div>
+        <div className="site-picker-north" aria-label="Nord">
+          <span aria-hidden="true">↑</span>
+          <strong>N</strong>
+        </div>
+
         {mapManifest.sites.map((site, index) => {
           const selected = activeSlug === site.slug;
+          const knownLayout =
+            SITE_LABEL_LAYOUT[
+              site.slug as keyof typeof SITE_LABEL_LAYOUT
+            ];
+          const layout = knownLayout ?? (index % 2 === 0 ? "right" : "left");
+          const style = {
+            "--site-x": `${site.westCoastLocatorPosition.xPercent}%`,
+            "--site-y": `${site.westCoastLocatorPosition.yPercent}%`,
+          } as CSSProperties;
+
           return (
             <button
               key={site.slug}
-              id={`site-tab-${site.slug}`}
-              ref={(node) => {
-                buttonRefs.current[site.slug] = node;
-              }}
               type="button"
-              role="tab"
-              aria-controls="atlas-panel"
-              aria-selected={selected}
-              tabIndex={selected ? 0 : -1}
+              className={`site-map-marker label-${layout}`}
+              style={style}
+              aria-pressed={selected}
+              aria-label={`Afficher ${site.displayName}`}
               onClick={() => onSelect(site.slug)}
-              onKeyDown={(event) => handleKey(event, index)}
             >
-              {site.displayName}
+              <span className="site-map-marker-dot" aria-hidden="true" />
+              <span className="site-map-marker-line" aria-hidden="true" />
+              <span className="site-map-marker-label">
+                {site.displayName}
+              </span>
             </button>
           );
         })}
+
+        <div
+          className="site-picker-scale"
+          aria-label="Échelle de cinq kilomètres"
+        >
+          <span aria-hidden="true" />
+          <strong>5 km</strong>
+        </div>
       </div>
     </aside>
   );
@@ -348,7 +353,6 @@ export function AtlasExperience() {
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const locatorDialogRef = useRef<HTMLDialogElement>(null);
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
@@ -363,12 +367,6 @@ export function AtlasExperience() {
 
   function closeOnBackdrop(event: React.MouseEvent<HTMLDialogElement>) {
     if (event.target === dialogRef.current) dialogRef.current.close();
-  }
-
-  function closeLocatorOnBackdrop(event: React.MouseEvent<HTMLDialogElement>) {
-    if (event.target === locatorDialogRef.current) {
-      locatorDialogRef.current.close();
-    }
   }
 
   const mapAlt =
@@ -404,12 +402,11 @@ export function AtlasExperience() {
         </div>
 
         <div className="atlas-workspace">
-          <SiteNavigator activeSlug={activeSlug} onSelect={setActiveSlug} />
+          <SitePicker activeSlug={activeSlug} onSelect={setActiveSlug} />
 
           <article
             className="atlas-main"
             id="atlas-panel"
-            role="tabpanel"
             aria-labelledby={`active-site-title-${activeSite.slug}`}
           >
             <div className="viewer-toolbar">
@@ -517,27 +514,6 @@ export function AtlasExperience() {
             </div>
           </article>
 
-          <aside className="locator-panel" aria-labelledby="locator-title">
-            <div className="locator-heading">
-              <h2 id="locator-title">Sur l’île</h2>
-              <span>La Réunion</span>
-            </div>
-            <button
-              type="button"
-              className="locator-open"
-              aria-haspopup="dialog"
-              aria-label={`Ouvrir la carte de localisation de ${activeSite.displayName} en grand`}
-              onClick={() => locatorDialogRef.current?.showModal()}
-            >
-              <img
-                key={`${activeSite.slug}-locator`}
-                src={activeSite.locator.src}
-                width={activeSite.locator.width}
-                height={activeSite.locator.height}
-                alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
-              />
-            </button>
-          </aside>
         </div>
       </section>
 
@@ -666,26 +642,6 @@ export function AtlasExperience() {
         />
       </dialog>
 
-      <dialog
-        className="map-dialog locator-dialog"
-        ref={locatorDialogRef}
-        onClick={closeLocatorOnBackdrop}
-        aria-label={`Localisation de ${activeSite.displayName} sur l’île de La Réunion en grand`}
-      >
-        <button
-          type="button"
-          className="dialog-close"
-          onClick={() => locatorDialogRef.current?.close()}
-        >
-          Fermer
-        </button>
-        <img
-          src={activeSite.locatorLarge.src}
-          width={activeSite.locatorLarge.width}
-          height={activeSite.locatorLarge.height}
-          alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
-        />
-      </dialog>
     </main>
   );
 }

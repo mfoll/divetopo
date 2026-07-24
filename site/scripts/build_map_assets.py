@@ -28,12 +28,16 @@ PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "maps"
 
 MAP_WIDTHS = (960, 1600, 2474)
-LOCATOR_WIDTH = 640
-LOCATOR_LARGE_WIDTH = 1600
 PLANCHE_PREVIEW_WIDTH = 1800
+WEST_COAST_LOCATOR_PATH = PUBLIC_ROOT / "west-coast-locator.webp"
+WEST_COAST_LOCATOR_BOUNDS_UTM40S = {
+    "minEasting": 309_000.0,
+    "minNorthing": 7_652_000.0,
+    "maxEasting": 326_000.0,
+    "maxNorthing": 7_678_000.0,
+}
 
 MAP_WEBP_QUALITY = 84
-LOCATOR_WEBP_QUALITY = 82
 PLANCHE_WEBP_QUALITY = 86
 WEBP_METHOD = 6
 
@@ -136,6 +140,48 @@ def marker_wgs84(marker: list[float]) -> tuple[float, float]:
     return latitude, longitude
 
 
+def west_coast_locator_position(marker: list[float]) -> dict[str, float]:
+    easting = float(marker[0])
+    northing = float(marker[1])
+    bounds = WEST_COAST_LOCATOR_BOUNDS_UTM40S
+    x_percent = (
+        (easting - bounds["minEasting"])
+        / (bounds["maxEasting"] - bounds["minEasting"])
+        * 100.0
+    )
+    y_percent = (
+        (bounds["maxNorthing"] - northing)
+        / (bounds["maxNorthing"] - bounds["minNorthing"])
+        * 100.0
+    )
+    if not (0.0 <= x_percent <= 100.0 and 0.0 <= y_percent <= 100.0):
+        raise ValueError(
+            "Site marker falls outside the shared west-coast locator bounds: "
+            f"{marker}"
+        )
+    return {
+        "xPercent": round(x_percent, 4),
+        "yPercent": round(y_percent, 4),
+    }
+
+
+def west_coast_locator_record() -> dict[str, Any]:
+    if not WEST_COAST_LOCATOR_PATH.is_file():
+        raise FileNotFoundError(
+            f"Shared west-coast locator missing: {WEST_COAST_LOCATOR_PATH}"
+        )
+    with Image.open(WEST_COAST_LOCATOR_PATH) as image:
+        width, height = image.size
+    return {
+        "src": "/west-coast-locator.webp",
+        "width": width,
+        "height": height,
+        "bytes": WEST_COAST_LOCATOR_PATH.stat().st_size,
+        "sha256": sha256(WEST_COAST_LOCATOR_PATH),
+        "boundsUtm40s": WEST_COAST_LOCATOR_BOUNDS_UTM40S,
+    }
+
+
 def load_site_details() -> dict[str, dict[str, str]]:
     with SITE_DETAILS_PATH.open(encoding="utf-8") as stream:
         details = json.load(stream)
@@ -208,35 +254,6 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             }
         )
 
-    locator_source = configured_source(config, "output_locator")
-    locator_image = open_rgb(locator_source)
-    locator_path = site_root / f"locator-{LOCATOR_WIDTH}.webp"
-    locator_width, locator_height = write_webp(
-        locator_image,
-        locator_path,
-        width=LOCATOR_WIDTH,
-        quality=LOCATOR_WEBP_QUALITY,
-    )
-    locator = image_record(
-        locator_path,
-        build_root,
-        locator_width,
-        locator_height,
-    )
-    locator_large_path = site_root / f"locator-{LOCATOR_LARGE_WIDTH}.webp"
-    locator_large_width, locator_large_height = write_webp(
-        locator_image,
-        locator_large_path,
-        width=LOCATOR_LARGE_WIDTH,
-        quality=LOCATOR_WEBP_QUALITY,
-    )
-    locator_large = image_record(
-        locator_large_path,
-        build_root,
-        locator_large_width,
-        locator_large_height,
-    )
-
     planches: list[dict[str, Any]] = []
     for style, source_key in PLANCHE_SOURCES:
         source_path = configured_source(config, source_key)
@@ -288,28 +305,26 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             "latitude": round(latitude, 8),
             "longitude": round(longitude, 8),
         },
+        "westCoastLocatorPosition": west_coast_locator_position(
+            config["locator_marker_utm40s"]
+        ),
         "maxDepthM": config["max_depth_m"],
         "verticalExaggeration": config["vertical_exaggeration"],
         "orthophotoCaptureDate": config["orthophoto_capture_date"],
         "plateAuthor": config["plate_author"],
         "copyrightYear": config["copyright_year"],
         "mapLicense": config["map_license"],
-        "locator": locator,
-        "locatorLarge": locator_large,
         "maps": maps,
         "planches": planches,
     }
 
 
 def manifest_totals(manifest: dict[str, Any]) -> dict[str, int]:
-    web_bytes = 0
+    web_bytes = manifest["westCoastLocator"]["bytes"]
     download_bytes = 0
-    asset_files = 0
+    asset_files = 1
 
     for site in manifest["sites"]:
-        web_bytes += site["locator"]["bytes"]
-        web_bytes += site["locatorLarge"]["bytes"]
-        asset_files += 2
         for map_item in site["maps"]:
             for variant in map_item["variants"]:
                 web_bytes += variant["bytes"]
@@ -349,11 +364,10 @@ def main() -> None:
         build_root.mkdir()
 
         manifest: dict[str, Any] = {
-            "schemaVersion": 3,
+            "schemaVersion": 4,
             "mapWidths": list(MAP_WIDTHS),
-            "locatorWidth": LOCATOR_WIDTH,
-            "locatorLargeWidth": LOCATOR_LARGE_WIDTH,
             "planchePreviewWidth": PLANCHE_PREVIEW_WIDTH,
+            "westCoastLocator": west_coast_locator_record(),
             "sites": [build_site(config, build_root) for config in configs],
         }
         manifest["totals"] = manifest_totals(manifest)

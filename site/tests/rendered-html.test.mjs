@@ -43,8 +43,12 @@ test("server-renders the finished atlas", async () => {
   assert.match(html, /Voir le site sur Google Maps/);
   assert.match(html, /google\.com\/maps\/search/);
   assert.match(html, /3d-orthophoto-2474\.webp/);
-  assert.match(html, /locator-640\.webp/);
-  assert.match(html, /locator-1600\.webp/);
+  assert.match(html, /west-coast-locator\.webp/);
+  assert.match(html, /Côte ouest/);
+  assert.match(html, /Cap → Saint-Leu/);
+  assert.doesNotMatch(html, /Sur l’île/);
+  assert.doesNotMatch(html, /locator-640\.webp/);
+  assert.doesNotMatch(html, /locator-1600\.webp/);
   assert.doesNotMatch(html, /Agrandir la carte/);
   assert.doesNotMatch(html, /Repère\s*:/);
   assert.match(html, /Planche HD à imprimer/);
@@ -80,16 +84,29 @@ test("map manifest supports adding future sites without component changes", asyn
     ),
   );
 
-  assert.equal(manifest.schemaVersion, 3);
+  assert.equal(manifest.schemaVersion, 4);
   assert.ok(manifest.sites.length >= 3);
+  assert.equal(manifest.westCoastLocator.src, "/west-coast-locator.webp");
+  assert.equal(manifest.westCoastLocator.width, 850);
+  assert.equal(manifest.westCoastLocator.height, 1300);
 
   for (const site of manifest.sites) {
     assert.equal(typeof site.slug, "string");
     assert.equal(typeof site.displayName, "string");
     assert.ok(site.displayName.length > 0);
     assert.equal(typeof site.maxDepthM, "number");
-    assert.ok(site.locator?.src);
-    assert.ok(site.locatorLarge?.src);
+    assert.equal(
+      typeof site.westCoastLocatorPosition?.xPercent,
+      "number",
+    );
+    assert.equal(
+      typeof site.westCoastLocatorPosition?.yPercent,
+      "number",
+    );
+    assert.ok(site.westCoastLocatorPosition.xPercent >= 0);
+    assert.ok(site.westCoastLocatorPosition.xPercent <= 100);
+    assert.ok(site.westCoastLocatorPosition.yPercent >= 0);
+    assert.ok(site.westCoastLocatorPosition.yPercent <= 100);
     assert.equal(typeof site.location?.city, "string");
     assert.ok(site.location.city.length > 0);
     assert.equal(typeof site.location?.latitude, "number");
@@ -126,6 +143,10 @@ test("removes disposable starter artifacts", async () => {
   assert.doesNotMatch(page, /codex-preview|_sites-preview/);
   assert.doesNotMatch(layout, /Starter Project|codex-preview/);
   await assert.rejects(access(new URL("../app/_sites-preview", templateRoot)));
+});
+
+test("includes the shared west-coast site selector map", async () => {
+  await access(new URL("../public/west-coast-locator.webp", import.meta.url));
 });
 
 test("interactive terrain matches the static linear-light exposure", async () => {

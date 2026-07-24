@@ -22,8 +22,8 @@ export async function generateMetadata(): Promise<Metadata> {
     description:
       "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
     icons: {
-      icon: "/favicon.png",
-      shortcut: "/favicon.png",
+      icon: "/favicon.svg",
+      shortcut: "/favicon.svg",
     },
     openGraph: {
       title: "Plans des sites de plongée à La Réunion",

@@ -6,9 +6,10 @@ interactifs. Il s’ouvre sur la perspective 3D avec orthophoto ; le choix du fo
 ne duplique ni la carte affichée ni la géométrie interactive.
 
 Le site reste dans le dépôt des cartes afin que les nouveaux sites, les crédits
-et les rendus web dérivent des mêmes configurations. La navigation, la carte de
-situation et les téléchargements sont entièrement alimentés par le manifeste
-généré.
+et les rendus web dérivent des mêmes configurations. Sur grand écran, une carte
+verticale de la côte ouest sert directement de sélecteur ; sous 900 px, elle est
+remplacée par un menu déroulant natif. Les deux interfaces et les téléchargements
+sont alimentés par le même manifeste généré.
 
 ## Développement
 
@@ -45,6 +46,8 @@ rotation horizontale reste libre sur 360°.
 
 Les fichiers web dérivés sont versionnés sous `public/maps/` et
 `public/terrain/`. Les GeoTIFF sources restent locaux et ne sont jamais publiés.
+Le fond commun `public/west-coast-locator.webp` est référencé une seule fois ;
+les positions cliquables sont calculées depuis les repères UTM de chaque site.
 
 ## Publication
 
