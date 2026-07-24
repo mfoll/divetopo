@@ -54,14 +54,27 @@ test("server-renders the DiveTopo regional homepage", async () => {
 });
 
 test("keeps regions data-driven and bundles the exact island relief", async () => {
-  const [regionsSource, packageJson] = await Promise.all([
+  const [regionsSource, packageJson, stylesheet] = await Promise.all([
     readFile(new URL("../content/regions.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
 
   assert.match(regionsSource, /export const regions/);
   assert.match(regionsSource, /https:\/\/reunion\.divetopo\.com/);
   assert.match(regionsSource, /reunion-overview\.webp/);
+  assert.match(
+    stylesheet,
+    /\.hero h1\s*\{[^}]*grid-column:\s*1;/s,
+  );
+  assert.match(
+    stylesheet,
+    /\.hero-lead\s*\{[^}]*grid-column:\s*2;/s,
+  );
+  assert.match(
+    stylesheet,
+    /\.region-card\s*\{[^}]*max-width:\s*30rem;/s,
+  );
   assert.doesNotMatch(packageJson, /react-loading-skeleton|drizzle/);
   await access(new URL("../public/reunion-overview.webp", import.meta.url));
   await access(new URL("../public/og.png", import.meta.url));

@@ -150,8 +150,8 @@ img {
 
 .hero-inner {
   display: grid;
-  gap: clamp(1.3rem, 2vw, 2rem);
-  grid-template-columns: minmax(0, 1.58fr) minmax(16rem, 0.62fr);
+  gap: clamp(1.5rem, 3vw, 3rem);
+  grid-template-columns: minmax(0, 1.82fr) minmax(18rem, 0.58fr);
 }
 
 .eyebrow {
@@ -166,7 +166,7 @@ img {
 .hero h1 {
   font-size: clamp(3.15rem, 7vw, 7.7rem);
   font-weight: 680;
-  grid-column: 1 / -1;
+  grid-column: 1;
   letter-spacing: -0.065em;
   line-height: 0.91;
   margin: 0;
@@ -236,12 +236,14 @@ img {
   box-shadow: var(--shadow-sm);
   display: grid;
   grid-template-columns: 1fr;
+  max-width: 30rem;
   min-width: 0;
   overflow: hidden;
   text-decoration: none;
   transition:
     box-shadow 180ms ease,
     transform 180ms ease;
+  width: 100%;
 }
 
 .region-card:hover {
@@ -306,8 +308,8 @@ img {
 .region-copy {
   align-content: space-between;
   display: grid;
-  gap: 1.5rem;
-  padding: clamp(1.5rem, 3.2vw, 3.5rem);
+  gap: 1.15rem;
+  padding: clamp(1.25rem, 2vw, 1.85rem);
 }
 
 .region-title-row {
@@ -326,7 +328,7 @@ img {
 }
 
 .region-title-row h3 {
-  font-size: clamp(2.25rem, 4vw, 4.8rem);
+  font-size: clamp(2.15rem, 3.2vw, 3.25rem);
   font-weight: 680;
   letter-spacing: -0.06em;
   line-height: 0.95;
@@ -341,13 +343,13 @@ img {
   display: flex;
   flex: 0 0 auto;
   font-size: 1.2rem;
-  height: 3.1rem;
+  height: 2.75rem;
   justify-content: center;
   margin-left: 1rem;
   transition:
     background 170ms ease,
     transform 170ms ease;
-  width: 3.1rem;
+  width: 2.75rem;
 }
 
 .region-card:hover .region-arrow {
