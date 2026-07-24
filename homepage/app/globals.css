@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
 :root {
+  color-scheme: light;
   --bg: #eef3f2;
   --surface: #ffffff;
   --surface-soft: #e3ebea;
@@ -21,6 +22,120 @@
     BlinkMacSystemFont, "Segoe UI", sans-serif;
   --page-gutter: clamp(1rem, 3.1vw, 3.25rem);
   --content-width: 106rem;
+  --masthead-bg: rgba(255, 255, 255, 0.92);
+  --masthead-border: rgba(8, 33, 42, 0.08);
+  --brand-shadow: rgba(6, 28, 36, 0.16);
+  --hero-glow: rgba(14, 146, 149, 0.13);
+  --card-border: rgba(8, 33, 42, 0.06);
+  --map-fallback: #178cab;
+  --map-shade: rgba(6, 28, 36, 0.16);
+  --status-bg: rgba(255, 255, 255, 0.88);
+  --status-border: rgba(255, 255, 255, 0.72);
+  --status-ink: #08212a;
+  --status-shadow: rgba(6, 28, 36, 0.16);
+  --status-ring: rgba(14, 146, 149, 0.15);
+  --arrow-bg: var(--navy);
+  --arrow-hover: var(--accent-dark);
+  --arrow-ink: #ffffff;
+  --future-border: rgba(8, 33, 42, 0.2);
+  --footer-bg: #03151b;
+  --footer-ink: #ffffff;
+  --footer-muted: rgba(255, 255, 255, 0.45);
+  --control-bg: rgba(227, 235, 234, 0.72);
+  --control-border: rgba(8, 33, 42, 0.1);
+  --control-ink: #5a6c72;
+  --control-hover: #d8e5e3;
+  --control-selected-bg: #061c24;
+  --control-selected-ink: #ffffff;
+  --control-shadow: rgba(6, 28, 36, 0.08);
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #071b22;
+  --surface: #0d2831;
+  --surface-soft: #12323b;
+  --ink: #f2f7f6;
+  --ink-soft: #afc0c3;
+  --navy: #03151b;
+  --navy-soft: #0a232b;
+  --accent: #42c7c2;
+  --accent-dark: #70d9d4;
+  --accent-soft: #123b40;
+  --border: #23414a;
+  --shadow-sm: 0 4px 18px rgba(0, 0, 0, 0.24);
+  --shadow-map: 0 22px 58px rgba(0, 0, 0, 0.38);
+  --masthead-bg: rgba(7, 27, 34, 0.93);
+  --masthead-border: rgba(242, 247, 246, 0.1);
+  --brand-shadow: rgba(0, 0, 0, 0.35);
+  --hero-glow: rgba(66, 199, 194, 0.12);
+  --card-border: #23414a;
+  --map-fallback: #126e87;
+  --map-shade: rgba(3, 21, 27, 0.18);
+  --status-bg: rgba(7, 27, 34, 0.88);
+  --status-border: rgba(242, 247, 246, 0.2);
+  --status-ink: #f2f7f6;
+  --status-shadow: rgba(0, 0, 0, 0.34);
+  --status-ring: rgba(66, 199, 194, 0.22);
+  --arrow-bg: #03151b;
+  --arrow-hover: #176f72;
+  --arrow-ink: #ffffff;
+  --future-border: rgba(242, 247, 246, 0.22);
+  --footer-bg: #03151b;
+  --footer-ink: #f2f7f6;
+  --footer-muted: rgba(242, 247, 246, 0.5);
+  --control-bg: #0d2831;
+  --control-border: #2a4750;
+  --control-ink: #afc0c3;
+  --control-hover: #14353e;
+  --control-selected-bg: #f2f7f6;
+  --control-selected-ink: #071b22;
+  --control-shadow: rgba(0, 0, 0, 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="auto"] {
+    color-scheme: dark;
+    --bg: #071b22;
+    --surface: #0d2831;
+    --surface-soft: #12323b;
+    --ink: #f2f7f6;
+    --ink-soft: #afc0c3;
+    --navy: #03151b;
+    --navy-soft: #0a232b;
+    --accent: #42c7c2;
+    --accent-dark: #70d9d4;
+    --accent-soft: #123b40;
+    --border: #23414a;
+    --shadow-sm: 0 4px 18px rgba(0, 0, 0, 0.24);
+    --shadow-map: 0 22px 58px rgba(0, 0, 0, 0.38);
+    --masthead-bg: rgba(7, 27, 34, 0.93);
+    --masthead-border: rgba(242, 247, 246, 0.1);
+    --brand-shadow: rgba(0, 0, 0, 0.35);
+    --hero-glow: rgba(66, 199, 194, 0.12);
+    --card-border: #23414a;
+    --map-fallback: #126e87;
+    --map-shade: rgba(3, 21, 27, 0.18);
+    --status-bg: rgba(7, 27, 34, 0.88);
+    --status-border: rgba(242, 247, 246, 0.2);
+    --status-ink: #f2f7f6;
+    --status-shadow: rgba(0, 0, 0, 0.34);
+    --status-ring: rgba(66, 199, 194, 0.22);
+    --arrow-bg: #03151b;
+    --arrow-hover: #176f72;
+    --arrow-ink: #ffffff;
+    --future-border: rgba(242, 247, 246, 0.22);
+    --footer-bg: #03151b;
+    --footer-ink: #f2f7f6;
+    --footer-muted: rgba(242, 247, 246, 0.5);
+    --control-bg: #0d2831;
+    --control-border: #2a4750;
+    --control-ink: #afc0c3;
+    --control-hover: #14353e;
+    --control-selected-bg: #f2f7f6;
+    --control-selected-ink: #071b22;
+    --control-shadow: rgba(0, 0, 0, 0.22);
+  }
 }
 
 * {
@@ -28,7 +143,7 @@
 }
 
 html {
-  background: var(--navy);
+  background: var(--footer-bg);
   color: var(--ink);
   scroll-behavior: smooth;
   text-rendering: optimizeLegibility;
@@ -59,8 +174,8 @@ img {
 }
 
 .masthead {
-  background: rgba(255, 255, 255, 0.92);
-  border-bottom: 1px solid rgba(8, 33, 42, 0.08);
+  background: var(--masthead-bg);
+  border-bottom: 1px solid var(--masthead-border);
   position: relative;
   z-index: 10;
 }
@@ -96,20 +211,28 @@ img {
     radial-gradient(circle at 32% 30%, var(--coral) 0 14%, transparent 15%),
     linear-gradient(145deg, var(--accent) 0 48%, var(--navy) 49% 100%);
   border-radius: 50%;
-  box-shadow: 0 4px 14px rgba(6, 28, 36, 0.16);
+  box-shadow: 0 4px 14px var(--brand-shadow);
   display: inline-block;
   flex: 0 0 auto;
   height: 1.8rem;
   width: 1.8rem;
 }
 
-.masthead nav {
+.masthead-actions,
+.primary-nav {
   align-items: center;
   display: flex;
+}
+
+.masthead-actions {
+  gap: clamp(1rem, 2.2vw, 2.35rem);
+}
+
+.primary-nav {
   gap: clamp(1.4rem, 2.6vw, 2.75rem);
 }
 
-.masthead nav a {
+.primary-nav a {
   color: var(--ink-soft);
   font-size: 0.78rem;
   font-weight: 650;
@@ -118,7 +241,7 @@ img {
   transition: color 170ms ease;
 }
 
-.masthead nav a::after {
+.primary-nav a::after {
   background: var(--accent);
   border-radius: 999px;
   bottom: -0.45rem;
@@ -132,17 +255,91 @@ img {
   width: 100%;
 }
 
-.masthead nav a:hover {
+.primary-nav a:hover {
   color: var(--ink);
 }
 
-.masthead nav a:hover::after {
+.primary-nav a:hover::after {
   transform: scaleX(1);
+}
+
+.preference-controls {
+  align-items: center;
+  display: flex;
+  gap: 0.55rem;
+}
+
+.segmented-control {
+  align-items: center;
+  background: var(--control-bg);
+  border: 1px solid var(--control-border);
+  border-radius: 999px;
+  box-shadow: 0 2px 8px var(--control-shadow);
+  display: flex;
+  margin: 0;
+  min-width: 0;
+  padding: 0.17rem;
+}
+
+.segment {
+  display: flex;
+  position: relative;
+}
+
+.segment-input {
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  width: 1px;
+}
+
+.segment label {
+  align-items: center;
+  border-radius: 999px;
+  color: var(--control-ink);
+  cursor: pointer;
+  display: flex;
+  font-size: 0.65rem;
+  font-weight: 720;
+  justify-content: center;
+  line-height: 1;
+  min-height: 1.85rem;
+  padding: 0.45rem 0.58rem;
+  transition:
+    background 150ms ease,
+    color 150ms ease;
+  white-space: nowrap;
+}
+
+.segment label:hover {
+  background: var(--control-hover);
+  color: var(--ink);
+}
+
+.segment-input:checked + label {
+  background: var(--control-selected-bg);
+  color: var(--control-selected-ink);
+}
+
+.segment-input:focus-visible + label {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.sr-only {
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  overflow: hidden;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
 }
 
 .hero {
   background:
-    radial-gradient(circle at 82% 8%, rgba(14, 146, 149, 0.13), transparent 30rem),
+    radial-gradient(circle at 82% 8%, var(--hero-glow), transparent 30rem),
     var(--bg);
   padding: clamp(4.5rem, 8.5vw, 9.5rem) var(--page-gutter)
     clamp(3.5rem, 6vw, 6.25rem);
@@ -231,7 +428,7 @@ img {
 
 .region-card {
   background: var(--surface);
-  border: 1px solid rgba(8, 33, 42, 0.06);
+  border: 1px solid var(--card-border);
   border-radius: var(--radius-map);
   box-shadow: var(--shadow-sm);
   display: grid;
@@ -252,13 +449,13 @@ img {
 }
 
 .region-visual {
-  background: #178cab;
+  background: var(--map-fallback);
   overflow: hidden;
   position: relative;
 }
 
 .region-visual::after {
-  background: linear-gradient(90deg, transparent 58%, rgba(6, 28, 36, 0.16));
+  background: linear-gradient(90deg, transparent 58%, var(--map-shade));
   content: "";
   inset: 0;
   pointer-events: none;
@@ -280,10 +477,11 @@ img {
 .region-status {
   align-items: center;
   backdrop-filter: blur(10px);
-  background: rgba(255, 255, 255, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  background: var(--status-bg);
+  border: 1px solid var(--status-border);
   border-radius: 999px;
-  box-shadow: 0 5px 18px rgba(6, 28, 36, 0.16);
+  box-shadow: 0 5px 18px var(--status-shadow);
+  color: var(--status-ink);
   display: inline-flex;
   font-size: 0.67rem;
   font-weight: 750;
@@ -300,7 +498,7 @@ img {
 .region-status > span {
   background: var(--accent);
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(14, 146, 149, 0.15);
+  box-shadow: 0 0 0 4px var(--status-ring);
   height: 0.43rem;
   width: 0.43rem;
 }
@@ -337,9 +535,9 @@ img {
 
 .region-arrow {
   align-items: center;
-  background: var(--navy);
+  background: var(--arrow-bg);
   border-radius: 50%;
-  color: white;
+  color: var(--arrow-ink);
   display: flex;
   flex: 0 0 auto;
   font-size: 1.2rem;
@@ -353,7 +551,7 @@ img {
 }
 
 .region-card:hover .region-arrow {
-  background: var(--accent-dark);
+  background: var(--arrow-hover);
   transform: translate(2px, -2px);
 }
 
@@ -385,7 +583,7 @@ img {
 
 .future-note {
   align-items: center;
-  border: 1px dashed rgba(8, 33, 42, 0.2);
+  border: 1px dashed var(--future-border);
   border-radius: var(--radius-panel);
   color: var(--ink-soft);
   display: flex;
@@ -418,8 +616,8 @@ img {
 }
 
 .site-footer {
-  background: #03151b;
-  color: white;
+  background: var(--footer-bg);
+  color: var(--footer-ink);
   padding: 1.7rem var(--page-gutter);
 }
 
@@ -439,7 +637,7 @@ img {
 }
 
 .footer-inner p {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--footer-muted);
   font-size: 0.62rem;
   margin: 0;
   max-width: 42rem;
@@ -477,8 +675,24 @@ img {
 }
 
 @media (max-width: 620px) {
-  .masthead nav {
+  .primary-nav {
     display: none;
+  }
+
+  .masthead-inner {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.65rem;
+    padding-block: 0.72rem;
+  }
+
+  .masthead-actions,
+  .preference-controls {
+    width: 100%;
+  }
+
+  .preference-controls {
+    justify-content: space-between;
   }
 
   .hero {
@@ -522,12 +736,20 @@ img {
   }
 }
 
+@media (pointer: coarse) {
+  .segment label {
+    min-height: 2.75rem;
+    padding-inline: 0.65rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
   }
 
-  .masthead nav a::after,
+  .primary-nav a::after,
+  .segment label,
   .region-card,
   .region-visual img,
   .region-arrow {

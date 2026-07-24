@@ -1,31 +1,37 @@
 /* eslint-disable @next/next/no-img-element -- the regional relief is a fixed, locally generated map */
 
+import { homepageCopy } from "../content/copy";
 import { regions } from "../content/regions";
+import PreferenceControls from "./PreferenceControls";
+import { getPreferences } from "./preferences";
 
-export default function Home() {
+export default async function Home() {
+  const { language, theme } = await getPreferences();
+  const text = homepageCopy[language];
+
   return (
     <>
       <header className="masthead">
         <div className="masthead-inner">
-          <a className="brand" href="#top" aria-label="DiveTopo, accueil">
+          <a className="brand" href="#top" aria-label={text.homeLabel}>
             <span className="brand-mark" aria-hidden="true" />
             <span>DiveTopo</span>
           </a>
-          <nav aria-label="Navigation principale">
-            <a href="#regions">Régions</a>
-          </nav>
+          <div className="masthead-actions">
+            <nav className="primary-nav" aria-label={text.navigationLabel}>
+              <a href="#regions">{text.regionsNavigation}</a>
+            </nav>
+            <PreferenceControls language={language} theme={theme} />
+          </div>
         </div>
       </header>
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-inner">
-            <p className="eyebrow">Cartographies de sites de plongée</p>
-            <h1 id="hero-title">Le relief sous-marin, région par région.</h1>
-            <p className="hero-lead">
-              DiveTopo réunit des cartes de sites de plongée qui prolongent le
-              paysage sous la surface, du plan 2D au relief interactif.
-            </p>
+            <p className="eyebrow">{text.heroEyebrow}</p>
+            <h1 id="hero-title">{text.heroTitle}</h1>
+            <p className="hero-lead">{text.heroLead}</p>
           </div>
         </section>
 
@@ -37,54 +43,53 @@ export default function Home() {
           <div className="regions-inner">
             <div className="section-heading">
               <div>
-                <p className="eyebrow">Explorer</p>
-                <h2 id="regions-title">Choisissez une région</h2>
+                <p className="eyebrow">{text.exploreEyebrow}</p>
+                <h2 id="regions-title">{text.regionsTitle}</h2>
               </div>
-              <p>
-                Chaque région rassemble les cartes disponibles pour certains
-                sites de son territoire.
-              </p>
+              <p>{text.regionsLead}</p>
             </div>
 
             <div className="region-grid">
               {regions.map((region) => (
                 <a
+                  aria-label={`${text.exploreRegion} ${region.name[language]}`}
                   className="region-card"
                   data-testid={`region-${region.slug}`}
                   href={region.href}
                   key={region.slug}
-                  aria-label={`Explorer les cartes de ${region.name}`}
                 >
                   <div className="region-visual">
                     <img
                       src={region.image.src}
                       width={region.image.width}
                       height={region.image.height}
-                      alt={region.image.alt}
+                      alt={region.image.alt[language]}
                       fetchPriority="high"
                     />
                     <span className="region-status">
                       <span aria-hidden="true" />
-                      {region.status}
+                      {region.status[language]}
                     </span>
                   </div>
                   <div className="region-copy">
                     <div className="region-title-row">
                       <div>
-                        <p>{region.location}</p>
-                        <h3>{region.name}</h3>
+                        <p>{region.location[language]}</p>
+                        <h3>{region.name[language]}</h3>
                       </div>
                       <span className="region-arrow" aria-hidden="true">
                         ↗
                       </span>
                     </div>
-                    <p className="region-description">{region.description}</p>
+                    <p className="region-description">
+                      {region.description[language]}
+                    </p>
                     <ul
                       className="region-features"
-                      aria-label="Contenu disponible"
+                      aria-label={text.availableContent}
                     >
                       {region.features.map((feature) => (
-                        <li key={feature}>{feature}</li>
+                        <li key={feature.fr}>{feature[language]}</li>
                       ))}
                     </ul>
                   </div>
@@ -92,14 +97,12 @@ export default function Home() {
               ))}
             </div>
 
-            <aside className="future-note" aria-label="Évolution de DiveTopo">
+            <aside className="future-note" aria-label={text.futureLabel}>
               <span className="future-icon" aria-hidden="true">
                 +
               </span>
               <p>
-                <strong>Une page prête à accueillir d’autres régions.</strong>{" "}
-                Elles apparaîtront ici au fil des sites effectivement
-                cartographiés.
+                <strong>{text.futureStrong}</strong> {text.futureText}
               </p>
             </aside>
           </div>
@@ -112,10 +115,7 @@ export default function Home() {
             <span className="brand-mark" aria-hidden="true" />
             <span>DiveTopo</span>
           </a>
-          <p>
-            Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024)
-            GEBCO 2024 Grid.
-          </p>
+          <p>{text.footer}</p>
         </div>
       </footer>
     </>
