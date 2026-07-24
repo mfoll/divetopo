@@ -45,7 +45,8 @@ test("server-renders the finished atlas", async () => {
   assert.match(html, /3d-orthophoto-2474\.webp/);
   assert.match(html, /locator-640\.webp/);
   assert.match(html, /locator-1600\.webp/);
-  assert.match(html, /Agrandir la carte/);
+  assert.doesNotMatch(html, /Agrandir la carte/);
+  assert.doesNotMatch(html, /Repère\s*:/);
   assert.match(html, /Planche HD à imprimer/);
   assert.match(html, /Télécharger la planche HD/);
   assert.match(html, /Topographie/);

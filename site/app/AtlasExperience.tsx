@@ -536,9 +536,7 @@ export function AtlasExperience() {
                 height={activeSite.locator.height}
                 alt={`Localisation de ${activeSite.displayName} sur l’île de La Réunion.`}
               />
-              <span>Agrandir la carte</span>
             </button>
-            <p>Repère : {activeSite.displayName}</p>
           </aside>
         </div>
       </section>
