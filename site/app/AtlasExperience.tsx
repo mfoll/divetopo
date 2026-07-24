@@ -132,10 +132,26 @@ const DATA_SOURCES = [
 ] as const;
 
 const METHOD_STEPS = [
-  "Toutes les données sont reprojetées dans le même système de coordonnées : UTM 40S, EPSG:32740.",
-  "Le relief terrestre et les fonds marins sont assemblés en une surface continue le long du littoral.",
-  "Les isobathes sont générées tous les 5 m ; les vues 3D utilisent une exagération verticale d’environ ×4.",
-  "Plans 2D, vues 3D, reliefs interactifs et planches HD sont produits à partir des mêmes paramètres de site.",
+  {
+    title: "Sources et contrôle du cache",
+    description:
+      "Les MNT HYSCORES pour les fonds marins, le RGE ALTI pour la terre et l’orthophoto IGN à 20 cm sont découpés aux emprises de chaque site et alignés sur une grille commune WGS 84 / UTM 40S (EPSG:32740). Avant tout rendu, le pipeline contrôle leur source, leur emprise, leur résolution, leurs bandes, leur contenu et leur empreinte SHA-256.",
+  },
+  {
+    title: "Fusion terre-mer",
+    description:
+      "Les altitudes marines sont converties en profondeurs positives, puis bathymétrie et topographie sont fusionnées autour d’un trait de côte interpolé à 0 m, sans remplir artificiellement les zones sans données. Dans la variante orthophoto, l’image est recalée sur la grille bathymétrique, opaque jusqu’à −1,5 m puis fondue progressivement jusqu’à −2 m.",
+  },
+  {
+    title: "Plans et perspectives",
+    description:
+      "Les isobathes sont extraites et lissées tous les 5 m, jusqu’à −20 ou −30 m selon le site. Le plan 2D reste nord en haut sur l’emprise fine ; la perspective 3D utilise une emprise élargie, un azimut et un cadrage propres au site, une caméra placée depuis le large et une exagération verticale de ×4.",
+  },
+  {
+    title: "Relief et formats de sortie",
+    description:
+      "L’éclairage des reliefs 3D est calculé à partir de normales métriques, avec une lumière hémisphérique froide, une lumière directionnelle chaude et une exposition linéaire de 1,55. La surface fusionnée est aussi exportée pour le Web sous forme d’un champ d’altitude 16 bits, d’un masque de validité et de deux textures ; les planches HD assemblent ensuite la localisation insulaire, le plan 2D et la perspective 3D.",
+  },
 ] as const;
 
 function assetSrcSet(variants: AssetVariant[]) {
@@ -608,7 +624,10 @@ export function AtlasExperience() {
             </div>
             <ul>
               {METHOD_STEPS.map((step) => (
-                <li key={step}>{step}</li>
+                <li key={step.title}>
+                  <strong>{step.title}</strong>
+                  <span>{step.description}</span>
+                </li>
               ))}
             </ul>
           </div>

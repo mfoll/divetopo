@@ -943,7 +943,6 @@ img {
   letter-spacing: -0.055em;
   line-height: 0.98;
   margin: 0;
-  max-width: 11ch;
   text-wrap: balance;
 }
 
@@ -1057,9 +1056,21 @@ img {
 
 .method-panel li {
   color: rgba(255, 255, 255, 0.72);
+  display: grid;
   font-size: 0.78rem;
+  gap: 0.22rem;
   padding-left: 1.65rem;
   position: relative;
+}
+
+.method-panel li strong {
+  color: white;
+  font-size: 0.81rem;
+  font-weight: 720;
+}
+
+.method-panel li span {
+  display: block;
 }
 
 .method-panel li::before {
@@ -1264,10 +1275,6 @@ img {
   .sources-heading {
     align-items: start;
     grid-template-columns: 1fr;
-  }
-
-  .sources-heading h2 {
-    max-width: 13ch;
   }
 
   .method-panel {

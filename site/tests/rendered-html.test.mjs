@@ -60,9 +60,13 @@ test("server-renders the finished atlas", async () => {
   assert.match(html, /3D interactive/);
   assert.match(html, /Données, méthode et licences/);
   assert.match(html, /données bathymétriques/);
-  assert.match(html, /UTM 40S, EPSG:32740/);
+  assert.match(html, /WGS 84 \/ UTM 40S \(EPSG:32740\)/);
   assert.match(html, /Grille bathymétrique GEBCO 2024/);
   assert.match(html, /Méthode de production/);
+  assert.match(html, /empreinte SHA-256/);
+  assert.match(html, /opaque jusqu’à −1,5 m/);
+  assert.match(html, /normales métriques/);
+  assert.match(html, /champ d’altitude 16 bits/);
   assert.match(html, /https:\/\/github\.com\/mfoll\/reunion-topobathy/);
   assert.match(html, /GitHub \(nouvelle fenêtre\)/);
   assert.match(html, /Sélectionnez un site sur la carte\./);
