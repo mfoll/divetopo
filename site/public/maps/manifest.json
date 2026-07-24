@@ -1,11 +1,24 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "mapWidths": [
     960,
     1600,
     2474
   ],
   "planchePreviewWidth": 1800,
+  "reunionOverview": {
+    "src": "/reunion-overview.webp",
+    "width": 1000,
+    "height": 840,
+    "bytes": 166996,
+    "sha256": "efc70575468facf8a862da6882807a68c0b23b04a5ef2b5020725223ccb57c8d",
+    "boundsUtm40s": {
+      "minEasting": 305000.0,
+      "minNorthing": 7628000.0,
+      "maxEasting": 386000.0,
+      "maxNorthing": 7696000.0
+    }
+  },
   "westCoastLocator": {
     "src": "/west-coast-locator.webp",
     "width": 850,
@@ -580,9 +593,9 @@
     }
   ],
   "totals": {
-    "assetFiles": 49,
-    "webOptimizedBytes": 10651408,
+    "assetFiles": 50,
+    "webOptimizedBytes": 10818404,
     "downloadBytes": 38143982,
-    "totalBytes": 48795390
+    "totalBytes": 48962386
   }
 }

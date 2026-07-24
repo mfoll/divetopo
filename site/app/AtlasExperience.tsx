@@ -62,6 +62,7 @@ type AtlasAssetSite = {
 };
 
 type MapManifest = {
+  reunionOverview: AssetVariant;
   westCoastLocator: AssetVariant;
   sites: AtlasAssetSite[];
 };
@@ -268,9 +269,11 @@ const SITE_LABEL_LAYOUT = {
 function SitePicker({
   activeSlug,
   onSelect,
+  onOpenOverview,
 }: {
   activeSlug: string;
   onSelect: (slug: string) => void;
+  onOpenOverview: () => void;
 }) {
   return (
     <aside className="site-picker" aria-label="Choisir un site de plongée">
@@ -288,59 +291,77 @@ function SitePicker({
         </select>
       </label>
 
-      <div className="site-picker-map">
-        <img
-          src={mapManifest.westCoastLocator.src}
-          width={mapManifest.westCoastLocator.width}
-          height={mapManifest.westCoastLocator.height}
-          alt="Relief terrestre et sous-marin de la côte ouest de La Réunion, du Cap La Houssaye à Saint-Leu."
-        />
-        <div className="site-picker-range" aria-hidden="true">
-          <strong>Côte ouest</strong>
-          <span>Cap → Saint-Leu</span>
-        </div>
-        <div className="site-picker-north" aria-label="Nord">
-          <span aria-hidden="true">↑</span>
-          <strong>N</strong>
-        </div>
-
-        {mapManifest.sites.map((site, index) => {
-          const selected = activeSlug === site.slug;
-          const knownLayout =
-            SITE_LABEL_LAYOUT[
-              site.slug as keyof typeof SITE_LABEL_LAYOUT
-            ];
-          const layout = knownLayout ?? (index % 2 === 0 ? "right" : "left");
-          const style = {
-            "--site-x": `${site.westCoastLocatorPosition.xPercent}%`,
-            "--site-y": `${site.westCoastLocatorPosition.yPercent}%`,
-          } as CSSProperties;
-
-          return (
-            <button
-              key={site.slug}
-              type="button"
-              className={`site-map-marker label-${layout}`}
-              style={style}
-              aria-pressed={selected}
-              aria-label={`Afficher ${site.displayName}`}
-              onClick={() => onSelect(site.slug)}
-            >
-              <span className="site-map-marker-dot" aria-hidden="true" />
-              <span className="site-map-marker-line" aria-hidden="true" />
-              <span className="site-map-marker-label">
-                {site.displayName}
-              </span>
-            </button>
-          );
-        })}
-
-        <div
-          className="site-picker-scale"
-          aria-label="Échelle de cinq kilomètres"
+      <div className="site-picker-maps">
+        <button
+          type="button"
+          className="reunion-overview"
+          aria-label="Ouvrir la carte de La Réunion en grand"
+          onClick={onOpenOverview}
         >
-          <span aria-hidden="true" />
-          <strong>5 km</strong>
+          <div className="reunion-overview-map">
+            <img
+              src={mapManifest.reunionOverview.src}
+              width={mapManifest.reunionOverview.width}
+              height={mapManifest.reunionOverview.height}
+              alt="Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest détaillée ci-dessous."
+            />
+            <span className="reunion-overview-extent" aria-hidden="true" />
+          </div>
+        </button>
+
+        <div className="site-picker-map">
+          <img
+            src={mapManifest.westCoastLocator.src}
+            width={mapManifest.westCoastLocator.width}
+            height={mapManifest.westCoastLocator.height}
+            alt="Relief terrestre et sous-marin de la côte ouest de La Réunion, du Cap La Houssaye à Saint-Leu."
+          />
+          <div className="site-picker-range" aria-hidden="true">
+            <strong>Côte ouest</strong>
+          </div>
+          <div className="site-picker-north" aria-label="Nord">
+            <span aria-hidden="true">↑</span>
+            <strong>N</strong>
+          </div>
+
+          {mapManifest.sites.map((site, index) => {
+            const selected = activeSlug === site.slug;
+            const knownLayout =
+              SITE_LABEL_LAYOUT[
+                site.slug as keyof typeof SITE_LABEL_LAYOUT
+              ];
+            const layout = knownLayout ?? (index % 2 === 0 ? "right" : "left");
+            const style = {
+              "--site-x": `${site.westCoastLocatorPosition.xPercent}%`,
+              "--site-y": `${site.westCoastLocatorPosition.yPercent}%`,
+            } as CSSProperties;
+
+            return (
+              <button
+                key={site.slug}
+                type="button"
+                className={`site-map-marker label-${layout}`}
+                style={style}
+                aria-pressed={selected}
+                aria-label={`Afficher ${site.displayName}`}
+                onClick={() => onSelect(site.slug)}
+              >
+                <span className="site-map-marker-dot" aria-hidden="true" />
+                <span className="site-map-marker-line" aria-hidden="true" />
+                <span className="site-map-marker-label">
+                  {site.displayName}
+                </span>
+              </button>
+            );
+          })}
+
+          <div
+            className="site-picker-scale"
+            aria-label="Échelle de cinq kilomètres"
+          >
+            <span aria-hidden="true" />
+            <strong>5 km</strong>
+          </div>
         </div>
       </div>
     </aside>
@@ -353,6 +374,7 @@ export function AtlasExperience() {
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
   const dialogRef = useRef<HTMLDialogElement>(null);
+  const overviewDialogRef = useRef<HTMLDialogElement>(null);
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
@@ -367,6 +389,14 @@ export function AtlasExperience() {
 
   function closeOnBackdrop(event: React.MouseEvent<HTMLDialogElement>) {
     if (event.target === dialogRef.current) dialogRef.current.close();
+  }
+
+  function closeOverviewOnBackdrop(
+    event: React.MouseEvent<HTMLDialogElement>,
+  ) {
+    if (event.target === overviewDialogRef.current) {
+      overviewDialogRef.current.close();
+    }
   }
 
   const mapAlt =
@@ -402,40 +432,46 @@ export function AtlasExperience() {
         </div>
 
         <div className="atlas-workspace">
-          <SitePicker activeSlug={activeSlug} onSelect={setActiveSlug} />
+          <SitePicker
+            activeSlug={activeSlug}
+            onSelect={setActiveSlug}
+            onOpenOverview={() => overviewDialogRef.current?.showModal()}
+          />
 
           <article
             className="atlas-main"
             id="atlas-panel"
             aria-labelledby={`active-site-title-${activeSite.slug}`}
           >
-            <div className="viewer-toolbar">
-              <ViewToggle value={viewMode} onChange={setViewMode} />
-              <SurfaceToggle
-                value={surfaceStyle}
-                onChange={setSurfaceStyle}
-              />
-            </div>
+            <div className="viewer-head">
+              <header className="active-site-heading">
+                <div>
+                  <h2 id={`active-site-title-${activeSite.slug}`}>
+                    {activeSite.displayName}
+                  </h2>
+                  <p>
+                    <span>{activeSite.location.city}, La Réunion</span>
+                    <span aria-hidden="true">·</span>
+                    <span>{gpsLabel(activeSite.location)}</span>
+                  </p>
+                </div>
+                <a
+                  href={googleMapsUrl(activeSite.location)}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Voir le site sur Google Maps
+                </a>
+              </header>
 
-            <header className="active-site-heading">
-              <div>
-                <h2 id={`active-site-title-${activeSite.slug}`}>
-                  {activeSite.displayName}
-                </h2>
-                <p>
-                  <span>{activeSite.location.city}, La Réunion</span>
-                  <span aria-hidden="true">·</span>
-                  <span>{gpsLabel(activeSite.location)}</span>
-                </p>
+              <div className="viewer-toolbar">
+                <ViewToggle value={viewMode} onChange={setViewMode} />
+                <SurfaceToggle
+                  value={surfaceStyle}
+                  onChange={setSurfaceStyle}
+                />
               </div>
-              <a
-                href={googleMapsUrl(activeSite.location)}
-                target="_blank"
-                rel="noreferrer"
-              >
-                Voir le site sur Google Maps
-              </a>
-            </header>
+            </div>
 
             <div
               className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
@@ -640,6 +676,30 @@ export function AtlasExperience() {
           height={mapLargest.height}
           alt={mapAlt}
         />
+      </dialog>
+
+      <dialog
+        className="map-dialog overview-dialog"
+        ref={overviewDialogRef}
+        onClick={closeOverviewOnBackdrop}
+        aria-label="Carte de La Réunion en grand"
+      >
+        <button
+          type="button"
+          className="dialog-close"
+          onClick={() => overviewDialogRef.current?.close()}
+        >
+          Fermer
+        </button>
+        <div className="overview-dialog-map">
+          <img
+            src={mapManifest.reunionOverview.src}
+            width={mapManifest.reunionOverview.width}
+            height={mapManifest.reunionOverview.height}
+            alt="Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest couverte par la carte de sélection des sites."
+          />
+          <span className="reunion-overview-extent" aria-hidden="true" />
+        </div>
       </dialog>
 
     </main>

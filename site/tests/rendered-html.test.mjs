@@ -43,9 +43,11 @@ test("server-renders the finished atlas", async () => {
   assert.match(html, /Voir le site sur Google Maps/);
   assert.match(html, /google\.com\/maps\/search/);
   assert.match(html, /3d-orthophoto-2474\.webp/);
+  assert.match(html, /reunion-overview\.webp/);
   assert.match(html, /west-coast-locator\.webp/);
+  assert.match(html, /Ouvrir la carte de La Réunion en grand/);
   assert.match(html, /Côte ouest/);
-  assert.match(html, /Cap → Saint-Leu/);
+  assert.doesNotMatch(html, /Cap → Saint-Leu/);
   assert.doesNotMatch(html, /Sur l’île/);
   assert.doesNotMatch(html, /locator-640\.webp/);
   assert.doesNotMatch(html, /locator-1600\.webp/);
@@ -84,8 +86,11 @@ test("map manifest supports adding future sites without component changes", asyn
     ),
   );
 
-  assert.equal(manifest.schemaVersion, 4);
+  assert.equal(manifest.schemaVersion, 5);
   assert.ok(manifest.sites.length >= 3);
+  assert.equal(manifest.reunionOverview.src, "/reunion-overview.webp");
+  assert.equal(manifest.reunionOverview.width, 1000);
+  assert.equal(manifest.reunionOverview.height, 840);
   assert.equal(manifest.westCoastLocator.src, "/west-coast-locator.webp");
   assert.equal(manifest.westCoastLocator.width, 850);
   assert.equal(manifest.westCoastLocator.height, 1300);
@@ -146,7 +151,10 @@ test("removes disposable starter artifacts", async () => {
 });
 
 test("includes the shared west-coast site selector map", async () => {
-  await access(new URL("../public/west-coast-locator.webp", import.meta.url));
+  await Promise.all([
+    access(new URL("../public/reunion-overview.webp", import.meta.url)),
+    access(new URL("../public/west-coast-locator.webp", import.meta.url)),
+  ]);
 });
 
 test("interactive terrain matches the static linear-light exposure", async () => {

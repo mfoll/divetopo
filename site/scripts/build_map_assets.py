@@ -30,6 +30,13 @@ OUTPUT_ROOT = PUBLIC_ROOT / "maps"
 MAP_WIDTHS = (960, 1600, 2474)
 PLANCHE_PREVIEW_WIDTH = 1800
 WEST_COAST_LOCATOR_PATH = PUBLIC_ROOT / "west-coast-locator.webp"
+REUNION_OVERVIEW_PATH = PUBLIC_ROOT / "reunion-overview.webp"
+REUNION_OVERVIEW_BOUNDS_UTM40S = {
+    "minEasting": 305_000.0,
+    "minNorthing": 7_628_000.0,
+    "maxEasting": 386_000.0,
+    "maxNorthing": 7_696_000.0,
+}
 WEST_COAST_LOCATOR_BOUNDS_UTM40S = {
     "minEasting": 309_000.0,
     "minNorthing": 7_652_000.0,
@@ -182,6 +189,23 @@ def west_coast_locator_record() -> dict[str, Any]:
     }
 
 
+def reunion_overview_record() -> dict[str, Any]:
+    if not REUNION_OVERVIEW_PATH.is_file():
+        raise FileNotFoundError(
+            f"Reunion overview missing: {REUNION_OVERVIEW_PATH}"
+        )
+    with Image.open(REUNION_OVERVIEW_PATH) as image:
+        width, height = image.size
+    return {
+        "src": "/reunion-overview.webp",
+        "width": width,
+        "height": height,
+        "bytes": REUNION_OVERVIEW_PATH.stat().st_size,
+        "sha256": sha256(REUNION_OVERVIEW_PATH),
+        "boundsUtm40s": REUNION_OVERVIEW_BOUNDS_UTM40S,
+    }
+
+
 def load_site_details() -> dict[str, dict[str, str]]:
     with SITE_DETAILS_PATH.open(encoding="utf-8") as stream:
         details = json.load(stream)
@@ -320,9 +344,12 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
 
 
 def manifest_totals(manifest: dict[str, Any]) -> dict[str, int]:
-    web_bytes = manifest["westCoastLocator"]["bytes"]
+    web_bytes = (
+        manifest["reunionOverview"]["bytes"]
+        + manifest["westCoastLocator"]["bytes"]
+    )
     download_bytes = 0
-    asset_files = 1
+    asset_files = 2
 
     for site in manifest["sites"]:
         for map_item in site["maps"]:
@@ -364,9 +391,10 @@ def main() -> None:
         build_root.mkdir()
 
         manifest: dict[str, Any] = {
-            "schemaVersion": 4,
+            "schemaVersion": 5,
             "mapWidths": list(MAP_WIDTHS),
             "planchePreviewWidth": PLANCHE_PREVIEW_WIDTH,
+            "reunionOverview": reunion_overview_record(),
             "westCoastLocator": west_coast_locator_record(),
             "sites": [build_site(config, build_root) for config in configs],
         }
