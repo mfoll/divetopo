@@ -1,6 +1,7 @@
-# Plans des sites de plongée à La Réunion
+# Topo Réunion
 
-Site de partage des plans topo-bathymétriques de sites de plongée à La Réunion.
+Site de partage d’une sélection non exhaustive de plans topo-bathymétriques de
+sites de plongée à La Réunion.
 Un visualiseur unique réunit les plans 2D, les perspectives 3D et les reliefs
 interactifs. Il s’ouvre sur la perspective 3D avec orthophoto ; le choix du fond
 ne duplique ni la carte affichée ni la géométrie interactive.

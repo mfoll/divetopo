@@ -42,10 +42,12 @@ test("server-renders the French homepage with Auto theme by default", async () =
     /<meta name="viewport" content="width=device-width, initial-scale=1"/,
   );
   assert.match(html, /Le relief sous-marin, région par région\./);
-  assert.match(html, /La Réunion/);
+  assert.match(html, /Topo Réunion/);
+  assert.match(html, /Sélection de cartes/);
+  assert.match(html, /sélection non exhaustive de sept sites/);
   assert.match(html, /src="\/reunion-overview\.webp"/);
   assert.match(html, /href="https:\/\/reunion\.divetopo\.com"/);
-  assert.match(html, /aria-label="Explorer les cartes de La Réunion"/);
+  assert.match(html, /aria-label="Explorer Topo Réunion"/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
   assert.match(
     html,
@@ -79,8 +81,10 @@ test("uses the browser language for the English version", async () => {
     /name="twitter:image:alt" content="DiveTopo, dive site maps"/,
   );
   assert.match(html, /Underwater terrain, region by region\./);
-  assert.match(html, /Réunion Island/);
-  assert.match(html, /aria-label="Explore maps of Réunion Island"/);
+  assert.match(html, /Topo Réunion/);
+  assert.match(html, /Map selection/);
+  assert.match(html, /non-exhaustive selection of seven sites/);
+  assert.match(html, /aria-label="Explore Topo Réunion"/);
   assert.match(html, /Ready for more regions\./);
   assert.match(
     html,
@@ -145,7 +149,7 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(regionsSource, /export const regions/);
   assert.match(regionsSource, /https:\/\/reunion\.divetopo\.com/);
   assert.match(regionsSource, /reunion-overview\.webp/);
-  assert.match(regionsSource, /en:\s*"Réunion Island"/);
+  assert.match(regionsSource, /en:\s*"Topo Réunion"/);
   assert.match(stylesheet, /:root\[data-theme="dark"\]/);
   assert.match(
     stylesheet,

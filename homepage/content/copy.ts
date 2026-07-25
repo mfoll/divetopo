@@ -14,7 +14,7 @@ export const homepageCopy = {
     regionsTitle: "Choisissez une région",
     regionsLead:
       "Chaque région rassemble les cartes disponibles pour certains sites de son territoire.",
-    exploreRegion: "Explorer les cartes de",
+    exploreRegion: "Explorer",
     availableContent: "Contenu disponible",
     futureLabel: "Évolution de DiveTopo",
     futureStrong: "Une page prête à accueillir d’autres régions.",
@@ -47,7 +47,7 @@ export const homepageCopy = {
     regionsTitle: "Choose a region",
     regionsLead:
       "Each region brings together the available maps for selected dive sites.",
-    exploreRegion: "Explore maps of",
+    exploreRegion: "Explore",
     availableContent: "Available content",
     futureLabel: "What’s next for DiveTopo",
     futureStrong: "Ready for more regions.",

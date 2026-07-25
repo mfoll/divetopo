@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { atlasCopy } from "../content/copy";
+import { topoReunionCopy } from "../content/copy";
 import type { Language } from "../content/preferences";
 import {
   bathymetryColorCss,
@@ -753,7 +753,7 @@ export default function TerrainViewer({
   }
 
   const isobathLevels = visibleIsobathLevels(maximumDepthM);
-  const text = atlasCopy[language].terrain;
+  const text = topoReunionCopy[language].terrain;
 
   return (
     <div

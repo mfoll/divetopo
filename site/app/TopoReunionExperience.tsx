@@ -10,7 +10,7 @@ import {
   useState,
   type CSSProperties,
 } from "react";
-import { atlasCopy } from "../content/copy";
+import { topoReunionCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
 import mapManifestJson from "../public/maps/manifest.json";
 import PreferenceControls from "./PreferenceControls";
@@ -50,7 +50,7 @@ type WestCoastLocatorPosition = {
   yPercent: number;
 };
 
-type AtlasAssetSite = {
+type TopoReunionAssetSite = {
   slug: string;
   displayName: string;
   plateTitle: string;
@@ -70,7 +70,7 @@ type AtlasAssetSite = {
 type MapManifest = {
   reunionOverview: AssetVariant;
   westCoastLocator: AssetVariant;
-  sites: AtlasAssetSite[];
+  sites: TopoReunionAssetSite[];
 };
 
 const TerrainViewer = lazy(() => import("./TerrainViewer"));
@@ -78,7 +78,7 @@ const mapManifest = mapManifestJson as MapManifest;
 const initialSite = mapManifest.sites[0];
 
 if (!initialSite) {
-  throw new Error("The dive atlas requires at least one site");
+  throw new Error("Topo Réunion requires at least one site");
 }
 
 function assetSrcSet(variants: AssetVariant[]) {
@@ -86,7 +86,7 @@ function assetSrcSet(variants: AssetVariant[]) {
 }
 
 function selectedMap(
-  site: AtlasAssetSite,
+  site: TopoReunionAssetSite,
   view: MapView,
   style: SurfaceStyle,
 ) {
@@ -97,7 +97,7 @@ function selectedMap(
   return asset;
 }
 
-function selectedPlanche(site: AtlasAssetSite, style: SurfaceStyle) {
+function selectedPlanche(site: TopoReunionAssetSite, style: SurfaceStyle) {
   const asset = site.planches.find(
     (candidate) => candidate.style === style,
   );
@@ -139,7 +139,7 @@ function SurfaceToggle({
   onChange: (style: SurfaceStyle) => void;
   language: Language;
 }) {
-  const text = atlasCopy[language];
+  const text = topoReunionCopy[language];
 
   return (
     <fieldset className="segmented-control surface-control">
@@ -171,7 +171,7 @@ function ViewToggle({
   onChange: (view: ViewMode) => void;
   language: Language;
 }) {
-  const text = atlasCopy[language].views;
+  const text = topoReunionCopy[language].views;
 
   return (
     <fieldset className="segmented-control view-control">
@@ -222,7 +222,7 @@ function SitePicker({
   onOpenOverview: () => void;
   language: Language;
 }) {
-  const text = atlasCopy[language].picker;
+  const text = topoReunionCopy[language].picker;
 
   return (
     <aside className="site-picker" aria-label={text.chooseDiveSite}>
@@ -325,7 +325,7 @@ function SitePicker({
   );
 }
 
-export function AtlasExperience({
+export function TopoReunionExperience({
   language: initialLanguage,
   theme,
 }: {
@@ -337,17 +337,17 @@ export function AtlasExperience({
   const [surfaceStyle, setSurfaceStyle] =
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
-  const text = atlasCopy[language];
+  const text = topoReunionCopy[language];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const overviewDialogRef = useRef<HTMLDialogElement>(null);
 
   useEffect(() => {
     document.documentElement.lang = language;
-    document.title = text.atlasTitle;
+    document.title = text.topoReunionTitle;
     document
       .querySelector('meta[name="description"]')
       ?.setAttribute("content", text.metadataDescription);
-  }, [language, text.atlasTitle, text.metadataDescription]);
+  }, [language, text.topoReunionTitle, text.metadataDescription]);
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
@@ -400,7 +400,7 @@ export function AtlasExperience({
           </a>
           <div className="masthead-actions">
             <nav aria-label={text.header.navigationLabel}>
-              <a href="#atlas">{text.header.explore}</a>
+              <a href="#topo-reunion">{text.header.explore}</a>
               <a href="#sources">{text.header.methodSources}</a>
               <a
                 className="external-link"
@@ -424,15 +424,16 @@ export function AtlasExperience({
 
       <main>
         <section
-          className="atlas-section"
-          id="atlas"
-          aria-labelledby="atlas-title"
+          className="topo-reunion-section"
+          id="topo-reunion"
+          aria-labelledby="topo-reunion-title"
         >
-          <div className="atlas-intro">
-            <h1 id="atlas-title">{text.atlasTitle}</h1>
+          <div className="topo-reunion-intro">
+            <h1 id="topo-reunion-title">{text.topoReunionTitle}</h1>
+            <p>{text.topoReunionLead}</p>
           </div>
 
-        <div className="atlas-workspace">
+        <div className="topo-reunion-workspace">
           <SitePicker
             activeSlug={activeSlug}
             onSelect={setActiveSlug}
@@ -441,8 +442,8 @@ export function AtlasExperience({
           />
 
           <article
-            className="atlas-main"
-            id="atlas-panel"
+            className="topo-reunion-main"
+            id="topo-reunion-panel"
             aria-labelledby={`active-site-title-${activeSite.slug}`}
           >
             <div className="viewer-head">
@@ -484,7 +485,7 @@ export function AtlasExperience({
 
             <div
               className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
-              data-testid="atlas-viewer"
+              data-testid="topo-reunion-viewer"
             >
               {viewMode === "interactive" ? (
                 <Suspense

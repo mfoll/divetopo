@@ -2,8 +2,8 @@ export const regions = [
   {
     slug: "la-reunion",
     name: {
-      fr: "La Réunion",
-      en: "Réunion Island",
+      fr: "Topo Réunion",
+      en: "Topo Réunion",
     },
     location: {
       fr: "Océan Indien",
@@ -11,12 +11,12 @@ export const regions = [
     },
     href: "https://reunion.divetopo.com",
     status: {
-      fr: "Cartes disponibles",
-      en: "Maps available",
+      fr: "Sélection de cartes",
+      en: "Map selection",
     },
     description: {
-      fr: "Explorez sept sites de la côte ouest à travers leurs plans, perspectives et reliefs interactifs.",
-      en: "Explore seven sites along the west coast through 2D maps, 3D views and interactive terrain.",
+      fr: "Explorez une sélection non exhaustive de sept sites de la côte ouest à travers leurs plans, perspectives et reliefs interactifs.",
+      en: "Explore a non-exhaustive selection of seven sites along the west coast through 2D maps, 3D views and interactive terrain.",
     },
     features: [
       { fr: "7 sites", en: "7 sites" },

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { flushSync } from "react-dom";
-import { atlasCopy } from "../content/copy";
+import { topoReunionCopy } from "../content/copy";
 import {
   LANGUAGE_COOKIE,
   THEME_COOKIE,
@@ -109,7 +109,7 @@ export default function PreferenceControls({
   onLanguageChange: (language: Language) => void;
 }) {
   const [selectedTheme, setSelectedTheme] = useState(theme);
-  const labels = atlasCopy[language].preferences;
+  const labels = topoReunionCopy[language].preferences;
 
   useEffect(() => {
     if (!sharedCookieDomain()) {
@@ -186,13 +186,13 @@ export default function PreferenceControls({
               checked={selectedTheme === option}
               className="preference-segment-input"
               data-testid={`theme-${option}`}
-              id={`atlas-theme-${option}`}
+              id={`topo-theme-${option}`}
               name="theme"
               onChange={() => chooseTheme(option)}
               type="radio"
               value={option}
             />
-            <label htmlFor={`atlas-theme-${option}`} title={labels[option]}>
+            <label htmlFor={`topo-theme-${option}`} title={labels[option]}>
               <ThemeIcon theme={option} />
             </label>
           </span>

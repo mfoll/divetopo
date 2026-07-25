@@ -64,7 +64,7 @@ La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` ve
 |---|---|
 | ![Planche orthophoto de la Passe de l'Hermitage](outputs/passe-hermitage-planche.jpg) | ![Planche topographique de la Passe de l'Hermitage](outputs/passe-hermitage-planche-topographique.jpg) |
 
-## Reliefs interactifs et atlas web
+## Reliefs interactifs et Topo Réunion
 
 Les reliefs 3D interactifs appartiennent au pipeline cartographique. Ils sont
 generes sous `outputs/interactive-terrain/`, independamment du site :

@@ -24,12 +24,12 @@
     BlinkMacSystemFont, "Segoe UI", sans-serif;
   --page-gutter: clamp(1rem, 3.1vw, 3.25rem);
   --content-width: 106rem;
-  --atlas-head-height: 8.25rem;
-  --atlas-row-gap: 1rem;
+  --topo-head-height: 8.25rem;
+  --topo-row-gap: 1rem;
   --masthead-bg: rgba(255, 255, 255, 0.92);
   --masthead-border: rgba(8, 33, 42, 0.08);
   --brand-shadow: rgba(6, 28, 36, 0.16);
-  --atlas-glow: rgba(14, 146, 149, 0.1);
+  --topo-glow: rgba(14, 146, 149, 0.1);
   --accent-contrast: #ffffff;
   --viewer-control-selected-bg: #061c24;
   --viewer-control-selected-ink: #ffffff;
@@ -69,7 +69,7 @@
   --masthead-bg: rgba(7, 27, 34, 0.93);
   --masthead-border: rgba(242, 247, 246, 0.1);
   --brand-shadow: rgba(0, 0, 0, 0.35);
-  --atlas-glow: rgba(66, 199, 194, 0.12);
+  --topo-glow: rgba(66, 199, 194, 0.12);
   --accent-contrast: #071b22;
   --viewer-control-selected-bg: #f2f7f6;
   --viewer-control-selected-ink: #071b22;
@@ -107,7 +107,7 @@
     --masthead-bg: rgba(7, 27, 34, 0.93);
     --masthead-border: rgba(242, 247, 246, 0.1);
     --brand-shadow: rgba(0, 0, 0, 0.35);
-    --atlas-glow: rgba(66, 199, 194, 0.12);
+    --topo-glow: rgba(66, 199, 194, 0.12);
     --accent-contrast: #071b22;
     --viewer-control-selected-bg: #f2f7f6;
     --viewer-control-selected-ink: #071b22;
@@ -370,26 +370,26 @@ img {
   width: 1px;
 }
 
-.atlas-section {
+.topo-reunion-section {
   background:
-    radial-gradient(circle at 82% 4%, var(--atlas-glow), transparent 26rem),
+    radial-gradient(circle at 82% 4%, var(--topo-glow), transparent 26rem),
     var(--bg);
   padding: clamp(2.75rem, 5vw, 5.25rem) var(--page-gutter)
     clamp(4rem, 7vw, 7.5rem);
 }
 
-.atlas-intro,
-.atlas-workspace,
+.topo-reunion-intro,
+.topo-reunion-workspace,
 .sources-inner {
   margin-inline: auto;
   max-width: var(--content-width);
 }
 
-.atlas-intro {
+.topo-reunion-intro {
   margin-bottom: clamp(2rem, 3vw, 3rem);
 }
 
-.atlas-intro h1 {
+.topo-reunion-intro h1 {
   font-size: clamp(2.8rem, 4.85vw, 5.4rem);
   font-weight: 680;
   letter-spacing: -0.055em;
@@ -399,7 +399,14 @@ img {
   text-wrap: balance;
 }
 
-.atlas-workspace {
+.topo-reunion-intro p {
+  color: var(--muted);
+  font-size: clamp(1rem, 1.4vw, 1.2rem);
+  line-height: 1.55;
+  margin: 0.9rem 0 0;
+}
+
+.topo-reunion-workspace {
   align-items: start;
   display: grid;
   gap: clamp(1rem, 1.7vw, 1.65rem);
@@ -410,7 +417,7 @@ img {
 }
 
 .site-picker,
-.atlas-main {
+.topo-reunion-main {
   align-self: start;
   min-width: 0;
 }
@@ -421,8 +428,8 @@ img {
 
 .site-picker-maps {
   display: grid;
-  gap: var(--atlas-row-gap);
-  grid-template-rows: var(--atlas-head-height) auto auto;
+  gap: var(--topo-row-gap);
+  grid-template-rows: var(--topo-head-height) auto auto;
 }
 
 .site-picker-heading {
@@ -770,15 +777,15 @@ img {
   letter-spacing: 0.06em;
 }
 
-.atlas-main {
+.topo-reunion-main {
   display: grid;
   gap: 0;
 }
 
 .viewer-head {
   display: grid;
-  height: var(--atlas-head-height);
-  margin-bottom: var(--atlas-row-gap);
+  height: var(--topo-head-height);
+  margin-bottom: var(--topo-row-gap);
   align-content: space-between;
 }
 
@@ -1288,7 +1295,7 @@ img {
   display: grid;
   gap: 1rem;
   grid-template-columns: 7rem minmax(0, 1fr) auto;
-  margin-top: var(--atlas-row-gap);
+  margin-top: var(--topo-row-gap);
   padding: 0.78rem;
 }
 
@@ -1599,7 +1606,7 @@ img {
 }
 
 @media (max-width: 1120px) {
-  .atlas-workspace {
+  .topo-reunion-workspace {
     grid-template-columns:
       clamp(15rem, 24vw, 17rem)
       minmax(0, 1fr);
@@ -1615,7 +1622,7 @@ img {
     display: none;
   }
 
-  .atlas-workspace {
+  .topo-reunion-workspace {
     grid-template-columns: 1fr;
   }
 
@@ -1656,7 +1663,7 @@ img {
 
   .viewer-head {
     height: auto;
-    margin-bottom: var(--atlas-row-gap);
+    margin-bottom: var(--topo-row-gap);
   }
 
   .active-site-heading {
@@ -1669,16 +1676,16 @@ img {
     display: none;
   }
 
-  .atlas-section {
+  .topo-reunion-section {
     padding-top: 2.5rem;
   }
 
-  .atlas-intro h1 {
+  .topo-reunion-intro h1 {
     font-size: clamp(2.45rem, 10vw, 4rem);
     max-width: 15ch;
   }
 
-  .atlas-workspace {
+  .topo-reunion-workspace {
     grid-template-columns: 1fr;
   }
 
@@ -1733,11 +1740,11 @@ img {
     width: 1.55rem;
   }
 
-  .atlas-section {
+  .topo-reunion-section {
     padding-inline: 0.75rem;
   }
 
-  .atlas-intro {
+  .topo-reunion-intro {
     padding-inline: 0.25rem;
   }
 

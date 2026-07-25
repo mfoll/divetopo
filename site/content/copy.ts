@@ -31,7 +31,7 @@ const sourceLinks = {
   ],
 } as const;
 
-export const atlasCopy = {
+export const topoReunionCopy = {
   fr: {
     header: {
       homeLabel: "DiveTopo, revenir au site principal",
@@ -50,9 +50,11 @@ export const atlasCopy = {
       dark: "Utiliser le thème sombre",
       auto: "Utiliser le thème du système",
     },
-    atlasTitle: "Plans des sites de plongée à La Réunion",
+    topoReunionTitle: "Topo Réunion",
+    topoReunionLead:
+      "Une sélection non exhaustive de sites de plongée de la côte ouest.",
     metadataDescription:
-      "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
+      "Sélection non exhaustive de plans topo-bathymétriques 2D, de perspectives 3D et de reliefs interactifs de sites de plongée à La Réunion.",
     islandName: "La Réunion",
     surfaces: {
       orthophoto: {
@@ -219,9 +221,11 @@ export const atlasCopy = {
       dark: "Use dark theme",
       auto: "Use system theme",
     },
-    atlasTitle: "Dive site maps of Réunion Island",
+    topoReunionTitle: "Topo Réunion",
+    topoReunionLead:
+      "A non-exhaustive selection of dive sites along the west coast.",
     metadataDescription:
-      "Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
+      "A non-exhaustive selection of 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
     islandName: "Réunion Island",
     surfaces: {
       orthophoto: {
