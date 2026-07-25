@@ -636,6 +636,36 @@ test("portrait fullscreen stays inside the validated camera frustum", () => {
   }
 });
 
+test("interactive terrain synchronizes its canvas box and backing store", async () => {
+  const [terrainViewer, styles] = await Promise.all([
+    readFile(new URL("../app/TerrainViewer.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(terrainViewer, /new ResizeObserver/);
+  assert.match(
+    terrainViewer,
+    /currentRenderer\.setSize\(widthPx, heightPx, true\)/,
+  );
+  assert.match(
+    terrainViewer,
+    /if \(\s*!pixelRatioChanged &&\s*widthPx === lastWidth &&\s*heightPx === lastHeight\s*\)/s,
+  );
+  assert.match(terrainViewer, /resizeObserver\.observe\(mount\);\s*resize\(\)/s);
+  assert.doesNotMatch(terrainViewer, /resizeTerrainRef/);
+  assert.doesNotMatch(terrainViewer, /fullscreenRecoveryFrameRef/);
+  assert.doesNotMatch(terrainViewer, /scheduleViewportRecovery/);
+  assert.doesNotMatch(terrainViewer, /\[120, 350, 750\]/);
+  assert.doesNotMatch(
+    terrainViewer,
+    /currentRenderer\.setSize\(widthPx - 1/,
+  );
+  assert.doesNotMatch(
+    styles,
+    /\.terrain-host canvas\s*\{[^}]*(?:height|width):\s*100%/s,
+  );
+});
+
 test("interactive terrain provides an iOS-safe fullscreen fallback", async () => {
   const [terrainViewer, styles] = await Promise.all([
     readFile(new URL("../app/TerrainViewer.tsx", import.meta.url), "utf8"),
@@ -653,31 +683,6 @@ test("interactive terrain provides an iOS-safe fullscreen fallback", async () =>
     /classList\.remove\("has-css-fullscreen"\)/,
   );
   assert.doesNotMatch(terrainViewer, /window\.scrollTo\(scrollX, scrollY\)/);
-  assert.match(terrainViewer, /fullscreenRecoveryFrameRef/);
-  assert.match(
-    terrainViewer,
-    /cancelAnimationFrame\(fullscreenRecoveryFrameRef\.current\)/,
-  );
-  assert.match(terrainViewer, /resizeTerrainRef\.current\?\.\(true\)/);
-  assert.match(
-    terrainViewer,
-    /window\.addEventListener\("orientationchange", scheduleViewportRecovery\)/,
-  );
-  assert.match(
-    terrainViewer,
-    /window\.visualViewport\?\.addEventListener\(\s*"resize",\s*scheduleViewportRecovery/s,
-  );
-  assert.match(
-    terrainViewer,
-    /window\.addEventListener\("pageshow", scheduleViewportRecovery\)/,
-  );
-  assert.match(terrainViewer, /for \(const delayMs of \[120, 350, 750\]\)/);
-  assert.match(terrainViewer, /const resize = \(force = false\)/);
-  assert.match(terrainViewer, /if \(!force && dimensionsAreUnchanged\) return/);
-  assert.match(
-    terrainViewer,
-    /currentRenderer\.setSize\(widthPx - 1, heightPx, false\)/,
-  );
   assert.match(terrainViewer, /force-css-fullscreen/);
   assert.match(terrainViewer, /event\.key === "Escape"/);
   assert.match(terrainViewer, /aria-pressed=\{isFullscreen\}/);

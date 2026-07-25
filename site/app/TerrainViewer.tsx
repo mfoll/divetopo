@@ -267,8 +267,6 @@ export default function TerrainViewer({
     target: THREE.Vector3;
     zoom: number;
   } | null>(null);
-  const resizeTerrainRef = useRef<((force?: boolean) => void) | null>(null);
-  const fullscreenRecoveryFrameRef = useRef(0);
   const compassDialRef = useRef<HTMLDivElement>(null);
   const isobathsEnabledUniformRef = useRef<NumberUniform>({ value: 1 });
   const styleRef = useRef(style);
@@ -292,10 +290,6 @@ export default function TerrainViewer({
     document.addEventListener("fullscreenchange", syncFullscreenState);
     return () => {
       document.removeEventListener("fullscreenchange", syncFullscreenState);
-      if (fullscreenRecoveryFrameRef.current) {
-        cancelAnimationFrame(fullscreenRecoveryFrameRef.current);
-        fullscreenRecoveryFrameRef.current = 0;
-      }
     };
   }, []);
 
@@ -316,10 +310,6 @@ export default function TerrainViewer({
       overscrollBehavior: root.style.overscrollBehavior,
     };
 
-    if (fullscreenRecoveryFrameRef.current) {
-      cancelAnimationFrame(fullscreenRecoveryFrameRef.current);
-      fullscreenRecoveryFrameRef.current = 0;
-    }
     body.style.overflow = "hidden";
     body.style.overscrollBehavior = "none";
     root.style.overflow = "hidden";
@@ -339,108 +329,8 @@ export default function TerrainViewer({
       viewerFrame?.classList.remove("has-css-fullscreen");
       Object.assign(body.style, previousBodyStyles);
       Object.assign(root.style, previousRootStyles);
-      fullscreenRecoveryFrameRef.current = requestAnimationFrame(() => {
-        fullscreenRecoveryFrameRef.current = requestAnimationFrame(() => {
-          fullscreenRecoveryFrameRef.current = 0;
-          // WebKit standalone can expose stale viewport geometry for a frame
-          // after rotation. Re-read the restored box before resizing WebGL.
-          viewerFrame?.getBoundingClientRect();
-          resizeTerrainRef.current?.(true);
-        });
-      });
     };
   }, [isCssFullscreen]);
-
-  useEffect(() => {
-    let generation = 0;
-    let immediateFrame = 0;
-    const delayedFrames = new Set<number>();
-    const delayedTimers = new Set<number>();
-
-    function clearScheduledRecovery() {
-      if (immediateFrame) {
-        cancelAnimationFrame(immediateFrame);
-        immediateFrame = 0;
-      }
-      delayedFrames.forEach((frame) => cancelAnimationFrame(frame));
-      delayedFrames.clear();
-      delayedTimers.forEach((timer) => clearTimeout(timer));
-      delayedTimers.clear();
-    }
-
-    function forceTerrainResize(expectedGeneration: number) {
-      if (expectedGeneration !== generation) return;
-      const host = hostRef.current;
-      host?.closest(".viewer-frame")?.getBoundingClientRect();
-      host?.getBoundingClientRect();
-      resizeTerrainRef.current?.(true);
-    }
-
-    function scheduleViewportRecovery() {
-      generation += 1;
-      const expectedGeneration = generation;
-      clearScheduledRecovery();
-
-      immediateFrame = requestAnimationFrame(() => {
-        immediateFrame = requestAnimationFrame(() => {
-          immediateFrame = 0;
-          forceTerrainResize(expectedGeneration);
-        });
-      });
-
-      for (const delayMs of [120, 350, 750]) {
-        const timer = window.setTimeout(() => {
-          delayedTimers.delete(timer);
-          const frame = requestAnimationFrame(() => {
-            delayedFrames.delete(frame);
-            forceTerrainResize(expectedGeneration);
-          });
-          delayedFrames.add(frame);
-        }, delayMs);
-        delayedTimers.add(timer);
-      }
-    }
-
-    function recoverWhenVisible() {
-      if (document.visibilityState === "visible") {
-        scheduleViewportRecovery();
-      }
-    }
-
-    window.addEventListener("resize", scheduleViewportRecovery);
-    window.addEventListener("orientationchange", scheduleViewportRecovery);
-    window.addEventListener("pageshow", scheduleViewportRecovery);
-    window.visualViewport?.addEventListener(
-      "resize",
-      scheduleViewportRecovery,
-    );
-    window.screen.orientation?.addEventListener(
-      "change",
-      scheduleViewportRecovery,
-    );
-    document.addEventListener("visibilitychange", recoverWhenVisible);
-    scheduleViewportRecovery();
-
-    return () => {
-      generation += 1;
-      clearScheduledRecovery();
-      window.removeEventListener("resize", scheduleViewportRecovery);
-      window.removeEventListener(
-        "orientationchange",
-        scheduleViewportRecovery,
-      );
-      window.removeEventListener("pageshow", scheduleViewportRecovery);
-      window.visualViewport?.removeEventListener(
-        "resize",
-        scheduleViewportRecovery,
-      );
-      window.screen.orientation?.removeEventListener(
-        "change",
-        scheduleViewportRecovery,
-      );
-      document.removeEventListener("visibilitychange", recoverWhenVisible);
-    };
-  }, []);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -450,7 +340,6 @@ export default function TerrainViewer({
     let cancelled = false;
     let resizeObserver: ResizeObserver | null = null;
     let resizeFrame = 0;
-    let resizeTerrain: ((force?: boolean) => void) | null = null;
     let lastWidth = 0;
     let lastHeight = 0;
     let scene: THREE.Scene | null = null;
@@ -731,30 +620,34 @@ export default function TerrainViewer({
       };
       controls.addEventListener("change", render);
 
-      const resize = (force = false) => {
+      const resize = () => {
         resizeFrame = 0;
         const currentHost = hostRef.current;
         const currentRenderer = rendererRef.current;
         const currentCamera = cameraRef.current;
         if (!currentHost || !currentRenderer || !currentCamera) return;
         const pixelRatio = Math.min(window.devicePixelRatio, 1.75);
-        if (currentRenderer.getPixelRatio() !== pixelRatio) {
+        const pixelRatioChanged =
+          currentRenderer.getPixelRatio() !== pixelRatio;
+        if (pixelRatioChanged) {
           currentRenderer.setPixelRatio(pixelRatio);
           pixelRatioUniform.value = pixelRatio;
         }
         const widthPx = Math.max(currentHost.clientWidth, 1);
         const heightPx = Math.max(currentHost.clientHeight, 1);
-        const dimensionsAreUnchanged =
-          widthPx === lastWidth && heightPx === lastHeight;
-        if (!force && dimensionsAreUnchanged) return;
+        if (
+          !pixelRatioChanged &&
+          widthPx === lastWidth &&
+          heightPx === lastHeight
+        ) {
+          return;
+        }
         lastWidth = widthPx;
         lastHeight = heightPx;
-        if (force && dimensionsAreUnchanged && widthPx > 1) {
-          // A real backing-store mutation makes WebKit discard a stale
-          // standalone-app WebGL layer before the final correctly sized draw.
-          currentRenderer.setSize(widthPx - 1, heightPx, false);
-        }
-        currentRenderer.setSize(widthPx, heightPx, false);
+        // Keep the canvas CSS box and its WebGL backing store synchronized.
+        // WebKit standalone can otherwise composite the resized buffer beyond
+        // the canvas bounds after an orientation change.
+        currentRenderer.setSize(widthPx, heightPx, true);
         const aspect = widthPx / heightPx;
         const resized = coveredOrthographicHalfExtents(
           halfWidth,
@@ -769,13 +662,12 @@ export default function TerrainViewer({
         currentCamera.updateProjectionMatrix();
         render();
       };
-      resizeTerrain = resize;
-      resizeTerrainRef.current = resize;
       resizeObserver = new ResizeObserver(() => {
         if (resizeFrame) cancelAnimationFrame(resizeFrame);
-        resizeFrame = requestAnimationFrame(() => resize());
+        resizeFrame = requestAnimationFrame(resize);
       });
       resizeObserver.observe(mount);
+      resize();
 
       await setTexture(styleRef.current);
       render();
@@ -816,9 +708,6 @@ export default function TerrainViewer({
       cancelled = true;
       resizeObserver?.disconnect();
       if (resizeFrame) cancelAnimationFrame(resizeFrame);
-      if (resizeTerrainRef.current === resizeTerrain) {
-        resizeTerrainRef.current = null;
-      }
       controlsRef.current?.dispose();
       rendererRef.current?.dispose();
       geometry?.dispose();
