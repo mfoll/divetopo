@@ -4,6 +4,7 @@ import { homepageCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
 import { regions } from "../content/regions";
 import InstallPrompt from "./InstallPrompt";
+import IosStandaloneLink from "./IosStandaloneLink";
 import PreferenceControls from "./PreferenceControls";
 
 export default function HomepageExperience({
@@ -53,7 +54,7 @@ export default function HomepageExperience({
           <div className="regions-inner">
             <div className="region-grid">
               {regions.map((region) => (
-                <a
+                <IosStandaloneLink
                   aria-label={`${text.exploreRegion} ${region.name[language]}`}
                   className="region-card"
                   data-testid={`region-${region.slug}`}
@@ -91,7 +92,7 @@ export default function HomepageExperience({
                       ))}
                     </ul>
                   </div>
-                </a>
+                </IosStandaloneLink>
               ))}
             </div>
 
