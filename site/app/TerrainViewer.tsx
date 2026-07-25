@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { topoReunionCopy } from "../content/copy";
@@ -267,6 +267,8 @@ export default function TerrainViewer({
     target: THREE.Vector3;
     zoom: number;
   } | null>(null);
+  const resizeTerrainRef = useRef<(() => void) | null>(null);
+  const fullscreenRecoveryFrameRef = useRef(0);
   const compassDialRef = useRef<HTMLDivElement>(null);
   const isobathsEnabledUniformRef = useRef<NumberUniform>({ value: 1 });
   const styleRef = useRef(style);
@@ -290,10 +292,14 @@ export default function TerrainViewer({
     document.addEventListener("fullscreenchange", syncFullscreenState);
     return () => {
       document.removeEventListener("fullscreenchange", syncFullscreenState);
+      if (fullscreenRecoveryFrameRef.current) {
+        cancelAnimationFrame(fullscreenRecoveryFrameRef.current);
+        fullscreenRecoveryFrameRef.current = 0;
+      }
     };
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!isCssFullscreen) {
       return;
     }
@@ -301,29 +307,21 @@ export default function TerrainViewer({
     const body = document.body;
     const root = document.documentElement;
     const viewerFrame = hostRef.current?.closest(".viewer-frame");
-    const scrollX = window.scrollX;
-    const scrollY = window.scrollY;
     const previousBodyStyles = {
       overflow: body.style.overflow,
       overscrollBehavior: body.style.overscrollBehavior,
-      position: body.style.position,
-      top: body.style.top,
-      left: body.style.left,
-      right: body.style.right,
-      width: body.style.width,
     };
     const previousRootStyles = {
       overflow: root.style.overflow,
       overscrollBehavior: root.style.overscrollBehavior,
     };
 
+    if (fullscreenRecoveryFrameRef.current) {
+      cancelAnimationFrame(fullscreenRecoveryFrameRef.current);
+      fullscreenRecoveryFrameRef.current = 0;
+    }
     body.style.overflow = "hidden";
     body.style.overscrollBehavior = "none";
-    body.style.position = "fixed";
-    body.style.top = `-${scrollY}px`;
-    body.style.left = "0";
-    body.style.right = "0";
-    body.style.width = "100%";
     root.style.overflow = "hidden";
     root.style.overscrollBehavior = "none";
     viewerFrame?.classList.add("has-css-fullscreen");
@@ -341,7 +339,15 @@ export default function TerrainViewer({
       viewerFrame?.classList.remove("has-css-fullscreen");
       Object.assign(body.style, previousBodyStyles);
       Object.assign(root.style, previousRootStyles);
-      window.scrollTo(scrollX, scrollY);
+      fullscreenRecoveryFrameRef.current = requestAnimationFrame(() => {
+        fullscreenRecoveryFrameRef.current = requestAnimationFrame(() => {
+          fullscreenRecoveryFrameRef.current = 0;
+          // WebKit standalone can expose stale viewport geometry for a frame
+          // after rotation. Re-read the restored box before resizing WebGL.
+          viewerFrame?.getBoundingClientRect();
+          resizeTerrainRef.current?.();
+        });
+      });
     };
   }, [isCssFullscreen]);
 
@@ -353,6 +359,7 @@ export default function TerrainViewer({
     let cancelled = false;
     let resizeObserver: ResizeObserver | null = null;
     let resizeFrame = 0;
+    let resizeTerrain: (() => void) | null = null;
     let lastWidth = 0;
     let lastHeight = 0;
     let scene: THREE.Scene | null = null;
@@ -664,6 +671,8 @@ export default function TerrainViewer({
         currentCamera.updateProjectionMatrix();
         render();
       };
+      resizeTerrain = resize;
+      resizeTerrainRef.current = resize;
       resizeObserver = new ResizeObserver(() => {
         if (resizeFrame) cancelAnimationFrame(resizeFrame);
         resizeFrame = requestAnimationFrame(resize);
@@ -709,6 +718,9 @@ export default function TerrainViewer({
       cancelled = true;
       resizeObserver?.disconnect();
       if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      if (resizeTerrainRef.current === resizeTerrain) {
+        resizeTerrainRef.current = null;
+      }
       controlsRef.current?.dispose();
       rendererRef.current?.dispose();
       geometry?.dispose();
@@ -814,7 +826,16 @@ export default function TerrainViewer({
       return;
     }
 
-    if (typeof host.requestFullscreen === "function") {
+    const forceCssFullscreenForLocalQa =
+      window.location.hostname === "localhost" &&
+      new URLSearchParams(window.location.search).has(
+        "force-css-fullscreen",
+      );
+
+    if (
+      !forceCssFullscreenForLocalQa &&
+      typeof host.requestFullscreen === "function"
+    ) {
       try {
         await host.requestFullscreen();
         if (document.fullscreenElement === host) {

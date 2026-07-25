@@ -1125,8 +1125,7 @@ img {
   cursor: grabbing;
 }
 
-.terrain-host:fullscreen,
-.terrain-host.is-css-fullscreen {
+.terrain-host:fullscreen {
   background: var(--navy);
   border-radius: 0;
   height: 100vh;
@@ -1137,14 +1136,25 @@ img {
 }
 
 .terrain-host.is-css-fullscreen {
-  inset: 0;
+  background: var(--navy);
+  border-radius: 0;
   isolation: isolate;
-  position: fixed;
-  z-index: 1000;
 }
 
 .viewer-frame.has-css-fullscreen {
-  overflow: visible;
+  background: var(--navy);
+  border-radius: 0;
+  height: 100vh;
+  height: 100dvh;
+  inset: 0;
+  isolation: isolate;
+  min-height: 100vh;
+  min-height: 100dvh;
+  overflow: hidden;
+  position: fixed;
+  width: 100vw;
+  width: 100dvw;
+  z-index: 1000;
 }
 
 .terrain-loading,

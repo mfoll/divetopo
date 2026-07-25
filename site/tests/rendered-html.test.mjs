@@ -644,20 +644,42 @@ test("interactive terrain provides an iOS-safe fullscreen fallback", async () =>
 
   assert.match(terrainViewer, /host\.requestFullscreen/);
   assert.match(terrainViewer, /setIsCssFullscreen\(true\)/);
-  assert.match(terrainViewer, /body\.style\.position = "fixed"/);
+  assert.match(terrainViewer, /useLayoutEffect/);
+  assert.doesNotMatch(terrainViewer, /body\.style\.position = "fixed"/);
   assert.match(terrainViewer, /root\.style\.overflow = "hidden"/);
   assert.match(terrainViewer, /classList\.add\("has-css-fullscreen"\)/);
   assert.match(
     terrainViewer,
     /classList\.remove\("has-css-fullscreen"\)/,
   );
-  assert.match(terrainViewer, /window\.scrollTo\(scrollX, scrollY\)/);
+  assert.doesNotMatch(terrainViewer, /window\.scrollTo\(scrollX, scrollY\)/);
+  assert.match(terrainViewer, /fullscreenRecoveryFrameRef/);
+  assert.match(
+    terrainViewer,
+    /cancelAnimationFrame\(fullscreenRecoveryFrameRef\.current\)/,
+  );
+  assert.match(terrainViewer, /resizeTerrainRef\.current\?\.\(\)/);
+  assert.match(terrainViewer, /force-css-fullscreen/);
   assert.match(terrainViewer, /event\.key === "Escape"/);
   assert.match(terrainViewer, /aria-pressed=\{isFullscreen\}/);
   assert.match(styles, /\.terrain-host\.is-css-fullscreen/);
   assert.match(styles, /\.viewer-frame\.has-css-fullscreen/);
-  assert.match(styles, /position:\s*fixed/);
-  assert.match(styles, /height:\s*100dvh/);
+  assert.match(
+    styles,
+    /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*position:\s*fixed/s,
+  );
+  assert.doesNotMatch(
+    styles,
+    /\.terrain-host\.is-css-fullscreen\s*\{[^}]*position:\s*fixed/s,
+  );
+  assert.match(
+    styles,
+    /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*height:\s*100dvh/s,
+  );
+  assert.match(
+    styles,
+    /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*overflow:\s*hidden/s,
+  );
   assert.match(styles, /safe-area-inset-top/);
   assert.match(styles, /safe-area-inset-bottom/);
 });
