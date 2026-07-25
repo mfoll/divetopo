@@ -400,13 +400,6 @@ img {
   text-wrap: balance;
 }
 
-.topo-reunion-intro p {
-  color: var(--muted);
-  font-size: clamp(1rem, 1.4vw, 1.2rem);
-  line-height: 1.55;
-  margin: 0.9rem 0 0;
-}
-
 .topo-reunion-workspace {
   align-items: start;
   display: grid;

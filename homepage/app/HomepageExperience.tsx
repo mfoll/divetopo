@@ -63,7 +63,6 @@ export default function HomepageExperience({
           <div className="regions-inner">
             <div className="section-heading">
               <h2 id="regions-title">{text.regionsTitle}</h2>
-              <p>{text.regionsLead}</p>
             </div>
 
             <div className="region-grid">
@@ -133,7 +132,9 @@ export default function HomepageExperience({
           <div className="contact-inner">
             <h2 id="contact-title">{text.contact.title}</h2>
             <p>
-              {text.contact.prompt}{" "}
+              {text.contact.question}
+              <br />
+              {text.contact.action}{" "}
               <a href="mailto:contact@divetopo.com">
                 contact@divetopo.com
               </a>
@@ -144,13 +145,12 @@ export default function HomepageExperience({
       </main>
 
       <footer className="site-footer">
-        <div className="footer-inner">
-          <a className="brand footer-brand" href="#top">
-            <span className="brand-mark" aria-hidden="true" />
-            <span>DiveTopo</span>
-          </a>
-          <p>{text.footer}</p>
-        </div>
+        <a className="brand" href="#top">
+          <span className="brand-mark" aria-hidden="true" />
+          <span>DiveTopo</span>
+        </a>
+        <span>{text.footer.credit}</span>
+        <a href="#top">{text.footer.backToTop}</a>
       </footer>
     </>
   );

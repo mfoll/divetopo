@@ -45,6 +45,10 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.doesNotMatch(html, /Le relief sous-marin, région par région\./);
   assert.doesNotMatch(html, /DiveTopo réunit des cartes/);
   assert.doesNotMatch(html, />Explorer</);
+  assert.doesNotMatch(
+    html,
+    /Chaque région rassemble les cartes disponibles/,
+  );
   assert.match(html, /Topo Réunion/);
   assert.match(html, /Sélection de cartes/);
   assert.match(html, /sélection non exhaustive de sept sites/);
@@ -56,12 +60,13 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /id="contact"/);
   assert.match(
     html,
-    /Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié \? Écrivez-moi à/,
+    /Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié(?:\u00a0|&nbsp;|&#xA0;|&#160;)\?<br\/>Écrivez-moi à/,
   );
   assert.match(html, /href="mailto:contact@divetopo\.com"/);
   assert.match(html, />contact@divetopo\.com<\/a>/);
   assert.ok(html.indexOf('id="contact"') < html.indexOf("<footer"));
   assert.doesNotMatch(html, /<form\b/i);
+  assert.match(html, /href="#top">Haut de page<\/a>/);
   assert.match(
     html,
     /<button(?=[^>]*data-testid="language-fr")(?=[^>]*aria-pressed="true")[^>]*>/,
@@ -94,6 +99,10 @@ test("uses the browser language for the English version", async () => {
     /name="twitter:image:alt" content="DiveTopo, dive site maps"/,
   );
   assert.match(html, /Dive site maps/);
+  assert.doesNotMatch(
+    html,
+    /Each region brings together the available maps/,
+  );
   assert.match(html, /Topo Réunion/);
   assert.match(html, /Map selection/);
   assert.match(html, /non-exhaustive selection of seven sites/);
@@ -101,9 +110,10 @@ test("uses the browser language for the English version", async () => {
   assert.match(html, /Ready for more regions\./);
   assert.match(
     html,
-    /Have a question, feedback, or a dive site you would like to see mapped\? Email me at/,
+    /Have a question, feedback, or a dive site you would like to see mapped\?<br\/>Email me at/,
   );
   assert.match(html, /href="mailto:contact@divetopo\.com"/);
+  assert.match(html, /href="#top">Back to top<\/a>/);
   assert.match(
     html,
     /<button(?=[^>]*data-testid="language-en")(?=[^>]*aria-pressed="true")[^>]*>/,
@@ -176,6 +186,19 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(
     stylesheet,
     /\.hero\s*\{[^}]*padding:\s*clamp\(2\.75rem,\s*5vw,\s*5\.25rem\)/s,
+  );
+  assert.match(
+    stylesheet,
+    /main\s*\{[^}]*radial-gradient\(circle at 82% 4rem,\s*var\(--hero-glow\),\s*transparent 30rem\)/s,
+  );
+  assert.doesNotMatch(stylesheet, /\.hero\s*\{[^}]*background:/s);
+  assert.match(
+    stylesheet,
+    /\.brand\s*\{[^}]*font-size:\s*clamp\(0\.88rem,\s*1\.15vw,\s*1\.04rem\);[^}]*font-weight:\s*700;/s,
+  );
+  assert.match(
+    stylesheet,
+    /\.site-footer\s*\{[^}]*min-height:\s*7rem;[^}]*padding:\s*1\.5rem var\(--page-gutter\);/s,
   );
   assert.doesNotMatch(stylesheet, /\.hero-lead\s*\{/);
   assert.doesNotMatch(stylesheet, /\.section-heading\s*\{[^}]*border-top:/s);

@@ -55,16 +55,19 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /<html lang="fr" data-theme="auto">/);
   assert.match(
     html,
-    /<title>Topo Réunion<\/title>/i,
+    /<title>Plans des sites de plongée à La Réunion<\/title>/i,
   );
   assert.match(html, /aria-label="DiveTopo, revenir au site principal"/);
   assert.match(html, /href="https:\/\/divetopo\.com\/"/);
-  assert.match(html, /Topo Réunion/);
+  assert.match(html, /Plans des sites de plongée à La Réunion/);
   assert.match(
+    html,
+    /name="description" content="Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion\."/,
+  );
+  assert.doesNotMatch(
     html,
     /Une sélection non exhaustive de sites de plongée de la côte ouest\./,
   );
-  assert.match(html, /Sélection non exhaustive de plans topo-bathymétriques/);
   assert.match(html, /Boucan Canot/);
   assert.match(html, /Cap La Houssaye/);
   assert.match(html, /Cap Homard/);
@@ -121,7 +124,7 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /id="contact"/);
   assert.match(
     html,
-    /Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié \? Écrivez-moi à/,
+    /Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié(?:\u00a0|&nbsp;|&#xA0;|&#160;)\?<br\/>Écrivez-moi à/,
   );
   assert.match(html, /href="mailto:contact@divetopo\.com"/);
   assert.match(html, />contact@divetopo\.com<\/a>/);
@@ -162,18 +165,21 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   const html = await response.text();
 
   assert.match(html, /<html lang="en" data-theme="auto">/);
-  assert.match(html, /<title>Topo Réunion<\/title>/i);
+  assert.match(html, /<title>Dive site maps of Réunion Island<\/title>/i);
   assert.match(html, /property="og:locale" content="en_GB"/);
   assert.match(
     html,
-    /name="twitter:image:alt" content="Topo Réunion, a non-exhaustive selection of dive sites around Réunion Island"/,
+    /name="twitter:image:alt" content="Dive site maps of Réunion Island"/,
   );
-  assert.match(html, /Topo Réunion/);
+  assert.match(html, /Dive site maps of Réunion Island/);
   assert.match(
+    html,
+    /name="description" content="Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island\."/,
+  );
+  assert.doesNotMatch(
     html,
     /A non-exhaustive selection of dive sites along the west coast\./,
   );
-  assert.match(html, /A non-exhaustive selection of 2D topographic-bathymetric maps/);
   assert.match(html, /Saint-Paul<!-- -->, <!-- -->Réunion Island/);
   assert.match(html, /View site on Google Maps/);
   assert.match(html, />2D map<\/button>/);
@@ -189,7 +195,7 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   assert.match(html, /Safety/);
   assert.match(
     html,
-    /Have a question, feedback, or a dive site you would like to see mapped\? Email me at/,
+    /Have a question, feedback, or a dive site you would like to see mapped\?<br\/>Email me at/,
   );
   assert.match(html, /href="mailto:contact@divetopo\.com"/);
   assert.match(html, /deed\.en/);

@@ -431,7 +431,6 @@ export function TopoReunionExperience({
         >
           <div className="topo-reunion-intro">
             <h1 id="topo-reunion-title">{text.topoReunionTitle}</h1>
-            <p>{text.topoReunionLead}</p>
           </div>
 
         <div className="topo-reunion-workspace">
@@ -664,7 +663,9 @@ export function TopoReunionExperience({
           <div className="contact-inner">
             <h2 id="contact-title">{text.contact.title}</h2>
             <p>
-              {text.contact.prompt}{" "}
+              {text.contact.question}
+              <br />
+              {text.contact.action}{" "}
               <a href="mailto:contact@divetopo.com">
                 contact@divetopo.com
               </a>

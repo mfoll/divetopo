@@ -9,8 +9,6 @@ export const homepageCopy = {
     contactNavigation: "Contact",
     heroTitle: "Cartographies de sites de plongée",
     regionsTitle: "Choisissez une région",
-    regionsLead:
-      "Chaque région rassemble les cartes disponibles pour certains sites de son territoire.",
     exploreRegion: "Explorer",
     availableContent: "Contenu disponible",
     futureLabel: "Évolution de DiveTopo",
@@ -19,11 +17,15 @@ export const homepageCopy = {
       "Elles apparaîtront ici au fil des sites effectivement cartographiés.",
     contact: {
       title: "Contact",
-      prompt:
-        "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié ? Écrivez-moi à",
+      question:
+        "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié\u00a0?",
+      action: "Écrivez-moi à",
     },
-    footer:
-      "Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
+    footer: {
+      credit:
+        "Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
+      backToTop: "Haut de page",
+    },
     preferences: {
       languageGroup: "Langue",
       french: "Afficher le site en français",
@@ -44,8 +46,6 @@ export const homepageCopy = {
     contactNavigation: "Contact",
     heroTitle: "Dive site maps",
     regionsTitle: "Choose a region",
-    regionsLead:
-      "Each region brings together the available maps for selected dive sites.",
     exploreRegion: "Explore",
     availableContent: "Available content",
     futureLabel: "What’s next for DiveTopo",
@@ -53,11 +53,15 @@ export const homepageCopy = {
     futureText: "They will appear here as new dive sites are mapped.",
     contact: {
       title: "Contact",
-      prompt:
-        "Have a question, feedback, or a dive site you would like to see mapped? Email me at",
+      question:
+        "Have a question, feedback, or a dive site you would like to see mapped?",
+      action: "Email me at",
     },
-    footer:
-      "Island topography and bathymetry: IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
+    footer: {
+      credit:
+        "Island topography and bathymetry: IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
+      backToTop: "Back to top",
+    },
     preferences: {
       languageGroup: "Language",
       french: "View the site in French",

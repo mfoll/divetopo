@@ -51,11 +51,9 @@ export const topoReunionCopy = {
       dark: "Utiliser le thème sombre",
       auto: "Utiliser le thème du système",
     },
-    topoReunionTitle: "Topo Réunion",
-    topoReunionLead:
-      "Une sélection non exhaustive de sites de plongée de la côte ouest.",
+    topoReunionTitle: "Plans des sites de plongée à La Réunion",
     metadataDescription:
-      "Sélection non exhaustive de plans topo-bathymétriques 2D, de perspectives 3D et de reliefs interactifs de sites de plongée à La Réunion.",
+      "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
     islandName: "La Réunion",
     surfaces: {
       orthophoto: {
@@ -178,8 +176,9 @@ export const topoReunionCopy = {
     },
     contact: {
       title: "Contact",
-      prompt:
-        "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié ? Écrivez-moi à",
+      question:
+        "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié\u00a0?",
+      action: "Écrivez-moi à",
     },
     footer: {
       maps: "Plans",
@@ -228,11 +227,9 @@ export const topoReunionCopy = {
       dark: "Use dark theme",
       auto: "Use system theme",
     },
-    topoReunionTitle: "Topo Réunion",
-    topoReunionLead:
-      "A non-exhaustive selection of dive sites along the west coast.",
+    topoReunionTitle: "Dive site maps of Réunion Island",
     metadataDescription:
-      "A non-exhaustive selection of 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
+      "Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
     islandName: "Réunion Island",
     surfaces: {
       orthophoto: {
@@ -355,8 +352,9 @@ export const topoReunionCopy = {
     },
     contact: {
       title: "Contact",
-      prompt:
-        "Have a question, feedback, or a dive site you would like to see mapped? Email me at",
+      question:
+        "Have a question, feedback, or a dive site you would like to see mapped?",
+      action: "Email me at",
     },
     footer: {
       maps: "Maps",

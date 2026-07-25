@@ -5,19 +5,17 @@ import "./globals.css";
 
 const metadataCopy = {
   fr: {
-    title: "Topo Réunion",
+    title: "Plans des sites de plongée à La Réunion",
     description:
-      "Sélection non exhaustive de plans topo-bathymétriques 2D, de perspectives 3D et de reliefs interactifs de sites de plongée à La Réunion.",
-    socialAlt:
-      "Topo Réunion, sélection non exhaustive de sites de plongée à La Réunion",
+      "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
+    socialAlt: "Plans des sites de plongée à La Réunion",
     locale: "fr_FR",
   },
   en: {
-    title: "Topo Réunion",
+    title: "Dive site maps of Réunion Island",
     description:
-      "A non-exhaustive selection of 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
-    socialAlt:
-      "Topo Réunion, a non-exhaustive selection of dive sites around Réunion Island",
+      "Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
+    socialAlt: "Dive site maps of Réunion Island",
     locale: "en_GB",
   },
 } as const;
