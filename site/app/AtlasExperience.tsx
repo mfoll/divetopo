@@ -5,11 +5,15 @@
 import {
   lazy,
   Suspense,
+  useEffect,
   useRef,
   useState,
   type CSSProperties,
 } from "react";
+import { atlasCopy } from "../content/copy";
+import type { Language, Theme } from "../content/preferences";
 import mapManifestJson from "../public/maps/manifest.json";
+import PreferenceControls from "./PreferenceControls";
 
 type SurfaceStyle = "topographic" | "orthophoto";
 type MapView = "2d" | "3d";
@@ -26,6 +30,7 @@ type MapAsset = {
   style: SurfaceStyle;
   sourceDimensions: { width: number; height: number };
   variants: AssetVariant[];
+  download: AssetVariant & { filename: string };
 };
 
 type PlancheAsset = {
@@ -76,85 +81,6 @@ if (!initialSite) {
   throw new Error("The dive atlas requires at least one site");
 }
 
-const DATA_SOURCES = [
-  {
-    title: "Bathymétrie",
-    description:
-      "Relief sous-marin issu du levé HYSCORES 2015, incluant les données Litto3D.",
-    links: [
-      {
-        label: "HYSCORES 2015",
-        href: "https://doi.org/10.12770/ee059de2-2c81-46ce-88de-0fb5517046af",
-      },
-      { label: "Ifremer", href: "https://www.ifremer.fr/fr" },
-      {
-        label: "UBO",
-        href: "https://www.univ-brest.fr/fr",
-      },
-      {
-        label: "Office de l’eau Réunion",
-        href: "https://donnees.eaureunion.fr/",
-      },
-    ],
-  },
-  {
-    title: "Topographie",
-    description:
-      "Modèle numérique de terrain RGE ALTI pour le relief de la partie terrestre.",
-    links: [
-      {
-        label: "IGN RGE ALTI",
-        href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI",
-      },
-    ],
-  },
-  {
-    title: "Orthophoto",
-    description:
-      "Orthophotographies géoréférencées BD ORTHO pour le fond aérien haute résolution.",
-    links: [
-      {
-        label: "IGN BD ORTHO",
-        href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO",
-      },
-    ],
-  },
-  {
-    title: "Relief régional",
-    description:
-      "Grille bathymétrique GEBCO 2024 pour la carte de sélection de la côte ouest.",
-    links: [
-      {
-        label: "GEBCO 2024",
-        href: "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid",
-      },
-    ],
-  },
-] as const;
-
-const METHOD_STEPS = [
-  {
-    title: "Sources et contrôle du cache",
-    description:
-      "Les MNT HYSCORES pour les fonds marins, le RGE ALTI pour la terre et l’orthophoto IGN à 20 cm sont découpés aux emprises de chaque site et alignés sur une grille commune WGS 84 / UTM 40S (EPSG:32740). Avant tout rendu, le pipeline contrôle leur source, leur emprise, leur résolution, leurs bandes, leur contenu et leur empreinte SHA-256.",
-  },
-  {
-    title: "Fusion terre-mer",
-    description:
-      "Les altitudes marines sont converties en profondeurs positives, puis bathymétrie et topographie sont fusionnées autour d’un trait de côte interpolé à 0 m, sans remplir artificiellement les zones sans données. Dans la variante orthophoto, l’image est recalée sur la grille bathymétrique, opaque jusqu’à −1,5 m puis fondue progressivement jusqu’à −2 m.",
-  },
-  {
-    title: "Plans et perspectives",
-    description:
-      "Les isobathes sont extraites et lissées tous les 5 m, jusqu’à −20, −30 ou −40 m selon le site. Le plan 2D reste nord en haut sur l’emprise fine ; la perspective 3D utilise une emprise élargie, un azimut et un cadrage propres au site, une caméra placée depuis le large et une exagération verticale de ×4.",
-  },
-  {
-    title: "Relief et formats de sortie",
-    description:
-      "L’éclairage des reliefs 3D est calculé à partir de normales métriques, avec une lumière hémisphérique froide, une lumière directionnelle chaude et une exposition linéaire de 1,55. La surface fusionnée est aussi exportée pour le Web sous forme d’un champ d’altitude 16 bits, d’un masque de validité et de deux textures ; les planches HD assemblent ensuite la localisation insulaire, le plan 2D et la perspective 3D.",
-  },
-] as const;
-
 function assetSrcSet(variants: AssetVariant[]) {
   return variants.map((variant) => `${variant.src} ${variant.width}w`).join(", ");
 }
@@ -179,16 +105,6 @@ function selectedPlanche(site: AtlasAssetSite, style: SurfaceStyle) {
   return asset;
 }
 
-function surfaceLabel(style: SurfaceStyle) {
-  return style === "orthophoto" ? "Orthophoto" : "Topographie";
-}
-
-function viewLabel(view: ViewMode) {
-  if (view === "2d") return "Plan 2D";
-  if (view === "3d") return "Vue 3D";
-  return "3D interactive";
-}
-
 function formatDms(value: number, positive: string, negative: string) {
   const totalTenths = Math.round(Math.abs(value) * 36_000);
   const degrees = Math.floor(totalTenths / 36_000);
@@ -201,11 +117,11 @@ function formatDms(value: number, positive: string, negative: string) {
     .padStart(4, "0")}″ ${direction}`;
 }
 
-function gpsLabel(location: SiteLocation) {
+function gpsLabel(location: SiteLocation, language: Language) {
   return `${formatDms(location.latitude, "N", "S")} · ${formatDms(
     location.longitude,
     "E",
-    "O",
+    language === "fr" ? "O" : "W",
   )}`;
 }
 
@@ -217,26 +133,30 @@ function googleMapsUrl(location: SiteLocation) {
 function SurfaceToggle({
   value,
   onChange,
+  language,
 }: {
   value: SurfaceStyle;
   onChange: (style: SurfaceStyle) => void;
+  language: Language;
 }) {
+  const text = atlasCopy[language];
+
   return (
     <fieldset className="segmented-control surface-control">
-      <legend>Fond de carte</legend>
+      <legend>{text.surfaceGroup}</legend>
       <button
         type="button"
         aria-pressed={value === "orthophoto"}
         onClick={() => onChange("orthophoto")}
       >
-        Orthophoto
+        {text.surfaces.orthophoto.label}
       </button>
       <button
         type="button"
         aria-pressed={value === "topographic"}
         onClick={() => onChange("topographic")}
       >
-        Topographie
+        {text.surfaces.topographic.label}
       </button>
     </fieldset>
   );
@@ -245,33 +165,37 @@ function SurfaceToggle({
 function ViewToggle({
   value,
   onChange,
+  language,
 }: {
   value: ViewMode;
   onChange: (view: ViewMode) => void;
+  language: Language;
 }) {
+  const text = atlasCopy[language].views;
+
   return (
     <fieldset className="segmented-control view-control">
-      <legend>Type de vue</legend>
+      <legend>{text.group}</legend>
       <button
         type="button"
         aria-pressed={value === "2d"}
         onClick={() => onChange("2d")}
       >
-        Plan 2D
+        {text.twoD}
       </button>
       <button
         type="button"
         aria-pressed={value === "3d"}
         onClick={() => onChange("3d")}
       >
-        Vue 3D
+        {text.threeD}
       </button>
       <button
         type="button"
         aria-pressed={value === "interactive"}
         onClick={() => onChange("interactive")}
       >
-        3D interactive
+        {text.interactive}
       </button>
     </fieldset>
   );
@@ -279,8 +203,8 @@ function ViewToggle({
 
 const SITE_LABEL_LAYOUT = {
   "cap-la-houssaye": "right-up",
-  "boucan-canot": "left-down",
-  "cap-homard": "right",
+  "boucan-canot": "left-up",
+  "cap-homard": "right-down",
   "passe-hermitage": "right",
   "pont-rouge-la-tortue": "left",
   "plage-cimetiere-saint-leu": "left-up",
@@ -291,17 +215,21 @@ function SitePicker({
   activeSlug,
   onSelect,
   onOpenOverview,
+  language,
 }: {
   activeSlug: string;
   onSelect: (slug: string) => void;
   onOpenOverview: () => void;
+  language: Language;
 }) {
+  const text = atlasCopy[language].picker;
+
   return (
-    <aside className="site-picker" aria-label="Choisir un site de plongée">
+    <aside className="site-picker" aria-label={text.chooseDiveSite}>
       <label className="site-picker-select">
-        <span>Sites :</span>
+        <span>{text.sites}</span>
         <select
-          aria-label="Choisir un site"
+          aria-label={text.chooseSite}
           value={activeSlug}
           onChange={(event) => onSelect(event.target.value)}
         >
@@ -315,8 +243,8 @@ function SitePicker({
 
       <div className="site-picker-maps">
         <header className="site-picker-heading">
-          <h2>Sites :</h2>
-          <p>Sélectionnez un site sur la carte.</p>
+          <h2>{text.sites}</h2>
+          <p>{text.instruction}</p>
         </header>
 
         <div className="site-picker-map">
@@ -324,12 +252,13 @@ function SitePicker({
             src={mapManifest.westCoastLocator.src}
             width={mapManifest.westCoastLocator.width}
             height={mapManifest.westCoastLocator.height}
-            alt="Relief terrestre et sous-marin de la côte ouest de La Réunion, du Cap La Houssaye à Saint-Leu."
+            alt={text.westCoastAlt}
           />
-          <div className="site-picker-range" aria-hidden="true">
-            <strong>Côte ouest</strong>
-          </div>
-          <div className="site-picker-north" aria-label="Nord">
+          <div
+            className="site-picker-north"
+            role="img"
+            aria-label={text.north}
+          >
             <span aria-hidden="true">↑</span>
             <strong>N</strong>
           </div>
@@ -353,7 +282,7 @@ function SitePicker({
                 className={`site-map-marker label-${layout}`}
                 style={style}
                 aria-pressed={selected}
-                aria-label={`Afficher ${site.displayName}`}
+                aria-label={`${text.showSite} ${site.displayName}`}
                 onClick={() => onSelect(site.slug)}
               >
                 <span className="site-map-marker-dot" aria-hidden="true" />
@@ -367,7 +296,8 @@ function SitePicker({
 
           <div
             className="site-picker-scale"
-            aria-label="Échelle de cinq kilomètres"
+            role="img"
+            aria-label={text.fiveKilometreScale}
           >
             <span aria-hidden="true" />
             <strong>5 km</strong>
@@ -377,7 +307,7 @@ function SitePicker({
         <button
           type="button"
           className="reunion-overview"
-          aria-label="Ouvrir la carte de La Réunion en grand"
+          aria-label={text.openIslandMap}
           onClick={onOpenOverview}
         >
           <div className="reunion-overview-map">
@@ -385,7 +315,7 @@ function SitePicker({
               src={mapManifest.reunionOverview.src}
               width={mapManifest.reunionOverview.width}
               height={mapManifest.reunionOverview.height}
-              alt="Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest détaillée ci-dessus."
+              alt={text.islandOverviewAlt}
             />
             <span className="reunion-overview-extent" aria-hidden="true" />
           </div>
@@ -395,13 +325,29 @@ function SitePicker({
   );
 }
 
-export function AtlasExperience() {
+export function AtlasExperience({
+  language: initialLanguage,
+  theme,
+}: {
+  language: Language;
+  theme: Theme;
+}) {
+  const [language, setLanguage] = useState(initialLanguage);
   const [activeSlug, setActiveSlug] = useState(() => initialSite.slug);
   const [surfaceStyle, setSurfaceStyle] =
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
+  const text = atlasCopy[language];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const overviewDialogRef = useRef<HTMLDialogElement>(null);
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    document.title = text.atlasTitle;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", text.metadataDescription);
+  }, [language, text.atlasTitle, text.metadataDescription]);
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
@@ -409,6 +355,7 @@ export function AtlasExperience() {
   const mapAsset = selectedMap(activeSite, staticView, surfaceStyle);
   const mapLargest = mapAsset.variants.at(-1) ?? mapAsset.variants[0];
   const planche = selectedPlanche(activeSite, surfaceStyle);
+  const surfaceText = text.surfaces[surfaceStyle];
 
   function openMapDialog() {
     if (viewMode !== "interactive") dialogRef.current?.showModal();
@@ -428,44 +375,69 @@ export function AtlasExperience() {
 
   const mapAlt =
     staticView === "2d"
-      ? `Plan topo-bathymétrique 2D de ${activeSite.displayName}, nord en haut, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, profondeurs affichées jusqu’à −${activeSite.planMaxDepthM} m.`
-      : `Perspective 3D oblique de ${activeSite.displayName}, fond ${surfaceLabel(surfaceStyle).toLowerCase()}, relief vertical exagéré environ quatre fois.`;
+      ? `${text.map.twoDAltStart} ${activeSite.displayName}, ${text.map.twoDAltMiddle} ${surfaceText.description}, ${text.map.depthsShownTo} −${activeSite.planMaxDepthM} m.`
+      : `${text.map.threeDAltStart} ${activeSite.displayName}, ${text.map.threeDAltMiddle} ${surfaceText.description}${text.map.threeDAltEnd}`;
+  const mapDownloadLabel =
+    language === "fr"
+      ? `${staticView === "2d" ? text.map.downloadTwoD : text.map.downloadThreeD} de ${activeSite.displayName}, avec ${surfaceText.description}`
+      : `${staticView === "2d" ? text.map.downloadTwoD : text.map.downloadThreeD} of ${activeSite.displayName}, with ${surfaceText.description}`;
+  const platePreviewAlt =
+    language === "fr"
+      ? `${text.plate.previewAlt} ${activeSite.displayName}, avec ${surfaceText.description}.`
+      : `${text.plate.previewAlt} ${activeSite.displayName}, with ${surfaceText.description}.`;
 
   return (
-    <main>
+    <>
       <header className="masthead" id="top">
         <div className="masthead-inner">
-          <a className="brand" href="#atlas">
+          <a
+            className="brand"
+            href="https://divetopo.com/"
+            aria-label={text.header.homeLabel}
+          >
             <span className="brand-mark" aria-hidden="true" />
-            <span>Plan des sites de plongée · La Réunion</span>
+            <span>{text.header.brand}</span>
           </a>
-          <nav aria-label="Navigation principale">
-            <a href="#atlas">Explorer</a>
-            <a href="#sources">Méthode et sources</a>
-            <a
-              className="external-link"
-              href="https://github.com/mfoll/reunion-topobathy"
-              target="_blank"
-              rel="noreferrer"
-              aria-label="GitHub (nouvelle fenêtre)"
-            >
-              <span>GitHub</span>
-              <span className="external-link-icon" aria-hidden="true" />
-            </a>
-          </nav>
+          <div className="masthead-actions">
+            <nav aria-label={text.header.navigationLabel}>
+              <a href="#atlas">{text.header.explore}</a>
+              <a href="#sources">{text.header.methodSources}</a>
+              <a
+                className="external-link"
+                href="https://github.com/mfoll/reunion-topobathy"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={text.header.githubNewWindow}
+              >
+                <span>GitHub</span>
+                <span className="external-link-icon" aria-hidden="true" />
+              </a>
+            </nav>
+            <PreferenceControls
+              language={language}
+              theme={theme}
+              onLanguageChange={setLanguage}
+            />
+          </div>
         </div>
       </header>
 
-      <section className="atlas-section" id="atlas" aria-labelledby="atlas-title">
-        <div className="atlas-intro">
-          <h1 id="atlas-title">Plans des sites de plongée à La Réunion</h1>
-        </div>
+      <main>
+        <section
+          className="atlas-section"
+          id="atlas"
+          aria-labelledby="atlas-title"
+        >
+          <div className="atlas-intro">
+            <h1 id="atlas-title">{text.atlasTitle}</h1>
+          </div>
 
         <div className="atlas-workspace">
           <SitePicker
             activeSlug={activeSlug}
             onSelect={setActiveSlug}
             onOpenOverview={() => overviewDialogRef.current?.showModal()}
+            language={language}
           />
 
           <article
@@ -480,9 +452,11 @@ export function AtlasExperience() {
                     {activeSite.displayName}
                   </h2>
                   <p>
-                    <span>{activeSite.location.city}, La Réunion</span>
+                    <span>
+                      {activeSite.location.city}, {text.islandName}
+                    </span>
                     <span aria-hidden="true">·</span>
-                    <span>{gpsLabel(activeSite.location)}</span>
+                    <span>{gpsLabel(activeSite.location, language)}</span>
                   </p>
                 </div>
                 <a
@@ -490,15 +464,20 @@ export function AtlasExperience() {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  Voir le site sur Google Maps
+                  {text.activeSite.googleMaps}
                 </a>
               </header>
 
               <div className="viewer-toolbar">
-                <ViewToggle value={viewMode} onChange={setViewMode} />
+                <ViewToggle
+                  value={viewMode}
+                  onChange={setViewMode}
+                  language={language}
+                />
                 <SurfaceToggle
                   value={surfaceStyle}
                   onChange={setSurfaceStyle}
+                  language={language}
                 />
               </div>
             </div>
@@ -511,7 +490,7 @@ export function AtlasExperience() {
                 <Suspense
                   fallback={
                     <div className="terrain-loading" role="status">
-                      Préparation du relief…
+                      {text.map.preparingTerrain}
                     </div>
                   }
                 >
@@ -520,41 +499,48 @@ export function AtlasExperience() {
                     slug={activeSite.slug}
                     siteName={activeSite.displayName}
                     style={surfaceStyle}
+                    language={language}
                   />
                 </Suspense>
               ) : (
-                <button
-                  type="button"
-                  className="map-open"
-                  onClick={openMapDialog}
-                  aria-label={`Ouvrir la carte de ${activeSite.displayName} en grand`}
-                >
-                  <img
-                    key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
-                    src={mapLargest.src}
-                    srcSet={assetSrcSet(mapAsset.variants)}
-                    sizes="(max-width: 980px) 100vw, 68vw"
-                    width={mapLargest.width}
-                    height={mapLargest.height}
-                    alt={mapAlt}
-                    fetchPriority="high"
-                  />
-                  <span>Ouvrir en grand</span>
-                </button>
+                <>
+                  <button
+                    type="button"
+                    className="map-open"
+                    onClick={openMapDialog}
+                    aria-label={`${text.map.openMap} ${activeSite.displayName}`}
+                  >
+                    <img
+                      key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
+                      src={mapLargest.src}
+                      srcSet={assetSrcSet(mapAsset.variants)}
+                      sizes="(max-width: 980px) 100vw, 68vw"
+                      width={mapLargest.width}
+                      height={mapLargest.height}
+                      alt={mapAlt}
+                      fetchPriority="high"
+                    />
+                    <span>{text.map.openLarge}</span>
+                  </button>
+                  <a
+                    className="map-download"
+                    data-testid="map-download"
+                    href={mapAsset.download.src}
+                    download={mapAsset.download.filename}
+                    aria-label={mapDownloadLabel}
+                  >
+                    <span aria-hidden="true">↓</span>
+                    {text.map.download}
+                  </a>
+                </>
               )}
             </div>
 
-            <div className="viewer-meta" aria-live="polite">
-              <span>
-                {viewLabel(viewMode)} · {surfaceLabel(surfaceStyle)}
-              </span>
-              {viewMode === "interactive" ? (
-                <span>
-                  Glisser pour tourner · Molette ou pincement pour zoomer · Clic
-                  droit ou Ctrl + glisser pour déplacer
-                </span>
-              ) : null}
-            </div>
+            {viewMode === "interactive" ? (
+              <div className="viewer-meta">
+                <span>{text.map.interactionHelp}</span>
+              </div>
+            ) : null}
 
             <div className="planche-download">
               <img
@@ -563,43 +549,39 @@ export function AtlasExperience() {
                 width={planche.preview.width}
                 height={planche.preview.height}
                 loading="lazy"
-                alt={`Aperçu de la planche imprimable de ${activeSite.displayName}, fond ${surfaceLabel(surfaceStyle).toLowerCase()}.`}
+                alt={platePreviewAlt}
               />
               <div>
-                <strong>Planche HD à imprimer</strong>
+                <strong>{text.plate.printable}</strong>
                 <span>
-                  {activeSite.displayName} · {surfaceLabel(surfaceStyle)}
+                  {activeSite.displayName} · {surfaceText.label}
                 </span>
               </div>
               <a
                 href={planche.download.src}
                 download={planche.download.filename}
               >
-                Télécharger la planche HD
+                {text.plate.download}
               </a>
             </div>
           </article>
 
         </div>
-      </section>
+        </section>
 
-      <section
-        className="sources-section"
-        id="sources"
-        aria-labelledby="sources-title"
-      >
-        <div className="sources-inner">
+        <section
+          className="sources-section"
+          id="sources"
+          aria-labelledby="sources-title"
+        >
+          <div className="sources-inner">
           <div className="sources-heading">
-            <h2 id="sources-title">Données, méthode et licences</h2>
-            <p>
-              Ce projet est rendu possible par des données bathymétriques,
-              topographiques et aériennes librement accessibles, mises à
-              disposition par des organismes publics et scientifiques.
-            </p>
+            <h2 id="sources-title">{text.sources.title}</h2>
+            <p>{text.sources.lead}</p>
           </div>
 
           <div className="source-cards">
-            {DATA_SOURCES.map((source, index) => (
+            {text.sources.cards.map((source, index) => (
               <article key={source.title}>
                 <span className="source-number">
                   {String(index + 1).padStart(2, "0")}
@@ -624,11 +606,11 @@ export function AtlasExperience() {
 
           <div className="method-panel">
             <div>
-              <span className="method-label">Traitement cartographique</span>
-              <h3>Méthode de production</h3>
+              <span className="method-label">{text.sources.methodLabel}</span>
+              <h3>{text.sources.methodTitle}</h3>
             </div>
             <ul>
-              {METHOD_STEPS.map((step) => (
+              {text.sources.methodSteps.map((step) => (
                 <li key={step.title}>
                   <strong>{step.title}</strong>
                   <span>{step.description}</span>
@@ -639,13 +621,14 @@ export function AtlasExperience() {
 
           <div className="project-notes">
             <article>
-              <h3>Crédits et licence</h3>
+              <h3>{text.sources.creditsTitle}</h3>
               <p>
-                Plans et visualisations © {initialSite.copyrightYear}{" "}
+                {text.sources.mapsAndVisualisations} ©{" "}
+                {initialSite.copyrightYear}{" "}
                 {initialSite.plateAuthor}.
               </p>
               <a
-                href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr"
+                href={`https://creativecommons.org/licenses/by-nc-sa/4.0/deed.${language}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -653,55 +636,50 @@ export function AtlasExperience() {
               </a>
             </article>
             <article>
-              <h3>Code source</h3>
-              <p>
-                La chaîne de production et le code du site sont disponibles sur
-                GitHub.
-              </p>
+              <h3>{text.sources.sourceCodeTitle}</h3>
+              <p>{text.sources.sourceCodeText}</p>
               <a
                 href="https://github.com/mfoll/reunion-topobathy"
                 target="_blank"
                 rel="noreferrer"
               >
-                Voir le dépôt GitHub
+                {text.sources.viewRepository}
               </a>
             </article>
             <article>
-              <h3>Sécurité</h3>
-              <p>
-                Ces plans ne sont pas destinés à la navigation et ne remplacent
-                pas les informations locales, les conditions de mer, les
-                consignes des autorités ou l’avis d’un professionnel.
-              </p>
+              <h3>{text.sources.safetyTitle}</h3>
+              <p>{text.sources.safetyText}</p>
             </article>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </main>
 
       <footer className="site-footer">
         <a className="brand" href="#top">
           <span className="brand-mark" aria-hidden="true" />
-          <span>Plan des sites de plongée · La Réunion</span>
+          <span>{text.header.brand}</span>
         </a>
         <span>
-          Plans © {initialSite.copyrightYear} {initialSite.plateAuthor} ·{" "}
+          {text.footer.maps} © {initialSite.copyrightYear}{" "}
+          {initialSite.plateAuthor} ·{" "}
           {initialSite.mapLicense}
         </span>
-        <a href="#top">Haut de page</a>
+        <a href="#top">{text.footer.backToTop}</a>
       </footer>
 
       <dialog
         className="map-dialog"
         ref={dialogRef}
         onClick={closeOnBackdrop}
-        aria-label={`Carte de ${activeSite.displayName} en grand`}
+        aria-label={`${text.dialogs.largeMap} ${activeSite.displayName}`}
       >
         <button
           type="button"
           className="dialog-close"
           onClick={() => dialogRef.current?.close()}
         >
-          Fermer
+          {text.dialogs.close}
         </button>
         <img
           src={mapLargest.src}
@@ -715,26 +693,25 @@ export function AtlasExperience() {
         className="map-dialog overview-dialog"
         ref={overviewDialogRef}
         onClick={closeOverviewOnBackdrop}
-        aria-label="Carte de La Réunion en grand"
+        aria-label={text.dialogs.largeIslandMap}
       >
         <button
           type="button"
           className="dialog-close"
           onClick={() => overviewDialogRef.current?.close()}
         >
-          Fermer
+          {text.dialogs.close}
         </button>
         <div className="overview-dialog-map">
           <img
             src={mapManifest.reunionOverview.src}
             width={mapManifest.reunionOverview.width}
             height={mapManifest.reunionOverview.height}
-            alt="Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest couverte par la carte de sélection des sites."
+            alt={text.dialogs.islandOverviewAlt}
           />
           <span className="reunion-overview-extent" aria-hidden="true" />
         </div>
       </dialog>
-
-    </main>
+    </>
   );
 }

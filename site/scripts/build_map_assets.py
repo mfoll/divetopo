@@ -2,8 +2,8 @@
 """Build deterministic, responsive website assets from canonical map outputs.
 
 The map renderers remain the source of truth. This script only resizes and
-encodes their JPEG outputs for the website, then copies the original planches
-unchanged so visitors can download the full-resolution printable files.
+encodes their JPEG outputs for the website, then copies the original maps and
+planches unchanged so visitors can download the full-resolution files.
 """
 
 from __future__ import annotations
@@ -266,6 +266,9 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
                     output_height,
                 )
             )
+        download_path = site_root / "downloads" / f"{view}-{style}-full.jpg"
+        download_path.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copyfile(source_path, download_path)
         maps.append(
             {
                 "view": view,
@@ -275,6 +278,15 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
                     "height": source_image.height,
                 },
                 "variants": variants,
+                "download": {
+                    **image_record(
+                        download_path,
+                        build_root,
+                        source_image.width,
+                        source_image.height,
+                    ),
+                    "filename": source_path.name,
+                },
             }
         )
 
@@ -357,6 +369,8 @@ def manifest_totals(manifest: dict[str, Any]) -> dict[str, int]:
             for variant in map_item["variants"]:
                 web_bytes += variant["bytes"]
                 asset_files += 1
+            download_bytes += map_item["download"]["bytes"]
+            asset_files += 1
         for planche in site["planches"]:
             web_bytes += planche["preview"]["bytes"]
             download_bytes += planche["download"]["bytes"]
@@ -392,7 +406,7 @@ def main() -> None:
         build_root.mkdir()
 
         manifest: dict[str, Any] = {
-            "schemaVersion": 5,
+            "schemaVersion": 6,
             "mapWidths": list(MAP_WIDTHS),
             "planchePreviewWidth": PLANCHE_PREVIEW_WIDTH,
             "reunionOverview": reunion_overview_record(),

@@ -26,6 +26,7 @@ EXPECTED_FILE_KEYS = {
     "metadata",
     "height",
     "validMask",
+    "isobathMask",
     "topographicTexture",
     "orthophotoTexture",
 }
@@ -61,7 +62,7 @@ def verify_record(source_root: Path, record: dict[str, Any]) -> Path:
 def load_manifest(source_root: Path) -> dict[str, Any]:
     manifest_path = source_root / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
-    if manifest.get("schemaVersion") != 1:
+    if manifest.get("schemaVersion") != 2:
         raise ValueError("Unsupported interactive terrain package schema")
     sites = manifest.get("sites")
     if not isinstance(sites, list) or not sites:

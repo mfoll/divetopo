@@ -11,6 +11,11 @@ verticale de la côte ouest sert directement de sélecteur ; sous 900 px, elle e
 remplacée par un menu déroulant natif. Les deux interfaces et les téléchargements
 sont alimentés par le même manifeste généré.
 
+L’interface existe en français et en anglais. Sans préférence enregistrée, la
+langue suit celle du navigateur. Le thème propose Clair, Sombre et Auto ; Auto
+est le réglage initial et suit le mode du système. Les mêmes cookies de
+préférence sont utilisés sur `divetopo.com` et `reunion.divetopo.com`.
+
 ## Développement
 
 Prérequis : Node.js `>=22.13.0`.
@@ -59,6 +64,8 @@ npm run build
 ```
 
 Le déploiement canonique utilise l’adresse
-<https://plans-sites-plongee-reunion.m-foll.chatgpt.site>. L’ancien projet
+<https://reunion.divetopo.com>. L’adresse Sites
+<https://plans-sites-plongee-reunion.m-foll.chatgpt.site> reste disponible
+comme adresse technique. L’ancien projet
 <https://reliefs-ouest-reunion.m-foll.chatgpt.site> reste en ligne séparément ;
 sa configuration est conservée dans le commit `b9bca34`.

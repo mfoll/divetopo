@@ -1,17 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "slug": "cap-homard",
   "title": "Cap Homard, Cap de Tonton · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 314786.0,
-    "south": 7672926.0,
-    "east": 315586.0,
-    "north": 7673480.0
+    "west": 314274.4,
+    "south": 7672400.4,
+    "east": 315869.6,
+    "north": 7673995.6
   },
   "physicalSizeM": {
-    "width": 800.0,
-    "depth": 554.0
+    "width": 1595.2,
+    "depth": 1595.2
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 257,
-    "height": 178,
-    "triangleCount": 90624,
+    "width": 513,
+    "height": 513,
+    "triangleCount": 524288,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -29.41594696044922,
-      "scaleMPerUnit": 0.0012881047830998584,
+      "offsetM": -30.0,
+      "scaleMPerUnit": 0.0012970168612191958,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -39,10 +39,17 @@
       "type": "bitset",
       "bitOrder": "least-significant-bit-first",
       "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
     }
   },
   "elevationRangeM": {
-    "min": -29.41594696044922,
+    "min": -30.0,
     "max": 55.0
   },
   "heightValues": "physical metres before vertical exaggeration",
@@ -52,12 +59,12 @@
     "gridLookBearingDeg": 135.0,
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.1,
-    "visibleWidthM": 600.0,
+    "visibleWidthM": 540.0,
     "coastFrameFraction": 0.4036
   },
   "textures": {
-    "width": 2000,
-    "height": 1385,
+    "width": 2048,
+    "height": 2048,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -72,5 +79,33 @@
     "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
     "license": "CC BY-NC-SA 4.0",
     "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      315072.0,
+      7673198.0
+    ],
+    "widthM": 690.0,
+    "depthM": 1565.0,
+    "lookBearingDeg": 135.0,
+    "cornersUtm40s": [
+      [
+        314762.641,
+        7673995.263
+      ],
+      [
+        314274.737,
+        7673507.359
+      ],
+      [
+        315381.359,
+        7672400.737
+      ],
+      [
+        315869.263,
+        7672888.641
+      ]
+    ]
   }
 }

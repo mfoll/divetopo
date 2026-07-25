@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 5,
+  "schemaVersion": 6,
   "mapWidths": [
     960,
     1600,
@@ -68,24 +68,32 @@
               "src": "/maps/cap-la-houssaye/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 60638,
-              "sha256": "4e000adec1ca64e1993d5ef94c74e7e86cdea2354b8ba2be98023aa4219b2968"
+              "bytes": 61178,
+              "sha256": "f5da2e48556a6dc05e409f886934a75fc1bf6f5f3e57022e9012db238ccc7ce6"
             },
             {
               "src": "/maps/cap-la-houssaye/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 122996,
-              "sha256": "0f760ad85c6b1c8c17a8f77d0b35f8142dbabb6455eb5b7306b6844c0e2f65fc"
+              "bytes": 123984,
+              "sha256": "eb96edb098916032c2dd453ad5072c7af360b9433327dd6940dc30d3d09b736d"
             },
             {
               "src": "/maps/cap-la-houssaye/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 223242,
-              "sha256": "13ba62e8ad6a1964c616cb160364a7bb0af4462c8c256c025dace1375cc0c410"
+              "bytes": 224620,
+              "sha256": "a42d085ef2b8746fdee2d5ec8d9fd78725cf64126e1e8c37568b2dd66e7e2520"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-la-houssaye/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1432827,
+            "sha256": "fe388f386aaaea10623df419f4d83d500578f5dad16e969473b63dce87c1e125",
+            "filename": "cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -99,24 +107,32 @@
               "src": "/maps/cap-la-houssaye/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 124964,
-              "sha256": "88d4e24eb3bd8a4666b0a2fd85e3e5ecf4c21f89f8d99ece9923d96a251d644e"
+              "bytes": 125436,
+              "sha256": "f9d8b9ad511ef7a627d1b86958f4cecb05e82bd95062c84e26d420b89ac647a5"
             },
             {
               "src": "/maps/cap-la-houssaye/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 267288,
-              "sha256": "72236d1013d3cba5d6b0ecc3cf2ac0324b43f78f3b830effd626a485c2adc396"
+              "bytes": 267792,
+              "sha256": "e5a7d92d91370d312329525982ede077c56a2bd5a1a8fbfc246215c61ed7a331"
             },
             {
               "src": "/maps/cap-la-houssaye/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 463434,
-              "sha256": "6e2f05c2dbe8efe02ef6c56fc550701ae2be043f3a2292df25502792459804a7"
+              "bytes": 465116,
+              "sha256": "8abc55fe256cdc8e9588cf2ab573256f7d4a0da360c0e6159a2154b09d53dcd7"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-la-houssaye/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2095467,
+            "sha256": "dc29ba68c13e7250f8016f41bbc5fa25e5f52c77326e89743ed4014f529dcbaf",
+            "filename": "cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -130,24 +146,32 @@
               "src": "/maps/cap-la-houssaye/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 62648,
-              "sha256": "c25be5daf75fee94430a099646f3f27c0f72282c9f42956cd70d92befaadcdd9"
+              "bytes": 63052,
+              "sha256": "186c730a4fc33944144abb2017fb17bac52611adf5907f5274bdfa544fb12729"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 128306,
-              "sha256": "b35570b26c470f2463d6d6f76ae04de6c379fd088ae53b55dcead65881275039"
+              "bytes": 129532,
+              "sha256": "e155ef5c5c699b0717984639c3140a63936b199c88ce0c230f142953c4d83c52"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 235414,
-              "sha256": "53aeb1f93feedcc09b53555277bd0f30c5b08b2841028472f08088df38e6ebf3"
+              "bytes": 236932,
+              "sha256": "6d047af3dfe9e6e14dd7d739340571e2b70526ecf3cf53cb32b9ee29340d860e"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-la-houssaye/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1793100,
+            "sha256": "292b68378ca13387e4189569b5b70198427b0423b99108d9085f039bb1d3ce8c",
+            "filename": "cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -161,24 +185,32 @@
               "src": "/maps/cap-la-houssaye/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 130924,
-              "sha256": "1054bee68ce3c00262fb6f8dacb23ca6b78be27ad34030ab343b085270489950"
+              "bytes": 128720,
+              "sha256": "3a492346b40f2c5756c09bff433f48daa39d1c54078b40a0fcb8e90bcc329665"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 273464,
-              "sha256": "40794593a3b9e006c3fc1e9380b4376a1e9e79f4d3b839959453133a45884f5b"
+              "bytes": 271380,
+              "sha256": "fae9dc524012c50082a7b2f2c06048dc4c2f95f76672f435f6d74392600d2004"
             },
             {
               "src": "/maps/cap-la-houssaye/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 518588,
-              "sha256": "ac8b77332c0af94210a7ff1ad66df4ddf49d6bea80069e1b87b023ab454eb347"
+              "bytes": 515752,
+              "sha256": "fb9f57d8e34fd999774e0b84b2c1e9d75e5764545e054ad46372438db5ed3347"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-la-houssaye/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2531536,
+            "sha256": "f6ad1cd8edf28b4c9064ab791dcd3fd65a08550599654fea372ebad1e68b97fe",
+            "filename": "cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -188,15 +220,15 @@
             "src": "/maps/cap-la-houssaye/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 173900,
-            "sha256": "a75e18ad2f1f52f2b822579b652c163ea630640e6980cb1f5bac9e5b3fbc1423"
+            "bytes": 174736,
+            "sha256": "dff159d1e7f953c0340223eeca05b511f75ae2e030a0d771305d5951a26fa060"
           },
           "download": {
             "src": "/maps/cap-la-houssaye/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5325603,
-            "sha256": "722f33a281c24da26709254a533946917dcdc89c6f0d324a1dc048efaeede3b6",
+            "bytes": 5329885,
+            "sha256": "c6ba463f5c0ba2c0ccd31ef6c3899fda1837021db104cac4c036449cc8952199",
             "filename": "cap-la-houssaye-planche-topographique.jpg"
           }
         },
@@ -206,15 +238,15 @@
             "src": "/maps/cap-la-houssaye/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 285742,
-            "sha256": "d142b96aad592db19ac498efa2e560ee04edcdb3c5b40e47701deda301048178"
+            "bytes": 290344,
+            "sha256": "19e335a326fe080936b261343e24cad638e1d7c6cf8c3e611855c382e31c7bc5"
           },
           "download": {
             "src": "/maps/cap-la-houssaye/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 6834897,
-            "sha256": "f81460cfe5ea93753c3a1f4227ef61ebb64d9fed3ca8b32361beba2625c7262b",
+            "bytes": 6820406,
+            "sha256": "2d185a1e3ee91d06adf84e5eca043191f3b8529efe4b3a7a980f5e54aacdce75",
             "filename": "cap-la-houssaye-planche.jpg"
           }
         }
@@ -255,24 +287,32 @@
               "src": "/maps/boucan-canot/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 74446,
-              "sha256": "06d9a17e4143547b5e7c05dec6f098de608ab3564277dfd8e6fb1bf014612a22"
+              "bytes": 75584,
+              "sha256": "5201d525d92fccf806c72de5faf2bc5c1ecd9aff417ebad08c72fd7dc492876d"
             },
             {
               "src": "/maps/boucan-canot/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 150096,
-              "sha256": "937be32b241e4bfa17aef08ffcf4d21350b5da85aabd0bd768dbf3a5158e060e"
+              "bytes": 150982,
+              "sha256": "b62f25aca070af380e9706d7d41c72ad649b7dce0ceaecb5dafffc220c369f0b"
             },
             {
               "src": "/maps/boucan-canot/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 274474,
-              "sha256": "f456fb19b991e06d9182546e6a9335b0d1c61b574857ee812d24b6ef74fe0ece"
+              "bytes": 276470,
+              "sha256": "11909a3b11d7e0df7eee5e68c3b494c80df59588075bc3d95dd5084ed0b32903"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/boucan-canot/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1530566,
+            "sha256": "507712d495ec242e009d22582e014297432023093e86c8e2ec36dad5e726c121",
+            "filename": "boucan-canot-topobathy-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -286,24 +326,32 @@
               "src": "/maps/boucan-canot/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 130522,
-              "sha256": "e939b399f252ae7aaaee446ee6c3b8f55614aad91401e817f2f979f0ab86df64"
+              "bytes": 131972,
+              "sha256": "578b10cbc3e94245e28199bbdff1b9d46c2d85db4af77c4d70e29ca940845e3c"
             },
             {
               "src": "/maps/boucan-canot/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 294348,
-              "sha256": "468d803d5643a73622438a68e6d6c36a92c98a7d85c8b76d770d92cb01cba8df"
+              "bytes": 299604,
+              "sha256": "e62b8149c462e87cfe5886557b1d80988e61f188ec9d15eb9f9c24d3d26f6333"
             },
             {
               "src": "/maps/boucan-canot/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 551554,
-              "sha256": "7055e8f9e810375deb206e92bd98ad6e40caa95fdbfabda38267cb90020af60b"
+              "bytes": 557240,
+              "sha256": "71b38a2f5093b2df49e0c7200bb18bbb6f723368fdb3d0b00900d7c1a110d174"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/boucan-canot/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2318903,
+            "sha256": "9bde6c68394d72cf39e24a8ad1ebf0b10cc08046c191548e3ac130acc64e07c9",
+            "filename": "boucan-canot-topobathy-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -317,24 +365,32 @@
               "src": "/maps/boucan-canot/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 79782,
-              "sha256": "e4e598aff377b64b55ad663b853e145cde6dc3b51b3947d528505888a70c39eb"
+              "bytes": 79802,
+              "sha256": "15841ca1f40f0d1e36339d41240bc75831cda71f69ea93bd8bb240391d2f99ff"
             },
             {
               "src": "/maps/boucan-canot/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 162752,
-              "sha256": "be4b22b615c53f7de396649ccb1bb68c90c161a0be1542e248ae54f00dd02cf4"
+              "bytes": 163024,
+              "sha256": "4849b3b4ee89fb70f69df82171f1a1710f498ce148e816e4000444b4f14b7d3f"
             },
             {
               "src": "/maps/boucan-canot/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 289500,
-              "sha256": "c5e467fc58d9bcfb4418701c30b3c85eaf4f07787e3050f4167ba74f25263691"
+              "bytes": 289504,
+              "sha256": "1ca18d4b88d4fe19193a4e11a19c1097ca7c9d63e7989da30ece5fa0b794f316"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/boucan-canot/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1960596,
+            "sha256": "37b7b763c2329e2d40d3049975a80f1ded7393f1846f516ecc23f79255516806",
+            "filename": "boucan-canot-topobathy-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -348,24 +404,32 @@
               "src": "/maps/boucan-canot/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 165332,
-              "sha256": "1eadabfbe8e8f33e020eb530fdea919b94449516fb45ef810667cb1ffa8a0c7d"
+              "bytes": 164488,
+              "sha256": "a7ae689e8a0da97ead7e207e6c903bf58da09af31b6adaa225786a35ffe23e4e"
             },
             {
               "src": "/maps/boucan-canot/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 352452,
-              "sha256": "16117bc3a6eb540f413b95a668b67bfa5d54b99ee01909c744fa0159ee41d561"
+              "bytes": 349584,
+              "sha256": "06f8312d026d001c0792edeff9b9f362e516ca716a56a556e9adb41a79e68630"
             },
             {
               "src": "/maps/boucan-canot/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 654178,
-              "sha256": "fbfcfb5cf679b079477527d6dcee0655ca8e9c0ce4deb820ae778da6916f10b8"
+              "bytes": 649508,
+              "sha256": "94b8dabba69d0dad19edba6e175b9aebe8d450c58f646f251e2bdd113b133189"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/boucan-canot/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2896318,
+            "sha256": "af0889377b7fb9a82419979b3187e58e4fc98c8d0a583f0c2ac78d3562fdbdf9",
+            "filename": "boucan-canot-topobathy-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -375,15 +439,15 @@
             "src": "/maps/boucan-canot/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 202180,
-            "sha256": "651d0efb6910e70420ccf1603da9bde53cac52cc52b77fde2d1cc118bd6200cd"
+            "bytes": 203302,
+            "sha256": "eb8315911f1b3cedc68330da2b3b35c152d47e79e2144320d927ef29d8b6c022"
           },
           "download": {
             "src": "/maps/boucan-canot/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5610197,
-            "sha256": "8a903918f3d70a0d48a530fac7c82f578e980c82c16bbe424e133b1ec41fb358",
+            "bytes": 5614427,
+            "sha256": "c37100c473bfd33d7e59ef4e9ca85c541ff1c412ed5699206e6612adb9ec47c5",
             "filename": "boucan-canot-planche-topographique.jpg"
           }
         },
@@ -393,15 +457,15 @@
             "src": "/maps/boucan-canot/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 320298,
-            "sha256": "f3c7ff099ca0db69a96c8e1ed2c85338af85b32b0b93ad1dcd2a79cf16c91e31"
+            "bytes": 320488,
+            "sha256": "01b19bedc2c1bbf20d93e2cd83439404eef541f7e983149fe8a18de51bf963ad"
           },
           "download": {
             "src": "/maps/boucan-canot/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7414370,
-            "sha256": "3e6e942d05072989722658116cb82ee35546e29ac9e14f07408818393699d5ab",
+            "bytes": 7416113,
+            "sha256": "990f4ffe1d218e3d9aae77eef8592534319ef36dfac375f1c11f5c2859c65f3d",
             "filename": "boucan-canot-planche.jpg"
           }
         }
@@ -442,24 +506,32 @@
               "src": "/maps/cap-homard/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 54916,
-              "sha256": "48483f4bf2e9d7eb6fb195560c082833d01ea06c1f7269e0a3d3b03000c63e3d"
+              "bytes": 54958,
+              "sha256": "ecd212dde4fbfed6cf74bf313865d77d364145732d17aa59e6ae2d0cfbe7f111"
             },
             {
               "src": "/maps/cap-homard/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 110426,
-              "sha256": "4a4ad584b89bf79fc68acfa99b1c95ee4401075d5972c65ae118b4d1320ed909"
+              "bytes": 111218,
+              "sha256": "6ddc713d9a08bc1ad4055388fe9270580c63f42c7d6c2f054ff9949fac39872a"
             },
             {
               "src": "/maps/cap-homard/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 200436,
-              "sha256": "8558f7464edcb416b6083d632231910cb18917c15f956b4f33ad8b623869026b"
+              "bytes": 201054,
+              "sha256": "2eaa1fdbf8c07dff5b787c6987af4550b1f7c39e53e18bfc688b82b8162ea2d8"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-homard/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1207269,
+            "sha256": "8eb32cd054fb7f377e820c386a97b36d383660f9fbbbcb3a15c50207687622be",
+            "filename": "cap-homard-topobathy-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -473,24 +545,32 @@
               "src": "/maps/cap-homard/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 197570,
-              "sha256": "968f45d99d140d82674f4be5146ef12fa5f5b1453bdd2f2892c1d9f4e84f7fab"
+              "bytes": 199048,
+              "sha256": "061b1245ead63090e0809444d8cfacfd57c90de17c3db3369e1eacf3f42e694b"
             },
             {
               "src": "/maps/cap-homard/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 470390,
-              "sha256": "a8c81b8cefd56d6d5c9ba271a776270d9abf4e11b2fcdc68c05f7f754bd36048"
+              "bytes": 472268,
+              "sha256": "f65b04cb74046603922478f13e65271655bf24dad92069b4b585c4018bbb586e"
             },
             {
               "src": "/maps/cap-homard/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 901148,
-              "sha256": "ad774483e1c5ad645681c5f40ed35b94747261b4b3837fc1300e9331ca302859"
+              "bytes": 905378,
+              "sha256": "25e2a02fd49f736c008a0b1299756bd0ee4b742dbb3798a15cd45a4d10929860"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-homard/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 3103861,
+            "sha256": "e1e3549aea6b9e38617403e3105326053f45bfe6b7e1ce0937956fed6cb9d3b1",
+            "filename": "cap-homard-topobathy-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -504,24 +584,32 @@
               "src": "/maps/cap-homard/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 75580,
-              "sha256": "b45a27af180cb163fbf903db67eda227df3e208c03a161b57ea015d7aa9cea29"
+              "bytes": 75806,
+              "sha256": "e5b69723ead2635369f7d38a70da5ba9e2c2d129caa8294089740ffdf9f0389b"
             },
             {
               "src": "/maps/cap-homard/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 151986,
-              "sha256": "0ba4fe8c1386e6e7c8f88101f3d9362a9a8a836a9e0457b02ce8c794ce8c31f0"
+              "bytes": 152038,
+              "sha256": "e646111f0ef4ff92ce309e4a49c1cbabe80ee2749129b3639280f77db7e67049"
             },
             {
               "src": "/maps/cap-homard/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 268554,
-              "sha256": "49ab9d9b71dacbaf701f31c1b8315994bc874e1c47479708a772475b380d5c54"
+              "bytes": 268346,
+              "sha256": "71300ed39667be581d4c62e9f814a46a5ca54764e9e2b3360c00e4602e7654c6"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-homard/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1869519,
+            "sha256": "fa798df479f0c928e70be100a520751a9d4256e50528cf5d1f163134bee9230b",
+            "filename": "cap-homard-topobathy-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -535,24 +623,32 @@
               "src": "/maps/cap-homard/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 148080,
-              "sha256": "99c544e3a635d6d7de0ec8e6b2f7a73004cf9f81ff722fcd30c12f439db9cba7"
+              "bytes": 146972,
+              "sha256": "16739b5590e6683891102c2c6f6d7eeba5570a15002d3b6071348707d14b9521"
             },
             {
               "src": "/maps/cap-homard/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 311666,
-              "sha256": "aac56d0bc4dcdde6e5beaf5acece5d200677c4bece43c1b62ee169207d733bbf"
+              "bytes": 308640,
+              "sha256": "83b26d65bf9a6dbbe66a5d0c22a42a3608dee9acb83ea26d6d08dbb9026f4143"
             },
             {
               "src": "/maps/cap-homard/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 559136,
-              "sha256": "e191946197135a94abb415d8281120ef175ac5db4b58bef61c4f56cf9f83d237"
+              "bytes": 553156,
+              "sha256": "36a0ea3c578c1a2ef25d8b92d25945bd1bb0e0e363502d40c4b3e85756e1e684"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/cap-homard/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2680908,
+            "sha256": "fd24b23ba71b126357d7e2eea82ab12fcde5dd9e755b827e8ea30caffd018085",
+            "filename": "cap-homard-topobathy-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -562,15 +658,15 @@
             "src": "/maps/cap-homard/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 178226,
-            "sha256": "66c92f8bc4051d7dbd937e1eb5b869e92af00bf2bcceaab07cc53164e3033558"
+            "bytes": 178620,
+            "sha256": "0bdd9ff2c504a11a167ca2187ca767298c559690cb649d04c86fdb8476cf6c65"
           },
           "download": {
             "src": "/maps/cap-homard/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5168874,
-            "sha256": "0fb9eddb196d99bf763b853556c87ef843bf8f4c40988bc2bb3eed7132be409c",
+            "bytes": 5162783,
+            "sha256": "48ec0ab26909bc978ab58840fc33dc20c2d1d5db5f067edcb4a4247e3ed47c5c",
             "filename": "cap-homard-planche-topographique.jpg"
           }
         },
@@ -580,15 +676,15 @@
             "src": "/maps/cap-homard/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 357832,
-            "sha256": "26ffd014fb9ee2444713c9b2a818649de242ff559b013d81ba050a38a83dcd3e"
+            "bytes": 358014,
+            "sha256": "0e6dddf40d1c8e7aa0da8dfb78f38246a0684a59eba4f71209734f9972fc1918"
           },
           "download": {
             "src": "/maps/cap-homard/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 8036913,
-            "sha256": "f153d6142a0e0769ac9f2f7b6f4eccaa3e720a2196d22c6dcdb5b118c95f4624",
+            "bytes": 8023562,
+            "sha256": "acc968e83a1fbc6754d33dec4aaa89fc0f7b029393917bb384080283dda28eba",
             "filename": "cap-homard-planche.jpg"
           }
         }
@@ -629,24 +725,32 @@
               "src": "/maps/passe-hermitage/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 70008,
-              "sha256": "b19d22cbe6362cf484b9d33ae3b2ef72519af670c9b3e3f1e49a302146ec594a"
+              "bytes": 69246,
+              "sha256": "161b37f56c0215cf802f25e33547304ffd4af3dc3d0cba3bf4ecd62adb859422"
             },
             {
               "src": "/maps/passe-hermitage/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 143904,
-              "sha256": "5ccb7f7b066dcc1c2e66381626cc5fa88f4714e6804cd70a7508ace344a29eb5"
+              "bytes": 141768,
+              "sha256": "937c05852ecc0fdb2caacda768bc7a812b2d54c19cbd57851dd9177ab353a58e"
             },
             {
               "src": "/maps/passe-hermitage/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 263728,
-              "sha256": "8cb054c17d96d20b66204ab799677be0cf388d423c9a98801cf7378dc1194b60"
+              "bytes": 261030,
+              "sha256": "22e690c5f099cdd17b828812fbe5da36b67029c709d68fb6bd8d6066eb83e68e"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/passe-hermitage/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1438424,
+            "sha256": "93d012b5039c3cfaa6fec504ce9e5692636d89c3ac0e29c25118d379f2aec469",
+            "filename": "passe-hermitage-topobathy-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -660,24 +764,32 @@
               "src": "/maps/passe-hermitage/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 161366,
-              "sha256": "3b8a6a3373fb05b0ff6f72de7247a0717b2d6ed90b610da09b09957158661fbd"
+              "bytes": 161664,
+              "sha256": "7390ceccc4ef88922efb17d6360cc63e68846065c4f07deba2de66d24f205a79"
             },
             {
               "src": "/maps/passe-hermitage/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 393066,
-              "sha256": "40339608c67ecabf31b4e3578e28f8202bf1c5f7df71d6004c690a43a4644372"
+              "bytes": 392612,
+              "sha256": "df239b604b464da34322b7663efdf919a09aa980496ff8847db3ce5f92bc2cf2"
             },
             {
               "src": "/maps/passe-hermitage/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 789442,
-              "sha256": "b7fb96fd9a9443c07dd8a5a0455b9373867984edbd34d454acce758b76d48c11"
+              "bytes": 787800,
+              "sha256": "ae7791904589b41f26efb1d019eb3bc454f80f870dadb362341d5cc7214e95d7"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/passe-hermitage/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2882450,
+            "sha256": "d1cdee54d634962896295d722e22f52c64a7e63d5f7a99bde8bde0a4e011aef3",
+            "filename": "passe-hermitage-topobathy-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -691,24 +803,32 @@
               "src": "/maps/passe-hermitage/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 85876,
-              "sha256": "9a7bca588aa23550773fa845535100537ee8421c746fc71424a3ec844a8203a2"
+              "bytes": 86202,
+              "sha256": "aaac7ddb39c2bed4a742456a8c418d1751bb0fd5e3125e62fe5356249654d709"
             },
             {
               "src": "/maps/passe-hermitage/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 178318,
-              "sha256": "382169cb539cb9324ac7d9ad1a97fc9f1d10449594a9275e6e1ed3e85401676e"
+              "bytes": 180504,
+              "sha256": "8dff0aa54b5737bb0dea760e2d6c54dea2025e29530d17cd946933f936d6b034"
             },
             {
               "src": "/maps/passe-hermitage/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 323912,
-              "sha256": "1a8ec14851bc2a480f7c9f7cd7fd082d46b5745421dde5ac3bf1e054bc8a805a"
+              "bytes": 323234,
+              "sha256": "06372acd4dfa75583aa83603f84912cdf43f1547b509a6bee8b02cc410a2a43b"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/passe-hermitage/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2040500,
+            "sha256": "aed4dcc5e23d81979ca97f1c7e33574d25e2b77325928f963de9d0d52d230549",
+            "filename": "passe-hermitage-topobathy-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -722,24 +842,32 @@
               "src": "/maps/passe-hermitage/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 137290,
-              "sha256": "1d42363c9299b96567cdd58adc60d6b27cb541a540cb5edbc207a714a4c857c9"
+              "bytes": 135798,
+              "sha256": "1c6d7f1d0d89696f7a65a7e66c55ee3b355d0ff1edf8ccf02589aab39b825d46"
             },
             {
               "src": "/maps/passe-hermitage/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 291324,
-              "sha256": "6193d14e8fe8a134a4bcb4041d6d40bc78857834d11d2e2d11856a09a8a0768d"
+              "bytes": 287156,
+              "sha256": "a2703ab97ce62d1eca82c67edf1c13bfae1b5882b73cffb63db01914e764ff50"
             },
             {
               "src": "/maps/passe-hermitage/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 520068,
-              "sha256": "370c4d756b393abff4519143d6d5c57f87b8fd83aa9629c874495fd6fe1d3f3a"
+              "bytes": 509628,
+              "sha256": "2d0b1a059e34bccd05d2e6e1c6cf33abdae3ba60b82afeb0e0cc4c6ada4fa772"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/passe-hermitage/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2515018,
+            "sha256": "c579eedf73643492b5bb06135b7d35a6539c59992b5e8623b9b2b622eecdf3b9",
+            "filename": "passe-hermitage-topobathy-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -749,15 +877,15 @@
             "src": "/maps/passe-hermitage/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 203236,
-            "sha256": "a1d7dc6b29deac788d7a8d070b4347b18f76105d76bd302dbbb319587f1bbfd2"
+            "bytes": 202596,
+            "sha256": "f808b37b37cc03eba621fdd4a75618895e0efaa04242264b0dced6cabdb45983"
           },
           "download": {
             "src": "/maps/passe-hermitage/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5630596,
-            "sha256": "d51cc005a661a48682fd30fd78bd9aa0b6f78cb73e4acfc85b521646c4c11da3",
+            "bytes": 5603632,
+            "sha256": "1e6eba22b8bb5b1ddd5afa0d24510ed9f43b1862cdd5f48b7040071a44770f0a",
             "filename": "passe-hermitage-planche-topographique.jpg"
           }
         },
@@ -767,15 +895,15 @@
             "src": "/maps/passe-hermitage/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 323004,
-            "sha256": "615621c88136a1d45ddc3929d92b31b6bd0d1306aa0e66c015c77d0de7f1a922"
+            "bytes": 322218,
+            "sha256": "9a625bfe78a24484429fc4129cffa89837feca3fae7357f782abfd6c7968b42a"
           },
           "download": {
             "src": "/maps/passe-hermitage/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7667916,
-            "sha256": "f7a759798d34b03a57cbac390c252d721dcd831f92b25a8949c45b71504a4666",
+            "bytes": 7637956,
+            "sha256": "ac8bae1054513f00ca2cf8803b24aef603d591d99136af9f159f234dfa9b58e2",
             "filename": "passe-hermitage-planche.jpg"
           }
         }
@@ -816,24 +944,32 @@
               "src": "/maps/pont-rouge-la-tortue/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 53828,
-              "sha256": "39628979aa05db2dfbf611075470415f5dc28fc86608b43dde365404d3aa4256"
+              "bytes": 54860,
+              "sha256": "f7e3839abb709c0139e5743af9af4279d06696afdeb678653fbdd4fc09ffa60d"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 108998,
-              "sha256": "78df1fce6a9d355c19cda47f32d8cf152437a80d97f1cc2424563be0a32c5167"
+              "bytes": 110640,
+              "sha256": "eaafa88526778a34361140d2d899e65aaef98855510b62e8dee7020e8786ef51"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 196318,
-              "sha256": "ba2eb38e300bb76719ca45ab8d1eecf9cb6db986cf3398d9aa4604c33e63416d"
+              "bytes": 199286,
+              "sha256": "0d2fff0b0dfcfc4781b302d5ef00475bfcabcf149984453c891fa1e05471c313"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pont-rouge-la-tortue/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1268025,
+            "sha256": "b70568fc1739f2404048c1d1c6d47d6ad75ef22d01de925f78a7e764895ce6c6",
+            "filename": "pont-rouge-la-tortue-topobathy-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -847,24 +983,32 @@
               "src": "/maps/pont-rouge-la-tortue/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 145738,
-              "sha256": "a0dc93ed3edf9277ec0b9f1596838ae6db04375dd651a76b6257f7968309ac64"
+              "bytes": 145440,
+              "sha256": "a42c01075fae780682160296a2bdc40f43530935e57c85075e6a14012b7a3e19"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 342722,
-              "sha256": "952266b1f48b22350f9a62bfc187fd28761e9f493bac9cc98df1b757c7d9e0b6"
+              "bytes": 340854,
+              "sha256": "2589c1c20354d318616bdddeb7ffb5cc31bab08fc567794e5306414f88688f4c"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 649840,
-              "sha256": "2ff62107e7233bfdc4b79e17e79823398eef8992103db85b151f02f940a7ab0c"
+              "bytes": 644024,
+              "sha256": "c3b840bba8277c54186ddb7fb615210a7a1c54e0a58a40532c2647ab6f834f81"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pont-rouge-la-tortue/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2535921,
+            "sha256": "850789c151190455f653ad6a145bd8e9914887d3d809d5b601fe97a6ca324d2a",
+            "filename": "pont-rouge-la-tortue-topobathy-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -878,24 +1022,32 @@
               "src": "/maps/pont-rouge-la-tortue/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 70502,
-              "sha256": "084fab839ee7ef13e451cba2ab94e134d8dfe07fab7b4c51dcdb851d12ccc08d"
+              "bytes": 70478,
+              "sha256": "cea160e421561da319ae45684ac1c8220dc1ee39869f0a7b387c2c53decdf340"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 145056,
-              "sha256": "1cf697ee236f6ce9af23f5d9e7e4200e1349e999cec9f09856a2ae1f6876877f"
+              "bytes": 144756,
+              "sha256": "f11f6efbe5a9585e0fa52c7f50d823430193916ee9a539dbabb9309e36e68db6"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 252052,
-              "sha256": "03351c33ebf7680a482d35137f1fc89b0febe3993bd52f58fce4ac0769a680b3"
+              "bytes": 250408,
+              "sha256": "bcb13b54aabb13363b6cdb700c3b98d6653e8820d326de88ead9b684fcc08d70"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pont-rouge-la-tortue/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1701226,
+            "sha256": "4356ebbf3cea83682582eb01e3df5fdc1ce992bf4f1f99b69db28bc3534ab2f0",
+            "filename": "pont-rouge-la-tortue-topobathy-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -909,24 +1061,32 @@
               "src": "/maps/pont-rouge-la-tortue/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 116804,
-              "sha256": "325ccb460b4b60e93b3a2f0110a1bfcc021c13ef88f69e45f5283781c7a4ec65"
+              "bytes": 115694,
+              "sha256": "45167414638944b9c52eecca5cfb1cb4c887527c62740d69797b63df033365fd"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 240480,
-              "sha256": "4270021fdfc555097f7d74d6923226d18bad4042082781785d6569a40ec23a65"
+              "bytes": 237588,
+              "sha256": "07aecf6e6a3170fe438ef4c0468065fb8a4499a32f192f4a811ae5d9f51a8e27"
             },
             {
               "src": "/maps/pont-rouge-la-tortue/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 434382,
-              "sha256": "44132cbf44b7d76bec93302057171fba7f2691e4a2601c2684fb0a749a178323"
+              "bytes": 428292,
+              "sha256": "fbed88e03bc134146be5993e23571cfd2231998524634f039e51c56a6c249ad1"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pont-rouge-la-tortue/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2192274,
+            "sha256": "51c9fcd8567352da064da8f478791070b64e9c0757b91ad85e7549c6f3606b2d",
+            "filename": "pont-rouge-la-tortue-topobathy-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -936,15 +1096,15 @@
             "src": "/maps/pont-rouge-la-tortue/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 171874,
-            "sha256": "cbb9329b45052c011b88124acbf021590489bff48ae7c7d2f0cc0bd0fd9fa28b"
+            "bytes": 172954,
+            "sha256": "9000eb2594d49bb36a0c43728f6e5f76e2c5caea7e5e103daa458582c135fe35"
           },
           "download": {
             "src": "/maps/pont-rouge-la-tortue/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5021275,
-            "sha256": "cb1f280e159c20ad3346897e4b993330f04cad4114c18c671b2031c33f4d1436",
+            "bytes": 5028492,
+            "sha256": "d8ece63e2c21e1d791c7bad625a5eeead5f13dcd7fdf6797c8cd5687f9449bef",
             "filename": "pont-rouge-la-tortue-planche-topographique.jpg"
           }
         },
@@ -954,15 +1114,15 @@
             "src": "/maps/pont-rouge-la-tortue/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 290728,
-            "sha256": "05fa41c43fae02741bad08f9a32bc2cd4e9a514188820ff15fc3c3f223ace445"
+            "bytes": 289496,
+            "sha256": "7a4ebd79a2c7e80f6e9c2e9172abb9d7859b3aa4a7fdcf28cf3dada9892e792b"
           },
           "download": {
             "src": "/maps/pont-rouge-la-tortue/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 6936380,
-            "sha256": "e374e556890b42036974849a15ea44cd89ba79bd0ae3901c7baa80e589e075a2",
+            "bytes": 6901204,
+            "sha256": "cd4e9c83cc2b87474a563e4b77cb9a78d6944aa5fbd924843dd242f4e2f12f4e",
             "filename": "pont-rouge-la-tortue-planche.jpg"
           }
         }
@@ -1003,24 +1163,32 @@
               "src": "/maps/plage-cimetiere-saint-leu/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 58442,
-              "sha256": "b8da965eb8c790bb72ef25452561622b78c7d9383259b3f5a901e9eb7d04e7ac"
+              "bytes": 58978,
+              "sha256": "f4b0be66c57b140f0299b657b4de1c0279328e6be67c3f7b3ead9d837f1866d2"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 119488,
-              "sha256": "de92635e5a842b891cba055ea0ce3ee61e57168db1162e6f2bfda391c47e5a0b"
+              "bytes": 120894,
+              "sha256": "e82d87db613e26c80eb1b12a77a2bd2fe5fa49555583bec6b5ac29f708569a65"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 217180,
-              "sha256": "6929050156eb475258214e0d99a8f12eeba3a3492ad761f8b39654931e6d23da"
+              "bytes": 219202,
+              "sha256": "834093bad6fe5028af2f53cd489f1a52164dffd99752b8ae6d13b99ed0e8f3bf"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/plage-cimetiere-saint-leu/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1256777,
+            "sha256": "a6db036fd6103acad122db304e2369802940a897b05ee4c8bddb88c3350e12a0",
+            "filename": "plage-cimetiere-saint-leu-topobathy-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -1034,24 +1202,32 @@
               "src": "/maps/plage-cimetiere-saint-leu/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 161366,
-              "sha256": "3e7ca484242dd72da8a77170fa3efc92f2ec26ab970fd47606d0362054ed1010"
+              "bytes": 163070,
+              "sha256": "92b76638d4ea46265584f2b758e4407f13d8151d60e808e6f474f835bc8e845b"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 385308,
-              "sha256": "c4214e6e8e1dadd1a14e87eb0a5fe8ae562498c19881306883b16f1565809372"
+              "bytes": 388526,
+              "sha256": "38e7625beeb700f379419faccb76beec7746d335a27cbdde3874df523bd8824c"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 768536,
-              "sha256": "54efd9cc328d7cf17003ba76bc9437251ba5ac5e7ef10b651ac68a357715c6d6"
+              "bytes": 772678,
+              "sha256": "438213f587ba2593400d4d3a7cc9c32dc6a9a999042bda3f95b10c59710a32a2"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/plage-cimetiere-saint-leu/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2744787,
+            "sha256": "f9ab05c2394ecd9f33fead7071e874e9919574db3a513ce8cf6e552c6756e80f",
+            "filename": "plage-cimetiere-saint-leu-topobathy-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -1065,24 +1241,32 @@
               "src": "/maps/plage-cimetiere-saint-leu/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 73284,
-              "sha256": "0478667e922bade7ad4a6c2746355f3feab99dd1ae9b57e947c3172d137b4fb3"
+              "bytes": 73964,
+              "sha256": "bb7e0216ff4470efa0321a3ddfbebb02e2caed09ebc0f956d62744cc8b280066"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 148254,
-              "sha256": "7f27aa1293b198328aa5dd0c10c5d9f75bdfb5f354c4874338dc76e05c4f3bad"
+              "bytes": 149054,
+              "sha256": "861b7f2b25fd7366a8b9b97d0461bbf7bd8daf8cab762c83612e192c8685f2c9"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 260856,
-              "sha256": "1f3c764fea4160db37ba34bcb1f7aeb6a1e483d82399968b92bd348c81f6555e"
+              "bytes": 262444,
+              "sha256": "647ae837c40ce801b7a8d46b2fd12eb562841d5116df28067c9129db5422dc66"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/plage-cimetiere-saint-leu/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1750026,
+            "sha256": "b5af73498917a538917d7d2bdd76aad0c3b4736aac7dbc210d89c9b5c9fe7985",
+            "filename": "plage-cimetiere-saint-leu-topobathy-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -1096,24 +1280,32 @@
               "src": "/maps/plage-cimetiere-saint-leu/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 145620,
-              "sha256": "17392a97e5f0f25e9f8a227d05c87b7210bd26106950f337bb995546ff96b430"
+              "bytes": 143368,
+              "sha256": "59d49bc738c5cd5ff9d35b4d9ce543f0712839fd414120b99435a4a4073e4275"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 321108,
-              "sha256": "c8c0082c6849e8f5cacb89e2a931789bd220257e00d79a43b31f00514d2d7554"
+              "bytes": 316024,
+              "sha256": "3363b42cff6349f40a9ef11413f5ad3b890a641de17f888811d490a014c73280"
             },
             {
               "src": "/maps/plage-cimetiere-saint-leu/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 585288,
-              "sha256": "0193347d52ced4d551fe4e1126e33d9389aec158fec1830a0bf06e6aad66c02e"
+              "bytes": 578896,
+              "sha256": "7af54cfb59df9b82c68da64fc0b02d55fb4a5bceee2affc70f936f5d47152378"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/plage-cimetiere-saint-leu/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2608879,
+            "sha256": "92e784c8d864d71dc5a68f692dca9654419440106a9864ae4ba17f3f2a2f08be",
+            "filename": "plage-cimetiere-saint-leu-topobathy-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -1123,15 +1315,15 @@
             "src": "/maps/plage-cimetiere-saint-leu/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 178604,
-            "sha256": "562bc6f4efa7d88ed80db8af762273f6d0fc2999118afc921d36a6e6f92d63e1"
+            "bytes": 179834,
+            "sha256": "b7a7f1ab6a8260b57e912ba014a504242690f4d8314d10d19c8cc42f4bfeda64"
           },
           "download": {
             "src": "/maps/plage-cimetiere-saint-leu/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5073361,
-            "sha256": "7f42ec911c19891d9e43ec0ac705403daef7df4cb3b8adb83dec6c5e4cb0894b",
+            "bytes": 5086096,
+            "sha256": "c9eada745af9e4878e727a719f3b9b626cbe3363915a21b3755f35f065619d44",
             "filename": "plage-cimetiere-saint-leu-planche-topographique.jpg"
           }
         },
@@ -1141,15 +1333,15 @@
             "src": "/maps/plage-cimetiere-saint-leu/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 326778,
-            "sha256": "085ab046ac7ac1336048627a4a94ffa3eeb55f50e5d614798a8dbee02e1ff5b7"
+            "bytes": 327410,
+            "sha256": "a08c8945abf0a8ba31e321f95905ec07934ccb80cb5985f5c1c97773fe33331c"
           },
           "download": {
             "src": "/maps/plage-cimetiere-saint-leu/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7554329,
-            "sha256": "15c2d5059b7ccdf1dbac597cb4cb5ffe57f4536f369b4db79e7fe3a99710e9cb",
+            "bytes": 7556813,
+            "sha256": "8e8e0dc92008f0f0381fda405f7fb2d6dd78c802d1253caedc4a06651e8ff441",
             "filename": "plage-cimetiere-saint-leu-planche.jpg"
           }
         }
@@ -1171,7 +1363,7 @@
         "yPercent": 91.9212
       },
       "maxDepthM": 40,
-      "planMaxDepthM": 20,
+      "planMaxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
       "orthophotoCaptureDate": "2025-07-22",
       "plateAuthor": "Matthieu Foll",
@@ -1190,24 +1382,32 @@
               "src": "/maps/pointe-au-sel-sec-jaune/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 61896,
-              "sha256": "bdfad2c0437b411f040bfe9383070ad5cd860a1301034c495214024ba312399d"
+              "bytes": 74804,
+              "sha256": "4b1f8403efb049f9027ddfbac1c62c98ff5c1eb875cba2e93742aea147fb773b"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 126278,
-              "sha256": "264f3a93e1f759c441bfc7a22a2845f78cd2b8de78a4e70d8d81ac41790bd62c"
+              "bytes": 152188,
+              "sha256": "6bf3013ea5b81cda81f1384aecc8c235928fe5a200716aef7a1b779d9b6b0929"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 229230,
-              "sha256": "78fff1a0f0c13de8e84b766c0f7eaed2b57bd933148fb09fab95e322b70ac523"
+              "bytes": 276860,
+              "sha256": "f9b4195077825b6b607b24e0db2dbccadb0b0148a712f0e21d1f4b41c74ec3ef"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pointe-au-sel-sec-jaune/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1487033,
+            "sha256": "259835a546aa012ac213daa229360be057c22ff428760c4883814ef838e84970",
+            "filename": "pointe-au-sel-sec-jaune-topobathy-2d.jpg"
+          }
         },
         {
           "view": "2d",
@@ -1221,24 +1421,32 @@
               "src": "/maps/pointe-au-sel-sec-jaune/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 121050,
-              "sha256": "456f6da0ab24a9a5be2ca0d555cf4b822e270cc90f36c2c7fea057b69cf6bcf7"
+              "bytes": 135942,
+              "sha256": "b340bdca352e65577f3c599d420a84ee817bca68b19cc38ac67a1f6972cf2770"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 275286,
-              "sha256": "622609f412a6a1dfd02b8f90de8ba9c28f7f277638fc19413bb5c4fceaa43dc3"
+              "bytes": 309362,
+              "sha256": "ae327c6767d5d407c516149e075a605a48e8d1514861c1c830f4e874e160572e"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 497132,
-              "sha256": "206da6f066332443e1a4b27ce0b51b4f463149cad29a682daa34b9d808d77d98"
+              "bytes": 563194,
+              "sha256": "460ed843912b3896609fbcc53f8cb5d48800240a4cca0721af05ca2397c13ca0"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pointe-au-sel-sec-jaune/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2299480,
+            "sha256": "588c502e915baa5a3b1458f48a9ff12ece10a83a33ece85340d656fc3d23a927",
+            "filename": "pointe-au-sel-sec-jaune-topobathy-2d-ortho.jpg"
+          }
         },
         {
           "view": "3d",
@@ -1252,24 +1460,32 @@
               "src": "/maps/pointe-au-sel-sec-jaune/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 85166,
-              "sha256": "4c4f97820e9185959a4de5bd173e392c7d5d4820e36bff8b67d9eaaa95dbc564"
+              "bytes": 88138,
+              "sha256": "a434a6b2be240296df213665ae869fe6266aaaf59430229c67ebd8104413e117"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 175876,
-              "sha256": "8b8ca1b02f8ff2fee639499a4a27fa1b338e8d960fe0283087744992e372553d"
+              "bytes": 182752,
+              "sha256": "1e98fdeba7b05844537fd40368ead99c562a4658774f409fd7624510111784b5"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 319932,
-              "sha256": "81eefbfa1a537102aacdcda3f9c7c27fd75831fdd1bed852dd55d80118e2abac"
+              "bytes": 329590,
+              "sha256": "7eb65ac0ec923667cdb53fe00e09fa0724250b0aa5d116e92b811e2ea382c949"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pointe-au-sel-sec-jaune/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1998704,
+            "sha256": "000e41d159a8eb44c57a26e3d1f34f16ced8bd3e62e6e8e51362f90e2c3857d3",
+            "filename": "pointe-au-sel-sec-jaune-topobathy-3d.jpg"
+          }
         },
         {
           "view": "3d",
@@ -1283,24 +1499,32 @@
               "src": "/maps/pointe-au-sel-sec-jaune/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 154942,
-              "sha256": "32df033b866158268658f48ab99475b59bca5a154244363d0a49aeabbcb4507e"
+              "bytes": 159304,
+              "sha256": "b16b91907ea56932d8c44d3699ece5e921295c2c4d4b661bc8f78b2d3ceeb974"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 349390,
-              "sha256": "dc7353de1eee9a2155d65ea2d836011250faad369e8437296dc27a93243d1e5c"
+              "bytes": 359916,
+              "sha256": "7a553f9631246480407848dc419f20aebf80a1f9837aa9769a259096b554c313"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 658866,
-              "sha256": "324c2359529fc0ce5a895f58baf2487c2eccbeaf938d563f0d62c6fe3bd3f77e"
+              "bytes": 677190,
+              "sha256": "d69ac7cee36dfed56e21ca99303075be5ca3460516375544b10c919cd70dfc60"
             }
-          ]
+          ],
+          "download": {
+            "src": "/maps/pointe-au-sel-sec-jaune/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2799728,
+            "sha256": "1d67aaa16defeb9bbe8155a78703612a5f678662ada9e0f611235f040298d8fe",
+            "filename": "pointe-au-sel-sec-jaune-topobathy-3d-ortho.jpg"
+          }
         }
       ],
       "planches": [
@@ -1310,15 +1534,15 @@
             "src": "/maps/pointe-au-sel-sec-jaune/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 189194,
-            "sha256": "17d9d42e48ea5d7562970ae622711be01759306abfff708712b3081543a120fc"
+            "bytes": 207316,
+            "sha256": "0592598629fac3d9df820943b963148f5470785d6c4592aab5e943673b8853bc"
           },
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5212186,
-            "sha256": "67828cbdc65446422bc9b8eab89ffec69b6955e24eb1a35de984be8a8d8f9c29",
+            "bytes": 5551957,
+            "sha256": "da104c6563c1a7dba686812b763040e4e81f8bbf0d23afff065598299708e6ed",
             "filename": "pointe-au-sel-sec-jaune-planche-topographique.jpg"
           }
         },
@@ -1328,15 +1552,15 @@
             "src": "/maps/pointe-au-sel-sec-jaune/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 301716,
-            "sha256": "110d0f47c894bca75d0a248050b1d9c8331e73f975964b04e8a31e756a15c579"
+            "bytes": 317872,
+            "sha256": "5b0093430011586f01e94308bf51f862e2b5afb55d9b12e30168738c079f9945"
           },
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 6902408,
-            "sha256": "4312288c51da3c480a8321dac20a38c61076f077259a26cd3839f9f39c68e5ab",
+            "bytes": 7260912,
+            "sha256": "eaf1f6e1096196f94ff2c9c42167c81cb06890f48d8b8ece5ad3323a8f2ae50d",
             "filename": "pointe-au-sel-sec-jaune-planche.jpg"
           }
         }
@@ -1344,9 +1568,9 @@
     }
   ],
   "totals": {
-    "assetFiles": 114,
-    "webOptimizedBytes": 25433284,
-    "downloadBytes": 88389305,
-    "totalBytes": 113822589
+    "assetFiles": 142,
+    "webOptimizedBytes": 25704584,
+    "downloadBytes": 147934360,
+    "totalBytes": 173638944
   }
 }

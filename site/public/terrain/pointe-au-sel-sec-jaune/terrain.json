@@ -1,17 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "slug": "pointe-au-sel-sec-jaune",
   "title": "Sec Jaune, Pointe au Sel · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 321200.0,
-    "south": 7653800.0,
-    "east": 322067.2,
-    "north": 7654400.0
+    "west": 320652.4,
+    "south": 7653343.6,
+    "east": 322510.8,
+    "north": 7655017.2
   },
   "physicalSizeM": {
-    "width": 867.2,
-    "depth": 600.0
+    "width": 1858.4,
+    "depth": 1673.6
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 257,
-    "height": 178,
-    "triangleCount": 90624,
+    "width": 513,
+    "height": 462,
+    "triangleCount": 472064,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -20.0,
-      "scaleMPerUnit": 0.0008241536006634992,
+      "offsetM": -40.0,
+      "scaleMPerUnit": 0.0014496070801861601,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -39,11 +39,18 @@
       "type": "bitset",
       "bitOrder": "least-significant-bit-first",
       "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
     }
   },
   "elevationRangeM": {
-    "min": -20.0,
-    "max": 34.01090621948242
+    "min": -40.0,
+    "max": 55.0
   },
   "heightValues": "physical metres before vertical exaggeration",
   "verticalExaggeration": 3.9935327405,
@@ -57,7 +64,7 @@
   },
   "textures": {
     "width": 2048,
-    "height": 1417,
+    "height": 1844,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -72,5 +79,33 @@
     "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
     "license": "CC BY-NC-SA 4.0",
     "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      321581.5,
+      7654180.4
+    ],
+    "widthM": 1040.0,
+    "depthM": 1545.0,
+    "lookBearingDeg": 60.0,
+    "cornersUtm40s": [
+      [
+        320652.495,
+        7654244.483
+      ],
+      [
+        321172.495,
+        7653343.817
+      ],
+      [
+        322510.505,
+        7654116.317
+      ],
+      [
+        321990.505,
+        7655016.983
+      ]
+    ]
   }
 }

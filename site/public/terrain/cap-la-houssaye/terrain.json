@@ -1,17 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "slug": "cap-la-houssaye",
   "title": "Cap La Houssaye, La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 316526.0,
-    "south": 7674708.8,
-    "east": 317020.8,
-    "north": 7675051.2
+    "west": 316516.0,
+    "south": 7674382.8,
+    "east": 317086.0,
+    "north": 7675435.2
   },
   "physicalSizeM": {
-    "width": 494.8,
-    "depth": 342.4
+    "width": 570.0,
+    "depth": 1052.4
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 257,
-    "height": 178,
-    "triangleCount": 90624,
+    "width": 278,
+    "height": 513,
+    "triangleCount": 283648,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -20.0,
-      "scaleMPerUnit": 0.0007961984210786698,
+      "scaleMPerUnit": 0.0011444266422522317,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -39,11 +39,18 @@
       "type": "bitset",
       "bitOrder": "least-significant-bit-first",
       "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
     }
   },
   "elevationRangeM": {
     "min": -20.0,
-    "max": 32.178863525390625
+    "max": 55.0
   },
   "heightValues": "physical metres before vertical exaggeration",
   "verticalExaggeration": 3.9935327405,
@@ -56,8 +63,8 @@
     "coastFrameFraction": 0.425
   },
   "textures": {
-    "width": 1237,
-    "height": 856,
+    "width": 1109,
+    "height": 2048,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -72,5 +79,33 @@
     "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
     "license": "CC BY-NC-SA 4.0",
     "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      316801.0,
+      7674909.0
+    ],
+    "widthM": 570.0,
+    "depthM": 1052.0,
+    "lookBearingDeg": 180.0,
+    "cornersUtm40s": [
+      [
+        317086.0,
+        7675435.0
+      ],
+      [
+        316516.0,
+        7675435.0
+      ],
+      [
+        316516.0,
+        7674383.0
+      ],
+      [
+        317086.0,
+        7674383.0
+      ]
+    ]
   }
 }

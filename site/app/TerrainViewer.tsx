@@ -3,13 +3,29 @@
 import { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { atlasCopy } from "../content/copy";
+import type { Language } from "../content/preferences";
+import {
+  bathymetryColorCss,
+  bathymetryColorRgb,
+} from "./bathymetryPalette.mjs";
+import { coveredOrthographicHalfExtents } from "./terrainCamera.mjs";
 
 type SurfaceStyle = "topographic" | "orthophoto";
 
 const RELIEF_EXPOSURE = 1.55;
+const ISOBATH_INTERVAL_M = 5;
+const ISOBATH_SHADER_CACHE_KEY = "analytic-isobaths-v6";
+const ISOBATH_COLOR_COUNT = 8;
+
+type NumberUniform = { value: number };
 
 type TerrainMetadata = {
   physicalSizeM: { width: number; depth: number };
+  elevationRangeM: { min: number; max: number };
+  orientation: {
+    rotationQuarterTurnsCounterClockwise: number;
+  };
   grid: {
     width: number;
     height: number;
@@ -19,6 +35,7 @@ type TerrainMetadata = {
       scaleMPerUnit: number;
     };
     validMaskFile: string;
+    isobathMaskFile: string;
   };
   verticalExaggeration: number;
   view: {
@@ -28,6 +45,7 @@ type TerrainMetadata = {
     alongViewProjectionScale: number;
     visibleWidthM?: number;
     coastFrameFraction?: number;
+    horizontalCenterOffsetM?: number;
   };
   textures: {
     topographic: { file: string };
@@ -64,14 +82,175 @@ function median(values: number[]) {
     : (values[middle - 1] + values[middle]) / 2;
 }
 
+function visibleIsobathLevels(maximumDepthM: number) {
+  const levels: number[] = [];
+  for (
+    let level = ISOBATH_INTERVAL_M;
+    level < maximumDepthM - 0.001;
+    level += ISOBATH_INTERVAL_M
+  ) {
+    levels.push(level);
+  }
+  return levels;
+}
+
+function updateCompassDial(
+  dial: HTMLDivElement | null,
+  camera: THREE.Camera,
+  target: THREE.Vector3,
+  rotationQuarterTurnsCounterClockwise: number,
+) {
+  if (!dial) return;
+  const directionX = target.x - camera.position.x;
+  const directionZ = target.z - camera.position.z;
+  if (Math.hypot(directionX, directionZ) < 1e-6) return;
+  const gridBearingDeg = THREE.MathUtils.radToDeg(
+    Math.atan2(directionX, -directionZ),
+  );
+  const geographicBearingDeg = THREE.MathUtils.euclideanModulo(
+    gridBearingDeg + 90 * rotationQuarterTurnsCounterClockwise,
+    360,
+  );
+  dial.style.setProperty(
+    "--compass-rotation",
+    `${-geographicBearingDeg}deg`,
+  );
+  dial.style.setProperty(
+    "--compass-label-rotation",
+    `${geographicBearingDeg}deg`,
+  );
+}
+
+function installAnalyticIsobaths(
+  material: THREE.MeshStandardMaterial,
+  enabledUniform: NumberUniform,
+  pixelRatioUniform: NumberUniform,
+  maximumDepthM: number,
+) {
+  material.onBeforeCompile = (shader) => {
+    shader.uniforms.uIsobathsEnabled = enabledUniform;
+    shader.uniforms.uIsobathPixelRatio = pixelRatioUniform;
+    shader.uniforms.uIsobathIntervalM = {
+      value: ISOBATH_INTERVAL_M,
+    };
+    shader.uniforms.uIsobathMaximumDepthM = {
+      value: maximumDepthM,
+    };
+    shader.uniforms.uIsobathOutlineColor = {
+      value: new THREE.Color("#05070a"),
+    };
+    shader.uniforms.uIsobathLevelColors = {
+      // Use the exact bathymetric palette of the static maps. The renderer
+      // applies the same linear exposure, so pre-compensate the overlay core
+      // to preserve the source palette colour on screen and in the legend.
+      value: Array.from({ length: ISOBATH_COLOR_COUNT }, (_, index) => {
+        const [red, green, blue] = bathymetryColorRgb(
+          (index + 1) * ISOBATH_INTERVAL_M,
+          maximumDepthM,
+        );
+        return new THREE.Color()
+          .setRGB(
+            red / 255,
+            green / 255,
+            blue / 255,
+            THREE.SRGBColorSpace,
+          )
+          .multiplyScalar(1 / RELIEF_EXPOSURE);
+      }),
+    };
+
+    shader.vertexShader = shader.vertexShader
+      .replace(
+        "#include <common>",
+        `#include <common>
+attribute float terrainElevationM;
+attribute float isobathSource;
+varying float vTerrainElevationM;
+varying float vIsobathSource;`,
+      )
+      .replace(
+        "#include <begin_vertex>",
+        `#include <begin_vertex>
+vTerrainElevationM = terrainElevationM;
+vIsobathSource = isobathSource;`,
+      );
+
+    shader.fragmentShader = shader.fragmentShader
+      .replace(
+        "#include <common>",
+        `#include <common>
+uniform float uIsobathsEnabled;
+uniform float uIsobathIntervalM;
+uniform float uIsobathMaximumDepthM;
+uniform float uIsobathPixelRatio;
+uniform vec3 uIsobathOutlineColor;
+uniform vec3 uIsobathLevelColors[8];
+varying float vTerrainElevationM;
+varying float vIsobathSource;`,
+      )
+      .replace(
+        "#include <opaque_fragment>",
+        `#include <opaque_fragment>
+
+float isobathIntervalM = max(uIsobathIntervalM, 0.001);
+float isobathDepthM = -vTerrainElevationM;
+float isobathLevelIndex =
+  floor(isobathDepthM / isobathIntervalM + 0.5);
+float isobathLevelDepthM = isobathLevelIndex * isobathIntervalM;
+float isobathDistanceM =
+  abs(isobathDepthM - isobathLevelDepthM);
+float isobathPixelSpanM = fwidth(isobathDepthM);
+float isobathDistanceCssPx =
+  isobathDistanceM /
+  max(isobathPixelSpanM * uIsobathPixelRatio, 0.0001);
+float isobathMask = step(0.5, isobathLevelIndex);
+isobathMask *=
+  1.0 - step(uIsobathMaximumDepthM - 0.001, isobathLevelDepthM);
+isobathMask *= step(0.000001, isobathPixelSpanM);
+isobathMask *= step(0.999, vIsobathSource);
+isobathMask *= uIsobathsEnabled;
+
+float isobathOutlineCoverage =
+  1.0 - smoothstep(1.35, 1.75, isobathDistanceCssPx);
+float isobathCenterCoverage =
+  1.0 - smoothstep(0.3, 0.82, isobathDistanceCssPx);
+isobathOutlineCoverage *= isobathMask;
+isobathCenterCoverage *= isobathMask;
+
+vec3 isobathCenterColor = uIsobathLevelColors[0];
+if (isobathLevelIndex > 1.5) isobathCenterColor = uIsobathLevelColors[1];
+if (isobathLevelIndex > 2.5) isobathCenterColor = uIsobathLevelColors[2];
+if (isobathLevelIndex > 3.5) isobathCenterColor = uIsobathLevelColors[3];
+if (isobathLevelIndex > 4.5) isobathCenterColor = uIsobathLevelColors[4];
+if (isobathLevelIndex > 5.5) isobathCenterColor = uIsobathLevelColors[5];
+if (isobathLevelIndex > 6.5) isobathCenterColor = uIsobathLevelColors[6];
+if (isobathLevelIndex > 7.5) isobathCenterColor = uIsobathLevelColors[7];
+
+gl_FragColor.rgb = mix(
+  gl_FragColor.rgb,
+  uIsobathOutlineColor,
+  isobathOutlineCoverage * 0.96
+);
+gl_FragColor.rgb = mix(
+  gl_FragColor.rgb,
+  isobathCenterColor,
+  isobathCenterCoverage * 0.97
+);`,
+      );
+  };
+  material.customProgramCacheKey = () => ISOBATH_SHADER_CACHE_KEY;
+}
+
 export default function TerrainViewer({
   slug,
   siteName,
   style,
+  language,
 }: {
   slug: string;
   siteName: string;
   style: SurfaceStyle;
+  language: Language;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial | null>(null);
@@ -88,10 +267,25 @@ export default function TerrainViewer({
     target: THREE.Vector3;
     zoom: number;
   } | null>(null);
+  const compassDialRef = useRef<HTMLDivElement>(null);
+  const isobathsEnabledUniformRef = useRef<NumberUniform>({ value: 1 });
   const styleRef = useRef(style);
+  const [isobathsEnabled, setIsobathsEnabled] = useState(true);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [maximumDepthM, setMaximumDepthM] = useState(0);
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     "loading",
   );
+
+  useEffect(() => {
+    const syncFullscreenState = () => {
+      setIsFullscreen(document.fullscreenElement === hostRef.current);
+    };
+    document.addEventListener("fullscreenchange", syncFullscreenState);
+    return () => {
+      document.removeEventListener("fullscreenchange", syncFullscreenState);
+    };
+  }, []);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -115,7 +309,7 @@ export default function TerrainViewer({
         throw new Error(`Terrain metadata unavailable for ${slug}`);
       }
       const metadata = (await metadataResponse.json()) as TerrainMetadata;
-      const [heightBuffer, maskBuffer] = await Promise.all([
+      const [heightBuffer, maskBuffer, isobathMaskBuffer] = await Promise.all([
         fetch(`${base}/${metadata.grid.heightFile}`).then((response) => {
           if (!response.ok) throw new Error("Heightfield unavailable");
           return response.arrayBuffer();
@@ -124,10 +318,16 @@ export default function TerrainViewer({
           if (!response.ok) throw new Error("Terrain mask unavailable");
           return response.arrayBuffer();
         }),
+        fetch(`${base}/${metadata.grid.isobathMaskFile}`).then((response) => {
+          if (!response.ok) throw new Error("Isobath mask unavailable");
+          return response.arrayBuffer();
+        }),
       ]);
       if (cancelled || !hostRef.current) return;
 
       metadataRef.current = metadata;
+      const maximumDepthM = Math.max(-metadata.elevationRangeM.min, 0);
+      setMaximumDepthM(maximumDepthM);
       const width = metadata.grid.width;
       const height = metadata.grid.height;
       geometry = new THREE.PlaneGeometry(
@@ -141,7 +341,9 @@ export default function TerrainViewer({
       const positions = geometry.getAttribute("position");
       const heights = new DataView(heightBuffer);
       const mask = new Uint8Array(maskBuffer);
+      const isobathMask = new Uint8Array(isobathMaskBuffer);
       const elevations = new Float32Array(width * height);
+      const isobathSource = new Float32Array(width * height);
       const offsetM = metadata.grid.heightEncoding.offsetM;
       const scaleM = metadata.grid.heightEncoding.scaleMPerUnit;
       let minY = Number.POSITIVE_INFINITY;
@@ -150,12 +352,21 @@ export default function TerrainViewer({
         const elevationM =
           offsetM + heights.getUint16(index * 2, true) * scaleM;
         elevations[index] = elevationM;
+        isobathSource[index] = validAt(isobathMask, index);
         const y = elevationM * metadata.verticalExaggeration;
         positions.setY(index, y);
         minY = Math.min(minY, y);
         maxY = Math.max(maxY, y);
       }
       positions.needsUpdate = true;
+      geometry.setAttribute(
+        "terrainElevationM",
+        new THREE.BufferAttribute(elevations, 1),
+      );
+      geometry.setAttribute(
+        "isobathSource",
+        new THREE.BufferAttribute(isobathSource, 1),
+      );
 
       const sourceIndex = geometry.getIndex();
       if (sourceIndex) {
@@ -177,6 +388,15 @@ export default function TerrainViewer({
         roughness: 0.82,
         metalness: 0,
       });
+      const pixelRatioUniform: NumberUniform = {
+        value: Math.min(window.devicePixelRatio, 1.75),
+      };
+      installAnalyticIsobaths(
+        material,
+        isobathsEnabledUniformRef.current,
+        pixelRatioUniform,
+        maximumDepthM,
+      );
       materialRef.current = material;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
@@ -263,6 +483,17 @@ export default function TerrainViewer({
         0,
         -Math.cos(viewBearing),
       );
+      const screenRight = new THREE.Vector3(
+        Math.cos(viewBearing),
+        0,
+        Math.sin(viewBearing),
+      );
+      if (metadata.view.horizontalCenterOffsetM !== undefined) {
+        shore.addScaledVector(
+          screenRight,
+          metadata.view.horizontalCenterOffsetM - shore.dot(screenRight),
+        );
+      }
       const screenUp = new THREE.Vector3(
         Math.sin(cameraElevation) * horizontalForward.x,
         Math.cos(cameraElevation),
@@ -305,7 +536,7 @@ export default function TerrainViewer({
       // before the final sRGB conversion instead of brightening the canvas.
       renderer.toneMapping = THREE.LinearToneMapping;
       renderer.toneMappingExposure = RELIEF_EXPOSURE;
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+      renderer.setPixelRatio(pixelRatioUniform.value);
       mount.appendChild(renderer.domElement);
       rendererRef.current = renderer;
 
@@ -333,6 +564,12 @@ export default function TerrainViewer({
 
       const render = () => {
         if (scene && rendererRef.current && cameraRef.current) {
+          updateCompassDial(
+            compassDialRef.current,
+            cameraRef.current,
+            controls.target,
+            metadata.orientation.rotationQuarterTurnsCounterClockwise,
+          );
           rendererRef.current.render(scene, cameraRef.current);
         }
       };
@@ -344,6 +581,11 @@ export default function TerrainViewer({
         const currentRenderer = rendererRef.current;
         const currentCamera = cameraRef.current;
         if (!currentHost || !currentRenderer || !currentCamera) return;
+        const pixelRatio = Math.min(window.devicePixelRatio, 1.75);
+        if (currentRenderer.getPixelRatio() !== pixelRatio) {
+          currentRenderer.setPixelRatio(pixelRatio);
+          pixelRatioUniform.value = pixelRatio;
+        }
         const widthPx = Math.max(currentHost.clientWidth, 1);
         const heightPx = Math.max(currentHost.clientHeight, 1);
         if (widthPx === lastWidth && heightPx === lastHeight) return;
@@ -351,12 +593,16 @@ export default function TerrainViewer({
         lastHeight = heightPx;
         currentRenderer.setSize(widthPx, heightPx, false);
         const aspect = widthPx / heightPx;
-        const resizedHalfHeight =
-          halfWidth / (aspect * verticalStretch);
-        currentCamera.left = -halfWidth;
-        currentCamera.right = halfWidth;
-        currentCamera.top = resizedHalfHeight;
-        currentCamera.bottom = -resizedHalfHeight;
+        const resized = coveredOrthographicHalfExtents(
+          halfWidth,
+          halfHeight,
+          aspect,
+          verticalStretch,
+        );
+        currentCamera.left = -resized.halfWidth;
+        currentCamera.right = resized.halfWidth;
+        currentCamera.top = resized.halfHeight;
+        currentCamera.bottom = -resized.halfHeight;
         currentCamera.updateProjectionMatrix();
         render();
       };
@@ -469,6 +715,20 @@ export default function TerrainViewer({
     };
   }, [slug, style]);
 
+  function renderCurrentScene() {
+    const renderer = rendererRef.current;
+    const camera = cameraRef.current;
+    const scene = sceneRef.current;
+    if (renderer && camera && scene) renderer.render(scene, camera);
+  }
+
+  function toggleIsobaths() {
+    const nextValue = !isobathsEnabled;
+    isobathsEnabledUniformRef.current.value = nextValue ? 1 : 0;
+    setIsobathsEnabled(nextValue);
+    renderCurrentScene();
+  }
+
   function resetView() {
     const initial = initialViewRef.current;
     const camera = cameraRef.current;
@@ -492,25 +752,131 @@ export default function TerrainViewer({
     }
   }
 
+  const isobathLevels = visibleIsobathLevels(maximumDepthM);
+  const text = atlasCopy[language].terrain;
+
   return (
     <div
       className="terrain-host"
       ref={hostRef}
-      aria-label={`Relief 3D interactif de ${siteName}`}
+      role="region"
+      aria-label={`${text.interactiveTerrain} ${siteName}`}
     >
       {status !== "ready" ? (
         <div className="terrain-status" role="status">
           {status === "error"
-            ? "Le relief interactif n’est pas disponible sur cet appareil."
-            : "Chargement du relief…"}
+            ? text.unavailable
+            : text.loading}
+        </div>
+      ) : null}
+      <div
+        className={`terrain-compass${status === "ready" ? " is-visible" : ""}`}
+        data-testid="terrain-compass"
+        role="img"
+        aria-label={text.orientation}
+      >
+        <div className="terrain-compass-dial" ref={compassDialRef}>
+          <span
+            className="terrain-compass-axis is-north-south"
+            aria-hidden="true"
+          />
+          <span
+            className="terrain-compass-axis is-east-west"
+            aria-hidden="true"
+          />
+          <span className="terrain-compass-north-tip" aria-hidden="true" />
+          <span className="terrain-cardinal is-north">
+            <span>N</span>
+          </span>
+          <span className="terrain-cardinal is-east">
+            <span>E</span>
+          </span>
+          <span className="terrain-cardinal is-south">
+            <span>S</span>
+          </span>
+          <span className="terrain-cardinal is-west">
+            <span>{text.westCardinal}</span>
+          </span>
+        </div>
+      </div>
+      {status === "ready" &&
+      isobathsEnabled &&
+      isobathLevels.length > 0 ? (
+        <div
+          className="terrain-depth-legend"
+          data-testid="terrain-depth-legend"
+          role="group"
+          aria-label={`${text.isobathLegend} ${ISOBATH_INTERVAL_M} m`}
+        >
+          <ul>
+            {isobathLevels.map((level) => (
+              <li key={level}>
+                <span
+                  className="terrain-isobath-swatch"
+                  style={{
+                    backgroundColor: bathymetryColorCss(
+                      level,
+                      maximumDepthM,
+                    ),
+                  }}
+                  aria-hidden="true"
+                />
+                <span>−{level} m</span>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : null}
       <div className="terrain-actions">
-        <button type="button" onClick={resetView}>
-          Réinitialiser la vue
+        <button
+          type="button"
+          className="terrain-icon-button"
+          aria-pressed={isobathsEnabled}
+          aria-label={
+            isobathsEnabled
+              ? text.hideIsobaths
+              : text.showIsobaths
+          }
+          title={
+            isobathsEnabled
+              ? text.hideIsobathsShort
+              : text.showIsobathsShort
+          }
+          data-testid="isobath-toggle"
+          onClick={toggleIsobaths}
+        >
+          <span
+            className="terrain-action-icon is-isobaths"
+            aria-hidden="true"
+          />
         </button>
-        <button type="button" onClick={toggleFullscreen}>
-          Plein écran
+        <button
+          type="button"
+          className="terrain-icon-button"
+          aria-label={text.resetView}
+          title={text.resetView}
+          onClick={resetView}
+        >
+          <span
+            className="terrain-action-icon is-reset"
+            aria-hidden="true"
+          />
+        </button>
+        <button
+          type="button"
+          className="terrain-icon-button"
+          aria-label={
+            isFullscreen ? text.exitFullscreen : text.enterFullscreen
+          }
+          title={
+            isFullscreen ? text.exitFullscreen : text.enterFullscreen
+          }
+          onClick={toggleFullscreen}
+        >
+          <span
+            className="terrain-action-icon is-fullscreen"
+            aria-hidden="true"
+          />
         </button>
       </div>
     </div>
