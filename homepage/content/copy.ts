@@ -6,11 +6,8 @@ export const homepageCopy = {
     homeLabel: "DiveTopo, accueil",
     navigationLabel: "Navigation principale",
     regionsNavigation: "Régions",
-    heroEyebrow: "Cartographies de sites de plongée",
-    heroTitle: "Le relief sous-marin, région par région.",
-    heroLead:
-      "DiveTopo réunit des cartes de sites de plongée qui prolongent le paysage sous la surface, du plan 2D au relief interactif.",
-    exploreEyebrow: "Explorer",
+    contactNavigation: "Contact",
+    heroTitle: "Cartographies de sites de plongée",
     regionsTitle: "Choisissez une région",
     regionsLead:
       "Chaque région rassemble les cartes disponibles pour certains sites de son territoire.",
@@ -20,6 +17,11 @@ export const homepageCopy = {
     futureStrong: "Une page prête à accueillir d’autres régions.",
     futureText:
       "Elles apparaîtront ici au fil des sites effectivement cartographiés.",
+    contact: {
+      title: "Contact",
+      prompt:
+        "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié ? Écrivez-moi à",
+    },
     footer:
       "Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
     preferences: {
@@ -39,11 +41,8 @@ export const homepageCopy = {
     homeLabel: "DiveTopo, home",
     navigationLabel: "Main navigation",
     regionsNavigation: "Regions",
-    heroEyebrow: "Dive site maps",
-    heroTitle: "Underwater terrain, region by region.",
-    heroLead:
-      "DiveTopo brings together dive site maps that reveal the landscape below the surface, from 2D maps to interactive terrain.",
-    exploreEyebrow: "Explore",
+    contactNavigation: "Contact",
+    heroTitle: "Dive site maps",
     regionsTitle: "Choose a region",
     regionsLead:
       "Each region brings together the available maps for selected dive sites.",
@@ -52,6 +51,11 @@ export const homepageCopy = {
     futureLabel: "What’s next for DiveTopo",
     futureStrong: "Ready for more regions.",
     futureText: "They will appear here as new dive sites are mapped.",
+    contact: {
+      title: "Contact",
+      prompt:
+        "Have a question, feedback, or a dive site you would like to see mapped? Email me at",
+    },
     footer:
       "Island topography and bathymetry: IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
     preferences: {

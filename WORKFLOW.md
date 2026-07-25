@@ -1,253 +1,251 @@
-# Workflow topo-bathymetrique Reunion
+# Réunion topo-bathymetric workflow
 
-Ce pipeline regenere depuis zero un plan 2D, une vue 3D oblique et une carte de localisation insulaire d'un site cotier de La Reunion. Il telecharge des donnees numeriques officielles, fusionne bathymetrie et topographie, extrait les isobathes puis produit les JPEG finaux.
+This pipeline regenerates from scratch a 2D map, an oblique 3D view, and an island locator map for a coastal site on Réunion. It downloads official digital data, merges bathymetry and topography, extracts isobaths, and then produces the final JPEGs.
 
 ## Sources
 
-- Bathymetrie : MNT HYSCORES 2015 Ifremer, maille de 0,4 m, complete par Litto3D sur les pentes externes. Attribution obligatoire : `Projet HYSCORES (Ifremer, UBO, Office de l'Eau Reunion)`. Licence source : CC BY-NC-SA, version non precisee dans la metadonnee.
-  - Catalogue : <https://www.data.gouv.fr/datasets/mnt-bathymetrique-a-haute-resolution-des-fonds-marins-des-zones-recifales-de-la-cote-ouest-de-lile-de-la-reunion-2015>
-  - Saint-Gilles : <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/>
-  - Saint-Leu : <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/>
-  - Etang-Sale : <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Etang_sale/>
-  - Saint-Pierre : <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Pierre/>
-- Topographie : IGN RGE ALTI, couche WMS `ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES`, interrogee en GeoTIFF float 32 bits. Licence Ouverte 2.0; mise a jour du produit arretee en 2024.
-- Orthophoto terrestre optionnelle : IGN, couche WMS `HR.ORTHOIMAGERY.ORTHOPHOTOS` (BD ORTHO diffusee a 20 cm), interrogee en GeoTIFF sur la meme emprise UTM 40S : <https://data.geopf.fr/wms-r/wms>. La date de prise de vue est verifiee par `GetFeatureInfo` au repere de chaque site et enregistree dans `orthophoto_capture_date`; elle n'est pas supposee commune a toute l'ile. La prise de vue configuree est le 22 juillet 2025 pour le Cap La Houssaye, Boucan Canot, Cap Homard, Pointe au Sel, Pont Rouge et la Plage du Cimetière, et le 2 aout 2025 pour la Passe de l'Hermitage.
-- Relief marin de la carte insulaire : WMS officiel GEBCO 2024, endpoint versionne <https://wms.gebco.net/2024/mapserv> et couche ombree `GEBCO_2024`, reprojetee sur la grille UTM 40S. Le pipeline n'utilise pas l'alias mutable `GEBCO_LATEST`; citation complete dans `THIRD-PARTY-NOTICES.md`.
-- Systeme de coordonnees commun : WGS 84 / UTM 40S, `EPSG:32740`.
+- Bathymetry: Ifremer HYSCORES 2015 DTM, 0.4 m grid, supplemented by Litto3D on the outer slopes. Required attribution: `Projet HYSCORES (Ifremer, UBO, Office de l'Eau Reunion)`. Source license: CC BY-NC-SA, with no version specified in the metadata.
+  - Catalog: <https://www.data.gouv.fr/datasets/mnt-bathymetrique-a-haute-resolution-des-fonds-marins-des-zones-recifales-de-la-cote-ouest-de-lile-de-la-reunion-2015>
+  - Saint-Gilles: <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/>
+  - Saint-Leu: <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/>
+  - Etang-Sale: <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Etang_sale/>
+  - Saint-Pierre: <https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Pierre/>
+- Topography: IGN RGE ALTI, WMS layer `ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES`, requested as 32-bit float GeoTIFF. Licence Ouverte 2.0; product updates ended in 2024.
+- Optional land orthophoto: IGN WMS layer `HR.ORTHOIMAGERY.ORTHOPHOTOS` (BD ORTHO served at 20 cm), requested as GeoTIFF over the same UTM 40S extent: <https://data.geopf.fr/wms-r/wms>. The capture date is checked with `GetFeatureInfo` at each site marker and recorded in `orthophoto_capture_date`; it is not assumed to be the same across the island. The configured capture date is 22 July 2025 for Cap La Houssaye, Boucan Canot, Cap Homard, Pointe au Sel, Pont Rouge, and Plage du Cimetière, and 2 August 2025 for Passe de l'Hermitage.
+- Marine relief for the island locator map: official GEBCO 2024 WMS, versioned endpoint <https://wms.gebco.net/2024/mapserv> and shaded layer `GEBCO_2024`, reprojected onto the UTM 40S grid. The pipeline does not use the mutable `GEBCO_LATEST` alias; the full citation is in `THIRD-PARTY-NOTICES.md`.
+- Common coordinate reference system: WGS 84 / UTM 40S, `EPSG:32740`.
 
-HYSCORES ne couvre pas toute l'ile. Pour un site hors des quatre secteurs ci-dessus, il faut brancher une autre source bathymetrique numerique, par exemple Litto3D, avant d'utiliser le meme moteur de rendu.
+HYSCORES does not cover the entire island. For a site outside the four sectors listed above, another digital bathymetric source, such as Litto3D, must be connected before using the same rendering engine.
 
-## Prerequis
+## Prerequisites
 
-- Python local `.venv` avec `numpy`, `Pillow` et les bindings GDAL. L'environnement de reference enregistre est Python 3.14, GDAL 3.13.1, NumPy 2.5.1 et Pillow 12.3.0.
-- Commandes GDAL accessibles dans le `PATH`, notamment `gdal_translate`.
-- Acces reseau a `sextant.ifremer.fr`, `data.geopf.fr` et `wms.gebco.net` lors de l'acquisition.
+- Local Python `.venv` with `numpy`, `Pillow`, and the GDAL bindings. The recorded reference environment is Python 3.14, GDAL 3.13.1, NumPy 2.5.1, and Pillow 12.3.0.
+- GDAL commands available in `PATH`, particularly `gdal_translate`.
+- Network access to `sextant.ifremer.fr`, `data.geopf.fr`, and `wms.gebco.net` during acquisition.
 
-Le rendu seul est ensuite reproductible hors ligne a partir des GeoTIFF mis en cache dans `.tmp/bathy-renders/`.
+Rendering alone is then reproducible offline from the GeoTIFFs cached in `.tmp/bathy-renders/`.
 
-## Regeneration du Cap La Houssaye
+## Regenerating Cap La Houssaye
 
-Depuis la racine du projet :
+From the project root:
 
 ```bash
 ./bootstrap_macos.sh
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --refresh
 ```
 
-`--refresh` force un nouveau telechargement. Sans cette option, les fichiers deja presents sont reutilises seulement si leur manifeste de provenance correspond encore aux sources configurees. Pour ne faire que le rendu :
+`--refresh` forces a new download. Without this option, existing files are reused only if their provenance manifest still matches the configured sources. To render only:
 
 ```bash
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --render-only
 ```
 
-Les deux options sont mutuellement exclusives. Avant un rendu, le script valide la configuration et controle le contrat de chaque raster reutilise : URL et couche source, projection EPSG:32740, emprise, resolution, nombre de bandes, signal numerique plausible et SHA-256 enregistre lors de l'acquisition. Un fichier present, constant, modifie ou incompatible n'est jamais accepte comme cache valide. Pour effectuer ces controles sans telecharger ni rendre :
+The two options are mutually exclusive. Before rendering, the script validates the configuration and checks the contract of every reused raster: source URL and layer, EPSG:32740 projection, extent, resolution, band count, plausible numeric signal, and the SHA-256 recorded during acquisition. An existing file that is constant, modified, or incompatible is never accepted as a valid cache. To run these checks without downloading or rendering:
 
 ```bash
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --check
 ```
 
-Apres un changement limite au modele lumineux ou a la projection 3D,
-`--render-only --relief-only` valide le cache puis regenere uniquement les deux
-perspectives 3D. Les plans 2D et la carte de localisation restent inchanges.
+After a change limited to the lighting model or 3D projection,
+`--render-only --relief-only` validates the cache and then regenerates only the
+two 3D perspectives. The 2D maps and locator map remain unchanged.
 
-Le fichier [sites/cap-la-houssaye.json](sites/cap-la-houssaye.json) contient tous les parametres propres au site et les chemins des sorties canoniques.
+The [sites/cap-la-houssaye.json](sites/cap-la-houssaye.json) file contains all site-specific parameters and the paths of the canonical outputs.
 
-## Etapes executees
+## Executed steps
 
-1. Le script exige `hyscores_tiff_url` afin d'epingler le GeoTIFF bathymetrique numerique exact. La fonction de decouverte dans l'index du secteur HYSCORES subsiste seulement pour lire d'anciennes configurations hors du pipeline valide.
-2. `gdal_translate` lit uniquement `context_bbox_utm40s` dans le GeoTIFF Ifremer de 2,5 Go grace a `/vsicurl/`.
-3. Les altitudes marines negatives sont converties en profondeurs positives. Les valeurs terrestres et nodata deviennent `-99999`.
-4. Le RGE ALTI de contexte est telecharge sur la grande emprise a `context_topography_resolution_m` ou, a defaut, a `topography_resolution_m`.
-5. L'emprise 2D `focus_bbox_utm40s` est recadree depuis le contexte lorsque les deux resolutions topographiques sont identiques. Si elles different, le RGE ALTI de mise au point est demande directement a `topography_resolution_m`, afin que la resolution fine declaree ne soit pas remplacee silencieusement par celle du contexte.
-   Un parent reconstruit invalide toujours ses derives : une nouvelle bathymetrie brute reconstruit la profondeur positive puis son recadrage, et un nouveau MNT de contexte reconstruit son recadrage de mise au point.
-6. Les rasters sont eventuellement tournes par quarts de tour afin de placer la mer en haut des tableaux de calcul.
-7. La cote a 0 m est interpolee en polygone continu. HYSCORES et RGE ALTI sont fusionnes sans combler les lacunes par defaut. Une petite interpolation interne peut etre activee explicitement pour le seul maillage 3D statique; elle intervient apres l'extraction des isobathes. Une seconde option, distincte, peut completer dans les terrains statique et interactif une grande lacune marine ouverte sur le bord par un plateau uniforme a la profondeur maximale. Elle exige une frontiere connue suffisamment profonde, sans contact terrestre, et ne cree aucun relief intermediaire ni contour.
-8. Les isobathes sont extraites tous les 5 m, depuis `-5 m` jusqu'a la profondeur d'affichage du support, puis lissees. La valeur est `max_depth_m` par defaut et peut etre limitee pour le plan 2D avec `plan_max_depth_m`. Un plan a 20 m produit donc quatre niveaux et un plan a 30 m en produit six. Toutes les lignes sont tracees avant les etiquettes afin qu'aucune isobathe ni cote ne puisse traverser le texte.
-9. Le plan 2D utilise l'emprise de mise au point. La 3D utilise la grande emprise de contexte, mais conserve le cadrage final sur le site.
-10. Les JPEG topo-bathymetriques recoivent une echelle de 50 m et, en haut a gauche, la meme rose circulaire que le relief interactif, recalculee selon la rotation.
-11. La carte de localisation reutilise un RGE ALTI insulaire a 20 m et le relief marin GEBCO 2024 epingle, puis ajoute une grille latitude-longitude, une echelle de 20 km et le repere UTM propre au site.
-12. `compose_site_plate.py` assemble la carte insulaire et les vues detaillees dans deux planches haute resolution sur fond blanc : une variante avec orthophoto terrestre et une variante sans image satellite, utilisant le relief topographique colore. Le bandeau superieur utilise un cartouche typographique centre et occupe deliberement toute la hauteur disponible. Il affiche exactement un nom canonique de site sur une ligne, la commune sur une deuxieme ligne et `La Reunion` seule sur une troisieme ligne. Les alias, secteurs voisins et variantes du nom restent dans `title` ou dans la documentation, jamais dans `plate_site_name`. La localisation et les coordonnees en degres, minutes et secondes sont structurees uniquement par les espacements et des filets fins, sans cartouche encadre ni fond teinte. Deux filets courts encadrent `La Reunion` lateralement sur la meme ligne; aucun filet horizontal ne la souligne. Un filet vertical distinct separe le cartouche de la carte insulaire. Les vues 2D et 3D occupent ensemble la rangee inferieure. Les panneaux sont plats, sans ombre, avec un filet noir discret.
-13. Apres une acquisition validee, `<slug>-cache-manifest.json` enregistre le contrat normalise des sources, les chemins logiques et le SHA-256 de chaque GeoTIFF. Il reste avec le cache local et doit etre regenere par `--refresh`, jamais edite a la main.
+1. The script requires `hyscores_tiff_url` to pin the exact digital bathymetric GeoTIFF. The discovery function in the HYSCORES sector index remains only for reading legacy configurations outside the validated pipeline.
+2. `gdal_translate` reads only `context_bbox_utm40s` from the 2.5 GB Ifremer GeoTIFF through `/vsicurl/`.
+3. Negative marine elevations are converted into positive depths. Land values and nodata become `-99999`.
+4. The context RGE ALTI is downloaded over the larger extent at `context_topography_resolution_m` or, if unset, at `topography_resolution_m`.
+5. The 2D `focus_bbox_utm40s` extent is cropped from the context when both topographic resolutions are identical. If they differ, the focus RGE ALTI is requested directly at `topography_resolution_m`, so the declared fine resolution is not silently replaced by the context resolution.
+   Rebuilding a parent always invalidates its derivatives: new raw bathymetry rebuilds the positive-depth raster and then its crop, and a new context DTM rebuilds its focus crop.
+6. The rasters may be rotated by quarter turns to place the sea at the top of the calculation arrays.
+7. The 0 m coastline is interpolated into a continuous polygon. HYSCORES and RGE ALTI are merged without filling gaps by default. A small internal interpolation can be enabled explicitly for the static 3D mesh only; it runs after isobath extraction. A second, separate option can complete a large marine gap open to the edge in both the static and interactive terrains with a uniform plateau at maximum depth. It requires a sufficiently deep known boundary with no land contact and creates neither intermediate relief nor contours.
+8. Isobaths are extracted every 5 m, from `-5 m` down to the display depth of the output, and then smoothed. The value defaults to `max_depth_m` and can be limited for the 2D map with `plan_max_depth_m`. A 20 m map therefore produces four levels, and a 30 m map produces six. All lines are drawn before labels so that no isobath or coastline can cross the text.
+9. The 2D map uses the focus extent. The 3D view uses the larger context extent but retains the final framing on the site.
+10. The topo-bathymetric JPEGs receive a 50 m scale bar and, in the upper left, the same circular compass rose as the interactive terrain, recalculated according to rotation.
+11. The locator map reuses a 20 m island-wide RGE ALTI and the pinned GEBCO 2024 marine relief, then adds a latitude-longitude grid, a 20 km scale bar, and the site's UTM marker.
+12. `compose_site_plate.py` assembles the island map and detailed views into two high-resolution plates on a white background: one variant with the land orthophoto and one topographic variant without aerial imagery. The top banner uses a centered typographic title block and deliberately occupies the full available height. It displays exactly one canonical site name on one line, the municipality on a second line, and `La Réunion` alone on a third line. Aliases, neighboring areas, and name variants remain in `title` or in the documentation, never in `plate_site_name`. The location and coordinates in degrees, minutes, and seconds are structured only with spacing and thin rules, without a bordered title block or tinted background. Two short rules flank `La Réunion` laterally on the same line; no horizontal rule underlines it. A separate vertical rule divides the title block from the island map. The 2D and 3D views together occupy the lower row. The panels are flat, without shadows, with a discreet black rule.
+13. After a validated acquisition, `<slug>-cache-manifest.json` records the normalized source contract, logical paths, and SHA-256 of each GeoTIFF. It remains with the local cache and must be regenerated with `--refresh`, never edited manually.
 
-## Relief 3D interactif
+## Interactive 3D terrain
 
-Le relief interactif est genere par le pipeline cartographique, apres
-validation du cache :
+The interactive terrain is generated by the cartographic pipeline after cache
+validation:
 
 ```bash
 .venv/bin/python generate_interactive_terrain.py
 ```
 
-La sortie canonique se trouve sous `outputs/interactive-terrain/`. Les sept
-configurations de `sites/` sont exportees par defaut. Chaque site
-contient `terrain.json`, `height.bin`, `valid-mask.bin`,
-`isobath-mask.bin`, `topographic.webp` et `orthophoto.webp`; le manifeste global enregistre leurs
-tailles et SHA-256. Le maillage conserve les altitudes physiques, puis le
-visualiseur applique l'exageration verticale declaree dans les metadonnees.
-Le champ d'altitude compte au maximum 513 sommets sur son plus grand axe. Les
-deux textures sont derivees des rasters couvrant l'emprise interactive et
-limitees a `2048 px` sur leur plus grand cote. Les sept sites declarent un
-`interactive_footprint_utm40s`, rectangle oriente comme la vue et
-approximativement parallele a la cote. Le pipeline recadre son rectangle
-englobant dans les rasters de contexte, puis masque le maillage et les textures
-sur le rectangle oriente, sans modifier les fichiers de mise au point.
-Le visualiseur traite les deux textures comme des images sRGB, puis applique
-un tone mapping lineaire avec une exposition `1.55` avant la conversion sRGB
-finale. Cette exposition est identique a celle des perspectives statiques :
-elle eclaire les versants sans filtre CSS et sans modifier les WebP sources.
+The canonical output is under `outputs/interactive-terrain/`. All seven
+configurations in `sites/` are exported by default. Each site
+contains `terrain.json`, `height.bin`, `valid-mask.bin`,
+`isobath-mask.bin`, `topographic.webp`, and `orthophoto.webp`; the global manifest records their
+sizes and SHA-256 hashes. The mesh retains physical elevations, and the
+viewer then applies the vertical exaggeration declared in the metadata.
+The elevation field has at most 513 vertices along its longest axis. Both
+textures are derived from rasters covering the interactive extent and are
+limited to `2048 px` on their longest side. All seven sites declare an
+`interactive_footprint_utm40s`, a rectangle oriented like the view and
+approximately parallel to the coastline. The pipeline crops its bounding
+rectangle from the context rasters, then masks the mesh and textures
+to the oriented rectangle without modifying the focus files.
+The viewer treats both textures as sRGB images, then applies linear tone mapping
+with an exposure of `1.55` before the final sRGB conversion. This exposure is
+identical to that of the static perspectives: it brightens slopes without a CSS
+filter and without modifying the source WebPs.
 
-Le site web ne genere jamais ces fichiers. Il copie le paquet canonique vers
-son repertoire public avec `site/scripts/sync_interactive_terrain.py`. Cette
-frontiere permet de changer l'interface ou le deploiement sans deplacer la
-responsabilite du relief, des textures, de la camera ou de la provenance hors
-du pipeline. Le format complet est decrit dans
+The website never generates these files. It copies the canonical package into
+its public directory with `site/scripts/sync_interactive_terrain.py`. This
+boundary makes it possible to change the interface or deployment without moving
+responsibility for the terrain, textures, camera, or provenance outside
+the pipeline. The complete format is described in
 [INTERACTIVE-TERRAIN.md](INTERACTIVE-TERRAIN.md).
 
-## Ajouter un site
+## Adding a site
 
-Copier le JSON existant vers `sites/<slug>.json`, puis renseigner :
+Copy the existing JSON to `sites/<slug>.json`, then set:
 
-- `slug` et `title` ;
-- `hyscores_directory`, choisi parmi les quatre secteurs officiels, et `hyscores_tiff_url` vers le GeoTIFF exact ;
-- `focus_bbox_utm40s` : rectangle serre contenant le site a lire en 2D ;
-- `context_bbox_utm40s` : rectangle plus grand contenant integralement le precedent ;
-- `interactive_footprint_utm40s` : rectangle propre au paquet Web, defini par son `center` UTM 40S, sa `width_m` dans l'axe de l'ecran, sa `depth_m` dans l'axe de vue et son `look_bearing_deg` identique a `view_bearing_deg` ; ses quatre coins doivent rester dans le contexte ;
-- `rotation_k` : rotation `numpy.rot90` reservee au raster de travail 3D ; le plan 2D reste toujours nord en haut ;
-- `orthophoto_capture_date`, au format ISO `YYYY-MM-DD`, verifiee pour ce site et non recopiee depuis un voisin ;
-- les references GEBCO versionnees et leur attribution pour la carte insulaire ;
-- les parametres de camera et, si necessaire, les chemins de sortie.
+- `slug` and `title`;
+- `hyscores_directory`, selected from the four official sectors, and `hyscores_tiff_url` pointing to the exact GeoTIFF;
+- `focus_bbox_utm40s`: tight rectangle containing the site to be read in 2D;
+- `context_bbox_utm40s`: larger rectangle fully containing the preceding extent;
+- `interactive_footprint_utm40s`: rectangle specific to the Web package, defined by its UTM 40S `center`, its `width_m` along the screen axis, its `depth_m` along the viewing axis, and its `look_bearing_deg`, identical to `view_bearing_deg`; all four corners must remain within the context;
+- `rotation_k`: `numpy.rot90` rotation reserved for the 3D working raster; the 2D map always remains north-up;
+- `orthophoto_capture_date`, in ISO `YYYY-MM-DD` format, verified for this site rather than copied from a neighboring site;
+- versioned GEBCO references and their attribution for the island locator map;
+- camera parameters and, if necessary, output paths.
 
-Correspondance de `rotation_k` :
+`rotation_k` mapping:
 
-| Mer dans le raster UTM initial | `rotation_k` |
+| Sea direction in the initial UTM raster | `rotation_k` |
 |---|---:|
-| nord | 0 |
-| est | 1 |
-| sud | 2 |
-| ouest | 3 |
+| north | 0 |
+| east | 1 |
+| south | 2 |
+| west | 3 |
 
-La rose des vents 2D indique toujours le nord en haut. La rose de la vue depuis le large est adaptee automatiquement a l'azimut de camera.
+The 2D compass rose always shows north at the top. The compass rose in the view from offshore is automatically adapted to the camera azimuth.
 
-Pour la 3D, prevoir dans `context_bbox_utm40s` environ 300 a 400 m de donnees reelles supplementaires vers le large, 100 a 200 m sur chaque cote et 200 a 300 m vers l'interieur. Cette marge doit etre augmentee si le point de vue est abaisse.
+For 3D, allow approximately 300 to 400 m of additional real data offshore in `context_bbox_utm40s`, 100 to 200 m on each side, and 200 to 300 m inland. This margin must be increased if the viewpoint is lowered.
 
-## Parametres de rendu
+## Rendering parameters
 
-- `max_depth_m` : profondeur maximale de la palette et du relief statique affiche. Les isobathes sont generees automatiquement tous les 5 m jusqu'a cette valeur; Boucan utilise 30 m.
-- `plan_max_depth_m` et `interactive_max_depth_m` : limites optionnelles, inferieures ou egales a `max_depth_m`, propres respectivement aux plans 2D et au paquet interactif. Elles sont reservees a un defaut de couverture source documente, pas a un recadrage esthetique. Pointe au Sel utilise `plan_max_depth_m: 30` et conserve `max_depth_m: 40` pour les reliefs statique et interactif. Sa vue statique reprend le cadrage valide a `60°` sur `1200 × 1400 m`, avec une largeur visible de `900 m` et un centre decale de `50 m` vers le nord.
-- `relief_mesh_gap_fill_max_area_m2` : seuil physique optionnel, desactive par defaut, pour interpoler uniquement de tres petites lacunes marines fermees dans le maillage 3D statique. Une composante touchant un bord, la terre ou depassant ce seuil reste invalide. Pointe au Sel fixe `64 m²`; le rendu courant remplit d'abord 30 cellules, soit `19,2 m²`, a partir de leur pourtour valide. Le meme controle est reapplique apres rotation et recadrage afin de refermer uniquement les micro-lacunes que la transformation peut faire apparaitre; il ajoute actuellement 2 cellules, soit `1,3 m²`. Les deux passages interviennent apres l'extraction des contours, de sorte que les isobathes et tous les autres supports restent source-fideles.
-- `deep_edge_nodata_terrain_fill` et `deep_edge_nodata_terrain_min_depth_m` : completion optionnelle, desactivee par defaut, des limites profondes dans les terrains 3D. Une composante doit toucher le bord exterieur, ne toucher aucune terre connue, posseder une frontiere marine assez longue et ne rencontrer aucune profondeur de frontiere inferieure au seuil. Pointe au Sel utilise `20 m`; les composantes qualifiees deviennent un plateau uniforme a `-40 m`, sans pente reconstruite. Les isobathes statiques et interactives sont masquees sur le remplissage et sa transition.
-- `interactive_footprint_utm40s` : rectangle oriente du paquet interactif, recadre depuis les rasters de contexte et obligatoirement contenu dans `context_bbox_utm40s`. Sa largeur suit approximativement la cote et sa profondeur suit l'axe de vue depuis le large vers la terre. La validation exige au moins 15 % de marge laterale et 20 % de marge en profondeur par rapport au cadrage initial canonique. Pointe au Sel utilise un rectangle de `1040 × 1545 m`, centre sur `[321581.5, 7654180.4]` et oriente a `60°`.
-- `interactive_view_visible_width_m` : largeur visible propre au cadrage initial Web, facultative. Elle se substitue a `view_visible_width_m` dans les seules metadonnees interactives sans modifier la perspective statique. Cap Homard utilise `540 m` afin de conserver toute sa vue initiale a l'interieur des donnees disponibles.
-- `interactive_match_static_horizontal_center` : reprend dans les metadonnees Web la projection horizontale du centre de la vue statique. Le champ exporte `view.horizontalCenterOffsetM` est positif vers la droite de l'ecran. L'option est activee pour la Passe de l'Hermitage et Pont Rouge.
-- `max_land_elevation_m` : altitude terrestre maximale representee dans le relief et la palette. La valeur de reference est `55 m`; la rendre explicite evite qu'un ecretage silencieux soit confondu avec la topographie source.
-- `topography_resolution_m` et `context_topography_resolution_m` : resolutions respectives du MNT de mise au point et de la grande emprise 3D. Lorsque les valeurs different, le raster de mise au point est acquis separement plutot que recadre depuis le contexte. L'Hermitage conserve ainsi `0,5 m` sur son plan 2D et utilise `0,8 m` sur son contexte agrandi.
-- `coast_mode` : `profile` conserve la cote simple historique, decrite par une traversee terre/eau par colonne; `mask` extrait un masque terrestre bidimensionnel pour les baies, ilots, pointes et piscines naturelles. Utiliser `mask` lorsque la cote n'est pas monotone dans l'orientation choisie. En mode `mask`, le remplissage terrestre et le trait 0 m proviennent de la meme surface continue lissee : le trait suit exactement son isovaleur 0,5 et aucun pixel terrestre ne peut depasser en mer.
-- `view_bearing_deg` : azimut regarde par la camera 3D, en degres horaires depuis le nord. S'il est absent, la camera regarde vers le bas du raster oriente; `135` correspond au sud-est. Le maillage, ses textures et ses vecteurs sont tournes par interpolation avant projection, et non comme une simple image apres rendu.
-- `view_crop_width_m` et `view_crop_depth_m` : emprise metrique conservee apres la rotation arbitraire du maillage. Extraire un contexte plus large que ce cadre permet de garder les bords du GeoTIFF et les isobathes tronquees hors champ sans augmenter inutilement le nombre de facettes rendues. Les polylignes de cote et d'isobathes sont decoupees geometriquement a ce cadre avant projection; elles ne peuvent pas revenir depuis une partie du raster deja exclue.
-- `relief_hemisphere_intensity`, `relief_key_light_intensity`, `relief_key_light_bearing_deg`, `relief_key_light_elevation_deg`, `relief_normal_sample_spacing_m` et `relief_exposure` : modele lumineux des perspectives statiques, cale sur le relief WebGL. Les normales statiques sont calculees avec l'espacement metrique reel et l'exageration verticale affichee, puis lissees a 2 m par defaut pour stabiliser le microrelief. Le terrain interactif suit une contrainte differente : son plus grand axe est plafonne a 513 sommets, ce qui conserve davantage de detail sur les emprises elargies tout en restant plus generalise que le rendu statique. Une lumiere hemispherique froide conserve le detail des versants a l'ombre et une lumiere directionnelle chaude venant du nord-est modele mer et terre en espace colorimetrique lineaire. L'exposition commune par defaut de `1.55` multiplie la radiance lineaire avant sa conversion sRGB ; elle restaure la luminosite sans post-traiter le JPEG. Ces parametres sont communs aux textures topographiques et orthophoto ; les traits de cote, isobathes et annotations sont dessines ensuite et ne sont pas recolores.
-- La projection 3D calcule automatiquement son zoom transversal a partir de la largeur de `focus_bbox_utm40s`. La 2D et la 3D ont ainsi une echelle proche, et identique sur l'axe de la barre de 50 m lorsque `view_visible_width_m` n'est pas surcharge. Cette egalite n'est pas un objectif absolu : `view_visible_width_m` permet de cadrer la perspective sur le relief utile sans modifier l'emprise 2D. Boucan utilise `580 m` et l'Hermitage `650 m`.
-- `camera_tilt` : angle apparent de la grille. Une valeur plus faible abaisse le point de vue.
-- `along_view_projection_scale` : amplification cartographique dans l'axe de vue 3D, apres application de l'azimut. Ce nom reste valable pour toutes les orientations de camera.
-- `view_left_crop_fraction` et `view_right_crop_fraction` : parts retirees independamment des bords gauche et droit de l'image projetee. Ces directions sont des directions d'ecran, pas des points cardinaux. Le plan 2D reste defini uniquement par `focus_bbox_utm40s`.
-- `view_top_crop_fraction` : part retiree en haut de l'image projetee, quel que soit l'azimut de camera.
-- Une bande uniforme, un mur vertical ou des pixels etires en haut d'une vue 3D signalent d'abord la limite du maillage ou du GeoTIFF. Agrandir `context_bbox_utm40s`, puis `view_crop_depth_m`, afin de projeter des donnees reelles jusqu'au-dela du cadre. Ne pas masquer ce defaut avec `view_top_crop_fraction` ou `horizon_cleanup_fraction`.
-- `output_scale` : facteur de rendu natif des vecteurs, textes et annotations. Le fond raster est interpole avant leur trace, sans ajouter de detail spatial au-dela de la resolution des MNT sources.
-- `plan_output_scale` et `relief_output_scale` : facteurs optionnels distincts pour produire un rendu intermediaire haute resolution malgre les moteurs 2D et 3D differents.
-- `map_style_scale` : facteur graphique commun exprime dans l'espace de sortie final. Le moteur compense automatiquement les resolutions intermediaires et le reechantillonnage final afin de conserver les memes epaisseurs d'isobathes, corps d'etiquettes, roses, barres d'echelle, sources et licences sur tous les sites et sur les vues 2D et 3D. Utiliser une meme valeur, actuellement `2.0`, dans toutes les configurations. La longueur de la barre de 50 m reste determinee par l'echelle metrique propre au cadrage.
-- `final_output_size_px` : dimensions finales exactes communes aux cartes 2D et 3D. Les sept sites publies utilisent `2474 x 1712 px`, apres un reechantillonnage Lanczos.
-- Une translation du plan 2D se fait en translatant `focus_bbox_utm40s` sans changer sa largeur ni sa hauteur, puis en regenerant les trois rasters `focus_*`. Pour modifier aussi le format, recalculer largeur et hauteur avec le rapport final voulu avant de regenerer les rasters.
-- `relief_suppressed_label_levels` : etiquettes d'isobathes a masquer uniquement sur la vue 3D, sans supprimer les lignes ni les donnees. A Boucan, `-30 m` est masque car sa ligne est hors cadrage perspectif. A l'Hermitage, l'etiquette reste visible depuis que le cadrage inclut clairement cette ligne.
-- Le placement 3D des etiquettes mesure le rectangle reel du texte avec son halo et une marge de securite. Une position est rejetee si ce rectangle approche une isobathe d'un autre niveau ou une etiquette deja placee ; le moteur cherche alors une autre portion de la meme ligne. Cette regle est commune a tous les sites et doit etre preferee aux decalages locaux.
-- `land_sieve_threshold_px` : taille minimale, en pixels du MNT source, des composantes terrestres deconnectees conservees par le masque bidimensionnel. L'augmenter seulement pour retirer des micro-ilots artefactuels confirmes visuellement; la Passe de l'Hermitage utilise `10000`.
-- `imagery_sea_full_depth_m` et `imagery_sea_max_depth_m` : bornes explicites de l'extension optionnelle de l'orthophoto dans un lagon peu profond. Le standard commun est `1,5 m` puis `2 m` : l'image reste opaque jusqu'a la premiere profondeur et fond progressivement jusqu'a devenir transparente a la seconde. `imagery_sea_depth_m` et `imagery_sea_feather_m` restent acceptes pour les anciennes configurations.
-- `imagery_sea_smoothing_m` : pre-lissage spatial applique uniquement a la profondeur qui pilote le masque visuel; il ne modifie ni le relief ni les isobathes. Sur les sept sites publies, l'image reste complete jusqu'a `-1,5 m`, disparait a `-2 m` et le masque est pre-lisse sur 5 m. Lorsqu'une extension marine est active, ce masque de profondeur continu remplace la combinaison des masques terre/mer et evite les rectangles autour des piscines, plages ou ouvrages situes a 0 m.
-- La palette bathymetrique utilise systematiquement `-2 m` comme zero chromatique rouge, correspondant a la fin du fondu orthophoto. Elle est ensuite recomprimee jusqu'a `max_depth_m` pour conserver la couleur profonde historique a la limite de chaque carte. Le premier fond integralement bathymetrique reste ainsi rouge au lieu de commencer directement dans l'orange.
-- `view_center_offset_east_m` et `view_center_offset_north_m` : decalage geographique du centre du recadrage 3D avant projection. Les valeurs positives vont vers l'est et le nord. L'Hermitage utilise respectivement `140` et `240` pour rapprocher le cadrage de la passe et retirer du premier plan profond inutile, sans changer l'orientation de la camera. Boucan utilise `200` et `-200` pour garder les cellules peu profondes hors de la limite de premier plan de sa vue tournee a `135°`. Son maillage projete couvre 1600 m de profondeur dans un contexte source de `1900 x 1700 m`. Le maillage de l'Hermitage couvre 3200 m de profondeur dans un contexte source de `3300 x 3600 m`.
-- `coastline_visible` et `orthophoto_coastline_visible` : affichage du trait vectoriel 0 m sur toutes les variantes ou seulement sur la variante orthophoto. Le masque et le cadrage continuent d'utiliser la cote meme si son trait n'est pas dessine. Par defaut, le trait est conserve sur les variantes topographiques et masque sur toutes les orthophotos; `orthophoto_coastline_visible: true` permettrait une exception explicite.
-- `clip_rotated_outside` : rend invalides les coins situes hors du raster apres une rotation arbitraire. L'activer lorsque le contexte source est assez large pour contenir toute l'emprise tournee; cela evite de prolonger artificiellement les pixels de bord a l'horizon.
-- `horizon_cleanup_fraction` : masque de dernier recours pour une frange d'horizon residuelle. Preferer d'abord un contexte plus large et `clip_rotated_outside`; laisser `0` lorsque ces mesures suffisent.
-- `view_canvas_width_px` et `view_canvas_height_px` : dimensions logiques du canevas 3D avant `relief_output_scale`. Les choisir avec le meme rapport largeur/hauteur que `focus_bbox_utm40s`, en tenant compte du recadrage, afin que les panneaux aient la meme forme sans deformation.
-- Le rapport du canevas restant apres `view_left_crop_fraction`, `view_right_crop_fraction` et `view_top_crop_fraction` doit correspondre a `final_output_size_px`. Le redimensionnement final conserve toujours un facteur uniforme et rogne seulement un eventuel excedent minimal; il n'etire jamais separement les axes X et Y. L'Hermitage utilise un canevas de `1237 x 1069 px`, qui devient `1237 x 856 px` apres un recadrage superieur de 20 %, exactement au rapport `2474/1712`.
-- `plan_open_label_offsets_px` : corrections locales optionnelles des etiquettes principales, indexees par profondeur. Les valeurs `[dx, dy]` sont exprimees en pixels avant `output_scale`. Ne les utiliser qu'apres le placement automatique, pour sortir une etiquette d'une zone chargee. Au Cap La Houssaye, le `-10 m` est decale vers la gauche et le large.
-- `orthophoto_enabled` : genere un second plan 2D hybride sans modifier le plan topographique original.
-- `orthophoto_layer`, `orthophoto_resolution_m` et `orthophoto_capture_date` : couche WMS IGN, resolution de travail et date ISO de l'orthophoto georeferencee. La couche par defaut `HR.ORTHOIMAGERY.ORTHOPHOTOS` est diffusee a 20 cm. Le raster de mise au point est demande a 20 cm pour six sites et a 40 cm pour Pointe au Sel. La date est propre a chaque site et doit etre verifiee par `GetFeatureInfo` lors de l'ajout ou du rafraichissement d'un site.
-- `orthophoto_3d_resolution_m` : resolution de la texture de contexte drapee sur le maillage de la vue 3D statique. Les valeurs courantes sont 20 cm au Cap La Houssaye; 40 cm a Boucan Canot, Cap Homard et la Plage du Cimetière; 50 cm a Pointe au Sel et Pont Rouge; 80 cm a la Passe de l'Hermitage. Elles sont choisies explicitement selon l'emprise et le cout de calcul, sans changer la resolution nominale de la source. Les requetes depassant 4096 pixels sur un axe sont automatiquement decoupees en tuiles puis assemblees sans changer la resolution demandee.
-- `relief_texture_triangle_min_area_px` : aire minimale d'une facette projetee, sur le canevas interne antialiase, a partir de laquelle ses deux triangles recoivent une interpolation barycentrique des couleurs eclairees. La valeur par defaut `12` cible les pentes et falaises et laisse les facettes sub-pixel utiliser leur moyenne, plus rapide et visuellement equivalente.
+- `max_depth_m`: maximum depth shown by the palette and static terrain. Isobaths are generated automatically every 5 m down to this value; Boucan uses 30 m.
+- `plan_max_depth_m` and `interactive_max_depth_m`: optional limits, less than or equal to `max_depth_m`, specific to the 2D maps and the interactive package respectively. They are reserved for a documented source-coverage limitation, not for aesthetic cropping. Pointe au Sel uses `plan_max_depth_m: 30` and retains `max_depth_m: 40` for the static and interactive terrains. Its static view uses the validated framing at `60°` over `1200 × 1400 m`, with a visible width of `900 m` and a center shifted `50 m` north.
+- `relief_mesh_gap_fill_max_area_m2`: optional physical threshold, disabled by default, for interpolating only very small enclosed marine gaps in the static 3D mesh. A component touching an edge, land, or exceeding this threshold remains invalid. Pointe au Sel sets `64 m²`; the current rendering first fills 30 cells, or `19.2 m²`, from their valid boundary. The same check is applied again after rotation and cropping to close only micro-gaps that the transformation can reveal; it currently adds 2 cells, or `1.3 m²`. Both passes run after contour extraction, so isobaths and all other outputs remain faithful to the source.
+- `deep_edge_nodata_terrain_fill` and `deep_edge_nodata_terrain_min_depth_m`: optional completion, disabled by default, of deep boundaries in the 3D terrains. A component must touch the outer edge, touch no known land, have a sufficiently long marine boundary, and encounter no boundary depth shallower than the threshold. Pointe au Sel uses `20 m`; qualifying components become a uniform plateau at `-40 m`, with no reconstructed slope. Static and interactive isobaths are masked over the fill and its transition.
+- `interactive_footprint_utm40s`: oriented rectangle of the interactive package, cropped from the context rasters and required to remain within `context_bbox_utm40s`. Its width follows the coastline approximately, and its depth follows the viewing axis from offshore toward land. Validation requires at least a 15% lateral margin and a 20% depth margin relative to the canonical initial framing. Pointe au Sel uses a `1040 × 1545 m` rectangle centered on `[321581.5, 7654180.4]` and oriented at `60°`.
+- `interactive_view_visible_width_m`: optional visible width specific to the initial Web framing. It replaces `view_visible_width_m` only in the interactive metadata without modifying the static perspective. Cap Homard uses `540 m` to keep its entire initial view within the available data.
+- `interactive_match_static_horizontal_center`: reuses the horizontal projection of the static view's center in the Web metadata. The exported `view.horizontalCenterOffsetM` field is positive toward the right of the screen. The option is enabled for Passe de l'Hermitage and Pont Rouge.
+- `max_land_elevation_m`: maximum land elevation represented in the relief and palette. The reference value is `55 m`; making it explicit prevents silent clipping from being mistaken for source topography.
+- `topography_resolution_m` and `context_topography_resolution_m`: respective resolutions of the focus DTM and the larger 3D extent. When the values differ, the focus raster is acquired separately rather than cropped from the context. L'Hermitage therefore retains `0.5 m` on its 2D map and uses `0.8 m` over its enlarged context.
+- `coast_mode`: `profile` retains the original simple coastline, described by one land/water crossing per column; `mask` extracts a two-dimensional land mask for bays, islets, headlands, and natural pools. Use `mask` when the coastline is not monotonic in the selected orientation. In `mask` mode, the land fill and the 0 m line are derived from the same smoothed continuous surface: the line follows its 0.5 isoline exactly, and no land pixel can extend into the sea.
+- `view_bearing_deg`: viewing azimuth of the 3D camera, in clockwise degrees from north. If absent, the camera looks toward the bottom of the oriented raster; `135` corresponds to southeast. The mesh, its textures, and its vectors are rotated by interpolation before projection, rather than as a simple image after rendering.
+- `view_crop_width_m` and `view_crop_depth_m`: metric extent retained after arbitrary rotation of the mesh. Extracting a context larger than this frame keeps the GeoTIFF edges and truncated isobaths outside the field of view without unnecessarily increasing the number of rendered facets. Coastline and isobath polylines are geometrically clipped to this frame before projection; they cannot re-enter from a portion of the raster that has already been excluded.
+- `relief_hemisphere_intensity`, `relief_key_light_intensity`, `relief_key_light_bearing_deg`, `relief_key_light_elevation_deg`, `relief_normal_sample_spacing_m`, and `relief_exposure`: lighting model for the static perspectives, calibrated against the WebGL terrain. Static normals are computed with the real metric spacing and displayed vertical exaggeration, then smoothed at 2 m by default to stabilize microrelief. The interactive terrain follows a different constraint: its longest axis is capped at 513 vertices, retaining more detail over enlarged extents while remaining more generalized than the static rendering. A cool hemispheric light preserves detail on shaded slopes, and a warm directional light from the northeast shapes sea and land in linear color space. The shared default exposure of `1.55` multiplies linear radiance before its sRGB conversion; it restores brightness without post-processing the JPEG. These parameters are shared by the topographic and orthophoto textures; coastline strokes, isobaths, and annotations are drawn afterward and are not recolored.
+- The 3D projection automatically calculates its cross-view zoom from the width of `focus_bbox_utm40s`. The 2D and 3D views therefore have a similar scale, and an identical scale along the 50 m scale-bar axis when `view_visible_width_m` is not overridden. This equality is not an absolute goal: `view_visible_width_m` frames the perspective on the useful relief without modifying the 2D extent. Boucan uses `580 m`, and l'Hermitage uses `650 m`.
+- `camera_tilt`: apparent angle of the grid. A lower value lowers the viewpoint.
+- `along_view_projection_scale`: cartographic amplification along the 3D viewing axis, applied after the azimuth. This name remains valid for all camera orientations.
+- `view_left_crop_fraction` and `view_right_crop_fraction`: fractions removed independently from the left and right edges of the projected image. These directions are screen directions, not cardinal directions. The 2D map continues to be defined solely by `focus_bbox_utm40s`.
+- `view_top_crop_fraction`: fraction removed from the top of the projected image, regardless of camera azimuth.
+- A uniform band, vertical wall, or stretched pixels at the top of a 3D view first indicate the boundary of the mesh or GeoTIFF. Enlarge `context_bbox_utm40s`, then `view_crop_depth_m`, to project real data beyond the frame. Do not hide this defect with `view_top_crop_fraction` or `horizon_cleanup_fraction`.
+- `output_scale`: native rendering factor for vectors, text, and annotations. The raster background is interpolated before they are drawn, without adding spatial detail beyond the resolution of the source DTMs.
+- `plan_output_scale` and `relief_output_scale`: separate optional factors for producing a high-resolution intermediate rendering despite the different 2D and 3D engines.
+- `map_style_scale`: shared graphical factor expressed in final output space. The engine automatically compensates for intermediate resolutions and final resampling to retain the same isobath thicknesses, label sizes, compass roses, scale bars, sources, and licenses across all sites and 2D and 3D views. Use the same value, currently `2.0`, in all configurations. The length of the 50 m scale bar remains determined by the metric scale of the framing.
+- `final_output_size_px`: exact final dimensions shared by the 2D and 3D maps. All seven published sites use `2474 x 1712 px`, after Lanczos resampling.
+- To translate the 2D map, translate `focus_bbox_utm40s` without changing its width or height, then regenerate the three `focus_*` rasters. To change the format as well, recalculate width and height with the desired final aspect ratio before regenerating the rasters.
+- `relief_suppressed_label_levels`: isobath labels to hide only in the 3D view, without removing the lines or data. At Boucan, `-30 m` is hidden because its line is outside the perspective framing. At l'Hermitage, the label remains visible now that the framing clearly includes this line.
+- 3D label placement measures the actual text rectangle including its halo and a safety margin. A position is rejected if this rectangle approaches an isobath of another level or an already placed label; the engine then searches another segment of the same line. This rule is shared across all sites and should be preferred over local offsets.
+- `land_sieve_threshold_px`: minimum size, in source DTM pixels, of disconnected land components retained by the two-dimensional mask. Increase it only to remove visually confirmed artefactual micro-islands; Passe de l'Hermitage uses `10000`.
+- `imagery_sea_full_depth_m` and `imagery_sea_max_depth_m`: explicit bounds of the optional orthophoto extension into a shallow lagoon. The shared standard is `1.5 m` then `2 m`: the image remains opaque down to the first depth and fades gradually until becoming transparent at the second. `imagery_sea_depth_m` and `imagery_sea_feather_m` remain accepted for legacy configurations.
+- `imagery_sea_smoothing_m`: spatial pre-smoothing applied only to the depth that drives the visual mask; it modifies neither the relief nor the isobaths. Across all seven published sites, the image remains complete down to `-1.5 m`, disappears at `-2 m`, and the mask is pre-smoothed over 5 m. When a marine extension is enabled, this continuous depth mask replaces the combination of land/sea masks and avoids rectangles around pools, beaches, or structures located at 0 m.
+- The bathymetric palette consistently uses `-2 m` as its red chromatic zero, matching the end of the orthophoto fade. It is then rescaled down to `max_depth_m` to retain the historical deep color at each map boundary. The first fully bathymetric background therefore remains red instead of starting directly in orange.
+- `view_center_offset_east_m` and `view_center_offset_north_m`: geographic offset of the center of the 3D crop before projection. Positive values point east and north. L'Hermitage uses `140` and `240` respectively to move the framing closer to the pass and remove unnecessary deep foreground without changing camera orientation. Boucan uses `200` and `-200` to keep shallow cells outside the foreground boundary of its view rotated to `135°`. Its projected mesh covers 1600 m along the viewing-depth axis within a `1900 x 1700 m` source context. L'Hermitage's mesh covers 3200 m along that axis within a `3300 x 3600 m` source context.
+- `coastline_visible` and `orthophoto_coastline_visible`: display of the 0 m vector line on all variants or only on the orthophoto variant. The mask and framing continue to use the coastline even if its line is not drawn. By default, the line is retained on topographic variants and hidden on all orthophotos; `orthophoto_coastline_visible: true` would allow an explicit exception.
+- `clip_rotated_outside`: invalidates corners lying outside the raster after an arbitrary rotation. Enable it when the source context is large enough to contain the entire rotated extent; this prevents edge pixels from being extended artificially at the horizon.
+- `horizon_cleanup_fraction`: last-resort mask for a residual horizon fringe. Prefer a larger context and `clip_rotated_outside` first; leave it at `0` when these measures are sufficient.
+- `view_canvas_width_px` and `view_canvas_height_px`: logical dimensions of the 3D canvas before `relief_output_scale`. Choose them with the same width-to-height ratio as `focus_bbox_utm40s`, accounting for cropping, so the panels have the same shape without distortion.
+- The ratio of the canvas remaining after `view_left_crop_fraction`, `view_right_crop_fraction`, and `view_top_crop_fraction` must match `final_output_size_px`. Final resizing always retains a uniform factor and crops only a possible minimal excess; it never stretches the X and Y axes separately. L'Hermitage uses a `1237 x 1069 px` canvas, which becomes `1237 x 856 px` after a 20% top crop, exactly matching the `2474/1712` ratio.
+- `plan_open_label_offsets_px`: optional local corrections to the main labels, indexed by depth. The `[dx, dy]` values are expressed in pixels before `output_scale`. Use them only after automatic placement, to move a label out of a crowded area. At Cap La Houssaye, the `-10 m` label is shifted left and offshore.
+- `orthophoto_enabled`: generates a second hybrid 2D map without modifying the original topographic map.
+- `orthophoto_layer`, `orthophoto_resolution_m`, and `orthophoto_capture_date`: IGN WMS layer, working resolution, and ISO date of the georeferenced orthophoto. The default `HR.ORTHOIMAGERY.ORTHOPHOTOS` layer is served at 20 cm. The focus raster is requested at 20 cm for six sites and at 40 cm for Pointe au Sel. The date is site-specific and must be checked with `GetFeatureInfo` when adding or refreshing a site.
+- `orthophoto_3d_resolution_m`: resolution of the context texture draped over the static 3D view's mesh. Current values are 20 cm at Cap La Houssaye; 40 cm at Boucan Canot, Cap Homard, and Plage du Cimetière; 50 cm at Pointe au Sel and Pont Rouge; 80 cm at Passe de l'Hermitage. They are selected explicitly according to extent and computational cost without changing the source's nominal resolution. Requests exceeding 4096 pixels on one axis are automatically split into tiles and then assembled without changing the requested resolution.
+- `relief_texture_triangle_min_area_px`: minimum area of a projected facet, on the internal antialiased canvas, above which its two triangles receive barycentric interpolation of the lit colors. The default value of `12` targets slopes and cliffs and lets sub-pixel facets use their average, which is faster and visually equivalent.
 
-### Nettete de l'orthophoto en 3D
+### 3D orthophoto sharpness
 
-La vue WebGL paraissait plus nette parce qu'elle utilisait l'orthophoto
-`focus` et interpolait sa texture sur le GPU, tandis que la perspective
-statique reduisait d'abord l'orthophoto de contexte sur la grille du relief.
-La compression JPEG de qualite 98 n'etait pas la cause utile.
+The WebGL view appeared sharper because it used the `focus` orthophoto
+and interpolated its texture on the GPU, whereas the static perspective
+first reduced the context orthophoto onto the relief grid.
+JPEG compression at quality 98 was not the relevant cause.
 
-Le pipeline statique conserve desormais la texture de contexte, a la resolution
-propre au site, separement de la geometrie jusqu'au dernier
-reechantillonnage. Comme sa camera est
-orthographique, une interpolation barycentrique dans les deux triangles de
-chaque grande facette suffit : aucune correction perspective supplementaire
-n'est necessaire. Les facettes sub-pixel gardent leur couleur moyenne. Le
-relief, le modele lumineux, les isobathes, le trait de cote, les annotations et
-l'encodage JPEG restent inchanges.
+The static pipeline now retains the context texture, at the site's own
+resolution, separately from the geometry until the final resampling.
+Because its camera is orthographic, barycentric interpolation in the two
+triangles of each large facet is sufficient: no additional perspective
+correction is required. Sub-pixel facets retain their average color. The
+relief, lighting model, isobaths, coastline, annotations, and JPEG encoding
+remain unchanged.
 
-Cette methode est active sur les sept configurations. Le Cap La Houssaye
-conserve la texture 20 cm qui a servi a la calibration initiale; les autres
-sites utilisent 40, 50 ou 80 cm selon leur emprise. La conservation de la
-texture separee produit l'essentiel du gain sur les routes, rochers et la
-vegetation; l'interpolation triangulaire ameliore plus modestement les pentes
-projetees sur plusieurs pixels.
-- `bridge_decks` : correction locale opt-in d'un pont absent du modele de terrain nu. Chaque tablier est defini par `start_utm40s`, `end_utm40s`, `half_width_m` et `feather_m`. Le Cap La Houssaye en contient une pour le pont de la Ravine Patent Slip. Ne jamais recopier cette correction dans un autre site : laisser le parametre absent, sauf anomalie confirmee visuellement et corrigee au cas par cas.
-- `locator_map_enabled`, `locator_bbox_utm40s`, `locator_marker_utm40s` et `locator_label` : activent la carte de localisation insulaire et placent le repere propre au site. Le fond RGE ALTI a 20 m est commun et reutilisable entre les sites.
-- `locator_bathymetry_enabled`, `locator_gebco_wms_url`, `locator_gebco_layer`, `locator_gebco_attribution`, `locator_gebco_request_width_px` et `locator_gebco_blur_px` : ajoutent uniquement en mer le relief ombre generalise de GEBCO 2024 et lissent sa maille de 15 secondes d'arc a l'echelle d'affichage. L'endpoint, la couche et l'attribution sont explicites dans chaque configuration. Cette couche insulaire sert a la localisation et ne remplace jamais HYSCORES dans les cartes detaillees ou pour la navigation.
-- `plate_site_name` et `plate_city` : definissent respectivement l'unique nom public imprime pour le site et sa commune. Les deux champs sont obligatoires. `plate_site_name` ne doit contenir ni alias, ni second site, ni commune, ni `La Reunion`; `plate_city` contient seulement la commune. Le composeur ajoute lui-meme `La Reunion` sur une ligne independante.
-- `plate_author`, `copyright_year` et `map_license` : signent discretement les sorties 2D et 3D originales afin que l'attribution et la licence survivent a un recadrage d'une carte detaillee. La planche ne les repete pas dans son bandeau superieur.
-- `paths.output_plate` et `paths.output_plate_topography` : sorties respectives de la planche orthophoto et de la planche topographique. La commande de composition genere les deux par defaut; `--land-style` limite la regeneration a une variante.
-- `plate_canvas_width_px` et `plate_canvas_height_px` : dimensions de la planche. Les sept planches publiees utilisent `5400 x 3250 px`. La mise en page actuelle est calibree pour une largeur fixe de `5400 px`, que la validation refuse de modifier; la hauteur peut etre augmentee pour un futur plan 2D presque carre qui doit rester a la meme largeur que la vue 3D sans remonter sur le cartouche.
+This method is enabled in all seven configurations. Cap La Houssaye retains
+the 20 cm texture used for the initial calibration; the other sites use 40,
+50, or 80 cm according to their extent. Retaining the separate texture
+produces most of the improvement on roads, rocks, and vegetation; triangular
+interpolation more modestly improves slopes projected over several pixels.
+- `bridge_decks`: opt-in local correction for a bridge missing from the bare-earth terrain model. Each deck is defined by `start_utm40s`, `end_utm40s`, `half_width_m`, and `feather_m`. Cap La Houssaye contains one for the bridge over Ravine Patent Slip. Never copy this correction to another site: leave the parameter absent unless an anomaly is visually confirmed and corrected case by case.
+- `locator_map_enabled`, `locator_bbox_utm40s`, `locator_marker_utm40s`, and `locator_label`: enable the island locator map and place the site's marker. The 20 m RGE ALTI background is shared and reusable between sites.
+- `locator_bathymetry_enabled`, `locator_gebco_wms_url`, `locator_gebco_layer`, `locator_gebco_attribution`, `locator_gebco_request_width_px`, and `locator_gebco_blur_px`: add only at sea the generalized shaded relief from GEBCO 2024 and smooth its 15 arc-second grid at display scale. The endpoint, layer, and attribution are explicit in each configuration. This island-scale layer serves for location and never replaces HYSCORES in detailed maps or for navigation.
+- `plate_site_name` and `plate_city`: respectively define the single public name printed for the site and its municipality. Both fields are required. `plate_site_name` must contain no alias, second site, municipality, or `La Réunion`; `plate_city` contains only the municipality. The composer itself adds `La Réunion` on a separate line.
+- `plate_author`, `copyright_year`, and `map_license`: discreetly sign the original 2D and 3D outputs so that attribution and license survive cropping of a detailed map. The plate does not repeat them in its top banner.
+- `paths.output_plate` and `paths.output_plate_topography`: respective outputs of the orthophoto and topographic plates. The composition command generates both by default; `--land-style` limits regeneration to one variant.
+- `plate_canvas_width_px` and `plate_canvas_height_px`: plate dimensions. All seven published plates use `5400 x 3250 px`. The current layout is calibrated for a fixed width of `5400 px`, which validation does not allow to be changed; the height can be increased for a future nearly square 2D map that must remain the same width as the 3D view without overlapping the title block.
 
-Chaque JPEG porte ses propres credits de donnees. Les cartes detaillees reprennent l'attribution HYSCORES imposee, Litto3D et IGN RGE ALTI; les variantes hybrides ajoutent l'orthophoto IGN et sa campagne. La carte insulaire cite IGN RGE ALTI pour la terre et la reference GEBCO 2024 complete pour la mer. La planche ne duplique ni ces sources deja lisibles dans chaque panneau, ni l'auteur et la licence deja presents sur les vues 2D et 3D.
+Each JPEG carries its own data credits. The detailed maps include the required HYSCORES attribution, Litto3D, and IGN RGE ALTI; the hybrid variants add the IGN orthophoto and its campaign. The island map cites IGN RGE ALTI for land and the complete GEBCO 2024 reference for the sea. The plate duplicates neither these sources, already legible in each panel, nor the author and license already present on the 2D and 3D views.
 
-## Licences et droits de reutilisation
+## Licenses and reuse rights
 
-- Les scripts sont sous licence MIT.
-- Les cartes derivees de HYSCORES sont sous CC BY-NC-SA 4.0 pour respecter la clause `ShareAlike` de la source. Ne pas les marquer `CC BY-NC-ND` : la clause `NoDerivatives` ajouterait une restriction incompatible avec HYSCORES.
-- Les donnees tierces ne sont pas relicenciees par le projet. Le detail des licences, dates, citations et avertissements se trouve dans `THIRD-PARTY-NOTICES.md`.
-- La metadonnee HYSCORES ne donne pas de numero de version de sa licence CC BY-NC-SA. Les cartes du projet sont publiees sous CC BY-NC-SA 4.0.
+- The scripts are licensed under MIT.
+- Maps derived from HYSCORES are licensed under CC BY-NC-SA 4.0 to comply with the source's `ShareAlike` clause. Do not mark them `CC BY-NC-ND`: the `NoDerivatives` clause would add a restriction incompatible with HYSCORES.
+- Third-party data are not relicensed by the project. License details, dates, citations, and warnings are in `THIRD-PARTY-NOTICES.md`.
+- The HYSCORES metadata do not specify the version number of its CC BY-NC-SA license. The project's maps are published under CC BY-NC-SA 4.0.
 
-Ces cartes sont des aides a la lecture du relief et a l'orientation generale. Elles ne prouvent ni l'acces, ni l'autorisation de plonger, ni la praticabilite ou la securite presentes d'un site. Elles ne remplacent pas les informations locales, la meteo, l'etat de mer, les consignes des autorites ou l'evaluation d'un professionnel.
+These maps are aids for reading the relief and general orientation. They prove neither access, permission to dive, nor the current practicability or safety of a site. They do not replace local information, weather conditions, sea state, instructions from authorities, or a professional assessment.
 
-Les variantes orthophoto sont des sorties supplementaires. En 2D, la texture remplace le fond topographique a l'interieur du masque terrestre et, lorsqu'elle est configuree, dans la tranche marine peu profonde. En 3D, l'orthophoto et son masque alpha georeference sont alignes sur le MNT, puis tournes, recadres et reechantillonnes en parallele du maillage. Le masque alpha devient nul lorsque la profondeur de controle atteint `imagery_sea_max_depth_m`; une bande calculee seulement par distance a la cote ne peut donc pas prolonger l'image en mer profonde. Par defaut, les lacunes des rasters restent invalides et recoivent un fond neutre. Trois exceptions visuelles sont distinctes : une lacune marine profonde de bord peut recevoir seulement la couleur maximale en 2D; une petite lacune interne peut etre interpolee dans le seul maillage statique via `relief_mesh_gap_fill_max_area_m2`; une limite profonde documentee peut etre completee dans les terrains statique et interactif par un plateau uniforme via `deep_edge_nodata_terrain_fill`.
+The orthophoto variants are additional outputs. In 2D, the texture replaces the topographic background within the land mask and, when configured, within the shallow marine depth band. In 3D, the orthophoto and its georeferenced alpha mask are aligned with the DTM, then rotated, cropped, and resampled in parallel with the mesh. The alpha mask becomes zero when the control depth reaches `imagery_sea_max_depth_m`; a band calculated only from distance to the coastline therefore cannot extend the image into deep water. By default, raster gaps remain invalid and receive a neutral background. Three visual exceptions are distinct: a deep marine edge gap may receive only the maximum-depth color in 2D; a small internal gap may be interpolated in the static mesh alone through `relief_mesh_gap_fill_max_area_m2`; a documented deep boundary may be completed in the static and interactive terrains by a uniform plateau through `deep_edge_nodata_terrain_fill`.
 
-- `coast_frame_fraction` : hauteur de la cote dans l'image 3D, de 0 en haut a 1 en bas. L'augmenter rapproche visuellement la camera de la cote en donnant moins de hauteur au large. L'Hermitage utilise `0,26`; le Cap utilise `0,54` car son relief utile est concentre pres des deux pointes et son large devient rapidement uniforme.
-- `vertical_exaggeration` : facteur sans dimension entre l'echelle verticale et l'echelle horizontale du rendu. Sa signification reste stable lorsque la resolution du raster, le canevas ou la largeur visible changent. Le standard commun aux sept sites publies et aux futurs sites est `3.9935327405`, soit environ `4×`, afin de rendre les reliefs sous-marins suffisamment lisibles tout en conservant le plan 2D comme reference metrique.
-- `topography_resolution_m` : resolution demandee au WMS IGN. La requete est refusee au-dela de 5 000 pixels sur un axe.
+- `coast_frame_fraction`: height of the coastline in the 3D image, from 0 at the top to 1 at the bottom. Increasing it visually moves the camera closer to the coast by giving less height to the offshore area. L'Hermitage uses `0.26`; Cap La Houssaye uses `0.54` because its useful relief is concentrated near the two headlands and its offshore area quickly becomes uniform.
+- `vertical_exaggeration`: dimensionless ratio between the vertical and horizontal scales of the rendering. Its meaning remains stable when raster resolution, canvas, or visible width changes. The shared standard for all seven published sites and future sites is `3.9935327405`, or approximately `4×`, to make the underwater relief sufficiently readable while retaining the 2D map as the metric reference.
+- `topography_resolution_m`: resolution requested from the IGN WMS. The request is refused beyond 5,000 pixels on one axis.
 
-Lorsque `along_view_projection_scale` differe de `1`, l'axe de profondeur de la perspective est volontairement amplifie. Le plan 2D demeure la reference metrique dans toutes les directions.
+When `along_view_projection_scale` differs from `1`, the depth axis of the perspective is intentionally amplified. The 2D map remains the metric reference in every direction.
 
-## Controle qualite obligatoire
+## Mandatory quality control
 
-Avant de retenir une figure :
+Before accepting a figure:
 
-1. Executer `generate_reunion_topobathy.py <site.json> --check` et corriger toute incompatibilite de configuration ou de cache avant le rendu.
-2. Verifier que la cote noire suit la jonction terre-mer sans marches ni polygones de remplissage.
-3. Verifier que les isobathes ne s'arretent pas au milieu de la surface visible. Si elles touchent le bord du raster source, agrandir le contexte au lieu de les prolonger graphiquement. Une zone sans donnees reste neutre par defaut. Toute completion profonde opt-in doit etre un plateau exactement egal a la profondeur maximale, ne toucher ni terre ni zone peu profonde, et rester exclue des isobathes avec sa transition.
-4. Verifier que le bord du MNT de contexte est hors image 3D. Une bande, des pointes miroir ou un faux ciel indiquent une marge insuffisante.
-5. Comparer la rose des vents a une orthophoto ou a une autre reference geographique fiable.
-6. Verifier la barre de 50 m a partir de la taille de pixel du GeoTIFF.
-7. Inspecter le rendu final en pleine resolution, en particulier les tombants, les etiquettes, le raccord orthophoto-bathymetrie et le bas de l'image. Confirmer que l'orthophoto disparait a la profondeur configuree.
-8. Verifier que les etiquettes sont au-dessus de toutes les lignes et qu'aucune isobathe, cote ou annotation ne traverse leur texte. Utiliser un decalage local seulement si le placement automatique reste charge.
-9. Sur la carte de localisation, verifier que le repere tombe sur le bon segment de littoral et que les coordonnees ne se chevauchent pas.
-10. Verifier la date de prise de vue propre au site et que chaque sortie conserve sa signature, sa licence et les credits des donnees effectivement visibles.
-11. Dans le visualiseur Web, verifier que les isobathes restent parfaitement horizontales pendant la rotation, que leur coeur reprend la couleur bathymetrique de la profondeur correspondante, que cette couleur correspond a la legende, que la rose suit l'orientation et que le cadrage initial correspond a la vue statique lorsque cette correspondance est configuree.
-12. Inspecter la vue interactive initiale de chaque site aux formats ordinateur et mobile, y compris en plein ecran portrait et paysage. Aucun bord de maillage ni fond neutre ne doit apparaitre dans le cadre initial. L'emprise doit rester un rectangle approximativement parallele a la cote, avec des donnees reelles sur terre et sous l'eau ; agrandir le contexte source plutot que masquer cosmetiquement une lacune non documentee.
-13. Verifier les quatre combinaisons du telechargement de carte : plans 2D et vues 3D, en topographie et en vue aerienne. Chaque bouton doit viser le JPEG canonique pleine resolution actuellement affiche.
+1. Run `generate_reunion_topobathy.py <site.json> --check` and correct any configuration or cache incompatibility before rendering.
+2. Verify that the black coastline follows the land-sea boundary without steps or fill polygons.
+3. Verify that isobaths do not stop in the middle of the visible surface. If they touch the source raster edge, enlarge the context instead of extending them graphically. An area without data remains neutral by default. Any opt-in deep completion must be a plateau exactly equal to the maximum depth, touch neither land nor a shallow area, and remain excluded from isobaths together with its transition.
+4. Verify that the edge of the context DTM is outside the 3D image. A band, mirrored spikes, or a false sky indicates an insufficient margin.
+5. Compare the compass rose with an orthophoto or another reliable geographic reference.
+6. Verify the 50 m scale bar from the GeoTIFF pixel size.
+7. Inspect the final rendering at full resolution, particularly drop-offs, labels, the orthophoto-bathymetry transition, and the bottom of the image. Confirm that the orthophoto disappears at the configured depth.
+8. Verify that labels are above all lines and that no isobath, coastline, or annotation crosses their text. Use a local offset only if automatic placement remains crowded.
+9. On the locator map, verify that the marker falls on the correct coastline segment and that coordinates do not overlap.
+10. Verify the site-specific capture date and that each output retains its signature, license, and credits for the data actually visible.
+11. In the Web viewer, verify that isobaths remain perfectly horizontal during rotation, that their core uses the bathymetric color of the corresponding depth, that this color matches the legend, that the compass rose follows orientation, and that the initial framing matches the static view when this correspondence is configured.
+12. Inspect each site's initial interactive view at desktop and mobile sizes, including full-screen portrait and landscape. No mesh edge or neutral background may appear in the initial frame. The extent must remain a rectangle approximately parallel to the coastline, with real data on land and underwater; enlarge the source context rather than cosmetically hiding an undocumented gap.
+13. Verify all four map-download combinations: 2D maps and 3D views, in topographic and aerial view. Each button must target the canonical full-resolution JPEG currently displayed.
 
-## Fichiers du pipeline
+## Pipeline files
 
-- `generate_reunion_topobathy.py` : acquisition, cache, recadrage et orchestration.
-- `cache_manifest.py` : identite des sources, empreintes SHA-256 et validation de provenance du cache.
-- `site_config.py` : valeurs par defaut partagees et validation precoce des configurations.
-- `render_fused_relief.py` : fusion, lissage, isobathes et rendus 2D/3D.
-- `sites/*.json` : parametres reproductibles de chaque site.
-- `compose_site_plate.py` : composition reproductible des trois cartes et conversion du repere UTM en sous-titre GPS.
-- `.tmp/bathy-renders/` : sources et extraits regenerables, non destines a etre versionnes.
-- `outputs/` : figures finales.
+- `generate_reunion_topobathy.py`: acquisition, cache, cropping, and orchestration.
+- `cache_manifest.py`: source identity, SHA-256 hashes, and cache provenance validation.
+- `site_config.py`: shared defaults and early configuration validation.
+- `render_fused_relief.py`: merging, smoothing, isobaths, and 2D/3D rendering.
+- `sites/*.json`: reproducible parameters for each site.
+- `compose_site_plate.py`: reproducible composition of the three maps and conversion of the UTM marker into a GPS subtitle.
+- `.tmp/bathy-renders/`: regenerable sources and extracts, not intended for version control.
+- `outputs/`: final figures.

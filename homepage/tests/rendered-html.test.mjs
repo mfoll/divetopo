@@ -41,7 +41,10 @@ test("server-renders the French homepage with Auto theme by default", async () =
     html,
     /<meta name="viewport" content="width=device-width, initial-scale=1"/,
   );
-  assert.match(html, /Le relief sous-marin, région par région\./);
+  assert.match(html, /Cartographies de sites de plongée/);
+  assert.doesNotMatch(html, /Le relief sous-marin, région par région\./);
+  assert.doesNotMatch(html, /DiveTopo réunit des cartes/);
+  assert.doesNotMatch(html, />Explorer</);
   assert.match(html, /Topo Réunion/);
   assert.match(html, /Sélection de cartes/);
   assert.match(html, /sélection non exhaustive de sept sites/);
@@ -49,6 +52,16 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /href="https:\/\/reunion\.divetopo\.com"/);
   assert.match(html, /aria-label="Explorer Topo Réunion"/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
+  assert.match(html, /href="#contact">Contact<\/a>/);
+  assert.match(html, /id="contact"/);
+  assert.match(
+    html,
+    /Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié \? Écrivez-moi à/,
+  );
+  assert.match(html, /href="mailto:contact@divetopo\.com"/);
+  assert.match(html, />contact@divetopo\.com<\/a>/);
+  assert.ok(html.indexOf('id="contact"') < html.indexOf("<footer"));
+  assert.doesNotMatch(html, /<form\b/i);
   assert.match(
     html,
     /<button(?=[^>]*data-testid="language-fr")(?=[^>]*aria-pressed="true")[^>]*>/,
@@ -80,7 +93,7 @@ test("uses the browser language for the English version", async () => {
     html,
     /name="twitter:image:alt" content="DiveTopo, dive site maps"/,
   );
-  assert.match(html, /Underwater terrain, region by region\./);
+  assert.match(html, /Dive site maps/);
   assert.match(html, /Topo Réunion/);
   assert.match(html, /Map selection/);
   assert.match(html, /non-exhaustive selection of seven sites/);
@@ -88,10 +101,15 @@ test("uses the browser language for the English version", async () => {
   assert.match(html, /Ready for more regions\./);
   assert.match(
     html,
+    /Have a question, feedback, or a dive site you would like to see mapped\? Email me at/,
+  );
+  assert.match(html, /href="mailto:contact@divetopo\.com"/);
+  assert.match(
+    html,
     /<button(?=[^>]*data-testid="language-en")(?=[^>]*aria-pressed="true")[^>]*>/,
   );
   assert.match(html, /title="Use system theme"/);
-  assert.doesNotMatch(html, /Le relief sous-marin, région par région\./);
+  assert.doesNotMatch(html, /Cartographies de sites de plongée/);
 });
 
 test("respects Accept-Language quality weights and exclusions", async () => {
@@ -112,9 +130,9 @@ test("respects Accept-Language quality weights and exclusions", async () => {
   ).text();
 
   assert.match(frenchHtml, /<html lang="fr" data-theme="auto">/);
-  assert.match(frenchHtml, /Le relief sous-marin, région par région\./);
+  assert.match(frenchHtml, /Cartographies de sites de plongée/);
   assert.match(englishHtml, /<html lang="en" data-theme="auto">/);
-  assert.match(englishHtml, /Underwater terrain, region by region\./);
+  assert.match(englishHtml, /Dive site maps/);
   assert.match(fallbackEnglishHtml, /<html lang="en" data-theme="auto">/);
 });
 
@@ -126,9 +144,9 @@ test("saved cookies override system language and theme", async () => {
   const html = await response.text();
 
   assert.match(html, /<html lang="fr" data-theme="dark">/);
-  assert.match(html, /Le relief sous-marin, région par région\./);
+  assert.match(html, /Cartographies de sites de plongée/);
   assert.match(html, /data-testid="theme-dark"[^>]*checked=""/);
-  assert.doesNotMatch(html, /Underwater terrain, region by region\./);
+  assert.doesNotMatch(html, /Dive site maps/);
 });
 
 test("keeps regions data-driven and bundles the exact island relief", async () => {
@@ -155,8 +173,12 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
     stylesheet,
     /@media \(prefers-color-scheme: dark\)[\s\S]*:root\[data-theme="auto"\]/,
   );
-  assert.match(stylesheet, /\.hero h1\s*\{[^}]*grid-column:\s*1;/s);
-  assert.match(stylesheet, /\.hero-lead\s*\{[^}]*grid-column:\s*2;/s);
+  assert.match(
+    stylesheet,
+    /\.hero\s*\{[^}]*padding:\s*clamp\(2\.75rem,\s*5vw,\s*5\.25rem\)/s,
+  );
+  assert.doesNotMatch(stylesheet, /\.hero-lead\s*\{/);
+  assert.doesNotMatch(stylesheet, /\.section-heading\s*\{[^}]*border-top:/s);
   assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*30rem;/s);
   assert.match(controlsSource, /document\.cookie/);
   assert.match(controlsSource, /Domain=\.divetopo\.com/);

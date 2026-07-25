@@ -380,7 +380,8 @@ img {
 
 .topo-reunion-intro,
 .topo-reunion-workspace,
-.sources-inner {
+.sources-inner,
+.contact-inner {
   margin-inline: auto;
   max-width: var(--content-width);
 }
@@ -1529,6 +1530,48 @@ img {
   margin-bottom: 0.85rem;
 }
 
+.contact-section {
+  background: var(--surface-soft);
+  color: var(--ink);
+  scroll-margin-top: 1rem;
+  padding: clamp(2.75rem, 4.5vw, 4.5rem) var(--page-gutter);
+}
+
+.contact-inner {
+  align-items: baseline;
+  display: grid;
+  gap: clamp(1rem, 3vw, 4rem);
+  grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+}
+
+.contact-inner h2 {
+  font-size: clamp(1.8rem, 2.45vw, 2.35rem);
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.contact-inner p {
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 48rem;
+}
+
+.contact-inner a {
+  color: var(--accent-dark);
+  font-weight: 720;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.contact-inner a:hover {
+  text-decoration-color: currentColor;
+}
+
 .site-footer {
   align-items: center;
   background: #03151b;
@@ -1710,6 +1753,10 @@ img {
   }
 
   .project-notes {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-inner {
     grid-template-columns: 1fr;
   }
 }

@@ -1,116 +1,112 @@
-# Paquet de relief 3D interactif
+# Interactive 3D terrain package
 
-Le relief interactif est un livrable cartographique du pipeline, au meme titre
-que les JPEG 2D, les perspectives 3D et les planches. Le site web le consomme,
-mais ne le genere pas.
+The interactive terrain is a cartographic deliverable from the pipeline, just
+like the 2D JPEGs, 3D perspectives, and printable sheets. The website consumes
+it but does not generate it.
 
-La commande canonique est :
+The canonical command is:
 
 ```bash
 .venv/bin/python generate_interactive_terrain.py
 ```
 
-Elle reconstruit les paquets de tous les fichiers `sites/*.json` a partir des
-GeoTIFF valides du cache local et les ecrit dans
-`outputs/interactive-terrain/`.
-La profondeur maximale reprend `max_depth_m`, sauf lorsqu'une configuration
-documente explicitement une limite `interactive_max_depth_m` inferieure pour
-ecarter une marge de couverture source non fiable. Chaque site declare un
-`interactive_footprint_utm40s`, rectangle oriente obligatoirement contenu dans
-l'emprise de contexte. Sa largeur suit approximativement la cote et sa
-profondeur l'axe de vue depuis le large vers la terre. Le pipeline recadre
-d'abord son rectangle englobant nord en haut, puis masque le relief sur
-l'emprise orientee exacte. Le paquet Web peut ainsi couvrir une zone plus large
-que le plan 2D sans modifier celui-ci. Pointe au Sel conserve une profondeur
-maximale de `40 m`.
+It rebuilds the packages for every `sites/*.json` file from valid GeoTIFFs in
+the local cache and writes them to `outputs/interactive-terrain/`.
+The maximum depth follows `max_depth_m`, unless a configuration explicitly
+documents a lower `interactive_max_depth_m` limit to exclude an unreliable
+source-coverage margin. Each site declares an
+`interactive_footprint_utm40s`, an oriented rectangle that must remain within
+the context extent. Its width approximately follows the coastline, and its
+depth follows the viewing axis from offshore toward land. The pipeline first
+crops its north-up bounding rectangle, then masks the terrain to the exact
+oriented footprint. This allows the Web package to cover a larger area than
+the 2D map without changing that map. Pointe au Sel retains a maximum depth of
+`40 m`.
 
-La validation exige que `look_bearing_deg` corresponde a
-`view_bearing_deg`, que la largeur depasse d'au moins 15 % la largeur visible
-initiale et que la profondeur conserve au moins 20 % de marge selon
-l'inclinaison, le rapport d'image et l'echelle de projection. Le champ
-facultatif `interactive_view_visible_width_m` peut ajuster le seul cadrage Web
-sans modifier la perspective statique.
+Validation requires `look_bearing_deg` to match `view_bearing_deg`, the width
+to exceed the initially visible width by at least 15%, and the depth to retain
+at least a 20% margin based on tilt, aspect ratio, and projection scale. The
+optional `interactive_view_visible_width_m` field can adjust the Web framing
+alone without changing the static perspective.
 
-Une limite marine profonde de bord peut etre completee explicitement par
-`deep_edge_nodata_terrain_fill`. Seules les composantes sans contact terrestre,
-entourees par une frontiere marine assez longue et plus profonde que
-`deep_edge_nodata_terrain_min_depth_m`, deviennent un plateau uniforme a la
-profondeur maximale. L'option est desactivee par defaut.
+A deep offshore NoData boundary can be filled explicitly with
+`deep_edge_nodata_terrain_fill`. Only components that do not touch land,
+are enclosed by a sufficiently long marine boundary, and are deeper than
+`deep_edge_nodata_terrain_min_depth_m` become a uniform plateau at the maximum
+depth. This option is disabled by default.
 
 ## Format
 
-Le format est un petit paquet de six fichiers par site, plus un manifeste
-global. Il ne s'agit pas d'un fichier 3D unique :
+The format is a small package of six files per site, plus a global manifest. It
+is not a single 3D file:
 
-| Fichier | Role |
+| File | Purpose |
 |---|---|
-| `terrain.json` | Metadonnees, emprise, orientation, camera, encodages, credits et noms des textures |
-| `height.bin` | Champ d'altitude `uint16` little-endian, en metres physiques avant exageration verticale |
-| `valid-mask.bin` | Masque de validite compact, un bit par sommet |
-| `isobath-mask.bin` | Masque compact des sommets ou les courbes restent strictement derivees de la source |
-| `topographic.webp` | Texture topo-bathymetrique |
-| `orthophoto.webp` | Texture avec orthophoto |
+| `terrain.json` | Metadata, extent, orientation, camera, encodings, credits, and texture filenames |
+| `height.bin` | Little-endian `uint16` elevation field, in physical meters before vertical exaggeration |
+| `valid-mask.bin` | Compact validity mask, one bit per vertex |
+| `isobath-mask.bin` | Compact mask of vertices where contours remain strictly derived from the source |
+| `topographic.webp` | Topo-bathymetric texture |
+| `orthophoto.webp` | Orthophoto texture |
 
-`manifest.json` inventorie les sites et enregistre pour chaque fichier sa
-taille et son empreinte SHA-256. Le navigateur charge les fichiers, construit
-le maillage triangule avec Three.js et remplace seulement la texture lorsque
-l'utilisateur bascule entre topographie et orthophoto.
+`manifest.json` inventories the sites and records each file's size and SHA-256
+checksum. The browser loads the files, builds the triangulated mesh with
+Three.js, and replaces only the texture when the user switches between
+topography and orthophoto.
 
-Le schema 2 distingue la validite du terrain de celle des isobathes. Lorsqu'une
-lacune profonde de bord est completee par un plateau uniforme a la profondeur
-maximale, `valid-mask.bin` conserve ce terrain visible, tandis que
-`isobath-mask.bin` exclut le remplissage et toutes ses cellules de transition.
-Les courbes WebGL restent ainsi derivees des seules altitudes source, sans
-inventer de niveaux intermediaires autour du plateau.
+Schema 2 distinguishes terrain validity from isobath validity. When a deep
+boundary gap is completed with a uniform plateau at the maximum depth,
+`valid-mask.bin` keeps that terrain visible, while `isobath-mask.bin` excludes
+the fill and all of its transition cells. The WebGL contours therefore remain
+derived solely from source elevations, without inventing intermediate levels
+around the plateau.
 
-Le champ d'altitude conserve ses sommets de bord et compte au maximum `513`
-sommets sur son plus grand axe. Ce plafond modere augmente le detail
-geometrique des emprises interactives elargies sans publier les grilles
-submetriques beaucoup plus lourdes des perspectives statiques. L'autre
-dimension conserve le rapport du raster source.
+The elevation field retains its boundary vertices and has at most `513`
+vertices along its longest axis. This moderate ceiling increases the geometric
+detail of the enlarged interactive extents without publishing the much heavier
+sub-meter grids used for the static perspectives. The other dimension
+preserves the source raster's aspect ratio.
 
-`terrain.json` contient aussi l'azimut, l'inclinaison et le cadrage initial. Il
-enregistre l'emprise sous `footprint`, avec son centre, ses dimensions, son
-azimut et ses quatre coins UTM 40S. Le
-champ optionnel `view.horizontalCenterOffsetM` reprend la projection horizontale
-du centre statique; une valeur positive deplace la cible vers la droite de
-l'ecran. Il est actuellement utilise pour aligner les vues initiales de la
-Passe de l'Hermitage et de Pont Rouge sur leurs perspectives imprimees.
+`terrain.json` also contains the initial azimuth, tilt, and framing. It records
+the extent under `footprint`, including its center, dimensions, azimuth, and
+four UTM 40S corners. The optional `view.horizontalCenterOffsetM` field carries
+over the horizontal projection of the static center; a positive value moves
+the target toward the right side of the screen. It is currently used to align
+the initial views of Passe de l'Hermitage and Pont Rouge with their printable
+perspectives.
 
-Les isobathes ne sont ni une texture ni un fichier vectoriel supplementaire.
-Le visualiseur les calcule analytiquement depuis l'altitude exportee, dans des
-plans parfaitement horizontaux tous les 5 m. Les niveaux visibles vont de
-`-5 m` au dernier multiple de 5 strictement inferieur a la profondeur maximale.
-Le coeur reprend exactement la couleur de la palette bathymetrique a chaque
-profondeur, tandis que le liseré noir, la legende fixe, le bouton d'affichage
-et la rose dynamique relevent du visualiseur. Le masque
-`isobath-mask.bin` garantit qu'aucune courbe n'est creee sur une completion
-artificielle ou sa transition.
+The isobaths are neither a texture nor an additional vector file. The viewer
+calculates them analytically from the exported elevation field, in perfectly
+horizontal planes every 5 m. Visible levels run from `-5 m` to the last
+multiple of 5 strictly below the maximum depth. The core uses the exact color
+of the bathymetric palette at each depth, while the black edging, fixed legend,
+display button, and dynamic compass rose are handled by the viewer. The
+`isobath-mask.bin` mask ensures that no contour is created over an artificial
+fill or its transition.
 
-Ce decoupage est volontaire :
+This separation is intentional:
 
-- la geometrie n'est telechargee qu'une fois pour les deux styles ;
-- les textures se mettent en cache separement ;
-- les altitudes physiques, la provenance et l'exageration restent explicites ;
-- le paquet peut etre utilise par un autre visualiseur que le site actuel.
+- geometry is downloaded only once for both styles;
+- textures are cached separately;
+- physical elevations, provenance, and exaggeration remain explicit;
+- the package can be used by a viewer other than the current website.
 
-Un conteneur unique comme GLB serait possible, mais il dupliquerait ou
-complexifierait le changement de texture et rendrait la provenance moins
-directe. Une archive ZIP ne serait pas directement exploitable par le
-navigateur sans une etape de decompression.
+A single container such as GLB would be possible, but it would duplicate or
+complicate texture switching and make provenance less direct. A ZIP archive
+would not be directly usable by the browser without a decompression step.
 
-## Frontiere avec le site
+## Boundary with the website
 
-Le site ne doit jamais appeler `generate_interactive_terrain.py`. Son etape
-d'assets copie et verifie le paquet canonique vers `site/public/terrain/`,
-comme elle derive deja les images responsives depuis les JPEG de `outputs/`.
+The website must never call `generate_interactive_terrain.py`. Its asset step
+copies and verifies the canonical package into `site/public/terrain/`, just as
+it already derives responsive images from the JPEGs in `outputs/`.
 
-La responsabilite est donc :
+Responsibilities are therefore divided as follows:
 
-1. pipeline cartographique : configurations, donnees sources, cartes 2D,
-   perspectives statiques, planches et paquets interactifs canoniques ;
-2. site web : interface, navigation, visualiseur Three.js, assets responsifs,
-   copie des paquets canoniques et deploiement.
+1. cartographic pipeline: configurations, source data, 2D maps, static
+   perspectives, printable sheets, and canonical interactive packages;
+2. website: interface, navigation, Three.js viewer, responsive assets,
+   canonical-package copy, and deployment.
 
-Les fichiers de `site/public/terrain/` sont des derives de publication. La
-source de verite reste `outputs/interactive-terrain/`.
+The files in `site/public/terrain/` are publication derivatives. The source of
+truth remains `outputs/interactive-terrain/`.

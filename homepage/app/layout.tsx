@@ -8,7 +8,7 @@ const metadataCopy = {
     title: "DiveTopo · Cartes de sites de plongée",
     description:
       "Explorez des cartes topo-bathymétriques de sites de plongée, région par région.",
-    socialTitle: "DiveTopo · Le relief sous-marin, région par région",
+    socialTitle: "DiveTopo · Cartographies de sites de plongée",
     socialDescription:
       "Des plans 2D, perspectives 3D et reliefs interactifs de sites de plongée.",
     socialAlt: "DiveTopo, cartographies de sites de plongée",
@@ -18,7 +18,7 @@ const metadataCopy = {
     title: "DiveTopo · Dive site maps",
     description:
       "Explore topographic and bathymetric maps of dive sites, region by region.",
-    socialTitle: "DiveTopo · Underwater terrain, region by region",
+    socialTitle: "DiveTopo · Dive site maps",
     socialDescription:
       "2D maps, 3D views and interactive terrain for selected dive sites.",
     socialAlt: "DiveTopo, dive site maps",

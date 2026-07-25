@@ -1,50 +1,50 @@
-# Donnees tierces, licences et attributions
+# Third-party data, licenses, and attributions
 
-Cette notice decrit les donnees incorporees aux rendus. L'audit du 22 juillet 2026 conclut que la reutilisation non commerciale realisee par ce projet est permise sous reserve des attributions, du partage a l'identique impose par HYSCORES et des avertissements ci-dessous.
+This notice describes the data incorporated into the rendered outputs. The audit conducted on July 22, 2026 concluded that the non-commercial reuse undertaken by this project is permitted, subject to the required attributions, the ShareAlike condition imposed by HYSCORES, and the warnings below.
 
-## Bathymetrie detaillee : HYSCORES 2015
+## Detailed bathymetry: HYSCORES 2015
 
-- Jeu de donnees : *MNT Bathymetrique a haute resolution des fonds marins des zones recifales de la cote ouest de l'ile de La Reunion (2015)*.
-- Auteurs : Pascal Mouquet, Touria Bajjouk et Michel Ropert.
-- Editeur : Ifremer - Delegation Ocean Indien.
-- DOI : <https://doi.org/10.12770/ee059de2-2c81-46ce-88de-0fb5517046af>
-- Metadonnee officielle : <https://sextant.ifremer.fr/geonetwork/srv/api/records/ee059de2-2c81-46ce-88de-0fb5517046af>
-- Licence indiquee : Creative Commons BY-NC-SA; la metadonnee ne precise pas le numero de version.
-- Attribution imposee : `Projet HYSCORES (Ifremer, UBO, Office de l'Eau Reunion)`.
+- Dataset: *MNT Bathymétrique à haute résolution des fonds marins des zones récifales de la côte ouest de l'île de La Réunion (2015)*.
+- Authors: Pascal Mouquet, Touria Bajjouk, and Michel Ropert.
+- Publisher: Ifremer - Délégation Océan Indien.
+- DOI: <https://doi.org/10.12770/ee059de2-2c81-46ce-88de-0fb5517046af>
+- Official metadata: <https://sextant.ifremer.fr/geonetwork/srv/api/records/ee059de2-2c81-46ce-88de-0fb5517046af>
+- Stated license: Creative Commons BY-NC-SA; the metadata does not specify a version number.
+- Required attribution: `Projet HYSCORES (Ifremer, UBO, Office de l'Eau Reunion)`.
 
-Les profondeurs absentes des images hyperspectrales HYSCORES ont ete completees dans le produit diffuse par le MNT Litto3D 2009-2010, reechantillonne a 40 cm. Le pipeline ne telecharge donc pas un second jeu Litto3D independant : il utilise le raster composite fourni par l'Ifremer, tout en conservant la mention Litto3D dans les credits.
+Depths missing from the HYSCORES hyperspectral imagery were filled in within the distributed product using the 2009-2010 Litto3D DTM, resampled to 40 cm. The pipeline therefore does not download a second, independent Litto3D dataset: it uses the composite raster supplied by Ifremer while retaining the Litto3D credit.
 
-Le projet extrait le raster, interpole et lisse la surface, calcule des isobathes et produit un nouveau rendu. Cette transformation constitue une adaptation. La clause ShareAlike exclut donc une licence de sortie CC BY-NC-ND et conduit a publier les cartes sous CC BY-NC-SA 4.0.
+The project extracts the raster, interpolates and smooths the surface, computes isobaths, and produces a new rendering. This transformation constitutes an adaptation. The ShareAlike condition therefore rules out licensing the outputs under CC BY-NC-ND and leads to the maps being published under CC BY-NC-SA 4.0.
 
-## Topographie : IGN RGE ALTI
+## Topography: IGN RGE ALTI
 
-- Produit : IGN RGE ALTI, couche WMS `ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES`.
-- Service : <https://data.geopf.fr/wms-r/wms>
-- Fiche : <https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI>
-- Licence : [Licence Ouverte 2.0](https://www.etalab.gouv.fr/licence-ouverte-open-licence/).
-- Attribution : `IGN RGE ALTI`.
-- Etat temporel : la fiche indique que la mise a jour du produit a ete arretee en 2024; metadonnee revisee le 8 decembre 2025.
+- Product: IGN RGE ALTI, WMS layer `ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES`.
+- Service: <https://data.geopf.fr/wms-r/wms>
+- Dataset page: <https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI>
+- License: [Licence Ouverte 2.0](https://www.data.gouv.fr/pages/legal/licences/etalab-2.0).
+- Attribution: `IGN RGE ALTI`.
+- Temporal status: the dataset page states that product updates were discontinued in 2024; the metadata was revised on December 8, 2025.
 
-La Licence Ouverte 2.0 autorise la reproduction, la transformation, la redistribution et les usages commerciaux sous reserve de citer le producteur et la date de mise a jour. Le lissage, la fusion avec le MNT marin et les rendus 2D/3D du projet sont donc permis.
+The Licence Ouverte 2.0 permits reproduction, transformation, redistribution, and commercial use, provided that the producer and update date are cited. The project's smoothing, merging with the marine DTM, and 2D/3D renderings are therefore permitted.
 
-## Orthophoto : IGN BD ORTHO
+## Orthophotography: IGN BD ORTHO
 
-- Produit : IGN BD ORTHO, couche WMS `HR.ORTHOIMAGERY.ORTHOPHOTOS`.
-- Service : <https://data.geopf.fr/wms-r/wms>
-- Fiche : <https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO>
-- Licence : Licence Ouverte 2.0.
-- Attribution : `IGN BD ORTHO`.
-- Images utilisees : couche source diffusee a 20 cm. Les GeoTIFF de mise au point sont demandes a 20 cm, sauf Pointe au Sel a 40 cm. Les textures de contexte des perspectives 3D statiques sont demandees a 20 cm au Cap La Houssaye; 40 cm a Boucan Canot, Cap Homard et la Plage du Cimetière; 50 cm a Pointe au Sel et Pont Rouge; 80 cm a la Passe de l'Hermitage. Les prises de vue sont datees du 22 juillet 2025 au Cap La Houssaye, a Boucan Canot, au Cap Homard, a Pointe au Sel, a Pont Rouge et a la Plage du Cimetière; celle de la Passe de l'Hermitage est datee du 2 aout 2025. Ces dates proviennent d'une requete `GetFeatureInfo` au repere de chaque site; la metadonnee du produit a ete revisee le 9 juillet 2026.
+- Product: IGN BD ORTHO, WMS layer `HR.ORTHOIMAGERY.ORTHOPHOTOS`.
+- Service: <https://data.geopf.fr/wms-r/wms>
+- Dataset page: <https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO>
+- License: Licence Ouverte 2.0.
+- Attribution: `IGN BD ORTHO`.
+- Imagery used: the source layer is distributed at 20 cm resolution. Working GeoTIFFs are requested at 20 cm, except for Pointe au Sel, where they are requested at 40 cm. Context textures for the static 3D perspectives are requested at 20 cm for Cap La Houssaye; 40 cm for Boucan Canot, Cap Homard, and Plage du Cimetière; 50 cm for Pointe au Sel and Pont Rouge; and 80 cm for Passe de l'Hermitage. The imagery for Cap La Houssaye, Boucan Canot, Cap Homard, Pointe au Sel, Pont Rouge, and Plage du Cimetière is dated July 22, 2025; the imagery for Passe de l'Hermitage is dated August 2, 2025. These dates come from a `GetFeatureInfo` request at each site's reference point; the product metadata was revised on July 9, 2026.
 
-Le decoupage au masque terrestre et le drapage sur le relief sont autorises par la Licence Ouverte 2.0, avec conservation de l'attribution et de la date propre a chaque image source.
+Clipping with the land mask and draping over the terrain are permitted by the Licence Ouverte 2.0, provided that the attribution and the date specific to each source image are retained.
 
-## Relief marin insulaire : GEBCO 2024
+## Island-scale seafloor relief: GEBCO 2024
 
-- Couche WMS epinglee : `GEBCO_2024`.
-- Service versionne : <https://wms.gebco.net/2024/mapserv>.
-- Conditions : <https://www.gebco.net/data-products/gridded-bathymetry/terms-of-use>
-- Attribution requise : `GEBCO Compilation Group (2024) GEBCO 2024 Grid (doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f)`.
+- Pinned WMS layer: `GEBCO_2024`.
+- Versioned service: <https://wms.gebco.net/2024/mapserv>.
+- Terms: <https://www.gebco.net/data-products/gridded-bathymetry/terms-of-use>
+- Required attribution: `GEBCO Compilation Group (2024) GEBCO 2024 Grid (doi:10.5285/1c44ce99-0a0d-5f4f-e063-7086abc0ea0f)`.
 
-L'endpoint et la couche versionnes sont conserves dans le pipeline afin qu'une future mise a jour de l'alias `GEBCO_LATEST` ne change pas silencieusement les cartes publiees. GEBCO place cette grille dans le domaine public et autorise la copie, l'adaptation et l'exploitation commerciale. La source doit etre reconnue, aucune approbation de GEBCO, de l'OHI ou de la COI ne doit etre suggeree, et les donnees ne doivent pas etre presentees de maniere trompeuse.
+The versioned endpoint and layer are retained in the pipeline so that a future update to the `GEBCO_LATEST` alias cannot silently change the published maps. GEBCO places this grid in the public domain and permits copying, adaptation, and commercial use. The source must be acknowledged, no endorsement by GEBCO, the IHO, or the IOC may be implied, and the data must not be presented in a misleading manner.
 
-**Avertissement GEBCO : cette grille ne doit pas etre utilisee pour la navigation ni pour une finalite impliquant la securite en mer.** Sa resolution nominale de 15 secondes d'arc ne represente pas la precision des mesures sous-jacentes. Elle n'est utilisee ici que pour le relief generalise de la carte de localisation de l'ile, jamais pour les plans detailles du site.
+**GEBCO warning: this grid must not be used for navigation or for any purpose involving safety at sea.** Its nominal resolution of 15 arc-seconds does not represent the accuracy of the underlying measurements. It is used here only for the generalized relief shown on the island location map, never for the detailed site maps.

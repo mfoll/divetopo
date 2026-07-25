@@ -37,6 +37,7 @@ export default function HomepageExperience({
           <div className="masthead-actions">
             <nav className="primary-nav" aria-label={text.navigationLabel}>
               <a href="#regions">{text.regionsNavigation}</a>
+              <a href="#contact">{text.contactNavigation}</a>
             </nav>
             <PreferenceControls
               language={language}
@@ -50,9 +51,7 @@ export default function HomepageExperience({
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-inner">
-            <p className="eyebrow">{text.heroEyebrow}</p>
             <h1 id="hero-title">{text.heroTitle}</h1>
-            <p className="hero-lead">{text.heroLead}</p>
           </div>
         </section>
 
@@ -63,10 +62,7 @@ export default function HomepageExperience({
         >
           <div className="regions-inner">
             <div className="section-heading">
-              <div>
-                <p className="eyebrow">{text.exploreEyebrow}</p>
-                <h2 id="regions-title">{text.regionsTitle}</h2>
-              </div>
+              <h2 id="regions-title">{text.regionsTitle}</h2>
               <p>{text.regionsLead}</p>
             </div>
 
@@ -126,6 +122,23 @@ export default function HomepageExperience({
                 <strong>{text.futureStrong}</strong> {text.futureText}
               </p>
             </aside>
+          </div>
+        </section>
+
+        <section
+          className="contact-section"
+          id="contact"
+          aria-labelledby="contact-title"
+        >
+          <div className="contact-inner">
+            <h2 id="contact-title">{text.contact.title}</h2>
+            <p>
+              {text.contact.prompt}{" "}
+              <a href="mailto:contact@divetopo.com">
+                contact@divetopo.com
+              </a>
+              .
+            </p>
           </div>
         </section>
       </main>

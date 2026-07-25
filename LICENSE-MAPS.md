@@ -1,13 +1,13 @@
-# Licence des cartes et figures
+# License for maps and figures
 
-Sauf indication contraire, les cartes et figures publiees dans `outputs/` sont mises a disposition sous licence [Creative Commons Attribution - Pas d'Utilisation Commerciale - Partage dans les Memes Conditions 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr), dans la mesure des droits detenus par Matthieu Foll sur leur composition, leur rendu et leurs annotations.
+Unless otherwise stated, the maps and figures published in `outputs/` are made available under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en), to the extent of the rights held by Matthieu Foll in their composition, rendering, and annotations.
 
-Mention d'attribution recommandee :
+Recommended attribution:
 
-> Cap La Houssaye, La Reunion, Matthieu Foll, 2026, CC BY-NC-SA 4.0.
+> Cap La Houssaye, La Réunion, Matthieu Foll, 2026, CC BY-NC-SA 4.0.
 
-La licence autorise le partage et l'adaptation a des fins non commerciales, avec attribution, indication des modifications et diffusion des adaptations sous la meme licence. Aucune permission supplementaire n'est accordee ici pour un usage commercial.
+The license permits sharing and adaptation for non-commercial purposes, with attribution, an indication of any changes, and distribution of adaptations under the same license. No additional permission for commercial use is granted here.
 
-Ces cartes incorporent des donnees tierces qui restent soumises a leurs propres licences et conditions. La presente licence ne relicencie pas ces donnees et ne reduit pas les obligations d'attribution decrites dans [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+These maps incorporate third-party data that remain subject to their own licenses and terms. This license does not relicense those data or reduce the attribution requirements described in [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-Ces figures sont des visualisations documentaires. Elles ne doivent pas etre utilisees pour la navigation ni comme seule base d'une decision engageant la securite en mer.
+These figures are informational visualizations. They must not be used for navigation or as the sole basis for any decision involving safety at sea.

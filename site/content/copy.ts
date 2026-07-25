@@ -39,6 +39,7 @@ export const topoReunionCopy = {
       navigationLabel: "Navigation principale",
       explore: "Explorer",
       methodSources: "Méthode et sources",
+      contact: "Contact",
       githubNewWindow: "GitHub (nouvelle fenêtre)",
     },
     preferences: {
@@ -175,6 +176,11 @@ export const topoReunionCopy = {
       safetyText:
         "Ces plans ne sont pas destinés à la navigation et ne remplacent pas les informations locales, les conditions de mer, les consignes des autorités ou l’avis d’un professionnel.",
     },
+    contact: {
+      title: "Contact",
+      prompt:
+        "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié ? Écrivez-moi à",
+    },
     footer: {
       maps: "Plans",
       backToTop: "Haut de page",
@@ -210,6 +216,7 @@ export const topoReunionCopy = {
       navigationLabel: "Main navigation",
       explore: "Explore",
       methodSources: "Method and sources",
+      contact: "Contact",
       githubNewWindow: "GitHub (new window)",
     },
     preferences: {
@@ -345,6 +352,11 @@ export const topoReunionCopy = {
       safetyTitle: "Safety",
       safetyText:
         "These maps are not intended for navigation and do not replace local information, sea conditions, guidance from authorities or professional advice.",
+    },
+    contact: {
+      title: "Contact",
+      prompt:
+        "Have a question, feedback, or a dive site you would like to see mapped? Email me at",
     },
     footer: {
       maps: "Maps",

@@ -117,6 +117,16 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /champ d’altitude 16 bits/);
   assert.match(html, /https:\/\/github\.com\/mfoll\/reunion-topobathy/);
   assert.match(html, /GitHub \(nouvelle fenêtre\)/);
+  assert.match(html, /href="#contact">Contact<\/a>/);
+  assert.match(html, /id="contact"/);
+  assert.match(
+    html,
+    /Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié \? Écrivez-moi à/,
+  );
+  assert.match(html, /href="mailto:contact@divetopo\.com"/);
+  assert.match(html, />contact@divetopo\.com<\/a>/);
+  assert.ok(html.indexOf('id="contact"') < html.indexOf("<footer"));
+  assert.doesNotMatch(html, /<form\b/i);
   assert.match(html, /Sélectionnez un site sur la carte\./);
   assert.match(
     html,
@@ -177,6 +187,11 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   assert.match(html, /Sources and cache validation/);
   assert.match(html, /opaque to −1\.5 m/);
   assert.match(html, /Safety/);
+  assert.match(
+    html,
+    /Have a question, feedback, or a dive site you would like to see mapped\? Email me at/,
+  );
+  assert.match(html, /href="mailto:contact@divetopo\.com"/);
   assert.match(html, /deed\.en/);
   assert.match(
     html,

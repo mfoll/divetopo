@@ -13,7 +13,6 @@
   --accent-dark: #087579;
   --accent-soft: #d9f0ee;
   --coral: #ff7154;
-  --border: #d9e3e1;
   --shadow-sm: 0 4px 18px rgba(6, 28, 36, 0.07);
   --shadow-map: 0 22px 58px rgba(6, 28, 36, 0.18);
   --radius-panel: 18px;
@@ -62,7 +61,6 @@
   --accent: #42c7c2;
   --accent-dark: #70d9d4;
   --accent-soft: #123b40;
-  --border: #23414a;
   --shadow-sm: 0 4px 18px rgba(0, 0, 0, 0.24);
   --shadow-map: 0 22px 58px rgba(0, 0, 0, 0.38);
   --masthead-bg: rgba(7, 27, 34, 0.93);
@@ -106,7 +104,6 @@
     --accent: #42c7c2;
     --accent-dark: #70d9d4;
     --accent-soft: #123b40;
-    --border: #23414a;
     --shadow-sm: 0 4px 18px rgba(0, 0, 0, 0.24);
     --shadow-map: 0 22px 58px rgba(0, 0, 0, 0.38);
     --masthead-bg: rgba(7, 27, 34, 0.93);
@@ -183,6 +180,7 @@ img {
 .masthead-inner,
 .hero-inner,
 .regions-inner,
+.contact-inner,
 .footer-inner {
   margin-inline: auto;
   max-width: var(--content-width);
@@ -365,49 +363,18 @@ img {
   background:
     radial-gradient(circle at 82% 8%, var(--hero-glow), transparent 30rem),
     var(--bg);
-  padding: clamp(4.5rem, 8.5vw, 9.5rem) var(--page-gutter)
-    clamp(3.5rem, 6vw, 6.25rem);
-}
-
-.hero-inner {
-  display: grid;
-  gap: clamp(1.5rem, 3vw, 3rem);
-  grid-template-columns: minmax(0, 1.82fr) minmax(18rem, 0.58fr);
-}
-
-.eyebrow {
-  color: var(--accent-dark);
-  font-size: 0.72rem;
-  font-weight: 780;
-  letter-spacing: 0.13em;
-  margin: 0 0 1rem;
-  text-transform: uppercase;
+  padding: clamp(2.75rem, 5vw, 5.25rem) var(--page-gutter)
+    clamp(1.5rem, 2.5vw, 2.75rem);
 }
 
 .hero h1 {
-  font-size: clamp(3.15rem, 7vw, 7.7rem);
+  font-size: clamp(2.8rem, 4.85vw, 5.4rem);
   font-weight: 680;
-  grid-column: 1;
-  letter-spacing: -0.065em;
-  line-height: 0.91;
+  letter-spacing: -0.055em;
+  line-height: 0.98;
   margin: 0;
   max-width: 100%;
   text-wrap: balance;
-}
-
-.hero .eyebrow {
-  grid-column: 1 / -1;
-  margin-bottom: 0;
-}
-
-.hero-lead {
-  align-self: end;
-  color: var(--ink-soft);
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
-  grid-column: 2;
-  line-height: 1.62;
-  margin: 0 0 0.55rem;
-  max-width: 31rem;
 }
 
 .regions-section {
@@ -416,25 +383,19 @@ img {
 }
 
 .section-heading {
-  align-items: end;
-  border-top: 1px solid var(--border);
+  align-items: center;
   display: grid;
-  gap: 2rem;
+  gap: clamp(1rem, 2vw, 2rem);
   grid-template-columns: minmax(0, 1fr) minmax(17rem, 0.42fr);
-  padding: clamp(2rem, 3.8vw, 3.75rem) 0 clamp(1.75rem, 3vw, 2.75rem);
-}
-
-.section-heading .eyebrow {
-  margin-bottom: 0.65rem;
+  padding: 0 0 clamp(1rem, 1.8vw, 1.5rem);
 }
 
 .section-heading h2 {
-  font-size: clamp(2rem, 3.7vw, 4.15rem);
-  font-weight: 690;
-  letter-spacing: -0.052em;
-  line-height: 0.98;
+  font-size: clamp(1.8rem, 2.45vw, 2.35rem);
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
   margin: 0;
-  text-wrap: balance;
 }
 
 .section-heading > p {
@@ -639,6 +600,47 @@ img {
   width: 2rem;
 }
 
+.contact-section {
+  background: var(--surface-soft);
+  scroll-margin-top: 1rem;
+  padding: clamp(2.75rem, 4.5vw, 4.5rem) var(--page-gutter);
+}
+
+.contact-inner {
+  align-items: baseline;
+  display: grid;
+  gap: clamp(1rem, 3vw, 4rem);
+  grid-template-columns: minmax(8rem, 0.35fr) minmax(0, 1fr);
+}
+
+.contact-inner h2 {
+  font-size: clamp(1.8rem, 2.45vw, 2.35rem);
+  font-weight: 720;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+.contact-inner p {
+  color: var(--ink-soft);
+  font-size: clamp(1rem, 1.35vw, 1.2rem);
+  line-height: 1.55;
+  margin: 0;
+  max-width: 48rem;
+}
+
+.contact-inner a {
+  color: var(--accent-dark);
+  font-weight: 720;
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+}
+
+.contact-inner a:hover {
+  text-decoration-color: currentColor;
+}
+
 .site-footer {
   background: var(--footer-bg);
   color: var(--footer-ink);
@@ -669,19 +671,8 @@ img {
 }
 
 @media (max-width: 960px) {
-  .hero-inner,
   .section-heading {
     grid-template-columns: 1fr;
-  }
-
-  .hero h1,
-  .hero-lead {
-    grid-column: 1;
-  }
-
-  .hero-lead {
-    grid-row: auto;
-    margin-top: 0.7rem;
   }
 
   .region-grid {
@@ -696,6 +687,9 @@ img {
     aspect-ratio: 1000 / 840;
   }
 
+  .contact-inner {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 620px) {
@@ -720,11 +714,11 @@ img {
   }
 
   .hero {
-    padding-top: 4rem;
+    padding-top: 2.5rem;
   }
 
   .hero h1 {
-    font-size: clamp(2.85rem, 15vw, 4.8rem);
+    font-size: clamp(2.45rem, 10vw, 4rem);
   }
 
   .region-copy {

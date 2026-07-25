@@ -402,6 +402,7 @@ export function TopoReunionExperience({
             <nav aria-label={text.header.navigationLabel}>
               <a href="#topo-reunion">{text.header.explore}</a>
               <a href="#sources">{text.header.methodSources}</a>
+              <a href="#contact">{text.header.contact}</a>
               <a
                 className="external-link"
                 href="https://github.com/mfoll/reunion-topobathy"
@@ -652,6 +653,23 @@ export function TopoReunionExperience({
               <p>{text.sources.safetyText}</p>
             </article>
           </div>
+          </div>
+        </section>
+
+        <section
+          className="contact-section"
+          id="contact"
+          aria-labelledby="contact-title"
+        >
+          <div className="contact-inner">
+            <h2 id="contact-title">{text.contact.title}</h2>
+            <p>
+              {text.contact.prompt}{" "}
+              <a href="mailto:contact@divetopo.com">
+                contact@divetopo.com
+              </a>
+              .
+            </p>
           </div>
         </section>
       </main>

@@ -1,92 +1,124 @@
-# Topo-bathymetrie des sites de plongee de La Reunion
+[**English**](README.md) · [Français](README.fr.md)
 
-Pipeline reproductible pour produire un plan 2D, une vue 3D oblique et une carte de localisation insulaire a partir de donnees officielles : bathymetrie HYSCORES de l'Ifremer et topographie RGE ALTI de l'IGN. Une variante optionnelle drape l'orthophoto IGN georeferencee sur la terre et, pour les grands lagons, jusqu'a une profondeur configurable. Chaque site porte ses propres emprises, dates de prise de vue et references de sources dans un fichier JSON.
+# Topo-bathymetric dive-site maps of Réunion Island
 
-Le standard orthophoto courant est commun aux sept sites : image opaque jusqu'a `-1,5 m`, fondu lisse jusqu'a `-2 m`, aucun trait de cote 0 m, puis palette bathymetrique rouge a partir de `-2 m`. Les variantes topographiques conservent leur trait de cote. Le masque de l'orthophoto est aligne sur la grille de profondeur et transforme en parallele du relief 3D; l'image reste ainsi bornee par le masque bathymetrique configure.
+> [!IMPORTANT]
+> To view the maps, explore the interactive 3D terrain and download the original high-resolution maps or printable sheets, visit **[Topo Réunion](https://reunion.divetopo.com)**.
 
-Les sept sites utilisent les memes dimensions finales (`2474 x 1712 px`) et le meme facteur `map_style_scale: 2.0`. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches mesurent toutes `5400 x 3250 px` et affichent les coordonnees en degres, minutes et secondes. Leur cartouche utilise toujours trois lignes distinctes : un seul nom canonique de site, la commune, puis `La Reunion` seule. Deux filets courts encadrent lateralement `La Reunion`; aucun filet horizontal ne la souligne et aucun cadre ou fond gris n'enferme le texte.
+[![Animated interactive 3D terrain of Cap La Houssaye, with bathymetric colors, aerial imagery and isobaths](.github/assets/cap-la-houssaye-interactive-3d.gif)](https://reunion.divetopo.com)
 
-Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, extrait les isobathes tous les 5 m jusqu'a `max_depth_m`, puis ajoute une rose des vents et une echelle metrique. Les plans 2D et les vues 3D statiques utilisent en haut a gauche la meme rose circulaire que le relief interactif; son cadran suit l'orientation geographique tandis que les lettres restent droites. Par defaut, les lacunes restent absentes. Un plan 2D peut seulement afficher une lacune marine profonde ouverte sur le bord avec la couleur de sa profondeur maximale, sans y creer de contour. Une configuration peut aussi completer explicitement ce type de limite par un plateau uniforme dans les terrains 3D, sans relief intermediaire. Chaque site est defini par un fichier JSON distinct.
+## Why this project exists
 
-Pointe au Sel constitue une exception explicite de presentation : la marge sud-ouest du raster HYSCORES contient des facettes triangulees peu fiables en grande profondeur. Le plan 2D conserve donc les donnees utiles jusqu'a `-30 m`, tandis que les reliefs statique et interactif vont jusqu'a `-40 m`. La perspective statique reprend le cadrage valide a `60°` sur `1200 × 1400 m`, avec une largeur visible de `900 m` et un centre decale de `50 m` vers le nord. Le paquet interactif utilise un rectangle de `1040 × 1545 m`, centre sur `[321581.5, 7654180.4]` et oriente a `60°`, recadre dans les rasters de contexte pour conserver davantage de terre et de fond au nord. Les grandes lacunes marines de bord dont tous les voisins marins connus sont profonds d'au moins `20 m` sont completees localement par un plateau uniforme a `-40 m`; les isobathes en restent exclues. Une lacune interne de `19,2 m²` est en outre interpolee uniquement dans le maillage 3D statique, apres l'extraction des contours. Aucune terre, lacune cotiere ou zone peu profonde n'est completee.
+While preparing a trip to Réunion Island, I found it surprisingly difficult to
+locate detailed maps of its dive sites. Further research showed that useful
+public bathymetric, topographic and aerial data already existed, but was not
+easy to inspect together.
 
-## Sites publies
+I therefore downloaded and assembled these datasets to produce consistent 2D
+maps, static 3D perspectives, interactive terrain and printable sheets for a
+small, non-exhaustive selection of sites. This repository is the technical
+reference for that work: it contains the source code, site configurations,
+workflow documentation and canonical generated outputs. The website is the
+public interface for viewing and downloading the maps.
 
-| Site imprime | Commune | Configuration | Orthophoto 2D | Texture orthophoto 3D | Prise de vue |
-|---|---|---|---:|---:|---|
-| Cap La Houssaye | Saint-Paul | [`cap-la-houssaye.json`](sites/cap-la-houssaye.json) | 20 cm | 20 cm | 22 juillet 2025 |
-| Boucan Canot | Saint-Paul | [`boucan-canot.json`](sites/boucan-canot.json) | 20 cm | 40 cm | 22 juillet 2025 |
-| Passe de l'Hermitage | Saint-Paul | [`passe-hermitage.json`](sites/passe-hermitage.json) | 20 cm | 80 cm | 2 aout 2025 |
-| Cap Homard | Saint-Paul | [`cap-homard.json`](sites/cap-homard.json) | 20 cm | 40 cm | 22 juillet 2025 |
-| Pointe au Sel | Saint-Leu | [`pointe-au-sel-sec-jaune.json`](sites/pointe-au-sel-sec-jaune.json) | 40 cm | 50 cm | 22 juillet 2025 |
-| Pont Rouge | Saint-Leu | [`pont-rouge-la-tortue.json`](sites/pont-rouge-la-tortue.json) | 20 cm | 50 cm | 22 juillet 2025 |
-| Plage du Cimetière | Saint-Leu | [`plage-cimetiere-saint-leu.json`](sites/plage-cimetiere-saint-leu.json) | 20 cm | 40 cm | 22 juillet 2025 |
+> [!NOTE]
+> The codebase and the DiveTopo websites were generated entirely with AI, under human direction, iterative visual review and validation against the source data. The geographic data itself comes from the public institutional sources listed below.
 
-Les trois sections suivantes montrent des exemples de planches; les sept configurations et leurs sorties canoniques suivent le meme workflow.
+## Data sources
 
-## Exemple : Cap La Houssaye
+| Used for | Source | Role in this project |
+|---|---|---|
+| Detailed seabed terrain | [Ifremer HYSCORES 2015](https://www.data.gouv.fr/datasets/mnt-bathymetrique-a-haute-resolution-des-fonds-marins-des-zones-recifales-de-la-cote-ouest-de-lile-de-la-reunion-2015) | High-resolution bathymetry for the west-coast reef sectors, including the Litto3D additions distributed within the HYSCORES product |
+| Land elevation | [IGN RGE ALTI](https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI) | Digital terrain model for the land surface |
+| Aerial imagery | [IGN BD ORTHO](https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO) | Georeferenced high-resolution imagery draped over land and, where configured, shallow water |
+| Regional context | [GEBCO 2024](https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid) | Regional seabed relief for the island locator and west-coast selection map |
 
-Le Cap applique le standard orthophoto `-1,5/-2 m` et la palette decalee, tout en conservant sa correction locale du pont dans le modele 3D. Sa vue oblique finale utilise une inclinaison de `0,29`, une amplification dans l'axe de vue de `1,35` et place la cote a 54 % de la hauteur afin de montrer les deux pointes sans consacrer trop d'espace au fond uniforme du large.
+All detailed processing uses WGS 84 / UTM zone 40S (`EPSG:32740`).
+HYSCORES does not cover the whole island, so extending the project beyond its
+four source sectors requires another numerical bathymetric source.
 
-| Plan 2D | Vue 3D depuis le large |
+## What the pipeline produces
+
+Each site is defined by an independent JSON configuration and produces:
+
+- a north-up 2D map;
+- a static oblique 3D perspective;
+- topographic and aerial-imagery variants;
+- an island locator;
+- two printable high-resolution sheets;
+- a compact interactive 3D terrain package consumed by the website.
+
+The seven current sites use the same static-map dimensions
+(`2474 × 1712 px`), apparent line weights and label scale. The printable sheets
+measure `5400 × 3250 px`. In the aerial-imagery variant, imagery remains opaque
+down to `−1.5 m`, fades smoothly to `−2 m`, and then gives way to the
+bathymetric palette. The topographic variant retains the 0 m shoreline.
+
+The engine merges the marine and land elevation models, interpolates the
+shoreline at 0 m, smooths cell noise and extracts isobaths every 5 m. Raster
+gaps remain unfilled by default. A documented deep-water boundary may be
+completed locally with a uniform plateau at the configured maximum depth,
+without inventing intermediate terrain or contours.
+
+## Sites currently included
+
+| Site | Municipality | Configuration |
+|---|---|---|
+| Cap La Houssaye | Saint-Paul | [`cap-la-houssaye.json`](sites/cap-la-houssaye.json) |
+| Boucan Canot | Saint-Paul | [`boucan-canot.json`](sites/boucan-canot.json) |
+| Passe de l'Hermitage | Saint-Paul | [`passe-hermitage.json`](sites/passe-hermitage.json) |
+| Cap Homard | Saint-Paul | [`cap-homard.json`](sites/cap-homard.json) |
+| Pointe au Sel | Saint-Leu | [`pointe-au-sel-sec-jaune.json`](sites/pointe-au-sel-sec-jaune.json) |
+| Pont Rouge | Saint-Leu | [`pont-rouge-la-tortue.json`](sites/pont-rouge-la-tortue.json) |
+| Plage du Cimetière | Saint-Leu | [`plage-cimetiere-saint-leu.json`](sites/plage-cimetiere-saint-leu.json) |
+
+## Representative example: Cap La Houssaye
+
+Cap La Houssaye uses the common `−1.5/−2 m` aerial-imagery transition while
+retaining a local bridge correction in the 3D model. Its static oblique view
+uses a `0.29` tilt, a `1.35` view-axis amplification and places the shoreline
+at 54% of the image height. This framing shows both points without devoting too
+much space to the comparatively uniform offshore seabed.
+
+| 2D map | Static 3D perspective |
 |---|---|
-| ![Plan 2D du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg) | ![Vue 3D du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg) |
+| [![2D aerial-imagery map of Cap La Houssaye](site/public/maps/cap-la-houssaye/2d-orthophoto-960.webp)](https://reunion.divetopo.com) | [![Static oblique 3D aerial-imagery map of Cap La Houssaye](site/public/maps/cap-la-houssaye/3d-orthophoto-960.webp)](https://reunion.divetopo.com) |
 
-### Variantes avec orthophoto terrestre
+### Printable sheet
 
-![Plan 2D hybride du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d-ortho.jpg)
+[![Printable high-resolution sheet for Cap La Houssaye](site/public/maps/cap-la-houssaye/planche-orthophoto-1800.webp)](https://reunion.divetopo.com)
 
-![Vue 3D hybride du Cap La Houssaye](outputs/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg)
+The images above are lightweight previews. Topo Réunion serves the original
+static JPEGs and `5400 × 3250 px` sheets through its download buttons.
 
-### Localisation dans l'ile
+## Interactive terrain and website architecture
 
-![Localisation du Cap La Houssaye a La Reunion](outputs/cap-la-houssaye-localisation-reunion.jpg)
-
-### Planche assemblee
-
-| Terre en orthophoto | Terre en relief topographique |
-|---|---|
-| ![Planche orthophoto du Cap La Houssaye](outputs/cap-la-houssaye-planche.jpg) | ![Planche topographique du Cap La Houssaye](outputs/cap-la-houssaye-planche-topographique.jpg) |
-
-## Exemple : Boucan Canot
-
-La configuration Boucan utilise une cote bidimensionnelle pour la piscine naturelle et une camera orientee au sud-est (`135°`). Son emprise 2D est decalee de 12 m vers l'est afin d'exclure une couture sans donnee situee dans le grand fond nord-ouest, sans retirer la piscine ni les reliefs utiles. Son cadrage 3D rapproche le relief sous-marin avec une largeur visible de `580 m`, independamment de l'emprise 2D. L'orthophoto est prolongee sans rupture jusqu'a `-1,5 m`, puis fondue progressivement jusqu'a `-2 m` afin d'eviter les artefacts du masque terrestre autour de la piscine.
-
-| Terre en orthophoto | Terre en relief topographique |
-|---|---|
-| ![Planche orthophoto de Boucan Canot](outputs/boucan-canot-planche.jpg) | ![Planche topographique de Boucan Canot](outputs/boucan-canot-planche-topographique.jpg) |
-
-## Exemple : Passe de l'Hermitage
-
-La vue 3D regarde vers le nord-est (`45°`). Son centre est decale de `140 m` vers l'est et `240 m` vers le nord, avec une largeur visible de `650 m` et la cote placee a 26 % de la hauteur pour garder la passe au coeur du cadrage sans donner trop de place au large. L'orthophoto reste opaque jusqu'a `-1,5 m`, puis disparait progressivement a `-2 m`, avec une limite bathymetrique lissee sur 5 m. Le trait de cote est masque sur la variante orthophoto et le premier plan conserve les isobathes jusqu'a la profondeur maximale du site, soit `-30 m`.
-
-| Terre et lagon en orthophoto | Relief topographique et bathymetrique |
-|---|---|
-| ![Planche orthophoto de la Passe de l'Hermitage](outputs/passe-hermitage-planche.jpg) | ![Planche topographique de la Passe de l'Hermitage](outputs/passe-hermitage-planche-topographique.jpg) |
-
-## Reliefs interactifs et Topo Réunion
-
-Les reliefs 3D interactifs appartiennent au pipeline cartographique. Ils sont
-generes sous `outputs/interactive-terrain/`, independamment du site :
+Interactive terrain belongs to the mapping pipeline rather than the website
+builder. The canonical command is:
 
 ```bash
 .venv/bin/python generate_interactive_terrain.py
 ```
 
-Chaque site produit un paquet compact compose d'un champ d'altitude, d'un
-masque de validite, d'un masque de provenance des isobathes, de deux textures
-et d'un fichier de metadonnees. Le format
-et sa frontiere avec le site sont documentes dans
+Each site package contains a 16-bit height field, a validity mask, an isobath
+source mask, two textures and metadata. The format and the boundary between the
+mapping pipeline and the website are documented in
 [INTERACTIVE-TERRAIN.md](INTERACTIVE-TERRAIN.md).
 
-Le site se trouve dans `site/`. Il presente les rendus responsifs, conserve un
-seul visuel actif lorsque le fond topographique ou l'orthophoto change, propose
-les quatre cartes statiques originales correspondant a la vue et au fond actifs
-ainsi que les planches HD au telechargement, et visualise les paquets 3D avec
-rotation, zoom, deplacement et remise a zero de la camera.
+The website lives under `site/`. It consumes the canonical package without
+recalculating its geometry, textures or camera. A single geometry is shared by
+the Topography and Aerial imagery variants; switching the background only
+changes the texture. The initial camera follows the static 3D view, looking
+from offshore towards the coast, while horizontal rotation remains free over
+360 degrees.
 
-Les ressources publiees restent des derives reproductibles des sorties
-cartographiques canoniques :
+The height field uses at most `513` vertices on its longest axis. WebGL
+textures use at most `2048 px` on their longest side. Isobaths are calculated
+as perfectly horizontal planes every 5 m, use the corresponding bathymetric
+palette color and remain optional in the viewer.
+
+Responsive website assets are reproducible derivatives of the canonical
+outputs:
 
 ```bash
 cd site
@@ -95,104 +127,85 @@ cd site
 npm test
 ```
 
-Chaque relief interactif utilise une geometrie compacte commune aux deux styles.
-Le bouton Topographie / Vue aerienne ne remplace que sa texture. Le nom
-`orthophoto` reste reserve au format interne et aux fichiers reproductibles. La camera
-initiale reprend l'azimut de la vue 3D imprimee et se place a l'oppose, cote
-large ; son centre horizontal peut aussi reprendre celui du cadrage statique.
-Le champ d'altitude compte au maximum `513` sommets sur son plus grand axe :
-ce plafond augmente le detail du relief sur les grandes emprises tout en
-conservant un paquet adapte au navigateur et aux appareils mobiles.
-La rotation horizontale est libre sur 360 degres. Une rose dynamique conserve
-les points cardinaux pendant les mouvements. Les isobathes sont calculees dans
-des plans horizontaux tous les 5 m, avec un coeur qui reprend la couleur
-bathymetrique de chaque profondeur, un liseré noir, une legende fixe a l'ecran
-et un bouton d'affichage. Les GeoTIFF sources
-restent dans le cache local et ne sont jamais publies.
+The GeoTIFF source data remains in the local cache and is never published.
 
-Les textures WebGL sont produites depuis les rasters de contexte. Chaque site
-declare un `interactive_footprint_utm40s` : un rectangle oriente comme la vue,
-approximativement parallele a la cote, plus large que le cadrage initial sur
-terre comme sous l'eau. Son rectangle englobant nord en haut sert au recadrage,
-puis le masque oriente conserve exactement l'emprise declaree. Les textures
-sont reechantillonnees au besoin avec un
-maximum de `2048 px` sur leur plus grand cote. Elles sont distinctes des
-textures de contexte utilisees par les JPEG 3D statiques, dont la resolution
-configuree varie de 20 a 80 cm selon l'emprise.
+## Installation on macOS
 
-## Installation sur macOS
-
-Homebrew est requis. Le script installe Python et GDAL, puis cree un environnement local :
+Homebrew is required. The bootstrap script installs Python and GDAL and creates
+the local environment:
 
 ```bash
 ./bootstrap_macos.sh
 ```
 
-L'environnement de reference enregistre pour les sept sites publies est Python 3.14, GDAL 3.13.1, NumPy 2.5.1 et Pillow 12.3.0. NumPy et Pillow sont epingles dans `requirements.txt`; Python et GDAL proviennent de Homebrew. Le preflight exige les polices macOS Arial, Arial Bold et Avenir Next utilisees par les cartes et les planches, au lieu de substituer silencieusement une police differente.
+The recorded reference environment for the seven current sites is Python 3.14,
+GDAL 3.13.1, NumPy 2.5.1 and Pillow 12.3.0. NumPy and Pillow are pinned in
+`requirements.txt`; Python and GDAL come from Homebrew. The preflight also
+requires the macOS Arial, Arial Bold and Avenir Next fonts used by the maps and
+sheets.
 
-## Regeneration complete
+## Reproducing the maps
+
+Download or refresh the source data and regenerate a complete site:
 
 ```bash
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --refresh
 ```
 
-Sans `--refresh`, les GeoTIFF deja mis en cache sont reutilises. Pour refaire uniquement les images :
+Reuse the validated cache and regenerate only the images:
 
 ```bash
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --render-only
 ```
 
-Avant toute reutilisation, le script controle que les rasters du cache correspondent aux URL et couches configurees, a la projection, aux emprises, aux resolutions, au nombre de bandes et aux plages de valeurs attendus. Un manifeste local conserve aussi le SHA-256 de chaque raster. `--render-only` refuse donc un cache absent, modifie ou obsolete au lieu de rendre silencieusement des donnees incompatibles. Pour verifier seulement la configuration, les sources declarees et le cache sans produire d'image :
+Validate the configuration, declared sources and cache without rendering:
 
 ```bash
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --check
 ```
 
-`--refresh`, `--render-only` et `--check` sont mutuellement exclusifs. Les donnees sources, les extraits regenerables et le manifeste `<slug>-cache-manifest.json` restent dans `.tmp/bathy-renders/` et ne sont pas versionnes. Toute modification d'une URL, d'une couche, d'une date, d'une emprise ou d'une resolution impose `--refresh`.
-
-Pour assembler les deux planches apres leur regeneration :
-
-```bash
-.venv/bin/python compose_site_plate.py sites/cap-la-houssaye.json
-```
-
-Pour recalculer uniquement les deux perspectives 3D sans toucher aux plans 2D
-ni a la carte de localisation :
+Recalculate only the two static 3D perspectives:
 
 ```bash
 .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --render-only --relief-only
 ```
 
-L'option `--land-style orthophoto` ou `--land-style topography` permet de ne regenerer qu'une seule variante. Sans option, les deux sont produites.
+Assemble the two printable sheets:
 
-Les perspectives statiques utilisent le meme langage lumineux que le relief
-WebGL : normales metriques calculees avec l'exageration verticale, lumiere
-hemispherique froide et lumiere directionnelle chaude venant du nord-est. Le
-calcul est effectue en espace colorimetrique lineaire avec une exposition
-commune de `1.55`, avant le dessin des isobathes, du trait de cote et des
-annotations. Cette exposition fait partie du modele lumineux ; ce n'est pas
-une correction appliquee au JPEG final.
+```bash
+.venv/bin/python compose_site_plate.py sites/cap-la-houssaye.json
+```
 
-La couche BD ORTHO est diffusee a 20 cm, mais la resolution de travail de la
-texture 3D statique est choisie par site en fonction de l'emprise et du cout de
-calcul. Les valeurs publiees vont de 20 a 80 cm, comme indique dans le tableau
-ci-dessus. Le telechargement est automatiquement decoupe en tuiles IGN puis
-assemble sur une grille georeferencee unique. Le moteur conserve cette texture
-independamment du maillage et interpole les facettes qui occupent plusieurs
-pixels dans l'image finale.
+`--refresh`, `--render-only` and `--check` are mutually exclusive. Use
+`--land-style orthophoto` or `--land-style topography` to render only one land
+style. Source data, reproducible extracts and each
+`<slug>-cache-manifest.json` remain under `.tmp/bathy-renders/` and are not
+versioned.
 
-## Reutilisation
+Static 3D perspectives use metric normals with vertical exaggeration, a cool
+hemisphere light and a warm directional light from the north-east. Lighting is
+calculated in linear color space with a common exposure of `1.55` before
+isobaths, the shoreline and annotations are drawn.
 
-Pour ajouter un site, copier une configuration de `sites/`, puis modifier le raster HYSCORES exact dans `hyscores_tiff_url`, les emprises UTM 40S, les resolutions, la date de l'orthophoto, le traitement de la cote et les parametres de camera. Ne pas recopier une date de prise de vue ou une correction locale depuis un autre site. Le plan 2D reste toujours nord en haut; la vue 3D accepte un azimut arbitraire et son compas est recalcule automatiquement. `sites/boucan-canot.json` montre comment traiter une cote non monotone; `sites/passe-hermitage.json` documente le cas d'un grand lagon et d'une vue oblique tournee a `45°`.
+## Reusing the pipeline for another site
 
-Le processus complet, les sources, chaque parametre et les controles qualite sont documentes dans [WORKFLOW.md](WORKFLOW.md).
+Copy a configuration from `sites/`, then replace the exact HYSCORES raster,
+UTM 40S extents, resolutions, aerial-image capture date, shoreline treatment
+and camera parameters. Do not copy a source date or local correction from
+another site without verifying it. The 2D map remains north-up; the 3D view may
+use any azimuth and recalculates its compass automatically.
 
-Ces cartes sont des aides a la lecture du relief et a l'orientation generale. Elles ne prouvent ni l'acces au site, ni son autorisation, ni les conditions presentes, et ne remplacent jamais les informations locales ou une evaluation de securite.
+The full production procedure, every parameter and the quality checks are
+documented in [WORKFLOW.md](WORKFLOW.md).
 
-## Licences
+## Licenses and safety
 
-- Le code Python et les scripts sont distribues sous licence [MIT](LICENSE).
-- Les cartes et figures de `outputs/` sont distribuees sous [CC BY-NC-SA 4.0](LICENSE-MAPS.md), sous reserve des droits attaches aux donnees sources.
-- Les licences, attributions obligatoires, versions des jeux de donnees et avertissements sont detailles dans [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+- Python code and scripts: [MIT](LICENSE).
+- Maps and figures under `outputs/`: [CC BY-NC-SA 4.0](LICENSE-MAPS.md), subject
+  to the rights attached to the source data.
+- Source licenses, mandatory attributions, dataset versions and warnings:
+  [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-La licence `CC BY-NC-SA`, plutot que `CC BY-NC-ND`, est imposee par la clause de partage dans les memes conditions du MNT HYSCORES. Les cartes ne doivent pas etre utilisees pour la navigation ni comme base d'une decision engageant la securite en mer.
+The maps help interpret terrain and general orientation. They do not establish
+access, permission, present conditions or safety. They must not be used for
+navigation or as the sole basis for a decision affecting safety at sea.
