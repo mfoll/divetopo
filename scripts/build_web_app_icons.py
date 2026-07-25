@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build deterministic DiveTopo home-screen icons for both websites."""
+"""Build deterministic DiveTopo home-screen icons for the unified website."""
 
 from __future__ import annotations
 
@@ -9,10 +9,7 @@ from PIL import Image, ImageDraw
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
-PUBLIC_ROOTS = (
-    PROJECT_ROOT / "homepage" / "public",
-    PROJECT_ROOT / "site" / "public",
-)
+PUBLIC_ROOTS = (PROJECT_ROOT / "apps" / "web" / "public",)
 
 BACKGROUND = "#eef3f2"
 TEAL = "#0e9295"

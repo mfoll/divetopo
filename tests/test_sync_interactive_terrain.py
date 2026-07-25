@@ -9,7 +9,8 @@ from pathlib import Path
 
 SCRIPT = (
     Path(__file__).parents[1]
-    / "site"
+    / "apps"
+    / "web"
     / "scripts"
     / "sync_interactive_terrain.py"
 )

@@ -21,4 +21,4 @@ brew install python@3.14 gdal
 .venv/bin/python -m pip install -r requirements.txt
 
 printf '\nEnvironment ready. Run:\n'
-printf '  .venv/bin/python generate_reunion_topobathy.py sites/cap-la-houssaye.json --refresh\n'
+printf '  .venv/bin/python -m cartography.regions.reunion regions/reunion/sites/cap-la-houssaye.json --refresh\n'

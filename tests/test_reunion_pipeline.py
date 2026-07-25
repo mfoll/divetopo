@@ -1,0 +1,348 @@
+from __future__ import annotations
+
+import io
+import json
+import tempfile
+import unittest
+import urllib.parse
+from pathlib import Path
+from unittest.mock import patch
+
+import numpy as np
+from osgeo import gdal, osr
+
+from cartography.cache import (
+    cache_artifact_keys,
+    validate_cache_manifest,
+    write_cache_manifest,
+)
+from cartography.regions.reunion import (
+    acquire,
+    crop_raster,
+    download_gebco_relief,
+    download_orthophoto,
+    resolve_hyscores_tiff,
+    validate_raster,
+    verify_orthophoto_capture_date,
+)
+
+
+def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None:
+    dataset = gdal.GetDriverByName("GTiff").Create(
+        str(path),
+        10,
+        10,
+        bands,
+        gdal.GDT_Float32,
+    )
+    spatial_ref = osr.SpatialReference()
+    spatial_ref.ImportFromEPSG(32740)
+    dataset.SetProjection(spatial_ref.ExportToWkt())
+    dataset.SetGeoTransform((100.0, resolution, 0.0, 200.0, 0.0, -resolution))
+    for index in range(1, bands + 1):
+        dataset.GetRasterBand(index).WriteArray(
+            np.full((10, 10), index, dtype=np.float32)
+        )
+    dataset = None
+
+
+class CacheContractTests(unittest.TestCase):
+    def test_gebco_warp_declares_gtiff_for_part_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "locator.tif"
+
+            def fake_download(_url: str, path: Path) -> None:
+                path.write_bytes(b"source")
+
+            def fake_warp(path: str, *_args, **_kwargs) -> object:
+                Path(path).write_bytes(b"projected")
+                return object()
+
+            with (
+                patch(
+                    "cartography.regions.reunion.download_file",
+                    side_effect=fake_download,
+                ),
+                patch(
+                    "cartography.regions.reunion.gdal.Warp",
+                    side_effect=fake_warp,
+                ) as warp,
+                patch("cartography.regions.reunion.validate_raster"),
+            ):
+                download_gebco_relief(
+                    (305000.0, 7628000.0, 386000.0, 7696000.0),
+                    10,
+                    10,
+                    20,
+                    "GEBCO_2024",
+                    "https://example.invalid/wms",
+                    output,
+                )
+
+            self.assertEqual(warp.call_args.kwargs["format"], "GTiff")
+            self.assertTrue(output.exists())
+
+    def test_crop_raster_declares_gtiff_for_part_file(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.tif"
+            output = root / "crop.tif"
+            write_raster(source)
+            dataset = gdal.Open(str(source), gdal.GA_Update)
+            dataset.GetRasterBand(1).WriteArray(
+                np.arange(1, 101, dtype=np.float32).reshape((10, 10))
+            )
+            dataset = None
+
+            crop_raster(
+                source,
+                (102.0, 192.0, 108.0, 198.0),
+                output,
+                content_kind="positive_depth",
+            )
+
+            self.assertTrue(output.exists())
+            self.assertFalse((root / "crop.tif.part").exists())
+
+    def test_expected_grid_passes_and_stale_resolution_fails(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "source.tif"
+            write_raster(path)
+
+            validate_raster(
+                path,
+                "test raster",
+                extent=(100.0, 190.0, 110.0, 200.0),
+                resolution=1.0,
+                bands=1,
+                exact_extent=True,
+            )
+            with self.assertRaisesRegex(ValueError, "expected about 0.5 m"):
+                validate_raster(
+                    path,
+                    "test raster",
+                    extent=(100.0, 190.0, 110.0, 200.0),
+                    resolution=0.5,
+                    bands=1,
+                )
+
+    def test_explicit_hyscores_url_never_requires_a_directory_lookup(self) -> None:
+        url = "https://example.invalid/pinned-source.tif"
+        self.assertEqual(
+            resolve_hyscores_tiff(
+                {
+                    "hyscores_tiff_url": url,
+                    "hyscores_directory": "https://example.invalid/listing/",
+                }
+            ),
+            url,
+        )
+
+    def test_georeferenced_but_empty_raster_is_rejected(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "empty.tif"
+            write_raster(path)
+            dataset = gdal.Open(str(path), gdal.GA_Update)
+            dataset.GetRasterBand(1).WriteArray(np.zeros((10, 10), dtype=np.float32))
+            dataset = None
+
+            with self.assertRaisesRegex(ValueError, "no plausible varying"):
+                validate_raster(
+                    path,
+                    "empty depth",
+                    bands=1,
+                    content_kind="positive_depth",
+                )
+
+    def test_manifest_rejects_source_changes_and_modified_artifacts(self) -> None:
+        config = json.loads(
+            (
+                Path(__file__).parents[1]
+                / "regions"
+                / "reunion"
+                / "sites"
+                / "cap-la-houssaye.json"
+            ).read_text(encoding="utf-8")
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            paths = {
+                key: root / f"{key}.tif"
+                for key in cache_artifact_keys(config)
+            }
+            for index, path in enumerate(paths.values()):
+                path.write_bytes(f"artifact-{index}".encode())
+
+            write_cache_manifest(config, paths)
+            validate_cache_manifest(config, paths, verify_hashes=True)
+
+            changed_source = dict(config)
+            changed_source["orthophoto_capture_date"] = "2001-01-01"
+            with self.assertRaisesRegex(ValueError, "no longer match"):
+                validate_cache_manifest(
+                    changed_source,
+                    paths,
+                    verify_hashes=False,
+                )
+
+            paths["focus_depth"].write_bytes(b"modified")
+            with self.assertRaisesRegex(ValueError, "changed since acquisition"):
+                validate_cache_manifest(config, paths, verify_hashes=True)
+
+    def test_rebuilt_parents_force_their_derived_rasters_to_rebuild(self) -> None:
+        config = {
+            "focus_bbox_utm40s": [2.0, 2.0, 8.0, 8.0],
+            "context_bbox_utm40s": [0.0, 0.0, 10.0, 10.0],
+            "hyscores_tiff_url": "https://example.invalid/source.tif",
+            "topography_resolution_m": 1.0,
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            paths = {
+                key: root / f"{key}.tif"
+                for key in (
+                    "context_depth_raw",
+                    "context_depth",
+                    "context_elevation",
+                    "focus_depth",
+                    "focus_elevation",
+                )
+            }
+            for key in ("context_depth", "focus_depth", "focus_elevation"):
+                paths[key].write_bytes(b"stale")
+
+            def create_last_argument(*args, **kwargs) -> None:
+                output = args[-1]
+                output.write_bytes(b"rebuilt")
+
+            with (
+                patch(
+                    "cartography.regions.reunion.extract_hyscores",
+                    side_effect=create_last_argument,
+                ),
+                patch(
+                    "cartography.regions.reunion.positive_depth",
+                    side_effect=create_last_argument,
+                ),
+                patch(
+                    "cartography.regions.reunion.download_rge_alti",
+                    side_effect=create_last_argument,
+                ),
+                patch(
+                    "cartography.regions.reunion.crop_raster",
+                    side_effect=create_last_argument,
+                ),
+            ):
+                rebuilt = acquire(config, paths, refresh=False)
+
+            self.assertTrue(
+                {
+                    "context_depth_raw",
+                    "context_depth",
+                    "focus_depth",
+                    "context_elevation",
+                    "focus_elevation",
+                }.issubset(rebuilt)
+            )
+
+
+class OrthophotoProvenanceTests(unittest.TestCase):
+    def test_large_orthophoto_is_downloaded_as_aligned_tiles(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / "orthophoto.tif"
+            calls: list[tuple[int, int]] = []
+
+            def write_tile(url: str, path: Path, *, timeout: int = 120) -> None:
+                del timeout
+                query = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+                width = int(query["WIDTH"][0])
+                height = int(query["HEIGHT"][0])
+                min_x, min_y, max_x, max_y = map(
+                    float,
+                    query["BBOX"][0].split(","),
+                )
+                calls.append((width, height))
+                dataset = gdal.GetDriverByName("GTiff").Create(
+                    str(path),
+                    width,
+                    height,
+                    3,
+                    gdal.GDT_Byte,
+                )
+                spatial_ref = osr.SpatialReference()
+                spatial_ref.ImportFromEPSG(32740)
+                dataset.SetProjection(spatial_ref.ExportToWkt())
+                dataset.SetGeoTransform(
+                    (
+                        min_x,
+                        (max_x - min_x) / width,
+                        0.0,
+                        max_y,
+                        0.0,
+                        -(max_y - min_y) / height,
+                    )
+                )
+                gradient = np.add.outer(
+                    np.arange(height, dtype=np.uint8),
+                    np.arange(width, dtype=np.uint8),
+                )
+                for band_index in range(1, 4):
+                    dataset.GetRasterBand(band_index).WriteArray(
+                        gradient + band_index * 20
+                    )
+                dataset = None
+
+            with (
+                patch("cartography.regions.reunion.WMS_MAX_TILE_PIXELS", 4),
+                patch(
+                    "cartography.regions.reunion.download_file",
+                    side_effect=write_tile,
+                ),
+            ):
+                download_orthophoto(
+                    (100.0, 190.0, 110.0, 200.0),
+                    1.0,
+                    "test-layer",
+                    output,
+                )
+
+            dataset = gdal.Open(str(output))
+            self.assertEqual((dataset.RasterXSize, dataset.RasterYSize), (10, 10))
+            self.assertEqual(dataset.RasterCount, 3)
+            self.assertEqual(dataset.GetGeoTransform(), (100.0, 1.0, 0.0, 200.0, 0.0, -1.0))
+            self.assertEqual(len(calls), 9)
+            self.assertTrue(all(width <= 4 and height <= 4 for width, height in calls))
+
+    def test_capture_date_must_match_live_metadata(self) -> None:
+        config = {
+            "focus_bbox_utm40s": [0.0, 0.0, 10.0, 10.0],
+            "locator_marker_utm40s": [5.0, 5.0],
+            "orthophoto_capture_date": "2025-08-02",
+            "orthophoto_layer": "test-layer",
+        }
+        response = {
+            "features": [
+                {"properties": {"date_vol": "2025-08-02"}},
+            ]
+        }
+        with patch(
+            "cartography.regions.reunion.urllib.request.urlopen",
+            return_value=io.BytesIO(json.dumps(response).encode()),
+        ) as urlopen:
+            verify_orthophoto_capture_date(config)
+        query = urllib.parse.parse_qs(
+            urllib.parse.urlparse(urlopen.call_args.args[0]).query
+        )
+        self.assertEqual(query["FORMAT"], ["image/geotiff"])
+
+        config["orthophoto_capture_date"] = "2025-07-22"
+        with patch(
+            "cartography.regions.reunion.urllib.request.urlopen",
+            return_value=io.BytesIO(json.dumps(response).encode()),
+        ):
+            with self.assertRaisesRegex(ValueError, "reports 2025-08-02"):
+                verify_orthophoto_capture_date(config)
+
+
+if __name__ == "__main__":
+    unittest.main()

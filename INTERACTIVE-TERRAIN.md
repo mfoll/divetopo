@@ -7,11 +7,12 @@ it but does not generate it.
 The canonical command is:
 
 ```bash
-.venv/bin/python generate_interactive_terrain.py
+.venv/bin/python -m cartography.interactive
 ```
 
-It rebuilds the packages for every `sites/*.json` file from valid GeoTIFFs in
-the local cache and writes them to `outputs/interactive-terrain/`.
+It currently rebuilds the packages for every
+`regions/reunion/sites/*.json` file from valid GeoTIFFs in the local cache and
+writes them to `regions/reunion/outputs/interactive-terrain/`.
 The maximum depth follows `max_depth_m`, unless a configuration explicitly
 documents a lower `interactive_max_depth_m` limit to exclude an unreliable
 source-coverage margin. Each site declares an
@@ -97,9 +98,10 @@ would not be directly usable by the browser without a decompression step.
 
 ## Boundary with the website
 
-The website must never call `generate_interactive_terrain.py`. Its asset step
-copies and verifies the canonical package into `site/public/terrain/`, just as
-it already derives responsive images from the JPEGs in `outputs/`.
+The website must never call `cartography.interactive`. Its asset step copies
+and verifies the canonical package into `apps/web/public/terrain/`, just as
+it already derives responsive images from the JPEGs in
+`regions/reunion/outputs/`.
 
 Responsibilities are therefore divided as follows:
 
@@ -108,5 +110,5 @@ Responsibilities are therefore divided as follows:
 2. website: interface, navigation, Three.js viewer, responsive assets,
    canonical-package copy, and deployment.
 
-The files in `site/public/terrain/` are publication derivatives. The source of
-truth remains `outputs/interactive-terrain/`.
+The files in `apps/web/public/terrain/` are publication derivatives. The source
+of truth remains `regions/reunion/outputs/interactive-terrain/`.

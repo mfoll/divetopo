@@ -1,6 +1,10 @@
 # License for maps and figures
 
-Unless otherwise stated, the maps and figures published in `outputs/` are made available under the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en), to the extent of the rights held by Matthieu Foll in their composition, rendering, and annotations.
+Unless otherwise stated, the Réunion maps and figures published in
+`regions/reunion/outputs/` are made available under the
+[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en),
+to the extent of the rights held by Matthieu Foll in their composition,
+rendering and annotations.
 
 Recommended attribution:
 

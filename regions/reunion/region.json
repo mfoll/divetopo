@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "slug": "reunion",
+  "route": "/reunion",
+  "names": {
+    "fr": "La Réunion",
+    "en": "Réunion Island"
+  },
+  "defaultLanguage": "fr",
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "crs": {
+    "code": "EPSG:32740",
+    "name": "WGS 84 / UTM zone 40S"
+  },
+  "pipeline": {
+    "module": "cartography.regions.reunion",
+    "siteConfigDirectory": "regions/reunion/sites",
+    "outputDirectory": "regions/reunion/outputs",
+    "interactiveTerrainDirectory": "regions/reunion/outputs/interactive-terrain"
+  },
+  "sources": {
+    "bathymetry": {
+      "id": "ifremer-hyscores-2015",
+      "name": "Ifremer HYSCORES 2015",
+      "url": "https://www.data.gouv.fr/datasets/mnt-bathymetrique-a-haute-resolution-des-fonds-marins-des-zones-recifales-de-la-cote-ouest-de-lile-de-la-reunion-2015",
+      "attribution": "Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D"
+    },
+    "landElevation": {
+      "id": "ign-rge-alti",
+      "name": "IGN RGE ALTI",
+      "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI",
+      "attribution": "IGN RGE ALTI, mise à jour arrêtée en 2024"
+    },
+    "aerialImagery": {
+      "id": "ign-bd-ortho",
+      "name": "IGN BD ORTHO",
+      "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO"
+    },
+    "regionalRelief": {
+      "id": "gebco-2024",
+      "name": "GEBCO 2024",
+      "url": "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid"
+    }
+  },
+  "sites": [
+    {
+      "slug": "cap-la-houssaye",
+      "name": "Cap La Houssaye",
+      "municipality": "Saint-Paul",
+      "config": "regions/reunion/sites/cap-la-houssaye.json"
+    },
+    {
+      "slug": "boucan-canot",
+      "name": "Boucan Canot",
+      "municipality": "Saint-Paul",
+      "config": "regions/reunion/sites/boucan-canot.json"
+    },
+    {
+      "slug": "cap-homard",
+      "name": "Cap Homard",
+      "municipality": "Saint-Paul",
+      "config": "regions/reunion/sites/cap-homard.json"
+    },
+    {
+      "slug": "passe-hermitage",
+      "name": "Passe de l'Hermitage",
+      "municipality": "Saint-Paul",
+      "config": "regions/reunion/sites/passe-hermitage.json"
+    },
+    {
+      "slug": "pont-rouge-la-tortue",
+      "name": "Pont Rouge",
+      "municipality": "Saint-Leu",
+      "config": "regions/reunion/sites/pont-rouge-la-tortue.json"
+    },
+    {
+      "slug": "plage-cimetiere-saint-leu",
+      "name": "Plage du Cimetière",
+      "municipality": "Saint-Leu",
+      "config": "regions/reunion/sites/plage-cimetiere-saint-leu.json"
+    },
+    {
+      "slug": "pointe-au-sel-sec-jaune",
+      "name": "Pointe au Sel",
+      "municipality": "Saint-Leu",
+      "config": "regions/reunion/sites/pointe-au-sel-sec-jaune.json"
+    }
+  ]
+}
