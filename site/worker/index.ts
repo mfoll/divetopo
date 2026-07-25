@@ -43,23 +43,6 @@ const worker = {
       }, allowedWidths);
     }
 
-    const assetResponse = await env.ASSETS.fetch(request);
-
-    if (assetResponse.ok || assetResponse.status === 304) {
-      if (url.pathname.toLowerCase().endsWith(".webp")) {
-        const headers = new Headers(assetResponse.headers);
-        headers.set("content-type", "image/webp");
-
-        return new Response(assetResponse.body, {
-          status: assetResponse.status,
-          statusText: assetResponse.statusText,
-          headers,
-        });
-      }
-
-      return assetResponse;
-    }
-
     const requestHeaders = new Headers(request.headers);
     requestHeaders.set("x-divetopo-pathname", url.pathname);
 

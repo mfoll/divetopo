@@ -199,7 +199,7 @@ export function SiteStructuredData({
       url: absoluteUrl(image.src),
       width: image.width,
       height: image.height,
-      encodingFormat: "image/webp",
+      encodingFormat: "image/jpeg",
       caption: image.caption,
       creator: {
         "@type": "Person",

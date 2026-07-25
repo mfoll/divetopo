@@ -100,7 +100,7 @@ export default async function LocalizedHomepage({
   ]);
   const language = resolveLanguage(requestedLanguage);
   const canonicalUrl = localizedUrl(language);
-  const overviewImageUrl = `${origin}/reunion-overview.webp`;
+  const overviewImageUrl = `${origin}/og.png`;
   const overviewImageId = `${overviewImageUrl}#image`;
   const jsonLd = {
     "@context": "https://schema.org",
@@ -134,6 +134,9 @@ export default async function LocalizedHomepage({
         "@id": overviewImageId,
         contentUrl: overviewImageUrl,
         url: overviewImageUrl,
+        width: 1200,
+        height: 630,
+        encodingFormat: "image/png",
         caption:
           language === "fr"
             ? "Relief terrestre et sous-marin de l’île de La Réunion."

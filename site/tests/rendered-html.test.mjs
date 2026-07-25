@@ -429,6 +429,11 @@ test("server-renders an indexable localized page for every published site", asyn
         /"license":"https:\/\/creativecommons\.org\/licenses\/by-nc-sa\/4\.0\/"/,
         path,
       );
+      assert.equal(
+        html.match(/"encodingFormat":"image\/jpeg"/g)?.length,
+        3,
+        `${path}: expected JPEG ImageObjects`,
+      );
       assert.match(html, /"caption":"/, path);
       assert.match(
         html,
@@ -591,15 +596,19 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.match(sitemap, /hreflang="x-default"/);
   assert.match(
     sitemap,
-    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/2d-orthophoto-1600\.webp/,
+    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/downloads\/2d-orthophoto-full\.jpg/,
   );
   assert.match(
     sitemap,
-    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/3d-orthophoto-1600\.webp/,
+    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/downloads\/3d-orthophoto-full\.jpg/,
   );
   assert.match(
     sitemap,
-    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/planche-orthophoto-1800\.webp/,
+    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/downloads\/planche-orthophoto-full\.jpg/,
+  );
+  assert.ok(
+    imageLocations.every((location) => location.endsWith(".jpg")),
+    "expected sitemap images to use correctly typed JPEG downloads",
   );
 });
 
@@ -1132,69 +1141,4 @@ test("keeps install suggestions delayed, dismissible, and standalone-aware", asy
   assert.match(source, /event\.preventDefault\(\)/);
   assert.match(source, /await promptEvent\.prompt\(\)/);
   assert.match(source, /await promptEvent\.userChoice/);
-});
-
-test("serves nested WebP assets with their image media type", async () => {
-  const wranglerConfig = JSON.parse(
-    await readFile(
-      new URL("../dist/server/wrangler.json", import.meta.url),
-      "utf8",
-    ),
-  );
-  assert.equal(wranglerConfig.assets?.binding, "ASSETS");
-  assert.equal(wranglerConfig.assets?.run_worker_first, true);
-
-  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
-  workerUrl.searchParams.set(
-    "test",
-    `${process.pid}-${Date.now()}-${Math.random()}`,
-  );
-  const { default: worker } = await import(workerUrl.href);
-
-  const assets = {
-    fetch: async (request) => {
-      const pathname = new URL(request.url).pathname;
-      if (pathname.endsWith(".webp")) {
-        return new Response("webp", {
-          headers: { "content-type": "application/octet-stream" },
-        });
-      }
-      if (pathname.endsWith(".css")) {
-        return new Response("css", {
-          headers: { "content-type": "text/css" },
-        });
-      }
-      return new Response("missing", { status: 404 });
-    },
-  };
-
-  const response = await worker.fetch(
-    new Request(
-      "http://localhost/maps/cap-la-houssaye/3d-orthophoto-960.webp",
-    ),
-    {
-      ASSETS: assets,
-    },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-
-  assert.equal(response.status, 200);
-  assert.equal(response.headers.get("content-type"), "image/webp");
-  assert.equal(await response.text(), "webp");
-
-  const cssResponse = await worker.fetch(
-    new Request("http://localhost/assets/index.css"),
-    { ASSETS: assets },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
-  );
-
-  assert.equal(cssResponse.status, 200);
-  assert.equal(cssResponse.headers.get("content-type"), "text/css");
-  assert.equal(await cssResponse.text(), "css");
 });

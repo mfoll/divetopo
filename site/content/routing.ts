@@ -12,6 +12,10 @@ type AssetVariant = {
   height: number;
 };
 
+type DownloadAsset = AssetVariant & {
+  filename: string;
+};
+
 type PublishedSite = {
   slug: string;
   displayName: string;
@@ -29,10 +33,12 @@ type PublishedSite = {
     view: "2d" | "3d";
     style: "topographic" | "orthophoto";
     variants: AssetVariant[];
+    download: DownloadAsset;
   }>;
   planches: Array<{
     style: "topographic" | "orthophoto";
     preview: AssetVariant;
+    download: DownloadAsset;
   }>;
 };
 
@@ -182,10 +188,7 @@ function mapImage(
     (candidate) =>
       candidate.view === view && candidate.style === "orthophoto",
   );
-  return (
-    map?.variants.find((candidate) => candidate.width === 1600) ??
-    map?.variants.at(-1)
-  );
+  return map?.download;
 }
 
 export function siteSocialImage(site: PublishedSite) {
@@ -210,7 +213,7 @@ export function siteRepresentativeImages(
   const threeD = mapImage(site, "3d");
   const plate = site.planches.find(
     (candidate) => candidate.style === "orthophoto",
-  )?.preview;
+  )?.download;
 
   if (!twoD || !threeD || !plate) {
     throw new Error(`Missing representative images for ${site.slug}`);
