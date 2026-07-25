@@ -505,6 +505,10 @@ img {
   min-width: 0;
 }
 
+.topo-reunion-main {
+  display: block;
+}
+
 .site-picker-select {
   display: none;
 }
@@ -858,11 +862,6 @@ img {
 .site-picker-scale strong {
   font-size: 0.5rem;
   letter-spacing: 0.06em;
-}
-
-.topo-reunion-main {
-  display: grid;
-  gap: 0;
 }
 
 .viewer-head {

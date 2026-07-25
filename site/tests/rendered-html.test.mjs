@@ -666,6 +666,26 @@ test("interactive terrain synchronizes its canvas box and backing store", async 
   );
 });
 
+test("keeps the viewer and download card in ordinary block flow", async () => {
+  const styles = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+
+  assert.doesNotMatch(
+    styles,
+    /\.topo-reunion-main\s*\{[^}]*display:\s*grid/s,
+  );
+  assert.match(
+    styles,
+    /\.topo-reunion-main\s*\{[^}]*display:\s*block/s,
+  );
+  assert.match(
+    styles,
+    /\.planche-download\s*\{[^}]*margin-top:\s*var\(--topo-row-gap\)/s,
+  );
+});
+
 test("interactive terrain provides an iOS-safe fullscreen fallback", async () => {
   const [terrainViewer, styles] = await Promise.all([
     readFile(new URL("../app/TerrainViewer.tsx", import.meta.url), "utf8"),
