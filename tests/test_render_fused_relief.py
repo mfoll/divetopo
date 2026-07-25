@@ -14,10 +14,12 @@ from render_fused_relief import (
     bboxes_intersect,
     blend_texture,
     clip_polyline_to_bbox,
+    compass_point,
     deep_edge_nodata_display_mask,
     draw_interpolated_triangle,
     edge_preserving_bathy,
     expanded_bbox,
+    fill_deep_edge_nodata_at_maximum,
     fuse_bathymetry,
     imagery_alpha_across_shore,
     imagery_depth_alpha,
@@ -61,6 +63,45 @@ def write_raster(
 
 
 class RasterAlignmentTests(unittest.TestCase):
+    def test_compass_projects_cardinals_for_arbitrary_frame_bearings(self) -> None:
+        center = (100.0, 100.0)
+        distance = 50.0
+        expected = {
+            0.0: {
+                0.0: (100.0, 50.0),
+                90.0: (150.0, 100.0),
+                180.0: (100.0, 150.0),
+                270.0: (50.0, 100.0),
+            },
+            60.0: {
+                0.0: (56.69873, 75.0),
+                90.0: (125.0, 56.69873),
+                180.0: (143.30127, 125.0),
+                270.0: (75.0, 143.30127),
+            },
+            135.0: {
+                0.0: (64.64466, 135.35534),
+                90.0: (64.64466, 64.64466),
+                180.0: (135.35534, 64.64466),
+                270.0: (135.35534, 135.35534),
+            },
+        }
+
+        for frame_bearing, positions in expected.items():
+            for cardinal_bearing, target in positions.items():
+                with self.subTest(
+                    frame_bearing=frame_bearing,
+                    cardinal_bearing=cardinal_bearing,
+                ):
+                    actual = compass_point(
+                        center,
+                        frame_bearing,
+                        cardinal_bearing,
+                        distance,
+                    )
+                    self.assertAlmostEqual(actual[0], target[0], places=5)
+                    self.assertAlmostEqual(actual[1], target[1], places=5)
+
     def test_polyline_is_clipped_to_the_view_crop(self) -> None:
         lines = clip_polyline_to_bbox(
             [(-2.0, 1.0), (2.0, 1.0), (6.0, 1.0)],
@@ -146,6 +187,59 @@ class SurfaceValidityTests(unittest.TestCase):
 
         np.testing.assert_array_equal(display_mask, ~valid)
         self.assertFalse(np.any(display_mask & valid))
+
+    def test_opt_in_deep_edge_terrain_fill_is_flat_and_non_mutating(self) -> None:
+        depth = np.full((10, 6), 39.0, dtype=np.float32)
+        valid = np.ones((10, 6), dtype=bool)
+        valid[:, :2] = False
+        land = np.zeros((10, 6), dtype=bool)
+        original_depth = depth.copy()
+        original_valid = valid.copy()
+
+        filled_depth, filled_valid, fill_mask = (
+            fill_deep_edge_nodata_at_maximum(
+                depth,
+                valid,
+                land,
+                max_depth=40.0,
+            )
+        )
+
+        np.testing.assert_array_equal(fill_mask, ~valid)
+        np.testing.assert_array_equal(filled_depth[fill_mask], 40.0)
+        np.testing.assert_array_equal(filled_valid, np.ones_like(valid))
+        np.testing.assert_array_equal(depth, original_depth)
+        np.testing.assert_array_equal(valid, original_valid)
+
+    def test_site_local_deep_edge_threshold_can_follow_source_coverage(
+        self,
+    ) -> None:
+        depth = np.full((10, 6), 31.0, dtype=np.float32)
+        valid = np.ones((10, 6), dtype=bool)
+        valid[:, :2] = False
+        land = np.zeros((10, 6), dtype=bool)
+
+        _, default_valid, default_mask = fill_deep_edge_nodata_at_maximum(
+            depth,
+            valid,
+            land,
+            max_depth=40.0,
+        )
+        self.assertFalse(np.any(default_mask))
+        np.testing.assert_array_equal(default_valid, valid)
+
+        filled_depth, filled_valid, fill_mask = (
+            fill_deep_edge_nodata_at_maximum(
+                depth,
+                valid,
+                land,
+                max_depth=40.0,
+                min_boundary_depth_m=30.0,
+            )
+        )
+        np.testing.assert_array_equal(fill_mask, ~valid)
+        np.testing.assert_array_equal(filled_depth[fill_mask], 40.0)
+        np.testing.assert_array_equal(filled_valid, np.ones_like(valid))
 
     def test_shallow_or_land_adjacent_edge_gaps_remain_no_data(self) -> None:
         depth = np.full((5, 6), 19.0, dtype=np.float32)

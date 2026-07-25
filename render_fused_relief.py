@@ -111,6 +111,7 @@ def deep_edge_nodata_display_mask(
     *,
     deep_fraction: float = 0.9,
     min_boundary_pixels: int = 8,
+    component_diagnostics: list[dict[str, float | int | bool]] | None = None,
 ) -> np.ndarray:
     """Identify offshore edge gaps that may use the maximum-depth colour.
 
@@ -176,14 +177,74 @@ def deep_edge_nodata_display_mask(
                 if np.isfinite(neighbor_depth):
                     sea_boundary_depths.append(neighbor_depth)
 
-        if (
+        qualifies = (
             not touches_land
             and len(sea_boundary_depths) >= min_boundary_pixels
             and min(sea_boundary_depths) >= deep_threshold
-        ):
+        )
+        if component_diagnostics is not None:
+            component_diagnostics.append(
+                {
+                    "cells": len(component_y),
+                    "boundary_pixels": len(sea_boundary_depths),
+                    "boundary_min_depth_m": (
+                        min(sea_boundary_depths)
+                        if sea_boundary_depths
+                        else float("nan")
+                    ),
+                    "boundary_max_depth_m": (
+                        max(sea_boundary_depths)
+                        if sea_boundary_depths
+                        else float("nan")
+                    ),
+                    "touches_land": touches_land,
+                    "qualifies": qualifies,
+                }
+            )
+        if qualifies:
             display_mask[component_y, component_x] = True
 
     return display_mask
+
+
+def fill_deep_edge_nodata_at_maximum(
+    depth: np.ndarray,
+    surface_valid: np.ndarray,
+    land_mask: np.ndarray,
+    max_depth: float,
+    *,
+    min_boundary_depth_m: float | None = None,
+    component_diagnostics: list[dict[str, float | int | bool]] | None = None,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray]:
+    """Fill qualifying deep edge gaps with a flat maximum-depth surface.
+
+    This is intentionally more explicit than the display-only 2D convention:
+    callers opt in before using the returned validity mask for terrain. The
+    source arrays remain unchanged, contours remain source-derived, and the
+    fill has no intermediate relief. Shallow, internal, and land-adjacent gaps
+    are rejected by :func:`deep_edge_nodata_display_mask`. The default keeps
+    the display rule's deepest-10% boundary; a site may set an explicit
+    minimum known-sea boundary depth when source coverage ends earlier.
+    """
+    if min_boundary_depth_m is None:
+        deep_fraction = 0.9
+    else:
+        if not 0.0 < min_boundary_depth_m <= max_depth:
+            raise ValueError(
+                "Minimum deep-edge boundary depth must be in (0, max_depth]"
+            )
+        deep_fraction = min_boundary_depth_m / max_depth
+    fill_mask = deep_edge_nodata_display_mask(
+        depth,
+        surface_valid,
+        land_mask,
+        max_depth,
+        deep_fraction=deep_fraction,
+        component_diagnostics=component_diagnostics,
+    )
+    filled_depth = depth.copy()
+    filled_depth[fill_mask] = max_depth
+    return filled_depth, surface_valid | fill_mask, fill_mask
 
 
 def small_internal_mesh_gap_mask(
@@ -691,20 +752,84 @@ def load_depth(path: Path, max_depth: float) -> tuple[np.ndarray, np.ndarray, tu
     return depth, mask, transform
 
 
-def plan_cardinals(rotation_k: int) -> dict[str, str]:
-    """Cardinal labels after orienting the source raster with np.rot90."""
-    labels = {
-        0: {"top": "N", "right": "E", "bottom": "S", "left": "O"},
-        1: {"top": "E", "right": "S", "bottom": "O", "left": "N"},
-        2: {"top": "S", "right": "O", "bottom": "N", "left": "E"},
-        3: {"top": "O", "right": "N", "bottom": "E", "left": "S"},
-    }
-    return labels[rotation_k % 4]
-
-
 def default_view_bearing(rotation_k: int) -> float:
     """Bearing, in degrees clockwise from north, at the top of the 3D view."""
     return (180.0 + 90.0 * (rotation_k % 4)) % 360.0
+
+
+def compass_point(
+    center: tuple[float, float],
+    frame_bearing_deg: float,
+    cardinal_bearing_deg: float,
+    distance: float,
+) -> tuple[float, float]:
+    """Project a geographic bearing into the image plane."""
+    angle = np.deg2rad(cardinal_bearing_deg - frame_bearing_deg)
+    return (
+        center[0] + float(np.sin(angle)) * distance,
+        center[1] - float(np.cos(angle)) * distance,
+    )
+
+
+def draw_compass_rose(
+    draw: ImageDraw.ImageDraw,
+    center: tuple[float, float],
+    frame_bearing_deg: float,
+    font: ImageFont.ImageFont,
+    style: float,
+) -> None:
+    """Draw the static counterpart of the interactive geographic compass."""
+    cx, cy = center
+    radius = 64.0 * style
+    background = (6, 28, 36, 189)
+    border = (205, 244, 239, 133)
+    cream = (245, 239, 218, 255)
+    outline = (2, 4, 5, 252)
+    border_width = max(1, int(np.floor(1.2 * style + 0.5)))
+    outline_width = max(1, int(np.floor(5.0 * style + 0.5)))
+    core_width = max(1, int(np.floor(2.0 * style + 0.5)))
+
+    draw.ellipse(
+        (cx - radius, cy - radius, cx + radius, cy + radius),
+        fill=background,
+        outline=border,
+        width=border_width,
+    )
+
+    axis_radius = 28.0 * style
+    cardinal_bearings = (0.0, 90.0, 180.0, 270.0)
+    axis_points = {
+        bearing: compass_point(center, frame_bearing_deg, bearing, axis_radius)
+        for bearing in cardinal_bearings
+    }
+    for start, end in (
+        (axis_points[0.0], axis_points[180.0]),
+        (axis_points[90.0], axis_points[270.0]),
+    ):
+        draw.line((*start, *end), fill=outline, width=outline_width)
+        draw.line((*start, *end), fill=cream, width=core_width)
+
+    north_tip = compass_point(center, frame_bearing_deg, 0.0, 34.0 * style)
+    north_left = compass_point(center, frame_bearing_deg, -13.0, 23.0 * style)
+    north_right = compass_point(center, frame_bearing_deg, 13.0, 23.0 * style)
+    draw.polygon(
+        [north_tip, north_left, north_right],
+        fill=cream,
+        outline=outline,
+        width=max(1, int(np.floor(2.0 * style + 0.5))),
+    )
+
+    text_stroke = max(1, int(np.floor(1.5 * style + 0.5)))
+    for label, bearing in (("N", 0.0), ("E", 90.0), ("S", 180.0), ("O", 270.0)):
+        draw.text(
+            compass_point(center, frame_bearing_deg, bearing, 50.0 * style),
+            label,
+            font=font,
+            anchor="mm",
+            fill=cream,
+            stroke_width=text_stroke,
+            stroke_fill=outline,
+        )
 
 
 def rotate_surface_for_view(
@@ -1841,20 +1966,13 @@ def make_clean_plan(
     draw.line((sx + bar_px, sy - 8 * style, sx + bar_px, sy + 8 * style), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * style + 0.5))))
     draw.text((sx + bar_px / 2 - 22 * style, sy - 31 * style), "50 m", font=annotation_font, fill=(8, 10, 12, 250), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(244, 241, 218, 235))
 
-    cx, cy = img.width - 76 * style, 82 * style
-    halo = (244, 241, 218, 240)
-    ink = (8, 10, 12, 250)
-    draw.line((cx - 36 * style, cy, cx + 36 * style, cy), fill=halo, width=max(1, int(np.floor(7 * style + 0.5))))
-    draw.line((cx, cy - 36 * style, cx, cy + 36 * style), fill=halo, width=max(1, int(np.floor(7 * style + 0.5))))
-    draw.line((cx - 36 * style, cy, cx + 36 * style, cy), fill=ink, width=max(1, int(np.floor(3 * style + 0.5))))
-    draw.line((cx, cy - 36 * style, cx, cy + 36 * style), fill=ink, width=max(1, int(np.floor(3 * style + 0.5))))
-    draw.polygon([(cx, cy - 46 * style), (cx - 8 * style, cy - 29 * style), (cx + 8 * style, cy - 29 * style)], fill=ink)
-    cardinals = plan_cardinals(rotation_k)
-    stroke = max(1, int(np.floor(2 * style + 0.5)))
-    draw.text((cx, cy - 60 * style), cardinals["top"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((cx, cy + 54 * style), cardinals["bottom"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((cx - 52 * style, cy), cardinals["left"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((cx + 52 * style, cy), cardinals["right"], font=annotation_font, anchor="mm", fill=ink, stroke_width=stroke, stroke_fill=halo)
+    draw_compass_rose(
+        draw,
+        (76.0 * style, 76.0 * style),
+        90.0 * (rotation_k % 4),
+        annotation_font,
+        style,
+    )
     if copyright_text:
         copyright_font = load_font(int(np.floor(13 * style + 0.5)), True)
         draw.text(
@@ -1936,6 +2054,8 @@ def make_pretty_3d_from_offshore(
     exposure: float = DEFAULT_RELIEF_EXPOSURE,
     texture_triangle_min_area_px: float = 12.0,
     mesh_gap_fill_max_area_m2: float | None = None,
+    deep_edge_nodata_fill: bool = False,
+    deep_edge_nodata_min_depth_m: float | None = None,
 ) -> None:
     (
         elev_full,
@@ -2176,6 +2296,101 @@ def make_pretty_3d_from_offshore(
             level: clip_polylines_to_bbox(lines, crop_bbox)
             for level, lines in contour_points.items()
         }
+
+    if deep_edge_nodata_fill:
+        display_depth = np.clip(-z, 0.0, max_depth)
+        component_diagnostics: list[dict[str, float | int | bool]] = []
+        _, valid, deep_edge_fill = fill_deep_edge_nodata_at_maximum(
+            display_depth,
+            valid,
+            land_mask,
+            max_depth,
+            min_boundary_depth_m=deep_edge_nodata_min_depth_m,
+            component_diagnostics=component_diagnostics,
+        )
+        rejected = sorted(
+            (
+                item
+                for item in component_diagnostics
+                if not bool(item["qualifies"])
+            ),
+            key=lambda item: int(item["cells"]),
+            reverse=True,
+        )
+        if rejected:
+            summary = "; ".join(
+                (
+                    f"{int(item['cells'])} cells, "
+                    f"{int(item['boundary_pixels'])} sea-boundary px, "
+                    f"min {float(item['boundary_min_depth_m']):.1f} m, "
+                    f"land={bool(item['touches_land'])}"
+                )
+                for item in rejected[:3]
+            )
+            warnings.warn(
+                f"Rejected deep edge gap component(s): {summary}",
+                stacklevel=2,
+            )
+        if np.any(deep_edge_fill):
+            z[deep_edge_fill] = -max_depth
+            colors[deep_edge_fill] = deep_rgb
+            if orthophoto_alpha is not None:
+                orthophoto_alpha = orthophoto_alpha.copy()
+                orthophoto_alpha[deep_edge_fill] = 0.0
+            filled_cells = int(np.count_nonzero(deep_edge_fill))
+            warnings.warn(
+                f"Filled {filled_cells} deep edge cells "
+                f"({filled_cells * source_pixel_m**2:.1f} m²) with a flat "
+                "maximum-depth surface in the static 3D crop; contours remain "
+                "source-derived",
+                stacklevel=2,
+            )
+    if mesh_gap_fill_max_area_m2 is not None:
+        max_component_pixels = int(
+            np.floor(mesh_gap_fill_max_area_m2 / (source_pixel_m**2))
+        )
+        if max_component_pixels >= 1:
+            post_transform_gap_fill = small_internal_mesh_gap_mask(
+                valid,
+                land_mask,
+                max_component_pixels,
+            )
+            if np.any(post_transform_gap_fill):
+                original_valid = valid.copy()
+                z = interpolate_mesh_gaps(
+                    z,
+                    post_transform_gap_fill,
+                    original_valid,
+                )
+                colors = interpolate_mesh_gaps(
+                    colors,
+                    post_transform_gap_fill,
+                    original_valid,
+                )
+                if orthophoto_alpha is not None:
+                    orthophoto_alpha = interpolate_mesh_gaps(
+                        orthophoto_alpha,
+                        post_transform_gap_fill,
+                        original_valid,
+                    )
+                valid = valid | post_transform_gap_fill
+                filled_cells = int(np.count_nonzero(post_transform_gap_fill))
+                warnings.warn(
+                    f"Interpolated {filled_cells} post-transform cells "
+                    f"({filled_cells * source_pixel_m**2:.1f} m²) in the "
+                    "static 3D mesh only",
+                    stacklevel=2,
+                )
+
+    if deep_edge_nodata_fill:
+        remaining_invalid_cells = int(np.count_nonzero(~valid))
+        if remaining_invalid_cells:
+            warnings.warn(
+                f"{remaining_invalid_cells} cells "
+                f"({remaining_invalid_cells * source_pixel_m**2:.1f} m²) "
+                "remain invalid after static 3D deep-edge completion",
+                stacklevel=2,
+            )
 
     invalid_fraction = float(np.count_nonzero(~valid) / valid.size)
     if invalid_fraction > 0.01:
@@ -2657,39 +2872,13 @@ def make_pretty_3d_from_offshore(
         draw.line((sx + bar_px, sy - 9 * style, sx + bar_px, sy + 9 * style), fill=(5, 7, 10, 255), width=max(1, int(np.floor(3 * style + 0.5))))
         draw.text((sx + bar_px / 2 - 24 * style, sy - 34 * style), "50 m", font=annotation_font, fill=(5, 7, 10, 255), stroke_width=max(1, int(np.floor(2 * style + 0.5))), stroke_fill=(245, 239, 210, 235))
 
-        # Rotate the compass rose in the image plane so an arbitrary camera
-        # bearing remains geographically exact.
-        cx, cy = canvas.width - 92 * style, 84 * style
-        halo = (245, 239, 210, 240)
-        ink = (5, 7, 10, 255)
-        radius = 42 * style
-
-        def compass_point(cardinal_bearing: float, distance: float) -> tuple[float, float]:
-            angle = np.deg2rad(cardinal_bearing - bearing)
-            return cx + float(np.sin(angle)) * distance, cy - float(np.cos(angle)) * distance
-
-        north = compass_point(0.0, radius)
-        south = compass_point(180.0, radius)
-        east = compass_point(90.0, radius)
-        west = compass_point(270.0, radius)
-        for start, end in ((north, south), (east, west)):
-            draw.line((*start, *end), fill=halo, width=max(1, int(np.floor(8 * style + 0.5))))
-            draw.line((*start, *end), fill=ink, width=max(1, int(np.floor(3 * style + 0.5))))
-        north_tip = compass_point(0.0, 51 * style)
-        north_left = compass_point(-11.0, 34 * style)
-        north_right = compass_point(11.0, 34 * style)
-        draw.polygon([north_tip, north_left, north_right], fill=ink)
-        stroke = max(1, int(np.floor(2 * style + 0.5)))
-        for label, cardinal_bearing in (("N", 0.0), ("E", 90.0), ("S", 180.0), ("O", 270.0)):
-            draw.text(
-                compass_point(cardinal_bearing, 64 * style),
-                label,
-                font=annotation_font,
-                anchor="mm",
-                fill=ink,
-                stroke_width=stroke,
-                stroke_fill=halo,
-            )
+        draw_compass_rose(
+            draw,
+            (76.0 * style, 76.0 * style),
+            bearing,
+            annotation_font,
+            style,
+        )
 
     if decorate:
         title_font = load_font(44, True)

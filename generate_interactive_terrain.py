@@ -4,11 +4,14 @@ import argparse
 import gc
 import hashlib
 import json
+import math
 import shutil
 import tempfile
+import warnings
+from contextlib import contextmanager
 from datetime import date
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterator
 
 import numpy as np
 from osgeo import gdal
@@ -20,6 +23,7 @@ from render_fused_relief import (
     blend_texture,
     build_fused_surface,
     default_view_bearing,
+    fill_deep_edge_nodata_at_maximum,
     hillshade,
     imagery_alpha_across_shore,
     imagery_depth_alpha,
@@ -34,15 +38,19 @@ from render_fused_relief import (
 from site_config import (
     DEFAULT_VERTICAL_EXAGGERATION,
     ROOT,
+    bbox,
+    interactive_footprint,
+    interactive_footprint_bounds,
+    interactive_footprint_corners,
     paths_for,
     validate_config,
 )
 
 
 DEFAULT_OUTPUT = ROOT / "outputs" / "interactive-terrain"
-DEFAULT_GRID_MAX = 257
+DEFAULT_GRID_MAX = 513
 DEFAULT_TEXTURE_MAX = 2048
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 
 def interactive_max_depth(config: dict[str, Any]) -> float:
@@ -69,6 +77,115 @@ def load_config(path: Path) -> dict[str, Any]:
     config = json.loads(path.read_text(encoding="utf-8"))
     validate_config(config)
     return config
+
+
+@contextmanager
+def interactive_source_paths(
+    config: dict[str, Any],
+    paths: dict[str, Path],
+) -> Iterator[dict[str, Path]]:
+    """Yield focus-like rasters for the optional interactive-only extent."""
+    if "interactive_footprint_utm40s" in config:
+        west, south, east, north = interactive_footprint_bounds(config)
+    elif "interactive_bbox_utm40s" in config:
+        west, south, east, north = bbox(config, "interactive_bbox_utm40s")
+    else:
+        yield paths
+        return
+
+    source_keys = {
+        "focus_depth": "context_depth",
+        "focus_elevation": "context_elevation",
+        "focus_orthophoto": "context_orthophoto",
+    }
+    with tempfile.TemporaryDirectory(
+        prefix=f".{config['slug']}-interactive-source-",
+    ) as temporary_directory:
+        cropped_paths = dict(paths)
+        temporary_root = Path(temporary_directory)
+        for focus_key, context_key in source_keys.items():
+            destination = temporary_root / f"{focus_key}.tif"
+            translated = gdal.Translate(
+                str(destination),
+                str(paths[context_key]),
+                format="GTiff",
+                projWin=[west, north, east, south],
+            )
+            if translated is None:
+                raise RuntimeError(
+                    f"Could not crop {context_key} to the interactive extent"
+                )
+            translated.FlushCache()
+            translated = None
+            cropped_paths[focus_key] = destination
+        yield cropped_paths
+
+
+def interactive_footprint_mask(
+    config: dict[str, Any],
+    raster_path: Path,
+    output_shape: tuple[int, int],
+) -> np.ndarray:
+    """Mask the north-up crop to its coastline-aligned rectangle."""
+    if "interactive_footprint_utm40s" not in config:
+        return np.ones(output_shape, dtype=bool)
+
+    center, width, depth, bearing_deg = interactive_footprint(config)
+    source = open_raster(raster_path, "interactive footprint raster")
+    transform = source.GetGeoTransform()
+    if (
+        abs(float(transform[2])) > 1e-9
+        or abs(float(transform[4])) > 1e-9
+    ):
+        raise ValueError("Interactive footprint raster must be north-up")
+
+    columns = source.RasterXSize
+    rows = source.RasterYSize
+    eastings = (
+        float(transform[0])
+        + (np.arange(columns, dtype=np.float32) + 0.5)
+        * float(transform[1])
+        - center[0]
+    )
+    northings = (
+        float(transform[3])
+        + (np.arange(rows, dtype=np.float32) + 0.5)
+        * float(transform[5])
+        - center[1]
+    )
+    bearing = math.radians(bearing_deg)
+    forward_east = math.sin(bearing)
+    forward_north = math.cos(bearing)
+    right_east = math.cos(bearing)
+    right_north = -math.sin(bearing)
+    tolerance = max(abs(float(transform[1])), abs(float(transform[5]))) * 0.75
+    mask = np.empty((rows, columns), dtype=bool)
+    for row_start in range(0, rows, 256):
+        row_stop = min(row_start + 256, rows)
+        delta_north = northings[row_start:row_stop, None]
+        delta_east = eastings[None, :]
+        across = (
+            delta_east * right_east
+            + delta_north * right_north
+        )
+        along = (
+            delta_east * forward_east
+            + delta_north * forward_north
+        )
+        mask[row_start:row_stop] = (
+            (np.abs(across) <= width * 0.5 + tolerance)
+            & (np.abs(along) <= depth * 0.5 + tolerance)
+        )
+
+    rotation_k = int(config.get("rotation_k", 0)) % 4
+    if rotation_k:
+        mask = np.rot90(mask, rotation_k).copy()
+    if mask.shape != output_shape:
+        raise ValueError(
+            "Interactive footprint mask and fused surface do not share "
+            f"the same dimensions: {mask.shape} != {output_shape}"
+        )
+    return mask
 
 
 def fitted_dimensions(
@@ -104,6 +221,40 @@ def resize_scalar(values: np.ndarray, size: tuple[int, int]) -> np.ndarray:
 def resize_mask(mask: np.ndarray, size: tuple[int, int]) -> np.ndarray:
     image = Image.fromarray(mask.astype(np.uint8) * 255, mode="L")
     return np.asarray(image.resize(size, Image.Resampling.NEAREST), dtype=np.uint8) > 127
+
+
+def isobath_source_vertex_mask(
+    deep_edge_fill: np.ndarray,
+    size: tuple[int, int],
+    source_valid: np.ndarray | None = None,
+) -> np.ndarray:
+    """Return valid source vertices outside filled/transition triangles."""
+    safe = np.ones((size[1], size[0]), dtype=bool)
+    if np.any(deep_edge_fill):
+        fill_image = Image.fromarray(
+            deep_edge_fill.astype(np.float32),
+            mode="F",
+        )
+        grid_fill = (
+            np.asarray(
+                fill_image.resize(size, Image.Resampling.BOX),
+                dtype=np.float32,
+            )
+            > 0.0
+        )
+        transition_cells = (
+            grid_fill[:-1, :-1]
+            | grid_fill[:-1, 1:]
+            | grid_fill[1:, :-1]
+            | grid_fill[1:, 1:]
+        )
+        safe[:-1, :-1][transition_cells] = False
+        safe[:-1, 1:][transition_cells] = False
+        safe[1:, :-1][transition_cells] = False
+        safe[1:, 1:][transition_cells] = False
+    if source_valid is not None:
+        safe &= resize_mask(source_valid, size)
+    return safe
 
 
 def make_surface(
@@ -173,6 +324,32 @@ def make_surface(
     surface = np.where(land_mask, np.maximum(surface, 0.0), np.minimum(surface, 0.0))
     surface = np.where(valid, surface, -max_depth).astype(np.float32)
     return surface, depth, elevation, land_mask, land_weight, valid
+
+
+def complete_interactive_deep_edge_nodata(
+    config: dict[str, Any],
+    surface: np.ndarray,
+    depth: np.ndarray,
+    land_mask: np.ndarray,
+    valid: np.ndarray,
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Apply the explicit flat-at-maximum completion to interactive terrain."""
+    if not config.get("deep_edge_nodata_terrain_fill", False):
+        return surface, depth, valid, np.zeros_like(valid)
+
+    max_depth = interactive_max_depth(config)
+    filled_depth, filled_valid, fill_mask = fill_deep_edge_nodata_at_maximum(
+        depth,
+        valid,
+        land_mask,
+        max_depth,
+        min_boundary_depth_m=config.get(
+            "deep_edge_nodata_terrain_min_depth_m"
+        ),
+    )
+    filled_surface = surface.copy()
+    filled_surface[fill_mask] = -max_depth
+    return filled_surface, filled_depth, filled_valid, fill_mask
 
 
 def make_textures(
@@ -284,24 +461,88 @@ def source_attribution(config: dict[str, Any], *, orthophoto: bool) -> str:
     return text
 
 
-def export_site(
-    config_path: Path,
+def static_view_horizontal_center_offset_m(
+    config: dict[str, Any],
+    focus_bounds: tuple[float, float, float, float],
+) -> float | None:
+    """Return the static crop centre on the initial view's screen-right axis.
+
+    The value is expressed in metres from the focus terrain's geometric
+    centre. Positive values move the initial framing to screen right. Keeping
+    this one-dimensional lets the viewer continue to place the coastline
+    vertically from the terrain itself.
+    """
+    if not config.get("interactive_match_static_horizontal_center", False):
+        return None
+
+    focus_west, focus_south, focus_east, focus_north = focus_bounds
+    context_west, context_south, context_east, context_north = (
+        float(value) for value in config["context_bbox_utm40s"]
+    )
+    focus_center_east = (focus_west + focus_east) / 2.0
+    focus_center_north = (focus_south + focus_north) / 2.0
+    static_center_east = (
+        (context_west + context_east) / 2.0
+        + float(config.get("view_center_offset_east_m", 0.0))
+    )
+    static_center_north = (
+        (context_south + context_north) / 2.0
+        + float(config.get("view_center_offset_north_m", 0.0))
+    )
+
+    rotation_k = int(config.get("rotation_k", 0))
+    bearing_deg = float(
+        config.get("view_bearing_deg", default_view_bearing(rotation_k))
+    ) % 360.0
+    bearing = math.radians(bearing_deg)
+    delta_east = static_center_east - focus_center_east
+    delta_north = static_center_north - focus_center_north
+    # At bearing 0 degrees, east is screen right. Rotating the view clockwise
+    # rotates screen right toward the south, hence the negative north term.
+    return delta_east * math.cos(bearing) - delta_north * math.sin(bearing)
+
+
+def _export_site_from_paths(
+    config: dict[str, Any],
+    paths: dict[str, Path],
     output_root: Path,
     grid_max: int,
     texture_max: int,
 ) -> dict[str, Any]:
-    config = load_config(config_path)
-    if not config.get("orthophoto_enabled", False):
-        raise ValueError(f"{config['slug']} does not provide an orthophoto")
-    paths = paths_for(config)
-    for key in ("focus_depth", "focus_elevation", "focus_orthophoto"):
-        if not paths[key].is_file():
-            raise FileNotFoundError(f"Missing cached {key}: {paths[key]}")
-
     surface, depth, elevation, land_mask, land_weight, valid = make_surface(
         config,
         paths,
     )
+    surface, depth, valid, deep_edge_fill = (
+        complete_interactive_deep_edge_nodata(
+            config,
+            surface,
+            depth,
+            land_mask,
+            valid,
+        )
+    )
+    footprint_mask = interactive_footprint_mask(
+        config,
+        paths["focus_depth"],
+        valid.shape,
+    )
+    valid &= footprint_mask
+    deep_edge_fill &= footprint_mask
+    if np.any(deep_edge_fill):
+        source = open_raster(paths["focus_depth"], "focus depth raster")
+        transform = source.GetGeoTransform()
+        pixel_area_m2 = abs(
+            float(transform[1]) * float(transform[5])
+            - float(transform[2]) * float(transform[4])
+        )
+        filled_cells = int(np.count_nonzero(deep_edge_fill))
+        warnings.warn(
+            f"Filled {filled_cells} deep edge cells "
+            f"({filled_cells * pixel_area_m2:.1f} m²) with a flat "
+            "maximum-depth surface in the interactive terrain",
+            stacklevel=2,
+        )
     topographic_texture, orthophoto_texture = make_textures(
         config,
         paths,
@@ -325,6 +566,11 @@ def export_site(
     grid_surface = resize_scalar(surface, grid_size)
     grid_valid = resize_mask(valid, grid_size)
     grid_land = resize_mask(land_mask, grid_size)
+    grid_isobath_source = isobath_source_vertex_mask(
+        deep_edge_fill,
+        grid_size,
+        valid,
+    )
     max_depth = interactive_max_depth(config)
     max_land_elevation = float(config.get("max_land_elevation_m", 55.0))
     grid_surface = np.where(
@@ -349,6 +595,13 @@ def export_site(
         bitorder="little",
     )
     (site_output / "valid-mask.bin").write_bytes(packed_mask.tobytes())
+    packed_isobath_mask = np.packbits(
+        grid_isobath_source.reshape(-1),
+        bitorder="little",
+    )
+    (site_output / "isobath-mask.bin").write_bytes(
+        packed_isobath_mask.tobytes()
+    )
 
     texture_size = fitted_dimensions(
         topographic_texture.width,
@@ -402,6 +655,45 @@ def export_site(
         copyright_text += f" · {license_name}"
     attribution_topographic = source_attribution(config, orthophoto=False)
     attribution_orthophoto = source_attribution(config, orthophoto=True)
+    view_metadata = {
+        "lookBearingDeg": view_bearing_deg,
+        "gridLookBearingDeg": (
+            view_bearing_deg - 90.0 * rotation_k
+        ) % 360.0,
+        "cameraTilt": float(config.get("camera_tilt", 0.34)),
+        "alongViewProjectionScale": float(
+            config.get("along_view_projection_scale", 1.0)
+        ),
+        "visibleWidthM": round(
+            float(
+                config.get(
+                    "interactive_view_visible_width_m",
+                    config.get("view_visible_width_m", physical_width),
+                )
+            ),
+            6,
+        ),
+        "coastFrameFraction": round(
+            (
+                float(config.get("coast_frame_fraction", 0.44))
+                - float(config.get("view_top_crop_fraction", 0.0))
+            )
+            / (
+                1.0
+                - float(config.get("view_top_crop_fraction", 0.0))
+            ),
+            4,
+        ),
+    }
+    horizontal_center_offset = static_view_horizontal_center_offset_m(
+        config,
+        (west, south, east, north),
+    )
+    if horizontal_center_offset is not None:
+        view_metadata["horizontalCenterOffsetM"] = round(
+            horizontal_center_offset,
+            6,
+        )
     metadata = {
         "schemaVersion": SCHEMA_VERSION,
         "slug": slug,
@@ -444,6 +736,16 @@ def export_site(
                 "bitOrder": "least-significant-bit-first",
                 "formula": "(byte[index >> 3] >> (index & 7)) & 1",
             },
+            "isobathMaskFile": "isobath-mask.bin",
+            "isobathMaskEncoding": {
+                "type": "bitset",
+                "bitOrder": "least-significant-bit-first",
+                "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+                "meaning": (
+                    "1 = source-derived contour-safe vertex; "
+                    "0 = deep-edge completion or transition buffer"
+                ),
+            },
         },
         "elevationRangeM": {
             "min": minimum,
@@ -453,31 +755,7 @@ def export_site(
         "verticalExaggeration": float(
             config.get("vertical_exaggeration", DEFAULT_VERTICAL_EXAGGERATION)
         ),
-        "view": {
-            "lookBearingDeg": view_bearing_deg,
-            "gridLookBearingDeg": (
-                view_bearing_deg - 90.0 * rotation_k
-            ) % 360.0,
-            "cameraTilt": float(config.get("camera_tilt", 0.34)),
-            "alongViewProjectionScale": float(
-                config.get("along_view_projection_scale", 1.0)
-            ),
-            "visibleWidthM": round(
-                float(config.get("view_visible_width_m", physical_width)),
-                6,
-            ),
-            "coastFrameFraction": round(
-                (
-                    float(config.get("coast_frame_fraction", 0.44))
-                    - float(config.get("view_top_crop_fraction", 0.0))
-                )
-                / (
-                    1.0
-                    - float(config.get("view_top_crop_fraction", 0.0))
-                ),
-                4,
-            ),
-        },
+        "view": view_metadata,
         "textures": {
             "width": texture_size[0],
             "height": texture_size[1],
@@ -497,6 +775,24 @@ def export_site(
             "requiredDisplay": f"{copyright_text} · {attribution_orthophoto}",
         },
     }
+    if "interactive_footprint_utm40s" in config:
+        footprint_center, footprint_width, footprint_depth, footprint_bearing = (
+            interactive_footprint(config)
+        )
+        metadata["footprint"] = {
+            "shape": "oriented-rectangle",
+            "centerUtm40s": [
+                round(footprint_center[0], 3),
+                round(footprint_center[1], 3),
+            ],
+            "widthM": round(footprint_width, 3),
+            "depthM": round(footprint_depth, 3),
+            "lookBearingDeg": round(footprint_bearing, 3),
+            "cornersUtm40s": [
+                [round(easting, 3), round(northing, 3)]
+                for easting, northing in interactive_footprint_corners(config)
+            ],
+        }
     metadata_path = site_output / "terrain.json"
     metadata_path.write_text(
         json.dumps(metadata, ensure_ascii=False, indent=2) + "\n",
@@ -517,6 +813,10 @@ def export_site(
                 site_output / "valid-mask.bin",
                 output_root,
             ),
+            "isobathMask": artifact_record(
+                site_output / "isobath-mask.bin",
+                output_root,
+            ),
             "topographicTexture": artifact_record(
                 site_output / "topographic.webp",
                 output_root,
@@ -527,6 +827,39 @@ def export_site(
             ),
         },
     }
+
+
+def export_site(
+    config_path: Path,
+    output_root: Path,
+    grid_max: int,
+    texture_max: int,
+) -> dict[str, Any]:
+    config = load_config(config_path)
+    if not config.get("orthophoto_enabled", False):
+        raise ValueError(f"{config['slug']} does not provide an orthophoto")
+    paths = paths_for(config)
+    uses_context = (
+        "interactive_bbox_utm40s" in config
+        or "interactive_footprint_utm40s" in config
+    )
+    required_keys = (
+        ("context_depth", "context_elevation", "context_orthophoto")
+        if uses_context
+        else ("focus_depth", "focus_elevation", "focus_orthophoto")
+    )
+    for key in required_keys:
+        if not paths[key].is_file():
+            raise FileNotFoundError(f"Missing cached {key}: {paths[key]}")
+
+    with interactive_source_paths(config, paths) as source_paths:
+        return _export_site_from_paths(
+            config,
+            source_paths,
+            output_root,
+            grid_max,
+            texture_max,
+        )
 
 
 def validate_export(output_root: Path, manifest: dict[str, Any]) -> None:
@@ -540,13 +873,28 @@ def validate_export(output_root: Path, manifest: dict[str, Any]) -> None:
         metadata_path = output_root / item["metadata"]
         metadata = json.loads(metadata_path.read_text(encoding="utf-8"))
         grid = metadata["grid"]
-        vertex_count = int(grid["width"]) * int(grid["height"])
+        grid_width = int(grid["width"])
+        grid_height = int(grid["height"])
+        if min(grid_width, grid_height) < 2 or max(
+            grid_width,
+            grid_height,
+        ) > DEFAULT_GRID_MAX:
+            raise ValueError(
+                "Heightfield dimensions exceed the interactive terrain "
+                f"contract: {metadata_path}"
+            )
+        vertex_count = grid_width * grid_height
         height_path = metadata_path.parent / grid["heightFile"]
         mask_path = metadata_path.parent / grid["validMaskFile"]
+        isobath_mask_path = metadata_path.parent / grid["isobathMaskFile"]
         if height_path.stat().st_size != vertex_count * 2:
             raise ValueError(f"Unexpected height payload size: {height_path}")
         if mask_path.stat().st_size != (vertex_count + 7) // 8:
             raise ValueError(f"Unexpected validity payload size: {mask_path}")
+        if isobath_mask_path.stat().st_size != (vertex_count + 7) // 8:
+            raise ValueError(
+                f"Unexpected isobath mask payload size: {isobath_mask_path}"
+            )
         textures = metadata["textures"]
         if max(int(textures["width"]), int(textures["height"])) > DEFAULT_TEXTURE_MAX:
             raise ValueError(f"Texture exceeds the mobile payload contract: {metadata_path}")
@@ -597,7 +945,7 @@ def main() -> int:
         "--grid-max",
         type=int,
         default=DEFAULT_GRID_MAX,
-        help="Maximum heightfield dimension (default: 257)",
+        help=f"Maximum heightfield dimension (default: {DEFAULT_GRID_MAX})",
     )
     parser.add_argument(
         "--texture-max",

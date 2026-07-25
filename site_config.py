@@ -50,6 +50,8 @@ _ALLOWED_KEYS = frozenset(
         "context_bbox_utm40s",
         "context_topography_resolution_m",
         "copyright_year",
+        "deep_edge_nodata_terrain_fill",
+        "deep_edge_nodata_terrain_min_depth_m",
         "east_crop_fraction",
         "final_output_size_px",
         "focus_bbox_utm40s",
@@ -62,7 +64,11 @@ _ALLOWED_KEYS = frozenset(
         "imagery_sea_full_depth_m",
         "imagery_sea_max_depth_m",
         "imagery_sea_smoothing_m",
+        "interactive_bbox_utm40s",
+        "interactive_footprint_utm40s",
+        "interactive_match_static_horizontal_center",
         "interactive_max_depth_m",
+        "interactive_view_visible_width_m",
         "land_sieve_threshold_px",
         "locator_bathymetry_enabled",
         "locator_bbox_utm40s",
@@ -148,6 +154,8 @@ _BOOLEAN_KEYS = frozenset(
     {
         "clip_rotated_outside",
         "coastline_visible",
+        "deep_edge_nodata_terrain_fill",
+        "interactive_match_static_horizontal_center",
         "locator_bathymetry_enabled",
         "locator_map_enabled",
         "orthophoto_coastline_visible",
@@ -296,6 +304,83 @@ def _pair(
     return pair
 
 
+def interactive_footprint(
+    config: Mapping[str, Any],
+) -> tuple[tuple[float, float], float, float, float]:
+    """Return the oriented interactive footprint.
+
+    Width runs across the camera view, approximately along the coastline.
+    Depth follows the configured look bearing from sea toward land.
+    """
+    key = "interactive_footprint_utm40s"
+    if key not in config:
+        raise ValueError(f"Missing required configuration key: {key}")
+    raw = config[key]
+    if not isinstance(raw, Mapping):
+        raise ValueError(f"{key} must be an object")
+    allowed = {"center", "width_m", "depth_m", "look_bearing_deg"}
+    unknown = sorted(set(raw) - allowed)
+    if unknown:
+        raise ValueError(
+            f"Unknown {key} key(s): {', '.join(unknown)}"
+        )
+    missing = sorted(allowed - set(raw))
+    if missing:
+        raise ValueError(
+            f"{key} requires {', '.join(missing)}"
+        )
+    center = _pair(raw["center"], f"{key}.center")
+    width = _positive(raw, "width_m")
+    depth = _positive(raw, "depth_m")
+    bearing = _number(raw, "look_bearing_deg")
+    if not 0.0 <= bearing < 360.0:
+        raise ValueError(
+            f"{key}.look_bearing_deg must be between 0 and 360 degrees"
+        )
+    return center, width, depth, bearing
+
+
+def interactive_footprint_corners(
+    config: Mapping[str, Any],
+) -> tuple[tuple[float, float], ...]:
+    center, width, depth, bearing_deg = interactive_footprint(config)
+    bearing = math.radians(bearing_deg)
+    forward = (math.sin(bearing), math.cos(bearing))
+    screen_right = (math.cos(bearing), -math.sin(bearing))
+    corners: list[tuple[float, float]] = []
+    for width_sign, depth_sign in (
+        (-1.0, -1.0),
+        (1.0, -1.0),
+        (1.0, 1.0),
+        (-1.0, 1.0),
+    ):
+        corners.append(
+            (
+                center[0]
+                + width_sign * width * 0.5 * screen_right[0]
+                + depth_sign * depth * 0.5 * forward[0],
+                center[1]
+                + width_sign * width * 0.5 * screen_right[1]
+                + depth_sign * depth * 0.5 * forward[1],
+            )
+        )
+    return tuple(corners)
+
+
+def interactive_footprint_bounds(
+    config: Mapping[str, Any],
+) -> tuple[float, float, float, float]:
+    corners = interactive_footprint_corners(config)
+    eastings = [point[0] for point in corners]
+    northings = [point[1] for point in corners]
+    return (
+        min(eastings),
+        min(northings),
+        max(eastings),
+        max(northings),
+    )
+
+
 def _point_in_box(point: tuple[float, float], extent: tuple[float, float, float, float]) -> bool:
     return extent[0] <= point[0] <= extent[2] and extent[1] <= point[1] <= extent[3]
 
@@ -440,6 +525,27 @@ def validate_config(config: Mapping[str, Any]) -> None:
     context = bbox(config, "context_bbox_utm40s")
     if not contains(context, focus):
         raise ValueError("context_bbox_utm40s must contain focus_bbox_utm40s")
+    if "interactive_bbox_utm40s" in config:
+        interactive = bbox(config, "interactive_bbox_utm40s")
+        if not contains(context, interactive):
+            raise ValueError(
+                "context_bbox_utm40s must contain interactive_bbox_utm40s"
+            )
+    if (
+        "interactive_bbox_utm40s" in config
+        and "interactive_footprint_utm40s" in config
+    ):
+        raise ValueError(
+            "Use either interactive_bbox_utm40s or "
+            "interactive_footprint_utm40s, not both"
+        )
+    if "interactive_footprint_utm40s" in config:
+        interactive = interactive_footprint_bounds(config)
+        if not contains(context, interactive):
+            raise ValueError(
+                "context_bbox_utm40s must contain "
+                "interactive_footprint_utm40s"
+            )
 
     max_depth = _number(config, "max_depth_m", 20.0)
     if not 0.0 < max_depth <= 40.0:
@@ -450,11 +556,27 @@ def validate_config(config: Mapping[str, Any]) -> None:
             raise ValueError(
                 "plan_max_depth_m must be greater than 0 and at most max_depth_m"
             )
+    interactive_max_depth = max_depth
     if "interactive_max_depth_m" in config:
         interactive_max_depth = _number(config, "interactive_max_depth_m")
         if not 0.0 < interactive_max_depth <= max_depth:
             raise ValueError(
                 "interactive_max_depth_m must be greater than 0 and at most max_depth_m"
+            )
+    if "deep_edge_nodata_terrain_min_depth_m" in config:
+        minimum_fill_depth = _number(
+            config,
+            "deep_edge_nodata_terrain_min_depth_m",
+        )
+        if not config.get("deep_edge_nodata_terrain_fill", False):
+            raise ValueError(
+                "deep_edge_nodata_terrain_min_depth_m requires "
+                "deep_edge_nodata_terrain_fill"
+            )
+        if not 0.0 < minimum_fill_depth <= interactive_max_depth:
+            raise ValueError(
+                "deep_edge_nodata_terrain_min_depth_m must be greater than 0 "
+                "and at most the effective interactive depth"
             )
     coast_mode = config.get("coast_mode", "profile")
     if not isinstance(coast_mode, str):
@@ -481,6 +603,7 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "view_crop_width_m",
         "view_crop_depth_m",
         "view_visible_width_m",
+        "interactive_view_visible_width_m",
         "relief_hemisphere_intensity",
         "relief_exposure",
         "relief_key_light_intensity",
@@ -494,16 +617,6 @@ def validate_config(config: Mapping[str, Any]) -> None:
         if key in config:
             _number(config, key)
 
-    focus_resolution = _number(config, "topography_resolution_m", 0.5)
-    context_resolution = _number(
-        config,
-        "context_topography_resolution_m",
-        focus_resolution,
-    )
-    _validate_wms_grid(context, context_resolution, "context RGE ALTI request")
-    if abs(focus_resolution - context_resolution) > 1e-9:
-        _validate_wms_grid(focus, focus_resolution, "focus RGE ALTI request")
-
     old_axis = "north_south_projection_scale" in config
     new_axis = "along_view_projection_scale" in config
     if old_axis and new_axis:
@@ -514,6 +627,64 @@ def validate_config(config: Mapping[str, Any]) -> None:
         _positive(config, "north_south_projection_scale")
     if new_axis:
         _positive(config, "along_view_projection_scale")
+
+    if "interactive_footprint_utm40s" in config:
+        _, footprint_width, footprint_depth, footprint_bearing = (
+            interactive_footprint(config)
+        )
+        visible_width = _positive(
+            config,
+            "interactive_view_visible_width_m",
+            _positive(config, "view_visible_width_m"),
+        )
+        view_bearing = _number(
+            config,
+            "view_bearing_deg",
+            float(config.get("rotation_k", 0)) * 90.0 + 180.0,
+        ) % 360.0
+        bearing_delta = abs(
+            (footprint_bearing - view_bearing + 180.0) % 360.0 - 180.0
+        )
+        if bearing_delta > 1e-6:
+            raise ValueError(
+                "interactive_footprint_utm40s.look_bearing_deg must match "
+                "view_bearing_deg"
+            )
+        final_size = config.get("final_output_size_px", [2474, 1712])
+        canvas_width, canvas_height = _pair(
+            final_size,
+            "final_output_size_px",
+            positive=True,
+        )
+        aspect = canvas_width / canvas_height
+        projection_slope = (
+            _positive(config, "camera_tilt", 0.34)
+            * _positive(config, "along_view_projection_scale", 1.0)
+        )
+        minimum_width = visible_width * 1.15
+        minimum_depth = (
+            visible_width / (aspect * projection_slope) * 1.20
+        )
+        if footprint_width + 1e-6 < minimum_width:
+            raise ValueError(
+                "interactive_footprint_utm40s.width_m must be at least "
+                "1.15 times view_visible_width_m"
+            )
+        if footprint_depth + 1e-6 < minimum_depth:
+            raise ValueError(
+                "interactive_footprint_utm40s.depth_m is too short for "
+                "the canonical initial camera view"
+            )
+
+    focus_resolution = _number(config, "topography_resolution_m", 0.5)
+    context_resolution = _number(
+        config,
+        "context_topography_resolution_m",
+        focus_resolution,
+    )
+    _validate_wms_grid(context, context_resolution, "context RGE ALTI request")
+    if abs(focus_resolution - context_resolution) > 1e-9:
+        _validate_wms_grid(focus, focus_resolution, "focus RGE ALTI request")
 
     _validate_crop_aliases(config)
     _fraction(config, "coast_frame_fraction", 0.44)

@@ -1,17 +1,17 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "slug": "plage-cimetiere-saint-leu",
   "title": "Plage du Cimetière, Saint-Leu · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 321550.0,
-    "south": 7655708.4,
-    "east": 322450.0,
-    "north": 7656331.6
+    "west": 321068.4,
+    "south": 7655672.0,
+    "east": 322763.6,
+    "north": 7656422.0
   },
   "physicalSizeM": {
-    "width": 900.0,
-    "depth": 623.2
+    "width": 1695.2,
+    "depth": 750.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 257,
-    "height": 178,
-    "triangleCount": 90624,
+    "width": 513,
+    "height": 227,
+    "triangleCount": 231424,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -30.0,
-      "scaleMPerUnit": 0.0011436559610620756,
+      "scaleMPerUnit": 0.0012970168612191958,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -39,11 +39,18 @@
       "type": "bitset",
       "bitOrder": "least-significant-bit-first",
       "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
     }
   },
   "elevationRangeM": {
     "min": -30.0,
-    "max": 44.949493408203125
+    "max": 55.0
   },
   "heightValues": "physical metres before vertical exaggeration",
   "verticalExaggeration": 3.9935327405,
@@ -57,7 +64,7 @@
   },
   "textures": {
     "width": 2048,
-    "height": 1418,
+    "height": 906,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -72,5 +79,33 @@
     "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
     "license": "CC BY-NC-SA 4.0",
     "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      321916.0,
+      7656047.0
+    ],
+    "widthM": 750.0,
+    "depthM": 1695.0,
+    "lookBearingDeg": 90.0,
+    "cornersUtm40s": [
+      [
+        321068.5,
+        7656422.0
+      ],
+      [
+        321068.5,
+        7655672.0
+      ],
+      [
+        322763.5,
+        7655672.0
+      ],
+      [
+        322763.5,
+        7656422.0
+      ]
+    ]
   }
 }

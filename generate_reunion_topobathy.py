@@ -992,6 +992,12 @@ def render(
         "mesh_gap_fill_max_area_m2": config.get(
             "relief_mesh_gap_fill_max_area_m2"
         ),
+        "deep_edge_nodata_fill": bool(
+            config.get("deep_edge_nodata_terrain_fill", False)
+        ),
+        "deep_edge_nodata_min_depth_m": config.get(
+            "deep_edge_nodata_terrain_min_depth_m"
+        ),
     }
     if land_style in (None, "topography"):
         make_pretty_3d_from_offshore(

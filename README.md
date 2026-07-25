@@ -6,9 +6,9 @@ Le standard orthophoto courant est commun aux sept sites : image opaque jusqu'a 
 
 Les sept sites utilisent les memes dimensions finales (`2474 x 1712 px`) et le meme facteur `map_style_scale: 2.0`. Les isobathes, etiquettes, roses, barres d'echelle, sources et licences conservent ainsi la meme epaisseur et le meme corps apparent, independamment de l'emprise ou de la perspective. Les planches mesurent toutes `5400 x 3250 px` et affichent les coordonnees en degres, minutes et secondes. Leur cartouche utilise toujours trois lignes distinctes : un seul nom canonique de site, la commune, puis `La Reunion` seule. Deux filets courts encadrent lateralement `La Reunion`; aucun filet horizontal ne la souligne et aucun cadre ou fond gris n'enferme le texte.
 
-Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, conserve les lacunes comme donnees absentes, extrait les isobathes tous les 5 m jusqu'a `max_depth_m`, puis ajoute une rose des vents et une echelle metrique. Chaque site est defini par un fichier JSON distinct.
+Le moteur fusionne les deux MNT, interpole la cote a 0 m, lisse le bruit de cellule, extrait les isobathes tous les 5 m jusqu'a `max_depth_m`, puis ajoute une rose des vents et une echelle metrique. Les plans 2D et les vues 3D statiques utilisent en haut a gauche la meme rose circulaire que le relief interactif; son cadran suit l'orientation geographique tandis que les lettres restent droites. Par defaut, les lacunes restent absentes. Un plan 2D peut seulement afficher une lacune marine profonde ouverte sur le bord avec la couleur de sa profondeur maximale, sans y creer de contour. Une configuration peut aussi completer explicitement ce type de limite par un plateau uniforme dans les terrains 3D, sans relief intermediaire. Chaque site est defini par un fichier JSON distinct.
 
-Pointe au Sel constitue une exception explicite de presentation : la marge sud-ouest du raster HYSCORES contient des facettes triangulees peu fiables en grande profondeur. Les cartes 2D et le relief interactif s'arretent donc a `-20 m`, tandis que la perspective 3D statique conserve la profondeur source mais cadre uniquement le Sec Jaune, les arches du sud et le debut du tombant. Une lacune interne de `19,2 m²` est interpolee uniquement dans le maillage 3D statique, apres l'extraction des isobathes; les cartes 2D, les contours, les cellules valides et le paquet interactif restent strictement derives de la source. Les grandes lacunes et toutes celles qui touchent la terre ou le bord restent exclues.
+Pointe au Sel constitue une exception explicite de presentation : la marge sud-ouest du raster HYSCORES contient des facettes triangulees peu fiables en grande profondeur. Le plan 2D conserve donc les donnees utiles jusqu'a `-30 m`, tandis que les reliefs statique et interactif vont jusqu'a `-40 m`. La perspective statique reprend le cadrage valide a `60°` sur `1200 × 1400 m`, avec une largeur visible de `900 m` et un centre decale de `50 m` vers le nord. Le paquet interactif utilise un rectangle de `1040 × 1545 m`, centre sur `[321581.5, 7654180.4]` et oriente a `60°`, recadre dans les rasters de contexte pour conserver davantage de terre et de fond au nord. Les grandes lacunes marines de bord dont tous les voisins marins connus sont profonds d'au moins `20 m` sont completees localement par un plateau uniforme a `-40 m`; les isobathes en restent exclues. Une lacune interne de `19,2 m²` est en outre interpolee uniquement dans le maillage 3D statique, apres l'extraction des contours. Aucune terre, lacune cotiere ou zone peu profonde n'est completee.
 
 ## Sites publies
 
@@ -74,14 +74,16 @@ generes sous `outputs/interactive-terrain/`, independamment du site :
 ```
 
 Chaque site produit un paquet compact compose d'un champ d'altitude, d'un
-masque de validite, de deux textures et d'un fichier de metadonnees. Le format
+masque de validite, d'un masque de provenance des isobathes, de deux textures
+et d'un fichier de metadonnees. Le format
 et sa frontiere avec le site sont documentes dans
 [INTERACTIVE-TERRAIN.md](INTERACTIVE-TERRAIN.md).
 
 Le site se trouve dans `site/`. Il presente les rendus responsifs, conserve un
 seul visuel actif lorsque le fond topographique ou l'orthophoto change, propose
-les planches HD au telechargement et visualise les paquets 3D avec rotation,
-zoom, deplacement et remise a zero de la camera.
+les quatre cartes statiques originales correspondant a la vue et au fond actifs
+ainsi que les planches HD au telechargement, et visualise les paquets 3D avec
+rotation, zoom, deplacement et remise a zero de la camera.
 
 Les ressources publiees restent des derives reproductibles des sorties
 cartographiques canoniques :
@@ -94,15 +96,29 @@ npm test
 ```
 
 Chaque relief interactif utilise une geometrie compacte commune aux deux styles.
-Le bouton Topographie / Orthophoto ne remplace que sa texture. La camera
+Le bouton Topographie / Vue aerienne ne remplace que sa texture. Le nom
+`orthophoto` reste reserve au format interne et aux fichiers reproductibles. La camera
 initiale reprend l'azimut de la vue 3D imprimee et se place a l'oppose, cote
-large ; la rotation horizontale est libre sur 360 degres. Les GeoTIFF sources
+large ; son centre horizontal peut aussi reprendre celui du cadrage statique.
+Le champ d'altitude compte au maximum `513` sommets sur son plus grand axe :
+ce plafond augmente le detail du relief sur les grandes emprises tout en
+conservant un paquet adapte au navigateur et aux appareils mobiles.
+La rotation horizontale est libre sur 360 degres. Une rose dynamique conserve
+les points cardinaux pendant les mouvements. Les isobathes sont calculees dans
+des plans horizontaux tous les 5 m, avec un coeur qui reprend la couleur
+bathymetrique de chaque profondeur, un liseré noir, une legende fixe a l'ecran
+et un bouton d'affichage. Les GeoTIFF sources
 restent dans le cache local et ne sont jamais publies.
 
-Les textures WebGL sont produites depuis les rasters de mise au point, puis
-reechantillonnees au besoin avec un maximum de `2048 px` sur leur plus grand
-cote. Elles sont distinctes des textures de contexte utilisees par les JPEG 3D
-statiques, dont la resolution configuree varie de 20 a 80 cm selon l'emprise.
+Les textures WebGL sont produites depuis les rasters de contexte. Chaque site
+declare un `interactive_footprint_utm40s` : un rectangle oriente comme la vue,
+approximativement parallele a la cote, plus large que le cadrage initial sur
+terre comme sous l'eau. Son rectangle englobant nord en haut sert au recadrage,
+puis le masque oriente conserve exactement l'emprise declaree. Les textures
+sont reechantillonnees au besoin avec un
+maximum de `2048 px` sur leur plus grand cote. Elles sont distinctes des
+textures de contexte utilisees par les JPEG 3D statiques, dont la resolution
+configuree varie de 20 a 80 cm selon l'emprise.
 
 ## Installation sur macOS
 

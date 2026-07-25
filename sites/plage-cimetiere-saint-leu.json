@@ -5,6 +5,12 @@
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/11_MOZ_SALE_20150522_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [321550.0, 7655708.6, 322450.0, 7656331.4],
   "context_bbox_utm40s": [320800.0, 7655000.0, 322800.0, 7656900.0],
+  "interactive_footprint_utm40s": {
+    "center": [321916.0, 7656047.0],
+    "width_m": 750.0,
+    "depth_m": 1695.0,
+    "look_bearing_deg": 90.0
+  },
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 90.0,

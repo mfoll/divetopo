@@ -10,6 +10,8 @@ from site_config import (
     DEFAULT_RELIEF_EXPOSURE,
     DEFAULT_VERTICAL_EXAGGERATION,
     ROOT,
+    interactive_footprint_bounds,
+    interactive_footprint_corners,
     paths_for,
     validate_config,
 )
@@ -76,12 +78,27 @@ class SiteConfigTests(unittest.TestCase):
                 self.assertEqual(config["final_output_size_px"], [2474, 1712])
                 self.assertEqual(config["map_style_scale"], 2.0)
 
-    def test_pointe_source_edge_uses_documented_depth_limits(self) -> None:
+    def test_pointe_restores_approved_depth_and_site_local_completion(self) -> None:
         configs = {config["slug"]: config for config in self.configs}
         pointe = configs["pointe-au-sel-sec-jaune"]
         self.assertEqual(pointe["max_depth_m"], 40)
-        self.assertEqual(pointe["plan_max_depth_m"], 20)
-        self.assertEqual(pointe["interactive_max_depth_m"], 20)
+        self.assertEqual(pointe["plan_max_depth_m"], 30)
+        self.assertNotIn("interactive_max_depth_m", pointe)
+        self.assertEqual(pointe["view_crop_depth_m"], 1400.0)
+        self.assertEqual(
+            pointe["interactive_footprint_utm40s"],
+            {
+                "center": [321581.5, 7654180.4],
+                "width_m": 1040.0,
+                "depth_m": 1545.0,
+                "look_bearing_deg": 60.0,
+            },
+        )
+        self.assertTrue(pointe["deep_edge_nodata_terrain_fill"])
+        self.assertEqual(
+            pointe["deep_edge_nodata_terrain_min_depth_m"],
+            20.0,
+        )
         self.assertEqual(pointe["relief_mesh_gap_fill_max_area_m2"], 64.0)
         for slug, config in configs.items():
             if slug == "pointe-au-sel-sec-jaune":
@@ -89,12 +106,129 @@ class SiteConfigTests(unittest.TestCase):
             with self.subTest(slug=slug):
                 self.assertNotIn("plan_max_depth_m", config)
                 self.assertNotIn("interactive_max_depth_m", config)
+                self.assertNotIn("interactive_bbox_utm40s", config)
+                self.assertIn("interactive_footprint_utm40s", config)
+                self.assertNotIn("deep_edge_nodata_terrain_fill", config)
+                self.assertNotIn(
+                    "deep_edge_nodata_terrain_min_depth_m",
+                    config,
+                )
                 self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
+
+    def test_static_interactive_center_alignment_is_site_local(self) -> None:
+        self.assertEqual(
+            {
+                config["slug"]
+                for config in self.configs
+                if config.get("interactive_match_static_horizontal_center")
+            },
+            {"passe-hermitage", "pont-rouge-la-tortue"},
+        )
+
+    def test_interactive_visible_width_override_is_site_local(self) -> None:
+        configs = {config["slug"]: config for config in self.configs}
+        self.assertEqual(
+            {
+                slug
+                for slug, config in configs.items()
+                if "interactive_view_visible_width_m" in config
+            },
+            {"cap-homard"},
+        )
+        self.assertEqual(configs["cap-homard"]["view_visible_width_m"], 600.0)
+        self.assertEqual(
+            configs["cap-homard"]["interactive_view_visible_width_m"],
+            540.0,
+        )
+
+    def test_all_sites_use_a_valid_coast_aligned_interactive_footprint(
+        self,
+    ) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                footprint = config["interactive_footprint_utm40s"]
+                self.assertEqual(
+                    footprint["look_bearing_deg"],
+                    config.get("view_bearing_deg", 180.0),
+                )
+                self.assertNotIn("interactive_bbox_utm40s", config)
+                west, south, east, north = interactive_footprint_bounds(
+                    config
+                )
+                context = config["context_bbox_utm40s"]
+                self.assertGreaterEqual(west, context[0])
+                self.assertGreaterEqual(south, context[1])
+                self.assertLessEqual(east, context[2])
+                self.assertLessEqual(north, context[3])
+
+    def test_oriented_footprint_corners_and_bounds(self) -> None:
+        north = {
+            "interactive_footprint_utm40s": {
+                "center": [100.0, 200.0],
+                "width_m": 20.0,
+                "depth_m": 40.0,
+                "look_bearing_deg": 0.0,
+            }
+        }
+        self.assertEqual(
+            interactive_footprint_corners(north),
+            (
+                (90.0, 180.0),
+                (110.0, 180.0),
+                (110.0, 220.0),
+                (90.0, 220.0),
+            ),
+        )
+        diagonal = copy.deepcopy(north)
+        diagonal["interactive_footprint_utm40s"][
+            "look_bearing_deg"
+        ] = 45.0
+        bounds = interactive_footprint_bounds(diagonal)
+        expected_half_span = 30.0 / (2.0 ** 0.5)
+        self.assertAlmostEqual(bounds[0], 100.0 - expected_half_span)
+        self.assertAlmostEqual(bounds[1], 200.0 - expected_half_span)
+        self.assertAlmostEqual(bounds[2], 100.0 + expected_half_span)
+        self.assertAlmostEqual(bounds[3], 200.0 + expected_half_span)
 
     def test_invalid_bbox_is_rejected(self) -> None:
         config = copy.deepcopy(self.configs[0])
         config["focus_bbox_utm40s"] = [0, 0, 10, 10]
         with self.assertRaisesRegex(ValueError, "must contain focus"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config.pop("interactive_footprint_utm40s")
+        config["interactive_bbox_utm40s"] = [0, 0, 10, 10]
+        with self.assertRaisesRegex(ValueError, "must contain interactive"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["interactive_footprint_utm40s"]["center"] = [0, 0]
+        with self.assertRaisesRegex(ValueError, "must contain interactive"):
+            validate_config(config)
+
+    def test_interactive_footprint_rejects_short_or_misaligned_extents(
+        self,
+    ) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["interactive_footprint_utm40s"]["width_m"] = 1.0
+        with self.assertRaisesRegex(ValueError, "1.15 times"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["interactive_footprint_utm40s"]["depth_m"] = 1.0
+        with self.assertRaisesRegex(ValueError, "too short"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["context_bbox_utm40s"] = [
+            config["context_bbox_utm40s"][0] - 100.0,
+            config["context_bbox_utm40s"][1] - 100.0,
+            config["context_bbox_utm40s"][2] + 100.0,
+            config["context_bbox_utm40s"][3] + 100.0,
+        ]
+        config["interactive_footprint_utm40s"]["look_bearing_deg"] += 1.0
+        with self.assertRaisesRegex(ValueError, "must match"):
             validate_config(config)
 
     def test_plan_depth_must_not_exceed_relief_depth(self) -> None:
@@ -113,6 +247,16 @@ class SiteConfigTests(unittest.TestCase):
         config["interactive_max_depth_m"] = config["max_depth_m"]
         validate_config(config)
 
+        config["deep_edge_nodata_terrain_fill"] = True
+        config["deep_edge_nodata_terrain_min_depth_m"] = 20
+        config["interactive_max_depth_m"] = 10
+        with self.assertRaisesRegex(
+            ValueError,
+            "effective interactive depth",
+        ):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
         config["relief_mesh_gap_fill_max_area_m2"] = 0
         with self.assertRaisesRegex(ValueError, "relief_mesh_gap_fill_max_area_m2"):
             validate_config(config)
@@ -121,6 +265,41 @@ class SiteConfigTests(unittest.TestCase):
         config = copy.deepcopy(self.configs[0])
         config["orthphoto_resolution_m"] = 0.2
         with self.assertRaisesRegex(ValueError, "Unknown configuration key"):
+            validate_config(config)
+
+    def test_interactive_static_center_alignment_requires_a_boolean(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["interactive_match_static_horizontal_center"] = "yes"
+        with self.assertRaisesRegex(
+            ValueError,
+            "interactive_match_static_horizontal_center",
+        ):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["deep_edge_nodata_terrain_fill"] = "yes"
+        with self.assertRaisesRegex(
+            ValueError,
+            "deep_edge_nodata_terrain_fill",
+        ):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["deep_edge_nodata_terrain_min_depth_m"] = 10
+        with self.assertRaisesRegex(
+            ValueError,
+            "requires deep_edge_nodata_terrain_fill",
+        ):
+            validate_config(config)
+
+        config["deep_edge_nodata_terrain_fill"] = True
+        config["deep_edge_nodata_terrain_min_depth_m"] = (
+            config["max_depth_m"] + 1
+        )
+        with self.assertRaisesRegex(
+            ValueError,
+            "deep_edge_nodata_terrain_min_depth_m",
+        ):
             validate_config(config)
 
     def test_source_and_credit_strings_reject_wrong_types(self) -> None:

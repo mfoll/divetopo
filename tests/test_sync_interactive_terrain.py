@@ -30,6 +30,7 @@ class InteractiveTerrainSyncTests(unittest.TestCase):
                 "metadata": site_root / "terrain.json",
                 "height": site_root / "height.bin",
                 "validMask": site_root / "valid-mask.bin",
+                "isobathMask": site_root / "isobath-mask.bin",
                 "topographicTexture": site_root / "topographic.webp",
                 "orthophotoTexture": site_root / "orthophoto.webp",
             }
@@ -45,7 +46,7 @@ class InteractiveTerrainSyncTests(unittest.TestCase):
                 for key, path in files.items()
             }
             manifest = {
-                "schemaVersion": 1,
+                "schemaVersion": 2,
                 "sites": [
                     {
                         "slug": "example",
