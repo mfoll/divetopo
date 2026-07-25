@@ -2,8 +2,8 @@ export const regions = [
   {
     slug: "la-reunion",
     name: {
-      fr: "Topo Réunion",
-      en: "Topo Réunion",
+      fr: "La Réunion",
+      en: "Réunion Island",
     },
     location: {
       fr: "Océan Indien",
