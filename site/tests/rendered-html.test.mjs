@@ -58,6 +58,12 @@ function extractFooter(html) {
   return footer;
 }
 
+function extractH1(html) {
+  const heading = html.match(/<h1\b[\s\S]*?<\/h1>/i)?.[0];
+  assert.ok(heading, "expected the rendered page to contain an H1");
+  return visibleText(heading);
+}
+
 function visibleText(html) {
   return html
     .replace(/<!--[\s\S]*?-->/g, "")
@@ -118,6 +124,10 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /Plans des sites de plongée à La Réunion/);
   assert.match(
     html,
+    /<h1 id="topo-reunion-title">Plans des sites de plongée à La Réunion<\/h1>/,
+  );
+  assert.match(
+    html,
     /name="description" content="Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion\."/,
   );
   assert.doesNotMatch(
@@ -174,6 +184,10 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /opaque jusqu’à −1,5 m/);
   assert.match(html, /normales métriques/);
   assert.match(html, /champ d’altitude 16 bits/);
+  assert.match(
+    html,
+    /Le code et les interfaces du site ont été entièrement générés avec l’IA/,
+  );
   assert.match(html, /https:\/\/github\.com\/mfoll\/reunion-topobathy/);
   assert.match(html, /GitHub \(nouvelle fenêtre\)/);
   assert.match(html, /href="#contact">Contact<\/a>/);
@@ -265,6 +279,10 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   assert.match(html, /Dive site maps of Réunion Island/);
   assert.match(
     html,
+    /<h1 id="topo-reunion-title">Dive site maps of Réunion Island<\/h1>/,
+  );
+  assert.match(
+    html,
     /name="description" content="Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island\."/,
   );
   assert.doesNotMatch(
@@ -283,6 +301,10 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   assert.match(html, /Production method/);
   assert.match(html, /Sources and cache validation/);
   assert.match(html, /opaque to −1\.5 m/);
+  assert.match(
+    html,
+    /The code and website interfaces were generated entirely with AI/,
+  );
   assert.match(html, /Safety/);
   assert.match(
     html,
@@ -320,16 +342,21 @@ test("uses the browser language for the English Topo Réunion page", async () =>
 });
 
 test("server-renders an indexable localized page for every published site", async () => {
-  const manifest = JSON.parse(
-    await readFile(
+  const [manifest, siteDetails] = await Promise.all([
+    readFile(
       new URL("../public/maps/manifest.json", import.meta.url),
       "utf8",
-    ),
-  );
+    ).then(JSON.parse),
+    readFile(
+      new URL("../content/site-details.json", import.meta.url),
+      "utf8",
+    ).then(JSON.parse),
+  ]);
 
   for (const language of ["fr", "en"]) {
     for (const site of manifest.sites) {
       const path = `/${language}/sites/${site.slug}`;
+      const content = siteDetails[site.slug].content[language];
       const response = await render(path, {
         "accept-language": language === "fr" ? "en" : "fr",
       });
@@ -344,6 +371,25 @@ test("server-renders an indexable localized page for every published site", asyn
       assert.ok(
         visibleText(html).includes(site.displayName),
         `${path}: expected the selected site name`,
+      );
+      const expectedHeading =
+        language === "fr"
+          ? `Plan du site de plongée ${site.displayName} à La Réunion`
+          : `${site.displayName} dive site map, Réunion Island`;
+      assert.equal(
+        extractH1(html),
+        expectedHeading,
+        `${path}: expected a site-specific H1`,
+      );
+      assert.ok(
+        visibleText(html).includes(content.sentences.join(" ")),
+        `${path}: expected the localized factual site description`,
+      );
+      assert.ok(
+        html.includes(
+          `name="description" content="${content.metadataDescription}"`,
+        ),
+        `${path}: expected the site-specific metadata description`,
       );
       assert.match(
         html,
@@ -368,6 +414,22 @@ test("server-renders an indexable localized page for every published site", asyn
       );
       assert.match(html, /"@type":"Map"/, path);
       assert.match(html, /"@type":"GeoCoordinates"/, path);
+      assert.equal(
+        html.match(/"@type":"ImageObject"/g)?.length,
+        3,
+        `${path}: expected 2D, 3D and printable-sheet ImageObjects`,
+      );
+      assert.match(
+        html,
+        /"creator":\{"@type":"Person","name":"Matthieu Foll"\}/,
+        path,
+      );
+      assert.match(
+        html,
+        /"license":"https:\/\/creativecommons\.org\/licenses\/by-nc-sa\/4\.0\/"/,
+        path,
+      );
+      assert.match(html, /"caption":"/, path);
       assert.match(
         html,
         new RegExp(
@@ -381,6 +443,53 @@ test("server-renders an indexable localized page for every published site", asyn
           `<link rel="alternate" hrefLang="x-default" href="https://reunion\\.divetopo\\.com/sites/${site.slug}"\\/>`,
         ),
         path,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `<dialog(?=[^>]*class="map-dialog")[\\s\\S]*?<img(?=[^>]*src="/maps/${site.slug}/3d-orthophoto-2474\\.webp")(?=[^>]*loading="lazy")[^>]*>`,
+        ),
+        `${path}: expected the hidden full-size map to load lazily`,
+      );
+      assert.match(
+        html,
+        /<dialog(?=[^>]*class="map-dialog overview-dialog")[\s\S]*?<img(?=[^>]*src="\/reunion-overview\.webp")(?=[^>]*loading="lazy")[^>]*>/,
+        `${path}: expected the hidden island overview to load lazily`,
+      );
+    }
+  }
+});
+
+test("keeps complete bilingual factual content for every published site", async () => {
+  const [manifest, siteDetails] = await Promise.all([
+    readFile(
+      new URL("../public/maps/manifest.json", import.meta.url),
+      "utf8",
+    ).then(JSON.parse),
+    readFile(
+      new URL("../content/site-details.json", import.meta.url),
+      "utf8",
+    ).then(JSON.parse),
+  ]);
+
+  assert.deepEqual(
+    new Set(Object.keys(siteDetails)),
+    new Set(manifest.sites.map((site) => site.slug)),
+  );
+
+  for (const site of manifest.sites) {
+    const details = siteDetails[site.slug];
+    assert.equal(details.city, site.location.city);
+    for (const language of ["fr", "en"]) {
+      const content = details.content[language];
+      assert.ok(content);
+      assert.ok(content.sentences.length >= 2);
+      assert.ok(content.sentences.length <= 4);
+      assert.ok(content.sentences.every((sentence) => sentence.trim()));
+      assert.ok(content.metadataDescription.trim());
+      assert.ok(
+        content.metadataDescription.length <= 165,
+        `${site.slug}.${language}: metadata description is too long`,
       );
     }
   }
@@ -462,7 +571,11 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
     (match) => match[1],
   );
+  const imageLocations = [
+    ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
+  ].map((match) => match[1]);
   assert.equal(locations.length, 16);
+  assert.equal(imageLocations.length, 42);
   assert.ok(locations.includes("https://reunion.divetopo.com/fr"));
   assert.ok(locations.includes("https://reunion.divetopo.com/en"));
   assert.ok(
@@ -478,7 +591,15 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.match(sitemap, /hreflang="x-default"/);
   assert.match(
     sitemap,
+    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/2d-orthophoto-1600\.webp/,
+  );
+  assert.match(
+    sitemap,
     /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/3d-orthophoto-1600\.webp/,
+  );
+  assert.match(
+    sitemap,
+    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/planche-orthophoto-1800\.webp/,
   );
 });
 
@@ -1011,4 +1132,44 @@ test("keeps install suggestions delayed, dismissible, and standalone-aware", asy
   assert.match(source, /event\.preventDefault\(\)/);
   assert.match(source, /await promptEvent\.prompt\(\)/);
   assert.match(source, /await promptEvent\.userChoice/);
+});
+
+test("serves nested WebP assets with their image media type", async () => {
+  const wranglerConfig = JSON.parse(
+    await readFile(
+      new URL("../dist/server/wrangler.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.equal(wranglerConfig.assets?.binding, "ASSETS");
+  assert.deepEqual(wranglerConfig.assets?.run_worker_first, ["/*.webp"]);
+
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set(
+    "test",
+    `${process.pid}-${Date.now()}-${Math.random()}`,
+  );
+  const { default: worker } = await import(workerUrl.href);
+
+  const response = await worker.fetch(
+    new Request(
+      "http://localhost/maps/cap-la-houssaye/3d-orthophoto-960.webp",
+    ),
+    {
+      ASSETS: {
+        fetch: async () =>
+          new Response("webp", {
+            headers: { "content-type": "application/octet-stream" },
+          }),
+      },
+    },
+    {
+      waitUntil() {},
+      passThroughOnException() {},
+    },
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/webp");
+  assert.equal(await response.text(), "webp");
 });

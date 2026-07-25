@@ -100,6 +100,8 @@ export default async function LocalizedHomepage({
   ]);
   const language = resolveLanguage(requestedLanguage);
   const canonicalUrl = localizedUrl(language);
+  const overviewImageUrl = `${origin}/reunion-overview.webp`;
+  const overviewImageId = `${overviewImageUrl}#image`;
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -125,6 +127,27 @@ export default async function LocalizedHomepage({
         description: homepageCopy[language].metadataDescription,
         inLanguage: language,
         isPartOf: { "@id": `${origin}/#website` },
+        primaryImageOfPage: { "@id": overviewImageId },
+      },
+      {
+        "@type": "ImageObject",
+        "@id": overviewImageId,
+        contentUrl: overviewImageUrl,
+        url: overviewImageUrl,
+        caption:
+          language === "fr"
+            ? "Relief terrestre et sous-marin de l’île de La Réunion."
+            : "Land and underwater terrain around Réunion Island.",
+        creator: {
+          "@type": "Person",
+          name: "Matthieu Foll",
+        },
+        creditText: "DiveTopo",
+        copyrightNotice: "© 2026 Matthieu Foll",
+        license:
+          "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en",
+        acquireLicensePage:
+          "https://github.com/mfoll/reunion-topobathy/blob/main/LICENSE-MAPS.md",
       },
     ],
   };

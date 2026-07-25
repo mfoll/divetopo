@@ -1,23 +1,149 @@
 {
   "cap-la-houssaye": {
-    "city": "Saint-Paul"
+    "city": "Saint-Paul",
+    "content": {
+      "fr": {
+        "sentences": [
+          "À Saint-Paul, cette carte couvre les deux pointes du Cap La Houssaye et les reliefs sous-marins qui les prolongent.",
+          "Elle représente les fonds jusqu’à −20 m, avec un plateau côtier découpé, des ravines sous-marines et plusieurs petits hauts-fonds isolés.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plan 2D, vue 3D et relief interactif du Cap La Houssaye à Saint-Paul, montrant son plateau côtier, ses ravines et ses fonds jusqu’à −20 m."
+      },
+      "en": {
+        "sentences": [
+          "In Saint-Paul, this map covers the two headlands of Cap La Houssaye and the underwater terrain extending from them.",
+          "It shows depths to −20 m, including an indented coastal platform, underwater gullies and several small isolated shoals.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "2D map, 3D view and interactive terrain of Cap La Houssaye in Saint-Paul, showing its coastal platform, gullies and depths to −20 m."
+      }
+    }
   },
   "cap-homard": {
-    "city": "Saint-Paul"
+    "city": "Saint-Paul",
+    "content": {
+      "fr": {
+        "sentences": [
+          "Cette carte couvre le Cap Homard, également appelé Cap de Tonton dans les sources du projet, à Saint-Paul.",
+          "Elle représente les fonds jusqu’à −30 m, avec une large bande côtière peu profonde, une rupture de pente progressive et de petits reliefs sur le versant.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plans 2D et 3D du Cap Homard, ou Cap de Tonton, à Saint-Paul : bande côtière, pente sous-marine et relief interactif jusqu’à −30 m."
+      },
+      "en": {
+        "sentences": [
+          "This map covers Cap Homard, also called Cap de Tonton in the project sources, in Saint-Paul.",
+          "It shows depths to −30 m, with a broad shallow coastal band, a gradual break in slope and small features across the underwater hillside.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "2D and 3D maps of Cap Homard, or Cap de Tonton, in Saint-Paul, with its coastal band, underwater slope and interactive terrain to −30 m."
+      }
+    }
   },
   "boucan-canot": {
-    "city": "Saint-Paul"
+    "city": "Saint-Paul",
+    "content": {
+      "fr": {
+        "sentences": [
+          "À Saint-Paul, la carte de Boucan Canot couvre la bordure récifale au large de la piscine naturelle.",
+          "Elle suit les fonds jusqu’à −30 m, depuis le large plateau peu profond jusqu’à une pente irrégulière ponctuée de petits reliefs.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plans 2D et 3D de Boucan Canot à Saint-Paul, de la piscine naturelle à la pente récifale, avec relief interactif et profondeurs jusqu’à −30 m."
+      },
+      "en": {
+        "sentences": [
+          "In Saint-Paul, the Boucan Canot map covers the reef edge offshore from the natural swimming pool.",
+          "It follows the seabed to −30 m, from the broad shallow platform to an irregular slope dotted with smaller features.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "2D and 3D maps of Boucan Canot in Saint-Paul, from the natural pool to the reef slope, with interactive terrain and depths to −30 m."
+      }
+    }
   },
   "passe-hermitage": {
-    "city": "Saint-Paul"
+    "city": "Saint-Paul",
+    "content": {
+      "fr": {
+        "sentences": [
+          "À Saint-Paul, cette carte suit la Passe de l’Hermitage depuis le lagon et la bordure récifale jusqu’au versant externe.",
+          "Les fonds sont représentés jusqu’à −30 m et montrent un chenal encaissé entre des reliefs récifaux, puis une pente plus profonde et irrégulière.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plans 2D et 3D de la Passe de l’Hermitage à Saint-Paul, montrant le chenal récifal, le versant externe et le relief interactif jusqu’à −30 m."
+      },
+      "en": {
+        "sentences": [
+          "In Saint-Paul, this map follows Passe de l’Hermitage from the lagoon and reef edge to the outer slope.",
+          "The seabed is shown to −30 m, revealing a channel enclosed by reef terrain before it opens onto a deeper, irregular slope.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "2D and 3D maps of Passe de l’Hermitage in Saint-Paul, showing the reef channel, outer slope and interactive terrain to −30 m."
+      }
+    }
   },
   "pont-rouge-la-tortue": {
-    "city": "Saint-Leu"
+    "city": "Saint-Leu",
+    "content": {
+      "fr": {
+        "sentences": [
+          "Cette carte couvre Pont Rouge à Saint-Leu, également référencé comme La Tortue dans les sources du projet.",
+          "Elle représente les fonds jusqu’à −20 m, avec un plateau côtier peu profond, une avancée sous-marine marquée et la pente qui l’entoure.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plans 2D et 3D de Pont Rouge, ou La Tortue, à Saint-Leu : plateau côtier, avancée sous-marine et relief interactif jusqu’à −20 m."
+      },
+      "en": {
+        "sentences": [
+          "This map covers Pont Rouge in Saint-Leu, also referred to as La Tortue in the project sources.",
+          "It shows depths to −20 m, with a shallow coastal platform, a prominent underwater projection and the slope surrounding it.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "2D and 3D maps of Pont Rouge, or La Tortue, in Saint-Leu, with its coastal platform, underwater projection and interactive terrain to −20 m."
+      }
+    }
   },
   "plage-cimetiere-saint-leu": {
-    "city": "Saint-Leu"
+    "city": "Saint-Leu",
+    "content": {
+      "fr": {
+        "sentences": [
+          "Cette carte est centrée sur la Plage du Cimetière à Saint-Leu ; elle ne concerne pas le site bateau « Le Cimetière » près de la Pointe des Aigrettes.",
+          "Elle représente les fonds jusqu’à −30 m, avec une bande côtière peu profonde et un versant sous-marin allongé, rythmé par plusieurs ruptures de pente.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plans 2D et 3D de la Plage du Cimetière à Saint-Leu, distincte du site bateau des Aigrettes, avec relief interactif jusqu’à −30 m."
+      },
+      "en": {
+        "sentences": [
+          "This map is centred on Plage du Cimetière in Saint-Leu; it is not the boat site called Le Cimetière near Pointe des Aigrettes.",
+          "It shows depths to −30 m, with a shallow coastal band and an elongated underwater slope marked by several changes in gradient.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "2D and 3D maps of Plage du Cimetière in Saint-Leu, distinct from the Aigrettes boat site, with interactive terrain to −30 m."
+      }
+    }
   },
   "pointe-au-sel-sec-jaune": {
-    "city": "Saint-Leu"
+    "city": "Saint-Leu",
+    "content": {
+      "fr": {
+        "sentences": [
+          "Cette carte couvre la Pointe au Sel et le Sec Jaune, à Saint-Leu.",
+          "Le plan 2D représente les fonds jusqu’à −30 m et les reliefs 3D jusqu’à −40 m, en montrant le sec, les prolongements rocheux vers le sud et le début du tombant au nord.",
+          "Le site est présenté en plan 2D, en perspective 3D, en relief interactif et sur deux planches imprimables."
+        ],
+        "metadataDescription": "Plans de la Pointe au Sel et du Sec Jaune à Saint-Leu : plan 2D jusqu’à −30 m, relief 3D jusqu’à −40 m, prolongements rocheux et tombant."
+      },
+      "en": {
+        "sentences": [
+          "This map covers Pointe au Sel and the Sec Jaune shoal in Saint-Leu.",
+          "The 2D map shows depths to −30 m and the 3D terrain extends to −40 m, revealing the shoal, rocky extensions to the south and the start of the drop-off to the north.",
+          "The site is presented as a 2D map, a 3D perspective, interactive terrain and two printable map sheets."
+        ],
+        "metadataDescription": "Maps of Pointe au Sel and Sec Jaune in Saint-Leu: 2D to −30 m, 3D terrain to −40 m, southern rocky extensions and northern drop-off."
+      }
+    }
   }
 }

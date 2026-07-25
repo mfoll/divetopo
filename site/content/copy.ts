@@ -152,6 +152,8 @@ export const topoReunionCopy = {
       ],
       methodLabel: "Traitement cartographique",
       methodTitle: "Méthode de production",
+      aiDisclosure:
+        "Le code et les interfaces du site ont été entièrement générés avec l’IA, sous direction humaine, puis contrôlés visuellement et validés par rapport aux données sources.",
       methodSteps: [
         {
           title: "Sources et contrôle du cache",
@@ -341,6 +343,8 @@ export const topoReunionCopy = {
       ],
       methodLabel: "Cartographic processing",
       methodTitle: "Production method",
+      aiDisclosure:
+        "The code and website interfaces were generated entirely with AI under human direction, then visually reviewed and validated against the source data.",
       methodSteps: [
         {
           title: "Sources and cache validation",

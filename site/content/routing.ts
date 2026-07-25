@@ -1,9 +1,16 @@
 import { topoReunionCopy } from "./copy";
 import type { Language } from "./preferences";
 import mapManifestJson from "../public/maps/manifest.json";
+import siteDetailsJson from "./site-details.json";
 
 export const TOPO_REUNION_ORIGIN = "https://reunion.divetopo.com";
 export const SUPPORTED_LANGUAGES = ["fr", "en"] as const;
+
+type AssetVariant = {
+  src: string;
+  width: number;
+  height: number;
+};
 
 type PublishedSite = {
   slug: string;
@@ -13,14 +20,19 @@ type PublishedSite = {
     latitude: number;
     longitude: number;
   };
+  maxDepthM: number;
+  planMaxDepthM: number;
+  plateAuthor: string;
+  copyrightYear: number;
+  mapLicense: string;
   maps: Array<{
     view: "2d" | "3d";
     style: "topographic" | "orthophoto";
-    variants: Array<{
-      src: string;
-      width: number;
-      height: number;
-    }>;
+    variants: AssetVariant[];
+  }>;
+  planches: Array<{
+    style: "topographic" | "orthophoto";
+    preview: AssetVariant;
   }>;
 };
 
@@ -28,13 +40,45 @@ type PublishedMapManifest = {
   sites: PublishedSite[];
 };
 
+type LocalizedSiteContent = {
+  sentences: string[];
+  metadataDescription: string;
+};
+
+type SiteDetails = {
+  city: string;
+  content: Record<Language, LocalizedSiteContent>;
+};
+
 const mapManifest = mapManifestJson as PublishedMapManifest;
+const siteDetails = siteDetailsJson as Record<string, SiteDetails>;
 
 export const publishedSites = mapManifest.sites;
 export const defaultSite = publishedSites[0];
 
 if (!defaultSite) {
   throw new Error("Topo Réunion requires at least one published site");
+}
+
+for (const site of publishedSites) {
+  const details = siteDetails[site.slug];
+  if (!details) {
+    throw new Error(`Missing website content for ${site.slug}`);
+  }
+  if (details.city !== site.location.city) {
+    throw new Error(`Municipality mismatch for ${site.slug}`);
+  }
+  for (const language of SUPPORTED_LANGUAGES) {
+    const content = details.content[language];
+    if (
+      !content ||
+      content.sentences.length < 2 ||
+      content.sentences.length > 4 ||
+      !content.metadataDescription.trim()
+    ) {
+      throw new Error(`Incomplete ${language} website content for ${site.slug}`);
+    }
+  }
 }
 
 export function isLanguage(value: string): value is Language {
@@ -91,41 +135,61 @@ export function parseTopoRoute(pathname: string): TopoRoute | null {
 export function regionalSeoText(language: Language) {
   const copy = topoReunionCopy[language];
   return {
+    heading: copy.topoReunionTitle,
     title: copy.topoReunionTitle,
     description: copy.metadataDescription,
     socialAlt: copy.topoReunionTitle,
   };
 }
 
+export function siteContentText(language: Language, slug: string) {
+  const content = siteDetails[slug]?.content[language];
+  if (!content) {
+    throw new Error(`Missing ${language} website content for ${slug}`);
+  }
+  return content;
+}
+
 export function siteSeoText(language: Language, site: PublishedSite) {
+  const content = siteContentText(language, site.slug);
+
   if (language === "fr") {
+    const heading =
+      `Plan du site de plongée ${site.displayName} à La Réunion`;
     return {
-      title:
-        `Plan du site de plongée ${site.displayName} à La Réunion | DiveTopo`,
-      description:
-        `Explorez les plans topo-bathymétriques 2D, la vue 3D et le relief ` +
-        `interactif de ${site.displayName}, ${site.location.city}, à La Réunion.`,
+      heading,
+      title: `${heading} | DiveTopo`,
+      description: content.metadataDescription,
       socialAlt: `Vue 3D du relief de ${site.displayName} à La Réunion`,
     };
   }
 
+  const heading =
+    `${site.displayName} dive site map, Réunion Island`;
   return {
-    title: `${site.displayName} dive site map, Réunion Island | DiveTopo`,
-    description:
-      `Explore 2D topographic-bathymetric maps, a 3D view and interactive ` +
-      `terrain for ${site.displayName}, ${site.location.city}, Réunion Island.`,
+    heading,
+    title: `${heading} | DiveTopo`,
+    description: content.metadataDescription,
     socialAlt: `3D terrain view of ${site.displayName}, Réunion Island`,
   };
 }
 
-export function siteSocialImage(site: PublishedSite) {
+function mapImage(
+  site: PublishedSite,
+  view: "2d" | "3d",
+): AssetVariant | undefined {
   const map = site.maps.find(
     (candidate) =>
-      candidate.view === "3d" && candidate.style === "orthophoto",
+      candidate.view === view && candidate.style === "orthophoto",
   );
-  const image =
+  return (
     map?.variants.find((candidate) => candidate.width === 1600) ??
-    map?.variants.at(-1);
+    map?.variants.at(-1)
+  );
+}
+
+export function siteSocialImage(site: PublishedSite) {
+  const image = mapImage(site, "3d");
 
   if (!image) {
     return {
@@ -136,4 +200,63 @@ export function siteSocialImage(site: PublishedSite) {
   }
 
   return image;
+}
+
+export function siteRepresentativeImages(
+  language: Language,
+  site: PublishedSite,
+) {
+  const twoD = mapImage(site, "2d");
+  const threeD = mapImage(site, "3d");
+  const plate = site.planches.find(
+    (candidate) => candidate.style === "orthophoto",
+  )?.preview;
+
+  if (!twoD || !threeD || !plate) {
+    throw new Error(`Missing representative images for ${site.slug}`);
+  }
+
+  if (language === "fr") {
+    return [
+      {
+        ...twoD,
+        caption:
+          `Plan topo-bathymétrique 2D de ${site.displayName} avec vue ` +
+          `aérienne, jusqu’à −${site.planMaxDepthM} m.`,
+      },
+      {
+        ...threeD,
+        caption:
+          `Perspective topo-bathymétrique 3D de ${site.displayName} avec ` +
+          `vue aérienne, jusqu’à −${site.maxDepthM} m.`,
+      },
+      {
+        ...plate,
+        caption:
+          `Planche imprimable de ${site.displayName} réunissant la ` +
+          `localisation, le plan 2D et la perspective 3D.`,
+      },
+    ];
+  }
+
+  return [
+    {
+      ...twoD,
+      caption:
+        `2D topographic-bathymetric map of ${site.displayName} with ` +
+        `aerial imagery, to −${site.planMaxDepthM} m.`,
+    },
+    {
+      ...threeD,
+      caption:
+        `3D topographic-bathymetric perspective of ${site.displayName} ` +
+        `with aerial imagery, to −${site.maxDepthM} m.`,
+    },
+    {
+      ...plate,
+      caption:
+        `Printable map sheet for ${site.displayName}, combining the ` +
+        `island locator, 2D map and 3D perspective.`,
+    },
+  ];
 }

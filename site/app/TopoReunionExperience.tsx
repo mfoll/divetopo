@@ -17,6 +17,7 @@ import {
   localizedSitePath,
   parseTopoRoute,
   regionalSeoText,
+  siteContentText,
   siteSeoText,
 } from "../content/routing";
 import mapManifestJson from "../public/maps/manifest.json";
@@ -375,17 +376,20 @@ export function TopoReunionExperience({
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
+  const pageSeoText = hasSiteRoute
+    ? siteSeoText(language, activeSite)
+    : regionalSeoText(language);
+  const pageTitle = pageSeoText.title;
+  const pageDescription = pageSeoText.description;
+  const activeSiteContent = siteContentText(language, activeSite.slug);
 
   useEffect(() => {
-    const seoText = hasSiteRoute
-      ? siteSeoText(language, activeSite)
-      : regionalSeoText(language);
-    document.documentElement.lang = language;
-    document.title = seoText.title;
+    document.documentElement.setAttribute("lang", language);
+    document.querySelector("title")?.replaceChildren(pageTitle);
     document
       .querySelector('meta[name="description"]')
-      ?.setAttribute("content", seoText.description);
-  }, [activeSite, hasSiteRoute, language]);
+      ?.setAttribute("content", pageDescription);
+  }, [language, pageDescription, pageTitle]);
 
   useEffect(() => {
     function restoreRouteFromHistory() {
@@ -521,8 +525,17 @@ export function TopoReunionExperience({
           id="topo-reunion"
           aria-labelledby="topo-reunion-title"
         >
-          <div className="topo-reunion-intro">
-            <h1 id="topo-reunion-title">{text.topoReunionTitle}</h1>
+          <div
+            className={
+              `topo-reunion-intro${hasSiteRoute ? " is-site-route" : ""}`
+            }
+          >
+            <h1 id="topo-reunion-title">{pageSeoText.heading}</h1>
+            {hasSiteRoute ? (
+              <p className="site-introduction">
+                {activeSiteContent.sentences.join(" ")}
+              </p>
+            ) : null}
           </div>
 
           <div className="topo-reunion-workspace">
@@ -701,6 +714,9 @@ export function TopoReunionExperience({
             <div>
               <span className="method-label">{text.sources.methodLabel}</span>
               <h3>{text.sources.methodTitle}</h3>
+              <p className="method-ai-disclosure">
+                {text.sources.aiDisclosure}
+              </p>
             </div>
             <ul>
               {text.sources.methodSteps.map((step) => (
@@ -816,6 +832,7 @@ export function TopoReunionExperience({
           src={mapLargest.src}
           width={mapLargest.width}
           height={mapLargest.height}
+          loading="lazy"
           alt={mapAlt}
         />
       </dialog>
@@ -838,6 +855,7 @@ export function TopoReunionExperience({
             src={mapManifest.reunionOverview.src}
             width={mapManifest.reunionOverview.width}
             height={mapManifest.reunionOverview.height}
+            loading="lazy"
             alt={text.dialogs.islandOverviewAlt}
           />
           <span className="reunion-overview-extent" aria-hidden="true" />

@@ -7,6 +7,7 @@ import {
   localizedSitePath,
   publishedSites,
   regionalSeoText,
+  siteRepresentativeImages,
   siteSeoText,
   siteSocialImage,
   TOPO_REUNION_ORIGIN,
@@ -187,11 +188,34 @@ export function SiteStructuredData({
 }) {
   const text = siteSeoText(language, site);
   const pageUrl = absoluteUrl(localizedSitePath(language, site.slug));
-  const imageUrl = absoluteUrl(siteSocialImage(site).src);
   const placeName =
     language === "fr"
       ? `${site.displayName}, ${site.location.city}, La Réunion`
       : `${site.displayName}, ${site.location.city}, Réunion Island`;
+  const imageObjects = siteRepresentativeImages(language, site).map(
+    (image, index) => ({
+      "@type": "ImageObject",
+      contentUrl: absoluteUrl(image.src),
+      url: absoluteUrl(image.src),
+      width: image.width,
+      height: image.height,
+      encodingFormat: "image/webp",
+      caption: image.caption,
+      creator: {
+        "@type": "Person",
+        name: site.plateAuthor,
+      },
+      creditText:
+        `© ${site.copyrightYear} ${site.plateAuthor} · ${site.mapLicense}`,
+      copyrightNotice:
+        `© ${site.copyrightYear} ${site.plateAuthor}`,
+      license:
+        "https://creativecommons.org/licenses/by-nc-sa/4.0/",
+      acquireLicensePage:
+        "https://github.com/mfoll/reunion-topobathy/blob/main/LICENSE-MAPS.md",
+      representativeOfPage: index === 1,
+    }),
+  );
 
   const data = {
     "@context": "https://schema.org",
@@ -200,7 +224,7 @@ export function SiteStructuredData({
     name: text.title,
     description: text.description,
     url: pageUrl,
-    image: imageUrl,
+    image: imageObjects,
     inLanguage: language,
     author: {
       "@type": "Person",

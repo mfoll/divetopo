@@ -152,6 +152,7 @@ export default function HomepageExperience({
               CC BY-NC-SA 4.0
             </a>
           </p>
+          <p>{text.footer.aiGenerated}</p>
           <p className="footer-credit">{text.footer.credit}</p>
         </div>
         <a href="#top">{text.footer.backToTop}</a>

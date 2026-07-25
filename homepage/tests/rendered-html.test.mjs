@@ -98,6 +98,13 @@ test("server-renders the French homepage with Auto theme by default", async () =
   );
   assert.match(html, /type="application\/ld\+json"/);
   assert.match(html, /"@type":"WebPage"/);
+  assert.match(html, /"@type":"ImageObject"/);
+  assert.match(html, /"primaryImageOfPage"/);
+  assert.match(html, /"creditText":"DiveTopo"/);
+  assert.match(
+    html,
+    /"acquireLicensePage":"https:\/\/github\.com\/mfoll\/reunion-topobathy\/blob\/main\/LICENSE-MAPS\.md"/,
+  );
   assert.match(html, /"inLanguage":"fr"/);
   assert.match(
     html,
@@ -162,6 +169,7 @@ test("server-renders the French homepage with Auto theme by default", async () =
   );
   assert.match(footer, /IGN RGE ALTI/);
   assert.match(footer, /GEBCO Compilation Group \(2024\)/);
+  assert.match(footer, /Site et code entièrement générés avec l’IA/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });
 
@@ -221,6 +229,7 @@ test("uses the browser language for the English version", async () => {
     footer,
     /href="https:\/\/creativecommons\.org\/licenses\/by-nc-sa\/4\.0\/deed\.en"[^>]*>CC BY-NC-SA 4\.0<\/a>/,
   );
+  assert.match(footer, /Site and code generated entirely with AI/);
 });
 
 test("respects Accept-Language quality weights and exclusions", async () => {
@@ -395,6 +404,10 @@ test("publishes crawlable robots and localized sitemap routes", async () => {
   assert.match(sitemap, /hreflang="fr"/);
   assert.match(sitemap, /hreflang="en"/);
   assert.match(sitemap, /hreflang="x-default"/);
+  assert.match(
+    sitemap,
+    /<image:image>\s*<image:loc>https:\/\/divetopo\.com\/reunion-overview\.webp<\/image:loc>\s*<\/image:image>/,
+  );
 });
 
 test("ships a scoped standalone manifest and correctly sized PNG icons", async () => {
@@ -465,4 +478,39 @@ test("keeps install suggestions delayed, dismissible, and standalone-aware", asy
   assert.match(source, /event\.preventDefault\(\)/);
   assert.match(source, /await promptEvent\.prompt\(\)/);
   assert.match(source, /await promptEvent\.userChoice/);
+});
+
+test("serves WebP assets with their image media type", async () => {
+  const wranglerConfig = JSON.parse(
+    await readFile(
+      new URL("../dist/server/wrangler.json", import.meta.url),
+      "utf8",
+    ),
+  );
+  assert.equal(wranglerConfig.assets?.binding, "ASSETS");
+  assert.deepEqual(wranglerConfig.assets?.run_worker_first, ["/*.webp"]);
+
+  const workerUrl = new URL("../dist/server/index.js", import.meta.url);
+  workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${Math.random()}`);
+  const { default: worker } = await import(workerUrl.href);
+
+  const response = await worker.fetch(
+    new Request("http://localhost/reunion-overview.webp"),
+    {
+      ASSETS: {
+        fetch: async () =>
+          new Response("webp", {
+            headers: { "content-type": "application/octet-stream" },
+          }),
+      },
+    },
+    {
+      waitUntil() {},
+      passThroughOnException() {},
+    },
+  );
+
+  assert.equal(response.status, 200);
+  assert.equal(response.headers.get("content-type"), "image/webp");
+  assert.equal(await response.text(), "webp");
 });

@@ -5,7 +5,7 @@ import {
   languagePath,
   localizedSitePath,
   publishedSites,
-  siteSocialImage,
+  siteRepresentativeImages,
 } from "../content/routing";
 
 export default function sitemap(): MetadataRoute.Sitemap {
@@ -36,6 +36,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       en: absoluteUrl(localizedSitePath("en", site.slug)),
       "x-default": absoluteUrl(defaultSitePath(site.slug)),
     };
+    const images = siteRepresentativeImages("fr", site).map((image) =>
+      absoluteUrl(image.src),
+    );
 
     return [
       {
@@ -43,14 +46,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         changeFrequency: "monthly" as const,
         priority: 0.8,
         alternates: { languages },
-        images: [absoluteUrl(siteSocialImage(site).src)],
+        images,
       },
       {
         url: languages.en,
         changeFrequency: "monthly" as const,
         priority: 0.8,
         alternates: { languages },
-        images: [absoluteUrl(siteSocialImage(site).src)],
+        images,
       },
     ];
   });

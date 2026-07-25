@@ -36,6 +36,7 @@ export const homepageCopy = {
       codeLicense: "code sous licence",
       mitLicense: "MIT",
       mapsLicense: "cartes sous licence",
+      aiGenerated: "Site et code entièrement générés avec l’IA.",
       credit:
         "Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
       backToTop: "Haut de page",
@@ -85,6 +86,7 @@ export const homepageCopy = {
       codeLicense: "code under the",
       mitLicense: "MIT License",
       mapsLicense: "maps under",
+      aiGenerated: "Site and code generated entirely with AI.",
       credit:
         "Island topography and bathymetry: IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
       backToTop: "Back to top",

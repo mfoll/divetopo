@@ -11,6 +11,7 @@ const languageAlternates = {
 export default function sitemap(): MetadataRoute.Sitemap {
   return LANGUAGES.map((language) => ({
     url: `${origin}/${language}`,
+    images: [`${origin}/reunion-overview.webp`],
     alternates: {
       languages: languageAlternates,
     },

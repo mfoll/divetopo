@@ -206,7 +206,7 @@ def reunion_overview_record() -> dict[str, Any]:
     }
 
 
-def load_site_details() -> dict[str, dict[str, str]]:
+def load_site_details() -> dict[str, dict[str, Any]]:
     with SITE_DETAILS_PATH.open(encoding="utf-8") as stream:
         details = json.load(stream)
     if not isinstance(details, dict):
@@ -214,6 +214,39 @@ def load_site_details() -> dict[str, dict[str, str]]:
     for slug, item in details.items():
         if not isinstance(item, dict) or not str(item.get("city", "")).strip():
             raise ValueError(f"{SITE_DETAILS_PATH}: {slug!r} requires a non-empty city")
+        content = item.get("content")
+        if not isinstance(content, dict):
+            raise ValueError(f"{SITE_DETAILS_PATH}: {slug!r} requires localized content")
+        for language in ("fr", "en"):
+            localized = content.get(language)
+            sentences = (
+                localized.get("sentences")
+                if isinstance(localized, dict)
+                else None
+            )
+            metadata_description = (
+                localized.get("metadataDescription")
+                if isinstance(localized, dict)
+                else None
+            )
+            if not isinstance(sentences, list) or not 2 <= len(sentences) <= 4:
+                raise ValueError(
+                    f"{SITE_DETAILS_PATH}: {slug!r}.{language} requires 2 to 4 sentences"
+                )
+            if any(
+                not isinstance(sentence, str) or not sentence.strip()
+                for sentence in sentences
+            ):
+                raise ValueError(
+                    f"{SITE_DETAILS_PATH}: {slug!r}.{language} contains an empty sentence"
+                )
+            if (
+                not isinstance(metadata_description, str)
+                or not metadata_description.strip()
+            ):
+                raise ValueError(
+                    f"{SITE_DETAILS_PATH}: {slug!r}.{language} requires metadataDescription"
+                )
     return details
 
 

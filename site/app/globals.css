@@ -489,6 +489,19 @@ img {
   text-wrap: balance;
 }
 
+.topo-reunion-intro.is-site-route h1 {
+  font-size: clamp(2.2rem, 3.3vw, 3.8rem);
+  max-width: 28ch;
+}
+
+.site-introduction {
+  color: var(--ink-soft);
+  font-size: clamp(0.92rem, 1.05vw, 1.08rem);
+  line-height: 1.58;
+  margin: clamp(1rem, 1.5vw, 1.4rem) 0 0;
+  max-width: 78ch;
+}
+
 .topo-reunion-workspace {
   align-items: start;
   display: grid;
@@ -1583,6 +1596,14 @@ img {
   font-size: clamp(1.35rem, 2vw, 2rem);
   line-height: 1.1;
   max-width: 20ch;
+}
+
+.method-ai-disclosure {
+  color: rgba(255, 255, 255, 0.58);
+  font-size: 0.7rem;
+  line-height: 1.55;
+  margin: 1rem 0 0;
+  max-width: 34rem;
 }
 
 .method-panel ul {
