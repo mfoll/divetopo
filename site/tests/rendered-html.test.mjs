@@ -658,27 +658,46 @@ test("interactive terrain provides an iOS-safe fullscreen fallback", async () =>
     terrainViewer,
     /cancelAnimationFrame\(fullscreenRecoveryFrameRef\.current\)/,
   );
-  assert.match(terrainViewer, /resizeTerrainRef\.current\?\.\(\)/);
+  assert.match(terrainViewer, /resizeTerrainRef\.current\?\.\(true\)/);
+  assert.match(
+    terrainViewer,
+    /window\.addEventListener\("orientationchange", scheduleViewportRecovery\)/,
+  );
+  assert.match(
+    terrainViewer,
+    /window\.visualViewport\?\.addEventListener\(\s*"resize",\s*scheduleViewportRecovery/s,
+  );
+  assert.match(
+    terrainViewer,
+    /window\.addEventListener\("pageshow", scheduleViewportRecovery\)/,
+  );
+  assert.match(terrainViewer, /for \(const delayMs of \[120, 350, 750\]\)/);
+  assert.match(terrainViewer, /const resize = \(force = false\)/);
+  assert.match(terrainViewer, /if \(!force && dimensionsAreUnchanged\) return/);
+  assert.match(
+    terrainViewer,
+    /currentRenderer\.setSize\(widthPx - 1, heightPx, false\)/,
+  );
   assert.match(terrainViewer, /force-css-fullscreen/);
   assert.match(terrainViewer, /event\.key === "Escape"/);
   assert.match(terrainViewer, /aria-pressed=\{isFullscreen\}/);
   assert.match(styles, /\.terrain-host\.is-css-fullscreen/);
   assert.match(styles, /\.viewer-frame\.has-css-fullscreen/);
-  assert.match(
+  assert.doesNotMatch(
     styles,
     /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*position:\s*fixed/s,
   );
-  assert.doesNotMatch(
+  assert.match(
     styles,
     /\.terrain-host\.is-css-fullscreen\s*\{[^}]*position:\s*fixed/s,
   );
   assert.match(
     styles,
-    /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*height:\s*100dvh/s,
+    /\.terrain-host:fullscreen,\s*\.terrain-host\.is-css-fullscreen\s*\{[^}]*height:\s*100dvh/s,
   );
   assert.match(
     styles,
-    /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*overflow:\s*hidden/s,
+    /\.viewer-frame\.has-css-fullscreen\s*\{[^}]*overflow:\s*visible/s,
   );
   assert.match(styles, /safe-area-inset-top/);
   assert.match(styles, /safe-area-inset-bottom/);
