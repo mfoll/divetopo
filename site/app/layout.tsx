@@ -22,7 +22,9 @@ const metadataCopy = {
 
 export const viewport: Viewport = {
   initialScale: 1,
-  width: "device-width",
+  // Vinext 0.0.50 does not yet serialize Viewport.viewportFit. Keeping the
+  // directive in the width string produces one valid viewport meta tag.
+  width: "device-width, viewport-fit=cover",
 };
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -49,7 +51,7 @@ export async function generateMetadata(): Promise<Metadata> {
     appleWebApp: {
       capable: true,
       title: "DiveTopo",
-      statusBarStyle: "default",
+      statusBarStyle: "black-translucent",
     },
     other: {
       "apple-mobile-web-app-capable": "yes",

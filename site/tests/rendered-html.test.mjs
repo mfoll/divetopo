@@ -754,6 +754,14 @@ test("advertises the standalone DiveTopo app identity in server-rendered metadat
   );
   assert.match(
     html,
+    /<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"\/>/,
+  );
+  assert.match(
+    html,
+    /<meta name="viewport" content="[^"]*viewport-fit=cover[^"]*"\/>/,
+  );
+  assert.match(
+    html,
     /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png" sizes="180x180" type="image\/png"\/>/,
   );
   assert.match(
