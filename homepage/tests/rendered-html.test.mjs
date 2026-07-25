@@ -488,21 +488,33 @@ test("serves WebP assets with their image media type", async () => {
     ),
   );
   assert.equal(wranglerConfig.assets?.binding, "ASSETS");
-  assert.deepEqual(wranglerConfig.assets?.run_worker_first, ["/*.webp"]);
+  assert.equal(wranglerConfig.assets?.run_worker_first, true);
 
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${Math.random()}`);
   const { default: worker } = await import(workerUrl.href);
 
+  const assets = {
+    fetch: async (request) => {
+      const pathname = new URL(request.url).pathname;
+      if (pathname.endsWith(".webp")) {
+        return new Response("webp", {
+          headers: { "content-type": "application/octet-stream" },
+        });
+      }
+      if (pathname.endsWith(".css")) {
+        return new Response("css", {
+          headers: { "content-type": "text/css" },
+        });
+      }
+      return new Response("missing", { status: 404 });
+    },
+  };
+
   const response = await worker.fetch(
     new Request("http://localhost/reunion-overview.webp"),
     {
-      ASSETS: {
-        fetch: async () =>
-          new Response("webp", {
-            headers: { "content-type": "application/octet-stream" },
-          }),
-      },
+      ASSETS: assets,
     },
     {
       waitUntil() {},
@@ -513,4 +525,17 @@ test("serves WebP assets with their image media type", async () => {
   assert.equal(response.status, 200);
   assert.equal(response.headers.get("content-type"), "image/webp");
   assert.equal(await response.text(), "webp");
+
+  const cssResponse = await worker.fetch(
+    new Request("http://localhost/assets/index.css"),
+    { ASSETS: assets },
+    {
+      waitUntil() {},
+      passThroughOnException() {},
+    },
+  );
+
+  assert.equal(cssResponse.status, 200);
+  assert.equal(cssResponse.headers.get("content-type"), "text/css");
+  assert.equal(await cssResponse.text(), "css");
 });
