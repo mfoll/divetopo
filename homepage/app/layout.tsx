@@ -20,7 +20,7 @@ const metadataCopy = {
       "Explore topographic and bathymetric maps of dive sites, region by region.",
     socialTitle: "DiveTopo · Underwater terrain, region by region",
     socialDescription:
-      "2D plans, 3D views and interactive terrain for selected dive sites.",
+      "2D maps, 3D views and interactive terrain for selected dive sites.",
     socialAlt: "DiveTopo, dive site maps",
     locale: "en_GB",
   },
@@ -72,7 +72,7 @@ export async function generateMetadata(): Promise<Metadata> {
       card: "summary_large_image",
       title: text.socialTitle,
       description: text.socialDescription,
-      images: [socialImage],
+      images: [{ url: socialImage, alt: text.socialAlt }],
     },
   };
 }

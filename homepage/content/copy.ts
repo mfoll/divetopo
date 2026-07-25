@@ -1,5 +1,8 @@
 export const homepageCopy = {
   fr: {
+    documentTitle: "DiveTopo · Cartes de sites de plongée",
+    metadataDescription:
+      "Explorez des cartes topo-bathymétriques de sites de plongée, région par région.",
     homeLabel: "DiveTopo, accueil",
     navigationLabel: "Navigation principale",
     regionsNavigation: "Régions",
@@ -27,19 +30,19 @@ export const homepageCopy = {
       light: "Utiliser le thème clair",
       dark: "Utiliser le thème sombre",
       auto: "Utiliser le thème du système",
-      lightShort: "Clair",
-      darkShort: "Sombre",
-      autoShort: "Auto",
     },
   },
   en: {
+    documentTitle: "DiveTopo · Dive site maps",
+    metadataDescription:
+      "Explore topographic and bathymetric maps of dive sites, region by region.",
     homeLabel: "DiveTopo, home",
     navigationLabel: "Main navigation",
     regionsNavigation: "Regions",
     heroEyebrow: "Dive site maps",
     heroTitle: "Underwater terrain, region by region.",
     heroLead:
-      "DiveTopo brings together dive-site maps that reveal the landscape below the surface, from 2D plans to interactive terrain.",
+      "DiveTopo brings together dive site maps that reveal the landscape below the surface, from 2D maps to interactive terrain.",
     exploreEyebrow: "Explore",
     regionsTitle: "Choose a region",
     regionsLead:
@@ -59,9 +62,6 @@ export const homepageCopy = {
       light: "Use light theme",
       dark: "Use dark theme",
       auto: "Use system theme",
-      lightShort: "Light",
-      darkShort: "Dark",
-      autoShort: "Auto",
     },
   },
 } as const;

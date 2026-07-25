@@ -47,8 +47,17 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /href="https:\/\/reunion\.divetopo\.com"/);
   assert.match(html, /aria-label="Explorer les cartes de La Réunion"/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
-  assert.match(html, /data-testid="language-fr"[^>]*checked=""/);
+  assert.match(
+    html,
+    /<button(?=[^>]*data-testid="language-fr")(?=[^>]*aria-pressed="true")[^>]*>/,
+  );
   assert.match(html, /data-testid="theme-auto"[^>]*checked=""/);
+  assert.match(
+    html,
+    /data-testid="theme-light"[\s\S]*data-testid="theme-auto"[\s\S]*data-testid="theme-dark"/,
+  );
+  assert.match(html, /title="Utiliser le thème du système"/);
+  assert.match(html, /class="theme-choice-icon"/);
   const forbiddenProjectTerm = ["at", "las"].join("");
   assert.doesNotMatch(
     html,
@@ -65,30 +74,44 @@ test("uses the browser language for the English version", async () => {
 
   assert.match(html, /<html lang="en" data-theme="auto">/);
   assert.match(html, /<title>DiveTopo · Dive site maps<\/title>/i);
+  assert.match(
+    html,
+    /name="twitter:image:alt" content="DiveTopo, dive site maps"/,
+  );
   assert.match(html, /Underwater terrain, region by region\./);
   assert.match(html, /Réunion Island/);
   assert.match(html, /aria-label="Explore maps of Réunion Island"/);
   assert.match(html, /Ready for more regions\./);
-  assert.match(html, /data-testid="language-en"[^>]*checked=""/);
+  assert.match(
+    html,
+    /<button(?=[^>]*data-testid="language-en")(?=[^>]*aria-pressed="true")[^>]*>/,
+  );
+  assert.match(html, /title="Use system theme"/);
   assert.doesNotMatch(html, /Le relief sous-marin, région par région\./);
 });
 
 test("respects Accept-Language quality weights and exclusions", async () => {
-  const preferredFrench = await render({
-    "accept-language": "de-DE,fr;q=0.9,en;q=0.8",
-  });
-  const excludedFrench = await render({
-    "accept-language": "fr;q=0,en;q=1",
-  });
-  const [frenchHtml, englishHtml] = await Promise.all([
-    preferredFrench.text(),
-    excludedFrench.text(),
-  ]);
+  const frenchHtml = await (
+    await render({
+      "accept-language": "de-DE,fr;q=0.9,en;q=0.8",
+    })
+  ).text();
+  const englishHtml = await (
+    await render({
+      "accept-language": "fr;q=0,en;q=1",
+    })
+  ).text();
+  const fallbackEnglishHtml = await (
+    await render({
+      "accept-language": "es-ES,es;q=0.9",
+    })
+  ).text();
 
   assert.match(frenchHtml, /<html lang="fr" data-theme="auto">/);
   assert.match(frenchHtml, /Le relief sous-marin, région par région\./);
   assert.match(englishHtml, /<html lang="en" data-theme="auto">/);
   assert.match(englishHtml, /Underwater terrain, region by region\./);
+  assert.match(fallbackEnglishHtml, /<html lang="en" data-theme="auto">/);
 });
 
 test("saved cookies override system language and theme", async () => {
@@ -132,6 +155,16 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(stylesheet, /\.hero-lead\s*\{[^}]*grid-column:\s*2;/s);
   assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*30rem;/s);
   assert.match(controlsSource, /document\.cookie/);
+  assert.match(controlsSource, /Domain=\.divetopo\.com/);
+  assert.match(controlsSource, /onLanguageChange\(nextLanguage\)/);
+  assert.match(controlsSource, /className="language-choice"/);
+  assert.match(controlsSource, /flushSync/);
+  assert.match(controlsSource, /window\.history\.replaceState/);
+  assert.match(
+    controlsSource,
+    /window\.scrollTo\(scrollPosition\.left, scrollPosition\.top\)/,
+  );
+  assert.doesNotMatch(controlsSource, /window\.location\.reload/);
   assert.match(
     controlsSource,
     /document\.documentElement\.setAttribute\("data-theme"/,

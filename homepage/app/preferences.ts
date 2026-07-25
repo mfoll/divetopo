@@ -56,7 +56,7 @@ function languageFromAcceptHeader(acceptLanguage: string | null): Language {
     }
   }
 
-  return "fr";
+  return "en";
 }
 
 export async function getPreferences(): Promise<{
