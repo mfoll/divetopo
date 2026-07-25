@@ -58,13 +58,9 @@ export default function HomepageExperience({
         <section
           className="regions-section"
           id="regions"
-          aria-labelledby="regions-title"
+          aria-label={text.regionsNavigation}
         >
           <div className="regions-inner">
-            <div className="section-heading">
-              <h2 id="regions-title">{text.regionsTitle}</h2>
-            </div>
-
             <div className="region-grid">
               {regions.map((region) => (
                 <a
@@ -82,10 +78,6 @@ export default function HomepageExperience({
                       alt={region.image.alt[language]}
                       fetchPriority="high"
                     />
-                    <span className="region-status">
-                      <span aria-hidden="true" />
-                      {region.status[language]}
-                    </span>
                   </div>
                   <div className="region-copy">
                     <div className="region-title-row">

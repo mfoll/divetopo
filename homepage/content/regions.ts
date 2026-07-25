@@ -10,10 +10,6 @@ export const regions = [
       en: "Indian Ocean",
     },
     href: "https://reunion.divetopo.com",
-    status: {
-      fr: "Sélection de cartes",
-      en: "Map selection",
-    },
     description: {
       fr: "Explorez une sélection non exhaustive de sept sites de la côte ouest à travers leurs plans, perspectives et reliefs interactifs.",
       en: "Explore a non-exhaustive selection of seven sites along the west coast through 2D maps, 3D views and interactive terrain.",

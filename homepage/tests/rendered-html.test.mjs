@@ -49,12 +49,14 @@ test("server-renders the French homepage with Auto theme by default", async () =
     html,
     /Chaque région rassemble les cartes disponibles/,
   );
+  assert.doesNotMatch(html, /Choisissez une région/);
   assert.match(html, /La Réunion/);
-  assert.match(html, /Sélection de cartes/);
+  assert.doesNotMatch(html, /Sélection de cartes/);
   assert.match(html, /sélection non exhaustive de sept sites/);
   assert.match(html, /src="\/reunion-overview\.webp"/);
   assert.match(html, /href="https:\/\/reunion\.divetopo\.com"/);
   assert.match(html, /aria-label="Explorer La Réunion"/);
+  assert.match(html, /<section[^>]*aria-label="Régions"[^>]*>/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
   assert.match(html, /href="#contact">Contact<\/a>/);
   assert.match(html, /id="contact"/);
@@ -103,10 +105,12 @@ test("uses the browser language for the English version", async () => {
     html,
     /Each region brings together the available maps/,
   );
+  assert.doesNotMatch(html, /Choose a region/);
   assert.match(html, /Réunion Island/);
-  assert.match(html, /Map selection/);
+  assert.doesNotMatch(html, /Map selection/);
   assert.match(html, /non-exhaustive selection of seven sites/);
   assert.match(html, /aria-label="Explore Réunion Island"/);
+  assert.match(html, /<section[^>]*aria-label="Regions"[^>]*>/);
   assert.match(html, /Ready for more regions\./);
   assert.match(
     html,
@@ -202,7 +206,12 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
     /\.site-footer\s*\{[^}]*min-height:\s*7rem;[^}]*padding:\s*1\.5rem var\(--page-gutter\);/s,
   );
   assert.doesNotMatch(stylesheet, /\.hero-lead\s*\{/);
-  assert.doesNotMatch(stylesheet, /\.section-heading\s*\{[^}]*border-top:/s);
+  assert.doesNotMatch(stylesheet, /\.section-heading\s*\{/);
+  assert.doesNotMatch(stylesheet, /\.region-status\s*\{/);
+  assert.doesNotMatch(
+    stylesheet,
+    /\.contact-inner p\s*\{[^}]*max-width:/s,
+  );
   assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*30rem;/s);
   assert.match(controlsSource, /document\.cookie/);
   assert.match(controlsSource, /Domain=\.divetopo\.com/);

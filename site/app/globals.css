@@ -1550,7 +1550,6 @@ img {
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   line-height: 1.55;
   margin: 0;
-  max-width: 48rem;
 }
 
 .contact-inner a {

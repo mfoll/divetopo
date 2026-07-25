@@ -28,11 +28,6 @@
   --card-border: rgba(8, 33, 42, 0.06);
   --map-fallback: #178cab;
   --map-shade: rgba(6, 28, 36, 0.16);
-  --status-bg: rgba(255, 255, 255, 0.88);
-  --status-border: rgba(255, 255, 255, 0.72);
-  --status-ink: #08212a;
-  --status-shadow: rgba(6, 28, 36, 0.16);
-  --status-ring: rgba(14, 146, 149, 0.15);
   --arrow-bg: var(--navy);
   --arrow-hover: var(--accent-dark);
   --arrow-ink: #ffffff;
@@ -70,11 +65,6 @@
   --card-border: #23414a;
   --map-fallback: #126e87;
   --map-shade: rgba(3, 21, 27, 0.18);
-  --status-bg: rgba(7, 27, 34, 0.88);
-  --status-border: rgba(242, 247, 246, 0.2);
-  --status-ink: #f2f7f6;
-  --status-shadow: rgba(0, 0, 0, 0.34);
-  --status-ring: rgba(66, 199, 194, 0.22);
   --arrow-bg: #03151b;
   --arrow-hover: #176f72;
   --arrow-ink: #ffffff;
@@ -113,11 +103,6 @@
     --card-border: #23414a;
     --map-fallback: #126e87;
     --map-shade: rgba(3, 21, 27, 0.18);
-    --status-bg: rgba(7, 27, 34, 0.88);
-    --status-border: rgba(242, 247, 246, 0.2);
-    --status-ink: #f2f7f6;
-    --status-shadow: rgba(0, 0, 0, 0.34);
-    --status-ring: rgba(66, 199, 194, 0.22);
     --arrow-bg: #03151b;
     --arrow-hover: #176f72;
     --arrow-ink: #ffffff;
@@ -383,18 +368,6 @@ main {
   padding: 0 var(--page-gutter) clamp(5rem, 8vw, 8.5rem);
 }
 
-.section-heading {
-  padding: 0 0 clamp(1rem, 1.8vw, 1.5rem);
-}
-
-.section-heading h2 {
-  font-size: clamp(1.8rem, 2.45vw, 2.35rem);
-  font-weight: 720;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
-  margin: 0;
-}
-
 .region-grid {
   display: grid;
   gap: clamp(1.25rem, 2.2vw, 2.25rem);
@@ -447,35 +420,6 @@ main {
 
 .region-card:hover .region-visual img {
   transform: scale(1.018);
-}
-
-.region-status {
-  align-items: center;
-  backdrop-filter: blur(10px);
-  background: var(--status-bg);
-  border: 1px solid var(--status-border);
-  border-radius: 999px;
-  box-shadow: 0 5px 18px var(--status-shadow);
-  color: var(--status-ink);
-  display: inline-flex;
-  font-size: 0.67rem;
-  font-weight: 750;
-  gap: 0.45rem;
-  left: clamp(0.8rem, 1.5vw, 1.4rem);
-  letter-spacing: 0.03em;
-  padding: 0.55rem 0.75rem;
-  position: absolute;
-  text-transform: uppercase;
-  top: clamp(0.8rem, 1.5vw, 1.4rem);
-  z-index: 2;
-}
-
-.region-status > span {
-  background: var(--accent);
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px var(--status-ring);
-  height: 0.43rem;
-  width: 0.43rem;
 }
 
 .region-copy {
@@ -616,7 +560,6 @@ main {
   font-size: clamp(1rem, 1.35vw, 1.2rem);
   line-height: 1.55;
   margin: 0;
-  max-width: 48rem;
 }
 
 .contact-inner a {

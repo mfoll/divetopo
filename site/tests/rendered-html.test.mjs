@@ -158,6 +158,18 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.doesNotMatch(html, /codex-preview|Building your site|SkeletonPreview/);
 });
 
+test("lets the contact question use the full available text column", async () => {
+  const stylesheet = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+
+  assert.doesNotMatch(
+    stylesheet,
+    /\.contact-inner p\s*\{[^}]*max-width:/s,
+  );
+});
+
 test("uses the browser language for the English Topo Réunion page", async () => {
   const response = await render({
     "accept-language": "en-GB,en;q=0.9,fr;q=0.7",
