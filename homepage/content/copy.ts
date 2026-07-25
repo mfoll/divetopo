@@ -20,7 +20,22 @@ export const homepageCopy = {
         "Une question, une remarque ou un site de plongée que vous aimeriez voir cartographié\u00a0?",
       action: "Écrivez-moi à",
     },
+    installPrompt: {
+      iosTitle: "Utiliser DiveTopo comme une app",
+      iosInstructions:
+        "Touchez Partager, puis «\u00a0Sur l’écran d’accueil\u00a0».",
+      androidTitle: "Installer DiveTopo",
+      androidInstructions:
+        "Ajoutez DiveTopo à votre écran d’accueil pour y accéder directement.",
+      installAction: "Installer",
+      dismiss: "Fermer cette suggestion",
+    },
     footer: {
+      freeAccess: "Accès gratuit",
+      adFree: "sans publicité",
+      codeLicense: "code sous licence",
+      mitLicense: "MIT",
+      mapsLicense: "cartes sous licence",
       credit:
         "Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
       backToTop: "Haut de page",
@@ -55,7 +70,21 @@ export const homepageCopy = {
         "Have a question, feedback, or a dive site you would like to see mapped?",
       action: "Email me at",
     },
+    installPrompt: {
+      iosTitle: "Use DiveTopo like an app",
+      iosInstructions: "Tap Share, then “Add to Home Screen”.",
+      androidTitle: "Install DiveTopo",
+      androidInstructions:
+        "Add DiveTopo to your home screen for direct access.",
+      installAction: "Install",
+      dismiss: "Dismiss this suggestion",
+    },
     footer: {
+      freeAccess: "Free access",
+      adFree: "ad-free",
+      codeLicense: "code under the",
+      mitLicense: "MIT License",
+      mapsLicense: "maps under",
       credit:
         "Island topography and bathymetry: IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
       backToTop: "Back to top",

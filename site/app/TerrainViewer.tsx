@@ -271,7 +271,8 @@ export default function TerrainViewer({
   const isobathsEnabledUniformRef = useRef<NumberUniform>({ value: 1 });
   const styleRef = useRef(style);
   const [isobathsEnabled, setIsobathsEnabled] = useState(true);
-  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
+  const [isCssFullscreen, setIsCssFullscreen] = useState(false);
   const [maximumDepthM, setMaximumDepthM] = useState(0);
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     "loading",
@@ -279,13 +280,70 @@ export default function TerrainViewer({
 
   useEffect(() => {
     const syncFullscreenState = () => {
-      setIsFullscreen(document.fullscreenElement === hostRef.current);
+      const hostIsFullscreen =
+        document.fullscreenElement === hostRef.current;
+      setIsNativeFullscreen(hostIsFullscreen);
+      if (hostIsFullscreen) {
+        setIsCssFullscreen(false);
+      }
     };
     document.addEventListener("fullscreenchange", syncFullscreenState);
     return () => {
       document.removeEventListener("fullscreenchange", syncFullscreenState);
     };
   }, []);
+
+  useEffect(() => {
+    if (!isCssFullscreen) {
+      return;
+    }
+
+    const body = document.body;
+    const root = document.documentElement;
+    const viewerFrame = hostRef.current?.closest(".viewer-frame");
+    const scrollX = window.scrollX;
+    const scrollY = window.scrollY;
+    const previousBodyStyles = {
+      overflow: body.style.overflow,
+      overscrollBehavior: body.style.overscrollBehavior,
+      position: body.style.position,
+      top: body.style.top,
+      left: body.style.left,
+      right: body.style.right,
+      width: body.style.width,
+    };
+    const previousRootStyles = {
+      overflow: root.style.overflow,
+      overscrollBehavior: root.style.overscrollBehavior,
+    };
+
+    body.style.overflow = "hidden";
+    body.style.overscrollBehavior = "none";
+    body.style.position = "fixed";
+    body.style.top = `-${scrollY}px`;
+    body.style.left = "0";
+    body.style.right = "0";
+    body.style.width = "100%";
+    root.style.overflow = "hidden";
+    root.style.overscrollBehavior = "none";
+    viewerFrame?.classList.add("has-css-fullscreen");
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        setIsCssFullscreen(false);
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+      viewerFrame?.classList.remove("has-css-fullscreen");
+      Object.assign(body.style, previousBodyStyles);
+      Object.assign(root.style, previousRootStyles);
+      window.scrollTo(scrollX, scrollY);
+    };
+  }, [isCssFullscreen]);
 
   useEffect(() => {
     const host = hostRef.current;
@@ -745,19 +803,39 @@ export default function TerrainViewer({
   async function toggleFullscreen() {
     const host = hostRef.current;
     if (!host) return;
+
+    if (isCssFullscreen) {
+      setIsCssFullscreen(false);
+      return;
+    }
+
     if (document.fullscreenElement) {
       await document.exitFullscreen();
-    } else {
-      await host.requestFullscreen();
+      return;
     }
+
+    if (typeof host.requestFullscreen === "function") {
+      try {
+        await host.requestFullscreen();
+        if (document.fullscreenElement === host) {
+          return;
+        }
+      } catch {
+        // iOS Safari may expose fullscreen-related APIs without supporting
+        // arbitrary elements. The CSS fallback below preserves the control.
+      }
+    }
+
+    setIsCssFullscreen(true);
   }
 
   const isobathLevels = visibleIsobathLevels(maximumDepthM);
   const text = topoReunionCopy[language].terrain;
+  const isFullscreen = isNativeFullscreen || isCssFullscreen;
 
   return (
     <div
-      className="terrain-host"
+      className={`terrain-host${isCssFullscreen ? " is-css-fullscreen" : ""}`}
       ref={hostRef}
       role="region"
       aria-label={`${text.interactiveTerrain} ${siteName}`}
@@ -865,6 +943,7 @@ export default function TerrainViewer({
         <button
           type="button"
           className="terrain-icon-button"
+          aria-pressed={isFullscreen}
           aria-label={
             isFullscreen ? text.exitFullscreen : text.enterFullscreen
           }

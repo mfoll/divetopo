@@ -13,6 +13,7 @@ import {
 import { topoReunionCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
 import mapManifestJson from "../public/maps/manifest.json";
+import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
 
 type SurfaceStyle = "topographic" | "orthophoto";
@@ -423,6 +424,8 @@ export function TopoReunionExperience({
         </div>
       </header>
 
+      <InstallPrompt copy={text.install} />
+
       <main>
         <section
           className="topo-reunion-section"
@@ -680,11 +683,30 @@ export function TopoReunionExperience({
           <span className="brand-mark" aria-hidden="true" />
           <span>{text.header.brand}</span>
         </a>
-        <span>
-          {text.footer.maps} © {initialSite.copyrightYear}{" "}
-          {initialSite.plateAuthor} ·{" "}
-          {initialSite.mapLicense}
-        </span>
+        <div className="site-footer-meta">
+          <span className="site-footer-access">
+            {text.footer.freeAndAdFree} · {text.footer.codeLicense}{" "}
+            <a
+              href="https://opensource.org/license/mit"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {text.footer.mit}
+            </a>{" "}
+            · {text.footer.mapsLicense}{" "}
+            <a
+              href={`https://creativecommons.org/licenses/by-nc-sa/4.0/deed.${language}`}
+              target="_blank"
+              rel="noreferrer"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+          </span>
+          <span>
+            {text.footer.maps} © {initialSite.copyrightYear}{" "}
+            {initialSite.plateAuthor} · {initialSite.mapLicense}
+          </span>
+        </div>
         <a href="#top">{text.footer.backToTop}</a>
       </footer>
 

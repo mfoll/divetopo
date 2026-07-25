@@ -51,6 +51,16 @@ export const topoReunionCopy = {
       dark: "Utiliser le thème sombre",
       auto: "Utiliser le thème du système",
     },
+    install: {
+      iosTitle: "Utiliser DiveTopo comme une app",
+      iosInstructions:
+        "Touchez Partager, puis « Sur l’écran d’accueil ».",
+      androidTitle: "Installer DiveTopo",
+      androidInstructions:
+        "Ajoutez DiveTopo à votre écran d’accueil pour y accéder directement.",
+      installAction: "Installer",
+      dismiss: "Fermer cette suggestion",
+    },
     topoReunionTitle: "Plans des sites de plongée à La Réunion",
     metadataDescription:
       "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
@@ -182,6 +192,10 @@ export const topoReunionCopy = {
     },
     footer: {
       maps: "Plans",
+      freeAndAdFree: "Accès gratuit · sans publicité",
+      codeLicense: "code sous licence",
+      mit: "MIT",
+      mapsLicense: "cartes sous licence",
       backToTop: "Haut de page",
     },
     dialogs: {
@@ -226,6 +240,15 @@ export const topoReunionCopy = {
       light: "Use light theme",
       dark: "Use dark theme",
       auto: "Use system theme",
+    },
+    install: {
+      iosTitle: "Use DiveTopo like an app",
+      iosInstructions: "Tap Share, then “Add to Home Screen”.",
+      androidTitle: "Install DiveTopo",
+      androidInstructions:
+        "Add DiveTopo to your home screen for direct access.",
+      installAction: "Install",
+      dismiss: "Dismiss this suggestion",
     },
     topoReunionTitle: "Dive site maps of Réunion Island",
     metadataDescription:
@@ -358,6 +381,10 @@ export const topoReunionCopy = {
     },
     footer: {
       maps: "Maps",
+      freeAndAdFree: "Free access · ad-free",
+      codeLicense: "code under the",
+      mit: "MIT License",
+      mapsLicense: "maps under",
       backToTop: "Back to top",
     },
     dialogs: {

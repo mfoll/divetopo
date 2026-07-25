@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { homepageCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
 import { regions } from "../content/regions";
+import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
 
 export default function HomepageExperience({
@@ -47,6 +48,8 @@ export default function HomepageExperience({
           </div>
         </div>
       </header>
+
+      <InstallPrompt copy={text.installPrompt} />
 
       <main id="top">
         <section className="hero" aria-labelledby="hero-title">
@@ -141,7 +144,28 @@ export default function HomepageExperience({
           <span className="brand-mark" aria-hidden="true" />
           <span>DiveTopo</span>
         </a>
-        <span>{text.footer.credit}</span>
+        <div className="footer-details">
+          <p className="footer-license">
+            {text.footer.freeAccess} · {text.footer.adFree} ·{" "}
+            {text.footer.codeLicense}{" "}
+            <a
+              href="https://opensource.org/license/mit"
+              rel="noreferrer"
+              target="_blank"
+            >
+              {text.footer.mitLicense}
+            </a>{" "}
+            · {text.footer.mapsLicense}{" "}
+            <a
+              href={`https://creativecommons.org/licenses/by-nc-sa/4.0/deed.${language}`}
+              rel="noreferrer"
+              target="_blank"
+            >
+              CC BY-NC-SA 4.0
+            </a>
+          </p>
+          <p className="footer-credit">{text.footer.credit}</p>
+        </div>
         <a href="#top">{text.footer.backToTop}</a>
       </footer>
     </>

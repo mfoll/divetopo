@@ -48,11 +48,28 @@ export async function generateMetadata(): Promise<Metadata> {
   const socialImage = new URL("/og.png", origin).toString();
 
   return {
+    applicationName: "DiveTopo",
     title: text.title,
     description: text.description,
+    manifest: "/manifest.webmanifest",
+    appleWebApp: {
+      capable: true,
+      title: "DiveTopo",
+      statusBarStyle: "default",
+    },
+    other: {
+      "apple-mobile-web-app-capable": "yes",
+    },
     icons: {
-      icon: "/favicon.svg",
+      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
       shortcut: "/favicon.svg",
+      apple: [
+        {
+          url: "/apple-touch-icon.png",
+          sizes: "180x180",
+          type: "image/png",
+        },
+      ],
     },
     openGraph: {
       title: text.socialTitle,
