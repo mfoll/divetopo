@@ -130,6 +130,84 @@ The 2D compass rose always shows north at the top. The compass rose in the view 
 
 For 3D, allow approximately 300 to 400 m of additional real data offshore in `context_bbox_utm40s`, 100 to 200 m on each side, and 200 to 300 m inland. This margin must be increased if the viewpoint is lowered.
 
+### Acceptance gate for a new site
+
+A new site is complete only when all of the following are true:
+
+1. The task began by inspecting the current `HEAD`, `README.md`, this workflow,
+   the rendering scripts, tests and existing site configurations. An earlier
+   Codex task or remembered workflow is not authoritative.
+2. The site identity, coordinates, source sector and evidence have been checked.
+   If identification remains uncertain, the result is explicitly labelled as a
+   prototype and the uncertainty is documented. Keep an unapproved prototype
+   configuration outside `sites/` and its assets outside canonical outputs.
+3. Changes remain site-local by default. A shared script, test convention,
+   `README.md` or this workflow is changed only after discussing the shared
+   impact.
+4. The complete canonical set exists: 2D and static 3D maps in topographic and
+   aerial-imagery variants, island locator, both printable sheets, and the
+   six-file interactive package plus its responsive website assets.
+5. Current common graphics are preserved: `2474 × 1712 px` static maps,
+   `5400 × 3250 px` sheets, one site name, a separate municipality,
+   `LA RÉUNION` alone between the lateral rules, the `−1.5/−2 m`
+   aerial-imagery fade, current lighting, 5 m isobaths and the current compass
+   design.
+6. The interactive footprint is an approximately coast-parallel rectangle of
+   real data. Its initial camera contains no mesh, land or texture boundary and
+   remains consistent with the validated static perspective.
+7. The configuration passes `generate_reunion_topobathy.py <config> --check`,
+   the Python suite and `git diff --check`. Affected Web applications also pass
+   lint, tests and a production build.
+8. Every final JPEG and sheet is inspected at full resolution. The interactive
+   view is inspected on desktop and mobile in portrait and landscape, including
+   its initial camera, textures, isobaths, controls and download links.
+9. The hand-off lists created files, retained coordinates and sources, camera
+   parameters, completed validation and unresolved choices. Commit, push and
+   deployment occur only after user validation and follow
+   [DEPLOYMENT.md](DEPLOYMENT.md).
+10. Relief mapping is kept separate from any claim about access, permission,
+    current conditions or safety.
+
+### Website integration for a validated site
+
+After the canonical maps and sheets are approved:
+
+1. Add the municipality to `site/content/site-details.json`.
+2. Inspect the site-picker label placement and add a `SITE_LABEL_LAYOUT` entry
+   in `site/app/TopoReunionExperience.tsx` if the automatic position overlaps a
+   neighbor.
+3. Update the explicit published-slug sets and count assertions in
+   `tests/test_site_config.py` and `site/tests/rendered-html.test.mjs`.
+4. Regenerate the complete interactive package without positional configs,
+   then copy it and rebuild responsive map assets:
+
+   ```bash
+   .venv/bin/python generate_interactive_terrain.py
+   cd site
+   ../.venv/bin/python scripts/sync_interactive_terrain.py
+   ../.venv/bin/python scripts/build_map_assets.py
+   ```
+
+5. Update the site table and published-site count in both READMEs.
+6. Update the French and English regional count in
+   `homepage/content/regions.ts` and its tests when the homepage should expose
+   the new total. That change requires deploying both Web applications.
+
+Two commands have intentionally broad behavior:
+
+- `site/scripts/build_map_assets.py` publishes every `sites/*.json`
+  configuration, which is why unresolved prototypes must not live there.
+- Positional configs passed to `generate_interactive_terrain.py` define the
+  complete package and atomically replace its output. Use an explicit temporary
+  `--output` for an isolated prototype; production generation must run without
+  positional configs so it includes every published site.
+
+The current Web selector covers the existing west-coast UTM extent. A site
+outside it requires an explicit shared interface and source-scope change, not
+only a site-local configuration. The municipality currently exists both in the
+site JSON plate fields and `site/content/site-details.json`; keep them
+consistent until that duplication is removed.
+
 ## Rendering parameters
 
 - `max_depth_m`: maximum depth shown by the palette and static terrain. Isobaths are generated automatically every 5 m down to this value; Boucan uses 30 m.

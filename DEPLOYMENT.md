@@ -1,0 +1,69 @@
+# DiveTopo deployment model
+
+GitHub and the two hosted websites serve different purposes:
+
+- `main` on GitHub is the canonical source and history for the complete
+  repository;
+- `homepage/` is the independently deployable application served at
+  <https://divetopo.com>;
+- `site/` is the independently deployable Réunion application served at
+  <https://reunion.divetopo.com>.
+
+There is currently no automatic GitHub-to-Sites deployment hook. A GitHub push
+does not update either website by itself.
+
+## Synchronization invariant
+
+Sites stores each application in its own internal source repository. Its commit
+SHA therefore differs from the commit SHA of the root GitHub repository. The
+reliable proof of synchronization is tree equality:
+
+```text
+tree(GitHub HEAD:homepage) == tree(Sites homepage source commit)
+tree(GitHub HEAD:site)     == tree(Sites Réunion source commit)
+```
+
+The saved Sites version must reference that internal source commit, and the
+production deployment must reference that saved version. Commit-message or SHA
+similarity is not sufficient evidence.
+
+Changes outside an application prefix do not alter its tree. For example, a
+documentation-only root commit does not require a new deployment when
+`HEAD:site` and `HEAD:homepage` are unchanged.
+
+## Release sequence
+
+1. Start from the current `main` branch and inspect the complete task-scoped
+   diff.
+2. Run the relevant validation:
+   - Python configuration checks and tests for mapping changes;
+   - full-resolution visual review for regenerated maps and sheets;
+   - interactive-terrain validation for package changes;
+   - lint, tests and production build for each affected Web application.
+3. Commit and push the complete reviewed state to GitHub.
+4. Resolve the exact subtree with `git rev-parse HEAD:site` or
+   `git rev-parse HEAD:homepage`.
+5. Push that exact application tree to the matching Sites source repository.
+   Never deploy an uncommitted working directory or a tree assembled from
+   mixed repository states.
+6. Build and package the application from that same tree.
+7. Save a Sites version referencing the resulting internal source commit, then
+   deploy that saved version.
+8. Confirm the production deployment succeeded, the expected custom domain is
+   active, and the deployed internal source tree still equals the corresponding
+   GitHub subtree.
+
+Deploy only the affected application. A mapping or regional-interface change
+usually affects `site/`; a general landing-page change affects `homepage/`.
+Some repository changes affect neither deployment.
+
+## Operational boundaries
+
+- `.openai/hosting.json` identifies the existing Sites project for each
+  application. Treat project and version identifiers as opaque.
+- Deployment credentials are short-lived and must never be committed.
+- The mapping pipeline owns canonical maps, printable sheets and interactive
+  terrain. The website copies those products; it does not regenerate them.
+- A Codex task, local worktree or chat history is never a source of truth.
+  Durable state must be present in Git, the repository documentation and the
+  linked project notes.

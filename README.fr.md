@@ -139,6 +139,11 @@ npm test
 Les données GeoTIFF sources restent dans le cache local et ne sont jamais
 publiées.
 
+Les deux applications Web sont déployées indépendamment. GitHub reste la source
+canonique, mais un push ne met pas automatiquement à jour les sites hébergés.
+La séquence exacte de publication et le contrôle d'équivalence des arbres sont
+documentés en anglais dans [DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## Installation sur macOS
 
 Homebrew est requis. Le script d'installation installe Python et GDAL, puis crée
@@ -209,7 +214,8 @@ plan 2D reste nord en haut ; la vue 3D peut utiliser n'importe quel azimut et
 recalcule automatiquement son compas.
 
 La procédure de production complète, chaque paramètre et les contrôles qualité
-sont documentés dans [WORKFLOW.md](WORKFLOW.md).
+sont documentés dans [WORKFLOW.md](WORKFLOW.md). Le déploiement des ressources
+Web obtenues suit [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Licences et sécurité
 

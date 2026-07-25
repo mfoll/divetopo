@@ -129,6 +129,11 @@ npm test
 
 The GeoTIFF source data remains in the local cache and is never published.
 
+The two Web applications are deployed independently. GitHub remains the
+canonical source, but a push does not automatically update the hosted sites.
+The exact release and tree-equivalence checks are documented in
+[DEPLOYMENT.md](DEPLOYMENT.md).
+
 ## Installation on macOS
 
 Homebrew is required. The bootstrap script installs Python and GDAL and creates
@@ -196,7 +201,8 @@ another site without verifying it. The 2D map remains north-up; the 3D view may
 use any azimuth and recalculates its compass automatically.
 
 The full production procedure, every parameter and the quality checks are
-documented in [WORKFLOW.md](WORKFLOW.md).
+documented in [WORKFLOW.md](WORKFLOW.md). Deployment of the resulting website
+assets follows [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Licenses and safety
 
