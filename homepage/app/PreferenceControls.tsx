@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { flushSync } from "react-dom";
 import { homepageCopy } from "../content/copy";
 import {
   LANGUAGE_COOKIE,
@@ -102,11 +101,9 @@ function hasPreference(name: string) {
 export default function PreferenceControls({
   language,
   theme,
-  onLanguageChange,
 }: {
   language: Language;
   theme: Theme;
-  onLanguageChange: (language: Language) => void;
 }) {
   const [selectedTheme, setSelectedTheme] = useState(theme);
   const labels = homepageCopy[language].preferences;
@@ -129,24 +126,8 @@ export default function PreferenceControls({
       return;
     }
 
-    const scrollPosition = {
-      left: window.scrollX,
-      top: window.scrollY,
-    };
-    const relativeUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-    if (window.location.hash) {
-      window.history.replaceState(
-        window.history.state,
-        "",
-        `${window.location.pathname}${window.location.search}`,
-      );
-    }
     writePreference(LANGUAGE_COOKIE, nextLanguage);
-    flushSync(() => {
-      onLanguageChange(nextLanguage);
-    });
-    window.history.replaceState(window.history.state, "", relativeUrl);
-    window.scrollTo(scrollPosition.left, scrollPosition.top);
+    window.location.assign(`/${nextLanguage}${window.location.search}`);
   }
 
   function chooseTheme(nextTheme: Theme) {

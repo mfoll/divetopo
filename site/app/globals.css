@@ -678,6 +678,7 @@ img {
   transition:
     color 170ms ease,
     transform 170ms ease;
+  text-decoration: none;
   width: 2.75rem;
   z-index: 5;
 }
@@ -821,7 +822,7 @@ img {
   outline-offset: 3px;
 }
 
-.site-map-marker[aria-pressed="true"] .site-map-marker-dot {
+.site-map-marker[data-selected="true"] .site-map-marker-dot {
   background: var(--coral);
   box-shadow:
     0 0 0 5px rgba(255, 113, 84, 0.24),
@@ -829,11 +830,11 @@ img {
   transform: scale(1.08);
 }
 
-.site-map-marker[aria-pressed="true"] .site-map-marker-line {
+.site-map-marker[data-selected="true"] .site-map-marker-line {
   background: var(--coral);
 }
 
-.site-map-marker[aria-pressed="true"] .site-map-marker-label {
+.site-map-marker[data-selected="true"] .site-map-marker-label {
   background: var(--navy);
   border-color: rgba(255, 255, 255, 0.88);
   color: white;

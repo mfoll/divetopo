@@ -112,6 +112,14 @@ changes the texture. The initial camera follows the static 3D view, looking
 from offshore towards the coast, while horizontal rotation remains free over
 360 degrees.
 
+The two public websites expose stable French and English routes under `/fr`
+and `/en`. Topo Réunion also exposes one indexable route per published site,
+for example `/fr/sites/cap-la-houssaye` and
+`/en/sites/cap-la-houssaye`. These routes reuse the same responsive maps,
+downloads and interactive-terrain packages; they do not duplicate or
+recalculate cartographic assets. The root URLs select the saved or preferred
+language and redirect to its canonical route.
+
 The height field uses at most `513` vertices on its longest axis. WebGL
 textures use at most `2048 px` on their longest side. Isobaths are calculated
 as perfectly horizontal planes every 5 m, use the corresponding bathymetric

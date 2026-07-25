@@ -19,7 +19,13 @@ const publishedSiteSlugs = new Set([
   "pont-rouge-la-tortue",
 ]);
 
-async function render(requestHeaders = {}) {
+async function render(pathOrHeaders = "/fr", additionalHeaders = {}) {
+  const path =
+    typeof pathOrHeaders === "string" ? pathOrHeaders : "/fr";
+  const requestHeaders =
+    typeof pathOrHeaders === "string"
+      ? additionalHeaders
+      : pathOrHeaders;
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set(
     "test",
@@ -28,7 +34,7 @@ async function render(requestHeaders = {}) {
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`http://localhost${path}`, {
       headers: {
         accept: "text/html",
         ...requestHeaders,
@@ -58,6 +64,7 @@ function visibleText(html) {
     .replace(/<[^>]+>/g, "")
     .replace(/&nbsp;|&#xA0;|&#160;/gi, "\u00a0")
     .replace(/&copy;|&#xA9;|&#169;/gi, "©")
+    .replace(/&#x27;|&#39;/gi, "'")
     .replace(/\s+/g, " ")
     .trim();
 }
@@ -92,6 +99,20 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
     html,
     /<title>Plans des sites de plongée à La Réunion<\/title>/i,
   );
+  assert.match(
+    html,
+    /<link rel="canonical" href="https:\/\/reunion\.divetopo\.com\/fr"\/>/,
+  );
+  assert.match(
+    html,
+    /<link rel="alternate" hrefLang="en" href="https:\/\/reunion\.divetopo\.com\/en"\/>/,
+  );
+  assert.match(
+    html,
+    /<link rel="alternate" hrefLang="x-default" href="https:\/\/reunion\.divetopo\.com\/"\/>/,
+  );
+  assert.match(html, /"@type":"CollectionPage"/);
+  assert.match(html, /"@type":"ItemList"/);
   assert.match(html, /aria-label="DiveTopo, revenir au site principal"/);
   assert.match(html, /href="https:\/\/divetopo\.com\/"/);
   assert.match(html, /Plans des sites de plongée à La Réunion/);
@@ -168,6 +189,12 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /Sélectionnez un site sur la carte\./);
   assert.match(
     html,
+    /<a(?=[^>]*class="site-map-marker label-right-up")(?=[^>]*data-selected="true")(?=[^>]*href="\/fr\/sites\/cap-la-houssaye")[^>]*>/,
+  );
+  assert.doesNotMatch(html, /aria-current="page"/);
+  assert.match(html, /href="\/fr\/sites\/cap-homard"/);
+  assert.match(
+    html,
     /<button(?=[^>]*data-testid="language-fr")(?=[^>]*aria-pressed="true")[^>]*>/,
   );
   assert.match(html, /data-testid="theme-auto"[^>]*checked=""/);
@@ -223,8 +250,8 @@ test("lets the contact question use the full available text column", async () =>
 });
 
 test("uses the browser language for the English Topo Réunion page", async () => {
-  const response = await render({
-    "accept-language": "en-GB,en;q=0.9,fr;q=0.7",
+  const response = await render("/en", {
+    "accept-language": "fr-FR,fr;q=0.9",
   });
   const html = await response.text();
 
@@ -292,35 +319,167 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   );
 });
 
-test("respects language quality weights and saved preferences", async () => {
-  const frenchHtml = await (
-    await render({
-      "accept-language": "de-DE,fr;q=0.9,en;q=0.8",
-    })
-  ).text();
-  const englishHtml = await (
-    await render({
-      "accept-language": "fr;q=0,en;q=1",
-    })
-  ).text();
-  const fallbackEnglishHtml = await (
-    await render({
-      "accept-language": "de-DE,de;q=0.9",
-    })
-  ).text();
-  const darkHtml = await (
-    await render({
-      "accept-language": "en-US,en;q=0.9",
+test("server-renders an indexable localized page for every published site", async () => {
+  const manifest = JSON.parse(
+    await readFile(
+      new URL("../public/maps/manifest.json", import.meta.url),
+      "utf8",
+    ),
+  );
+
+  for (const language of ["fr", "en"]) {
+    for (const site of manifest.sites) {
+      const path = `/${language}/sites/${site.slug}`;
+      const response = await render(path, {
+        "accept-language": language === "fr" ? "en" : "fr",
+      });
+      assert.equal(response.status, 200, path);
+      const html = await response.text();
+
+      assert.match(
+        html,
+        new RegExp(`<html lang="${language}" data-theme="auto">`),
+        path,
+      );
+      assert.ok(
+        visibleText(html).includes(site.displayName),
+        `${path}: expected the selected site name`,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `<link rel="canonical" href="https://reunion\\.divetopo\\.com${path}"\\/>`,
+        ),
+        path,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `<a(?=[^>]*aria-current="page")(?=[^>]*href="${path}")[^>]*>`,
+        ),
+        path,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `src="/maps/${site.slug}/3d-orthophoto-2474\\.webp"`,
+        ),
+        path,
+      );
+      assert.match(html, /"@type":"Map"/, path);
+      assert.match(html, /"@type":"GeoCoordinates"/, path);
+      assert.match(
+        html,
+        new RegExp(
+          `"latitude":${String(site.location.latitude).replace(".", "\\.")}`,
+        ),
+        path,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `<link rel="alternate" hrefLang="x-default" href="https://reunion\\.divetopo\\.com/sites/${site.slug}"\\/>`,
+        ),
+        path,
+      );
+    }
+  }
+});
+
+test("redirects the neutral URL from saved and weighted language preferences", async () => {
+  const frenchResponse = await render("/", {
+    "accept-language": "de-DE,fr;q=0.9,en;q=0.8",
+  });
+  const englishResponse = await render("/", {
+    "accept-language": "fr;q=0,en;q=1",
+  });
+  const fallbackEnglishResponse = await render("/", {
+    "accept-language": "de-DE,de;q=0.9",
+  });
+  const savedFrenchResponse = await render("/", {
+    "accept-language": "en-US,en;q=0.9",
+    cookie: "divetopo-language=fr; divetopo-theme=dark",
+  });
+
+  assert.equal(frenchResponse.status, 307);
+  assert.equal(frenchResponse.headers.get("location"), "http://localhost/fr");
+  assert.equal(englishResponse.status, 307);
+  assert.equal(englishResponse.headers.get("location"), "http://localhost/en");
+  assert.equal(fallbackEnglishResponse.status, 307);
+  assert.equal(
+    fallbackEnglishResponse.headers.get("location"),
+    "http://localhost/en",
+  );
+  assert.equal(savedFrenchResponse.status, 307);
+  assert.equal(
+    savedFrenchResponse.headers.get("location"),
+    "http://localhost/fr",
+  );
+
+  const darkEnglishHtml = await (
+    await render("/en", {
       cookie: "divetopo-language=fr; divetopo-theme=dark",
     })
   ).text();
+  assert.match(darkEnglishHtml, /<html lang="en" data-theme="dark">/);
+  assert.match(darkEnglishHtml, /data-testid="theme-dark"[^>]*checked=""/);
+  assert.match(darkEnglishHtml, /View site on Google Maps/);
 
-  assert.match(frenchHtml, /<html lang="fr" data-theme="auto">/);
-  assert.match(englishHtml, /<html lang="en" data-theme="auto">/);
-  assert.match(fallbackEnglishHtml, /<html lang="en" data-theme="auto">/);
-  assert.match(darkHtml, /<html lang="fr" data-theme="dark">/);
-  assert.match(darkHtml, /data-testid="theme-dark"[^>]*checked=""/);
-  assert.doesNotMatch(darkHtml, /View site on Google Maps/);
+  const neutralSiteResponse = await render("/sites/cap-homard", {
+    "accept-language": "fr-FR,fr;q=0.9",
+  });
+  assert.equal(neutralSiteResponse.status, 307);
+  assert.equal(
+    neutralSiteResponse.headers.get("location"),
+    "http://localhost/fr/sites/cap-homard",
+  );
+});
+
+test("publishes crawlable robots and multilingual sitemap metadata routes", async () => {
+  const [robotsResponse, sitemapResponse] = await Promise.all([
+    render("/robots.txt"),
+    render("/sitemap.xml"),
+  ]);
+
+  assert.equal(robotsResponse.status, 200);
+  assert.match(
+    robotsResponse.headers.get("content-type") ?? "",
+    /^text\/plain\b/i,
+  );
+  const robots = await robotsResponse.text();
+  assert.match(robots, /User-Agent: \*\nAllow: \//);
+  assert.match(
+    robots,
+    /Sitemap: https:\/\/reunion\.divetopo\.com\/sitemap\.xml/,
+  );
+
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(
+    sitemapResponse.headers.get("content-type") ?? "",
+    /^application\/xml\b/i,
+  );
+  const sitemap = await sitemapResponse.text();
+  const locations = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    (match) => match[1],
+  );
+  assert.equal(locations.length, 16);
+  assert.ok(locations.includes("https://reunion.divetopo.com/fr"));
+  assert.ok(locations.includes("https://reunion.divetopo.com/en"));
+  assert.ok(
+    locations.includes(
+      "https://reunion.divetopo.com/fr/sites/cap-la-houssaye",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://reunion.divetopo.com/en/sites/pointe-au-sel-sec-jaune",
+    ),
+  );
+  assert.match(sitemap, /hreflang="x-default"/);
+  assert.match(
+    sitemap,
+    /https:\/\/reunion\.divetopo\.com\/maps\/cap-homard\/3d-orthophoto-1600\.webp/,
+  );
 });
 
 test("map manifest supports adding future sites without component changes", async () => {
@@ -486,11 +645,21 @@ test("includes the shared west-coast site selector map", async () => {
 });
 
 test("interactive terrain matches the static linear-light exposure", async () => {
-  const [terrainViewer, styles, copySource, controlsSource] = await Promise.all([
+  const [
+    terrainViewer,
+    styles,
+    copySource,
+    controlsSource,
+    experienceSource,
+  ] = await Promise.all([
     readFile(new URL("../app/TerrainViewer.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../content/copy.ts", import.meta.url), "utf8"),
     readFile(new URL("../app/PreferenceControls.tsx", import.meta.url), "utf8"),
+    readFile(
+      new URL("../app/TopoReunionExperience.tsx", import.meta.url),
+      "utf8",
+    ),
   ]);
 
   assert.match(terrainViewer, /const RELIEF_EXPOSURE = 1\.55;/);
@@ -541,13 +710,12 @@ test("interactive terrain matches the static linear-light exposure", async () =>
   assert.match(controlsSource, /Domain=\.divetopo\.com/);
   assert.match(controlsSource, /onLanguageChange\(nextLanguage\)/);
   assert.match(controlsSource, /className="language-choice"/);
-  assert.match(controlsSource, /flushSync/);
-  assert.match(controlsSource, /window\.history\.replaceState/);
-  assert.match(
-    controlsSource,
-    /window\.scrollTo\(scrollPosition\.left, scrollPosition\.top\)/,
-  );
+  assert.doesNotMatch(controlsSource, /flushSync/);
+  assert.doesNotMatch(controlsSource, /window\.scrollTo/);
   assert.doesNotMatch(controlsSource, /window\.location\.reload/);
+  assert.match(experienceSource, /window\.history\.pushState/);
+  assert.match(experienceSource, /window\.history\.replaceState/);
+  assert.match(experienceSource, /window\.addEventListener\("popstate"/);
   assert.doesNotMatch(controlsSource, /localStorage/);
   assert.doesNotMatch(
     terrainViewer,
@@ -734,7 +902,7 @@ test("advertises the standalone DiveTopo app identity in server-rendered metadat
 
   assert.match(
     html,
-    /<link rel="manifest" href="\/manifest\.webmanifest"\/>/,
+    /<link rel="manifest" href="https:\/\/reunion\.divetopo\.com\/manifest\.webmanifest"\/>/,
   );
   assert.match(
     html,
@@ -762,13 +930,16 @@ test("advertises the standalone DiveTopo app identity in server-rendered metadat
   );
   assert.match(
     html,
-    /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png" sizes="180x180" type="image\/png"\/>/,
+    /<link rel="apple-touch-icon" href="https:\/\/reunion\.divetopo\.com\/apple-touch-icon\.png" sizes="180x180" type="image\/png"\/>/,
   );
   assert.match(
     html,
-    /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml"\/>/,
+    /<link rel="icon" href="https:\/\/reunion\.divetopo\.com\/favicon\.svg" type="image\/svg\+xml"\/>/,
   );
-  assert.match(html, /<link rel="shortcut icon" href="\/favicon\.svg"\/>/);
+  assert.match(
+    html,
+    /<link rel="shortcut icon" href="https:\/\/reunion\.divetopo\.com\/favicon\.svg"\/>/,
+  );
 });
 
 test("ships a scoped standalone manifest and correctly sized PNG icons", async () => {

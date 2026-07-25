@@ -2,13 +2,13 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render(requestHeaders = {}) {
+async function render(pathname = "/fr", requestHeaders = {}) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}-${Math.random()}`);
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("http://localhost/", {
+    new Request(`http://localhost${pathname}`, {
       headers: {
         accept: "text/html",
         ...requestHeaders,
@@ -51,6 +51,24 @@ async function readPngDimensions(path) {
   };
 }
 
+test("redirects the root URL using cookie then browser language", async () => {
+  const defaultResponse = await render("/");
+  const englishResponse = await render("/", {
+    "accept-language": "en-GB,en;q=0.9,fr;q=0.7",
+  });
+  const cookieResponse = await render("/", {
+    "accept-language": "en-US,en;q=0.9",
+    cookie: "divetopo-language=fr",
+  });
+
+  assert.equal(defaultResponse.status, 307);
+  assert.equal(defaultResponse.headers.get("location"), "http://localhost/fr");
+  assert.equal(englishResponse.status, 307);
+  assert.equal(englishResponse.headers.get("location"), "http://localhost/en");
+  assert.equal(cookieResponse.status, 307);
+  assert.equal(cookieResponse.headers.get("location"), "http://localhost/fr");
+});
+
 test("server-renders the French homepage with Auto theme by default", async () => {
   const response = await render();
   assert.equal(response.status, 200);
@@ -62,6 +80,25 @@ test("server-renders the French homepage with Auto theme by default", async () =
     html,
     /<title>DiveTopo · Cartes de sites de plongée<\/title>/i,
   );
+  assert.match(
+    html,
+    /<link rel="canonical" href="https:\/\/divetopo\.com\/fr"/,
+  );
+  assert.match(
+    html,
+    /<link rel="alternate" hrefLang="fr" href="https:\/\/divetopo\.com\/fr"/i,
+  );
+  assert.match(
+    html,
+    /<link rel="alternate" hrefLang="en" href="https:\/\/divetopo\.com\/en"/i,
+  );
+  assert.match(
+    html,
+    /<link rel="alternate" hrefLang="x-default" href="https:\/\/divetopo\.com\/"/i,
+  );
+  assert.match(html, /type="application\/ld\+json"/);
+  assert.match(html, /"@type":"WebPage"/);
+  assert.match(html, /"inLanguage":"fr"/);
   assert.match(
     html,
     /<meta name="viewport" content="width=device-width, initial-scale=1"/,
@@ -79,7 +116,7 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.doesNotMatch(html, /Sélection de cartes/);
   assert.match(html, /sélection non exhaustive de sept sites/);
   assert.match(html, /src="\/reunion-overview\.webp"/);
-  assert.match(html, /href="https:\/\/reunion\.divetopo\.com"/);
+  assert.match(html, /href="https:\/\/reunion\.divetopo\.com\/fr"/);
   assert.match(html, /aria-label="Explorer La Réunion"/);
   assert.match(html, /<section[^>]*aria-label="Régions"[^>]*>/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
@@ -129,11 +166,19 @@ test("server-renders the French homepage with Auto theme by default", async () =
 });
 
 test("uses the browser language for the English version", async () => {
-  const response = await render({ "accept-language": "en-GB,en;q=0.9,fr;q=0.7" });
+  const response = await render("/en", {
+    "accept-language": "fr-FR,fr;q=0.9",
+    cookie: "divetopo-language=fr",
+  });
   const html = await response.text();
 
   assert.match(html, /<html lang="en" data-theme="auto">/);
   assert.match(html, /<title>DiveTopo · Dive site maps<\/title>/i);
+  assert.match(
+    html,
+    /<link rel="canonical" href="https:\/\/divetopo\.com\/en"/,
+  );
+  assert.match(html, /"inLanguage":"en"/);
   assert.match(
     html,
     /name="twitter:image:alt" content="DiveTopo, dive site maps"/,
@@ -145,6 +190,7 @@ test("uses the browser language for the English version", async () => {
   );
   assert.doesNotMatch(html, /Choose a region/);
   assert.match(html, /Réunion Island/);
+  assert.match(html, /href="https:\/\/reunion\.divetopo\.com\/en"/);
   assert.doesNotMatch(html, /Map selection/);
   assert.match(html, /non-exhaustive selection of seven sites/);
   assert.match(html, /aria-label="Explore Réunion Island"/);
@@ -178,31 +224,26 @@ test("uses the browser language for the English version", async () => {
 });
 
 test("respects Accept-Language quality weights and exclusions", async () => {
-  const frenchHtml = await (
-    await render({
-      "accept-language": "de-DE,fr;q=0.9,en;q=0.8",
-    })
-  ).text();
-  const englishHtml = await (
-    await render({
-      "accept-language": "fr;q=0,en;q=1",
-    })
-  ).text();
-  const fallbackEnglishHtml = await (
-    await render({
-      "accept-language": "es-ES,es;q=0.9",
-    })
-  ).text();
+  const frenchResponse = await render("/", {
+    "accept-language": "de-DE,fr;q=0.9,en;q=0.8",
+  });
+  const englishResponse = await render("/", {
+    "accept-language": "fr;q=0,en;q=1",
+  });
+  const fallbackEnglishResponse = await render("/", {
+    "accept-language": "es-ES,es;q=0.9",
+  });
 
-  assert.match(frenchHtml, /<html lang="fr" data-theme="auto">/);
-  assert.match(frenchHtml, /Cartographies de sites de plongée/);
-  assert.match(englishHtml, /<html lang="en" data-theme="auto">/);
-  assert.match(englishHtml, /Dive site maps/);
-  assert.match(fallbackEnglishHtml, /<html lang="en" data-theme="auto">/);
+  assert.equal(frenchResponse.headers.get("location"), "http://localhost/fr");
+  assert.equal(englishResponse.headers.get("location"), "http://localhost/en");
+  assert.equal(
+    fallbackEnglishResponse.headers.get("location"),
+    "http://localhost/en",
+  );
 });
 
 test("saved cookies override system language and theme", async () => {
-  const response = await render({
+  const response = await render("/fr", {
     "accept-language": "en-US,en;q=0.9",
     cookie: "divetopo-language=fr; divetopo-theme=dark",
   });
@@ -266,14 +307,14 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*30rem;/s);
   assert.match(controlsSource, /document\.cookie/);
   assert.match(controlsSource, /Domain=\.divetopo\.com/);
-  assert.match(controlsSource, /onLanguageChange\(nextLanguage\)/);
   assert.match(controlsSource, /className="language-choice"/);
-  assert.match(controlsSource, /flushSync/);
-  assert.match(controlsSource, /window\.history\.replaceState/);
   assert.match(
     controlsSource,
-    /window\.scrollTo\(scrollPosition\.left, scrollPosition\.top\)/,
+    /window\.location\.assign\(`\/\$\{nextLanguage\}\$\{window\.location\.search\}`\)/,
   );
+  assert.doesNotMatch(controlsSource, /flushSync/);
+  assert.doesNotMatch(controlsSource, /window\.history/);
+  assert.doesNotMatch(controlsSource, /window\.location\.hash/);
   assert.doesNotMatch(controlsSource, /window\.location\.reload/);
   assert.match(
     controlsSource,
@@ -293,7 +334,7 @@ test("advertises the standalone DiveTopo app identity in server-rendered metadat
 
   assert.match(
     html,
-    /<link rel="manifest" href="\/manifest\.webmanifest"\/>/,
+    /<link rel="manifest" href="https:\/\/divetopo\.com\/manifest\.webmanifest"\/>/,
   );
   assert.match(
     html,
@@ -313,13 +354,47 @@ test("advertises the standalone DiveTopo app identity in server-rendered metadat
   );
   assert.match(
     html,
-    /<link rel="apple-touch-icon" href="\/apple-touch-icon\.png" sizes="180x180" type="image\/png"\/>/,
+    /<link rel="apple-touch-icon" href="https:\/\/divetopo\.com\/apple-touch-icon\.png" sizes="180x180" type="image\/png"\/>/,
   );
   assert.match(
     html,
-    /<link rel="icon" href="\/favicon\.svg" type="image\/svg\+xml"\/>/,
+    /<link rel="icon" href="https:\/\/divetopo\.com\/favicon\.svg" type="image\/svg\+xml"\/>/,
   );
-  assert.match(html, /<link rel="shortcut icon" href="\/favicon\.svg"\/>/);
+  assert.match(
+    html,
+    /<link rel="shortcut icon" href="https:\/\/divetopo\.com\/favicon\.svg"\/>/,
+  );
+});
+
+test("publishes crawlable robots and localized sitemap routes", async () => {
+  const robotsResponse = await render("/robots.txt");
+  const sitemapResponse = await render("/sitemap.xml");
+  const robots = await robotsResponse.text();
+  const sitemap = await sitemapResponse.text();
+
+  assert.equal(robotsResponse.status, 200);
+  assert.match(
+    robotsResponse.headers.get("content-type") ?? "",
+    /^text\/plain\b/i,
+  );
+  assert.match(robots, /User-Agent: \*/);
+  assert.match(robots, /Allow: \//);
+  assert.match(robots, /Host: https:\/\/divetopo\.com/);
+  assert.match(
+    robots,
+    /Sitemap: https:\/\/divetopo\.com\/sitemap\.xml/,
+  );
+
+  assert.equal(sitemapResponse.status, 200);
+  assert.match(
+    sitemapResponse.headers.get("content-type") ?? "",
+    /^(?:application|text)\/xml\b/i,
+  );
+  assert.match(sitemap, /https:\/\/divetopo\.com\/fr</);
+  assert.match(sitemap, /https:\/\/divetopo\.com\/en</);
+  assert.match(sitemap, /hreflang="fr"/);
+  assert.match(sitemap, /hreflang="en"/);
+  assert.match(sitemap, /hreflang="x-default"/);
 });
 
 test("ships a scoped standalone manifest and correctly sized PNG icons", async () => {

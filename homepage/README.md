@@ -8,12 +8,17 @@ The list of regions is centralized in `content/regions.ts`. To add a region,
 place its image in `public/`, then add an entry to this array; the grid and
 labels are rendered automatically.
 
-The page is available in French and English. On the first visit, the language
-follows the browser setting, after which the FR/EN choice is stored in a
+The canonical language routes are `/fr` and `/en`. The root URL redirects to
+the saved language, then to the preferred supported browser language. The
+FR/EN control navigates between the stable routes and stores the choice in a
 cookie. The theme offers Light, Dark, and Auto; Auto is the initial setting and
 follows the system mode. Across DiveTopo domains, these preferences are shared
 with the regional mapping pages, including Topo Réunion at
 `reunion.divetopo.com`.
+
+Search engines receive self-referencing canonical URLs, reciprocal language
+alternates, an `x-default` root URL, structured data, `robots.txt`, and
+`sitemap.xml`.
 
 ## Development
 

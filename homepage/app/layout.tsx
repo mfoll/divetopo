@@ -1,108 +1,53 @@
 import type { Metadata, Viewport } from "next";
 import { headers } from "next/headers";
-import { getPreferences } from "./preferences";
+import { getPreferences, languageFromPathname } from "./preferences";
 import "./globals.css";
 
-const metadataCopy = {
-  fr: {
-    title: "DiveTopo · Cartes de sites de plongée",
-    description:
-      "Explorez des cartes topo-bathymétriques de sites de plongée, région par région.",
-    socialTitle: "DiveTopo · Cartographies de sites de plongée",
-    socialDescription:
-      "Des plans 2D, perspectives 3D et reliefs interactifs de sites de plongée.",
-    socialAlt: "DiveTopo, cartographies de sites de plongée",
-    locale: "fr_FR",
+export const metadata: Metadata = {
+  metadataBase: new URL("https://divetopo.com"),
+  applicationName: "DiveTopo",
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    title: "DiveTopo",
+    statusBarStyle: "default",
   },
-  en: {
-    title: "DiveTopo · Dive site maps",
-    description:
-      "Explore topographic and bathymetric maps of dive sites, region by region.",
-    socialTitle: "DiveTopo · Dive site maps",
-    socialDescription:
-      "2D maps, 3D views and interactive terrain for selected dive sites.",
-    socialAlt: "DiveTopo, dive site maps",
-    locale: "en_GB",
+  other: {
+    "apple-mobile-web-app-capable": "yes",
   },
-} as const;
+  icons: {
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
+    shortcut: "/favicon.svg",
+    apple: [
+      {
+        url: "/apple-touch-icon.png",
+        sizes: "180x180",
+        type: "image/png",
+      },
+    ],
+  },
+};
 
 export const viewport: Viewport = {
   initialScale: 1,
   width: "device-width",
 };
 
-export async function generateMetadata(): Promise<Metadata> {
-  const [{ language }, requestHeaders] = await Promise.all([
-    getPreferences(),
-    headers(),
-  ]);
-  const text = metadataCopy[language];
-  const host =
-    requestHeaders.get("x-forwarded-host") ??
-    requestHeaders.get("host") ??
-    "localhost:3000";
-  const protocol =
-    requestHeaders.get("x-forwarded-proto") ??
-    (host.startsWith("localhost") ? "http" : "https");
-  const origin = `${protocol}://${host}`;
-  const socialImage = new URL("/og.png", origin).toString();
-
-  return {
-    applicationName: "DiveTopo",
-    title: text.title,
-    description: text.description,
-    manifest: "/manifest.webmanifest",
-    appleWebApp: {
-      capable: true,
-      title: "DiveTopo",
-      statusBarStyle: "default",
-    },
-    other: {
-      "apple-mobile-web-app-capable": "yes",
-    },
-    icons: {
-      icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-      shortcut: "/favicon.svg",
-      apple: [
-        {
-          url: "/apple-touch-icon.png",
-          sizes: "180x180",
-          type: "image/png",
-        },
-      ],
-    },
-    openGraph: {
-      title: text.socialTitle,
-      description: text.socialDescription,
-      locale: text.locale,
-      type: "website",
-      images: [
-        {
-          url: socialImage,
-          width: 1200,
-          height: 630,
-          alt: text.socialAlt,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: text.socialTitle,
-      description: text.socialDescription,
-      images: [{ url: socialImage, alt: text.socialAlt }],
-    },
-  };
-}
-
 export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { language, theme } = await getPreferences();
+  const [preferences, requestHeaders] = await Promise.all([
+    getPreferences(),
+    headers(),
+  ]);
+  const language =
+    languageFromPathname(requestHeaders.get("x-divetopo-pathname")) ??
+    preferences.language;
 
   return (
-    <html lang={language} data-theme={theme}>
+    <html lang={language} data-theme={preferences.theme}>
       <body>{children}</body>
     </html>
   );

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { flushSync } from "react-dom";
 import { topoReunionCopy } from "../content/copy";
 import {
   LANGUAGE_COOKIE,
@@ -129,24 +128,8 @@ export default function PreferenceControls({
       return;
     }
 
-    const scrollPosition = {
-      left: window.scrollX,
-      top: window.scrollY,
-    };
-    const relativeUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
-    if (window.location.hash) {
-      window.history.replaceState(
-        window.history.state,
-        "",
-        `${window.location.pathname}${window.location.search}`,
-      );
-    }
     writePreference(LANGUAGE_COOKIE, nextLanguage);
-    flushSync(() => {
-      onLanguageChange(nextLanguage);
-    });
-    window.history.replaceState(window.history.state, "", relativeUrl);
-    window.scrollTo(scrollPosition.left, scrollPosition.top);
+    onLanguageChange(nextLanguage);
   }
 
   function chooseTheme(nextTheme: Theme) {

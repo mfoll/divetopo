@@ -43,7 +43,14 @@ const worker = {
       }, allowedWidths);
     }
 
-    return handler.fetch(request, env, ctx);
+    const requestHeaders = new Headers(request.headers);
+    requestHeaders.set("x-divetopo-pathname", url.pathname);
+
+    return handler.fetch(
+      new Request(request, { headers: requestHeaders }),
+      env,
+      ctx,
+    );
   },
 };
 

@@ -59,6 +59,11 @@ function languageFromAcceptHeader(acceptLanguage: string | null): Language {
   return "en";
 }
 
+function languageFromPathname(pathname: string | null): Language | null {
+  const match = pathname?.match(/^\/(fr|en)(?:\/|$)/);
+  return match ? (match[1] as Language) : null;
+}
+
 export async function getPreferences(): Promise<{
   language: Language;
   theme: Theme;
@@ -69,11 +74,15 @@ export async function getPreferences(): Promise<{
   ]);
   const languageCookie = cookieStore.get(LANGUAGE_COOKIE)?.value;
   const themeCookie = cookieStore.get(THEME_COOKIE)?.value;
+  const routeLanguage = languageFromPathname(
+    requestHeaders.get("x-divetopo-pathname"),
+  );
 
   const language =
-    languageCookie === "fr" || languageCookie === "en"
+    routeLanguage ??
+    (languageCookie === "fr" || languageCookie === "en"
       ? languageCookie
-      : languageFromAcceptHeader(requestHeaders.get("accept-language"));
+      : languageFromAcceptHeader(requestHeaders.get("accept-language")));
 
   const theme =
     themeCookie === "light" ||

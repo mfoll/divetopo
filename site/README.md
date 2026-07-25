@@ -18,6 +18,36 @@ Auto; Auto is the initial setting and follows the system mode. The same
 preference cookies are used across `divetopo.com` and
 `reunion.divetopo.com`.
 
+## Routes and search indexing
+
+The neutral root `/` redirects to `/fr` or `/en` from the saved language
+preference, then the browser's weighted `Accept-Language` header. The
+language-specific overview routes are:
+
+- `/fr`
+- `/en`
+
+Every site in `public/maps/manifest.json` also has two indexable routes:
+
+- `/fr/sites/<slug>`
+- `/en/sites/<slug>`
+
+These routes server-render the same manifest-driven interface and assets while
+opening the selected site directly. Selecting another site updates the URL
+without reloading the viewer; browser back and forward navigation restore the
+corresponding language and site. The neutral `/sites/<slug>` route redirects
+to the visitor's preferred language and serves as the `x-default` alternate.
+
+Each overview and site page publishes a self-referencing canonical URL,
+reciprocal French/English `hreflang` links, an `x-default` alternate, localized
+Open Graph metadata, and structured data. The crawl entry points are:
+
+- `/robots.txt`
+- `/sitemap.xml`
+
+The sitemap is generated from the same map manifest, so a newly published site
+is included automatically after its assets are rebuilt.
+
 ## Development
 
 Requirement: Node.js `>=22.13.0`.

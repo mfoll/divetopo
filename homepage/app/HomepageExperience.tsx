@@ -1,8 +1,5 @@
-"use client";
-
 /* eslint-disable @next/next/no-img-element -- the regional relief is a fixed, locally generated map */
 
-import { useEffect, useState } from "react";
 import { homepageCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
 import { regions } from "../content/regions";
@@ -10,22 +7,13 @@ import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
 
 export default function HomepageExperience({
-  language: initialLanguage,
+  language,
   theme,
 }: {
   language: Language;
   theme: Theme;
 }) {
-  const [language, setLanguage] = useState(initialLanguage);
   const text = homepageCopy[language];
-
-  useEffect(() => {
-    document.documentElement.lang = language;
-    document.title = text.documentTitle;
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute("content", text.metadataDescription);
-  }, [language, text.documentTitle, text.metadataDescription]);
 
   return (
     <>
@@ -43,7 +31,6 @@ export default function HomepageExperience({
             <PreferenceControls
               language={language}
               theme={theme}
-              onLanguageChange={setLanguage}
             />
           </div>
         </div>
@@ -70,7 +57,7 @@ export default function HomepageExperience({
                   aria-label={`${text.exploreRegion} ${region.name[language]}`}
                   className="region-card"
                   data-testid={`region-${region.slug}`}
-                  href={region.href}
+                  href={`${region.href}/${language}`}
                   key={region.slug}
                 >
                   <div className="region-visual">

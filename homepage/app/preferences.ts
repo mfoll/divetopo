@@ -2,6 +2,7 @@ import { cookies, headers } from "next/headers";
 import {
   LANGUAGE_COOKIE,
   THEME_COOKIE,
+  isLanguage,
   type Language,
   type Theme,
 } from "../content/preferences";
@@ -69,11 +70,11 @@ export async function getPreferences(): Promise<{
   ]);
   const languageCookie = cookieStore.get(LANGUAGE_COOKIE)?.value;
   const themeCookie = cookieStore.get(THEME_COOKIE)?.value;
+  const requestedLanguage = languageCookie ?? "";
 
-  const language =
-    languageCookie === "fr" || languageCookie === "en"
-      ? languageCookie
-      : languageFromAcceptHeader(requestHeaders.get("accept-language"));
+  const language = isLanguage(requestedLanguage)
+    ? requestedLanguage
+    : languageFromAcceptHeader(requestHeaders.get("accept-language"));
 
   const theme =
     themeCookie === "light" ||
@@ -83,4 +84,9 @@ export async function getPreferences(): Promise<{
       : "auto";
 
   return { language, theme };
+}
+
+export function languageFromPathname(pathname: string | null): Language | null {
+  const firstSegment = pathname?.split("/").find(Boolean);
+  return firstSegment && isLanguage(firstSegment) ? firstSegment : null;
 }

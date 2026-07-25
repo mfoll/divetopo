@@ -120,6 +120,15 @@ les variantes Topographie et Vue aérienne ; changer de fond ne remplace que la
 texture. La caméra initiale suit la vue 3D statique, depuis le large vers la
 côte, tandis que la rotation horizontale reste libre sur 360 degrés.
 
+Les deux sites publics proposent des adresses stables en français et en anglais
+sous `/fr` et `/en`. Topo Réunion propose également une adresse indexable pour
+chaque site publié, par exemple `/fr/sites/cap-la-houssaye` et
+`/en/sites/cap-la-houssaye`. Ces pages réutilisent les mêmes cartes
+responsives, téléchargements et paquets de terrain interactif ; elles ne
+dupliquent ni ne recalculent les ressources cartographiques. Les adresses
+racines sélectionnent la langue enregistrée ou préférée, puis redirigent vers
+sa route canonique.
+
 Le champ d'altitude utilise au maximum `513` sommets sur son axe le plus long.
 Les textures WebGL utilisent au maximum `2048 px` sur leur plus grand côté. Les
 isobathes sont calculées dans des plans parfaitement horizontaux tous les 5 m,

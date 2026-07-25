@@ -12,6 +12,13 @@ import {
 } from "react";
 import { topoReunionCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
+import {
+  languagePath,
+  localizedSitePath,
+  parseTopoRoute,
+  regionalSeoText,
+  siteSeoText,
+} from "../content/routing";
 import mapManifestJson from "../public/maps/manifest.json";
 import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
@@ -214,11 +221,13 @@ const SITE_LABEL_LAYOUT = {
 
 function SitePicker({
   activeSlug,
+  hasSiteRoute,
   onSelect,
   onOpenOverview,
   language,
 }: {
   activeSlug: string;
+  hasSiteRoute: boolean;
   onSelect: (slug: string) => void;
   onOpenOverview: () => void;
   language: Language;
@@ -277,21 +286,34 @@ function SitePicker({
             } as CSSProperties;
 
             return (
-              <button
+              <a
                 key={site.slug}
-                type="button"
                 className={`site-map-marker label-${layout}`}
                 style={style}
-                aria-pressed={selected}
+                aria-current={hasSiteRoute && selected ? "page" : undefined}
+                data-selected={selected}
                 aria-label={`${text.showSite} ${site.displayName}`}
-                onClick={() => onSelect(site.slug)}
+                href={localizedSitePath(language, site.slug)}
+                onClick={(event) => {
+                  if (
+                    event.button !== 0 ||
+                    event.metaKey ||
+                    event.ctrlKey ||
+                    event.shiftKey ||
+                    event.altKey
+                  ) {
+                    return;
+                  }
+                  event.preventDefault();
+                  onSelect(site.slug);
+                }}
               >
                 <span className="site-map-marker-dot" aria-hidden="true" />
                 <span className="site-map-marker-line" aria-hidden="true" />
                 <span className="site-map-marker-label">
                   {site.displayName}
                 </span>
-              </button>
+              </a>
             );
           })}
 
@@ -329,12 +351,21 @@ function SitePicker({
 export function TopoReunionExperience({
   language: initialLanguage,
   theme,
+  initialSlug,
 }: {
   language: Language;
   theme: Theme;
+  initialSlug?: string;
 }) {
+  const resolvedInitialSite =
+    mapManifest.sites.find((site) => site.slug === initialSlug) ?? initialSite;
   const [language, setLanguage] = useState(initialLanguage);
-  const [activeSlug, setActiveSlug] = useState(() => initialSite.slug);
+  const [activeSlug, setActiveSlug] = useState(
+    () => resolvedInitialSite.slug,
+  );
+  const [hasSiteRoute, setHasSiteRoute] = useState(
+    () => initialSlug !== undefined,
+  );
   const [surfaceStyle, setSurfaceStyle] =
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
@@ -342,16 +373,74 @@ export function TopoReunionExperience({
   const dialogRef = useRef<HTMLDialogElement>(null);
   const overviewDialogRef = useRef<HTMLDialogElement>(null);
 
-  useEffect(() => {
-    document.documentElement.lang = language;
-    document.title = text.topoReunionTitle;
-    document
-      .querySelector('meta[name="description"]')
-      ?.setAttribute("content", text.metadataDescription);
-  }, [language, text.topoReunionTitle, text.metadataDescription]);
-
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
+
+  useEffect(() => {
+    const seoText = hasSiteRoute
+      ? siteSeoText(language, activeSite)
+      : regionalSeoText(language);
+    document.documentElement.lang = language;
+    document.title = seoText.title;
+    document
+      .querySelector('meta[name="description"]')
+      ?.setAttribute("content", seoText.description);
+  }, [activeSite, hasSiteRoute, language]);
+
+  useEffect(() => {
+    function restoreRouteFromHistory() {
+      const route = parseTopoRoute(window.location.pathname);
+      if (!route) {
+        return;
+      }
+
+      setLanguage(route.language);
+      if (route.kind === "overview") {
+        setActiveSlug(initialSite.slug);
+        setHasSiteRoute(false);
+        return;
+      }
+
+      if (mapManifest.sites.some((site) => site.slug === route.slug)) {
+        setActiveSlug(route.slug);
+        setHasSiteRoute(true);
+      }
+    }
+
+    window.addEventListener("popstate", restoreRouteFromHistory);
+    return () =>
+      window.removeEventListener("popstate", restoreRouteFromHistory);
+  }, []);
+
+  function selectSite(slug: string) {
+    if (!mapManifest.sites.some((site) => site.slug === slug)) {
+      return;
+    }
+
+    const pathname = localizedSitePath(language, slug);
+    const nextUrl =
+      `${pathname}${window.location.search}${window.location.hash}`;
+    const currentUrl =
+      `${window.location.pathname}${window.location.search}` +
+      `${window.location.hash}`;
+
+    if (nextUrl !== currentUrl) {
+      window.history.pushState(window.history.state, "", nextUrl);
+    }
+    setActiveSlug(slug);
+    setHasSiteRoute(true);
+  }
+
+  function changeLanguage(nextLanguage: Language) {
+    const pathname = hasSiteRoute
+      ? localizedSitePath(nextLanguage, activeSlug)
+      : languagePath(nextLanguage);
+    const nextUrl = `${pathname}${window.location.search}`;
+
+    window.history.replaceState(window.history.state, "", nextUrl);
+    setLanguage(nextLanguage);
+  }
+
   const staticView: MapView = viewMode === "2d" ? "2d" : "3d";
   const mapAsset = selectedMap(activeSite, staticView, surfaceStyle);
   const mapLargest = mapAsset.variants.at(-1) ?? mapAsset.variants[0];
@@ -418,7 +507,7 @@ export function TopoReunionExperience({
             <PreferenceControls
               language={language}
               theme={theme}
-              onLanguageChange={setLanguage}
+              onLanguageChange={changeLanguage}
             />
           </div>
         </div>
@@ -436,141 +525,141 @@ export function TopoReunionExperience({
             <h1 id="topo-reunion-title">{text.topoReunionTitle}</h1>
           </div>
 
-        <div className="topo-reunion-workspace">
-          <SitePicker
-            activeSlug={activeSlug}
-            onSelect={setActiveSlug}
-            onOpenOverview={() => overviewDialogRef.current?.showModal()}
-            language={language}
-          />
+          <div className="topo-reunion-workspace">
+            <SitePicker
+              activeSlug={activeSlug}
+              hasSiteRoute={hasSiteRoute}
+              onSelect={selectSite}
+              onOpenOverview={() => overviewDialogRef.current?.showModal()}
+              language={language}
+            />
 
-          <article
-            className="topo-reunion-main"
-            id="topo-reunion-panel"
-            aria-labelledby={`active-site-title-${activeSite.slug}`}
-          >
-            <div className="viewer-head">
-              <header className="active-site-heading">
-                <div>
-                  <h2 id={`active-site-title-${activeSite.slug}`}>
-                    {activeSite.displayName}
-                  </h2>
-                  <p>
-                    <span>
-                      {activeSite.location.city}, {text.islandName}
-                    </span>
-                    <span aria-hidden="true">·</span>
-                    <span>{gpsLabel(activeSite.location, language)}</span>
-                  </p>
-                </div>
-                <a
-                  href={googleMapsUrl(activeSite.location)}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  {text.activeSite.googleMaps}
-                </a>
-              </header>
-
-              <div className="viewer-toolbar">
-                <ViewToggle
-                  value={viewMode}
-                  onChange={setViewMode}
-                  language={language}
-                />
-                <SurfaceToggle
-                  value={surfaceStyle}
-                  onChange={setSurfaceStyle}
-                  language={language}
-                />
-              </div>
-            </div>
-
-            <div
-              className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
-              data-testid="topo-reunion-viewer"
+            <article
+              className="topo-reunion-main"
+              id="topo-reunion-panel"
+              aria-labelledby={`active-site-title-${activeSite.slug}`}
             >
-              {viewMode === "interactive" ? (
-                <Suspense
-                  fallback={
-                    <div className="terrain-loading" role="status">
-                      {text.map.preparingTerrain}
-                    </div>
-                  }
-                >
-                  <TerrainViewer
-                    key={activeSite.slug}
-                    slug={activeSite.slug}
-                    siteName={activeSite.displayName}
-                    style={surfaceStyle}
+              <div className="viewer-head">
+                <header className="active-site-heading">
+                  <div>
+                    <h2 id={`active-site-title-${activeSite.slug}`}>
+                      {activeSite.displayName}
+                    </h2>
+                    <p>
+                      <span>
+                        {activeSite.location.city}, {text.islandName}
+                      </span>
+                      <span aria-hidden="true">·</span>
+                      <span>{gpsLabel(activeSite.location, language)}</span>
+                    </p>
+                  </div>
+                  <a
+                    href={googleMapsUrl(activeSite.location)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {text.activeSite.googleMaps}
+                  </a>
+                </header>
+
+                <div className="viewer-toolbar">
+                  <ViewToggle
+                    value={viewMode}
+                    onChange={setViewMode}
                     language={language}
                   />
-                </Suspense>
-              ) : (
-                <>
-                  <button
-                    type="button"
-                    className="map-open"
-                    onClick={openMapDialog}
-                    aria-label={`${text.map.openMap} ${activeSite.displayName}`}
-                  >
-                    <img
-                      key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
-                      src={mapLargest.src}
-                      srcSet={assetSrcSet(mapAsset.variants)}
-                      sizes="(max-width: 980px) 100vw, 68vw"
-                      width={mapLargest.width}
-                      height={mapLargest.height}
-                      alt={mapAlt}
-                      fetchPriority="high"
-                    />
-                    <span>{text.map.openLarge}</span>
-                  </button>
-                  <a
-                    className="map-download"
-                    data-testid="map-download"
-                    href={mapAsset.download.src}
-                    download={mapAsset.download.filename}
-                    aria-label={mapDownloadLabel}
-                  >
-                    <span aria-hidden="true">↓</span>
-                    {text.map.download}
-                  </a>
-                </>
-              )}
-            </div>
-
-            {viewMode === "interactive" ? (
-              <div className="viewer-meta">
-                <span>{text.map.interactionHelp}</span>
+                  <SurfaceToggle
+                    value={surfaceStyle}
+                    onChange={setSurfaceStyle}
+                    language={language}
+                  />
+                </div>
               </div>
-            ) : null}
 
-            <div className="planche-download">
-              <img
-                key={`${activeSite.slug}-planche-${surfaceStyle}`}
-                src={planche.preview.src}
-                width={planche.preview.width}
-                height={planche.preview.height}
-                loading="lazy"
-                alt={platePreviewAlt}
-              />
-              <div>
-                <strong>{text.plate.printable}</strong>
-                <span>
-                  {activeSite.displayName} · {surfaceText.label}
-                </span>
-              </div>
-              <a
-                href={planche.download.src}
-                download={planche.download.filename}
+              <div
+                className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
+                data-testid="topo-reunion-viewer"
               >
-                {text.plate.download}
-              </a>
-            </div>
-          </article>
+                {viewMode === "interactive" ? (
+                  <Suspense
+                    fallback={
+                      <div className="terrain-loading" role="status">
+                        {text.map.preparingTerrain}
+                      </div>
+                    }
+                  >
+                    <TerrainViewer
+                      key={activeSite.slug}
+                      slug={activeSite.slug}
+                      siteName={activeSite.displayName}
+                      style={surfaceStyle}
+                      language={language}
+                    />
+                  </Suspense>
+                ) : (
+                  <>
+                    <button
+                      type="button"
+                      className="map-open"
+                      onClick={openMapDialog}
+                      aria-label={`${text.map.openMap} ${activeSite.displayName}`}
+                    >
+                      <img
+                        key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
+                        src={mapLargest.src}
+                        srcSet={assetSrcSet(mapAsset.variants)}
+                        sizes="(max-width: 980px) 100vw, 68vw"
+                        width={mapLargest.width}
+                        height={mapLargest.height}
+                        alt={mapAlt}
+                        fetchPriority="high"
+                      />
+                      <span>{text.map.openLarge}</span>
+                    </button>
+                    <a
+                      className="map-download"
+                      data-testid="map-download"
+                      href={mapAsset.download.src}
+                      download={mapAsset.download.filename}
+                      aria-label={mapDownloadLabel}
+                    >
+                      <span aria-hidden="true">↓</span>
+                      {text.map.download}
+                    </a>
+                  </>
+                )}
+              </div>
 
-        </div>
+              {viewMode === "interactive" ? (
+                <div className="viewer-meta">
+                  <span>{text.map.interactionHelp}</span>
+                </div>
+              ) : null}
+
+              <div className="planche-download">
+                <img
+                  key={`${activeSite.slug}-planche-${surfaceStyle}`}
+                  src={planche.preview.src}
+                  width={planche.preview.width}
+                  height={planche.preview.height}
+                  loading="lazy"
+                  alt={platePreviewAlt}
+                />
+                <div>
+                  <strong>{text.plate.printable}</strong>
+                  <span>
+                    {activeSite.displayName} · {surfaceText.label}
+                  </span>
+                </div>
+                <a
+                  href={planche.download.src}
+                  download={planche.download.filename}
+                >
+                  {text.plate.download}
+                </a>
+              </div>
+            </article>
+          </div>
         </section>
 
         <section
