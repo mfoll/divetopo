@@ -44,7 +44,15 @@ export default async function RootLayout({
 
   return (
     <html lang={language} data-theme={theme}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <script
+          async
+          data-cf-beacon='{"token":"32f973b9bb49455089575acc50377b05"}'
+          src="https://static.cloudflareinsights.com/beacon.min.js"
+          type="module"
+        />
+      </body>
     </html>
   );
 }

@@ -800,6 +800,7 @@ export function TopoReunionExperience({
             {text.footer.maps} © {initialSite.copyrightYear}{" "}
             {initialSite.plateAuthor} · {initialSite.mapLicense}
           </span>
+          <span>{text.footer.analytics}</span>
         </div>
         <a href="#top">{text.footer.backToTop}</a>
       </footer>

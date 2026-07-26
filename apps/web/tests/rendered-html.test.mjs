@@ -244,6 +244,10 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
     /Accès gratuit · sans publicité · code sous licence MIT · cartes sous licence CC BY-NC-SA 4\.0/,
   );
   assert.match(
+    visibleText(footer),
+    /Mesure d’audience agrégée, sans cookies, avec Cloudflare Web Analytics/,
+  );
+  assert.match(
     footer,
     /href="https:\/\/opensource\.org\/license\/mit"[^>]*>MIT<\/a>/,
   );
@@ -336,6 +340,10 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   assert.match(
     visibleText(footer),
     /Free access · ad-free · code under the MIT License · maps under CC BY-NC-SA 4\.0/,
+  );
+  assert.match(
+    visibleText(footer),
+    /Aggregated, cookie-free audience measurement with Cloudflare Web Analytics/,
   );
   assert.match(
     footer,

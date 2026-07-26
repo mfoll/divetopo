@@ -173,6 +173,22 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(footer, /IGN RGE ALTI/);
   assert.match(footer, /GEBCO Compilation Group \(2024\)/);
   assert.match(footer, /Site et code entièrement générés avec l’IA/);
+  assert.match(
+    footer,
+    /Mesure d’audience agrégée, sans cookies, avec Cloudflare Web Analytics/,
+  );
+  assert.equal(
+    [
+      ...html.matchAll(
+        /<script[^>]*src="https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js"[^>]*>/g,
+      ),
+    ].length,
+    1,
+  );
+  assert.match(
+    html,
+    /<script[^>]*data-cf-beacon="\{&quot;token&quot;:&quot;32f973b9bb49455089575acc50377b05&quot;\}"[^>]*src="https:\/\/static\.cloudflareinsights\.com\/beacon\.min\.js"[^>]*type="module"/,
+  );
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape/i);
 });
 
@@ -233,6 +249,10 @@ test("uses the browser language for the English version", async () => {
     /href="https:\/\/creativecommons\.org\/licenses\/by-nc-sa\/4\.0\/deed\.en"[^>]*>CC BY-NC-SA 4\.0<\/a>/,
   );
   assert.match(footer, /Site and code generated entirely with AI/);
+  assert.match(
+    footer,
+    /Aggregated, cookie-free audience measurement with Cloudflare Web Analytics/,
+  );
 });
 
 test("respects Accept-Language quality weights and exclusions", async () => {

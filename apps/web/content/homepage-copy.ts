@@ -39,6 +39,8 @@ export const homepageCopy = {
       aiGenerated: "Site et code entièrement générés avec l’IA.",
       credit:
         "Relief insulaire : IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
+      analytics:
+        "Mesure d’audience agrégée, sans cookies, avec Cloudflare Web Analytics.",
       backToTop: "Haut de page",
     },
     preferences: {
@@ -89,6 +91,8 @@ export const homepageCopy = {
       aiGenerated: "Site and code generated entirely with AI.",
       credit:
         "Island topography and bathymetry: IGN RGE ALTI · GEBCO Compilation Group (2024), GEBCO 2024 Grid.",
+      analytics:
+        "Aggregated, cookie-free audience measurement with Cloudflare Web Analytics.",
       backToTop: "Back to top",
     },
     preferences: {

@@ -150,6 +150,7 @@ export default function HomepageExperience({
           </span>
           <span>{text.footer.aiGenerated}</span>
           <span>{text.footer.credit}</span>
+          <span>{text.footer.analytics}</span>
         </div>
         <a href="#top">{text.footer.backToTop}</a>
       </footer>

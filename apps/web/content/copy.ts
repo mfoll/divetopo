@@ -198,6 +198,8 @@ export const topoReunionCopy = {
       codeLicense: "code sous licence",
       mit: "MIT",
       mapsLicense: "cartes sous licence",
+      analytics:
+        "Mesure d’audience agrégée, sans cookies, avec Cloudflare Web Analytics.",
       backToTop: "Haut de page",
     },
     dialogs: {
@@ -389,6 +391,8 @@ export const topoReunionCopy = {
       codeLicense: "code under the",
       mit: "MIT License",
       mapsLicense: "maps under",
+      analytics:
+        "Aggregated, cookie-free audience measurement with Cloudflare Web Analytics.",
       backToTop: "Back to top",
     },
     dialogs: {
