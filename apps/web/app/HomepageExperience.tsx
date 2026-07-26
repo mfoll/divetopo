@@ -75,9 +75,6 @@ export default function HomepageExperience({
                         <p>{region.location[language]}</p>
                         <h3>{region.name[language]}</h3>
                       </div>
-                      <span className="region-arrow" aria-hidden="true">
-                        ↗
-                      </span>
                     </div>
                     <p className="region-description">
                       {region.description[language]}

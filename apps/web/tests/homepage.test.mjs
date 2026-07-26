@@ -126,6 +126,7 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /src="\/reunion-overview\.webp"/);
   assert.match(html, /href="\/reunion\/fr"/);
   assert.match(html, /aria-label="Explorer La Réunion"/);
+  assert.doesNotMatch(html, /region-arrow|↗/);
   assert.match(html, /<section[^>]*aria-label="Régions"[^>]*>/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
   assert.match(html, /href="#contact">Contact<\/a>/);
