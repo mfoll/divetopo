@@ -21,7 +21,7 @@ export default function HomepageExperience({
         <div className="masthead-inner">
           <a className="brand" href="#top" aria-label={text.homeLabel}>
             <span className="brand-mark" aria-hidden="true" />
-            <span>DiveTopo</span>
+            <span className="brand-wordmark">DiveTopo</span>
           </a>
           <div className="masthead-actions">
             <nav className="primary-nav" aria-label={text.navigationLabel}>
@@ -126,7 +126,7 @@ export default function HomepageExperience({
       <footer className="site-footer">
         <a className="brand" href="#top">
           <span className="brand-mark" aria-hidden="true" />
-          <span>DiveTopo</span>
+          <span className="brand-wordmark">DiveTopo</span>
         </a>
         <div className="site-footer-meta">
           <span className="site-footer-access">

@@ -125,6 +125,8 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /"@type":"ItemList"/);
   assert.match(html, /aria-label="DiveTopo, revenir au site principal"/);
   assert.match(html, /href="\/fr"/);
+  assert.match(html, /class="brand-home-cue" aria-hidden="true">←<\/span>/);
+  assert.match(html, /class="brand-wordmark">DiveTopo<\/span>/);
   assert.match(html, /Plans des sites de plongée à La Réunion/);
   assert.match(
     html,

@@ -211,6 +211,37 @@ img {
   width: 1.8rem;
 }
 
+.masthead .brand {
+  border-radius: 999px;
+  margin-left: -0.35rem;
+  padding: 0.28rem 0.45rem 0.28rem 0.35rem;
+  transition:
+    background-color 170ms ease,
+    color 170ms ease;
+}
+
+.masthead .brand:hover {
+  background: var(--preference-control-bg);
+}
+
+.masthead .brand-wordmark {
+  font-size: clamp(1.05rem, 1.35vw, 1.18rem);
+}
+
+.brand-home-cue {
+  color: var(--accent-dark);
+  display: inline-block;
+  font-size: 1.05rem;
+  font-weight: 800;
+  line-height: 1;
+  margin-right: -0.2rem;
+  transition: transform 170ms ease;
+}
+
+.masthead .brand:hover .brand-home-cue {
+  transform: translateX(-0.1rem);
+}
+
 .masthead-actions,
 .masthead nav {
   align-items: center;
@@ -1925,9 +1956,12 @@ img {
 
   .masthead .brand {
     flex: 0 0 auto;
-    font-size: 0.95rem;
     gap: 0.45rem;
     min-height: 2.75rem;
+  }
+
+  .masthead .brand-wordmark {
+    font-size: 1.08rem;
   }
 
   .masthead .brand-mark {

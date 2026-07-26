@@ -127,6 +127,7 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /href="\/reunion\/fr"/);
   assert.match(html, /aria-label="Explorer La Réunion"/);
   assert.doesNotMatch(html, /region-arrow|↗/);
+  assert.doesNotMatch(html, /brand-home-cue/);
   assert.match(html, /<section[^>]*aria-label="Régions"[^>]*>/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
   assert.match(html, /href="#contact">Contact<\/a>/);
@@ -303,6 +304,14 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(
     stylesheet,
     /\.brand\s*\{[^}]*font-size:\s*clamp\(0\.88rem,\s*1\.15vw,\s*1\.04rem\);[^}]*font-weight:\s*700;/s,
+  );
+  assert.match(
+    stylesheet,
+    /\.masthead \.brand-wordmark\s*\{[^}]*font-size:\s*clamp\(1\.05rem,\s*1\.35vw,\s*1\.18rem\);/s,
+  );
+  assert.match(
+    stylesheet,
+    /@media \(max-width:\s*560px\)[\s\S]*\.masthead \.brand-wordmark\s*\{[^}]*font-size:\s*1\.08rem;/s,
   );
   assert.match(
     stylesheet,

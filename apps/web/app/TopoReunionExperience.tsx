@@ -484,8 +484,11 @@ export function TopoReunionExperience({
             href={`/${language}`}
             aria-label={text.header.homeLabel}
           >
+            <span className="brand-home-cue" aria-hidden="true">
+              ←
+            </span>
             <span className="brand-mark" aria-hidden="true" />
-            <span>{text.header.brand}</span>
+            <span className="brand-wordmark">{text.header.brand}</span>
           </a>
           <div className="masthead-actions">
             <nav aria-label={text.header.navigationLabel}>
@@ -772,7 +775,7 @@ export function TopoReunionExperience({
       <footer className="site-footer">
         <a className="brand" href="#top">
           <span className="brand-mark" aria-hidden="true" />
-          <span>{text.header.brand}</span>
+          <span className="brand-wordmark">{text.header.brand}</span>
         </a>
         <div className="site-footer-meta">
           <span className="site-footer-access">
