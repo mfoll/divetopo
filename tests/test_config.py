@@ -29,7 +29,7 @@ PUBLISHED_SITE_SLUGS = {
     "pointe-des-aigrettes",
     "pointe-au-sel-sec-jaune",
     "pont-rouge",
-    "roches-noires-le-cimetiere",
+    "roches-noires",
     "souris-chaude",
     "trois-bassins",
 }
@@ -139,7 +139,7 @@ class SiteConfigTests(unittest.TestCase):
                         "deep_edge_nodata_terrain_min_depth_m",
                         config,
                     )
-                if slug != "pointe-au-sel-sec-jaune":
+                if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
                     self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
 
     def test_static_interactive_center_alignment_is_site_local(self) -> None:
@@ -160,12 +160,17 @@ class SiteConfigTests(unittest.TestCase):
                 for slug, config in configs.items()
                 if "interactive_view_visible_width_m" in config
             },
-            {"cap-homard"},
+            {"cap-homard", "souris-chaude"},
         )
         self.assertEqual(configs["cap-homard"]["view_visible_width_m"], 600.0)
         self.assertEqual(
             configs["cap-homard"]["interactive_view_visible_width_m"],
             540.0,
+        )
+        self.assertEqual(configs["souris-chaude"]["view_visible_width_m"], 650.0)
+        self.assertEqual(
+            configs["souris-chaude"]["interactive_view_visible_width_m"],
+            600.0,
         )
 
     def test_all_sites_use_a_valid_coast_aligned_interactive_footprint(
