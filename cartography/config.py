@@ -136,6 +136,7 @@ _ALLOWED_KEYS = frozenset(
         "plate_canvas_height_px",
         "plate_canvas_width_px",
         "plate_city",
+        "plate_relief_source",
         "plate_site_name",
         "plate_title",
         "plan_max_depth_m",
@@ -581,6 +582,9 @@ def validate_config(config: Mapping[str, Any]) -> None:
 
     for key in ("slug", "title", "plate_site_name", "plate_city"):
         _non_empty_string(config, key, required=True)
+    plate_relief_source = config.get("plate_relief_source", "static")
+    if plate_relief_source not in {"static", "interactive"}:
+        raise ValueError("plate_relief_source must be 'static' or 'interactive'")
     slug = str(config["slug"])
     if not _SLUG_PATTERN.fullmatch(slug):
         raise ValueError("slug must use lowercase letters, digits, and single hyphens")

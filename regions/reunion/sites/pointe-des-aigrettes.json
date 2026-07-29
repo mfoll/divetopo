@@ -102,6 +102,7 @@
   "locator_gebco_blur_px": 9.0,
   "plate_site_name": "Pointe des Aigrettes",
   "plate_city": "Saint-Paul",
+  "plate_relief_source": "interactive",
   "plate_title": "Pointe des Aigrettes · La Réunion",
   "plate_canvas_height_px": 3250,
   "plate_author": "Matthieu Foll",

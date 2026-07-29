@@ -66,6 +66,7 @@
   "locator_gebco_blur_px": 9.0,
   "plate_site_name": "Passe de l'Hermitage",
   "plate_city": "Saint-Paul",
+  "plate_relief_source": "interactive",
   "plate_title": "Passe de l'Hermitage, La Réunion",
   "plate_canvas_height_px": 3250,
   "plate_author": "Matthieu Foll",

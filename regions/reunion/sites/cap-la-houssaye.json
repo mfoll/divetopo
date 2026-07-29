@@ -50,6 +50,7 @@
   "locator_gebco_blur_px": 9.0,
   "plate_site_name": "Cap La Houssaye",
   "plate_city": "Saint-Paul",
+  "plate_relief_source": "interactive",
   "plate_title": "Cap La Houssaye, La Réunion",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,

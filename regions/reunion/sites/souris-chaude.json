@@ -91,6 +91,7 @@
   "locator_gebco_blur_px": 9.0,
   "plate_site_name": "Souris Chaude",
   "plate_city": "Trois-Bassins",
+  "plate_relief_source": "interactive",
   "plate_title": "Souris Chaude, Trois-Bassins · La Réunion",
   "plate_canvas_height_px": 3250,
   "plate_author": "Matthieu Foll",

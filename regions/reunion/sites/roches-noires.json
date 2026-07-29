@@ -85,6 +85,7 @@
   "locator_gebco_blur_px": 9.0,
   "plate_site_name": "Roches Noires",
   "plate_city": "Saint-Paul",
+  "plate_relief_source": "interactive",
   "plate_title": "Roches Noires · La Réunion",
   "plate_canvas_height_px": 3250,
   "plate_author": "Matthieu Foll",
