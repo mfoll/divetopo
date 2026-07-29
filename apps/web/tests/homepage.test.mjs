@@ -122,7 +122,8 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.doesNotMatch(html, /Choisissez une région/);
   assert.match(html, /La Réunion/);
   assert.doesNotMatch(html, /Sélection de cartes/);
-  assert.match(html, /sélection non exhaustive de sept sites/);
+  assert.match(html, /sélection non exhaustive de onze sites/);
+  assert.match(html, /<li>11 sites<\/li>/);
   assert.match(html, /src="\/reunion-overview\.webp"/);
   assert.match(html, /href="\/reunion\/fr"/);
   assert.match(html, /aria-label="Explorer La Réunion"/);
@@ -219,7 +220,8 @@ test("uses the browser language for the English version", async () => {
   assert.match(html, /Réunion Island/);
   assert.match(html, /href="\/reunion\/en"/);
   assert.doesNotMatch(html, /Map selection/);
-  assert.match(html, /non-exhaustive selection of seven sites/);
+  assert.match(html, /non-exhaustive selection of eleven sites/);
+  assert.match(html, /<li>11 sites<\/li>/);
   assert.match(html, /aria-label="Explore Réunion Island"/);
   assert.match(html, /<section[^>]*aria-label="Regions"[^>]*>/);
   assert.match(html, /Ready for more regions\./);

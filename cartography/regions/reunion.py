@@ -913,6 +913,13 @@ def render(
             "plan_sea_shading_suppression"
         ),
         "land_shading": str(config.get("plan_land_shading", "none")),
+        "deep_edge_nodata_min_depth_m": config.get(
+            "deep_edge_nodata_terrain_min_depth_m"
+        ),
+        "suppressed_label_levels": config.get(
+            "plan_suppressed_label_levels",
+            [],
+        ),
     }
     if not relief_only:
         make_clean_plan(

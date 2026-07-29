@@ -101,7 +101,6 @@ export const topoReunionCopy = {
     },
     map: {
       preparingTerrain: "Préparation du relief…",
-      openLarge: "Ouvrir en grand",
       openMap: "Ouvrir la carte de",
       download: "Télécharger",
       downloadTwoD: "Télécharger le plan 2D",
@@ -294,7 +293,6 @@ export const topoReunionCopy = {
     },
     map: {
       preparingTerrain: "Preparing terrain…",
-      openLarge: "Open full size",
       openMap: "Open the map of",
       download: "Download",
       downloadTwoD: "Download the 2D map",

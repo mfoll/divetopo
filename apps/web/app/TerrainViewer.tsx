@@ -55,6 +55,10 @@ type TerrainMetadata = {
     visibleWidthM?: number;
     coastFrameFraction?: number;
     horizontalCenterOffsetM?: number;
+    vectorLabelVerticalInsetFraction?: number;
+    vectorLabelCollisionPaddingNdc?: number;
+    reselectVectorLabelsOnCameraEnd?: boolean;
+    requiredVectorLabelLevelsM?: number[];
   };
   textures: {
     topographic: { file: string; attribution: string };
@@ -985,8 +989,14 @@ export default function TerrainViewer({
       cameraRef.current = camera;
 
       const vectorGroup = vectorIsobathGroupRef.current;
-      let updateVectorLabels: (chooseAnchors: boolean) => void = () => {};
+      let updateVectorLabels: (
+        chooseAnchors: boolean,
+        useInteractionInset?: boolean,
+      ) => void = () => {};
       if (vectorGroup && labelCandidates.length) {
+        const requiredLevels = new Set(
+          metadata.view.requiredVectorLabelLevelsM ?? [],
+        );
         const featuredLoops = closedLoopCandidates
           .sort((first, second) => second.score - first.score)
           .filter(
@@ -1000,6 +1010,9 @@ export default function TerrainViewer({
         const featuredPolylineKeys = new Set(
           featuredLoops.map(({ polylineKey }) => polylineKey),
         );
+        const featuredLevels = new Set(
+          featuredLoops.map(({ levelM }) => levelM),
+        );
         const levels = Array.from(
           new Set(labelCandidates.map((candidate) => candidate.levelM)),
         ).sort((first, second) => first - second);
@@ -1012,8 +1025,8 @@ export default function TerrainViewer({
             map: texture,
             transparent: true,
             // Labels are annotations rather than contour geometry. Their
-            // carefully selected initial anchors stay fixed while the camera
-            // moves, so the text remains stable and legible.
+            // anchors stay fixed while the camera moves, so the text remains
+            // stable; opt-in sites may reselect them once interaction ends.
             depthTest: false,
             depthWrite: false,
             toneMapped: false,
@@ -1033,10 +1046,19 @@ export default function TerrainViewer({
           addVectorLabel(levelM, polylineKey);
         }
         for (const levelM of levels) {
+          if (
+            requiredLevels.has(levelM) &&
+            featuredLevels.has(levelM)
+          ) {
+            continue;
+          }
           addVectorLabel(levelM, null);
         }
 
-        updateVectorLabels = (chooseAnchors: boolean) => {
+        updateVectorLabels = (
+          chooseAnchors: boolean,
+          useInteractionInset = false,
+        ) => {
           if (!vectorLabels.length) return;
           const currentHost = hostRef.current;
           if (!currentHost) return;
@@ -1065,6 +1087,19 @@ export default function TerrainViewer({
           const halfHeightNdc =
             LABEL_HEIGHT_CSS_PX /
             Math.max(currentHost.clientHeight, 1);
+          const verticalInsetFraction = THREE.MathUtils.clamp(
+            useInteractionInset
+              ? (metadata.view.vectorLabelVerticalInsetFraction ?? 0.12)
+              : 0.12,
+            0.01,
+            0.25,
+          );
+          const verticalLimitNdc = 1 - verticalInsetFraction * 2;
+          const collisionPaddingNdc = THREE.MathUtils.clamp(
+            metadata.view.vectorLabelCollisionPaddingNdc ?? 0.025,
+            0,
+            0.1,
+          );
 
           for (const label of vectorLabels) {
             const visibleCandidates: Array<{
@@ -1087,7 +1122,7 @@ export default function TerrainViewer({
                 projected.z < -1 ||
                 projected.z > 1 ||
                 Math.abs(projected.x) > 0.82 ||
-                Math.abs(projected.y) > 0.76
+                Math.abs(projected.y) > verticalLimitNdc
               ) {
                 continue;
               }
@@ -1117,6 +1152,9 @@ export default function TerrainViewer({
             let best:
               | { candidate: VectorLabelCandidate; score: number }
               | undefined;
+            let bestOverlapping:
+              | { candidate: VectorLabelCandidate; score: number }
+              | undefined;
             for (const {
               candidate,
               projected,
@@ -1137,23 +1175,20 @@ export default function TerrainViewer({
                 top: projected.y + halfHeightNdc,
                 bottom: projected.y - halfHeightNdc,
               };
-              if (
-                occupied.some(
-                  (other) =>
-                    bounds.left < other.right + 0.025 &&
-                    bounds.right > other.left - 0.025 &&
-                    bounds.bottom < other.top + 0.025 &&
-                    bounds.top > other.bottom - 0.025,
-                )
-              ) {
-                continue;
-              }
+              const overlaps = occupied.some(
+                (other) =>
+                  bounds.left < other.right + collisionPaddingNdc &&
+                  bounds.right > other.left - collisionPaddingNdc &&
+                  bounds.bottom < other.top + collisionPaddingNdc &&
+                  bounds.top > other.bottom - collisionPaddingNdc,
+              );
               const edgeClearance = Math.min(
                 0.82 - Math.abs(projected.x),
-                0.76 - Math.abs(projected.y),
+                verticalLimitNdc - Math.abs(projected.y),
               );
               const foregroundScreen =
-                (0.76 - projected.y) / (0.76 * 2);
+                (verticalLimitNdc - projected.y) /
+                (verticalLimitNdc * 2);
               const foregroundDepth =
                 (maximumCameraDepth - cameraDepth) / cameraDepthRange;
               const gentleRelief =
@@ -1165,10 +1200,21 @@ export default function TerrainViewer({
                 foregroundDepth * 170 +
                 gentleRelief * 120 +
                 candidate.sourceScore * 0.02;
+              if (overlaps) {
+                if (
+                  requiredLevels.has(label.levelM) &&
+                  (!bestOverlapping ||
+                    score > bestOverlapping.score)
+                ) {
+                  bestOverlapping = { candidate, score };
+                }
+                continue;
+              }
               if (!best || score > best.score) {
                 best = { candidate, score };
               }
             }
+            best ??= bestOverlapping;
             if (!best) {
               label.sprite.visible = false;
               continue;
@@ -1254,6 +1300,12 @@ export default function TerrainViewer({
         }
       };
       controls.addEventListener("change", render);
+      if (metadata.view.reselectVectorLabelsOnCameraEnd) {
+        controls.addEventListener("end", () => {
+          updateVectorLabels(true, true);
+          render();
+        });
+      }
 
       const resize = () => {
         resizeFrame = 0;

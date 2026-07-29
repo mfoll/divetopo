@@ -394,7 +394,7 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
             self.assertFalse((output_root / "stale.txt").exists())
             self.assertTrue((output_root / "manifest.json").is_file())
 
-    def test_manifest_records_validate_all_seven_site_artifacts(self) -> None:
+    def test_manifest_records_validate_site_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             output_root = Path(directory)
             site_root = output_root / "example"

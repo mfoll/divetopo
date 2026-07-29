@@ -863,6 +863,36 @@ def _export_site_from_paths(
             4,
         ),
     }
+    if "interactive_vector_label_vertical_inset_fraction" in config:
+        view_metadata["vectorLabelVerticalInsetFraction"] = round(
+            float(
+                config[
+                    "interactive_vector_label_vertical_inset_fraction"
+                ]
+            ),
+            4,
+        )
+    if "interactive_vector_label_collision_padding_ndc" in config:
+        view_metadata["vectorLabelCollisionPaddingNdc"] = round(
+            float(
+                config[
+                    "interactive_vector_label_collision_padding_ndc"
+                ]
+            ),
+            4,
+        )
+    if config.get(
+        "interactive_reselect_vector_labels_on_camera_end",
+        False,
+    ):
+        view_metadata["reselectVectorLabelsOnCameraEnd"] = True
+    if "interactive_required_vector_label_levels_m" in config:
+        view_metadata["requiredVectorLabelLevelsM"] = [
+            int(level)
+            for level in config[
+                "interactive_required_vector_label_levels_m"
+            ]
+        ]
     view_metadata.update(
         view_center_metadata(
             config,

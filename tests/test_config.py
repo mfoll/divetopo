@@ -26,8 +26,12 @@ PUBLISHED_SITE_SLUGS = {
     "cap-la-houssaye",
     "passe-hermitage",
     "plage-cimetiere-saint-leu",
+    "pointe-des-aigrettes",
     "pointe-au-sel-sec-jaune",
     "pont-rouge",
+    "roches-noires-le-cimetiere",
+    "souris-chaude",
+    "trois-bassins",
 }
 
 
@@ -93,7 +97,7 @@ class SiteConfigTests(unittest.TestCase):
                 self.assertEqual(config["final_output_size_px"], [2474, 1712])
                 self.assertEqual(config["map_style_scale"], 2.0)
 
-    def test_pointe_restores_approved_depth_and_site_local_completion(self) -> None:
+    def test_site_local_depth_and_completion_overrides_remain_scoped(self) -> None:
         configs = {config["slug"]: config for config in self.configs}
         pointe = configs["pointe-au-sel-sec-jaune"]
         self.assertEqual(pointe["max_depth_m"], 40)
@@ -115,20 +119,28 @@ class SiteConfigTests(unittest.TestCase):
             20.0,
         )
         self.assertEqual(pointe["relief_mesh_gap_fill_max_area_m2"], 64.0)
+        souris = configs["souris-chaude"]
+        self.assertEqual(souris["plan_max_depth_m"], 40)
+        self.assertTrue(souris["deep_edge_nodata_terrain_fill"])
+        self.assertEqual(
+            souris["deep_edge_nodata_terrain_min_depth_m"],
+            14.8,
+        )
         for slug, config in configs.items():
-            if slug == "pointe-au-sel-sec-jaune":
-                continue
             with self.subTest(slug=slug):
-                self.assertNotIn("plan_max_depth_m", config)
+                if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
+                    self.assertNotIn("plan_max_depth_m", config)
                 self.assertNotIn("interactive_max_depth_m", config)
                 self.assertNotIn("interactive_bbox_utm40s", config)
                 self.assertIn("interactive_footprint_utm40s", config)
-                self.assertNotIn("deep_edge_nodata_terrain_fill", config)
-                self.assertNotIn(
-                    "deep_edge_nodata_terrain_min_depth_m",
-                    config,
-                )
-                self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
+                if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
+                    self.assertNotIn("deep_edge_nodata_terrain_fill", config)
+                    self.assertNotIn(
+                        "deep_edge_nodata_terrain_min_depth_m",
+                        config,
+                    )
+                if slug != "pointe-au-sel-sec-jaune":
+                    self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
 
     def test_static_interactive_center_alignment_is_site_local(self) -> None:
         self.assertEqual(

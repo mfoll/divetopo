@@ -325,6 +325,26 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         config["locator_marker_utm40s"],
     )
     latitude, longitude = marker_wgs84(site_location)
+    interactive_initial_view = None
+    if any(
+        key in config
+        for key in (
+            "interactive_initial_zoom",
+            "interactive_initial_center_offset_east_m",
+            "interactive_initial_center_offset_south_m",
+        )
+    ):
+        interactive_initial_view = {
+            "zoom": config.get("interactive_initial_zoom", 1),
+            "centerOffsetEastM": config.get(
+                "interactive_initial_center_offset_east_m",
+                0,
+            ),
+            "centerOffsetSouthM": config.get(
+                "interactive_initial_center_offset_south_m",
+                0,
+            ),
+        }
 
     compact_topographic = str(
         config.get(
@@ -337,7 +357,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "orthophoto": f"{compact_topographic} · Orthophoto : IGN BD ORTHO",
     }
 
-    return {
+    site = {
         "slug": slug,
         "displayName": config["plate_site_name"],
         "title": config["title"],
@@ -362,6 +382,9 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "maps": maps,
         "planches": planches,
     }
+    if interactive_initial_view is not None:
+        site["interactiveInitialView"] = interactive_initial_view
+    return site
 
 
 def manifest_totals(manifest: dict[str, Any]) -> dict[str, int]:

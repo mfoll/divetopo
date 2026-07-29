@@ -65,10 +65,34 @@
       "config": "regions/reunion/sites/cap-homard.json"
     },
     {
+      "slug": "pointe-des-aigrettes",
+      "name": "Pointe des Aigrettes",
+      "municipality": "Saint-Paul",
+      "config": "regions/reunion/sites/pointe-des-aigrettes.json"
+    },
+    {
+      "slug": "roches-noires-le-cimetiere",
+      "name": "Roches Noires - Le Cimetière",
+      "municipality": "Saint-Paul",
+      "config": "regions/reunion/sites/roches-noires-le-cimetiere.json"
+    },
+    {
       "slug": "passe-hermitage",
       "name": "Passe de l'Hermitage",
       "municipality": "Saint-Paul",
       "config": "regions/reunion/sites/passe-hermitage.json"
+    },
+    {
+      "slug": "trois-bassins",
+      "name": "Trois-Bassins",
+      "municipality": "Trois-Bassins",
+      "config": "regions/reunion/sites/trois-bassins.json"
+    },
+    {
+      "slug": "souris-chaude",
+      "name": "Souris Chaude",
+      "municipality": "Trois-Bassins",
+      "config": "regions/reunion/sites/souris-chaude.json"
     },
     {
       "slug": "pont-rouge",

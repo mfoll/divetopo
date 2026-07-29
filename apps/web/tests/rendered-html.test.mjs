@@ -15,8 +15,12 @@ const publishedSiteSlugs = new Set([
   "cap-la-houssaye",
   "passe-hermitage",
   "plage-cimetiere-saint-leu",
+  "pointe-des-aigrettes",
   "pointe-au-sel-sec-jaune",
   "pont-rouge",
+  "roches-noires-le-cimetiere",
+  "souris-chaude",
+  "trois-bassins",
 ]);
 const regionalMetadataDescriptions = {
   fr: "Plans topo-bathymétriques 2D et vues 3D interactives de sites de plongée à La Réunion.",
@@ -209,10 +213,19 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /Sélectionnez un site sur la carte\./);
   assert.match(
     html,
-    /<a(?=[^>]*class="site-map-marker label-right-up")(?=[^>]*data-selected="true")(?=[^>]*href="\/reunion\/fr\/sites\/cap-la-houssaye")[^>]*>/,
+    /<a(?=[^>]*class="site-map-marker label-right")(?=[^>]*data-selected="true")(?=[^>]*href="\/reunion\/fr\/sites\/cap-la-houssaye")[^>]*>/,
   );
   assert.doesNotMatch(html, /aria-current="page"/);
   assert.match(html, /href="\/reunion\/fr\/sites\/cap-homard"/);
+  assert.match(html, /href="\/reunion\/fr\/sites\/pointe-des-aigrettes"/);
+  assert.match(
+    html,
+    /href="\/reunion\/fr\/sites\/roches-noires-le-cimetiere"/,
+  );
+  assert.match(html, /Roches Noires -/);
+  assert.match(html, /Le Cimetière/);
+  assert.match(html, /href="\/reunion\/fr\/sites\/trois-bassins"/);
+  assert.match(html, /href="\/reunion\/fr\/sites\/souris-chaude"/);
   assert.match(
     html,
     /<button(?=[^>]*data-testid="language-fr")(?=[^>]*aria-pressed="true")[^>]*>/,
@@ -574,8 +587,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 18);
-  assert.equal(imageLocations.length, 46);
+  assert.equal(locations.length, 26);
+  assert.equal(imageLocations.length, 70);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -588,6 +601,26 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.ok(
     locations.includes(
       "https://divetopo.com/reunion/en/sites/pointe-au-sel-sec-jaune",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/reunion/fr/sites/pointe-des-aigrettes",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/reunion/en/sites/roches-noires-le-cimetiere",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/reunion/fr/sites/trois-bassins",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/reunion/en/sites/souris-chaude",
     ),
   );
   assert.match(sitemap, /hreflang="x-default"/);
@@ -605,7 +638,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.equal(
     imageLocations.filter((location) => location.endsWith(".jpg")).length,
-    42,
+    66,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -640,7 +673,7 @@ test("map manifest supports adding future sites without component changes", asyn
   const manifest = JSON.parse(publicManifest);
 
   assert.equal(manifest.schemaVersion, 6);
-  assert.equal(manifest.sites.length, 7);
+  assert.equal(manifest.sites.length, 11);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     publishedSiteSlugs,
@@ -759,7 +792,7 @@ test("map manifest supports adding future sites without component changes", asyn
   );
 });
 
-test("interactive terrain manifest covers the same seven sites", async () => {
+test("interactive terrain manifest covers the same eleven sites", async () => {
   const manifest = JSON.parse(
     await readFile(
       new URL("../public/terrain/manifest.json", import.meta.url),
@@ -768,7 +801,7 @@ test("interactive terrain manifest covers the same seven sites", async () => {
   );
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.equal(manifest.sites.length, 7);
+  assert.equal(manifest.sites.length, 11);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     publishedSiteSlugs,

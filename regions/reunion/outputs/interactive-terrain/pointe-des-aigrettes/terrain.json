@@ -1,0 +1,191 @@
+{
+  "schemaVersion": 2,
+  "slug": "pointe-des-aigrettes",
+  "title": "Pointe des Aigrettes · La Réunion",
+  "crs": "EPSG:32740",
+  "sourceBboxUtm40s": {
+    "west": 314093.6,
+    "south": 7672053.6,
+    "east": 315706.4,
+    "north": 7673666.4
+  },
+  "physicalSizeM": {
+    "width": 1612.8,
+    "depth": 1612.8
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 513,
+    "height": 513,
+    "triangleCount": 524288,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -30.0,
+      "scaleMPerUnit": 0.0012970168612191958,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -30.0,
+    "max": 55.0
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        128,
+        29
+      ],
+      "10": [
+        127,
+        221,
+        120
+      ],
+      "15": [
+        39,
+        123,
+        210
+      ],
+      "20": [
+        10,
+        37,
+        112
+      ],
+      "25": [
+        6,
+        25,
+        89
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 3,
+        "points": 537
+      },
+      "10": {
+        "polylines": 2,
+        "points": 464
+      },
+      "15": {
+        "polylines": 7,
+        "points": 845
+      },
+      "20": {
+        "polylines": 5,
+        "points": 672
+      },
+      "25": {
+        "polylines": 6,
+        "points": 680
+      },
+      "30": {
+        "polylines": 5,
+        "points": 442
+      }
+    },
+    "totals": {
+      "levels": 6,
+      "polylines": 28,
+      "points": 3640
+    },
+    "reprojectionResidualM": {
+      "samples": 3640,
+      "mean": 3.0913185312512155e-05,
+      "p95": 3.546339573219334e-05,
+      "max": 0.008394989161374156,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 135.0,
+    "gridLookBearingDeg": 135.0,
+    "cameraTilt": 0.29,
+    "alongViewProjectionScale": 1.1,
+    "visibleWidthM": 600.0,
+    "coastFrameFraction": 0.4036
+  },
+  "textures": {
+    "width": 2048,
+    "height": 2048,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2025-07-22",
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      314900.0,
+      7672860.0
+    ],
+    "widthM": 700.0,
+    "depthM": 1580.0,
+    "lookBearingDeg": 135.0,
+    "cornersUtm40s": [
+      [
+        314588.873,
+        7673666.102
+      ],
+      [
+        314093.898,
+        7673171.127
+      ],
+      [
+        315211.127,
+        7672053.898
+      ],
+      [
+        315706.102,
+        7672548.873
+      ]
+    ]
+  }
+}

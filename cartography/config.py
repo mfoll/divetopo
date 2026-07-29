@@ -82,6 +82,13 @@ _ALLOWED_KEYS = frozenset(
         "interactive_match_static_along_center",
         "interactive_match_static_horizontal_center",
         "interactive_max_depth_m",
+        "interactive_initial_center_offset_east_m",
+        "interactive_initial_center_offset_south_m",
+        "interactive_initial_zoom",
+        "interactive_required_vector_label_levels_m",
+        "interactive_reselect_vector_labels_on_camera_end",
+        "interactive_vector_label_collision_padding_ndc",
+        "interactive_vector_label_vertical_inset_fraction",
         "interactive_view_along_center_offset_m",
         "interactive_view_visible_width_m",
         "land_sieve_threshold_px",
@@ -121,6 +128,7 @@ _ALLOWED_KEYS = frozenset(
         "paths",
         "plan_open_label_offsets_px",
         "plan_sea_shading_suppression",
+        "plan_suppressed_label_levels",
         "plan_land_shading",
         "plan_output_scale",
         "plan_sea_shading",
@@ -193,6 +201,7 @@ _BOOLEAN_KEYS = frozenset(
         "deep_edge_nodata_terrain_fill",
         "interactive_match_static_along_center",
         "interactive_match_static_horizontal_center",
+        "interactive_reselect_vector_labels_on_camera_end",
         "locator_bathymetry_enabled",
         "locator_map_enabled",
         "orthophoto_coastline_visible",
@@ -577,11 +586,19 @@ def validate_config(config: Mapping[str, Any]) -> None:
         raise ValueError("slug must use lowercase letters, digits, and single hyphens")
 
     plate_site_name = str(config["plate_site_name"]).strip()
-    forbidden_name_separators = (",", "·", "/", "|", " - ", " & ")
+    forbidden_name_separators = (",", "·", "/", "|", " & ")
     if any(separator in plate_site_name for separator in forbidden_name_separators):
         raise ValueError(
             "plate_site_name must contain one canonical site name only, "
             "without aliases or location separators"
+        )
+    if (
+        " - " in plate_site_name
+        and plate_site_name != str(config["title"]).strip()
+    ):
+        raise ValueError(
+            "plate_site_name may contain a spaced hyphen only when it is "
+            "the exact canonical title"
         )
     folded_site_name = plate_site_name.casefold()
     region_names = manifest.get("names", {})
@@ -1065,6 +1082,35 @@ def validate_config(config: Mapping[str, Any]) -> None:
             _positive(config, key)
     if "interactive_view_along_center_offset_m" in config:
         _number(config, "interactive_view_along_center_offset_m")
+    if "interactive_initial_zoom" in config:
+        _positive(config, "interactive_initial_zoom")
+    for key in (
+        "interactive_initial_center_offset_east_m",
+        "interactive_initial_center_offset_south_m",
+    ):
+        if key in config:
+            _number(config, key)
+    if "interactive_vector_label_vertical_inset_fraction" in config:
+        inset = _fraction(
+            config,
+            "interactive_vector_label_vertical_inset_fraction",
+            upper=0.25,
+        )
+        if inset <= 0.0:
+            raise ValueError(
+                "interactive_vector_label_vertical_inset_fraction "
+                "must be greater than 0"
+            )
+    if "interactive_vector_label_collision_padding_ndc" in config:
+        padding = _number(
+            config,
+            "interactive_vector_label_collision_padding_ndc",
+        )
+        if not 0.0 <= padding <= 0.1:
+            raise ValueError(
+                "interactive_vector_label_collision_padding_ndc "
+                "must be between 0 and 0.1"
+            )
     if (
         "relief_edge_margin_px" in config
         and _number(config, "relief_edge_margin_px") < 0.0
@@ -1277,6 +1323,31 @@ def validate_config(config: Mapping[str, Any]) -> None:
             raise ValueError("plan_open_label_offsets_px must be an object")
         for level, offset in offsets.items():
             _pair(offset, f"plan_open_label_offsets_px.{level}")
+    if "plan_suppressed_label_levels" in config:
+        levels = config["plan_suppressed_label_levels"]
+        if not isinstance(levels, list) or any(
+            isinstance(level, bool) or not isinstance(level, int) or level <= 0
+            for level in levels
+        ):
+            raise ValueError(
+                "plan_suppressed_label_levels must be a list of positive integers"
+            )
+    if "interactive_required_vector_label_levels_m" in config:
+        levels = config["interactive_required_vector_label_levels_m"]
+        interactive_max_depth = int(
+            config.get("interactive_max_depth_m", config["max_depth_m"])
+        )
+        if not isinstance(levels, list) or any(
+            isinstance(level, bool)
+            or not isinstance(level, int)
+            or level <= 0
+            or level >= interactive_max_depth
+            for level in levels
+        ):
+            raise ValueError(
+                "interactive_required_vector_label_levels_m must be "
+                "a list of positive integers below the interactive depth"
+            )
     if "relief_suppressed_label_levels" in config:
         levels = config["relief_suppressed_label_levels"]
         if not isinstance(levels, list) or any(

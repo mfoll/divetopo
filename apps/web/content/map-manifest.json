@@ -13,10 +13,10 @@
     "bytes": 166996,
     "sha256": "efc70575468facf8a862da6882807a68c0b23b04a5ef2b5020725223ccb57c8d",
     "boundsUtm40s": {
-      "minEasting": 305000.0,
-      "minNorthing": 7628000.0,
-      "maxEasting": 386000.0,
-      "maxNorthing": 7696000.0
+      "minEasting": 305000,
+      "minNorthing": 7628000,
+      "maxEasting": 386000,
+      "maxNorthing": 7696000
     }
   },
   "westCoastLocator": {
@@ -26,10 +26,10 @@
     "bytes": 106950,
     "sha256": "92594462497ea99f09c52f741c5f364b5b28403602abeb0d7dd838f09bb86db3",
     "boundsUtm40s": {
-      "minEasting": 309000.0,
-      "minNorthing": 7652000.0,
-      "maxEasting": 326000.0,
-      "maxNorthing": 7678000.0
+      "minEasting": 309000,
+      "minNorthing": 7652000,
+      "maxEasting": 326000,
+      "maxNorthing": 7678000
     }
   },
   "sites": [
@@ -45,7 +45,7 @@
         "longitude": 55.23745137
       },
       "westCoastLocatorPosition": {
-        "xPercent": 46.0,
+        "xPercent": 46,
         "yPercent": 11.8462
       },
       "maxDepthM": 20,
@@ -691,6 +691,444 @@
       ]
     },
     {
+      "slug": "pointe-des-aigrettes",
+      "displayName": "Pointe des Aigrettes",
+      "title": "Pointe des Aigrettes",
+      "plateTitle": "Pointe des Aigrettes · La Réunion",
+      "config": "regions/reunion/sites/pointe-des-aigrettes.json",
+      "location": {
+        "city": "Saint-Paul",
+        "latitude": -21.03519899,
+        "longitude": 55.21549865
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 32.7059,
+        "yPercent": 19.5385
+      },
+      "maxDepthM": 30,
+      "planMaxDepthM": 30,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-07-22",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/pointe-des-aigrettes/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 97398,
+              "sha256": "f8c30ce66310651dc3de5360ee8c73846b6bb54552c159f8628d40dde28e8ba9"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 196692,
+              "sha256": "be6c61265a22e39a52172a5cddf4cbf6a15bc84756c45b33a3afc5f9f0d2d99c"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 362742,
+              "sha256": "bc94f56f0731f7ab478580cf6855ca87027d8310e4e297ce77819609e502e8f0"
+            }
+          ],
+          "download": {
+            "src": "/maps/pointe-des-aigrettes/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1996842,
+            "sha256": "518a9cc5baf60e93d2e30bcadd98bcd4b988e68bfcc0a65920d09942c0adb63c",
+            "filename": "pointe-des-aigrettes-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/pointe-des-aigrettes/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 203294,
+              "sha256": "96f6a7fe4b4637e3609c35f381e4707b50eabc6710e5e9793b846f62da840c4f"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 467100,
+              "sha256": "f150ff6223c41b2bf5e64daf9a0dfa1145db2eb546f10a9e9813f82e97bda3d5"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 881800,
+              "sha256": "68ca1a67e59d5cf74a59962c19865194892eec264b7d21b15e56fa7f80333a0f"
+            }
+          ],
+          "download": {
+            "src": "/maps/pointe-des-aigrettes/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 3209405,
+            "sha256": "36e26ff2b6f19b2ea5dc91a7374adac7d1c39cd55fca656ca93b6de022a0a7ef",
+            "filename": "pointe-des-aigrettes-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/pointe-des-aigrettes/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 82088,
+              "sha256": "55a7cc88b220916d649c5fb4d21e87961701a53dbc580566783676f9d5d60dfa"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 165922,
+              "sha256": "16d0348e52f8670c690808d1de3454cb61f4004a2ed923d4079cc6688641d320"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 295088,
+              "sha256": "01cf3085f3a8509f0ae67f91fc2544beb8f9f98714106f46868cba33ea73cc5e"
+            }
+          ],
+          "download": {
+            "src": "/maps/pointe-des-aigrettes/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1967594,
+            "sha256": "8c7e75f5b71ca0f84aa40a3da9cf767824720ce3416988475f44d4f506db5ad3",
+            "filename": "pointe-des-aigrettes-topobathy-3d.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/pointe-des-aigrettes/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 171872,
+              "sha256": "159978b6837c672a617135ea6280b1416b55aefd82f0ba552786b023c298e69b"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 360660,
+              "sha256": "8263596c36c41ee0474d6d787a5c10e3ad101d71ca4f00246d6830531ff0dd69"
+            },
+            {
+              "src": "/maps/pointe-des-aigrettes/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 669082,
+              "sha256": "20e36e5b51da4f2d863544213f862dc0b31881204baa9ccbf9c62119411f8eab"
+            }
+          ],
+          "download": {
+            "src": "/maps/pointe-des-aigrettes/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2948709,
+            "sha256": "2a41a15289a11140a591b5605f40b3da3830c2e3f91d2cc7f6da7d3987a77cad",
+            "filename": "pointe-des-aigrettes-topobathy-3d-ortho.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/pointe-des-aigrettes/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 228088,
+            "sha256": "dd0ba29d0bb907131744fae3a9f8d18351bdc49d60c6cadfaefaea81387dac7e"
+          },
+          "download": {
+            "src": "/maps/pointe-des-aigrettes/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 6187872,
+            "sha256": "76d648e8fc2ac1f80323cc3a38681308a34a8b12a2e3112b6468d256bb23a35b",
+            "filename": "pointe-des-aigrettes-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/pointe-des-aigrettes/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 386132,
+            "sha256": "1f826d2cca2fa948dd65cfff6659ab5f2a1b67db754d7aa03fd97e16fe81620d"
+          },
+          "download": {
+            "src": "/maps/pointe-des-aigrettes/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 8467960,
+            "sha256": "dd4b94179d0a113460914c40edc4075a7633a7a2a8863b7c8a29d288843b80f7",
+            "filename": "pointe-des-aigrettes-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "roches-noires-le-cimetiere",
+      "displayName": "Roches Noires - Le Cimetière",
+      "title": "Roches Noires - Le Cimetière",
+      "plateTitle": "Roches Noires - Le Cimetière · La Réunion",
+      "config": "regions/reunion/sites/roches-noires-le-cimetiere.json",
+      "location": {
+        "city": "Saint-Paul",
+        "latitude": -21.05169027,
+        "longitude": 55.2204979
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 35.8824,
+        "yPercent": 26.5385
+      },
+      "maxDepthM": 30,
+      "planMaxDepthM": 30,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-07-22",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/roches-noires-le-cimetiere/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 69176,
+              "sha256": "c006033982d8903e2efb8c5bfe554cb6242e0036435b9efaee5a9223e093de75"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 145952,
+              "sha256": "1e07499f5d47a3d763f29b4391fa8eaba8efe8e8714408a0520c971a174a38fa"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 262060,
+              "sha256": "687c90d5c4d8cf58e17f4f76c0dd5957189a541564fc3a2408244b1539d208a7"
+            }
+          ],
+          "download": {
+            "src": "/maps/roches-noires-le-cimetiere/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1738670,
+            "sha256": "e50a08391f9bf021ebef2bb40a0e71ae0c58826e42a590206339e1631e83aa94",
+            "filename": "roches-noires-le-cimetiere-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/roches-noires-le-cimetiere/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 179990,
+              "sha256": "05c11a1aefe5db81da6d5c4e941908d3a7ce35ceff6e95d7fcff63f47170ca9a"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 415274,
+              "sha256": "007db20889ee2be866609ebe3144f1d12a657574c09a3af6487d6fce087a8968"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 802386,
+              "sha256": "d7ae69d81fa0a3d6a5c7495ced397d4a616f6c85660a38c454366a4dcbf5a7b1"
+            }
+          ],
+          "download": {
+            "src": "/maps/roches-noires-le-cimetiere/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 3053776,
+            "sha256": "862a8a12831baa3783ba7cbc4954702e90f2e198f65f4e986f160334293ac9dd",
+            "filename": "roches-noires-le-cimetiere-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/roches-noires-le-cimetiere/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 72500,
+              "sha256": "2555be281284349642ddef86d06d87da719ee7acc948bfd0572c35542102dc5a"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 146326,
+              "sha256": "93f4448a79b16ff13f9d266e70db1784574ad039fdddd7696adac71de79a2bfa"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 258784,
+              "sha256": "fdf3c3cc8d0aed81352e3e3eb9b924cbda879417cd915d4cce520b2e6ed1489d"
+            }
+          ],
+          "download": {
+            "src": "/maps/roches-noires-le-cimetiere/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1797242,
+            "sha256": "afcfda8958520f355364e233bea860a84456058b3ef5919baab3da77101162ab",
+            "filename": "roches-noires-le-cimetiere-topobathy-3d.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/roches-noires-le-cimetiere/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 148582,
+              "sha256": "0b0658a4ba93fa67defd74a2ac4e79dd4842d1c3978cd0df338d414adbf6ee29"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 326946,
+              "sha256": "c2793f10913eba981a2bf4d2fc0202a8030a32eaed64f81722b35dbc444a48a5"
+            },
+            {
+              "src": "/maps/roches-noires-le-cimetiere/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 603444,
+              "sha256": "3cf912e064efd446b1b66acd917bc6194cbaa37af80face55bb6443d757ef554"
+            }
+          ],
+          "download": {
+            "src": "/maps/roches-noires-le-cimetiere/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2735025,
+            "sha256": "934702dbc3cb8e81f8c19af0b879e5c7bdc342752df41de08ca6922293f4bf50",
+            "filename": "roches-noires-le-cimetiere-topobathy-3d-ortho.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/roches-noires-le-cimetiere/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 191998,
+            "sha256": "645ebd97c650a9bbe768fdfceb3e90a9ec7fb371f683c6f286c3b7c1e300e53e"
+          },
+          "download": {
+            "src": "/maps/roches-noires-le-cimetiere/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5721223,
+            "sha256": "60d8c98e66a141586a971313381978a7c5b79b797c832db6ef5d5978102eb508",
+            "filename": "roches-noires-le-cimetiere-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/roches-noires-le-cimetiere/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 351864,
+            "sha256": "017236c76f17d1a10c23c65ab0e48071c1fcb35683d9fd7783c333993c354437"
+          },
+          "download": {
+            "src": "/maps/roches-noires-le-cimetiere/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 8067450,
+            "sha256": "1772b3d7ca19c34fdf779f420c264d42a3dc386f5fb09eb2db7bc73b5a910739",
+            "filename": "roches-noires-le-cimetiere-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
       "slug": "passe-hermitage",
       "displayName": "Passe de l'Hermitage",
       "title": "Passe de l'Hermitage",
@@ -908,6 +1346,449 @@
           }
         }
       ]
+    },
+    {
+      "slug": "trois-bassins",
+      "displayName": "Trois-Bassins",
+      "title": "Trois-Bassins",
+      "plateTitle": "Trois-Bassins, La Réunion",
+      "config": "regions/reunion/sites/trois-bassins.json",
+      "location": {
+        "city": "Trois-Bassins",
+        "latitude": -21.11174096,
+        "longitude": 55.24887848
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 53.6629,
+        "yPercent": 51.9835
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-08-02",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/trois-bassins/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 98266,
+              "sha256": "aa267e287ab1e5ecc4b06464cd867738d5074fb38621f01730b4059b6633a632"
+            },
+            {
+              "src": "/maps/trois-bassins/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 206406,
+              "sha256": "aa3278eca6ebf520bf72894e91be5fcc31275ff790449422e294bb2ebd7b0f96"
+            },
+            {
+              "src": "/maps/trois-bassins/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 377292,
+              "sha256": "4e17e7d3c134ca41b029d594bc1c3f329d399f47bfb0ef7185db07fed04794dc"
+            }
+          ],
+          "download": {
+            "src": "/maps/trois-bassins/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2095684,
+            "sha256": "b0b166722a223c1b9a48c8127d631cab90a8bd985587c748eb1f00522b3ad181",
+            "filename": "trois-bassins-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/trois-bassins/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 185574,
+              "sha256": "26840f4fd15ecfa4c732115b460907b9eb80d0a105a20c587ce69e0491990c98"
+            },
+            {
+              "src": "/maps/trois-bassins/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 456264,
+              "sha256": "2d40abfc661835ef5ac65bcdb90963b62c308b32a578f62484ee7716eecfd9d3"
+            },
+            {
+              "src": "/maps/trois-bassins/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 921960,
+              "sha256": "79c7c420c7f8c643ab21173fdbc42e5ddf9ab1ce2d5d26cf2043d49c9b39e692"
+            }
+          ],
+          "download": {
+            "src": "/maps/trois-bassins/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 3283857,
+            "sha256": "b7386969f814f1ff3772e8f803365151a62e0f3a8a77c3d313acb44715460c56",
+            "filename": "trois-bassins-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/trois-bassins/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 92420,
+              "sha256": "4b798a28e78c908a11553bf195570ec6761ab76de661fcc9c58eb2285c9a87bf"
+            },
+            {
+              "src": "/maps/trois-bassins/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 187504,
+              "sha256": "e8b87c7277296ed8d5c31ca78d4bc605c58e3493a381fc8e4b53561e956faa14"
+            },
+            {
+              "src": "/maps/trois-bassins/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 344032,
+              "sha256": "ba7b779f8e3994c6321802f55e030e886cf25e7ebb527fcb3c3bf99ab74c94ff"
+            }
+          ],
+          "download": {
+            "src": "/maps/trois-bassins/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2100763,
+            "sha256": "270dba328ee287a5c025f783d87cc7bd63113ff463b707a398a4e538b9bbfae7",
+            "filename": "trois-bassins-topobathy-3d.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/trois-bassins/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 167104,
+              "sha256": "778aadd4e8aad5c91d1d8f089f811029902073e5a4bc1404a6d3d88879f6738a"
+            },
+            {
+              "src": "/maps/trois-bassins/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 361096,
+              "sha256": "7d2c2186559c8eafbe627c239e16b7d557a80cdc07b2626190c3faab369613e2"
+            },
+            {
+              "src": "/maps/trois-bassins/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 673586,
+              "sha256": "bb2159c21f2c88ce354b046f7b64420cf244137e114497d28983be789e644141"
+            }
+          ],
+          "download": {
+            "src": "/maps/trois-bassins/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2875773,
+            "sha256": "b28e809d183a1eb557a0fcbeb220931a3a2976a194b38bd0f456543557b565a3",
+            "filename": "trois-bassins-topobathy-3d-ortho.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/trois-bassins/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 237028,
+            "sha256": "2388b3a966ef83de0be20464f40f0dcf8234a854380d025166e7038e6b5442be"
+          },
+          "download": {
+            "src": "/maps/trois-bassins/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 6401505,
+            "sha256": "40d7a1a59d5ded93a0644b0eabe30e3e4489f4a3a0e2a50ad1ca21c817931ec8",
+            "filename": "trois-bassins-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/trois-bassins/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 365418,
+            "sha256": "2e2642b6c1f336315842cf17f0074dce6c65665a3a62fbd63d05e6218aa90ec9"
+          },
+          "download": {
+            "src": "/maps/trois-bassins/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 8452134,
+            "sha256": "ac25c4dd06e5cfbc7a31852bf1533c483ba510b402503386f7510a442987c0e9",
+            "filename": "trois-bassins-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "souris-chaude",
+      "displayName": "Souris Chaude",
+      "title": "Souris Chaude",
+      "plateTitle": "Souris Chaude, Trois-Bassins · La Réunion",
+      "config": "regions/reunion/sites/souris-chaude.json",
+      "location": {
+        "city": "Trois-Bassins",
+        "latitude": -21.121142,
+        "longitude": 55.258978
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 59.9018,
+        "yPercent": 55.9423
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2025-07-22",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/souris-chaude/2d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 85472,
+              "sha256": "8b8ed91b510430c4018fbdae3deafce367464b018e4c959ec51d18cc9c8845ad"
+            },
+            {
+              "src": "/maps/souris-chaude/2d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 177896,
+              "sha256": "41508bfd4231f1328814328137ad1da09ed9eabc154621f43b8c774fdfeb7ea0"
+            },
+            {
+              "src": "/maps/souris-chaude/2d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 323718,
+              "sha256": "142eee47009c9f95dd7193c825ccebc918ab2a20435433b30f2e77d13fdc3f98"
+            }
+          ],
+          "download": {
+            "src": "/maps/souris-chaude/downloads/2d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1876732,
+            "sha256": "d3061b9311ebbd53eee62ea18d5a53dff84dfe8e0219f22ab9c3f125762fccbb",
+            "filename": "souris-chaude-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/souris-chaude/2d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 183302,
+              "sha256": "949f6890c6490181a08eab56b6afa1dd913bbc828c4c3fb71654020971167fc8"
+            },
+            {
+              "src": "/maps/souris-chaude/2d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 439340,
+              "sha256": "ad3e36f860079e7f781a806f7b7b01c1fd5805e877e934db3f4d18081b42b3a3"
+            },
+            {
+              "src": "/maps/souris-chaude/2d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 881374,
+              "sha256": "4db91df89647f30b14c6273becb4585d6e993e417cdce698de6f4c443e645018"
+            }
+          ],
+          "download": {
+            "src": "/maps/souris-chaude/downloads/2d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 3162680,
+            "sha256": "cec8c91789840ee9ba79ebfb8448fbf71a88c33b4babd7d85123b1efd2723f45",
+            "filename": "souris-chaude-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/souris-chaude/3d-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 81470,
+              "sha256": "cc7d4c3ee82012ed5096c673a10b91a522bb9586625c6bc99e92d99261d41e69"
+            },
+            {
+              "src": "/maps/souris-chaude/3d-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 167964,
+              "sha256": "0d78e8873806e9104eaa481d7933d60edc1882157b661aa45c44f95f0a3c95de"
+            },
+            {
+              "src": "/maps/souris-chaude/3d-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 299420,
+              "sha256": "e607af5a4c2c53435b3aeca6d443bab578f4f9eca8c4bd1e3b15c25321f197cc"
+            }
+          ],
+          "download": {
+            "src": "/maps/souris-chaude/downloads/3d-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1926919,
+            "sha256": "8872cd564de88022334e7892639d2d3426679d641ce995e87da88844fd8847ad",
+            "filename": "souris-chaude-topobathy-3d.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/souris-chaude/3d-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 139140,
+              "sha256": "ba4f9093f9f2dec622d7100dd55c4d700fe9549d84c6d0a3cf5f2d5d751a4655"
+            },
+            {
+              "src": "/maps/souris-chaude/3d-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 294170,
+              "sha256": "0df9d0cddc3c82c3ba024e22b3bfcf6185b8a01824e7fc5fda2244f614b59604"
+            },
+            {
+              "src": "/maps/souris-chaude/3d-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 530850,
+              "sha256": "89f8d53f6197e1de21c03cda2e3d4bec2bf3bc3d82dd3374e806b903b0e7333e"
+            }
+          ],
+          "download": {
+            "src": "/maps/souris-chaude/downloads/3d-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2501180,
+            "sha256": "61b351a649222fe3b5342a630d2df886c36bf5381206d8a74370e621dd9e3fac",
+            "filename": "souris-chaude-topobathy-3d-ortho.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/souris-chaude/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 216736,
+            "sha256": "c8c6bcea783f9b7fe7640dae773b0fd59d109319b7dcee843730eacba0217660"
+          },
+          "download": {
+            "src": "/maps/souris-chaude/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5982366,
+            "sha256": "bb267e3286139c5155156434f25eb51720a2daaf107c90f3111756f18da84787",
+            "filename": "souris-chaude-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/souris-chaude/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 343104,
+            "sha256": "36e73ccf40249f2258e6b0b6bbabf43e5beb9c1efb271c3517ff4077fb87c00e"
+          },
+          "download": {
+            "src": "/maps/souris-chaude/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 7916928,
+            "sha256": "2c5f47d5ea903677352c88e0663a2c23f573fd35c647f7b1ccc94b8db67d699c",
+            "filename": "souris-chaude-planche.jpg"
+          }
+        }
+      ],
+      "interactiveInitialView": {
+        "zoom": 1.3,
+        "centerOffsetEastM": 0,
+        "centerOffsetSouthM": 0
+      }
     },
     {
       "slug": "pont-rouge",
@@ -1572,9 +2453,9 @@
     }
   ],
   "totals": {
-    "assetFiles": 142,
-    "webOptimizedBytes": 27009402,
-    "downloadBytes": 153487145,
-    "totalBytes": 180496547
+    "assetFiles": 222,
+    "webOptimizedBytes": 44387758,
+    "downloadBytes": 249600372,
+    "totalBytes": 293988130
   }
 }

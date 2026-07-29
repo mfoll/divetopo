@@ -59,6 +59,12 @@ type WestCoastLocatorPosition = {
   yPercent: number;
 };
 
+type InteractiveInitialView = {
+  zoom: number;
+  centerOffsetEastM: number;
+  centerOffsetSouthM: number;
+};
+
 type TopoReunionAssetSite = {
   slug: string;
   displayName: string;
@@ -73,6 +79,7 @@ type TopoReunionAssetSite = {
   copyrightYear: number;
   mapLicense: string;
   compactAttributions?: Record<SurfaceStyle, string>;
+  interactiveInitialView?: InteractiveInitialView;
   maps: MapAsset[];
   planches: PlancheAsset[];
 };
@@ -256,14 +263,81 @@ function ViewToggle({
   );
 }
 
-const SITE_LABEL_LAYOUT = {
-  "cap-la-houssaye": "right-up",
-  "boucan-canot": "left-up",
-  "cap-homard": "right-down",
-  "passe-hermitage": "right",
-  "pont-rouge": "left",
-  "plage-cimetiere-saint-leu": "left-up",
-  "pointe-au-sel-sec-jaune": "left",
+type SiteLabelLayout = {
+  side: "left" | "right";
+  shiftYRem: number;
+  connectorAngleDeg: number;
+  connectorWidthRem?: number;
+  labelOffsetRem?: number;
+  lines?: readonly string[];
+  widthRem?: number;
+};
+
+const SITE_LABEL_LAYOUT: Record<string, SiteLabelLayout> = {
+  "cap-la-houssaye": {
+    side: "right",
+    shiftYRem: -1.45,
+    connectorAngleDeg: -42,
+    connectorWidthRem: 1.35,
+  },
+  "boucan-canot": {
+    side: "left",
+    shiftYRem: -1.7,
+    connectorAngleDeg: 48,
+    connectorWidthRem: 1.45,
+  },
+  "cap-homard": {
+    side: "right",
+    shiftYRem: -0.15,
+    connectorAngleDeg: -10,
+    connectorWidthRem: 1.3,
+    labelOffsetRem: 2.6,
+  },
+  "pointe-des-aigrettes": {
+    side: "right",
+    shiftYRem: 2.15,
+    connectorAngleDeg: 58,
+    connectorWidthRem: 2.45,
+    labelOffsetRem: 2.65,
+  },
+  "roches-noires-le-cimetiere": {
+    side: "left",
+    shiftYRem: 0.9,
+    connectorAngleDeg: -58,
+    connectorWidthRem: 1,
+    labelOffsetRem: 1.9,
+    lines: ["Roches Noires"],
+  },
+  "passe-hermitage": {
+    side: "right",
+    shiftYRem: 0,
+    connectorAngleDeg: 0,
+  },
+  "trois-bassins": {
+    side: "left",
+    shiftYRem: -0.45,
+    connectorAngleDeg: 20,
+  },
+  "souris-chaude": {
+    side: "right",
+    shiftYRem: 0.15,
+    connectorAngleDeg: 8,
+  },
+  "pont-rouge": {
+    side: "left",
+    shiftYRem: -0.5,
+    connectorAngleDeg: 22,
+  },
+  "plage-cimetiere-saint-leu": {
+    side: "left",
+    shiftYRem: -0.5,
+    connectorAngleDeg: 22,
+  },
+  "pointe-au-sel-sec-jaune": {
+    side: "left",
+    shiftYRem: 0.45,
+    connectorAngleDeg: -18,
+  },
 } as const;
 
 function SitePicker({
@@ -320,22 +394,29 @@ function SitePicker({
             <strong>N</strong>
           </div>
 
-          {mapManifest.sites.map((site, index) => {
+          {mapManifest.sites.map((site) => {
             const selected = activeSlug === site.slug;
-            const knownLayout =
-              SITE_LABEL_LAYOUT[
-                site.slug as keyof typeof SITE_LABEL_LAYOUT
-              ];
-            const layout = knownLayout ?? (index % 2 === 0 ? "right" : "left");
+            const layout = SITE_LABEL_LAYOUT[site.slug] ?? {
+              side: "right",
+              shiftYRem: 0,
+              connectorAngleDeg: 0,
+            };
             const style = {
               "--site-x": `${site.westCoastLocatorPosition.xPercent}%`,
               "--site-y": `${site.westCoastLocatorPosition.yPercent}%`,
+              "--label-shift-y": `${layout.shiftYRem}rem`,
+              "--label-width": layout.widthRem
+                ? `${layout.widthRem}rem`
+                : undefined,
+              "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
+              "--connector-angle": `${layout.connectorAngleDeg}deg`,
+              "--connector-width": `${layout.connectorWidthRem ?? 1}rem`,
             } as CSSProperties;
 
             return (
               <a
                 key={site.slug}
-                className={`site-map-marker label-${layout}`}
+                className={`site-map-marker label-${layout.side}`}
                 style={style}
                 aria-current={hasSiteRoute && selected ? "page" : undefined}
                 data-selected={selected}
@@ -357,8 +438,14 @@ function SitePicker({
               >
                 <span className="site-map-marker-dot" aria-hidden="true" />
                 <span className="site-map-marker-line" aria-hidden="true" />
-                <span className="site-map-marker-label">
-                  {site.displayName}
+                <span
+                  className={`site-map-marker-label${layout.lines ? " is-multiline" : ""}`}
+                >
+                  {layout.lines
+                    ? layout.lines.map((line) => (
+                        <span key={line}>{line}</span>
+                      ))
+                    : site.displayName}
                 </span>
               </a>
             );
@@ -766,7 +853,6 @@ export function TopoReunionExperience({
                           fetchPriority="high"
                         />
                       )}
-                      <span>{text.map.openLarge}</span>
                     </button>
                     {!showsUnifiedTerrain ? mapDownload : null}
                   </>
@@ -785,13 +871,18 @@ export function TopoReunionExperience({
                         language={language}
                         vectorIsobathsPath={`/terrain/${activeSite.slug}/isobaths-vector.json`}
                         initialZoom={
-                          activeSite.slug === "cap-la-houssaye" ? 1.12 : 1
+                          activeSite.interactiveInitialView?.zoom ??
+                          (activeSite.slug === "cap-la-houssaye" ? 1.12 : 1)
                         }
                         initialCenterOffsetEastM={
-                          activeSite.slug === "cap-la-houssaye" ? -12 : 0
+                          activeSite.interactiveInitialView
+                            ?.centerOffsetEastM ??
+                          (activeSite.slug === "cap-la-houssaye" ? -12 : 0)
                         }
                         initialCenterOffsetSouthM={
-                          activeSite.slug === "cap-la-houssaye" ? 12 : 0
+                          activeSite.interactiveInitialView
+                            ?.centerOffsetSouthM ??
+                          (activeSite.slug === "cap-la-houssaye" ? 12 : 0)
                         }
                         onReady={markUnifiedRendererReady}
                         onError={markUnifiedRendererError}

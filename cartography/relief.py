@@ -2134,6 +2134,8 @@ def make_clean_plan(
     land_slope_smoothing_passes: int = LAND_SLOPE_SMOOTHING_PASSES,
     sea_palette: str = "legacy",
     sea_depth_scale: str = "legacy_linear",
+    deep_edge_nodata_min_depth_m: float | None = None,
+    suppressed_label_levels: list[int] | tuple[int, ...] = (),
 ) -> None:
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
@@ -2160,6 +2162,11 @@ def make_clean_plan(
         valid,
         land_mask,
         max_depth,
+        deep_fraction=(
+            0.9
+            if deep_edge_nodata_min_depth_m is None
+            else deep_edge_nodata_min_depth_m / max_depth
+        ),
     )
     invalid_fraction = float(np.count_nonzero(~valid) / valid.size)
     if invalid_fraction > 0.001:
@@ -2358,7 +2365,10 @@ def make_clean_plan(
             draw.line(coast_line, fill=(238, 230, 194, 210), width=max(1, int(np.floor(5 * style + 0.5))), joint="curve")
             draw.line(coast_line, fill=(12, 12, 10, 245), width=max(1, int(np.floor(3 * style + 0.5))), joint="curve")
 
+    suppressed_labels = set(suppressed_label_levels)
     for level, lines in scaled_contours.items():
+        if level in suppressed_labels:
+            continue
         open_lines = []
         for line in lines:
             center = isolated_contour_center(line, min_width=55.0 * ui, min_height=28.0 * ui)

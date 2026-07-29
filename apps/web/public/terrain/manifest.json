@@ -254,6 +254,48 @@
       }
     },
     {
+      "slug": "pointe-des-aigrettes",
+      "title": "Pointe des Aigrettes · La Réunion",
+      "metadata": "pointe-des-aigrettes/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-des-aigrettes/terrain.json",
+          "bytes": 4739,
+          "sha256": "104a2b69aae5f33b4555fda4fc558287c33bc1751996768e2666829fa0fd4d4b"
+        },
+        "height": {
+          "path": "pointe-des-aigrettes/height.bin",
+          "bytes": 526338,
+          "sha256": "27ddf9de72cb6b7b2d5ce67acdd304fbd5a38b5a6638a9d884580d8ecd6e0c49"
+        },
+        "validMask": {
+          "path": "pointe-des-aigrettes/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "f01aca644744f60f030d094113c173adee36f7587247a10c41ed6a123a1736fb"
+        },
+        "isobathMask": {
+          "path": "pointe-des-aigrettes/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "f01aca644744f60f030d094113c173adee36f7587247a10c41ed6a123a1736fb"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-des-aigrettes/isobaths-vector.json",
+          "bytes": 143113,
+          "sha256": "733480ac33210dce49ee7a998b12cd5c749454a9023fb361858cd847b99de48e"
+        },
+        "topographicTexture": {
+          "path": "pointe-des-aigrettes/topographic.webp",
+          "bytes": 141610,
+          "sha256": "8a1a3691ad2f4ab48add7481e494af26bd6c54ff995b0d5138fbf492c9280172"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-des-aigrettes/orthophoto.webp",
+          "bytes": 441616,
+          "sha256": "ba39beb302f367b2d2d4006db87b1b87e82fb3f1f68b9e59d3b4f97ab9a9f069"
+        }
+      }
+    },
+    {
       "slug": "pont-rouge",
       "title": "Pont Rouge, La Réunion",
       "metadata": "pont-rouge/terrain.json",
@@ -292,6 +334,132 @@
           "path": "pont-rouge/orthophoto.webp",
           "bytes": 267950,
           "sha256": "f55dcfffd3a71f96692ba78c495f6f46966eeebb443a0c71862157b955a2f0bd"
+        }
+      }
+    },
+    {
+      "slug": "roches-noires-le-cimetiere",
+      "title": "Roches Noires - Le Cimetière · La Réunion",
+      "metadata": "roches-noires-le-cimetiere/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "roches-noires-le-cimetiere/terrain.json",
+          "bytes": 4749,
+          "sha256": "e58a774dd47555fe196cd32218aadaff9c160af15164c159f2cce744fc3ddc3d"
+        },
+        "height": {
+          "path": "roches-noires-le-cimetiere/height.bin",
+          "bytes": 465804,
+          "sha256": "c8dd2e821d79aa6c896eb0fd36f5e6988d0cc5e71e08907b6d1d4d77af6ad7b6"
+        },
+        "validMask": {
+          "path": "roches-noires-le-cimetiere/valid-mask.bin",
+          "bytes": 29113,
+          "sha256": "5b4db6cc154082ebae91895b84b533dbb7392a72c1eaafcb0541aacbad43b160"
+        },
+        "isobathMask": {
+          "path": "roches-noires-le-cimetiere/isobath-mask.bin",
+          "bytes": 29113,
+          "sha256": "5b4db6cc154082ebae91895b84b533dbb7392a72c1eaafcb0541aacbad43b160"
+        },
+        "vectorIsobaths": {
+          "path": "roches-noires-le-cimetiere/isobaths-vector.json",
+          "bytes": 100144,
+          "sha256": "335a12f303d26a17a003e0c0402ad67f1cd9f6d5b12b696b533cc85c95b9b1ce"
+        },
+        "topographicTexture": {
+          "path": "roches-noires-le-cimetiere/topographic.webp",
+          "bytes": 138006,
+          "sha256": "01aeca02d17995143fd5501f5162edfd5109d88cc90fb1a1835da739e9589fe4"
+        },
+        "orthophotoTexture": {
+          "path": "roches-noires-le-cimetiere/orthophoto.webp",
+          "bytes": 368102,
+          "sha256": "29117497f3627ea2de6c339c6544872d0d04071076ef1cdf92de7d2297ab0e6e"
+        }
+      }
+    },
+    {
+      "slug": "souris-chaude",
+      "title": "Souris Chaude, Trois-Bassins · La Réunion",
+      "metadata": "souris-chaude/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "souris-chaude/terrain.json",
+          "bytes": 4979,
+          "sha256": "c2ae6bff59b09aa9b8a01513dcac6a840c7d988ea9abecdd9c8f734504136d5b"
+        },
+        "height": {
+          "path": "souris-chaude/height.bin",
+          "bytes": 467856,
+          "sha256": "b11ddbe4734756a6f310c2328e0ec4649cb173efaa95da75a64dff4bd8817fe2"
+        },
+        "validMask": {
+          "path": "souris-chaude/valid-mask.bin",
+          "bytes": 29241,
+          "sha256": "29bfe035787ef9ff6118582b3bb84e430d67d3fe289ba5895e8d1bd31fea780e"
+        },
+        "isobathMask": {
+          "path": "souris-chaude/isobath-mask.bin",
+          "bytes": 29241,
+          "sha256": "2255715b06fcde255fa3618aa299d67be3bdf6b08c3d234554fad4aee185d988"
+        },
+        "vectorIsobaths": {
+          "path": "souris-chaude/isobaths-vector.json",
+          "bytes": 65257,
+          "sha256": "637122604b00e23ac8b2c7b05b107e3cc95047a78b49dfda9b8bc39c89d1d34d"
+        },
+        "topographicTexture": {
+          "path": "souris-chaude/topographic.webp",
+          "bytes": 123572,
+          "sha256": "42f8e4b16313ca9a15b0c0c4ff7a679b6dd408d31ad5b502f1d1cc899d1a1266"
+        },
+        "orthophotoTexture": {
+          "path": "souris-chaude/orthophoto.webp",
+          "bytes": 461194,
+          "sha256": "06311f4fd3b25a809e268249174c4027024df02002665885ee20def9bea7efd8"
+        }
+      }
+    },
+    {
+      "slug": "trois-bassins",
+      "title": "Trois-Bassins, La Réunion",
+      "metadata": "trois-bassins/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "trois-bassins/terrain.json",
+          "bytes": 5191,
+          "sha256": "93909e8ffc1673023a2dc6e9432bb1fde46c356325787c3c89af5529e61c17ae"
+        },
+        "height": {
+          "path": "trois-bassins/height.bin",
+          "bytes": 448362,
+          "sha256": "2f86668960e03aff8afbf543fed89d0d107485435973af906c24944de2b302e2"
+        },
+        "validMask": {
+          "path": "trois-bassins/valid-mask.bin",
+          "bytes": 28023,
+          "sha256": "20de96dca4cd11abe8d359f3c27d1557af2132610441b53b61ba00fd801208a2"
+        },
+        "isobathMask": {
+          "path": "trois-bassins/isobath-mask.bin",
+          "bytes": 28023,
+          "sha256": "20de96dca4cd11abe8d359f3c27d1557af2132610441b53b61ba00fd801208a2"
+        },
+        "vectorIsobaths": {
+          "path": "trois-bassins/isobaths-vector.json",
+          "bytes": 143147,
+          "sha256": "ab1437f3af5312206e9aea202a4fdb3525776cb73c61c3a0f1c3c5d8afaff69c"
+        },
+        "topographicTexture": {
+          "path": "trois-bassins/topographic.webp",
+          "bytes": 129144,
+          "sha256": "def5b3bf21fe8e3f1a90d175a8b99bd32cd80775ff999a7e39c3f5c8d348fca8"
+        },
+        "orthophotoTexture": {
+          "path": "trois-bassins/orthophoto.webp",
+          "bytes": 279554,
+          "sha256": "971799818d441481b60730f580455ef65b9a3032daed57cffa2036795287ef84"
         }
       }
     }
