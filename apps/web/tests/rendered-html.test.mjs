@@ -222,8 +222,8 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
     html,
     /href="\/reunion\/fr\/sites\/roches-noires"/,
   );
-  assert.match(html, /Roches Noires -/);
-  assert.match(html, /Le Cimetière/);
+  assert.match(html, /Roches Noires/);
+  assert.doesNotMatch(html, /Roches Noires - Le Cimetière/);
   assert.match(html, /href="\/reunion\/fr\/sites\/trois-bassins"/);
   assert.match(html, /href="\/reunion\/fr\/sites\/souris-chaude"/);
   assert.match(

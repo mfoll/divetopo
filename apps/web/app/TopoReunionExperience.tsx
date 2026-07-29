@@ -660,8 +660,6 @@ export function TopoReunionExperience({
   const mountsUnifiedTerrain = usesUnified3D && viewMode === "3d";
   const showsUnifiedTerrain =
     mountsUnifiedTerrain && unified3DRendererState === "ready";
-  const reservesInteractionHelp =
-    showsRegularInteractive || (usesUnified3D && viewMode === "3d");
   const showsInteractionHelp =
     showsRegularInteractive || showsUnifiedTerrain;
   const mapDownload = (
@@ -900,14 +898,12 @@ export function TopoReunionExperience({
                 ) : null}
               </div>
 
-              {reservesInteractionHelp ? (
-                <div
-                  className={`viewer-meta${showsInteractionHelp ? "" : " is-placeholder"}`}
-                  aria-hidden={!showsInteractionHelp}
-                >
-                  <span>{text.map.interactionHelp}</span>
-                </div>
-              ) : null}
+              <div
+                className={`viewer-meta${showsInteractionHelp ? "" : " is-placeholder"}`}
+                aria-hidden={!showsInteractionHelp}
+              >
+                <span>{text.map.interactionHelp}</span>
+              </div>
 
               <div className="planche-download">
                 <img
