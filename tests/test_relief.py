@@ -10,7 +10,9 @@ import numpy as np
 from osgeo import gdal, osr
 from PIL import Image
 
+from cartography.bathymetry_style import VALIDATED_BATHYMETRY_PALETTE
 from cartography.relief import (
+    analytic_isobath_coverages,
     bboxes_intersect,
     blend_texture,
     clip_polyline_to_bbox,
@@ -25,9 +27,12 @@ from cartography.relief import (
     imagery_depth_alpha,
     interpolate_mesh_gaps,
     load_font,
+    local_slope_shade,
     make_pretty_3d_from_offshore,
+    palette,
     polyline_intersects_bbox,
     raster_bounds,
+    screen_space_boundary_coverages,
     sieve_land_components,
     small_internal_mesh_gap_mask,
     webgl_lit_colors,
@@ -63,6 +68,112 @@ def write_raster(
 
 
 class RasterAlignmentTests(unittest.TestCase):
+    def test_coral_blue_scale_uses_the_validated_physical_anchors(self) -> None:
+        from cartography.bathymetry_style import remap_bathymetric_depth
+
+        remapped = remap_bathymetric_depth(
+            np.array(
+                [0.0, 5.0, 10.0, 15.0, 20.0, 30.0],
+                dtype=np.float32,
+            ),
+            maximum_depth_m=30.0,
+            depth_scale="coral_blue",
+        )
+
+        np.testing.assert_allclose(
+            remapped / 30.0,
+            [0.0, 0.34, 0.68, 0.82, 0.94, 1.0],
+        )
+
+    def test_coral_blue_reaches_the_final_blue_at_twenty_metres(self) -> None:
+        from cartography.bathymetry_style import remap_bathymetric_depth
+
+        remapped = remap_bathymetric_depth(
+            np.array([0.0, 5.0, 10.0, 15.0, 20.0], dtype=np.float32),
+            maximum_depth_m=20.0,
+            depth_scale="coral_blue",
+        )
+
+        np.testing.assert_allclose(
+            remapped / 20.0,
+            [0.0, 0.34, 0.68, 0.82, 1.0],
+        )
+
+    def test_coral_blue_has_the_exact_validated_rgb_anchors(self) -> None:
+        colours = palette(
+            np.array(
+                [
+                    0.0,
+                    2.5,
+                    3.5,
+                    4.25,
+                    5.0,
+                    5.75,
+                    6.5,
+                    7.25,
+                    8.0,
+                    8.75,
+                    9.5,
+                    10.0,
+                    11.0,
+                    12.0,
+                    13.5,
+                    15.0,
+                    17.5,
+                    20.0,
+                    22.5,
+                    25.0,
+                    30.0,
+                    40.0,
+                ],
+                dtype=np.float32,
+            ),
+            max_depth=40.0,
+            scheme="coral_blue",
+            depth_scale="coral_blue",
+        )
+
+        np.testing.assert_array_equal(
+            colours,
+            np.array(
+                [
+                    [250, 58, 54],
+                    [248, 65, 48],
+                    [250, 78, 43],
+                    [252, 98, 38],
+                    [255, 125, 34],
+                    [255, 160, 32],
+                    [255, 195, 38],
+                    [250, 215, 46],
+                    [225, 220, 58],
+                    [175, 223, 74],
+                    [100, 220, 105],
+                    [45, 214, 150],
+                    [10, 204, 190],
+                    [0, 190, 220],
+                    [15, 170, 224],
+                    [30, 151, 224],
+                    [28, 126, 207],
+                    [25, 98, 181],
+                    [22, 62, 150],
+                    [18, 51, 134],
+                    [12, 38, 112],
+                    [6, 24, 82],
+                ],
+                dtype=np.uint8,
+            ),
+        )
+
+    def test_coral_blue_rejects_sites_shallower_than_twenty_metres(self) -> None:
+        from cartography.bathymetry_style import remap_bathymetric_depth
+
+        with self.assertRaisesRegex(ValueError, "at least 20 m"):
+            remap_bathymetric_depth(
+                np.array([0.0, 10.0], dtype=np.float32),
+                maximum_depth_m=19.0,
+                depth_scale="coral_blue",
+            )
+
     def test_compass_projects_cardinals_for_arbitrary_frame_bearings(self) -> None:
         center = (100.0, 100.0)
         distance = 50.0
@@ -140,6 +251,46 @@ class RasterAlignmentTests(unittest.TestCase):
 
 
 class SurfaceValidityTests(unittest.TestCase):
+    def test_local_slope_shade_is_orientation_independent(self) -> None:
+        ramp = np.tile(np.arange(7, dtype=np.float32), (7, 1))
+        valid = np.ones_like(ramp, dtype=bool)
+
+        horizontal = local_slope_shade(
+            ramp,
+            valid,
+            1.0,
+            1.0,
+            max_slope_deg=45.0,
+            max_darkening=0.5,
+            smoothing_passes=0,
+        )
+        vertical = local_slope_shade(
+            ramp.T,
+            valid,
+            1.0,
+            1.0,
+            max_slope_deg=45.0,
+            max_darkening=0.5,
+            smoothing_passes=0,
+        )
+
+        np.testing.assert_allclose(horizontal, vertical.T)
+
+    def test_local_slope_shade_does_not_create_a_mask_edge(self) -> None:
+        depth = np.full((7, 7), 8.0, dtype=np.float32)
+        sea = np.zeros_like(depth, dtype=bool)
+        sea[1:6, 1:6] = True
+
+        shaded = local_slope_shade(
+            depth,
+            sea,
+            0.4,
+            0.4,
+            smoothing_passes=2,
+        )
+
+        np.testing.assert_allclose(shaded, 1.0)
+
     def test_cells_without_elevation_or_bathymetry_remain_invalid(self) -> None:
         depth = np.array([[4.0, np.nan], [np.nan, np.nan]], dtype=np.float32)
         bathymetry_valid = np.array([[True, False], [False, False]])
@@ -373,6 +524,9 @@ class ImageryMaskTests(unittest.TestCase):
 
 
 class ConfigurationDefaultTests(unittest.TestCase):
+    def test_coral_is_the_selected_validation_palette(self) -> None:
+        self.assertEqual(VALIDATED_BATHYMETRY_PALETTE, "coral_blue")
+
     def test_renderer_uses_shared_dimensionless_vertical_exaggeration_default(self) -> None:
         parameter = inspect.signature(make_pretty_3d_from_offshore).parameters[
             "vertical_exaggeration"
@@ -386,6 +540,41 @@ class ConfigurationDefaultTests(unittest.TestCase):
         ):
             with self.assertRaisesRegex(RuntimeError, "required map font"):
                 load_font(20)
+
+
+class AnalyticIsobathTextureTests(unittest.TestCase):
+    def test_isobaths_are_derived_from_mesh_elevation_like_the_viewer(self) -> None:
+        elevation = -np.tile(
+            np.arange(41, dtype=np.float32),
+            (5, 1),
+        )
+        outline, center = analytic_isobath_coverages(
+            elevation,
+            1.0,
+            interval_m=5.0,
+            maximum_depth_m=40.0,
+            pixel_ratio=1.0,
+        )
+
+        self.assertGreater(float(outline[2, 5]), 0.95)
+        self.assertGreater(float(center[2, 10]), 0.95)
+        self.assertEqual(float(outline[2, 0]), 0.0)
+        self.assertEqual(float(center[2, 40]), 0.0)
+
+    def test_visible_land_sea_boundary_has_continuous_nested_coverages(self) -> None:
+        surface_classes = np.zeros((9, 11), dtype=np.uint8)
+        surface_classes[:, :5] = 1
+        surface_classes[:, 5:] = 2
+        outline, center = screen_space_boundary_coverages(
+            surface_classes,
+            outline_half_width_px=3.0,
+            center_half_width_px=1.0,
+        )
+
+        self.assertGreater(float(outline[4, 4]), 0.95)
+        self.assertGreater(float(center[4, 5]), 0.90)
+        self.assertGreater(float(outline[4, 2]), float(center[4, 2]))
+        self.assertEqual(float(outline[4, 0]), 0.0)
 
 
 class IsobathLabelPlacementTests(unittest.TestCase):

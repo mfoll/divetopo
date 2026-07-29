@@ -2,7 +2,11 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import * as THREE from "three";
+import WebGL from "three/examples/jsm/capabilities/WebGL.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
+import { Line2 } from "three/examples/jsm/lines/Line2.js";
+import { LineGeometry } from "three/examples/jsm/lines/LineGeometry.js";
+import { LineMaterial } from "three/examples/jsm/lines/LineMaterial.js";
 import { topoReunionCopy } from "../content/copy";
 import type { Language } from "../content/preferences";
 import {
@@ -17,6 +21,11 @@ const RELIEF_EXPOSURE = 1.55;
 const ISOBATH_INTERVAL_M = 5;
 const ISOBATH_SHADER_CACHE_KEY = "analytic-isobaths-v6";
 const ISOBATH_COLOR_COUNT = 8;
+const VECTOR_ISOBATH_OUTLINE = 0xf5efd2;
+const VECTOR_ISOBATH_CENTER = 0x05070a;
+const VECTOR_ISOBATH_DEPTH_BIAS = 0.0002;
+const LABEL_WIDTH_CSS_PX = 68;
+const LABEL_HEIGHT_CSS_PX = 28;
 
 type NumberUniform = { value: number };
 
@@ -48,9 +57,35 @@ type TerrainMetadata = {
     horizontalCenterOffsetM?: number;
   };
   textures: {
-    topographic: { file: string };
-    orthophoto: { file: string };
+    topographic: { file: string; attribution: string };
+    orthophoto: { file: string; attribution: string };
   };
+  credits: {
+    copyright: string;
+    license: string;
+    requiredDisplay: string;
+  };
+};
+
+type VectorIsobaths = {
+  coordinateSpace: "grid-pixels";
+  levels: Record<string, Array<Array<[number, number]>>>;
+};
+
+type VectorLabelCandidate = {
+  levelM: number;
+  polylineKey: string;
+  point: THREE.Vector3;
+  tangent: THREE.Vector3;
+  reliefSlope: number;
+  sourceScore: number;
+};
+
+type VectorLabel = {
+  levelM: number;
+  candidatePolylineKey: string | null;
+  sprite: THREE.Sprite;
+  texture: THREE.CanvasTexture;
 };
 
 function validAt(mask: Uint8Array, index: number) {
@@ -92,6 +127,100 @@ function visibleIsobathLevels(maximumDepthM: number) {
     levels.push(level);
   }
   return levels;
+}
+
+function installFragmentDepthBias(
+  material: THREE.Material,
+  depthBias: number,
+) {
+  material.onBeforeCompile = (shader) => {
+    shader.fragmentShader = shader.fragmentShader.replace(
+      "void main() {",
+      `void main() {
+gl_FragDepth = max(gl_FragCoord.z - ${depthBias.toFixed(6)}, 0.0);`,
+    );
+  };
+  material.customProgramCacheKey = () =>
+    `fragment-depth-bias-${depthBias.toFixed(6)}`;
+}
+
+function createDepthLabelTexture(levelM: number) {
+  const scale = 3;
+  const canvas = document.createElement("canvas");
+  canvas.width = LABEL_WIDTH_CSS_PX * scale;
+  canvas.height = LABEL_HEIGHT_CSS_PX * scale;
+  const context = canvas.getContext("2d");
+  if (!context) {
+    throw new Error("Canvas 2D unavailable for isobath labels");
+  }
+
+  context.scale(scale, scale);
+  context.font =
+    "700 20px Arial, Helvetica, sans-serif";
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.lineJoin = "round";
+  context.lineWidth = 3.3;
+  context.strokeStyle = "#f5efd2";
+  context.fillStyle = "#05070a";
+  const label = `−${levelM} m`;
+  context.strokeText(
+    label,
+    LABEL_WIDTH_CSS_PX / 2,
+    LABEL_HEIGHT_CSS_PX / 2 + 0.5,
+  );
+  context.fillText(
+    label,
+    LABEL_WIDTH_CSS_PX / 2,
+    LABEL_HEIGHT_CSS_PX / 2 + 0.5,
+  );
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.minFilter = THREE.LinearFilter;
+  texture.magFilter = THREE.LinearFilter;
+  texture.generateMipmaps = false;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+function niceScaleDistance(targetM: number) {
+  if (!Number.isFinite(targetM) || targetM <= 0) return 1;
+  const magnitude = 10 ** Math.floor(Math.log10(targetM));
+  return [1, 2, 5, 10]
+    .map((factor) => factor * magnitude)
+    .reduce((best, candidate) =>
+      Math.abs(Math.log(candidate / targetM)) <
+      Math.abs(Math.log(best / targetM))
+        ? candidate
+        : best,
+    );
+}
+
+function updateTerrainScale(
+  scale: HTMLDivElement | null,
+  label: HTMLSpanElement | null,
+  camera: THREE.OrthographicCamera,
+  host: HTMLDivElement,
+) {
+  if (!scale || !label) return;
+  const worldUnitsPerCssPixel =
+    (camera.right - camera.left) /
+    (Math.max(host.clientWidth, 1) * camera.zoom);
+  const targetWidthPx = THREE.MathUtils.clamp(
+    host.clientWidth * 0.11,
+    72,
+    112,
+  );
+  const distanceM = niceScaleDistance(
+    worldUnitsPerCssPixel * targetWidthPx,
+  );
+  const widthPx = distanceM / worldUnitsPerCssPixel;
+  scale.style.setProperty("--terrain-scale-width", `${widthPx}px`);
+  label.textContent =
+    distanceM >= 1000
+      ? `${distanceM / 1000} km`
+      : `${distanceM} m`;
 }
 
 function updateCompassDial(
@@ -246,11 +375,33 @@ export default function TerrainViewer({
   siteName,
   style,
   language,
+  vectorIsobathsPath,
+  initialZoom = 1,
+  initialCenterOffsetEastM = 0,
+  initialCenterOffsetSouthM = 0,
+  onReady,
+  onError,
+  onContextRestored,
+  downloadHref,
+  downloadFilename,
+  downloadLabel,
+  compactAttributions,
 }: {
   slug: string;
   siteName: string;
   style: SurfaceStyle;
   language: Language;
+  vectorIsobathsPath?: string;
+  initialZoom?: number;
+  initialCenterOffsetEastM?: number;
+  initialCenterOffsetSouthM?: number;
+  onReady?: () => void;
+  onError?: () => void;
+  onContextRestored?: () => void;
+  downloadHref?: string;
+  downloadFilename?: string;
+  downloadLabel?: string;
+  compactAttributions?: Record<SurfaceStyle, string>;
 }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const materialRef = useRef<THREE.MeshStandardMaterial | null>(null);
@@ -258,6 +409,7 @@ export default function TerrainViewer({
   const sceneRef = useRef<THREE.Scene | null>(null);
   const controlsRef = useRef<OrbitControls | null>(null);
   const cameraRef = useRef<THREE.OrthographicCamera | null>(null);
+  const vectorIsobathGroupRef = useRef<THREE.Group | null>(null);
   const textureCacheRef = useRef<
     Partial<Record<SurfaceStyle, THREE.Texture>>
   >({});
@@ -268,12 +420,21 @@ export default function TerrainViewer({
     zoom: number;
   } | null>(null);
   const compassDialRef = useRef<HTMLDivElement>(null);
+  const scaleBarRef = useRef<HTMLDivElement>(null);
+  const scaleLabelRef = useRef<HTMLSpanElement>(null);
   const isobathsEnabledUniformRef = useRef<NumberUniform>({ value: 1 });
+  const isobathsEnabledRef = useRef(true);
   const styleRef = useRef(style);
   const [isobathsEnabled, setIsobathsEnabled] = useState(true);
   const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
   const [isCssFullscreen, setIsCssFullscreen] = useState(false);
   const [maximumDepthM, setMaximumDepthM] = useState(0);
+  const [usesVectorIsobaths, setUsesVectorIsobaths] = useState(false);
+  const [terrainAttribution, setTerrainAttribution] = useState<{
+    copyright: string;
+    requiredDisplay: string;
+    sources: Record<SurfaceStyle, string>;
+  } | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     "loading",
   );
@@ -345,16 +506,46 @@ export default function TerrainViewer({
     let scene: THREE.Scene | null = null;
     let geometry: THREE.BufferGeometry | null = null;
     let mesh: THREE.Mesh | null = null;
+    let rendererCanvas: HTMLCanvasElement | null = null;
+    let contextWasLost = false;
+    const vectorLineGeometries: LineGeometry[] = [];
+    const vectorLineMaterials: LineMaterial[] = [];
+    const vectorLabels: VectorLabel[] = [];
+
+    function handleContextLost(event: Event) {
+      event.preventDefault();
+      contextWasLost = true;
+      if (!cancelled) {
+        setStatus("error");
+        onError?.();
+      }
+    }
+
+    function handleContextRestored() {
+      if (!cancelled && contextWasLost) {
+        onContextRestored?.();
+      }
+    }
 
     async function initialise() {
       setStatus("loading");
+      setUsesVectorIsobaths(false);
+      setTerrainAttribution(null);
+      if (!WebGL.isWebGL2Available()) {
+        throw new Error("WebGL 2 unavailable");
+      }
       const base = `/terrain/${slug}`;
       const metadataResponse = await fetch(`${base}/terrain.json`);
       if (!metadataResponse.ok) {
         throw new Error(`Terrain metadata unavailable for ${slug}`);
       }
       const metadata = (await metadataResponse.json()) as TerrainMetadata;
-      const [heightBuffer, maskBuffer, isobathMaskBuffer] = await Promise.all([
+      const [
+        heightBuffer,
+        maskBuffer,
+        isobathMaskBuffer,
+        vectorIsobaths,
+      ] = await Promise.all([
         fetch(`${base}/${metadata.grid.heightFile}`).then((response) => {
           if (!response.ok) throw new Error("Heightfield unavailable");
           return response.arrayBuffer();
@@ -367,10 +558,39 @@ export default function TerrainViewer({
           if (!response.ok) throw new Error("Isobath mask unavailable");
           return response.arrayBuffer();
         }),
+        vectorIsobathsPath
+          ? fetch(vectorIsobathsPath).then((response) => {
+              if (!response.ok) {
+                throw new Error("Vector isobaths unavailable");
+              }
+              return response.json() as Promise<VectorIsobaths>;
+            })
+          : Promise.resolve(null),
       ]);
       if (cancelled || !hostRef.current) return;
+      if (
+        vectorIsobaths &&
+        (vectorIsobaths.coordinateSpace !== "grid-pixels" ||
+          !vectorIsobaths.levels ||
+          typeof vectorIsobaths.levels !== "object")
+      ) {
+        throw new Error("Unsupported vector isobath payload");
+      }
 
       metadataRef.current = metadata;
+      setUsesVectorIsobaths(Boolean(vectorIsobaths));
+      setTerrainAttribution({
+        copyright: metadata.credits.copyright,
+        requiredDisplay: metadata.credits.requiredDisplay,
+        sources: {
+          orthophoto:
+            compactAttributions?.orthophoto ??
+            metadata.textures.orthophoto.attribution,
+          topographic:
+            compactAttributions?.topographic ??
+            metadata.textures.topographic.attribution,
+        },
+      });
       const maximumDepthM = Math.max(-metadata.elevationRangeM.min, 0);
       setMaximumDepthM(maximumDepthM);
       const width = metadata.grid.width;
@@ -403,6 +623,51 @@ export default function TerrainViewer({
         minY = Math.min(minY, y);
         maxY = Math.max(maxY, y);
       }
+      const cellWidthM =
+        metadata.physicalSizeM.width / Math.max(width - 1, 1);
+      const cellDepthM =
+        metadata.physicalSizeM.depth / Math.max(height - 1, 1);
+      const reliefSlopeAt = ([gridX, gridY]: [number, number]) => {
+        const column = THREE.MathUtils.clamp(
+          Math.round(gridX),
+          0,
+          width - 1,
+        );
+        const row = THREE.MathUtils.clamp(
+          Math.round(gridY),
+          0,
+          height - 1,
+        );
+        const leftColumn = Math.max(column - 2, 0);
+        const rightColumn = Math.min(column + 2, width - 1);
+        const topRow = Math.max(row - 2, 0);
+        const bottomRow = Math.min(row + 2, height - 1);
+        const sampleIndices = [
+          row * width + leftColumn,
+          row * width + rightColumn,
+          topRow * width + column,
+          bottomRow * width + column,
+        ];
+        if (sampleIndices.some((index) => !validAt(mask, index))) {
+          return Number.POSITIVE_INFINITY;
+        }
+        const horizontalDistanceM =
+          Math.max(rightColumn - leftColumn, 1) * cellWidthM;
+        const verticalDistanceM =
+          Math.max(bottomRow - topRow, 1) * cellDepthM;
+        const horizontalSlope =
+          (elevations[sampleIndices[1]] -
+            elevations[sampleIndices[0]]) /
+          horizontalDistanceM;
+        const verticalSlope =
+          (elevations[sampleIndices[3]] -
+            elevations[sampleIndices[2]]) /
+          verticalDistanceM;
+        return (
+          Math.hypot(horizontalSlope, verticalSlope) *
+          metadata.verticalExaggeration
+        );
+      };
       positions.needsUpdate = true;
       geometry.setAttribute(
         "terrainElevationM",
@@ -436,18 +701,163 @@ export default function TerrainViewer({
       const pixelRatioUniform: NumberUniform = {
         value: Math.min(window.devicePixelRatio, 1.75),
       };
-      installAnalyticIsobaths(
-        material,
-        isobathsEnabledUniformRef.current,
-        pixelRatioUniform,
-        maximumDepthM,
-      );
+      if (!vectorIsobaths) {
+        installAnalyticIsobaths(
+          material,
+          isobathsEnabledUniformRef.current,
+          pixelRatioUniform,
+          maximumDepthM,
+        );
+      }
       materialRef.current = material;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
 
+      const labelCandidates: VectorLabelCandidate[] = [];
+      const closedLoopCandidates: Array<{
+        levelM: number;
+        polylineKey: string;
+        score: number;
+      }> = [];
+      if (vectorIsobaths) {
+        const vectorGroup = new THREE.Group();
+        vectorGroup.renderOrder = 2;
+        vectorGroup.visible = isobathsEnabledRef.current;
+        vectorIsobathGroupRef.current = vectorGroup;
+        scene.add(vectorGroup);
+
+        const vectorPoint = (
+          [gridX, gridY]: [number, number],
+          depthM: number,
+        ) =>
+          new THREE.Vector3(
+            (gridX / Math.max(width - 1, 1) - 0.5) *
+              metadata.physicalSizeM.width,
+            -depthM * metadata.verticalExaggeration,
+            (gridY / Math.max(height - 1, 1) - 0.5) *
+              metadata.physicalSizeM.depth,
+          );
+        const outlineMaterial = new LineMaterial({
+          color: VECTOR_ISOBATH_OUTLINE,
+          linewidth: 3.6,
+          worldUnits: false,
+          alphaToCoverage: false,
+          depthTest: true,
+          depthWrite: false,
+        });
+        outlineMaterial.toneMapped = false;
+        installFragmentDepthBias(
+          outlineMaterial,
+          VECTOR_ISOBATH_DEPTH_BIAS,
+        );
+        const centerMaterial = new LineMaterial({
+          color: VECTOR_ISOBATH_CENTER,
+          linewidth: 1.7,
+          worldUnits: false,
+          alphaToCoverage: false,
+          depthTest: true,
+          depthWrite: false,
+        });
+        centerMaterial.toneMapped = false;
+        installFragmentDepthBias(
+          centerMaterial,
+          VECTOR_ISOBATH_DEPTH_BIAS,
+        );
+        vectorLineMaterials.push(outlineMaterial, centerMaterial);
+
+        for (const [levelText, polylines] of Object.entries(
+          vectorIsobaths.levels,
+        )) {
+          const levelM = Number(levelText);
+          if (
+            !Number.isFinite(levelM) ||
+            levelM >= maximumDepthM - 0.001
+          ) {
+            continue;
+          }
+          for (const [polylineIndex, polyline] of polylines.entries()) {
+            if (polyline.length < 2) continue;
+            const polylineKey = `${levelText}-${polylineIndex}`;
+            const linePoints = polyline.map((point) =>
+              vectorPoint(point, levelM),
+            );
+            const lineGeometry = new LineGeometry();
+            lineGeometry.setPositions(
+              linePoints.flatMap((point) => [
+                point.x,
+                point.y,
+                point.z,
+              ]),
+            );
+            vectorLineGeometries.push(lineGeometry);
+
+            const outline = new Line2(
+              lineGeometry,
+              outlineMaterial,
+            );
+            outline.computeLineDistances();
+            outline.renderOrder = 2;
+            const center = new Line2(lineGeometry, centerMaterial);
+            center.computeLineDistances();
+            center.renderOrder = 3;
+            vectorGroup.add(outline, center);
+
+            const firstPoint = polyline[0];
+            const lastPoint = polyline[polyline.length - 1];
+            const closed =
+              Math.hypot(
+                firstPoint[0] - lastPoint[0],
+                firstPoint[1] - lastPoint[1],
+              ) < 2;
+            if (closed) {
+              const gridXs = polyline.map(([gridX]) => gridX);
+              const gridYs = polyline.map(([, gridY]) => gridY);
+              const loopWidthM =
+                (Math.max(...gridXs) - Math.min(...gridXs)) *
+                cellWidthM;
+              const loopDepthM =
+                (Math.max(...gridYs) - Math.min(...gridYs)) *
+                cellDepthM;
+              if (loopWidthM >= 45 && loopDepthM >= 35) {
+                closedLoopCandidates.push({
+                  levelM,
+                  polylineKey,
+                  score: loopWidthM * loopDepthM,
+                });
+              }
+            }
+
+            if (linePoints.length < 5) continue;
+            const stride = Math.max(
+              1,
+              Math.floor((linePoints.length - 4) / 24),
+            );
+            for (
+              let index = 2;
+              index < linePoints.length - 2;
+              index += stride
+            ) {
+              const tangent = linePoints[index + 2]
+                .clone()
+                .sub(linePoints[index - 2])
+                .normalize();
+              labelCandidates.push({
+                levelM,
+                polylineKey,
+                point: linePoints[index].clone(),
+                tangent,
+                reliefSlope: reliefSlopeAt(polyline[index]),
+                sourceScore: Math.min(linePoints.length, 300),
+              });
+            }
+          }
+        }
+      }
+
       const hemisphere = new THREE.HemisphereLight("#dffbff", "#10262d", 1.7);
       scene.add(hemisphere);
+      const fillLight = new THREE.AmbientLight("#fff7e8", 0.28);
+      scene.add(fillLight);
       const keyLight = new THREE.DirectionalLight("#fff2d8", 2.1);
       keyLight.position.set(
         metadata.physicalSizeM.width * 0.35,
@@ -553,6 +963,8 @@ export default function TerrainViewer({
         .clone()
         .addScaledVector(screenUp, -(0.5 - coastFrame) * halfHeight * 2);
       if (!shoreXs.length) target.y = verticalCenter * 0.25;
+      target.x += initialCenterOffsetEastM;
+      target.z += initialCenterOffsetSouthM;
 
       const camera = new THREE.OrthographicCamera(
         -halfWidth,
@@ -568,8 +980,211 @@ export default function TerrainViewer({
         .addScaledVector(horizontalForward, -offshoreDistance)
         .add(new THREE.Vector3(0, offshoreDistance * projectionSlope, 0));
       camera.lookAt(target);
+      camera.zoom = THREE.MathUtils.clamp(initialZoom, 0.65, 8);
       camera.updateProjectionMatrix();
       cameraRef.current = camera;
+
+      const vectorGroup = vectorIsobathGroupRef.current;
+      let updateVectorLabels: (chooseAnchors: boolean) => void = () => {};
+      if (vectorGroup && labelCandidates.length) {
+        const featuredLoops = closedLoopCandidates
+          .sort((first, second) => second.score - first.score)
+          .filter(
+            (candidate, index, candidates) =>
+              index ===
+              candidates.findIndex(
+                (other) => other.levelM === candidate.levelM,
+              ),
+          )
+          .slice(0, 2);
+        const featuredPolylineKeys = new Set(
+          featuredLoops.map(({ polylineKey }) => polylineKey),
+        );
+        const levels = Array.from(
+          new Set(labelCandidates.map((candidate) => candidate.levelM)),
+        ).sort((first, second) => first - second);
+        const addVectorLabel = (
+          levelM: number,
+          candidatePolylineKey: string | null,
+        ) => {
+          const texture = createDepthLabelTexture(levelM);
+          const spriteMaterial = new THREE.SpriteMaterial({
+            map: texture,
+            transparent: true,
+            // Labels are annotations rather than contour geometry. Their
+            // carefully selected initial anchors stay fixed while the camera
+            // moves, so the text remains stable and legible.
+            depthTest: false,
+            depthWrite: false,
+            toneMapped: false,
+          });
+          const sprite = new THREE.Sprite(spriteMaterial);
+          sprite.renderOrder = 4;
+          sprite.visible = false;
+          vectorGroup.add(sprite);
+          vectorLabels.push({
+            levelM,
+            candidatePolylineKey,
+            sprite,
+            texture,
+          });
+        };
+        for (const { levelM, polylineKey } of featuredLoops) {
+          addVectorLabel(levelM, polylineKey);
+        }
+        for (const levelM of levels) {
+          addVectorLabel(levelM, null);
+        }
+
+        updateVectorLabels = (chooseAnchors: boolean) => {
+          if (!vectorLabels.length) return;
+          const currentHost = hostRef.current;
+          if (!currentHost) return;
+          camera.updateMatrixWorld();
+          const worldUnitsPerCssPixel =
+            (camera.top - camera.bottom) /
+            (Math.max(currentHost.clientHeight, 1) * camera.zoom);
+          for (const label of vectorLabels) {
+            label.sprite.scale.set(
+              LABEL_WIDTH_CSS_PX * worldUnitsPerCssPixel,
+              LABEL_HEIGHT_CSS_PX * worldUnitsPerCssPixel,
+              1,
+            );
+          }
+          if (!chooseAnchors) return;
+
+          const occupied: Array<{
+            left: number;
+            right: number;
+            top: number;
+            bottom: number;
+          }> = [];
+          const halfWidthNdc =
+            LABEL_WIDTH_CSS_PX /
+            Math.max(currentHost.clientWidth, 1);
+          const halfHeightNdc =
+            LABEL_HEIGHT_CSS_PX /
+            Math.max(currentHost.clientHeight, 1);
+
+          for (const label of vectorLabels) {
+            const visibleCandidates: Array<{
+              candidate: VectorLabelCandidate;
+              projected: THREE.Vector3;
+              cameraDepth: number;
+            }> = [];
+            for (const candidate of labelCandidates) {
+              if (candidate.levelM !== label.levelM) continue;
+              if (
+                label.candidatePolylineKey
+                  ? candidate.polylineKey !==
+                    label.candidatePolylineKey
+                  : featuredPolylineKeys.has(candidate.polylineKey)
+              ) {
+                continue;
+              }
+              const projected = candidate.point.clone().project(camera);
+              if (
+                projected.z < -1 ||
+                projected.z > 1 ||
+                Math.abs(projected.x) > 0.82 ||
+                Math.abs(projected.y) > 0.76
+              ) {
+                continue;
+              }
+              const cameraDepth = -candidate.point
+                .clone()
+                .applyMatrix4(camera.matrixWorldInverse).z;
+              visibleCandidates.push({
+                candidate,
+                projected,
+                cameraDepth,
+              });
+            }
+            if (!visibleCandidates.length) {
+              label.sprite.visible = false;
+              continue;
+            }
+            const minimumCameraDepth = Math.min(
+              ...visibleCandidates.map(({ cameraDepth }) => cameraDepth),
+            );
+            const maximumCameraDepth = Math.max(
+              ...visibleCandidates.map(({ cameraDepth }) => cameraDepth),
+            );
+            const cameraDepthRange = Math.max(
+              maximumCameraDepth - minimumCameraDepth,
+              1e-6,
+            );
+            let best:
+              | { candidate: VectorLabelCandidate; score: number }
+              | undefined;
+            for (const {
+              candidate,
+              projected,
+              cameraDepth,
+            } of visibleCandidates) {
+              const projectedTangent = candidate.point
+                .clone()
+                .addScaledVector(candidate.tangent, 5)
+                .project(camera);
+              const deltaX = projectedTangent.x - projected.x;
+              const deltaY = projectedTangent.y - projected.y;
+              const horizontal =
+                Math.abs(deltaX) /
+                (Math.abs(deltaX) + Math.abs(deltaY) + 1e-6);
+              const bounds = {
+                left: projected.x - halfWidthNdc,
+                right: projected.x + halfWidthNdc,
+                top: projected.y + halfHeightNdc,
+                bottom: projected.y - halfHeightNdc,
+              };
+              if (
+                occupied.some(
+                  (other) =>
+                    bounds.left < other.right + 0.025 &&
+                    bounds.right > other.left - 0.025 &&
+                    bounds.bottom < other.top + 0.025 &&
+                    bounds.top > other.bottom - 0.025,
+                )
+              ) {
+                continue;
+              }
+              const edgeClearance = Math.min(
+                0.82 - Math.abs(projected.x),
+                0.76 - Math.abs(projected.y),
+              );
+              const foregroundScreen =
+                (0.76 - projected.y) / (0.76 * 2);
+              const foregroundDepth =
+                (maximumCameraDepth - cameraDepth) / cameraDepthRange;
+              const gentleRelief =
+                1 / (1 + Math.max(candidate.reliefSlope, 0));
+              const score =
+                horizontal * 55 +
+                edgeClearance * 30 +
+                foregroundScreen * 95 +
+                foregroundDepth * 170 +
+                gentleRelief * 120 +
+                candidate.sourceScore * 0.02;
+              if (!best || score > best.score) {
+                best = { candidate, score };
+              }
+            }
+            if (!best) {
+              label.sprite.visible = false;
+              continue;
+            }
+            label.sprite.position.copy(best.candidate.point);
+            label.sprite.visible = true;
+            const projected = best.candidate.point.clone().project(camera);
+            occupied.push({
+              left: projected.x - halfWidthNdc,
+              right: projected.x + halfWidthNdc,
+              top: projected.y + halfHeightNdc,
+              bottom: projected.y - halfHeightNdc,
+            });
+          }
+        };
+      }
 
       const renderer = new THREE.WebGLRenderer({
         antialias: true,
@@ -583,6 +1198,15 @@ export default function TerrainViewer({
       renderer.toneMappingExposure = RELIEF_EXPOSURE;
       renderer.setPixelRatio(pixelRatioUniform.value);
       mount.appendChild(renderer.domElement);
+      rendererCanvas = renderer.domElement;
+      rendererCanvas.addEventListener(
+        "webglcontextlost",
+        handleContextLost,
+      );
+      rendererCanvas.addEventListener(
+        "webglcontextrestored",
+        handleContextRestored,
+      );
       rendererRef.current = renderer;
 
       const controls = new OrbitControls(camera, renderer.domElement);
@@ -606,9 +1230,20 @@ export default function TerrainViewer({
         target: controls.target.clone(),
         zoom: camera.zoom,
       };
+      updateVectorLabels(true);
 
       const render = () => {
         if (scene && rendererRef.current && cameraRef.current) {
+          updateVectorLabels(false);
+          const currentHost = hostRef.current;
+          if (currentHost) {
+            updateTerrainScale(
+              scaleBarRef.current,
+              scaleLabelRef.current,
+              cameraRef.current,
+              currentHost,
+            );
+          }
           updateCompassDial(
             compassDialRef.current,
             cameraRef.current,
@@ -648,6 +1283,9 @@ export default function TerrainViewer({
         // WebKit standalone can otherwise composite the resized buffer beyond
         // the canvas bounds after an orientation change.
         currentRenderer.setSize(widthPx, heightPx, true);
+        vectorLineMaterials.forEach((lineMaterial) => {
+          lineMaterial.resolution.set(widthPx, heightPx);
+        });
         const aspect = widthPx / heightPx;
         const resized = coveredOrthographicHalfExtents(
           halfWidth,
@@ -660,6 +1298,7 @@ export default function TerrainViewer({
         currentCamera.top = resized.halfHeight;
         currentCamera.bottom = -resized.halfHeight;
         currentCamera.updateProjectionMatrix();
+        updateVectorLabels(true);
         render();
       };
       resizeObserver = new ResizeObserver(() => {
@@ -671,7 +1310,10 @@ export default function TerrainViewer({
 
       await setTexture(styleRef.current);
       render();
-      if (!cancelled) setStatus("ready");
+      if (!cancelled) {
+        setStatus("ready");
+        onReady?.();
+      }
     }
 
     async function setTexture(nextStyle: SurfaceStyle) {
@@ -701,16 +1343,37 @@ export default function TerrainViewer({
     }
 
     initialise().catch(() => {
-      if (!cancelled) setStatus("error");
+      if (!cancelled) {
+        setStatus("error");
+        onError?.();
+      }
     });
 
     return () => {
       cancelled = true;
       resizeObserver?.disconnect();
       if (resizeFrame) cancelAnimationFrame(resizeFrame);
+      rendererCanvas?.removeEventListener(
+        "webglcontextlost",
+        handleContextLost,
+      );
+      rendererCanvas?.removeEventListener(
+        "webglcontextrestored",
+        handleContextRestored,
+      );
       controlsRef.current?.dispose();
       rendererRef.current?.dispose();
       geometry?.dispose();
+      vectorLineGeometries.forEach((lineGeometry) =>
+        lineGeometry.dispose(),
+      );
+      vectorLineMaterials.forEach((lineMaterial) =>
+        lineMaterial.dispose(),
+      );
+      vectorLabels.forEach(({ sprite, texture }) => {
+        sprite.material.dispose();
+        texture.dispose();
+      });
       materialRef.current?.dispose();
       Object.values(textureCacheRef.current).forEach((texture) =>
         texture?.dispose(),
@@ -719,6 +1382,7 @@ export default function TerrainViewer({
       rendererRef.current?.domElement.remove();
       rendererRef.current = null;
       sceneRef.current = null;
+      vectorIsobathGroupRef.current = null;
       controlsRef.current = null;
       cameraRef.current = null;
       materialRef.current = null;
@@ -726,7 +1390,17 @@ export default function TerrainViewer({
       mesh = null;
       scene = null;
     };
-  }, [slug]);
+  }, [
+    initialCenterOffsetEastM,
+    initialCenterOffsetSouthM,
+    initialZoom,
+    compactAttributions,
+    onContextRestored,
+    onError,
+    onReady,
+    slug,
+    vectorIsobathsPath,
+  ]);
 
   useEffect(() => {
     styleRef.current = style;
@@ -766,11 +1440,14 @@ export default function TerrainViewer({
       }
     }
 
-    updateTexture().catch(() => setStatus("error"));
+    updateTexture().catch(() => {
+      setStatus("error");
+      onError?.();
+    });
     return () => {
       cancelled = true;
     };
-  }, [slug, style]);
+  }, [onError, slug, style]);
 
   function renderCurrentScene() {
     const renderer = rendererRef.current;
@@ -781,7 +1458,11 @@ export default function TerrainViewer({
 
   function toggleIsobaths() {
     const nextValue = !isobathsEnabled;
+    isobathsEnabledRef.current = nextValue;
     isobathsEnabledUniformRef.current.value = nextValue ? 1 : 0;
+    if (vectorIsobathGroupRef.current) {
+      vectorIsobathGroupRef.current.visible = nextValue;
+    }
     setIsobathsEnabled(nextValue);
     renderCurrentScene();
   }
@@ -840,10 +1521,12 @@ export default function TerrainViewer({
   const isobathLevels = visibleIsobathLevels(maximumDepthM);
   const text = topoReunionCopy[language].terrain;
   const isFullscreen = isNativeFullscreen || isCssFullscreen;
+  const sourceAttribution = terrainAttribution?.sources[style];
+  const copyright = terrainAttribution?.copyright;
 
   return (
     <div
-      className={`terrain-host${isCssFullscreen ? " is-css-fullscreen" : ""}`}
+      className={`terrain-host is-interactive${downloadHref ? " has-download" : ""}${isCssFullscreen ? " is-css-fullscreen" : ""}`}
       ref={hostRef}
       role="region"
       aria-label={`${text.interactiveTerrain} ${siteName}`}
@@ -885,9 +1568,22 @@ export default function TerrainViewer({
           </span>
         </div>
       </div>
+      <div
+        className={`terrain-scale${status === "ready" ? " is-visible" : ""}`}
+        ref={scaleBarRef}
+        aria-hidden="true"
+      >
+        <span className="terrain-scale-label" ref={scaleLabelRef}>
+          50 m
+        </span>
+        <span className="terrain-scale-track">
+          <span className="terrain-scale-line" />
+        </span>
+      </div>
       {status === "ready" &&
       isobathsEnabled &&
-      isobathLevels.length > 0 ? (
+      isobathLevels.length > 0 &&
+      !usesVectorIsobaths ? (
         <div
           className="terrain-depth-legend"
           data-testid="terrain-depth-legend"
@@ -911,6 +1607,19 @@ export default function TerrainViewer({
               </li>
             ))}
           </ul>
+        </div>
+      ) : null}
+      {status === "ready" && sourceAttribution && copyright ? (
+        <div
+          className="terrain-attribution"
+          aria-label={terrainAttribution.requiredDisplay}
+        >
+          <span className="terrain-attribution-source">
+            {sourceAttribution}
+          </span>
+          <span className="terrain-attribution-copyright">
+            {copyright}
+          </span>
         </div>
       ) : null}
       <div className="terrain-actions">
@@ -965,6 +1674,19 @@ export default function TerrainViewer({
             aria-hidden="true"
           />
         </button>
+        {downloadHref && downloadLabel ? (
+          <a
+            className="terrain-icon-button terrain-download"
+            href={downloadHref}
+            download={downloadFilename}
+            aria-label={downloadLabel}
+            title={downloadLabel}
+          >
+            <span className="terrain-download-arrow" aria-hidden="true">
+              ↓
+            </span>
+          </a>
+        ) : null}
       </div>
     </div>
   );

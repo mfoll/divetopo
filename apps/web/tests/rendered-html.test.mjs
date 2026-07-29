@@ -16,11 +16,11 @@ const publishedSiteSlugs = new Set([
   "passe-hermitage",
   "plage-cimetiere-saint-leu",
   "pointe-au-sel-sec-jaune",
-  "pont-rouge-la-tortue",
+  "pont-rouge",
 ]);
 const regionalMetadataDescriptions = {
-  fr: "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
-  en: "Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
+  fr: "Plans topo-bathymétriques 2D et vues 3D interactives de sites de plongée à La Réunion.",
+  en: "Explore 2D topographic-bathymetric maps and interactive 3D views of dive sites around Réunion Island.",
 };
 
 async function render(pathOrHeaders = "/reunion/fr", additionalHeaders = {}) {
@@ -134,7 +134,7 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   );
   assert.match(
     html,
-    /name="description" content="Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion\."/,
+    /name="description" content="Plans topo-bathymétriques 2D et vues 3D interactives de sites de plongée à La Réunion\."/,
   );
   assert.doesNotMatch(
     html,
@@ -151,7 +151,7 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /21° 01′ 02\.5″ S/);
   assert.match(html, /Voir le site sur Google Maps/);
   assert.match(html, /google\.com\/maps\/search/);
-  assert.match(html, /3d-orthophoto-2474\.webp/);
+  assert.match(html, /3d-dynamic-orthophoto-2474\.webp/);
   assert.match(html, /reunion-overview\.webp/);
   assert.match(html, /west-coast-locator\.webp/);
   assert.match(html, /Ouvrir la carte de La Réunion en grand/);
@@ -170,16 +170,16 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   );
   assert.match(
     html,
-    /href="\/maps\/cap-la-houssaye\/downloads\/3d-orthophoto-full\.jpg"/,
+    /href="\/maps\/cap-la-houssaye\/downloads\/3d-dynamic-orthophoto-full\.jpg"/,
   );
   assert.match(
     html,
-    /download="cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho\.jpg"/,
+    /download="cap-la-houssaye-3d-dynamique-orthophoto\.jpg"/,
   );
   assert.match(html, /Topographie/);
   assert.match(html, /Vue aérienne/);
   assert.match(html, /Imagerie aérienne géoréférencée IGN BD ORTHO/i);
-  assert.match(html, /3D interactive/);
+  assert.doesNotMatch(html, />3D interactive<\/button>/);
   assert.doesNotMatch(html, /Vue 3D · (?:Vue aérienne|Topographie)/);
   assert.match(html, /Données, méthode et licences/);
   assert.match(html, /données bathymétriques/);
@@ -297,7 +297,7 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   );
   assert.match(
     html,
-    /name="description" content="Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island\."/,
+    /name="description" content="Explore 2D topographic-bathymetric maps and interactive 3D views of dive sites around Réunion Island\."/,
   );
   assert.doesNotMatch(
     html,
@@ -307,7 +307,7 @@ test("uses the browser language for the English Topo Réunion page", async () =>
   assert.match(html, /View site on Google Maps/);
   assert.match(html, />2D map<\/button>/);
   assert.match(html, />3D view<\/button>/);
-  assert.match(html, />Interactive 3D<\/button>/);
+  assert.doesNotMatch(html, />Interactive 3D<\/button>/);
   assert.match(html, />Aerial imagery<\/button>/);
   assert.match(html, /Download the 3D view of Cap La Houssaye/);
   assert.match(html, /Printable high-resolution map sheet/);
@@ -426,7 +426,7 @@ test("server-renders an indexable localized page for every published site", asyn
       assert.match(
         html,
         new RegExp(
-          `src="/maps/${site.slug}/3d-orthophoto-2474\\.webp"`,
+          `src="/maps/${site.slug}/3d-dynamic-orthophoto-2474\\.webp"`,
         ),
         path,
       );
@@ -470,7 +470,7 @@ test("server-renders an indexable localized page for every published site", asyn
       assert.match(
         html,
         new RegExp(
-          `<dialog(?=[^>]*class="map-dialog")[\\s\\S]*?<img(?=[^>]*src="/maps/${site.slug}/3d-orthophoto-2474\\.webp")(?=[^>]*loading="lazy")[^>]*>`,
+          `<dialog(?=[^>]*class="map-dialog")[\\s\\S]*?<img(?=[^>]*src="/maps/${site.slug}/3d-dynamic-orthophoto-2474\\.webp")(?=[^>]*loading="lazy")[^>]*>`,
         ),
         `${path}: expected the hidden full-size map to load lazily`,
       );
@@ -825,6 +825,18 @@ test("interactive terrain matches the static linear-light exposure", async () =>
   assert.match(terrainViewer, /const RELIEF_EXPOSURE = 1\.55;/);
   assert.match(terrainViewer, /bathymetryColorRgb/);
   assert.match(terrainViewer, /bathymetryColorCss/);
+  assert.match(terrainViewer, /Line2/);
+  assert.match(terrainViewer, /LineGeometry/);
+  assert.match(terrainViewer, /LineMaterial/);
+  assert.match(terrainViewer, /vectorIsobathsPath/);
+  assert.match(terrainViewer, /linewidth: 3\.6/);
+  assert.match(terrainViewer, /linewidth: 1\.7/);
+  assert.match(
+    terrainViewer,
+    /installFragmentDepthBias\(\s*outlineMaterial,\s*VECTOR_ISOBATH_DEPTH_BIAS/s,
+  );
+  assert.doesNotMatch(terrainViewer, /isobath-vector/);
+  assert.doesNotMatch(terrainViewer, /isobath-plane-offset/);
   assert.doesNotMatch(terrainViewer, /ISOBATH_LEVEL_COLORS/);
   assert.match(
     terrainViewer,

@@ -28,7 +28,7 @@ CANONICAL_ROOT = (
 )
 PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "terrain"
-EXPECTED_FILE_KEYS = {
+REQUIRED_FILE_KEYS = {
     "metadata",
     "height",
     "validMask",
@@ -36,6 +36,7 @@ EXPECTED_FILE_KEYS = {
     "topographicTexture",
     "orthophotoTexture",
 }
+OPTIONAL_FILE_KEYS = {"vectorIsobaths"}
 
 
 def sha256(path: Path) -> str:
@@ -109,7 +110,14 @@ def sync_package(
 
         for site in manifest["sites"]:
             files = site.get("files")
-            if not isinstance(files, dict) or set(files) != EXPECTED_FILE_KEYS:
+            file_keys = set(files) if isinstance(files, dict) else set()
+            if (
+                not isinstance(files, dict)
+                or not REQUIRED_FILE_KEYS.issubset(file_keys)
+                or not file_keys.issubset(
+                    REQUIRED_FILE_KEYS | OPTIONAL_FILE_KEYS
+                )
+            ):
                 raise ValueError(
                     f"{site.get('slug', '<unknown>')}: unexpected terrain file set"
                 )

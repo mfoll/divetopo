@@ -71,10 +71,10 @@
       "config": "regions/reunion/sites/passe-hermitage.json"
     },
     {
-      "slug": "pont-rouge-la-tortue",
+      "slug": "pont-rouge",
       "name": "Pont Rouge",
       "municipality": "Saint-Leu",
-      "config": "regions/reunion/sites/pont-rouge-la-tortue.json"
+      "config": "regions/reunion/sites/pont-rouge.json"
     },
     {
       "slug": "plage-cimetiere-saint-leu",

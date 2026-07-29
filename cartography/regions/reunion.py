@@ -831,8 +831,11 @@ def render(
     paths: dict[str, Path],
     *,
     relief_only: bool = False,
+    plan_only: bool = False,
     land_style: str | None = None,
 ) -> None:
+    if relief_only and plan_only:
+        raise ValueError("relief_only and plan_only are mutually exclusive")
     if land_style not in (None, "topography", "orthophoto"):
         raise ValueError("land_style must be 'topography' or 'orthophoto'")
     title = str(config["title"])
@@ -845,19 +848,20 @@ def render(
         copyright_text += f" · {map_license}"
     sources = region_manifest(config)["sources"]
     detailed_sources = (
-        f"Bathymétrie : {sources['bathymetry']['attribution']} · "
-        f"Topographie : {sources['landElevation']['attribution']}"
+        "Bathymétrie : HYSCORES / Litto3D · "
+        "Topographie : IGN RGE ALTI"
     )
     orthophoto_sources = detailed_sources
     if config.get("orthophoto_enabled", False):
-        capture_date = date.fromisoformat(str(config["orthophoto_capture_date"]))
-        orthophoto_sources += (
-            f" · Orthophoto : IGN BD ORTHO, prise de vue {capture_date.strftime('%d-%m-%Y')}"
-        )
+        orthophoto_sources += " · Orthophoto : IGN BD ORTHO"
     focus_extent = bbox(config, "focus_bbox_utm40s")
     focus_width_m = focus_extent[2] - focus_extent[0]
 
-    if not relief_only and config.get("locator_map_enabled", False):
+    if (
+        not relief_only
+        and not plan_only
+        and config.get("locator_map_enabled", False)
+    ):
         marker = tuple(map(float, config["locator_marker_utm40s"]))
         locator_attribution = (
             f"Topographie : {sources['landElevation']['attribution']}"
@@ -895,6 +899,12 @@ def render(
         "coastline_visible": bool(config.get("coastline_visible", True)),
         "final_style_scale": float(config.get("map_style_scale", 2.0)),
         "max_land_elevation_m": float(config.get("max_land_elevation_m", 55.0)),
+        "sea_palette": str(config.get("bathymetry_palette", "legacy")),
+        "sea_depth_scale": str(
+            config.get("bathymetry_depth_scale", "legacy_linear")
+        ),
+        "sea_shading": str(config.get("plan_sea_shading", "directional")),
+        "land_shading": str(config.get("plan_land_shading", "none")),
     }
     if not relief_only:
         make_clean_plan(
@@ -916,6 +926,8 @@ def render(
                 paths["output_2d_ortho"],
                 **orthophoto_plan_options,
             )
+    if plan_only:
+        return
 
     legacy_symmetric_crop = float(config.get("horizontal_crop_fraction", 0.0))
     left_crop = float(
@@ -996,6 +1008,24 @@ def render(
         "exposure": float(
             config.get("relief_exposure", DEFAULT_RELIEF_EXPOSURE)
         ),
+        "compass_inset_px": float(
+            config.get("relief_compass_inset_px", 76.0)
+        ),
+        "footer_inset_px": float(
+            config.get("relief_footer_inset_px", 12.0)
+        ),
+        "label_edge_inset_px": float(
+            config.get("relief_label_edge_inset_px", 35.0)
+        ),
+        "surface_draped_contours": bool(
+            config.get("relief_surface_draped_contours", False)
+        ),
+        "surface_draped_zero_contour": bool(
+            config.get("relief_surface_draped_zero_contour", False)
+        ),
+        "surface_contour_supersampling": int(
+            config.get("relief_surface_contour_supersampling", 1)
+        ),
         "texture_triangle_min_area_px": float(
             config.get("relief_texture_triangle_min_area_px", 12.0)
         ),
@@ -1007,6 +1037,10 @@ def render(
         ),
         "deep_edge_nodata_min_depth_m": config.get(
             "deep_edge_nodata_terrain_min_depth_m"
+        ),
+        "sea_palette": str(config.get("bathymetry_palette", "legacy")),
+        "sea_depth_scale": str(
+            config.get("bathymetry_depth_scale", "legacy_linear")
         ),
     }
     if land_style in (None, "topography"):
@@ -1026,6 +1060,10 @@ def render(
             "land_imagery_path": paths["context_orthophoto"],
             "source_text": orthophoto_sources,
             "coastline_visible": bool(config.get("orthophoto_coastline_visible", False)),
+            # The signed 0 m contour belongs to the topographic reading only.
+            # Orthophoto variants never draw it, even when the site's opt-in
+            # static draping option is enabled.
+            "surface_draped_zero_contour": False,
         }
         make_pretty_3d_from_offshore(
             paths["context_depth"],
@@ -1053,13 +1091,20 @@ def main() -> int:
         help="Render only the topographic and orthophoto 3D perspectives",
     )
     parser.add_argument(
+        "--plan-only",
+        action="store_true",
+        help="Render only the topographic and orthophoto 2D maps",
+    )
+    parser.add_argument(
         "--land-style",
         choices=("topography", "orthophoto"),
         help="Render only one 3D land texture",
     )
     args = parser.parse_args()
-    if args.check and args.relief_only:
-        parser.error("--relief-only cannot be combined with --check")
+    if args.check and (args.relief_only or args.plan_only):
+        parser.error("--relief-only/--plan-only cannot be combined with --check")
+    if args.relief_only and args.plan_only:
+        parser.error("--relief-only and --plan-only are mutually exclusive")
 
     config_path = args.config.expanduser().resolve()
     config = json.loads(config_path.read_text(encoding="utf-8"))
@@ -1093,6 +1138,7 @@ def main() -> int:
         config,
         paths,
         relief_only=args.relief_only,
+        plan_only=args.plan_only,
         land_style=args.land_style,
     )
 
@@ -1103,9 +1149,10 @@ def main() -> int:
     print(paths["output_2d"])
     if config.get("orthophoto_enabled", False):
         print(paths["output_2d_ortho"])
-    print(paths["output_3d"])
-    if config.get("orthophoto_enabled", False):
-        print(paths["output_3d_ortho"])
+    if not args.plan_only:
+        print(paths["output_3d"])
+        if config.get("orthophoto_enabled", False):
+            print(paths["output_3d_ortho"])
     if config.get("locator_map_enabled", False):
         print(paths["output_locator"])
     return 0

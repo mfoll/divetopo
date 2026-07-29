@@ -63,7 +63,7 @@ export const topoReunionCopy = {
     },
     topoReunionTitle: "Plans des sites de plongée à La Réunion",
     metadataDescription:
-      "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs de sites de plongée à La Réunion.",
+      "Plans topo-bathymétriques 2D et vues 3D interactives de sites de plongée à La Réunion.",
     islandName: "La Réunion",
     surfaces: {
       orthophoto: {
@@ -168,7 +168,7 @@ export const topoReunionCopy = {
         {
           title: "Plans et perspectives",
           description:
-            "Les cartes statiques utilisent des isobathes extraites et lissées tous les 5 m, jusqu’à −20, −30 ou −40 m selon le site. Dans le relief interactif, elles sont calculées dans des plans parfaitement horizontaux, reprennent à chaque niveau la couleur de la palette bathymétrique et sont accompagnées d’une légende fixe. Le plan 2D reste nord en haut sur l’emprise fine ; la perspective 3D utilise une emprise élargie, un azimut et un cadrage propres au site, une caméra placée depuis le large et une exagération verticale de ×4.",
+            "Les cartes utilisent des isobathes tous les 5 m, jusqu’à −20, −30 ou −40 m selon le site. Dans la vue 3D interactive, elles sont extraites du relief brut, lissées comme vecteurs puis reprojetées à leur profondeur exacte. Leur trait noir entouré de blanc est occulté par le relief et certaines lignes portent directement leur profondeur, sans légende colorée. Le plan 2D reste nord en haut sur l’emprise fine ; la vue 3D utilise une emprise élargie, un azimut et un cadrage propres au site, une caméra placée depuis le large et une exagération verticale de ×4.",
         },
         {
           title: "Relief et formats de sortie",
@@ -256,7 +256,7 @@ export const topoReunionCopy = {
     },
     topoReunionTitle: "Dive site maps of Réunion Island",
     metadataDescription:
-      "Explore 2D topographic-bathymetric maps, 3D perspectives and interactive terrain for dive sites around Réunion Island.",
+      "Explore 2D topographic-bathymetric maps and interactive 3D views of dive sites around Réunion Island.",
     islandName: "Réunion Island",
     surfaces: {
       orthophoto: {
@@ -361,7 +361,7 @@ export const topoReunionCopy = {
         {
           title: "Maps and perspectives",
           description:
-            "Static maps use isobaths extracted and smoothed at 5 m intervals, down to −20, −30 or −40 m depending on the site. In the interactive terrain, they are calculated in perfectly horizontal planes, use the bathymetric palette colour for each level and are accompanied by a fixed legend. The detailed 2D map remains north-up; the 3D perspective uses a larger extent, a site-specific azimuth and framing, an offshore camera and ×4 vertical exaggeration.",
+            "The maps use isobaths at 5 m intervals, down to −20, −30 or −40 m depending on the site. In the interactive 3D view, they are extracted from the raw terrain, smoothed as vectors, then reprojected to their exact depth. Their black line with a white outline is occluded by the terrain, and selected lines carry direct depth labels without a coloured legend. The detailed 2D map remains north-up; the 3D view uses a larger extent, a site-specific azimuth and framing, an offshore camera and ×4 vertical exaggeration.",
         },
         {
           title: "Terrain and output formats",

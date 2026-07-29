@@ -29,13 +29,23 @@ from cartography.relief import (
     imagery_depth_alpha,
     land_palette,
     load_rgb_raster,
+    local_slope_shade,
     open_raster,
     palette,
     smooth_depth_mask,
     soften_surface,
     strict_land_imagery_mask,
 )
+from cartography.bathymetry_style import (
+    LAND_SLOPE_MAX_DARKENING,
+    LAND_SLOPE_MAX_DEG,
+    LAND_SLOPE_SMOOTHING_PASSES,
+    SEA_SLOPE_MAX_DARKENING,
+    SEA_SLOPE_MAX_DEG,
+    SEA_SLOPE_SMOOTHING_PASSES,
+)
 from cartography.config import (
+    DEFAULT_RELIEF_EXPOSURE,
     DEFAULT_VERTICAL_EXAGGERATION,
     bbox,
     interactive_footprint,
@@ -47,6 +57,10 @@ from cartography.config import (
     region_site_config_directory,
     validate_config,
 )
+from cartography.vector_isobaths import (
+    extract_vector_isobaths,
+    validate_vector_isobath_payload,
+)
 
 
 DEFAULT_REGION_CONFIG = {"region": "reunion"}
@@ -56,6 +70,9 @@ DEFAULT_OUTPUT = (
 )
 DEFAULT_GRID_MAX = 513
 DEFAULT_TEXTURE_MAX = 2048
+DEFAULT_VECTOR_ISOBATH_MAX_BYTES = 512 * 1024
+DEFAULT_VECTOR_ISOBATH_MAX_POLYLINES = 256
+DEFAULT_VECTOR_ISOBATH_MAX_POINTS = 50_000
 SCHEMA_VERSION = 2
 
 
@@ -375,12 +392,38 @@ def make_textures(
     sea_rgb = palette(
         np.nan_to_num(depth, nan=max_depth),
         max_depth=max_depth,
+        scheme=str(config.get("bathymetry_palette", "legacy")),
+        depth_scale=str(
+            config.get("bathymetry_depth_scale", "legacy_linear")
+        ),
     ).astype(np.float32)
-    sea_rgb *= hillshade(
-        np.nan_to_num(depth, nan=max_depth),
-        sea_mask,
-        0.035,
-    )[:, :, None]
+    sea_shading = str(config.get("plan_sea_shading", "directional"))
+    land_shading = str(config.get("plan_land_shading", "none"))
+    source_dataset = open_raster(paths["focus_depth"], "focus depth raster")
+    geotransform = source_dataset.GetGeoTransform()
+    pixel_size_x_m = float(np.hypot(geotransform[1], geotransform[4]))
+    pixel_size_y_m = float(np.hypot(geotransform[2], geotransform[5]))
+    if int(config.get("rotation_k", 0)) % 2:
+        pixel_size_x_m, pixel_size_y_m = pixel_size_y_m, pixel_size_x_m
+    if sea_shading == "directional":
+        sea_shade = hillshade(
+            np.nan_to_num(depth, nan=max_depth),
+            sea_mask,
+            0.035,
+        )
+    elif sea_shading == "local_slope":
+        sea_shade = local_slope_shade(
+            np.nan_to_num(depth, nan=max_depth),
+            sea_mask,
+            pixel_size_x_m,
+            pixel_size_y_m,
+            max_slope_deg=SEA_SLOPE_MAX_DEG,
+            max_darkening=SEA_SLOPE_MAX_DARKENING,
+            smoothing_passes=SEA_SLOPE_SMOOTHING_PASSES,
+        )
+    else:
+        sea_shade = np.ones_like(depth, dtype=np.float32)
+    sea_rgb *= sea_shade[:, :, None]
     sea_rgb = np.clip(sea_rgb, 0.0, 255.0)
     land_color_z = soften_surface(
         np.clip(np.nan_to_num(elevation, nan=0.0), 0.0, max_land_elevation),
@@ -388,6 +431,21 @@ def make_textures(
         passes=2,
     )
     land_rgb = land_palette(land_color_z).astype(np.float32)
+    if land_shading == "local_slope":
+        land_rgb *= local_slope_shade(
+            np.clip(
+                np.nan_to_num(elevation, nan=0.0),
+                0.0,
+                max_land_elevation,
+            ),
+            land_mask,
+            pixel_size_x_m,
+            pixel_size_y_m,
+            max_slope_deg=LAND_SLOPE_MAX_DEG,
+            max_darkening=LAND_SLOPE_MAX_DARKENING,
+            smoothing_passes=LAND_SLOPE_SMOOTHING_PASSES,
+        )[:, :, None]
+        land_rgb = np.clip(land_rgb, 0.0, 255.0)
 
     topographic = np.broadcast_to(NO_DATA_RGB, (*depth.shape, 3)).copy()
     topographic[sea_mask] = sea_rgb[sea_mask]
@@ -508,6 +566,65 @@ def static_view_horizontal_center_offset_m(
     return delta_east * math.cos(bearing) - delta_north * math.sin(bearing)
 
 
+def static_view_along_center_offset_m(
+    config: dict[str, Any],
+    focus_bounds: tuple[float, float, float, float],
+) -> float | None:
+    """Return the static crop centre on the initial view's forward axis."""
+    if not config.get("interactive_match_static_along_center", False):
+        return None
+
+    focus_west, focus_south, focus_east, focus_north = focus_bounds
+    context_west, context_south, context_east, context_north = (
+        float(value) for value in config["context_bbox_utm40s"]
+    )
+    focus_center_east = (focus_west + focus_east) / 2.0
+    focus_center_north = (focus_south + focus_north) / 2.0
+    static_center_east = (
+        (context_west + context_east) / 2.0
+        + float(config.get("view_center_offset_east_m", 0.0))
+    )
+    static_center_north = (
+        (context_south + context_north) / 2.0
+        + float(config.get("view_center_offset_north_m", 0.0))
+    )
+
+    bearing = math.radians(
+        float(config.get("view_bearing_deg", 0.0)) % 360.0
+    )
+    delta_east = static_center_east - focus_center_east
+    delta_north = static_center_north - focus_center_north
+    return delta_east * math.sin(bearing) + delta_north * math.cos(bearing)
+
+
+def view_center_metadata(
+    config: dict[str, Any],
+    focus_bounds: tuple[float, float, float, float],
+) -> dict[str, float]:
+    metadata: dict[str, float] = {}
+    horizontal_center_offset = static_view_horizontal_center_offset_m(
+        config,
+        focus_bounds,
+    )
+    if horizontal_center_offset is not None:
+        metadata["horizontalCenterOffsetM"] = round(
+            horizontal_center_offset,
+            6,
+        )
+    along_center_offset = config.get("interactive_view_along_center_offset_m")
+    if along_center_offset is None:
+        along_center_offset = static_view_along_center_offset_m(
+            config,
+            focus_bounds,
+        )
+    if along_center_offset is not None:
+        metadata["alongCenterOffsetM"] = round(
+            float(along_center_offset),
+            6,
+        )
+    return metadata
+
+
 def _export_site_from_paths(
     config: dict[str, Any],
     paths: dict[str, Path],
@@ -608,6 +725,55 @@ def _export_site_from_paths(
     (site_output / "isobath-mask.bin").write_bytes(
         packed_isobath_mask.tobytes()
     )
+    decoded_surface = (
+        minimum + encoded.astype(np.float32) * scale
+    )
+    vector_levels = tuple(
+        range(5, int(max_depth // 5) * 5 + 1, 5)
+    )
+    if vector_levels:
+        vector_payload, vector_diagnostics = extract_vector_isobaths(
+            decoded_surface,
+            grid_isobath_source & (decoded_surface < 0.0),
+            vector_levels,
+            source_kind="elevation",
+        )
+    else:
+        vector_payload = {
+            "coordinateSpace": "grid-pixels",
+            "levels": {},
+        }
+        vector_diagnostics = validate_vector_isobath_payload(
+            vector_payload,
+            width=grid_size[0],
+            height=grid_size[1],
+        )
+    vector_diagnostics = validate_vector_isobath_payload(
+        vector_payload,
+        width=grid_size[0],
+        height=grid_size[1],
+        depth=-decoded_surface,
+        residual_tolerance_m=0.05,
+    )
+    if not vector_diagnostics["reprojectionResidualM"]["withinTolerance"]:
+        maximum_residual = vector_diagnostics[
+            "reprojectionResidualM"
+        ]["max"]
+        worst_sample = vector_diagnostics["worstResidualSample"]
+        raise ValueError(
+            f"{slug}: vector isobath reprojection residual "
+            f"{maximum_residual:.6f} m exceeds 0.05 m "
+            f"at {worst_sample}"
+        )
+    vector_path = site_output / "isobaths-vector.json"
+    vector_path.write_text(
+        json.dumps(
+            vector_payload,
+            ensure_ascii=False,
+            separators=(",", ":"),
+        ),
+        encoding="utf-8",
+    )
 
     texture_size = fitted_dimensions(
         topographic_texture.width,
@@ -691,15 +857,12 @@ def _export_site_from_paths(
             4,
         ),
     }
-    horizontal_center_offset = static_view_horizontal_center_offset_m(
-        config,
-        (west, south, east, north),
-    )
-    if horizontal_center_offset is not None:
-        view_metadata["horizontalCenterOffsetM"] = round(
-            horizontal_center_offset,
-            6,
+    view_metadata.update(
+        view_center_metadata(
+            config,
+            (west, south, east, north),
         )
+    )
     metadata = {
         "schemaVersion": SCHEMA_VERSION,
         "slug": slug,
@@ -752,12 +915,59 @@ def _export_site_from_paths(
                     "0 = deep-edge completion or transition buffer"
                 ),
             },
+            "vectorIsobathsFile": "isobaths-vector.json",
+            "vectorIsobathsEncoding": {
+                "coordinateSpace": "grid-pixels",
+                "intervalM": 5,
+                "outlineWidthCssPx": 4.8,
+                "centreWidthCssPx": 2.6,
+                "fragmentDepthBias": 0.0002,
+            },
         },
         "elevationRangeM": {
             "min": minimum,
             "max": maximum,
         },
         "heightValues": "physical metres before vertical exaggeration",
+        "interactiveExposure": float(
+            config.get("interactive_exposure", DEFAULT_RELIEF_EXPOSURE)
+        ),
+        "bathymetryStyle": {
+            "palette": str(config.get("bathymetry_palette", "legacy")),
+            "depthScale": str(
+                config.get(
+                    "bathymetry_depth_scale",
+                    "legacy_linear",
+                )
+            ),
+            "isobathColorsRgb": {
+                str(level): [
+                    int(channel)
+                    for channel in palette(
+                        np.asarray([level], dtype=np.float32),
+                        max_depth=max_depth,
+                        scheme=str(
+                            config.get("bathymetry_palette", "legacy")
+                        ),
+                        depth_scale=str(
+                            config.get(
+                                "bathymetry_depth_scale",
+                                "legacy_linear",
+                            )
+                        ),
+                    )[0]
+                ]
+                for level in vector_levels
+                if level < max_depth - 0.001
+            },
+        },
+        "vectorIsobaths": {
+            "levels": vector_diagnostics["levels"],
+            "totals": vector_diagnostics["totals"],
+            "reprojectionResidualM": (
+                vector_diagnostics["reprojectionResidualM"]
+            ),
+        },
         "verticalExaggeration": float(
             config.get("vertical_exaggeration", DEFAULT_VERTICAL_EXAGGERATION)
         ),
@@ -821,6 +1031,10 @@ def _export_site_from_paths(
             ),
             "isobathMask": artifact_record(
                 site_output / "isobath-mask.bin",
+                output_root,
+            ),
+            "vectorIsobaths": artifact_record(
+                vector_path,
                 output_root,
             ),
             "topographicTexture": artifact_record(
@@ -893,6 +1107,17 @@ def validate_export(output_root: Path, manifest: dict[str, Any]) -> None:
         height_path = metadata_path.parent / grid["heightFile"]
         mask_path = metadata_path.parent / grid["validMaskFile"]
         isobath_mask_path = metadata_path.parent / grid["isobathMaskFile"]
+        vector_isobaths_path = (
+            metadata_path.parent / grid["vectorIsobathsFile"]
+        )
+        if (
+            vector_isobaths_path.stat().st_size
+            > DEFAULT_VECTOR_ISOBATH_MAX_BYTES
+        ):
+            raise ValueError(
+                "Vector isobath payload exceeds the mobile payload contract: "
+                f"{vector_isobaths_path}"
+            )
         if height_path.stat().st_size != vertex_count * 2:
             raise ValueError(f"Unexpected height payload size: {height_path}")
         if mask_path.stat().st_size != (vertex_count + 7) // 8:
@@ -900,6 +1125,28 @@ def validate_export(output_root: Path, manifest: dict[str, Any]) -> None:
         if isobath_mask_path.stat().st_size != (vertex_count + 7) // 8:
             raise ValueError(
                 f"Unexpected isobath mask payload size: {isobath_mask_path}"
+            )
+        vector_payload = json.loads(
+            vector_isobaths_path.read_text(encoding="utf-8")
+        )
+        vector_diagnostics = validate_vector_isobath_payload(
+            vector_payload,
+            width=grid_width,
+            height=grid_height,
+        )
+        vector_totals = vector_diagnostics["totals"]
+        if (
+            int(vector_totals["polylines"])
+            > DEFAULT_VECTOR_ISOBATH_MAX_POLYLINES
+        ):
+            raise ValueError(
+                "Vector isobath payload exceeds the mobile polyline "
+                f"contract: {vector_isobaths_path}"
+            )
+        if int(vector_totals["points"]) > DEFAULT_VECTOR_ISOBATH_MAX_POINTS:
+            raise ValueError(
+                "Vector isobath payload exceeds the mobile point "
+                f"contract: {vector_isobaths_path}"
             )
         textures = metadata["textures"]
         if max(int(textures["width"]), int(textures["height"])) > DEFAULT_TEXTURE_MAX:

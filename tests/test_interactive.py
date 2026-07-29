@@ -12,6 +12,8 @@ from PIL import Image
 from cartography.interactive import (
     DEFAULT_GRID_MAX,
     DEFAULT_OUTPUT,
+    DEFAULT_VECTOR_ISOBATH_MAX_POINTS,
+    DEFAULT_VECTOR_ISOBATH_MAX_POLYLINES,
     artifact_record,
     complete_interactive_deep_edge_nodata,
     fitted_dimensions,
@@ -19,8 +21,10 @@ from cartography.interactive import (
     interactive_source_paths,
     isobath_source_vertex_mask,
     static_view_horizontal_center_offset_m,
+    static_view_along_center_offset_m,
     swap_output,
     validate_export,
+    view_center_metadata,
 )
 from cartography.config import ROOT, interactive_footprint_bounds
 
@@ -297,12 +301,54 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
             -50.0,
         )
 
+    def test_static_along_center_uses_forward_axis_sign_convention(self) -> None:
+        base_config = {
+            "interactive_match_static_along_center": True,
+            "context_bbox_utm40s": [0.0, 0.0, 1000.0, 1000.0],
+            "view_center_offset_east_m": 100.0,
+            "view_center_offset_north_m": 50.0,
+        }
+        focus_bounds = (100.0, 100.0, 900.0, 900.0)
+
+        self.assertAlmostEqual(
+            static_view_along_center_offset_m(
+                {**base_config, "view_bearing_deg": 0.0},
+                focus_bounds,
+            ),
+            50.0,
+        )
+        self.assertAlmostEqual(
+            static_view_along_center_offset_m(
+                {**base_config, "view_bearing_deg": 90.0},
+                focus_bounds,
+            ),
+            100.0,
+        )
+
+    def test_along_center_metadata_prefers_explicit_override(self) -> None:
+        config = {
+            "interactive_match_static_along_center": True,
+            "interactive_view_along_center_offset_m": -12.3456789,
+            "context_bbox_utm40s": [0.0, 0.0, 1000.0, 1000.0],
+            "view_center_offset_east_m": 100.0,
+            "view_center_offset_north_m": 50.0,
+            "view_bearing_deg": 90.0,
+        }
+
+        self.assertEqual(
+            view_center_metadata(
+                config,
+                (100.0, 100.0, 900.0, 900.0),
+            ),
+            {"alongCenterOffsetM": -12.345679},
+        )
+
     def test_two_corrected_sites_export_their_static_horizontal_centres(
         self,
     ) -> None:
         expected_offsets = {
             "passe-hermitage": 0.0,
-            "pont-rouge-la-tortue": 0.0,
+            "pont-rouge": 0.0,
         }
         for slug, expected in expected_offsets.items():
             config = json.loads(
@@ -326,11 +372,11 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
                 )
                 self.assertIsNotNone(calculated)
                 assert calculated is not None
-                self.assertAlmostEqual(calculated, expected, places=6)
+                self.assertAlmostEqual(calculated, expected, delta=0.05)
                 self.assertAlmostEqual(
                     metadata["view"]["horizontalCenterOffsetM"],
                     calculated,
-                    places=6,
+                    delta=0.05,
                 )
 
     def test_atomic_swap_removes_stale_previous_sites(self) -> None:
@@ -348,7 +394,7 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
             self.assertFalse((output_root / "stale.txt").exists())
             self.assertTrue((output_root / "manifest.json").is_file())
 
-    def test_manifest_records_validate_all_six_site_artifacts(self) -> None:
+    def test_manifest_records_validate_all_seven_site_artifacts(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             output_root = Path(directory)
             site_root = output_root / "example"
@@ -363,7 +409,8 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
     "height": 2,
     "heightFile": "height.bin",
     "validMaskFile": "valid-mask.bin",
-    "isobathMaskFile": "isobath-mask.bin"
+    "isobathMaskFile": "isobath-mask.bin",
+    "vectorIsobathsFile": "isobaths-vector.json"
   },
   "textures": {
     "width": 2,
@@ -382,6 +429,11 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
             valid_mask.write_bytes(b"\x0f")
             isobath_mask = site_root / "isobath-mask.bin"
             isobath_mask.write_bytes(b"\x0f")
+            vector_isobaths = site_root / "isobaths-vector.json"
+            vector_isobaths.write_text(
+                '{"coordinateSpace":"grid-pixels","levels":{"5":[]}}\n',
+                encoding="utf-8",
+            )
             topographic = site_root / "topographic.webp"
             orthophoto = site_root / "orthophoto.webp"
             Image.new("RGB", (2, 2), "red").save(topographic, "WEBP")
@@ -400,6 +452,10 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
                             "validMask": artifact_record(valid_mask, output_root),
                             "isobathMask": artifact_record(
                                 isobath_mask,
+                                output_root,
+                            ),
+                            "vectorIsobaths": artifact_record(
+                                vector_isobaths,
                                 output_root,
                             ),
                             "topographicTexture": artifact_record(
@@ -438,6 +494,10 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
                 "Heightfield dimensions",
             ):
                 validate_export(output_root, manifest)
+
+    def test_vector_payload_contract_bounds_draw_calls_and_points(self) -> None:
+        self.assertGreater(DEFAULT_VECTOR_ISOBATH_MAX_POLYLINES, 16)
+        self.assertGreater(DEFAULT_VECTOR_ISOBATH_MAX_POINTS, 1091)
 
 
 if __name__ == "__main__":

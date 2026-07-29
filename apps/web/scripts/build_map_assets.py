@@ -223,7 +223,14 @@ def load_configs() -> list[dict[str, Any]]:
         raise RuntimeError(f"No site configurations found under {CONFIG_ROOT}")
 
     # A north-to-south order makes the west-coast collection read naturally.
-    return sorted(configs, key=lambda item: item["locator_marker_utm40s"][1], reverse=True)
+    return sorted(
+        configs,
+        key=lambda item: item.get(
+            "site_location_utm40s",
+            item["locator_marker_utm40s"],
+        )[1],
+        reverse=True,
+    )
 
 
 def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
@@ -313,7 +320,11 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             }
         )
 
-    latitude, longitude = marker_wgs84(config["locator_marker_utm40s"])
+    site_location = config.get(
+        "site_location_utm40s",
+        config["locator_marker_utm40s"],
+    )
+    latitude, longitude = marker_wgs84(site_location)
 
     return {
         "slug": slug,
@@ -327,7 +338,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             "longitude": round(longitude, 8),
         },
         "westCoastLocatorPosition": west_coast_locator_position(
-            config["locator_marker_utm40s"]
+            site_location
         ),
         "maxDepthM": config["max_depth_m"],
         "planMaxDepthM": config.get("plan_max_depth_m", config["max_depth_m"]),

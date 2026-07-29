@@ -50,6 +50,11 @@ After a change limited to the lighting model or 3D projection,
 `--render-only --relief-only` validates the cache and then regenerates only the
 two 3D perspectives. The 2D maps and locator map remain unchanged.
 
+After a change limited to the 2D palette or shading,
+`--render-only --plan-only` validates the cache and regenerates only the
+topographic and orthophoto 2D maps. Static 3D perspectives and locator maps
+remain unchanged.
+
 The [sites/cap-la-houssaye.json](sites/cap-la-houssaye.json) file contains all
 site-specific parameters and the paths of the canonical outputs.
 

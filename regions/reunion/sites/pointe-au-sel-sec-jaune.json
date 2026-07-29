@@ -21,6 +21,8 @@
   "view_center_offset_east_m": 0.0,
   "view_center_offset_north_m": 50.0,
   "max_depth_m": 40,
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
   "plan_max_depth_m": 30,
   "deep_edge_nodata_terrain_fill": true,
   "deep_edge_nodata_terrain_min_depth_m": 20.0,

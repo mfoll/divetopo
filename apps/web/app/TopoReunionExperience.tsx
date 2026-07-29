@@ -5,6 +5,7 @@
 import {
   lazy,
   Suspense,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -25,6 +26,7 @@ import PreferenceControls from "./PreferenceControls";
 type SurfaceStyle = "topographic" | "orthophoto";
 type MapView = "2d" | "3d";
 type ViewMode = MapView | "interactive";
+type Unified3DRendererState = "loading" | "ready" | "error";
 
 type AssetVariant = {
   src: string;
@@ -81,6 +83,45 @@ type MapManifest = {
 };
 
 const TerrainViewer = lazy(() => import("./TerrainViewer"));
+const REUNION_COMPACT_ATTRIBUTIONS: Record<SurfaceStyle, string> = {
+  orthophoto:
+    "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO",
+  topographic:
+    "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+};
+function dynamicCaptureAsset(
+  slug: string,
+  style: SurfaceStyle,
+): MapAsset {
+  const base = `/maps/${slug}`;
+  return {
+    view: "3d",
+    style,
+    sourceDimensions: { width: 2474, height: 1712 },
+    variants: [
+      { src: `${base}/3d-dynamic-${style}-960.webp`, width: 960, height: 664 },
+      { src: `${base}/3d-dynamic-${style}-1600.webp`, width: 1600, height: 1107 },
+      { src: `${base}/3d-dynamic-${style}-2474.webp`, width: 2474, height: 1712 },
+    ],
+    download: {
+      src: `${base}/downloads/3d-dynamic-${style}-full.jpg`,
+      width: 2474,
+      height: 1712,
+      filename: `${slug}-3d-dynamique-${style}.jpg`,
+    },
+  };
+}
+
+function dynamicMobileCapture(
+  slug: string,
+  style: SurfaceStyle,
+): AssetVariant {
+  return {
+    src: `/maps/${slug}/3d-dynamic-${style}-mobile-960.webp`,
+    width: 960,
+    height: 662,
+  };
+}
 const mapManifest = mapManifestJson as MapManifest;
 const initialSite = mapManifest.sites[0];
 
@@ -173,15 +214,19 @@ function ViewToggle({
   value,
   onChange,
   language,
+  unified3D = false,
 }: {
   value: ViewMode;
   onChange: (view: ViewMode) => void;
   language: Language;
+  unified3D?: boolean;
 }) {
   const text = topoReunionCopy[language].views;
 
   return (
-    <fieldset className="segmented-control view-control">
+    <fieldset
+      className={`segmented-control view-control${unified3D ? " is-unified-3d" : ""}`}
+    >
       <legend>{text.group}</legend>
       <button
         type="button"
@@ -197,13 +242,15 @@ function ViewToggle({
       >
         {text.threeD}
       </button>
-      <button
-        type="button"
-        aria-pressed={value === "interactive"}
-        onClick={() => onChange("interactive")}
-      >
-        {text.interactive}
-      </button>
+      {!unified3D ? (
+        <button
+          type="button"
+          aria-pressed={value === "interactive"}
+          onClick={() => onChange("interactive")}
+        >
+          {text.interactive}
+        </button>
+      ) : null}
     </fieldset>
   );
 }
@@ -213,7 +260,7 @@ const SITE_LABEL_LAYOUT = {
   "boucan-canot": "left-up",
   "cap-homard": "right-down",
   "passe-hermitage": "right",
-  "pont-rouge-la-tortue": "left",
+  "pont-rouge": "left",
   "plage-cimetiere-saint-leu": "left-up",
   "pointe-au-sel-sec-jaune": "left",
 } as const;
@@ -368,12 +415,16 @@ export function TopoReunionExperience({
   const [surfaceStyle, setSurfaceStyle] =
     useState<SurfaceStyle>("orthophoto");
   const [viewMode, setViewMode] = useState<ViewMode>("3d");
+  const [unified3DRendererState, setUnified3DRendererState] =
+    useState<Unified3DRendererState>("loading");
+  const [unified3DAttempt, setUnified3DAttempt] = useState(0);
   const text = topoReunionCopy[language];
   const dialogRef = useRef<HTMLDialogElement>(null);
   const overviewDialogRef = useRef<HTMLDialogElement>(null);
 
   const activeSite =
     mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
+  const usesUnified3D = true;
   const pageSeoText = regionalSeoText(language);
   const pageTitle = pageSeoText.title;
   const pageDescription = pageSeoText.description;
@@ -397,18 +448,38 @@ export function TopoReunionExperience({
       if (route.kind === "overview") {
         setActiveSlug(initialSite.slug);
         setHasSiteRoute(false);
+        setUnified3DRendererState("loading");
+        setUnified3DAttempt(0);
         return;
       }
 
       if (mapManifest.sites.some((site) => site.slug === route.slug)) {
         setActiveSlug(route.slug);
         setHasSiteRoute(true);
+        setUnified3DRendererState("loading");
+        setUnified3DAttempt((current) => current + 1);
+        setViewMode((current) =>
+          current === "interactive" ? "3d" : current,
+        );
       }
     }
 
     window.addEventListener("popstate", restoreRouteFromHistory);
     return () =>
       window.removeEventListener("popstate", restoreRouteFromHistory);
+  }, []);
+
+  const markUnifiedRendererReady = useCallback(() => {
+    setUnified3DRendererState("ready");
+  }, []);
+
+  const markUnifiedRendererError = useCallback(() => {
+    setUnified3DRendererState("error");
+  }, []);
+
+  const restoreUnifiedRenderer = useCallback(() => {
+    setUnified3DRendererState("loading");
+    setUnified3DAttempt((current) => current + 1);
   }, []);
 
   function selectSite(slug: string) {
@@ -426,8 +497,27 @@ export function TopoReunionExperience({
     if (nextUrl !== currentUrl) {
       window.history.pushState(window.history.state, "", nextUrl);
     }
+    if (slug !== activeSlug) {
+      setUnified3DRendererState("loading");
+      setUnified3DAttempt(0);
+    }
     setActiveSlug(slug);
     setHasSiteRoute(true);
+    setViewMode((current) =>
+      current === "interactive" ? "3d" : current,
+    );
+  }
+
+  function changeViewMode(nextView: ViewMode) {
+    const resolvedView =
+      usesUnified3D && nextView === "interactive"
+        ? "3d"
+        : nextView;
+    setViewMode(resolvedView);
+    if (resolvedView !== "3d") {
+      setUnified3DRendererState("loading");
+      setUnified3DAttempt(0);
+    }
   }
 
   function changeLanguage(nextLanguage: Language) {
@@ -441,7 +531,10 @@ export function TopoReunionExperience({
   }
 
   const staticView: MapView = viewMode === "2d" ? "2d" : "3d";
-  const mapAsset = selectedMap(activeSite, staticView, surfaceStyle);
+  const mapAsset =
+    usesUnified3D && staticView === "3d"
+      ? dynamicCaptureAsset(activeSite.slug, surfaceStyle)
+      : selectedMap(activeSite, staticView, surfaceStyle);
   const mapLargest = mapAsset.variants.at(-1) ?? mapAsset.variants[0];
   const planche = selectedPlanche(activeSite, surfaceStyle);
   const surfaceText = text.surfaces[surfaceStyle];
@@ -474,6 +567,30 @@ export function TopoReunionExperience({
     language === "fr"
       ? `${text.plate.previewAlt} ${activeSite.displayName}, avec ${surfaceText.description}.`
       : `${text.plate.previewAlt} ${activeSite.displayName}, with ${surfaceText.description}.`;
+  const showsRegularInteractive =
+    viewMode === "interactive" && !usesUnified3D;
+  const mountsUnifiedTerrain = usesUnified3D && viewMode === "3d";
+  const showsUnifiedTerrain =
+    mountsUnifiedTerrain && unified3DRendererState === "ready";
+  const reservesInteractionHelp =
+    showsRegularInteractive || (usesUnified3D && viewMode === "3d");
+  const showsInteractionHelp =
+    showsRegularInteractive || showsUnifiedTerrain;
+  const mapDownload = (
+    <a
+      className={`map-download${mountsUnifiedTerrain ? " is-icon-only" : ""}`}
+      data-testid="map-download"
+      href={mapAsset.download.src}
+      download={mapAsset.download.filename}
+      aria-label={mapDownloadLabel}
+      title={mountsUnifiedTerrain ? mapDownloadLabel : undefined}
+    >
+      <span className="map-download-arrow" aria-hidden="true">
+        ↓
+      </span>
+      <span className="map-download-label">{text.map.download}</span>
+    </a>
+  );
 
   return (
     <>
@@ -564,11 +681,14 @@ export function TopoReunionExperience({
                   </a>
                 </header>
 
-                <div className="viewer-toolbar">
+                <div
+                  className={`viewer-toolbar${usesUnified3D ? " is-unified-3d" : ""}`}
+                >
                   <ViewToggle
                     value={viewMode}
-                    onChange={setViewMode}
+                    onChange={changeViewMode}
                     language={language}
+                    unified3D={usesUnified3D}
                   />
                   <SurfaceToggle
                     value={surfaceStyle}
@@ -579,10 +699,10 @@ export function TopoReunionExperience({
               </div>
 
               <div
-                className={`viewer-frame${viewMode === "interactive" ? " is-interactive" : ""}`}
+                className={`viewer-frame${showsRegularInteractive || showsUnifiedTerrain ? " is-interactive" : ""}${mountsUnifiedTerrain ? " has-unified-3d" : ""}`}
                 data-testid="topo-reunion-viewer"
               >
-                {viewMode === "interactive" ? (
+                {showsRegularInteractive ? (
                   <Suspense
                     fallback={
                       <div className="terrain-loading" role="status">
@@ -596,44 +716,99 @@ export function TopoReunionExperience({
                       siteName={activeSite.displayName}
                       style={surfaceStyle}
                       language={language}
+                      compactAttributions={REUNION_COMPACT_ATTRIBUTIONS}
                     />
                   </Suspense>
                 ) : (
                   <>
                     <button
                       type="button"
-                      className="map-open"
+                      className={`map-open${usesUnified3D && viewMode === "3d" ? " unified-3d-poster" : ""}`}
                       onClick={openMapDialog}
                       aria-label={`${text.map.openMap} ${activeSite.displayName}`}
                     >
-                      <img
-                        key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
-                        src={mapLargest.src}
-                        srcSet={assetSrcSet(mapAsset.variants)}
-                        sizes="(max-width: 980px) 100vw, 68vw"
-                        width={mapLargest.width}
-                        height={mapLargest.height}
-                        alt={mapAlt}
-                        fetchPriority="high"
-                      />
+                      {usesUnified3D && staticView === "3d" ? (
+                        <picture
+                          key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
+                        >
+                          <source
+                            media="(max-width: 560px)"
+                            srcSet={
+                              dynamicMobileCapture(
+                                activeSite.slug,
+                                surfaceStyle,
+                              ).src
+                            }
+                          />
+                          <img
+                            src={mapLargest.src}
+                            srcSet={assetSrcSet(mapAsset.variants)}
+                            sizes="(max-width: 980px) 100vw, 68vw"
+                            width={mapLargest.width}
+                            height={mapLargest.height}
+                            alt={mapAlt}
+                            fetchPriority="high"
+                          />
+                        </picture>
+                      ) : (
+                        <img
+                          key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
+                          src={mapLargest.src}
+                          srcSet={assetSrcSet(mapAsset.variants)}
+                          sizes="(max-width: 980px) 100vw, 68vw"
+                          width={mapLargest.width}
+                          height={mapLargest.height}
+                          alt={mapAlt}
+                          fetchPriority="high"
+                        />
+                      )}
                       <span>{text.map.openLarge}</span>
                     </button>
-                    <a
-                      className="map-download"
-                      data-testid="map-download"
-                      href={mapAsset.download.src}
-                      download={mapAsset.download.filename}
-                      aria-label={mapDownloadLabel}
-                    >
-                      <span aria-hidden="true">↓</span>
-                      {text.map.download}
-                    </a>
+                    {!showsUnifiedTerrain ? mapDownload : null}
                   </>
                 )}
+                {mountsUnifiedTerrain ? (
+                  <div
+                    className={`unified-3d-layer${showsUnifiedTerrain ? " is-rendered" : ""}`}
+                    data-testid="unified-3d-layer"
+                  >
+                    <Suspense fallback={null}>
+                      <TerrainViewer
+                        key={`${activeSite.slug}-unified-${unified3DAttempt}`}
+                        slug={activeSite.slug}
+                        siteName={activeSite.displayName}
+                        style={surfaceStyle}
+                        language={language}
+                        vectorIsobathsPath={`/terrain/${activeSite.slug}/isobaths-vector.json`}
+                        initialZoom={
+                          activeSite.slug === "cap-la-houssaye" ? 1.12 : 1
+                        }
+                        initialCenterOffsetEastM={
+                          activeSite.slug === "cap-la-houssaye" ? -12 : 0
+                        }
+                        initialCenterOffsetSouthM={
+                          activeSite.slug === "cap-la-houssaye" ? 12 : 0
+                        }
+                        onReady={markUnifiedRendererReady}
+                        onError={markUnifiedRendererError}
+                        onContextRestored={restoreUnifiedRenderer}
+                        compactAttributions={
+                          REUNION_COMPACT_ATTRIBUTIONS
+                        }
+                        downloadHref={mapAsset.download.src}
+                        downloadFilename={mapAsset.download.filename}
+                        downloadLabel={mapDownloadLabel}
+                      />
+                    </Suspense>
+                  </div>
+                ) : null}
               </div>
 
-              {viewMode === "interactive" ? (
-                <div className="viewer-meta">
+              {reservesInteractionHelp ? (
+                <div
+                  className={`viewer-meta${showsInteractionHelp ? "" : " is-placeholder"}`}
+                  aria-hidden={!showsInteractionHelp}
+                >
                   <span>{text.map.interactionHelp}</span>
                 </div>
               ) : null}

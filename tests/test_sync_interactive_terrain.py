@@ -21,6 +21,55 @@ SPEC.loader.exec_module(SYNC)
 
 
 class InteractiveTerrainSyncTests(unittest.TestCase):
+    def test_sync_accepts_legacy_package_without_vector_isobaths(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_root = root / "canonical"
+            site_root = source_root / "example"
+            site_root.mkdir(parents=True)
+            files = {
+                "metadata": site_root / "terrain.json",
+                "height": site_root / "height.bin",
+                "validMask": site_root / "valid-mask.bin",
+                "isobathMask": site_root / "isobath-mask.bin",
+                "topographicTexture": site_root / "topographic.webp",
+                "orthophotoTexture": site_root / "orthophoto.webp",
+            }
+            for index, path in enumerate(files.values()):
+                path.write_bytes(f"legacy-{index}".encode())
+            records = {
+                key: {
+                    "path": path.relative_to(source_root).as_posix(),
+                    "bytes": path.stat().st_size,
+                    "sha256": SYNC.sha256(path),
+                }
+                for key, path in files.items()
+            }
+            (source_root / "manifest.json").write_text(
+                json.dumps(
+                    {
+                        "schemaVersion": 2,
+                        "sites": [
+                            {
+                                "slug": "example",
+                                "title": "Example",
+                                "metadata": "example/terrain.json",
+                                "files": records,
+                            }
+                        ],
+                    }
+                ),
+                encoding="utf-8",
+            )
+
+            output_root = root / "public" / "terrain"
+            SYNC.sync_package(source_root, output_root)
+
+            self.assertTrue((output_root / "example/terrain.json").is_file())
+            self.assertFalse(
+                (output_root / "example/isobaths-vector.json").exists()
+            )
+
     def test_sync_copies_only_manifested_files_and_removes_stale_assets(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -32,6 +81,7 @@ class InteractiveTerrainSyncTests(unittest.TestCase):
                 "height": site_root / "height.bin",
                 "validMask": site_root / "valid-mask.bin",
                 "isobathMask": site_root / "isobath-mask.bin",
+                "vectorIsobaths": site_root / "isobaths-vector.json",
                 "topographicTexture": site_root / "topographic.webp",
                 "orthophotoTexture": site_root / "orthophoto.webp",
             }

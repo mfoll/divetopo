@@ -21,6 +21,8 @@
   "view_center_offset_east_m": 200.0,
   "view_center_offset_north_m": -200.0,
   "max_depth_m": 30,
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
   "topography_resolution_m": 0.5,
   "max_land_elevation_m": 55.0,
   "camera_tilt": 0.29,

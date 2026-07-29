@@ -20,6 +20,8 @@
   "view_crop_depth_m": 3200.0,
   "view_visible_width_m": 650.0,
   "max_depth_m": 30,
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
   "topography_resolution_m": 0.5,
   "context_topography_resolution_m": 0.8,
   "max_land_elevation_m": 55.0,

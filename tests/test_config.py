@@ -27,7 +27,7 @@ PUBLISHED_SITE_SLUGS = {
     "passe-hermitage",
     "plage-cimetiere-saint-leu",
     "pointe-au-sel-sec-jaune",
-    "pont-rouge-la-tortue",
+    "pont-rouge",
 }
 
 
@@ -137,7 +137,7 @@ class SiteConfigTests(unittest.TestCase):
                 for config in self.configs
                 if config.get("interactive_match_static_horizontal_center")
             },
-            {"passe-hermitage", "pont-rouge-la-tortue"},
+            {"passe-hermitage", "pont-rouge"},
         )
 
     def test_interactive_visible_width_override_is_site_local(self) -> None:
@@ -274,6 +274,17 @@ class SiteConfigTests(unittest.TestCase):
         config = copy.deepcopy(self.configs[0])
         config["relief_mesh_gap_fill_max_area_m2"] = 0
         with self.assertRaisesRegex(ValueError, "relief_mesh_gap_fill_max_area_m2"):
+            validate_config(config)
+
+    def test_reunion_depth_limit_remains_40_metres(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["max_depth_m"] = 40.0
+        validate_config(config)
+        config["max_depth_m"] = 40.01
+        with self.assertRaisesRegex(
+            ValueError,
+            "at most 40 for region reunion",
+        ):
             validate_config(config)
 
     def test_unknown_typo_is_rejected(self) -> None:

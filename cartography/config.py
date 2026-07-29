@@ -7,6 +7,11 @@ from datetime import date
 from pathlib import Path
 from typing import Any, Mapping, Sequence
 
+from cartography.bathymetry_style import (
+    BATHYMETRY_DEPTH_SCALES,
+    BATHYMETRY_PALETTES_RGB,
+)
+
 
 ROOT = Path(__file__).resolve().parents[1]
 REGIONS_ROOT = ROOT / "regions"
@@ -43,6 +48,8 @@ _PATH_KEYS = frozenset(
 _ALLOWED_KEYS = frozenset(
     {
         "along_view_projection_scale",
+        "bathymetry_depth_scale",
+        "bathymetry_palette",
         "bridge_decks",
         "cache_dir",
         "camera_tilt",
@@ -69,10 +76,16 @@ _ALLOWED_KEYS = frozenset(
         "imagery_sea_smoothing_m",
         "interactive_bbox_utm40s",
         "interactive_footprint_utm40s",
+        "interactive_exposure",
+        "interactive_match_static_along_center",
         "interactive_match_static_horizontal_center",
         "interactive_max_depth_m",
+        "interactive_view_along_center_offset_m",
         "interactive_view_visible_width_m",
         "land_sieve_threshold_px",
+        "litto3d_archives",
+        "litto3d_archive_members",
+        "litto3d_archive_url",
         "locator_bathymetry_enabled",
         "locator_bbox_utm40s",
         "locator_gebco_attribution",
@@ -83,12 +96,18 @@ _ALLOWED_KEYS = frozenset(
         "locator_label",
         "locator_map_enabled",
         "locator_marker_utm40s",
+        "site_location_utm40s",
         "locator_output_width_px",
         "locator_resolution_m",
         "map_license",
         "map_style_scale",
         "max_depth_m",
         "max_land_elevation_m",
+        "nearshore_smoothing_bbox_utm40s",
+        "nearshore_smoothing_distance_m",
+        "nearshore_land_hole_fill_max_area_m2",
+        "nearshore_smoothing_passes",
+        "nearshore_smoothing_radius_m",
         "north_south_projection_scale",
         "orthophoto_3d_resolution_m",
         "orthophoto_capture_date",
@@ -99,7 +118,9 @@ _ALLOWED_KEYS = frozenset(
         "output_scale",
         "paths",
         "plan_open_label_offsets_px",
+        "plan_land_shading",
         "plan_output_scale",
+        "plan_sea_shading",
         "plate_author",
         "plate_canvas_height_px",
         "plate_canvas_width_px",
@@ -107,9 +128,16 @@ _ALLOWED_KEYS = frozenset(
         "plate_site_name",
         "plate_title",
         "plan_max_depth_m",
+        "relief_edge_margin_px",
         "relief_output_scale",
         "relief_hemisphere_intensity",
         "relief_exposure",
+        "relief_compass_inset_px",
+        "relief_footer_inset_px",
+        "relief_label_edge_inset_px",
+        "relief_surface_draped_contours",
+        "relief_surface_draped_zero_contour",
+        "relief_surface_contour_supersampling",
         "relief_key_light_bearing_deg",
         "relief_key_light_elevation_deg",
         "relief_key_light_intensity",
@@ -159,11 +187,14 @@ _BOOLEAN_KEYS = frozenset(
         "clip_rotated_outside",
         "coastline_visible",
         "deep_edge_nodata_terrain_fill",
+        "interactive_match_static_along_center",
         "interactive_match_static_horizontal_center",
         "locator_bathymetry_enabled",
         "locator_map_enabled",
         "orthophoto_coastline_visible",
         "orthophoto_enabled",
+        "relief_surface_draped_contours",
+        "relief_surface_draped_zero_contour",
     }
 )
 
@@ -275,8 +306,9 @@ def paths_for(config: Mapping[str, Any]) -> dict[str, Path]:
         "focus_depth": cache / f"{slug}-focus-depth-positive.tif",
         "focus_elevation": cache / f"{slug}-focus-elevation.tif",
         "focus_orthophoto": cache / f"{slug}-focus-orthophoto.tif",
-        "locator_elevation": cache / "reunion-locator-elevation.tif",
-        "locator_bathymetry": cache / "reunion-locator-gebco-relief.tif",
+        "locator_elevation": cache / f"{region_slug(config)}-locator-elevation.tif",
+        "locator_bathymetry": cache
+        / f"{region_slug(config)}-locator-gebco-relief.tif",
         "output_2d": output_root / f"{slug}-topobathy-2d.jpg",
         "output_2d_ortho": output_root / f"{slug}-topobathy-2d-ortho.jpg",
         "output_3d": output_root / f"{slug}-topobathy-3d.jpg",
@@ -572,6 +604,11 @@ def validate_config(config: Mapping[str, Any]) -> None:
             "the region is rendered on its own line"
         )
 
+    region = region_slug(config)
+    if region != "reunion":
+        raise ValueError(
+            f"Region {region!r} has no configured source validation contract"
+        )
     _non_empty_string(config, "hyscores_tiff_url", required=True)
     if "hyscores_directory" in config:
         _non_empty_string(config, "hyscores_directory")
@@ -580,10 +617,51 @@ def validate_config(config: Mapping[str, Any]) -> None:
         if key in config:
             _non_empty_string(config, key)
 
+    palette_name = str(config.get("bathymetry_palette", "legacy"))
+    if palette_name not in BATHYMETRY_PALETTES_RGB:
+        raise ValueError(f"Unsupported bathymetry_palette: {palette_name}")
+    depth_scale = str(
+        config.get("bathymetry_depth_scale", "legacy_linear")
+    )
+    if depth_scale not in BATHYMETRY_DEPTH_SCALES:
+        raise ValueError(f"Unsupported bathymetry_depth_scale: {depth_scale}")
+    plan_sea_shading = str(
+        config.get("plan_sea_shading", "directional")
+    )
+    if plan_sea_shading not in {"directional", "local_slope", "none"}:
+        raise ValueError(f"Unsupported plan_sea_shading: {plan_sea_shading}")
+    plan_land_shading = str(config.get("plan_land_shading", "none"))
+    if plan_land_shading not in {"local_slope", "none"}:
+        raise ValueError(f"Unsupported plan_land_shading: {plan_land_shading}")
+
     focus = bbox(config, "focus_bbox_utm40s")
     context = bbox(config, "context_bbox_utm40s")
     if not contains(context, focus):
         raise ValueError("context_bbox_utm40s must contain focus_bbox_utm40s")
+    if "nearshore_smoothing_bbox_utm40s" in config:
+        smoothing_bbox = bbox(config, "nearshore_smoothing_bbox_utm40s")
+        if not contains(context, smoothing_bbox):
+            raise ValueError(
+                "context_bbox_utm40s must contain "
+                "nearshore_smoothing_bbox_utm40s"
+            )
+        for key in (
+            "nearshore_land_hole_fill_max_area_m2",
+            "nearshore_smoothing_distance_m",
+            "nearshore_smoothing_radius_m",
+        ):
+            if _number(config, key) <= 0.0:
+                raise ValueError(f"{key} must be positive")
+        smoothing_passes = config.get("nearshore_smoothing_passes", 1)
+        if (
+            isinstance(smoothing_passes, bool)
+            or not isinstance(smoothing_passes, int)
+            or smoothing_passes < 1
+            or smoothing_passes > 8
+        ):
+            raise ValueError(
+                "nearshore_smoothing_passes must be an integer from 1 to 8"
+            )
     if "interactive_bbox_utm40s" in config:
         interactive = bbox(config, "interactive_bbox_utm40s")
         if not contains(context, interactive):
@@ -607,8 +685,12 @@ def validate_config(config: Mapping[str, Any]) -> None:
             )
 
     max_depth = _number(config, "max_depth_m", 20.0)
-    if not 0.0 < max_depth <= 40.0:
-        raise ValueError("max_depth_m must be greater than 0 and at most 40")
+    maximum_depth = 40.0 if region == "reunion" else 60.0
+    if not 0.0 < max_depth <= maximum_depth:
+        raise ValueError(
+            "max_depth_m must be greater than 0 and at most "
+            f"{maximum_depth:g} for region {region}"
+        )
     if "plan_max_depth_m" in config:
         plan_max_depth = _number(config, "plan_max_depth_m")
         if not 0.0 < plan_max_depth <= max_depth:
@@ -663,8 +745,12 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "view_crop_depth_m",
         "view_visible_width_m",
         "interactive_view_visible_width_m",
+        "interactive_exposure",
         "relief_hemisphere_intensity",
         "relief_exposure",
+        "relief_compass_inset_px",
+        "relief_footer_inset_px",
+        "relief_label_edge_inset_px",
         "relief_key_light_intensity",
         "relief_mesh_gap_fill_max_area_m2",
         "relief_normal_sample_spacing_m",
@@ -672,6 +758,13 @@ def validate_config(config: Mapping[str, Any]) -> None:
     ):
         if key in config:
             _positive(config, key)
+    if "interactive_view_along_center_offset_m" in config:
+        _number(config, "interactive_view_along_center_offset_m")
+    if (
+        "relief_edge_margin_px" in config
+        and _number(config, "relief_edge_margin_px") < 0.0
+    ):
+        raise ValueError("relief_edge_margin_px must be non-negative")
     for key in ("view_center_offset_east_m", "view_center_offset_north_m"):
         if key in config:
             _number(config, key)
@@ -759,8 +852,13 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "plate_canvas_height_px",
         "land_sieve_threshold_px",
         "copyright_year",
+        "relief_surface_contour_supersampling",
     ):
         _positive_int(config, key)
+    if int(config.get("relief_surface_contour_supersampling", 1)) > 4:
+        raise ValueError(
+            "relief_surface_contour_supersampling must be an integer from 1 to 4"
+        )
     if "final_output_size_px" in config:
         values = config["final_output_size_px"]
         if (

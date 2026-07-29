@@ -4,7 +4,7 @@
   "title": "Cap Homard / Cap de Tonton",
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
-  "focus_bbox_utm40s": [314786.0, 7672926.0, 315586.0, 7673480.0],
+  "focus_bbox_utm40s": [314715.3, 7672996.7, 315515.3, 7673550.7],
   "context_bbox_utm40s": [314200.0, 7672300.0, 316100.0, 7674000.0],
   "interactive_footprint_utm40s": {
     "center": [315072.0, 7673198.0],
@@ -22,6 +22,8 @@
   "view_center_offset_east_m": 53.0,
   "view_center_offset_north_m": 53.0,
   "max_depth_m": 30,
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
   "topography_resolution_m": 0.5,
   "max_land_elevation_m": 55.0,
   "camera_tilt": 0.29,

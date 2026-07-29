@@ -8,8 +8,8 @@
       "files": {
         "metadata": {
           "path": "boucan-canot/terrain.json",
-          "bytes": 3280,
-          "sha256": "5808ad90089bbfe672a2eea870ea6ac4061c487f6cba7e84b2b7d54f0462bc87"
+          "bytes": 4720,
+          "sha256": "cd5d98bf47bc993c5e56d4c99ccd636c0f077a19d3792ae312bb6df6038ce544"
         },
         "height": {
           "path": "boucan-canot/height.bin",
@@ -26,15 +26,20 @@
           "bytes": 32897,
           "sha256": "b4455badc4243531f77d81e658a6ba2ef2efb911d325bd0f01de50de3c6decca"
         },
+        "vectorIsobaths": {
+          "path": "boucan-canot/isobaths-vector.json",
+          "bytes": 133065,
+          "sha256": "e90394389e7e9824681cbd0521aed960be94845525e9e67620820b776ffa1d39"
+        },
         "topographicTexture": {
           "path": "boucan-canot/topographic.webp",
-          "bytes": 90620,
-          "sha256": "5520b1b47a4b59742ea0cff5fff935b5f4ef8824ee2ff2b167bcbbf9dd9ef56e"
+          "bytes": 140284,
+          "sha256": "8b29796471b144fb471d4d494dbedff6b639e4bd434edb305e990019a2f5199b"
         },
         "orthophotoTexture": {
           "path": "boucan-canot/orthophoto.webp",
-          "bytes": 301808,
-          "sha256": "c819f5c5fbff64d8d9dde8091124d8dcd6fc96e7243c1462765a57a6d09b7e76"
+          "bytes": 325078,
+          "sha256": "88ec5015e94eecca4bbce4c4aa48d57601583a82c4fbffd2abc8411a63a76f77"
         }
       }
     },
@@ -45,8 +50,8 @@
       "files": {
         "metadata": {
           "path": "cap-homard/terrain.json",
-          "bytes": 3293,
-          "sha256": "bb08b879ce0339cc0de9439f2c29730f33aa48d22e359777ef55c91a00437a2b"
+          "bytes": 4734,
+          "sha256": "a3f13f398b6e7bd4f1c6336dffb7dd3195aee35b8b3e477eaf144051a7c8c1c6"
         },
         "height": {
           "path": "cap-homard/height.bin",
@@ -63,15 +68,20 @@
           "bytes": 32897,
           "sha256": "88bbb08c0f5f60af0c58f2c91b968201cbcfed955af96f4200b82a774e3a7e16"
         },
+        "vectorIsobaths": {
+          "path": "cap-homard/isobaths-vector.json",
+          "bytes": 124635,
+          "sha256": "7d7e6291d9a4ebfbce2184175146b2940283f0b1ad39cc0c64f62cac36a85c53"
+        },
         "topographicTexture": {
           "path": "cap-homard/topographic.webp",
-          "bytes": 85880,
-          "sha256": "8ad43319ede26301c4dc1b7f9ed19c24fc97e424f2d67eda6bce7bc9da79b894"
+          "bytes": 131888,
+          "sha256": "cb912a9c5520c0f65dd6deb453f61f5decb1f4151156b6ab2963d0584025465b"
         },
         "orthophotoTexture": {
           "path": "cap-homard/orthophoto.webp",
-          "bytes": 355558,
-          "sha256": "16c48c74135f9551852b81aa197757cadb7aeff41a328d670a07badf48ee2cd1"
+          "bytes": 374294,
+          "sha256": "da6dd4b638f86e68ab23d82d3e9fc047a333156480a9349f3647761cecded43f"
         }
       }
     },
@@ -82,8 +92,8 @@
       "files": {
         "metadata": {
           "path": "cap-la-houssaye/terrain.json",
-          "bytes": 3269,
-          "sha256": "2bf3aab59dc391f5a125e8180aee233a729431c06139759a67acedfe27d7cbba"
+          "bytes": 4454,
+          "sha256": "ff6a03b40a6e86116594fe6fbb6cb7dc70ce4f443c71092465b557117a1f9eef"
         },
         "height": {
           "path": "cap-la-houssaye/height.bin",
@@ -100,15 +110,20 @@
           "bytes": 17827,
           "sha256": "cdd6599d7baabadead5ea95869d5a54b133f5e2560ec772471d4a082a17ddaa5"
         },
+        "vectorIsobaths": {
+          "path": "cap-la-houssaye/isobaths-vector.json",
+          "bytes": 81630,
+          "sha256": "e6ba1a9c9851e44c2dc31334bb0a1e2632a11d117ebec39fafb0c3c2cb00ef83"
+        },
         "topographicTexture": {
           "path": "cap-la-houssaye/topographic.webp",
-          "bytes": 66704,
-          "sha256": "fb318ee4db9f0420817740f3bd29613ce435cb01fbce46438c697f16e8ca1579"
+          "bytes": 110116,
+          "sha256": "e052a027cc093afc0bc57f7c2c6764ffb4c3997c9a4853b9fcea44b46bc49302"
         },
         "orthophotoTexture": {
           "path": "cap-la-houssaye/orthophoto.webp",
-          "bytes": 309082,
-          "sha256": "7ba8e76dee35757ffae7dceb10cbc175d37e9ebb4186785e999cd1b10364853a"
+          "bytes": 331994,
+          "sha256": "be9baf0c798a956833f351d34f1a504d142ddbdadc29b3a9d4d44a35327ce589"
         }
       }
     },
@@ -119,8 +134,8 @@
       "files": {
         "metadata": {
           "path": "passe-hermitage/terrain.json",
-          "bytes": 3337,
-          "sha256": "5f4770ba9c96e0da3c6c2b1526e297f3245e1d5c1902f3324e038d0e42a2aeeb"
+          "bytes": 4778,
+          "sha256": "88099f2ef8a45780788735b868cebe36e3dd839068fe20e43e84ce6394a1bfb2"
         },
         "height": {
           "path": "passe-hermitage/height.bin",
@@ -137,15 +152,20 @@
           "bytes": 32897,
           "sha256": "89b4c416ca6008be8f7dcaf5b5b08664327a8953a59e972e5c4ccd6109a5105c"
         },
+        "vectorIsobaths": {
+          "path": "passe-hermitage/isobaths-vector.json",
+          "bytes": 155128,
+          "sha256": "4da99b3b3bcdebdcaa3de9c6bb5f28ffc303a8d135b0ffaeae043dab8f52ee39"
+        },
         "topographicTexture": {
           "path": "passe-hermitage/topographic.webp",
-          "bytes": 84240,
-          "sha256": "74fe7a38e3dafe54d452660db1ac478ddfa9cd8b32606614065479c1328039ce"
+          "bytes": 148160,
+          "sha256": "e04e734f1a9a4ccbd742544d03eea109450d463761598e00a3d5dd68f7f46eda"
         },
         "orthophotoTexture": {
           "path": "passe-hermitage/orthophoto.webp",
-          "bytes": 166380,
-          "sha256": "9b1d6d82d92c8d25bf5689422a151c00b58e3e427b37ec64a52c3e74fe0bc5ce"
+          "bytes": 191112,
+          "sha256": "def99ceb69aec9a64e3fa49a0607cff40f3e83f4a2f6f5284bc5e4aa101bba20"
         }
       }
     },
@@ -156,8 +176,8 @@
       "files": {
         "metadata": {
           "path": "plage-cimetiere-saint-leu/terrain.json",
-          "bytes": 3292,
-          "sha256": "7800acc49dbcc6e083031e2dd22ccf16a5cf0d7c4f6085886c23c44b41afed09"
+          "bytes": 4733,
+          "sha256": "2350bd4713900c6bc74bb0fcbf16c74bac924fa43d1f0754dcf5a3498cc6c48f"
         },
         "height": {
           "path": "plage-cimetiere-saint-leu/height.bin",
@@ -174,15 +194,20 @@
           "bytes": 14557,
           "sha256": "0da136b44104f0429f7845fdd1aea9a0354de248beb80da96251f371e77bc37f"
         },
+        "vectorIsobaths": {
+          "path": "plage-cimetiere-saint-leu/isobaths-vector.json",
+          "bytes": 69074,
+          "sha256": "dfc59af4a9529646c5c1124a2b25d457b3d231d1728582890ef7d95da216e263"
+        },
         "topographicTexture": {
           "path": "plage-cimetiere-saint-leu/topographic.webp",
-          "bytes": 55394,
-          "sha256": "24a4b6659b3480dd1be2b7ae9fc7434e7c09477a70aea0264609d0e7dce74e8f"
+          "bytes": 100154,
+          "sha256": "ce390c4770b57a4b060b053665290eb3818501706725132622d0b8e42422d47e"
         },
         "orthophotoTexture": {
           "path": "plage-cimetiere-saint-leu/orthophoto.webp",
-          "bytes": 296238,
-          "sha256": "89dbc66d1b1d88d523c9a7d8d3f327fb42d9f5faf15cf26cfb0251fff7f121e9"
+          "bytes": 319874,
+          "sha256": "d13dcc00e7666ee24ef85f7dbb7cff48e8a476e64de2189d73cf5aa83a6490db"
         }
       }
     },
@@ -193,8 +218,8 @@
       "files": {
         "metadata": {
           "path": "pointe-au-sel-sec-jaune/terrain.json",
-          "bytes": 3304,
-          "sha256": "051969e45acfdfbcc6946e9600b872b24c56a18c06c84dd44caea2f1ace0ab20"
+          "bytes": 4995,
+          "sha256": "b26430ba3530a274339f0eb6ffb9cd3e9a5fc82822abd85bc8944a01e94a7893"
         },
         "height": {
           "path": "pointe-au-sel-sec-jaune/height.bin",
@@ -211,52 +236,62 @@
           "bytes": 29626,
           "sha256": "372ac66d10ac45d38e42bbb57310f2f6822d8733194f47f3dbbd00f980a898f7"
         },
+        "vectorIsobaths": {
+          "path": "pointe-au-sel-sec-jaune/isobaths-vector.json",
+          "bytes": 187826,
+          "sha256": "4dd91dfc953cf919b33523f428f9db2c2103c1458093c02aaad524f34b1787e2"
+        },
         "topographicTexture": {
           "path": "pointe-au-sel-sec-jaune/topographic.webp",
-          "bytes": 89670,
-          "sha256": "f0a90d4e23bb3b559bc8310ffc41f485bf9b9242f6597f2a7fe3b6c4b6f48293"
+          "bytes": 129360,
+          "sha256": "c70abdafdf5d1f115f5e0a8490fc3962b16a5237ddaa9cb7f5c57fbd026fb594"
         },
         "orthophotoTexture": {
           "path": "pointe-au-sel-sec-jaune/orthophoto.webp",
-          "bytes": 284080,
-          "sha256": "bc50704b807eb3485813ec707dd25232962601df1467817ec8c289ec897f0d71"
+          "bytes": 302048,
+          "sha256": "9bbafbf12fabc1cefd42e62012ab0c37cddcaf10947e729961875ac8e028017c"
         }
       }
     },
     {
-      "slug": "pont-rouge-la-tortue",
+      "slug": "pont-rouge",
       "title": "Pont Rouge, La Réunion",
-      "metadata": "pont-rouge-la-tortue/terrain.json",
+      "metadata": "pont-rouge/terrain.json",
       "files": {
         "metadata": {
-          "path": "pont-rouge-la-tortue/terrain.json",
-          "bytes": 3318,
-          "sha256": "b93215eee26224477f7b6fedd3b13307195bce5a977fbd568e99254b608769e3"
+          "path": "pont-rouge/terrain.json",
+          "bytes": 4502,
+          "sha256": "01a0cdf4a78eb70755f8a1be45569d9fc3cdab6f1432ab5b643e63f1d188d4a3"
         },
         "height": {
-          "path": "pont-rouge-la-tortue/height.bin",
-          "bytes": 526338,
-          "sha256": "a511dffaa41757211cedeccefdd5f5335aacc2b88a54b3b5da69f884d1d07d86"
+          "path": "pont-rouge/height.bin",
+          "bytes": 400140,
+          "sha256": "0329deb480e7818c1396fa86d9a062330cb941e33e2619841e55e6d9c9f375d0"
         },
         "validMask": {
-          "path": "pont-rouge-la-tortue/valid-mask.bin",
-          "bytes": 32897,
-          "sha256": "b8b9313e38d4bcfc79b33684860a1b0982c1df2b709344dc7f4d343d49aed1b5"
+          "path": "pont-rouge/valid-mask.bin",
+          "bytes": 25009,
+          "sha256": "979205d58067d816b9783dcfc3cabe0126f87ac69a0f7b6fdf124121ff6136c3"
         },
         "isobathMask": {
-          "path": "pont-rouge-la-tortue/isobath-mask.bin",
-          "bytes": 32897,
-          "sha256": "b8b9313e38d4bcfc79b33684860a1b0982c1df2b709344dc7f4d343d49aed1b5"
+          "path": "pont-rouge/isobath-mask.bin",
+          "bytes": 25009,
+          "sha256": "979205d58067d816b9783dcfc3cabe0126f87ac69a0f7b6fdf124121ff6136c3"
+        },
+        "vectorIsobaths": {
+          "path": "pont-rouge/isobaths-vector.json",
+          "bytes": 112656,
+          "sha256": "5fc0063c83b235921547e60ca248d3d6f1cef542813049d1b9a53d3992efa0b2"
         },
         "topographicTexture": {
-          "path": "pont-rouge-la-tortue/topographic.webp",
-          "bytes": 77282,
-          "sha256": "d383d6b8857aca126cfc492c3aad831cdb90adedb6fa39005af92a052d0630ed"
+          "path": "pont-rouge/topographic.webp",
+          "bytes": 146482,
+          "sha256": "f024105655ab0e3b61be9a481541ee8df0bfbc5458e58b5ad03eb70a36bb821e"
         },
         "orthophotoTexture": {
-          "path": "pont-rouge-la-tortue/orthophoto.webp",
-          "bytes": 233960,
-          "sha256": "5dad1690f3da27ffc6fbc7b66656bccb61a5d2be8143ed9702027d322b875fa2"
+          "path": "pont-rouge/orthophoto.webp",
+          "bytes": 267950,
+          "sha256": "f55dcfffd3a71f96692ba78c495f6f46966eeebb443a0c71862157b955a2f0bd"
         }
       }
     }

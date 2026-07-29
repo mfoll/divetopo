@@ -21,6 +21,7 @@ from cartography.regions.reunion import (
     crop_raster,
     download_gebco_relief,
     download_orthophoto,
+    render,
     resolve_hyscores_tiff,
     validate_raster,
     verify_orthophoto_capture_date,
@@ -47,6 +48,69 @@ def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None
 
 
 class CacheContractTests(unittest.TestCase):
+    def test_plan_only_renders_two_maps_without_locator_or_static_relief(self) -> None:
+        config = json.loads(
+            (
+                Path(__file__).parents[1]
+                / "regions"
+                / "reunion"
+                / "sites"
+                / "cap-la-houssaye.json"
+            ).read_text(encoding="utf-8")
+        )
+        paths = {
+            "focus_depth": Path("focus-depth.tif"),
+            "focus_elevation": Path("focus-elevation.tif"),
+            "focus_orthophoto": Path("focus-orthophoto.tif"),
+            "output_2d": Path("topographic.jpg"),
+            "output_2d_ortho": Path("orthophoto.jpg"),
+        }
+
+        with (
+            patch("cartography.regions.reunion.make_clean_plan") as make_plan,
+            patch("cartography.regions.reunion.make_locator_map") as make_locator,
+            patch(
+                "cartography.regions.reunion.make_pretty_3d_from_offshore"
+            ) as make_relief,
+        ):
+            render(config, paths, plan_only=True)
+
+        self.assertEqual(make_plan.call_count, 2)
+        make_locator.assert_not_called()
+        make_relief.assert_not_called()
+
+    def test_static_zero_contour_is_topographic_only(self) -> None:
+        config = json.loads(
+            (
+                Path(__file__).parents[1]
+                / "regions"
+                / "reunion"
+                / "sites"
+                / "cap-la-houssaye.json"
+            ).read_text(encoding="utf-8")
+        )
+        config["relief_surface_draped_contours"] = True
+        config["relief_surface_draped_zero_contour"] = True
+        paths = {
+            "context_depth": Path("context-depth.tif"),
+            "context_elevation": Path("context-elevation.tif"),
+            "context_orthophoto": Path("context-orthophoto.tif"),
+            "output_3d": Path("topographic.jpg"),
+            "output_3d_ortho": Path("orthophoto.jpg"),
+        }
+
+        with patch(
+            "cartography.regions.reunion.make_pretty_3d_from_offshore"
+        ) as make_relief:
+            render(config, paths, relief_only=True)
+
+        self.assertEqual(make_relief.call_count, 2)
+        topographic_options = make_relief.call_args_list[0].kwargs
+        orthophoto_options = make_relief.call_args_list[1].kwargs
+        self.assertTrue(topographic_options["surface_draped_zero_contour"])
+        self.assertFalse(orthophoto_options["surface_draped_zero_contour"])
+        self.assertTrue(orthophoto_options["surface_draped_contours"])
+
     def test_gebco_warp_declares_gtiff_for_part_file(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             output = Path(directory) / "locator.tif"
