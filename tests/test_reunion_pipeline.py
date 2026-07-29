@@ -11,6 +11,10 @@ from unittest.mock import patch
 import numpy as np
 from osgeo import gdal, osr
 
+from cartography.bathymetry_fusion import (
+    fuse_shom_points,
+    reconcile_false_edges,
+)
 from cartography.cache import (
     cache_artifact_keys,
     validate_cache_manifest,
@@ -48,6 +52,93 @@ def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None
 
 
 class CacheContractTests(unittest.TestCase):
+    def test_false_edge_reconciliation_is_local_and_feathered(self) -> None:
+        depth = np.full((80, 80), 20.0, dtype=np.float64)
+        depth[:, 40:] = 34.0
+        valid = np.ones_like(depth, dtype=bool)
+        coordinates = np.arange(80, dtype=np.float64) + 0.5
+        grid_east, grid_north = np.meshgrid(coordinates, coordinates)
+
+        reconciled, weight = reconcile_false_edges(
+            depth,
+            valid,
+            grid_east,
+            grid_north,
+            1.0,
+            {
+                "polylines_utm40s": [[[40.0, 5.0], [40.0, 75.0]]],
+                "smoothing_m": 12.0,
+                "inner_width_m": 5.0,
+                "outer_width_m": 12.0,
+                "minimum_depth_m": 18.0,
+            },
+        )
+
+        self.assertGreater(float(weight[40, 39]), 0.99)
+        self.assertLess(float(reconciled[40, 39]), 27.0)
+        self.assertGreater(float(reconciled[40, 40]), 27.0)
+        self.assertEqual(float(reconciled[40, 5]), 20.0)
+        self.assertEqual(float(reconciled[40, 74]), 34.0)
+
+    def test_local_shom_fusion_corrects_only_the_diagnosed_area(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source = root / "source.tif"
+            output = root / "fused.tif"
+            dataset = gdal.GetDriverByName("GTiff").Create(
+                str(source),
+                120,
+                120,
+                1,
+                gdal.GDT_Float32,
+            )
+            spatial_ref = osr.SpatialReference()
+            spatial_ref.ImportFromEPSG(32740)
+            dataset.SetProjection(spatial_ref.ExportToWkt())
+            dataset.SetGeoTransform((0.0, 1.0, 0.0, 120.0, 0.0, -1.0))
+            raster = np.full((120, 120), 20.0, dtype=np.float32)
+            raster[45:75, 45:75] = 10.0
+            band = dataset.GetRasterBand(1)
+            band.SetNoDataValue(-99999.0)
+            band.WriteArray(raster)
+            dataset = None
+
+            datum_east = np.arange(10.5, 40.5, 2.0)
+            datum_north = np.full(datum_east.shape, 100.5)
+            control_east = np.array([52.5, 60.5, 68.5, 52.5, 60.5, 68.5])
+            control_north = np.array([67.5, 67.5, 67.5, 59.5, 59.5, 59.5])
+            east = np.concatenate((datum_east, control_east))
+            north = np.concatenate((datum_north, control_north))
+            shom_depth = np.full(east.shape, 18.0)
+
+            stats = fuse_shom_points(
+                source,
+                output,
+                east,
+                north,
+                shom_depth,
+                {
+                    "datum_fit_depth_range_m": [17.0, 19.0],
+                    "minimum_datum_points": 10,
+                    "control_bbox_utm40s": [45.0, 45.0, 75.0, 75.0],
+                    "minimum_correction_m": 4.0,
+                    "minimum_control_points": 4,
+                    "kernel_sigma_m": 12.0,
+                    "influence_start": 0.12,
+                    "influence_full": 0.62,
+                    "window_padding_m": 25.0,
+                },
+            )
+
+            fused_dataset = gdal.Open(str(output))
+            fused = fused_dataset.GetRasterBand(1).ReadAsArray()
+            fused_dataset = None
+            self.assertAlmostEqual(stats["datum_offset_m"], 2.0)
+            self.assertEqual(stats["control_points"], 6)
+            self.assertGreater(float(fused[60, 60]), 18.0)
+            self.assertEqual(float(fused[5, 5]), 20.0)
+            self.assertFalse((root / "fused.tif.part").exists())
+
     def test_plan_only_renders_two_maps_without_locator_or_static_relief(self) -> None:
         config = json.loads(
             (

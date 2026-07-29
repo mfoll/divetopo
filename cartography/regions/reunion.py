@@ -17,6 +17,7 @@ from typing import Any
 import numpy as np
 from osgeo import gdal, osr
 
+from cartography.bathymetry_fusion import apply_configured_shom_fusion
 from cartography.cache import (
     EXPECTED_CRS,
     GEBCO_LAYER,
@@ -646,6 +647,7 @@ def acquire(config: dict, paths: dict[str, Path], refresh: bool) -> set[str]:
         or not paths["context_depth"].exists()
     ):
         positive_depth(paths["context_depth_raw"], paths["context_depth"])
+        apply_configured_shom_fusion(config, paths["context_depth"])
         rebuilt.add("context_depth")
     focus_resolution = float(config.get("topography_resolution_m", 0.5))
     context_resolution = float(config.get("context_topography_resolution_m", focus_resolution))
@@ -847,9 +849,12 @@ def render(
     if copyright_text and map_license:
         copyright_text += f" · {map_license}"
     sources = region_manifest(config)["sources"]
-    detailed_sources = (
-        "Bathymétrie : HYSCORES / Litto3D · "
-        "Topographie : IGN RGE ALTI"
+    detailed_sources = str(
+        config.get(
+            "bathymetry_source_text",
+            "Bathymétrie : HYSCORES / Litto3D · "
+            "Topographie : IGN RGE ALTI",
+        )
     )
     orthophoto_sources = detailed_sources
     if config.get("orthophoto_enabled", False):
@@ -904,6 +909,9 @@ def render(
             config.get("bathymetry_depth_scale", "legacy_linear")
         ),
         "sea_shading": str(config.get("plan_sea_shading", "directional")),
+        "sea_shading_suppression": config.get(
+            "plan_sea_shading_suppression"
+        ),
         "land_shading": str(config.get("plan_land_shading", "none")),
     }
     if not relief_only:

@@ -1369,6 +1369,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D / Shom S199503500 · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D / Shom S199503500 · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -1382,30 +1386,30 @@
               "src": "/maps/pointe-au-sel-sec-jaune/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 84634,
-              "sha256": "b208861fe3055417338381eb4055266866c3b7be64a169cff83ab57913b28ae7"
+              "bytes": 83696,
+              "sha256": "7681051c196bc6d5cce509d05874869c5d92ee2cf59b2ff281d3e83c3f6d6f8b"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 173830,
-              "sha256": "9e3bdf62ab2a63f0300dcbc4a1000a707a2102bf24bfc228c9e829c027879e4b"
+              "bytes": 171974,
+              "sha256": "de4ff8f7a44870f51daa33c49c9856d51288e1bdde003675a9b3c5d62c50cc9e"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 321118,
-              "sha256": "1ee864dee1a8501c9b6ff6404db4f94738cf983accc11b3bee4eb81dbac1d1e0"
+              "bytes": 318858,
+              "sha256": "ac9dfa3e15363a9415c808b580ad4176b955f3e49386d27e2650e210507f49ce"
             }
           ],
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/2d-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1774964,
-            "sha256": "c34bc3d84bc33efa666efaa035f30ffbcba76006b1d1488ee6ae0e785e5179de",
+            "bytes": 1744166,
+            "sha256": "e0348e3b6e849ecef5619d69b59e44bdc3675f0e4e6c1dc4ce89c7e8a5e76d03",
             "filename": "pointe-au-sel-sec-jaune-topobathy-2d.jpg"
           }
         },
@@ -1421,30 +1425,30 @@
               "src": "/maps/pointe-au-sel-sec-jaune/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 146126,
-              "sha256": "1464de62c350a86556c64f3262abcc44b75437c9da0374af653fd592cb7269f2"
+              "bytes": 144808,
+              "sha256": "baca03247bbfd788e8c7b8dd17935fe46fddac2b22a51d1ccd49f76105989dc9"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 326412,
-              "sha256": "d3fd2f20e3fdfc34c8bf3cf8bba084beba01603fdec8e2591db7ed3300f1c111"
+              "bytes": 323434,
+              "sha256": "a0a2a7df7373d20d141a1ff1bf8f03aff478699ea486da143dc42c0ffb2945d9"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 600456,
-              "sha256": "86853f9a0b58866a7fd7568c323965aca44a547fe667b9f0583ec066321af21a"
+              "bytes": 592906,
+              "sha256": "a1382c114f5b088b1756a4f16313685e01bd2b81add689a42432514f30579b7a"
             }
           ],
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/2d-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 2466157,
-            "sha256": "e36bcc9fb5e528790603a017ceb38034198dd3658b00fc85d78201828c29f915",
+            "bytes": 2433099,
+            "sha256": "0e2ab6492dea22438f80a43ad9624f7b546f60e53c042bbb5115142d5d4d996a",
             "filename": "pointe-au-sel-sec-jaune-topobathy-2d-ortho.jpg"
           }
         },
@@ -1460,30 +1464,30 @@
               "src": "/maps/pointe-au-sel-sec-jaune/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 88210,
-              "sha256": "6d0df12e66efe4506a22612534a55d0a9778e94fef0d5b3eaa71a04750610810"
+              "bytes": 88404,
+              "sha256": "d29c08b8bdffd7e8d325a143b3580b56bbbdbb9975a5d14c66e63f8633e6e018"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 181112,
-              "sha256": "87928bce671f731a76e98ae6e4180b8bb412eec73b5cb441add8d78e14163503"
+              "bytes": 181432,
+              "sha256": "73135dc1ecf9ab56b7882796d4001ce1d312e0f660f4235d3dea7265aead0d75"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 326992,
-              "sha256": "7d588c3baea82e06490f15834762abbb348a7d6b44b01317de9c90d6298486d5"
+              "bytes": 327462,
+              "sha256": "b7f0fb6f6ba8541ba626d1321bcbb333a4eadf47779a2eda41a0ef9c7ca0cab9"
             }
           ],
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/3d-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1991976,
-            "sha256": "94a7fe730be1b7aa5aa2c8ad1cc37ad934542b79a883dc4eca098a31b8d259eb",
+            "bytes": 1994311,
+            "sha256": "5e92cc5b15e7141e6839a09ab65b5e9bb955c5f6e04acab1bc4b3ac5dea4a601",
             "filename": "pointe-au-sel-sec-jaune-topobathy-3d.jpg"
           }
         },
@@ -1499,30 +1503,30 @@
               "src": "/maps/pointe-au-sel-sec-jaune/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 159416,
-              "sha256": "e6e8afad65a249aa2c0b78948d7f8ee48c5dda6fa73324252690f0533510f3d1"
+              "bytes": 159408,
+              "sha256": "a073667e71ef4ce7c7d03a479117a0ce857db009885294073988a0ec5cecd7be"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 358058,
-              "sha256": "aebdfe25ef87a8e2d8f35fb64ebc68620ee4b04f795a7980cc9511d9bf581c13"
+              "bytes": 357838,
+              "sha256": "cd8d9dee74c75803ec120d453c89f11cfaa4ecab58f4538a45bc6239f12414b6"
             },
             {
               "src": "/maps/pointe-au-sel-sec-jaune/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 673236,
-              "sha256": "4854597a64190fe9dbd65b367c399d1763282dffda283c2906384f5925798d56"
+              "bytes": 676408,
+              "sha256": "1754d99ac95cab4aa735d79f0bbce7d87a31bc97bdbf08566b4488d6fc8a4483"
             }
           ],
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/3d-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 2791134,
-            "sha256": "640f1cf3b9833c73e2fc665e8412d12831fdb5ebacefb5daf9f3c1dd38bbe9a6",
+            "bytes": 2790984,
+            "sha256": "2815d4fe7b4f216cb639d2057bb9cc72399d1540b158e163a6d214e36c5bb31a",
             "filename": "pointe-au-sel-sec-jaune-topobathy-3d-ortho.jpg"
           }
         }
@@ -1534,15 +1538,15 @@
             "src": "/maps/pointe-au-sel-sec-jaune/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 207316,
-            "sha256": "0592598629fac3d9df820943b963148f5470785d6c4592aab5e943673b8853bc"
+            "bytes": 216710,
+            "sha256": "762c6b189e1649f43fad0e4ac4b53eb196a42273119044dbcb6225e754b678df"
           },
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5551957,
-            "sha256": "da104c6563c1a7dba686812b763040e4e81f8bbf0d23afff065598299708e6ed",
+            "bytes": 5837737,
+            "sha256": "746e4f77553b2c7053ce585fe9d6ac81ad1830a20edc1f083836880159c495fb",
             "filename": "pointe-au-sel-sec-jaune-planche-topographique.jpg"
           }
         },
@@ -1552,15 +1556,15 @@
             "src": "/maps/pointe-au-sel-sec-jaune/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 317872,
-            "sha256": "5b0093430011586f01e94308bf51f862e2b5afb55d9b12e30168738c079f9945"
+            "bytes": 324240,
+            "sha256": "d788b7fe3eb554c551249b52b2ce63d4f8b37aa3d81c0c457b2f350df546cca8"
           },
           "download": {
             "src": "/maps/pointe-au-sel-sec-jaune/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7260912,
-            "sha256": "eaf1f6e1096196f94ff2c9c42167c81cb06890f48d8b8ece5ad3323a8f2ae50d",
+            "bytes": 7391865,
+            "sha256": "37613632a511c14da7c4e5a4f85a77a59eae1fa60b642ccc4d357f1be06b7873",
             "filename": "pointe-au-sel-sec-jaune-planche.jpg"
           }
         }
@@ -1569,8 +1573,8 @@
   ],
   "totals": {
     "assetFiles": 142,
-    "webOptimizedBytes": 27006612,
-    "downloadBytes": 153132083,
-    "totalBytes": 180138695
+    "webOptimizedBytes": 27009402,
+    "downloadBytes": 153487145,
+    "totalBytes": 180496547
   }
 }

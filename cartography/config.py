@@ -50,6 +50,8 @@ _ALLOWED_KEYS = frozenset(
         "along_view_projection_scale",
         "bathymetry_depth_scale",
         "bathymetry_palette",
+        "bathymetry_attribution",
+        "bathymetry_source_text",
         "bridge_decks",
         "cache_dir",
         "camera_tilt",
@@ -118,6 +120,7 @@ _ALLOWED_KEYS = frozenset(
         "output_scale",
         "paths",
         "plan_open_label_offsets_px",
+        "plan_sea_shading_suppression",
         "plan_land_shading",
         "plan_output_scale",
         "plan_sea_shading",
@@ -149,6 +152,7 @@ _ALLOWED_KEYS = frozenset(
         "rotation_k",
         "slug",
         "south_crop_fraction",
+        "shom_local_fusion",
         "title",
         "topography_resolution_m",
         "vertical_exaggeration",
@@ -612,6 +616,224 @@ def validate_config(config: Mapping[str, Any]) -> None:
     _non_empty_string(config, "hyscores_tiff_url", required=True)
     if "hyscores_directory" in config:
         _non_empty_string(config, "hyscores_directory")
+    if "bathymetry_source_text" in config:
+        _non_empty_string(config, "bathymetry_source_text")
+    if "bathymetry_attribution" in config:
+        _non_empty_string(config, "bathymetry_attribution")
+
+    shom_fusion = config.get("shom_local_fusion")
+    if shom_fusion is not None:
+        if not isinstance(shom_fusion, Mapping):
+            raise ValueError("shom_local_fusion must be an object")
+        allowed_fusion_keys = {
+            "archive_member",
+            "archive_sha256",
+            "archive_url",
+            "control_bbox_utm40s",
+            "datum_fit_depth_range_m",
+            "doi",
+            "false_edge_reconciliation",
+            "influence_full",
+            "influence_start",
+            "kernel_sigma_m",
+            "minimum_control_points",
+            "minimum_correction_m",
+            "minimum_datum_points",
+            "survey_id",
+            "window_padding_m",
+        }
+        unknown_fusion_keys = sorted(set(shom_fusion) - allowed_fusion_keys)
+        if unknown_fusion_keys:
+            raise ValueError(
+                "Unknown shom_local_fusion key(s): "
+                + ", ".join(unknown_fusion_keys)
+            )
+        for key in (
+            "archive_member",
+            "archive_sha256",
+            "archive_url",
+            "doi",
+            "survey_id",
+        ):
+            value = shom_fusion.get(key)
+            if not isinstance(value, str) or not value.strip():
+                raise ValueError(
+                    f"shom_local_fusion.{key} must be a non-empty string"
+                )
+        archive_sha256 = str(shom_fusion["archive_sha256"])
+        if not re.fullmatch(r"[0-9a-f]{64}", archive_sha256):
+            raise ValueError(
+                "shom_local_fusion.archive_sha256 must be a lowercase SHA-256"
+            )
+        for key, expected_length in (
+            ("control_bbox_utm40s", 4),
+            ("datum_fit_depth_range_m", 2),
+        ):
+            value = shom_fusion.get(key)
+            if (
+                not isinstance(value, Sequence)
+                or isinstance(value, (str, bytes))
+                or len(value) != expected_length
+            ):
+                raise ValueError(
+                    f"shom_local_fusion.{key} must contain "
+                    f"{expected_length} finite numbers"
+                )
+            try:
+                numeric = tuple(float(item) for item in value)
+            except (TypeError, ValueError) as error:
+                raise ValueError(
+                    f"shom_local_fusion.{key} must contain finite numbers"
+                ) from error
+            if not all(math.isfinite(item) for item in numeric):
+                raise ValueError(
+                    f"shom_local_fusion.{key} must contain finite numbers"
+                )
+            increasing = (
+                numeric[0] < numeric[2] and numeric[1] < numeric[3]
+                if expected_length == 4
+                else numeric[0] < numeric[1]
+            )
+            if not increasing:
+                raise ValueError(
+                    f"shom_local_fusion.{key} must be strictly increasing"
+                )
+        numeric_fusion_keys = (
+            "influence_full",
+            "influence_start",
+            "kernel_sigma_m",
+            "minimum_correction_m",
+            "window_padding_m",
+        )
+        for key in numeric_fusion_keys:
+            value = shom_fusion.get(key)
+            if isinstance(value, bool):
+                raise ValueError(f"shom_local_fusion.{key} must be positive")
+            try:
+                number = float(value)
+            except (TypeError, ValueError) as error:
+                raise ValueError(
+                    f"shom_local_fusion.{key} must be positive"
+                ) from error
+            if not math.isfinite(number) or number <= 0.0:
+                raise ValueError(f"shom_local_fusion.{key} must be positive")
+        influence_start = float(shom_fusion["influence_start"])
+        influence_full = float(shom_fusion["influence_full"])
+        if not 0.0 < influence_start < influence_full <= 1.0:
+            raise ValueError(
+                "shom_local_fusion influence thresholds must satisfy "
+                "0 < influence_start < influence_full <= 1"
+            )
+        for key in ("minimum_control_points", "minimum_datum_points"):
+            value = shom_fusion.get(key)
+            if isinstance(value, bool) or not isinstance(value, int) or value < 1:
+                raise ValueError(
+                    f"shom_local_fusion.{key} must be a positive integer"
+                )
+        reconciliation = shom_fusion.get("false_edge_reconciliation")
+        if reconciliation is not None:
+            if not isinstance(reconciliation, Mapping):
+                raise ValueError(
+                    "shom_local_fusion.false_edge_reconciliation "
+                    "must be an object"
+                )
+            allowed_reconciliation_keys = {
+                "inner_width_m",
+                "minimum_depth_m",
+                "outer_width_m",
+                "polylines_utm40s",
+                "smoothing_m",
+            }
+            unknown_reconciliation_keys = sorted(
+                set(reconciliation) - allowed_reconciliation_keys
+            )
+            if unknown_reconciliation_keys:
+                raise ValueError(
+                    "Unknown shom_local_fusion.false_edge_reconciliation "
+                    "key(s): " + ", ".join(unknown_reconciliation_keys)
+                )
+            polylines = reconciliation.get("polylines_utm40s")
+            if (
+                not isinstance(polylines, Sequence)
+                or isinstance(polylines, (str, bytes))
+                or not polylines
+            ):
+                raise ValueError(
+                    "shom_local_fusion.false_edge_reconciliation."
+                    "polylines_utm40s must contain polylines"
+                )
+            for polyline in polylines:
+                if (
+                    not isinstance(polyline, Sequence)
+                    or isinstance(polyline, (str, bytes))
+                    or len(polyline) < 2
+                ):
+                    raise ValueError(
+                        "Each false-edge reconciliation polyline must "
+                        "contain at least two points"
+                    )
+                for point in polyline:
+                    if (
+                        not isinstance(point, Sequence)
+                        or isinstance(point, (str, bytes))
+                        or len(point) != 2
+                    ):
+                        raise ValueError(
+                            "Each false-edge reconciliation point must "
+                            "contain easting and northing"
+                        )
+                    try:
+                        numeric_point = tuple(float(item) for item in point)
+                    except (TypeError, ValueError) as error:
+                        raise ValueError(
+                            "False-edge reconciliation coordinates must "
+                            "be finite numbers"
+                        ) from error
+                    if not all(math.isfinite(item) for item in numeric_point):
+                        raise ValueError(
+                            "False-edge reconciliation coordinates must "
+                            "be finite numbers"
+                        )
+            for key in (
+                "inner_width_m",
+                "outer_width_m",
+                "smoothing_m",
+            ):
+                try:
+                    number = float(reconciliation.get(key))
+                except (TypeError, ValueError) as error:
+                    raise ValueError(
+                        "shom_local_fusion.false_edge_reconciliation."
+                        f"{key} must be positive"
+                    ) from error
+                if not math.isfinite(number) or number <= 0.0:
+                    raise ValueError(
+                        "shom_local_fusion.false_edge_reconciliation."
+                        f"{key} must be positive"
+                    )
+            if float(reconciliation["inner_width_m"]) >= float(
+                reconciliation["outer_width_m"]
+            ):
+                raise ValueError(
+                    "False-edge reconciliation inner_width_m must be "
+                    "smaller than outer_width_m"
+                )
+            minimum_depth = reconciliation.get("minimum_depth_m", 0.0)
+            try:
+                minimum_depth_number = float(minimum_depth)
+            except (TypeError, ValueError) as error:
+                raise ValueError(
+                    "False-edge reconciliation minimum_depth_m must "
+                    "be non-negative"
+                ) from error
+            if (
+                not math.isfinite(minimum_depth_number)
+                or minimum_depth_number < 0.0
+            ):
+                raise ValueError(
+                    "False-edge reconciliation minimum_depth_m must "
+                    "be non-negative"
+                )
 
     for key in ("plate_author", "plate_title", "map_license"):
         if key in config:
@@ -630,14 +852,97 @@ def validate_config(config: Mapping[str, Any]) -> None:
     )
     if plan_sea_shading not in {"directional", "local_slope", "none"}:
         raise ValueError(f"Unsupported plan_sea_shading: {plan_sea_shading}")
+    focus = bbox(config, "focus_bbox_utm40s")
+    context = bbox(config, "context_bbox_utm40s")
+    shading_suppression = config.get("plan_sea_shading_suppression")
+    if shading_suppression is not None:
+        if not isinstance(shading_suppression, Mapping):
+            raise ValueError(
+                "plan_sea_shading_suppression must be an object"
+            )
+        allowed_suppression_keys = {
+            "inner_width_m",
+            "minimum_depth_m",
+            "outer_width_m",
+            "polylines_utm40s",
+        }
+        unknown_suppression_keys = sorted(
+            set(shading_suppression) - allowed_suppression_keys
+        )
+        if unknown_suppression_keys:
+            raise ValueError(
+                "Unknown plan_sea_shading_suppression key(s): "
+                + ", ".join(unknown_suppression_keys)
+            )
+        polylines = shading_suppression.get("polylines_utm40s")
+        if not isinstance(polylines, list) or not polylines:
+            raise ValueError(
+                "plan_sea_shading_suppression.polylines_utm40s "
+                "must be a non-empty list"
+            )
+        for polyline in polylines:
+            if not isinstance(polyline, list) or len(polyline) < 2:
+                raise ValueError(
+                    "Each shading-suppression polyline needs at least two points"
+                )
+            for point in polyline:
+                if (
+                    not isinstance(point, list)
+                    or len(point) != 2
+                    or not all(
+                        isinstance(value, (int, float))
+                        and math.isfinite(float(value))
+                        for value in point
+                    )
+                ):
+                    raise ValueError(
+                        "Shading-suppression points must be finite [easting, northing] pairs"
+                    )
+                if not (
+                    focus[0] <= float(point[0]) <= focus[2]
+                    and focus[1] <= float(point[1]) <= focus[3]
+                ):
+                    raise ValueError(
+                        "Shading-suppression points must remain inside focus_bbox_utm40s"
+                    )
+        inner_width = float(
+            shading_suppression.get("inner_width_m", 1.0)
+        )
+        outer_width = float(
+            shading_suppression.get("outer_width_m", 10.0)
+        )
+        minimum_depth = float(
+            shading_suppression.get("minimum_depth_m", 0.0)
+        )
+        if not (
+            math.isfinite(inner_width)
+            and math.isfinite(outer_width)
+            and 0.0 <= inner_width < outer_width
+        ):
+            raise ValueError(
+                "Shading-suppression widths must satisfy "
+                "0 <= inner_width_m < outer_width_m"
+            )
+        if not math.isfinite(minimum_depth) or minimum_depth < 0.0:
+            raise ValueError(
+                "plan_sea_shading_suppression.minimum_depth_m "
+                "must be non-negative"
+            )
     plan_land_shading = str(config.get("plan_land_shading", "none"))
     if plan_land_shading not in {"local_slope", "none"}:
         raise ValueError(f"Unsupported plan_land_shading: {plan_land_shading}")
 
-    focus = bbox(config, "focus_bbox_utm40s")
-    context = bbox(config, "context_bbox_utm40s")
     if not contains(context, focus):
         raise ValueError("context_bbox_utm40s must contain focus_bbox_utm40s")
+    if shom_fusion is not None:
+        control_bbox = tuple(
+            map(float, shom_fusion["control_bbox_utm40s"])
+        )
+        if not contains(context, control_bbox):
+            raise ValueError(
+                "context_bbox_utm40s must contain "
+                "shom_local_fusion.control_bbox_utm40s"
+            )
     if "nearshore_smoothing_bbox_utm40s" in config:
         smoothing_bbox = bbox(config, "nearshore_smoothing_bbox_utm40s")
         if not contains(context, smoothing_bbox):

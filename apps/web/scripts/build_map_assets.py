@@ -326,6 +326,17 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
     )
     latitude, longitude = marker_wgs84(site_location)
 
+    compact_topographic = str(
+        config.get(
+            "bathymetry_source_text",
+            "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        )
+    )
+    compact_attributions = {
+        "topographic": compact_topographic,
+        "orthophoto": f"{compact_topographic} · Orthophoto : IGN BD ORTHO",
+    }
+
     return {
         "slug": slug,
         "displayName": config["plate_site_name"],
@@ -347,6 +358,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "plateAuthor": config["plate_author"],
         "copyrightYear": config["copyright_year"],
         "mapLicense": config["map_license"],
+        "compactAttributions": compact_attributions,
         "maps": maps,
         "planches": planches,
     }

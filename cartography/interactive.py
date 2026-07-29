@@ -512,8 +512,14 @@ def make_textures(
 
 def source_attribution(config: dict[str, Any], *, orthophoto: bool) -> str:
     sources = region_manifest(config)["sources"]
+    bathymetry_attribution = str(
+        config.get(
+            "bathymetry_attribution",
+            sources["bathymetry"]["attribution"],
+        )
+    )
     text = (
-        f"Bathymétrie : {sources['bathymetry']['attribution']} · "
+        f"Bathymétrie : {bathymetry_attribution} · "
         f"Topographie : {sources['landElevation']['attribution']}"
     )
     if orthophoto:

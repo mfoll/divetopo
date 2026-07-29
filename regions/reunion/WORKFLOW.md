@@ -63,6 +63,12 @@ site-specific parameters and the paths of the canonical outputs.
 1. The script requires `hyscores_tiff_url` to pin the exact digital bathymetric GeoTIFF. The discovery function in the HYSCORES sector index remains only for reading legacy configurations outside the validated pipeline.
 2. `gdal_translate` reads only `context_bbox_utm40s` from the 2.5 GB Ifremer GeoTIFF through `/vsicurl/`.
 3. Negative marine elevations are converted into positive depths. Land values and nodata become `-99999`.
+   Pointe au Sel then applies the optional pinned Shom S199503500 correction.
+   Its archive is verified by SHA-256 and read with `bsdtar`. A robust median
+   offset is fitted on the consistent 8–25 m overlap; only soundings diagnosing
+   a positive error of at least 4 m inside the configured control box influence
+   the raster. Gaussian weights and a smooth influence ramp retain the
+   HYSCORES texture and avoid a visible source boundary.
 4. The context RGE ALTI is downloaded over the larger extent at `context_topography_resolution_m` or, if unset, at `topography_resolution_m`.
 5. The 2D `focus_bbox_utm40s` extent is cropped from the context when both topographic resolutions are identical. If they differ, the focus RGE ALTI is requested directly at `topography_resolution_m`, so the declared fine resolution is not silently replaced by the context resolution.
    Rebuilding a parent always invalidates its derivatives: new raw bathymetry rebuilds the positive-depth raster and then its crop, and a new context DTM rebuilds its focus crop.

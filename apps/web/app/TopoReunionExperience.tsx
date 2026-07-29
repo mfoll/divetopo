@@ -72,6 +72,7 @@ type TopoReunionAssetSite = {
   plateAuthor: string;
   copyrightYear: number;
   mapLicense: string;
+  compactAttributions?: Record<SurfaceStyle, string>;
   maps: MapAsset[];
   planches: PlancheAsset[];
 };
@@ -716,7 +717,10 @@ export function TopoReunionExperience({
                       siteName={activeSite.displayName}
                       style={surfaceStyle}
                       language={language}
-                      compactAttributions={REUNION_COMPACT_ATTRIBUTIONS}
+                      compactAttributions={
+                        activeSite.compactAttributions ??
+                        REUNION_COMPACT_ATTRIBUTIONS
+                      }
                     />
                   </Suspense>
                 ) : (
@@ -793,6 +797,7 @@ export function TopoReunionExperience({
                         onError={markUnifiedRendererError}
                         onContextRestored={restoreUnifiedRenderer}
                         compactAttributions={
+                          activeSite.compactAttributions ??
                           REUNION_COMPACT_ATTRIBUTIONS
                         }
                         downloadHref={mapAsset.download.src}

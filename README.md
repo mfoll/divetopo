@@ -36,6 +36,12 @@ Detailed Réunion processing uses WGS 84 / UTM zone 40S (`EPSG:32740`).
 HYSCORES does not cover the whole island; a site outside its four published
 sectors requires another numerical bathymetric source.
 
+At Pointe au Sel, a small inconsistent HYSCORES patch is corrected from the
+older [Shom survey S199503500](https://doi.org/10.17183/S199503500). The
+soundings are used as local depth controls after robust vertical alignment;
+the high-resolution HYSCORES texture is retained and the correction is
+progressively feathered outside the diagnosed area.
+
 ## What the pipeline produces
 
 Each site configuration can produce:

@@ -8,8 +8,15 @@ const require = createRequire(import.meta.url);
 const WebSocket = require("ws");
 const chromeExecutable =
   "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
-const [slug, style, outputPath, widthText = "2474", heightText = "1712"] =
-  process.argv.slice(2);
+const [
+  slug,
+  style,
+  outputPath,
+  widthText = "2474",
+  heightText = "1712",
+  baseUrl = "http://127.0.0.1:3130",
+  sourceAttribution = "",
+] = process.argv.slice(2);
 const outputWidth = Number(widthText);
 const outputHeight = Number(heightText);
 
@@ -21,7 +28,7 @@ if (
   !Number.isFinite(outputHeight)
 ) {
   throw new Error(
-    "Usage: capture_unified_terrain.mjs <slug> <orthophoto|topographic> <output.png> [width] [height]",
+    "Usage: capture_unified_terrain.mjs <slug> <orthophoto|topographic> <output.png> [width] [height] [base-url] [source-attribution]",
   );
 }
 
@@ -146,7 +153,7 @@ try {
     screenHeight: viewportHeight,
   });
   await cdp.send("Page.navigate", {
-    url: `http://127.0.0.1:3130/reunion/fr/sites/${slug}`,
+    url: `${baseUrl}/reunion/fr/sites/${slug}`,
   });
   await waitFor(
     cdp,
@@ -181,6 +188,9 @@ try {
       \`;
       document.head.appendChild(styles);
       document.body.replaceChildren(viewer);
+      const source = viewer.querySelector(".terrain-attribution-source");
+      const requestedSource = ${JSON.stringify(sourceAttribution)};
+      if (source && requestedSource) source.textContent = requestedSource;
       await new Promise((resolve) => requestAnimationFrame(() =>
         requestAnimationFrame(() => setTimeout(resolve, 900))));
       return true;

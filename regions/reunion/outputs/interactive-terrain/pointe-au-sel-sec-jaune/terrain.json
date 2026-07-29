@@ -111,42 +111,42 @@
       },
       "10": {
         "polylines": 7,
-        "points": 888
+        "points": 887
       },
       "15": {
         "polylines": 5,
-        "points": 618
+        "points": 619
       },
       "20": {
-        "polylines": 6,
-        "points": 807
+        "polylines": 5,
+        "points": 762
       },
       "25": {
-        "polylines": 8,
-        "points": 1093
+        "polylines": 7,
+        "points": 948
       },
       "30": {
         "polylines": 3,
-        "points": 259
+        "points": 381
       },
       "35": {
         "polylines": 3,
-        "points": 202
+        "points": 262
       },
       "40": {
         "polylines": 4,
-        "points": 351
+        "points": 369
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 40,
-      "points": 4790
+      "polylines": 38,
+      "points": 4800
     },
     "reprojectionResidualM": {
-      "samples": 4790,
-      "mean": 5.940990648333888e-05,
-      "p95": 5.3200680951271e-05,
+      "samples": 4800,
+      "mean": 5.84576638359154e-05,
+      "p95": 4.439872780972475e-05,
       "max": 0.009948368221575521,
       "withinTolerance": true
     }
@@ -165,18 +165,18 @@
     "height": 1844,
     "topographic": {
       "file": "topographic.webp",
-      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D, corrigé localement par le levé Shom S199503500 · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
     },
     "orthophoto": {
       "file": "orthophoto.webp",
       "captureDate": "2025-07-22",
-      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+      "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D, corrigé localement par le levé Shom S199503500 · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
     }
   },
   "credits": {
     "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
     "license": "CC BY-NC-SA 4.0",
-    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D, corrigé localement par le levé Shom S199503500 · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024 · Orthophoto : IGN BD ORTHO, prise de vue 22-07-2025"
   },
   "footprint": {
     "shape": "oriented-rectangle",

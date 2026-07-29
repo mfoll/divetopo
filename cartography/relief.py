@@ -614,6 +614,76 @@ def local_slope_shade(
     return np.where(mask, shade, 1.0).astype(np.float32)
 
 
+def suppress_shading_along_polylines(
+    shade: np.ndarray,
+    depth: np.ndarray,
+    depth_path: Path,
+    polylines_utm40s: list[list[list[float]]],
+    *,
+    inner_width_m: float,
+    outer_width_m: float,
+    minimum_depth_m: float,
+) -> np.ndarray:
+    """Neutralize lighting only along a documented false source edge."""
+    if shade.shape != depth.shape:
+        raise ValueError("Shade and depth grids must share a shape")
+    dataset = open_raster(depth_path, "depth raster")
+    transform = dataset.GetGeoTransform()
+    if transform[2] != 0.0 or transform[4] != 0.0:
+        raise ValueError(
+            "Plan shading suppression requires a north-up depth raster"
+        )
+    if (
+        dataset.RasterXSize != shade.shape[1]
+        or dataset.RasterYSize != shade.shape[0]
+    ):
+        raise ValueError(
+            "Plan shading suppression must use the unrotated depth grid"
+        )
+    east = transform[0] + (
+        np.arange(dataset.RasterXSize, dtype=np.float64) + 0.5
+    ) * transform[1]
+    north = transform[3] + (
+        np.arange(dataset.RasterYSize, dtype=np.float64) + 0.5
+    ) * transform[5]
+    grid_east, grid_north = np.meshgrid(east, north)
+    distance = np.full(shade.shape, np.inf, dtype=np.float64)
+    for raw_polyline in polylines_utm40s:
+        polyline = np.asarray(raw_polyline, dtype=np.float64)
+        for start, end in zip(polyline[:-1], polyline[1:]):
+            vector = end - start
+            length_squared = float(np.dot(vector, vector))
+            if length_squared <= 0.0:
+                continue
+            fraction = np.clip(
+                (
+                    (grid_east - start[0]) * vector[0]
+                    + (grid_north - start[1]) * vector[1]
+                )
+                / length_squared,
+                0.0,
+                1.0,
+            )
+            closest_east = start[0] + fraction * vector[0]
+            closest_north = start[1] + fraction * vector[1]
+            distance = np.minimum(
+                distance,
+                np.hypot(
+                    grid_east - closest_east,
+                    grid_north - closest_north,
+                ),
+            )
+    weight = np.clip(
+        (outer_width_m - distance)
+        / (outer_width_m - inner_width_m),
+        0.0,
+        1.0,
+    )
+    weight = weight * weight * (3.0 - 2.0 * weight)
+    weight = np.where(depth >= minimum_depth_m, weight, 0.0)
+    return (shade * (1.0 - weight) + weight).astype(np.float32)
+
+
 def srgb_to_linear(rgb: np.ndarray) -> np.ndarray:
     """Convert 0..255 sRGB values to the linear-light domain used by WebGL."""
     values = np.clip(rgb.astype(np.float32) / 255.0, 0.0, 1.0)
@@ -2057,6 +2127,7 @@ def make_clean_plan(
     sea_slope_max_deg: float = SEA_SLOPE_MAX_DEG,
     sea_slope_max_darkening: float = SEA_SLOPE_MAX_DARKENING,
     sea_slope_smoothing_passes: int = SEA_SLOPE_SMOOTHING_PASSES,
+    sea_shading_suppression: dict | None = None,
     land_shading: str = "none",
     land_slope_max_deg: float = LAND_SLOPE_MAX_DEG,
     land_slope_max_darkening: float = LAND_SLOPE_MAX_DARKENING,
@@ -2138,6 +2209,22 @@ def make_clean_plan(
         )
     else:
         sea_shade = np.ones_like(d, dtype=np.float32)
+    if sea_shading_suppression is not None:
+        sea_shade = suppress_shading_along_polylines(
+            sea_shade,
+            d,
+            depth_path,
+            sea_shading_suppression["polylines_utm40s"],
+            inner_width_m=float(
+                sea_shading_suppression.get("inner_width_m", 1.0)
+            ),
+            outer_width_m=float(
+                sea_shading_suppression.get("outer_width_m", 10.0)
+            ),
+            minimum_depth_m=float(
+                sea_shading_suppression.get("minimum_depth_m", 0.0)
+            ),
+        )
     sea_rgb = np.clip(sea_rgb * sea_shade[:, :, None], 0, 255)
     land_color_z = soften_surface(
         np.clip(np.nan_to_num(elev, nan=0.0), 0, max_land_elevation_m),

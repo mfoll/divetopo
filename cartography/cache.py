@@ -66,6 +66,8 @@ def source_contract(config: Mapping[str, Any]) -> dict[str, Any]:
         "orthophoto": None,
         "locator": None,
     }
+    if config.get("shom_local_fusion") is not None:
+        contract["shom_local_fusion"] = config["shom_local_fusion"]
     if config.get("orthophoto_enabled", False):
         contract["orthophoto"] = {
             "wms_url": RGE_ALTI_WMS,

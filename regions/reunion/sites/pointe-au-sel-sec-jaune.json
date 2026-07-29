@@ -4,6 +4,40 @@
   "title": "Pointe au Sel - Sec Jaune",
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/11_MOZ_SALE_20150522_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
+  "shom_local_fusion": {
+    "survey_id": "S199503500",
+    "doi": "https://doi.org/10.17183/S199503500",
+    "archive_url": "https://services.data.shom.fr/x13f1b4faeszdyinv9zqxmx1/telechargement/prepackageGroup/LEVES_BATHY_1990-2005_PACK_DL/prepackage/S199503500/file/S199503500.7z",
+    "archive_sha256": "ee7942eca5f1adecb61dce8abb22c00a708cfbfd37349526d7e6ccd969b737c4",
+    "archive_member": "S199503500/S199503500.xyz",
+    "datum_fit_depth_range_m": [8.0, 25.0],
+    "minimum_datum_points": 20,
+    "control_bbox_utm40s": [321400.0, 7653820.0, 321610.0, 7654020.0],
+    "minimum_correction_m": 4.0,
+    "minimum_control_points": 4,
+    "kernel_sigma_m": 34.0,
+    "influence_start": 0.12,
+    "influence_full": 0.62,
+    "window_padding_m": 190.0,
+    "false_edge_reconciliation": {
+      "polylines_utm40s": [
+        [
+          [321430.0, 7654040.0],
+          [321475.0, 7654030.0],
+          [321540.0, 7654010.0],
+          [321580.0, 7653950.0],
+          [321555.0, 7653880.0],
+          [321610.0, 7653830.0]
+        ]
+      ],
+      "smoothing_m": 24.0,
+      "inner_width_m": 14.4,
+      "outer_width_m": 32.0,
+      "minimum_depth_m": 18.0
+    }
+  },
+  "bathymetry_source_text": "Bathymétrie : HYSCORES / Litto3D / Shom S199503500 · Topographie : IGN RGE ALTI",
+  "bathymetry_attribution": "Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D, corrigé localement par le levé Shom S199503500",
   "focus_bbox_utm40s": [321200.0, 7653800.0, 322067.2, 7654400.0],
   "context_bbox_utm40s": [320500.0, 7653000.0, 323000.0, 7655300.0],
   "interactive_footprint_utm40s": {
@@ -22,6 +56,21 @@
   "view_center_offset_north_m": 50.0,
   "max_depth_m": 40,
   "plan_sea_shading": "local_slope",
+  "plan_sea_shading_suppression": {
+    "polylines_utm40s": [
+      [
+        [321430.0, 7654040.0],
+        [321475.0, 7654030.0],
+        [321540.0, 7654010.0],
+        [321580.0, 7653950.0],
+        [321555.0, 7653880.0],
+        [321610.0, 7653830.0]
+      ]
+    ],
+    "inner_width_m": 14.4,
+    "outer_width_m": 32.0,
+    "minimum_depth_m": 18.0
+  },
   "plan_land_shading": "local_slope",
   "plan_max_depth_m": 30,
   "deep_edge_nodata_terrain_fill": true,

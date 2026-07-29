@@ -218,13 +218,13 @@
       "files": {
         "metadata": {
           "path": "pointe-au-sel-sec-jaune/terrain.json",
-          "bytes": 4995,
-          "sha256": "b26430ba3530a274339f0eb6ffb9cd3e9a5fc82822abd85bc8944a01e94a7893"
+          "bytes": 5145,
+          "sha256": "e21ac7531139d9973ea956f5feaa6752b72bcc5dfbd62719c96b14be6f9a61e6"
         },
         "height": {
           "path": "pointe-au-sel-sec-jaune/height.bin",
           "bytes": 474012,
-          "sha256": "70badc2bcd22cd3fba482b484a57944f2d888783e649ce33da8c7033238aa293"
+          "sha256": "62a5dfe24ac753f7c9d4414bcd176e99fac50d24c3894f234eb83d1d2c030386"
         },
         "validMask": {
           "path": "pointe-au-sel-sec-jaune/valid-mask.bin",
@@ -238,18 +238,18 @@
         },
         "vectorIsobaths": {
           "path": "pointe-au-sel-sec-jaune/isobaths-vector.json",
-          "bytes": 187826,
-          "sha256": "4dd91dfc953cf919b33523f428f9db2c2103c1458093c02aaad524f34b1787e2"
+          "bytes": 188182,
+          "sha256": "cb0897fce2c11cae881c77be87719d5dca93f886fc401b4a26b94f070de96ba9"
         },
         "topographicTexture": {
           "path": "pointe-au-sel-sec-jaune/topographic.webp",
-          "bytes": 129360,
-          "sha256": "c70abdafdf5d1f115f5e0a8490fc3962b16a5237ddaa9cb7f5c57fbd026fb594"
+          "bytes": 128728,
+          "sha256": "b85a1560e4cac773948453671ef81675fcadb1bcc34642fa5df2cf4e01d307ac"
         },
         "orthophotoTexture": {
           "path": "pointe-au-sel-sec-jaune/orthophoto.webp",
-          "bytes": 302048,
-          "sha256": "9bbafbf12fabc1cefd42e62012ab0c37cddcaf10947e729961875ac8e028017c"
+          "bytes": 301658,
+          "sha256": "c93b703ca1cf32a8a6e21c6f303a554e19131eebce33ba263508e7cd2b85e738"
         }
       }
     },
