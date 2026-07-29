@@ -300,7 +300,7 @@ const SITE_LABEL_LAYOUT: Record<string, SiteLabelLayout> = {
     connectorWidthRem: 2.45,
     labelOffsetRem: 2.65,
   },
-  "roches-noires-le-cimetiere": {
+  "roches-noires": {
     side: "left",
     shiftYRem: 0.9,
     connectorAngleDeg: -58,

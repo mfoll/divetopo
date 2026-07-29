@@ -13,10 +13,10 @@
     "bytes": 166996,
     "sha256": "efc70575468facf8a862da6882807a68c0b23b04a5ef2b5020725223ccb57c8d",
     "boundsUtm40s": {
-      "minEasting": 305000,
-      "minNorthing": 7628000,
-      "maxEasting": 386000,
-      "maxNorthing": 7696000
+      "minEasting": 305000.0,
+      "minNorthing": 7628000.0,
+      "maxEasting": 386000.0,
+      "maxNorthing": 7696000.0
     }
   },
   "westCoastLocator": {
@@ -26,10 +26,10 @@
     "bytes": 106950,
     "sha256": "92594462497ea99f09c52f741c5f364b5b28403602abeb0d7dd838f09bb86db3",
     "boundsUtm40s": {
-      "minEasting": 309000,
-      "minNorthing": 7652000,
-      "maxEasting": 326000,
-      "maxNorthing": 7678000
+      "minEasting": 309000.0,
+      "minNorthing": 7652000.0,
+      "maxEasting": 326000.0,
+      "maxNorthing": 7678000.0
     }
   },
   "sites": [
@@ -45,7 +45,7 @@
         "longitude": 55.23745137
       },
       "westCoastLocatorPosition": {
-        "xPercent": 46,
+        "xPercent": 46.0,
         "yPercent": 11.8462
       },
       "maxDepthM": 20,
@@ -55,6 +55,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -274,6 +278,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -493,6 +501,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -712,6 +724,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -910,11 +926,11 @@
       ]
     },
     {
-      "slug": "roches-noires-le-cimetiere",
-      "displayName": "Roches Noires - Le Cimetière",
-      "title": "Roches Noires - Le Cimetière",
-      "plateTitle": "Roches Noires - Le Cimetière · La Réunion",
-      "config": "regions/reunion/sites/roches-noires-le-cimetiere.json",
+      "slug": "roches-noires",
+      "displayName": "Roches Noires",
+      "title": "Roches Noires",
+      "plateTitle": "Roches Noires · La Réunion",
+      "config": "regions/reunion/sites/roches-noires.json",
       "location": {
         "city": "Saint-Paul",
         "latitude": -21.05169027,
@@ -931,6 +947,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -941,34 +961,34 @@
           },
           "variants": [
             {
-              "src": "/maps/roches-noires-le-cimetiere/2d-topographic-960.webp",
+              "src": "/maps/roches-noires/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 69176,
-              "sha256": "c006033982d8903e2efb8c5bfe554cb6242e0036435b9efaee5a9223e093de75"
+              "bytes": 79136,
+              "sha256": "c4ddafbe2e0dcedf0a61baa144571f60bbcc3ad78439f9d0578c87739319bb63"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/2d-topographic-1600.webp",
+              "src": "/maps/roches-noires/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 145952,
-              "sha256": "1e07499f5d47a3d763f29b4391fa8eaba8efe8e8714408a0520c971a174a38fa"
+              "bytes": 166450,
+              "sha256": "9b01ab0a971514401df4d61638d8416762bebe22211eede7bd1de30a9e972599"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/2d-topographic-2474.webp",
+              "src": "/maps/roches-noires/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 262060,
-              "sha256": "687c90d5c4d8cf58e17f4f76c0dd5957189a541564fc3a2408244b1539d208a7"
+              "bytes": 309830,
+              "sha256": "437cd6ded58d2562cb0f62ebea3bf061382b68de434ce0f00f6f85aa7183a4f1"
             }
           ],
           "download": {
-            "src": "/maps/roches-noires-le-cimetiere/downloads/2d-topographic-full.jpg",
+            "src": "/maps/roches-noires/downloads/2d-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1738670,
-            "sha256": "e50a08391f9bf021ebef2bb40a0e71ae0c58826e42a590206339e1631e83aa94",
-            "filename": "roches-noires-le-cimetiere-topobathy-2d.jpg"
+            "bytes": 1937959,
+            "sha256": "41cd82fba485d40ef99c7fda0269e90b8d48f819a88c0923f255d377ef940b00",
+            "filename": "roches-noires-topobathy-2d.jpg"
           }
         },
         {
@@ -980,34 +1000,34 @@
           },
           "variants": [
             {
-              "src": "/maps/roches-noires-le-cimetiere/2d-orthophoto-960.webp",
+              "src": "/maps/roches-noires/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 179990,
-              "sha256": "05c11a1aefe5db81da6d5c4e941908d3a7ce35ceff6e95d7fcff63f47170ca9a"
+              "bytes": 177736,
+              "sha256": "0e94839e32470aac837e2749ef933346e84f4225ca2e06ec81f8d81d2adeb658"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/2d-orthophoto-1600.webp",
+              "src": "/maps/roches-noires/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 415274,
-              "sha256": "007db20889ee2be866609ebe3144f1d12a657574c09a3af6487d6fce087a8968"
+              "bytes": 419840,
+              "sha256": "66cf67333f5bbf90cbb763879580eb4cb6592d8ac7ffd7f540266b0913ebfa60"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/2d-orthophoto-2474.webp",
+              "src": "/maps/roches-noires/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 802386,
-              "sha256": "d7ae69d81fa0a3d6a5c7495ced397d4a616f6c85660a38c454366a4dcbf5a7b1"
+              "bytes": 824644,
+              "sha256": "25679a4caaab1ea1fe4153700ed7713dcc3ea7f8608cb15372215f17bef80014"
             }
           ],
           "download": {
-            "src": "/maps/roches-noires-le-cimetiere/downloads/2d-orthophoto-full.jpg",
+            "src": "/maps/roches-noires/downloads/2d-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 3053776,
-            "sha256": "862a8a12831baa3783ba7cbc4954702e90f2e198f65f4e986f160334293ac9dd",
-            "filename": "roches-noires-le-cimetiere-topobathy-2d-ortho.jpg"
+            "bytes": 3208143,
+            "sha256": "aacd09b32f66cd30896425b59407489d6498e0bb39dd85c0a453c7c585786447",
+            "filename": "roches-noires-topobathy-2d-ortho.jpg"
           }
         },
         {
@@ -1019,34 +1039,34 @@
           },
           "variants": [
             {
-              "src": "/maps/roches-noires-le-cimetiere/3d-topographic-960.webp",
+              "src": "/maps/roches-noires/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 72500,
-              "sha256": "2555be281284349642ddef86d06d87da719ee7acc948bfd0572c35542102dc5a"
+              "bytes": 85392,
+              "sha256": "ba6347511f805813abdf07d4975b0b1a8e2f13957ae48bceddcc3a2e2dd88576"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/3d-topographic-1600.webp",
+              "src": "/maps/roches-noires/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 146326,
-              "sha256": "93f4448a79b16ff13f9d266e70db1784574ad039fdddd7696adac71de79a2bfa"
+              "bytes": 176836,
+              "sha256": "9e2a02f051cd530671ff514e977f2e610cfb769411872748e0ac0855fd72fc6c"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/3d-topographic-2474.webp",
+              "src": "/maps/roches-noires/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 258784,
-              "sha256": "fdf3c3cc8d0aed81352e3e3eb9b924cbda879417cd915d4cce520b2e6ed1489d"
+              "bytes": 323124,
+              "sha256": "1466cf2ed4d70f7bb8338e4320d2668a83ad2af8ae73930d46329da7f8ecc62c"
             }
           ],
           "download": {
-            "src": "/maps/roches-noires-le-cimetiere/downloads/3d-topographic-full.jpg",
+            "src": "/maps/roches-noires/downloads/3d-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1797242,
-            "sha256": "afcfda8958520f355364e233bea860a84456058b3ef5919baab3da77101162ab",
-            "filename": "roches-noires-le-cimetiere-topobathy-3d.jpg"
+            "bytes": 2038565,
+            "sha256": "60cb6f4d61c834f34d068d6113296093e6868b717c8236f997fbc22d189fa304",
+            "filename": "roches-noires-topobathy-3d.jpg"
           }
         },
         {
@@ -1058,34 +1078,34 @@
           },
           "variants": [
             {
-              "src": "/maps/roches-noires-le-cimetiere/3d-orthophoto-960.webp",
+              "src": "/maps/roches-noires/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 148582,
-              "sha256": "0b0658a4ba93fa67defd74a2ac4e79dd4842d1c3978cd0df338d414adbf6ee29"
+              "bytes": 140874,
+              "sha256": "07e64c1779389c0f4485a3141d301b16d38373bf1398c02798c7ed91d29bffd3"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/3d-orthophoto-1600.webp",
+              "src": "/maps/roches-noires/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 326946,
-              "sha256": "c2793f10913eba981a2bf4d2fc0202a8030a32eaed64f81722b35dbc444a48a5"
+              "bytes": 306638,
+              "sha256": "ef990f6d641366be47b3b5b35e0afccf41c763c07ce418e6be40d6d8408df4cd"
             },
             {
-              "src": "/maps/roches-noires-le-cimetiere/3d-orthophoto-2474.webp",
+              "src": "/maps/roches-noires/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 603444,
-              "sha256": "3cf912e064efd446b1b66acd917bc6194cbaa37af80face55bb6443d757ef554"
+              "bytes": 573534,
+              "sha256": "65557d6d63aba187daff09b8f9873d2b8d639c2f5be1bf145ea7252c1bc6c957"
             }
           ],
           "download": {
-            "src": "/maps/roches-noires-le-cimetiere/downloads/3d-orthophoto-full.jpg",
+            "src": "/maps/roches-noires/downloads/3d-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 2735025,
-            "sha256": "934702dbc3cb8e81f8c19af0b879e5c7bdc342752df41de08ca6922293f4bf50",
-            "filename": "roches-noires-le-cimetiere-topobathy-3d-ortho.jpg"
+            "bytes": 2718975,
+            "sha256": "5c2cbb51c33535f9bbcdcbf996b6cae98b625cffd6eb6994432e5af8714a2e2a",
+            "filename": "roches-noires-topobathy-3d-ortho.jpg"
           }
         }
       ],
@@ -1093,37 +1113,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/roches-noires-le-cimetiere/planche-topographic-1800.webp",
+            "src": "/maps/roches-noires/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 191998,
-            "sha256": "645ebd97c650a9bbe768fdfceb3e90a9ec7fb371f683c6f286c3b7c1e300e53e"
+            "bytes": 209600,
+            "sha256": "d964be0ba0b6dab8e20a2a7281bfde1583c5c86b08b507ac15f1aec4685d0ed8"
           },
           "download": {
-            "src": "/maps/roches-noires-le-cimetiere/downloads/planche-topographic-full.jpg",
+            "src": "/maps/roches-noires/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5721223,
-            "sha256": "60d8c98e66a141586a971313381978a7c5b79b797c832db6ef5d5978102eb508",
-            "filename": "roches-noires-le-cimetiere-planche-topographique.jpg"
+            "bytes": 6170127,
+            "sha256": "659208a2b44de5521706c0067ce49290dda37a06a81572fd725ed86f97a4a368",
+            "filename": "roches-noires-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/roches-noires-le-cimetiere/planche-orthophoto-1800.webp",
+            "src": "/maps/roches-noires/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 351864,
-            "sha256": "017236c76f17d1a10c23c65ab0e48071c1fcb35683d9fd7783c333993c354437"
+            "bytes": 340596,
+            "sha256": "3c2ad92d1552860de5a87094e57ce8823fe28ae6dd39b521efc9746a154e7b81"
           },
           "download": {
-            "src": "/maps/roches-noires-le-cimetiere/downloads/planche-orthophoto-full.jpg",
+            "src": "/maps/roches-noires/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 8067450,
-            "sha256": "1772b3d7ca19c34fdf779f420c264d42a3dc386f5fb09eb2db7bc73b5a910739",
-            "filename": "roches-noires-le-cimetiere-planche.jpg"
+            "bytes": 8201683,
+            "sha256": "2557e86ed59b946819c583e976737be41f73bb68e92739b6cdcf1f33b067adc6",
+            "filename": "roches-noires-planche.jpg"
           }
         }
       ]
@@ -1150,6 +1170,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -1369,6 +1393,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -1588,6 +1616,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -1601,30 +1633,30 @@
               "src": "/maps/souris-chaude/2d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 85472,
-              "sha256": "8b8ed91b510430c4018fbdae3deafce367464b018e4c959ec51d18cc9c8845ad"
+              "bytes": 87740,
+              "sha256": "802283f0728cdd647ab38266554baf0e6df8495b6476ecb88fc628db4fb9eed4"
             },
             {
               "src": "/maps/souris-chaude/2d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 177896,
-              "sha256": "41508bfd4231f1328814328137ad1da09ed9eabc154621f43b8c774fdfeb7ea0"
+              "bytes": 180028,
+              "sha256": "35853f716a7cdb0844a6f5813982dc72885164badfdc5a79e3f31e3e1425b955"
             },
             {
               "src": "/maps/souris-chaude/2d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 323718,
-              "sha256": "142eee47009c9f95dd7193c825ccebc918ab2a20435433b30f2e77d13fdc3f98"
+              "bytes": 330102,
+              "sha256": "d3e0dca241aef479db4fa5c8349582d8290361365783e338cf6bd7b910afede5"
             }
           ],
           "download": {
             "src": "/maps/souris-chaude/downloads/2d-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1876732,
-            "sha256": "d3061b9311ebbd53eee62ea18d5a53dff84dfe8e0219f22ab9c3f125762fccbb",
+            "bytes": 1901206,
+            "sha256": "e4b28e0268548665cd24c6477e4a1ec1da511411033214a10192c22dc3f1df72",
             "filename": "souris-chaude-topobathy-2d.jpg"
           }
         },
@@ -1640,30 +1672,30 @@
               "src": "/maps/souris-chaude/2d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 183302,
-              "sha256": "949f6890c6490181a08eab56b6afa1dd913bbc828c4c3fb71654020971167fc8"
+              "bytes": 174472,
+              "sha256": "56edc5f5bec246b90e6effe94bafff3b4aa43c06e25138679c19018c00176b30"
             },
             {
               "src": "/maps/souris-chaude/2d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 439340,
-              "sha256": "ad3e36f860079e7f781a806f7b7b01c1fd5805e877e934db3f4d18081b42b3a3"
+              "bytes": 411330,
+              "sha256": "bdf12ddd93fbfeae575fe7306cf3b971e576017e69380ff8c1dc0b34adec5ce5"
             },
             {
               "src": "/maps/souris-chaude/2d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 881374,
-              "sha256": "4db91df89647f30b14c6273becb4585d6e993e417cdce698de6f4c443e645018"
+              "bytes": 798128,
+              "sha256": "18aa4dfb09df2bf8828d0ff2b7c8e93705aeb7e6eaa78dc8e0ed55c706e8f899"
             }
           ],
           "download": {
             "src": "/maps/souris-chaude/downloads/2d-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 3162680,
-            "sha256": "cec8c91789840ee9ba79ebfb8448fbf71a88c33b4babd7d85123b1efd2723f45",
+            "bytes": 2946921,
+            "sha256": "56dfc23b16c0d4b51493ee1c6789e5a02ca2fd86a1ce6495df66d7e40b56d756",
             "filename": "souris-chaude-topobathy-2d-ortho.jpg"
           }
         },
@@ -1679,30 +1711,30 @@
               "src": "/maps/souris-chaude/3d-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 81470,
-              "sha256": "cc7d4c3ee82012ed5096c673a10b91a522bb9586625c6bc99e92d99261d41e69"
+              "bytes": 83700,
+              "sha256": "1767d3361b4574588121edb75d6015b770c9803488efa9a1646357fcc35bea81"
             },
             {
               "src": "/maps/souris-chaude/3d-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 167964,
-              "sha256": "0d78e8873806e9104eaa481d7933d60edc1882157b661aa45c44f95f0a3c95de"
+              "bytes": 168260,
+              "sha256": "50283e8656f1639e05dc40233fcd3612d77f440e3aac2dc8b68979b53a07663a"
             },
             {
               "src": "/maps/souris-chaude/3d-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 299420,
-              "sha256": "e607af5a4c2c53435b3aeca6d443bab578f4f9eca8c4bd1e3b15c25321f197cc"
+              "bytes": 301408,
+              "sha256": "df77e5b90f01a4ad3fea56dabae1c5f880c8924e6f6f3ecd55207fc90c3009bd"
             }
           ],
           "download": {
             "src": "/maps/souris-chaude/downloads/3d-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1926919,
-            "sha256": "8872cd564de88022334e7892639d2d3426679d641ce995e87da88844fd8847ad",
+            "bytes": 1954908,
+            "sha256": "f5adaa24aea89ec5b61ca11db0c8d0bbcb9c98dcb72ef806898fe5e429e7a620",
             "filename": "souris-chaude-topobathy-3d.jpg"
           }
         },
@@ -1718,30 +1750,30 @@
               "src": "/maps/souris-chaude/3d-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 139140,
-              "sha256": "ba4f9093f9f2dec622d7100dd55c4d700fe9549d84c6d0a3cf5f2d5d751a4655"
+              "bytes": 142924,
+              "sha256": "dc715e9f5d41706e281625fc78988e400ee43630f8dc627cd921738861cb2af1"
             },
             {
               "src": "/maps/souris-chaude/3d-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 294170,
-              "sha256": "0df9d0cddc3c82c3ba024e22b3bfcf6185b8a01824e7fc5fda2244f614b59604"
+              "bytes": 299676,
+              "sha256": "e72bd038d9e68500fff34d722820784ae2da43b426ac8854987a5b229f493f9b"
             },
             {
               "src": "/maps/souris-chaude/3d-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 530850,
-              "sha256": "89f8d53f6197e1de21c03cda2e3d4bec2bf3bc3d82dd3374e806b903b0e7333e"
+              "bytes": 534442,
+              "sha256": "070da3326d79a476105e511d70a0cb849f64eeb0c434d958e0f6e5eb5151ac29"
             }
           ],
           "download": {
             "src": "/maps/souris-chaude/downloads/3d-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 2501180,
-            "sha256": "61b351a649222fe3b5342a630d2df886c36bf5381206d8a74370e621dd9e3fac",
+            "bytes": 2534010,
+            "sha256": "942841194a9fc899f49aa2fed600e5e185c42d4a9a11ff9f7eb059f82d9de85e",
             "filename": "souris-chaude-topobathy-3d-ortho.jpg"
           }
         }
@@ -1753,15 +1785,15 @@
             "src": "/maps/souris-chaude/planche-topographic-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 216736,
-            "sha256": "c8c6bcea783f9b7fe7640dae773b0fd59d109319b7dcee843730eacba0217660"
+            "bytes": 221948,
+            "sha256": "3cd45dfdbb8fd269253b4755946391df10ea3346a199fa13e5cad7c038964f1a"
           },
           "download": {
             "src": "/maps/souris-chaude/downloads/planche-topographic-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5982366,
-            "sha256": "bb267e3286139c5155156434f25eb51720a2daaf107c90f3111756f18da84787",
+            "bytes": 6045998,
+            "sha256": "b5145b12873f8c5ac5b58382bf2c67d6f764fdda742b99a0eef28a51fe03d85e",
             "filename": "souris-chaude-planche-topographique.jpg"
           }
         },
@@ -1771,23 +1803,23 @@
             "src": "/maps/souris-chaude/planche-orthophoto-1800.webp",
             "width": 1800,
             "height": 1083,
-            "bytes": 343104,
-            "sha256": "36e73ccf40249f2258e6b0b6bbabf43e5beb9c1efb271c3517ff4077fb87c00e"
+            "bytes": 339678,
+            "sha256": "012366c9e64c1dc052bf19efe8b5f9e74227ce2d97765229e3f628cf6f37dcf1"
           },
           "download": {
             "src": "/maps/souris-chaude/downloads/planche-orthophoto-full.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 7916928,
-            "sha256": "2c5f47d5ea903677352c88e0663a2c23f573fd35c647f7b1ccc94b8db67d699c",
+            "bytes": 7729621,
+            "sha256": "0ad1f9c85322369aff2f20e55f4d5ac3a4f70997b2a2641b3cf6c950416aa213",
             "filename": "souris-chaude-planche.jpg"
           }
         }
       ],
       "interactiveInitialView": {
-        "zoom": 1.3,
-        "centerOffsetEastM": 0,
-        "centerOffsetSouthM": 0
+        "zoom": 1.0,
+        "centerOffsetEastM": -100.0,
+        "centerOffsetSouthM": -100.0
       }
     },
     {
@@ -1812,6 +1844,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -2031,6 +2067,10 @@
       "plateAuthor": "Matthieu Foll",
       "copyrightYear": 2026,
       "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+        "orthophoto": "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO"
+      },
       "maps": [
         {
           "view": "2d",
@@ -2454,8 +2494,8 @@
   ],
   "totals": {
     "assetFiles": 222,
-    "webOptimizedBytes": 44387758,
-    "downloadBytes": 249600372,
-    "totalBytes": 293988130
+    "webOptimizedBytes": 44459376,
+    "downloadBytes": 250863359,
+    "totalBytes": 295322735
   }
 }

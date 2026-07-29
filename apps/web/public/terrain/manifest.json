@@ -338,44 +338,44 @@
       }
     },
     {
-      "slug": "roches-noires-le-cimetiere",
-      "title": "Roches Noires - Le Cimetière · La Réunion",
-      "metadata": "roches-noires-le-cimetiere/terrain.json",
+      "slug": "roches-noires",
+      "title": "Roches Noires · La Réunion",
+      "metadata": "roches-noires/terrain.json",
       "files": {
         "metadata": {
-          "path": "roches-noires-le-cimetiere/terrain.json",
-          "bytes": 4749,
-          "sha256": "e58a774dd47555fe196cd32218aadaff9c160af15164c159f2cce744fc3ddc3d"
+          "path": "roches-noires/terrain.json",
+          "bytes": 4725,
+          "sha256": "0e76c301ad99b71c9d4c8580468b137e17c08c567c11087f68c28c5f87d97914"
         },
         "height": {
-          "path": "roches-noires-le-cimetiere/height.bin",
-          "bytes": 465804,
-          "sha256": "c8dd2e821d79aa6c896eb0fd36f5e6988d0cc5e71e08907b6d1d4d77af6ad7b6"
+          "path": "roches-noires/height.bin",
+          "bytes": 494532,
+          "sha256": "06f2e08f54722e87df7f46436acf409bad7d111c31b6ef7d45f393b75eeca049"
         },
         "validMask": {
-          "path": "roches-noires-le-cimetiere/valid-mask.bin",
-          "bytes": 29113,
-          "sha256": "5b4db6cc154082ebae91895b84b533dbb7392a72c1eaafcb0541aacbad43b160"
+          "path": "roches-noires/valid-mask.bin",
+          "bytes": 30909,
+          "sha256": "f0e51daa8498e5ab5b3fc1dd40f33df7bec1fbd813a20399612913210d8c135a"
         },
         "isobathMask": {
-          "path": "roches-noires-le-cimetiere/isobath-mask.bin",
-          "bytes": 29113,
-          "sha256": "5b4db6cc154082ebae91895b84b533dbb7392a72c1eaafcb0541aacbad43b160"
+          "path": "roches-noires/isobath-mask.bin",
+          "bytes": 30909,
+          "sha256": "f0e51daa8498e5ab5b3fc1dd40f33df7bec1fbd813a20399612913210d8c135a"
         },
         "vectorIsobaths": {
-          "path": "roches-noires-le-cimetiere/isobaths-vector.json",
-          "bytes": 100144,
-          "sha256": "335a12f303d26a17a003e0c0402ad67f1cd9f6d5b12b696b533cc85c95b9b1ce"
+          "path": "roches-noires/isobaths-vector.json",
+          "bytes": 119229,
+          "sha256": "c630fb0cd2ee5c92dab389847bec6dd488b658886dc0d6856c8361a4cdb5cd9f"
         },
         "topographicTexture": {
-          "path": "roches-noires-le-cimetiere/topographic.webp",
-          "bytes": 138006,
-          "sha256": "01aeca02d17995143fd5501f5162edfd5109d88cc90fb1a1835da739e9589fe4"
+          "path": "roches-noires/topographic.webp",
+          "bytes": 178784,
+          "sha256": "5bbc565449c15a970a3bf5b66e8a6f4d8a2ee2dc8e9d11f46dc36cbe07ccdb32"
         },
         "orthophotoTexture": {
-          "path": "roches-noires-le-cimetiere/orthophoto.webp",
-          "bytes": 368102,
-          "sha256": "29117497f3627ea2de6c339c6544872d0d04071076ef1cdf92de7d2297ab0e6e"
+          "path": "roches-noires/orthophoto.webp",
+          "bytes": 500722,
+          "sha256": "c24cb378ff4a05ebfe1652bbdc5784191b89a359c76534927c42c89be47dba22"
         }
       }
     },
@@ -386,38 +386,38 @@
       "files": {
         "metadata": {
           "path": "souris-chaude/terrain.json",
-          "bytes": 4979,
-          "sha256": "c2ae6bff59b09aa9b8a01513dcac6a840c7d988ea9abecdd9c8f734504136d5b"
+          "bytes": 4980,
+          "sha256": "4f7475d6f6f6eff708d473879ac5c177a23c9fcec50a3f91a6b32af6b984be3a"
         },
         "height": {
           "path": "souris-chaude/height.bin",
-          "bytes": 467856,
-          "sha256": "b11ddbe4734756a6f310c2328e0ec4649cb173efaa95da75a64dff4bd8817fe2"
+          "bytes": 526338,
+          "sha256": "df0da2fa2ef4a5c163d117917e65b5e238749c6e9ed8e3bf3312ed7577f1ea46"
         },
         "validMask": {
           "path": "souris-chaude/valid-mask.bin",
-          "bytes": 29241,
-          "sha256": "29bfe035787ef9ff6118582b3bb84e430d67d3fe289ba5895e8d1bd31fea780e"
+          "bytes": 32897,
+          "sha256": "c93c94b54af04735cd055b3ba3e71d70034f0c033f0dec0e188cca67f2d99503"
         },
         "isobathMask": {
           "path": "souris-chaude/isobath-mask.bin",
-          "bytes": 29241,
-          "sha256": "2255715b06fcde255fa3618aa299d67be3bdf6b08c3d234554fad4aee185d988"
+          "bytes": 32897,
+          "sha256": "cb2d4b15802d28ffbaa3a69255c11996ea5999e262bace82ea2c1ab2d18284a8"
         },
         "vectorIsobaths": {
           "path": "souris-chaude/isobaths-vector.json",
-          "bytes": 65257,
-          "sha256": "637122604b00e23ac8b2c7b05b107e3cc95047a78b49dfda9b8bc39c89d1d34d"
+          "bytes": 112290,
+          "sha256": "5e90688da3368c2c343eb4ea4504db11615be559c32bbfc639cf1e706f34666a"
         },
         "topographicTexture": {
           "path": "souris-chaude/topographic.webp",
-          "bytes": 123572,
-          "sha256": "42f8e4b16313ca9a15b0c0c4ff7a679b6dd408d31ad5b502f1d1cc899d1a1266"
+          "bytes": 181514,
+          "sha256": "d050924d15af8d9a9ba76a54413944a5e07a4a6c14f15caa9efe88bd7a20b327"
         },
         "orthophotoTexture": {
           "path": "souris-chaude/orthophoto.webp",
-          "bytes": 461194,
-          "sha256": "06311f4fd3b25a809e268249174c4027024df02002665885ee20def9bea7efd8"
+          "bytes": 486556,
+          "sha256": "c687fdda2227e5ec5fba640427c8c9a9b90f8bc06370528fdb1340f4e67be7ce"
         }
       }
     },

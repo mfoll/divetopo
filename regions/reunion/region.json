@@ -71,10 +71,10 @@
       "config": "regions/reunion/sites/pointe-des-aigrettes.json"
     },
     {
-      "slug": "roches-noires-le-cimetiere",
-      "name": "Roches Noires - Le Cimetière",
+      "slug": "roches-noires",
+      "name": "Roches Noires",
       "municipality": "Saint-Paul",
-      "config": "regions/reunion/sites/roches-noires-le-cimetiere.json"
+      "config": "regions/reunion/sites/roches-noires.json"
     },
     {
       "slug": "passe-hermitage",

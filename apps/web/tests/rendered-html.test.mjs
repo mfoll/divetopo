@@ -18,7 +18,7 @@ const publishedSiteSlugs = new Set([
   "pointe-des-aigrettes",
   "pointe-au-sel-sec-jaune",
   "pont-rouge",
-  "roches-noires-le-cimetiere",
+  "roches-noires",
   "souris-chaude",
   "trois-bassins",
 ]);
@@ -220,7 +220,7 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /href="\/reunion\/fr\/sites\/pointe-des-aigrettes"/);
   assert.match(
     html,
-    /href="\/reunion\/fr\/sites\/roches-noires-le-cimetiere"/,
+    /href="\/reunion\/fr\/sites\/roches-noires"/,
   );
   assert.match(html, /Roches Noires -/);
   assert.match(html, /Le Cimetière/);
@@ -610,7 +610,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.ok(
     locations.includes(
-      "https://divetopo.com/reunion/en/sites/roches-noires-le-cimetiere",
+      "https://divetopo.com/reunion/en/sites/roches-noires",
     ),
   );
   assert.ok(
