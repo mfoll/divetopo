@@ -1,0 +1,95 @@
+{
+  "region": "paca",
+  "slug": "cap-des-medes",
+  "title": "Cap des Mèdes, Porquerolles",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0960_6220/file/0960_6220.7z",
+      "members": [
+        "0960_6220/LITTO3D_FRA_0963_6219_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0963_6219_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "0960_6220/LITTO3D_FRA_0963_6220_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0963_6220_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "0960_6220/LITTO3D_FRA_0964_6219_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0964_6219_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "0960_6220/LITTO3D_FRA_0964_6220_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0964_6220_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0960_6225/file/0960_6225.7z",
+      "members": [
+        "0960_6225/LITTO3D_FRA_0963_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0963_6221_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0960_6225/LITTO3D_FRA_0964_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0964_6221_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    963350.0,
+    6219075.0,
+    964900.0,
+    6220150.0
+  ],
+  "context_bbox_utm40s": [
+    963150.0,
+    6218200.0,
+    964950.0,
+    6220800.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      964050.0,
+      6219600.0
+    ],
+    "width_m": 1700.0,
+    "depth_m": 1750.0,
+    "look_bearing_deg": 90.0
+  },
+  "view_bearing_deg": 90.0,
+  "view_visible_width_m": 850.0,
+  "interactive_view_visible_width_m": 850.0,
+  "view_canvas_height_px": 1007,
+  "view_center_offset_east_m": 200.0,
+  "view_center_offset_north_m": 145.0,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_along_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 40.0,
+  "interactive_max_depth_m": 40.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 50.0,
+  "camera_tilt": 0.34,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    964343.8,
+    6219755.0
+  ],
+  "plate_site_name": "Cap des Mèdes",
+  "plate_city": "Hyères",
+  "plate_title": "Cap des Mèdes, Porquerolles",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true,
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m"
+}

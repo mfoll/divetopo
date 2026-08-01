@@ -1,0 +1,88 @@
+{
+  "region": "paca",
+  "slug": "les-pyramides-cap-dramont",
+  "title": "Les Pyramides, Cap Dramont–Île d’Or - prototype local",
+  "cache_dir": ".tmp/paca-sources",
+  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1010_6265/file/1010_6265.7z",
+  "litto3d_archive_members": [
+    "1010_6265/LITTO3D_FRA_1010_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1010_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+    "1010_6265/LITTO3D_FRA_1011_6264_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1011_6264_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "1010_6265/LITTO3D_FRA_1011_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1011_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+  ],
+  "focus_bbox_utm40s": [
+    1011100.0,
+    6264000.0,
+    1011900.0,
+    6264900.0
+  ],
+  "context_bbox_utm40s": [
+    1010000.0,
+    6263000.0,
+    1011950.0,
+    6264950.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1011420.0,
+      6264420.0
+    ],
+    "width_m": 680.0,
+    "depth_m": 760.0,
+    "look_bearing_deg": 132.0
+  },
+  "view_bearing_deg": 132.0,
+  "view_visible_width_m": 400.0,
+  "interactive_view_visible_width_m": 500.0,
+  "view_center_offset_east_m": 445.0,
+  "view_center_offset_north_m": 445.0,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_reselect_vector_labels_on_camera_end": true,
+  "coast_mode": "mask",
+  "max_depth_m": 40,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT brut à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 35.0,
+  "camera_tilt": 0.34,
+  "along_view_projection_scale": 1.8,
+  "view_crop_width_m": 500.0,
+  "view_crop_depth_m": 180.0,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.05,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    1011377.1,
+    6264241.4
+  ],
+  "plate_site_name": "Les Pyramides",
+  "plate_city": "Saint-Raphaël",
+  "plate_title": "Les Pyramides, Cap Dramont–Île d’Or",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true
+}

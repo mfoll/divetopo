@@ -1,0 +1,163 @@
+{
+  "schemaVersion": 2,
+  "slug": "pointe-portissol",
+  "title": "Pointe de Portissol, Provence-Alpes-Côte d’Azur",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 926100.0,
+    "south": 6226900.0,
+    "east": 927850.0,
+    "north": 6228200.0
+  },
+  "physicalSizeM": {
+    "width": 1750.0,
+    "depth": 1300.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 513,
+    "height": 381,
+    "triangleCount": 389120,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -25.0,
+      "scaleMPerUnit": 0.0010173762973335156,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 3.6,
+      "centreWidthCssPx": 1.7,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -25.0,
+    "max": 41.67375564575195
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 90.0,
+    "gridLookBearingDeg": 90.0,
+    "cameraTilt": 0.34,
+    "alongViewProjectionScale": 1.2,
+    "visibleWidthM": 650.0,
+    "coastFrameFraction": 0.52,
+    "horizontalCenterOffsetM": -170.0,
+    "requiredVectorLabelLevelsM": [
+      5,
+      10,
+      15,
+      20
+    ]
+  },
+  "textures": {
+    "width": 1750,
+    "height": 1300,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-07-13",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 13-07-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 13-07-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      926975.0,
+      6227550.0
+    ],
+    "widthM": 1300.0,
+    "depthM": 1750.0,
+    "lookBearingDeg": 90.0,
+    "cornersUtm40s": [
+      [
+        926100.0,
+        6228200.0
+      ],
+      [
+        926100.0,
+        6226900.0
+      ],
+      [
+        927850.0,
+        6226900.0
+      ],
+      [
+        927850.0,
+        6228200.0
+      ]
+    ]
+  },
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear"
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 1,
+        "points": 485
+      },
+      "10": {
+        "polylines": 7,
+        "points": 958
+      },
+      "15": {
+        "polylines": 5,
+        "points": 715
+      },
+      "20": {
+        "polylines": 1,
+        "points": 519
+      }
+    },
+    "totals": {
+      "levels": 4,
+      "polylines": 14,
+      "points": 2677
+    },
+    "reprojectionResidualM": {
+      "samples": 2677,
+      "mean": 4.774293564262453e-06,
+      "p95": 8.891322593740337e-08,
+      "max": 0.003888505503955031,
+      "withinTolerance": true
+    }
+  }
+}

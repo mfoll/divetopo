@@ -1,0 +1,88 @@
+{
+  "region": "paca",
+  "slug": "pointe-portissol",
+  "title": "Pointe de Portissol - prototype personnel",
+  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0925_6230/file/0925_6230.7z",
+  "litto3d_archive_members": [
+    "0925_6230/LITTO3D_FRA_0926_6227_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0926_6227_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+    "0925_6230/LITTO3D_FRA_0926_6228_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0926_6228_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0925_6230/LITTO3D_FRA_0926_6229_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0926_6229_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0925_6230/LITTO3D_FRA_0927_6227_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0927_6227_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0925_6230/LITTO3D_FRA_0927_6228_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0927_6228_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0925_6230/LITTO3D_FRA_0927_6229_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0927_6229_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+  ],
+  "focus_bbox_utm40s": [
+    926250.0,
+    6227400.0,
+    927470.0,
+    6228245.0
+  ],
+  "context_bbox_utm40s": [
+    926100.0,
+    6226900.0,
+    927950.0,
+    6228700.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      926975.0,
+      6227550.0
+    ],
+    "width_m": 1300.0,
+    "depth_m": 1750.0,
+    "look_bearing_deg": 90.0
+  },
+  "view_bearing_deg": 90.0,
+  "view_visible_width_m": 650.0,
+  "view_center_offset_east_m": -225.0,
+  "view_center_offset_north_m": -80.0,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 25,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 50.0,
+  "camera_tilt": 0.34,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    927047.8,
+    6227754.3
+  ],
+  "plate_site_name": "Pointe de Portissol",
+  "plate_city": "Sanary-sur-Mer",
+  "plate_title": "Pointe de Portissol, Provence-Alpes-Côte d’Azur",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true
+}

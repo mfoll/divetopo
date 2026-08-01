@@ -1,14 +1,14 @@
 "use client";
 
 import { lazy, Suspense, useCallback, useState } from "react";
-import styles from "./gabiniere.module.css";
+import styles from "./portissol.module.css";
 
 type SurfaceStyle = "topographic" | "orthophoto";
 
 const TerrainViewer = lazy(() => import("../../../TerrainViewer"));
 
-const MAP_BASE = "/test-assets/paca/gabiniere/maps";
-const TERRAIN_SLUG = "la-gabiniere-port-cros";
+const MAP_BASE = "/test-assets/paca/portissol/maps";
+const TERRAIN_SLUG = "pointe-portissol";
 const TERRAIN_BASE = `/terrain/${TERRAIN_SLUG}`;
 
 const compactAttributions: Record<SurfaceStyle, string> = {
@@ -29,7 +29,7 @@ function dynamicDownload(surface: SurfaceStyle) {
   return `${MAP_BASE}/downloads/3d-dynamic-${surface}-full.jpg`;
 }
 
-export default function GabiniereTestExperience() {
+export default function PortissolTestExperience() {
   const [surface, setSurface] = useState<SurfaceStyle>("orthophoto");
   const [terrainReady, setTerrainReady] = useState(false);
   const markReady = useCallback(() => setTerrainReady(true), []);
@@ -44,7 +44,7 @@ export default function GabiniereTestExperience() {
       <header className={styles.header}>
         <div>
           <p className={styles.eyebrow}>Prototype local · PACA</p>
-          <h1>La Gabinière, Port-Cros</h1>
+          <h1>Pointe de Portissol</h1>
           <p className={styles.lead}>
             Vue 3D directement interactive, issue du paquet terrain v1.1.
           </p>
@@ -54,22 +54,22 @@ export default function GabiniereTestExperience() {
 
       <section
         className="topo-reunion-section"
-        aria-labelledby="gabiniere-title"
+        aria-labelledby="portissol-title"
       >
         <div className="topo-reunion-intro">
-          <h2 id="gabiniere-title">Témoin La Gabinière</h2>
+          <h2 id="portissol-title">Pointe de Portissol</h2>
           <p>
             Contrôle local du relief réel Litto3D PACA 2015 et de
             l’orthophoto IGN BD ORTHO.
           </p>
         </div>
 
-        <article className="topo-reunion-main" aria-label="La Gabinière">
+        <article className="topo-reunion-main" aria-label="Pointe de Portissol">
           <div className="viewer-head">
             <header className="active-site-heading">
               <div>
                 <h2>Vue 3D</h2>
-                <p>La Gabinière · Hyères · Port-Cros</p>
+                <p>Pointe de Portissol · Sanary-sur-Mer</p>
               </div>
               <span>Lambert-93 · EPSG:2154</span>
             </header>
@@ -97,7 +97,7 @@ export default function GabiniereTestExperience() {
 
           <div
             className="viewer-frame is-interactive has-unified-3d"
-            data-testid="gabiniere-test-viewer"
+            data-testid="portissol-test-viewer"
           >
             <picture
               className={`${styles.poster} ${terrainReady ? styles.posterHidden : ""}`}
@@ -118,7 +118,7 @@ export default function GabiniereTestExperience() {
 
             <div
               className={`unified-3d-layer${terrainReady ? " is-rendered" : ""}`}
-              data-testid="gabiniere-interactive-layer"
+              data-testid="portissol-interactive-layer"
             >
               <Suspense
                 fallback={
@@ -130,20 +130,15 @@ export default function GabiniereTestExperience() {
                 <TerrainViewer
                   key={surface}
                   slug={TERRAIN_SLUG}
-                  siteName="La Gabinière"
+                  siteName="Pointe de Portissol"
                   style={surface}
                   language="fr"
                   vectorIsobathsPath={`${TERRAIN_BASE}/isobaths-vector.json`}
-                  initialZoom={0.78}
-                  initialOrbitAzimuthDeg={-60}
-                  initialCameraElevationDeg={18}
-                  initialPanRightM={45}
-                  initialPanUpM={85}
-                  isobathLabelFocusXNdc={0.12}
+                  initialZoom={1}
                   compactAttributions={compactAttributions}
                   onReady={markReady}
                   downloadHref={dynamicDownload(surface)}
-                  downloadFilename={`la-gabiniere-3d-${surface}.jpg`}
+                  downloadFilename={`pointe-portissol-3d-${surface}.jpg`}
                   downloadLabel="Télécharger la vue 3D en haute définition"
                 />
               </Suspense>
@@ -163,14 +158,14 @@ export default function GabiniereTestExperience() {
                 src={`${MAP_BASE}/2d-topographic.jpg`}
                 width={2474}
                 height={1712}
-                alt="Plan 2D topobathymétrique topographique de La Gabinière"
+                alt="Plan 2D topobathymétrique topographique de la Pointe de Portissol"
                 loading="lazy"
               />
               <figcaption>
                 <strong>Plan 2D topographique</strong>
                 <a
                   href={`${MAP_BASE}/2d-topographic.jpg`}
-                  download="la-gabiniere-port-cros-topobathy-2d.jpg"
+                  download="pointe-portissol-topobathy-2d.jpg"
                 >
                   Télécharger le plan HD
                 </a>
@@ -181,14 +176,14 @@ export default function GabiniereTestExperience() {
                 src={`${MAP_BASE}/2d-orthophoto.jpg`}
                 width={2474}
                 height={1712}
-                alt="Plan 2D topobathymétrique avec orthophoto de La Gabinière"
+                alt="Plan 2D topobathymétrique avec orthophoto de la Pointe de Portissol"
                 loading="lazy"
               />
               <figcaption>
                 <strong>Plan 2D orthophoto</strong>
                 <a
                   href={`${MAP_BASE}/2d-orthophoto.jpg`}
-                  download="la-gabiniere-port-cros-topobathy-2d-ortho.jpg"
+                  download="pointe-portissol-topobathy-2d-ortho.jpg"
                 >
                   Télécharger le plan HD
                 </a>

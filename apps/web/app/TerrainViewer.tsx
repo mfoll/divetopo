@@ -59,6 +59,7 @@ type TerrainMetadata = {
     vectorLabelCollisionPaddingNdc?: number;
     reselectVectorLabelsOnCameraEnd?: boolean;
     requiredVectorLabelLevelsM?: number[];
+    featuredVectorLabelLevelsM?: number[];
   };
   textures: {
     topographic: { file: string; attribution: string };
@@ -381,8 +382,13 @@ export default function TerrainViewer({
   language,
   vectorIsobathsPath,
   initialZoom = 1,
+  initialOrbitAzimuthDeg = 0,
+  initialCameraElevationDeg,
+  initialPanRightM = 0,
+  initialPanUpM = 0,
   initialCenterOffsetEastM = 0,
   initialCenterOffsetSouthM = 0,
+  isobathLabelFocusXNdc,
   onReady,
   onError,
   onContextRestored,
@@ -397,8 +403,13 @@ export default function TerrainViewer({
   language: Language;
   vectorIsobathsPath?: string;
   initialZoom?: number;
+  initialOrbitAzimuthDeg?: number;
+  initialCameraElevationDeg?: number;
+  initialPanRightM?: number;
+  initialPanUpM?: number;
   initialCenterOffsetEastM?: number;
   initialCenterOffsetSouthM?: number;
+  isobathLabelFocusXNdc?: number;
   onReady?: () => void;
   onError?: () => void;
   onContextRestored?: () => void;
@@ -997,7 +1008,15 @@ export default function TerrainViewer({
         const requiredLevels = new Set(
           metadata.view.requiredVectorLabelLevelsM ?? [],
         );
-        const featuredLoops = closedLoopCandidates
+        const featuredLevelPreference = new Set(
+          metadata.view.featuredVectorLabelLevelsM ?? [],
+        );
+        const featuredLoopPool = featuredLevelPreference.size
+          ? closedLoopCandidates.filter(({ levelM }) =>
+              featuredLevelPreference.has(levelM),
+            )
+          : closedLoopCandidates;
+        const featuredLoops = featuredLoopPool
           .sort((first, second) => second.score - first.score)
           .filter(
             (candidate, index, candidates) =>
@@ -1006,7 +1025,7 @@ export default function TerrainViewer({
                 (other) => other.levelM === candidate.levelM,
               ),
           )
-          .slice(0, 2);
+          .slice(0, featuredLevelPreference.size || 2);
         const featuredPolylineKeys = new Set(
           featuredLoops.map(({ polylineKey }) => polylineKey),
         );
@@ -1193,7 +1212,19 @@ export default function TerrainViewer({
                 (maximumCameraDepth - cameraDepth) / cameraDepthRange;
               const gentleRelief =
                 1 / (1 + Math.max(candidate.reliefSlope, 0));
+              const horizontalFocus =
+                isobathLabelFocusXNdc === undefined
+                  ? 0
+                  : Math.max(
+                      0,
+                      1 -
+                        Math.abs(
+                          projected.x - isobathLabelFocusXNdc,
+                        ) /
+                          0.9,
+                    ) * 210;
               const score =
+                horizontalFocus +
                 horizontal * 55 +
                 edgeClearance * 30 +
                 foregroundScreen * 95 +
@@ -1271,6 +1302,47 @@ export default function TerrainViewer({
       controls.maxPolarAngle = Math.PI * 0.42;
       controls.update();
       controlsRef.current = controls;
+      if (initialOrbitAzimuthDeg !== 0) {
+        camera.position
+          .sub(controls.target)
+          .applyAxisAngle(
+            new THREE.Vector3(0, 1, 0),
+            THREE.MathUtils.degToRad(initialOrbitAzimuthDeg),
+          )
+          .add(controls.target);
+        camera.lookAt(controls.target);
+        controls.update();
+      }
+      if (initialCameraElevationDeg !== undefined) {
+        const offset = camera.position.clone().sub(controls.target);
+        const horizontalDistance = Math.hypot(offset.x, offset.z);
+        if (horizontalDistance > 1e-6) {
+          offset.y =
+            horizontalDistance *
+            Math.tan(
+              THREE.MathUtils.degToRad(initialCameraElevationDeg),
+            );
+          camera.position.copy(controls.target).add(offset);
+          camera.lookAt(controls.target);
+          controls.update();
+        }
+      }
+      if (initialPanRightM !== 0 || initialPanUpM !== 0) {
+        const screenTranslation = new THREE.Vector3()
+          .addScaledVector(
+            new THREE.Vector3(1, 0, 0).applyQuaternion(camera.quaternion),
+            -initialPanRightM,
+          )
+          .addScaledVector(
+            new THREE.Vector3(0, 1, 0).applyQuaternion(camera.quaternion),
+            -initialPanUpM,
+          );
+        camera.position.add(screenTranslation);
+        controls.target.add(screenTranslation);
+        controls.cursor.copy(controls.target);
+        camera.lookAt(controls.target);
+        controls.update();
+      }
       initialViewRef.current = {
         position: camera.position.clone(),
         target: controls.target.clone(),
@@ -1443,9 +1515,14 @@ export default function TerrainViewer({
       scene = null;
     };
   }, [
+    initialCameraElevationDeg,
     initialCenterOffsetEastM,
     initialCenterOffsetSouthM,
+    initialOrbitAzimuthDeg,
+    initialPanRightM,
+    initialPanUpM,
     initialZoom,
+    isobathLabelFocusXNdc,
     compactAttributions,
     onContextRestored,
     onError,
