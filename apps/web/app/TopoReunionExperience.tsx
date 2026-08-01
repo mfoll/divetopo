@@ -18,6 +18,7 @@ import {
   languagePath,
   localizedSitePath,
   parseTopoRoute,
+  releaseAssetUrl,
   regionalSeoText,
 } from "../content/routing";
 import {
@@ -144,7 +145,15 @@ function selectedPlanche(site: RegionalAssetSite, style: SurfaceStyle) {
   const asset = site.planches?.find(
     (candidate) => candidate.style === style,
   );
-  return asset;
+  return asset
+    ? {
+        ...asset,
+        download: {
+          ...asset.download,
+          src: releaseAssetUrl(asset.download.filename),
+        },
+      }
+    : undefined;
 }
 
 function formatDms(value: number, positive: string, negative: string) {

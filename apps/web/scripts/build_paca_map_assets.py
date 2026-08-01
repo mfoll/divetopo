@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish PACA planche previews/downloads and refresh their manifest records."""
+"""Publish PACA planche previews and refresh their release-backed records."""
 
 from __future__ import annotations
 
@@ -17,6 +17,10 @@ PUBLIC_ROOT = WEB_ROOT / "public"
 OUTPUT_ROOT = REPOSITORY_ROOT / "regions" / "paca" / "outputs"
 MANIFEST_PATH = WEB_ROOT / "content" / "paca-map-manifest.json"
 PREVIEW_WIDTH = 1800
+RELEASE_TAG = "v1.2.0"
+RELEASE_ASSET_BASE = (
+    f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
+)
 
 
 def sha256(path: Path) -> str:
@@ -78,10 +82,7 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
         raise FileNotFoundError(f"Missing generated PACA planche: {source}")
 
     site_root = PUBLIC_ROOT / "maps" / "paca" / slug / "maps"
-    download_path = site_root / "downloads" / f"planche-{style}-full.jpg"
     preview_path = site_root / f"planche-{style}-{PREVIEW_WIDTH}.webp"
-    download_path.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(source, download_path)
 
     with Image.open(source) as image:
         source_width, source_height = image.size
@@ -106,12 +107,11 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
             preview_height,
         ),
         "download": {
-            **image_record(
-                download_path,
-                PUBLIC_ROOT,
-                source_width,
-                source_height,
-            ),
+            "src": f"{RELEASE_ASSET_BASE}/{source.name}",
+            "width": source_width,
+            "height": source_height,
+            "bytes": source.stat().st_size,
+            "sha256": sha256(source),
             "filename": source.name,
         },
     }

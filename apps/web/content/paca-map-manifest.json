@@ -7,7 +7,7 @@
     "height": 840,
     "boundsWgs84": {
       "west": -5.5,
-      "south": 42.0,
+      "south": 42,
       "east": 8.7,
       "north": 51.3
     },
@@ -21,7 +21,7 @@
       "srs": "EPSG:4326",
       "bbox": [
         -5.5,
-        42.0,
+        42,
         8.7,
         51.3
       ],
@@ -40,7 +40,7 @@
     "boundsWgs84": {
       "west": 5.65,
       "south": 42.82,
-      "east": 7.0,
+      "east": 7,
       "north": 43.58
     },
     "bytes": 2247432,
@@ -57,7 +57,7 @@
     "detailBathymetrySourceUrl": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL",
     "detailBathymetryLayer": "LITTO3D PACA 2015 MNT5m",
     "detailBathymetryCrs": "EPSG:2154",
-    "detailBathymetryResolutionM": 5.0,
+    "detailBathymetryResolutionM": 5,
     "detailBathymetryArchiveCount": 6,
     "detailBathymetryTileCount": 123,
     "coastlineSourceUrl": "https://services.data.shom.fr/INSPIRE/wfs",
@@ -227,7 +227,7 @@
             "sha256": "ce2d033e7c9bdce6dd5821e969b16cea5ca7a41f01e501efa438501719a77cfd"
           },
           "download": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-topographic-full.jpg?v=30739e3427e0",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/la-gabiniere-port-cros-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3862041,
@@ -245,7 +245,7 @@
             "sha256": "6ae9d90319f6e45a3192b9a273d32acb80dec0f701952d9eb93c4ba1a562ab9e"
           },
           "download": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-orthophoto-full.jpg?v=ebb8b23d8a5b",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/la-gabiniere-port-cros-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4058771,
@@ -408,7 +408,7 @@
             "sha256": "c143a5c7564a886f097819b9c857ff9e292d7d87fb109cd2bdc2d07be5e75687"
           },
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-topographic-full.jpg?v=0cbb8beaec74",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/pointe-portissol-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4557939,
@@ -426,7 +426,7 @@
             "sha256": "fc9b714eaf19ae984f6afe0cc7d16fe3e7062d7a2791c6d22f8601e677047334"
           },
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-orthophoto-full.jpg?v=99ac867886af",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/pointe-portissol-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5556647,
@@ -591,7 +591,7 @@
             "sha256": "d00490ac4e7b87cfc7fb6a9e59b38bf56d1baf834db52d0d350daf7906c2fadc"
           },
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-topographic-full.jpg?v=0b39f834e52c",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/deux-freres-cap-sicie-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4724526,
@@ -609,7 +609,7 @@
             "sha256": "1651866268898744c092ddf4aad4babab5ab668247aa521942b67846220f106c"
           },
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-orthophoto-full.jpg?v=6c3cd326e619",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/deux-freres-cap-sicie-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5146842,
@@ -772,7 +772,7 @@
             "sha256": "12287a94f410ccd7737d99389e0716018db2e903339401d669d2660d0a26f282"
           },
           "download": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-topographic-full.jpg?v=4e1cbb9cb719",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/les-pyramides-cap-dramont-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4248057,
@@ -790,7 +790,7 @@
             "sha256": "bc6fa757769f90d60ba78942afad52f012d1f03f95c3186cc6389b925b71782a"
           },
           "download": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-orthophoto-full.jpg?v=20ca4b8726a5",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/les-pyramides-cap-dramont-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4321272,
@@ -953,7 +953,7 @@
             "sha256": "65844b4aea429fa42d2c7f649887737a9790cd7b1d60a38bf2c95bc4e7fff85f"
           },
           "download": {
-            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-topographic-full.jpg?v=aa3e2a1c2cdc",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/cap-des-medes-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4614516,
@@ -971,7 +971,7 @@
             "sha256": "c0ad58d75eae5a8d25314ca1ef354f24696295cbc76715ff6ee4631ca389267b"
           },
           "download": {
-            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-orthophoto-full.jpg?v=55dd60caefe1",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/cap-des-medes-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4834262,

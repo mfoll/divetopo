@@ -646,7 +646,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.match(
     sitemap,
-    /https:\/\/divetopo\.com\/maps\/cap-homard\/downloads\/planche-orthophoto-full\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.2\.0\/cap-homard-planche\.jpg/,
   );
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
@@ -779,21 +779,16 @@ test("map manifest supports adding future sites without component changes", asyn
     for (const planche of site.planches) {
       assert.match(
         planche.download.src,
-        /\/downloads\/planche-(?:orthophoto|topographic)-full\.jpg$/,
+        new RegExp(
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.2\\.0/${planche.download.filename}$`,
+        ),
       );
       assert.match(planche.download.filename, /\.jpg$/);
-      const [published, canonical] = await Promise.all([
-        readFile(new URL(`../public${planche.download.src}`, import.meta.url)),
-        readFile(
-          new URL(
-            `../../../regions/reunion/outputs/${planche.download.filename}`,
-            import.meta.url,
-          ),
+      const canonical = await readFile(
+        new URL(
+          `../../../regions/reunion/outputs/${planche.download.filename}`,
+          import.meta.url,
         ),
-      ]);
-      assert.ok(
-        published.equals(canonical),
-        `${site.slug}: published ${planche.style} planche differs from ${planche.download.filename}`,
       );
       assert.equal(planche.download.bytes, canonical.byteLength);
       assert.equal(

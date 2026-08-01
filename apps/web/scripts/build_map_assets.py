@@ -2,8 +2,8 @@
 """Build deterministic, responsive website assets from canonical map outputs.
 
 The map renderers remain the source of truth. This script only resizes and
-encodes their JPEG outputs for the website, then copies the original maps and
-planches unchanged so visitors can download the full-resolution files.
+encodes their JPEG outputs for the website. Full-resolution printable sheets
+are published as GitHub Release assets rather than bundled into Sites.
 """
 
 from __future__ import annotations
@@ -27,6 +27,10 @@ CONFIG_ROOT = REUNION_ROOT / "sites"
 BUNDLED_MANIFEST_PATH = SITE_ROOT / "content" / "map-manifest.json"
 PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "maps"
+RELEASE_TAG = "v1.2.0"
+RELEASE_ASSET_BASE = (
+    f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
+)
 
 MAP_WIDTHS = (960, 1600, 2474)
 PLANCHE_PREVIEW_WIDTH = 1800
@@ -295,10 +299,6 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
             quality=PLANCHE_WEBP_QUALITY,
         )
 
-        download_path = site_root / "downloads" / f"planche-{style}-full.jpg"
-        download_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source_path, download_path)
-
         planches.append(
             {
                 "style": style,
@@ -309,12 +309,11 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
                     preview_height,
                 ),
                 "download": {
-                    **image_record(
-                        download_path,
-                        build_root,
-                        source_image.width,
-                        source_image.height,
-                    ),
+                    "src": f"{RELEASE_ASSET_BASE}/{source_path.name}",
+                    "width": source_image.width,
+                    "height": source_image.height,
+                    "bytes": source_path.stat().st_size,
+                    "sha256": sha256(source_path),
                     "filename": source_path.name,
                 },
             }

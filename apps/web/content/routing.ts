@@ -8,6 +8,9 @@ import {
 } from "./regional";
 
 export const DIVETOPO_ORIGIN = "https://divetopo.com";
+export const DIVETOPO_RELEASE_TAG = "v1.2.0";
+export const DIVETOPO_RELEASE_ASSET_BASE =
+  `https://github.com/mfoll/divetopo/releases/download/${DIVETOPO_RELEASE_TAG}`;
 export const TOPO_REUNION_ORIGIN = DIVETOPO_ORIGIN;
 export const REUNION_BASE_PATH = "/reunion";
 export const PACA_BASE_PATH = "/paca";
@@ -76,6 +79,10 @@ export function defaultSitePath(
 
 export function absoluteUrl(path: string) {
   return new URL(path, TOPO_REUNION_ORIGIN).toString();
+}
+
+export function releaseAssetUrl(filename: string) {
+  return `${DIVETOPO_RELEASE_ASSET_BASE}/${encodeURIComponent(filename)}`;
 }
 
 export type TopoRoute =
@@ -187,6 +194,9 @@ export function siteRepresentativeImages(
   const plate = site.planches?.find(
     (candidate) => candidate.style === "orthophoto",
   )?.download;
+  const releasedPlate = plate
+    ? { ...plate, src: releaseAssetUrl(plate.filename) }
+    : undefined;
 
   if (!twoD || !threeD) {
     throw new Error(`Missing representative images for ${site.slug}`);
@@ -221,7 +231,7 @@ export function siteRepresentativeImages(
         },
   ];
 
-  if (!plate) {
+  if (!releasedPlate) {
     return images;
   }
 
@@ -229,7 +239,7 @@ export function siteRepresentativeImages(
     return [
       ...images,
       {
-        ...plate,
+        ...releasedPlate,
         caption:
           `Planche imprimable de ${site.displayName} réunissant la ` +
           `localisation, le plan 2D et la perspective 3D.`,
@@ -240,7 +250,7 @@ export function siteRepresentativeImages(
   return [
     ...images,
     {
-      ...plate,
+      ...releasedPlate,
       caption:
         `Printable map sheet for ${site.displayName}, combining the ` +
         `island locator, 2D map and 3D perspective.`,

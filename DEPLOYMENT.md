@@ -71,6 +71,16 @@ publication derivatives before the application tree can be considered current.
 Never deploy an uncommitted directory or a tree assembled from mixed repository
 states.
 
+### Printable HD sheets
+
+Full-resolution assembled sheets are attached to the matching GitHub release
+and their download links use that release's stable asset URLs. Do not commit or
+package `apps/web/public/maps/**/downloads/planche-*-full.jpg`: duplicating them
+inside Sites can exceed its 256 MiB archive input limit. Before each release,
+update the release tag used by both map-asset builders, upload every assembled
+sheet, verify the public download links, and package from a clean worktree so
+ignored local generation outputs cannot leak into the deployment archive.
+
 ## Operational boundaries
 
 - `apps/web/.openai/hosting.json` identifies the existing DiveTopo Sites

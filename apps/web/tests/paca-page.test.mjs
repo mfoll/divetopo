@@ -113,7 +113,7 @@ test("server-renders the complete public PACA region and five sites", async () =
       assert.match(
         html,
         new RegExp(
-          `/maps/paca/${slug}/maps/downloads/planche-orthophoto-full\\.jpg`,
+          `https://github\\.com/mfoll/divetopo/releases/download/v1\\.2\\.0/${slug}-planche\\.jpg`,
         ),
         `${path}: expected the orthophoto printable download`,
       );
@@ -200,7 +200,12 @@ test("PACA asset paths resolve without regenerating or duplicating test maps", a
     assert.equal(site.planches?.length, 2, `${site.slug}: two planches`);
     for (const planche of site.planches) {
       await access(new URL(`../public${planche.preview.src}`, import.meta.url));
-      await access(new URL(`../public${planche.download.src}`, import.meta.url));
+      assert.match(
+        planche.download.src,
+        new RegExp(
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.2\\.0/${planche.download.filename}$`,
+        ),
+      );
     }
     await access(
       new URL(`../public/terrain/${site.slug}/terrain.json`, import.meta.url),
