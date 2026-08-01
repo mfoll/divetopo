@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "slug": "paca",
+  "route": "/test/paca/gabiniere",
+  "pipeline": {
+    "siteConfigDirectory": "regions/paca/sites",
+    "outputDirectory": "regions/paca/outputs",
+    "interactiveTerrainDirectory": "regions/paca/outputs/interactive-terrain"
+  },
+  "sites": [
+    {
+      "slug": "la-gabiniere-port-cros",
+      "name": "La Gabinière, Port-Cros",
+      "config": "regions/paca/sites/la-gabiniere-port-cros.json"
+    }
+  ]
+}

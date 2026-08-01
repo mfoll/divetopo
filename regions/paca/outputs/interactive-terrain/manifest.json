@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "sites": [
+    {
+      "slug": "la-gabiniere-port-cros",
+      "title": "La Gabinière, Port-Cros",
+      "metadata": "la-gabiniere-port-cros/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "la-gabiniere-port-cros/terrain.json",
+          "bytes": 4918,
+          "sha256": "0a5d5fdab38dd8f95ff0603a689b34dd3d26c6ac52d76b3c208350794a550dda"
+        },
+        "height": {
+          "path": "la-gabiniere-port-cros/height.bin",
+          "bytes": 526338,
+          "sha256": "17032cb9566f32414aa94aad62e4fa041756d4b3196bf7c35aae61628b1a383c"
+        },
+        "validMask": {
+          "path": "la-gabiniere-port-cros/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "3a9104b8b07a4e44375bc5cbe659c36e09b0fae410ba83b2db2b56dd4f31c226"
+        },
+        "isobathMask": {
+          "path": "la-gabiniere-port-cros/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "3a9104b8b07a4e44375bc5cbe659c36e09b0fae410ba83b2db2b56dd4f31c226"
+        },
+        "vectorIsobaths": {
+          "path": "la-gabiniere-port-cros/isobaths-vector.json",
+          "bytes": 71437,
+          "sha256": "fa22192103415882e16fedef3bf5176dfb159a59d2a58f0a8e0ab82037bc4935"
+        },
+        "topographicTexture": {
+          "path": "la-gabiniere-port-cros/topographic.webp",
+          "bytes": 21752,
+          "sha256": "bc6595278af139b9bfd9003baac398848d79c3f7fc7027bea5d878ec3cd4406a"
+        },
+        "orthophotoTexture": {
+          "path": "la-gabiniere-port-cros/orthophoto.webp",
+          "bytes": 25234,
+          "sha256": "8deb8c6eda0383283fc65852cbdd5a085d160e8af4fdca66ffb71209d4234041"
+        }
+      }
+    }
+  ]
+}

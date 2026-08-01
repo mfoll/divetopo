@@ -810,13 +810,26 @@ export function TopoReunionExperience({
                   </Suspense>
                 ) : (
                   <>
-                    <button
-                      type="button"
-                      className={`map-open${usesUnified3D && viewMode === "3d" ? " unified-3d-poster" : ""}`}
-                      onClick={openMapDialog}
-                      aria-label={`${text.map.openMap} ${activeSite.displayName}`}
-                    >
-                      {usesUnified3D && staticView === "3d" ? (
+                    {viewMode === "2d" ? (
+                      <div className="map-preview">
+                        <img
+                          key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
+                          src={mapLargest.src}
+                          srcSet={assetSrcSet(mapAsset.variants)}
+                          sizes="(max-width: 980px) 100vw, 68vw"
+                          width={mapLargest.width}
+                          height={mapLargest.height}
+                          alt={mapAlt}
+                          fetchPriority="high"
+                        />
+                      </div>
+                    ) : (
+                      <button
+                        type="button"
+                        className={`map-open${usesUnified3D && viewMode === "3d" ? " unified-3d-poster" : ""}`}
+                        onClick={openMapDialog}
+                        aria-label={`${text.map.openMap} ${activeSite.displayName}`}
+                      >
                         <picture
                           key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
                         >
@@ -839,19 +852,8 @@ export function TopoReunionExperience({
                             fetchPriority="high"
                           />
                         </picture>
-                      ) : (
-                        <img
-                          key={`${activeSite.slug}-${viewMode}-${surfaceStyle}`}
-                          src={mapLargest.src}
-                          srcSet={assetSrcSet(mapAsset.variants)}
-                          sizes="(max-width: 980px) 100vw, 68vw"
-                          width={mapLargest.width}
-                          height={mapLargest.height}
-                          alt={mapAlt}
-                          fetchPriority="high"
-                        />
-                      )}
-                    </button>
+                      </button>
+                    )}
                     {!showsUnifiedTerrain ? mapDownload : null}
                   </>
                 )}
