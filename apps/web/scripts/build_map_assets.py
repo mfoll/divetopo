@@ -27,7 +27,7 @@ CONFIG_ROOT = REUNION_ROOT / "sites"
 BUNDLED_MANIFEST_PATH = SITE_ROOT / "content" / "map-manifest.json"
 PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "maps"
-RELEASE_TAG = "v1.2.0"
+RELEASE_TAG = "v1.2.1"
 RELEASE_ASSET_BASE = (
     f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
 )

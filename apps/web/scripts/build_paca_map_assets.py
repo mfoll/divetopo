@@ -17,7 +17,7 @@ PUBLIC_ROOT = WEB_ROOT / "public"
 OUTPUT_ROOT = REPOSITORY_ROOT / "regions" / "paca" / "outputs"
 MANIFEST_PATH = WEB_ROOT / "content" / "paca-map-manifest.json"
 PREVIEW_WIDTH = 1800
-RELEASE_TAG = "v1.2.0"
+RELEASE_TAG = "v1.2.1"
 RELEASE_ASSET_BASE = (
     f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
 )

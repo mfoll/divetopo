@@ -1083,24 +1083,14 @@ img {
   width: 100%;
 }
 
-.map-preview {
-  background: var(--navy);
-  display: block;
-  height: 100%;
-  position: relative;
-  width: 100%;
-}
-
-.map-open img,
-.map-preview img {
+.map-open img {
   display: block;
   height: 100%;
   object-fit: contain;
   width: 100%;
 }
 
-.map-open picture,
-.map-preview picture {
+.map-open picture {
   display: block;
   height: 100%;
   width: 100%;

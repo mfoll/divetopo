@@ -227,7 +227,7 @@
             "sha256": "ce2d033e7c9bdce6dd5821e969b16cea5ca7a41f01e501efa438501719a77cfd"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/la-gabiniere-port-cros-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/la-gabiniere-port-cros-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3862041,
@@ -245,7 +245,7 @@
             "sha256": "6ae9d90319f6e45a3192b9a273d32acb80dec0f701952d9eb93c4ba1a562ab9e"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/la-gabiniere-port-cros-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/la-gabiniere-port-cros-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4058771,
@@ -408,7 +408,7 @@
             "sha256": "c143a5c7564a886f097819b9c857ff9e292d7d87fb109cd2bdc2d07be5e75687"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/pointe-portissol-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/pointe-portissol-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4557939,
@@ -426,7 +426,7 @@
             "sha256": "fc9b714eaf19ae984f6afe0cc7d16fe3e7062d7a2791c6d22f8601e677047334"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/pointe-portissol-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/pointe-portissol-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5556647,
@@ -591,7 +591,7 @@
             "sha256": "d00490ac4e7b87cfc7fb6a9e59b38bf56d1baf834db52d0d350daf7906c2fadc"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/deux-freres-cap-sicie-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/deux-freres-cap-sicie-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4724526,
@@ -609,7 +609,7 @@
             "sha256": "1651866268898744c092ddf4aad4babab5ab668247aa521942b67846220f106c"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/deux-freres-cap-sicie-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/deux-freres-cap-sicie-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5146842,
@@ -772,7 +772,7 @@
             "sha256": "12287a94f410ccd7737d99389e0716018db2e903339401d669d2660d0a26f282"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/les-pyramides-cap-dramont-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/les-pyramides-cap-dramont-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4248057,
@@ -790,7 +790,7 @@
             "sha256": "bc6fa757769f90d60ba78942afad52f012d1f03f95c3186cc6389b925b71782a"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/les-pyramides-cap-dramont-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/les-pyramides-cap-dramont-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4321272,
@@ -953,7 +953,7 @@
             "sha256": "65844b4aea429fa42d2c7f649887737a9790cd7b1d60a38bf2c95bc4e7fff85f"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/cap-des-medes-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/cap-des-medes-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4614516,
@@ -971,7 +971,7 @@
             "sha256": "c0ad58d75eae5a8d25314ca1ef354f24696295cbc76715ff6ee4631ca389267b"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.0/cap-des-medes-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.2.1/cap-des-medes-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4834262,
