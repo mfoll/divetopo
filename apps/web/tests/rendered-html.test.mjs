@@ -158,7 +158,7 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /3d-dynamic-orthophoto-2474\.webp/);
   assert.match(html, /reunion-overview\.webp/);
   assert.match(html, /west-coast-locator\.webp/);
-  assert.match(html, /Ouvrir la carte de La Réunion en grand/);
+  assert.doesNotMatch(html, /Ouvrir .* en grand/);
   assert.doesNotMatch(html, /class="site-picker-range"/);
   assert.doesNotMatch(html, /Cap → Saint-Leu/);
   assert.doesNotMatch(html, /Sur l’île/);
@@ -487,10 +487,10 @@ test("server-renders an indexable localized page for every published site", asyn
         ),
         `${path}: expected the hidden full-size map to load lazily`,
       );
-      assert.match(
+      assert.doesNotMatch(
         html,
-        /<dialog(?=[^>]*class="map-dialog overview-dialog")[\s\S]*?<img(?=[^>]*src="\/reunion-overview\.webp")(?=[^>]*loading="lazy")[^>]*>/,
-        `${path}: expected the hidden island overview to load lazily`,
+        /class="map-dialog overview-dialog"/,
+        `${path}: the 2D regional overview must not expose a full-size button`,
       );
     }
   }
@@ -587,12 +587,14 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 26);
-  assert.equal(imageLocations.length, 70);
+  assert.equal(locations.length, 38);
+  assert.equal(imageLocations.length, 102);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
   assert.ok(locations.includes("https://divetopo.com/reunion/en"));
+  assert.ok(locations.includes("https://divetopo.com/paca/fr"));
+  assert.ok(locations.includes("https://divetopo.com/paca/en"));
   assert.ok(
     locations.includes(
       "https://divetopo.com/reunion/fr/sites/cap-la-houssaye",
@@ -623,6 +625,16 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
       "https://divetopo.com/reunion/en/sites/souris-chaude",
     ),
   );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/paca/fr/sites/la-gabiniere-port-cros",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/paca/en/sites/cap-des-medes",
+    ),
+  );
   assert.match(sitemap, /hreflang="x-default"/);
   assert.match(
     sitemap,
@@ -638,7 +650,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.equal(
     imageLocations.filter((location) => location.endsWith(".jpg")).length,
-    66,
+    96,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -655,6 +667,15 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
     ).length,
     2,
     "expected each localized Réunion entry to reference its social image",
+  );
+  assert.equal(
+    imageLocations.filter(
+      (location) =>
+        location ===
+        "https://divetopo.com/maps/paca/france-metropolitan-situation.png",
+    ).length,
+    2,
+    "expected each localized PACA entry to reference the regional relief",
   );
 });
 
@@ -862,6 +883,15 @@ test("interactive terrain matches the static linear-light exposure", async () =>
   assert.match(terrainViewer, /LineGeometry/);
   assert.match(terrainViewer, /LineMaterial/);
   assert.match(terrainViewer, /vectorIsobathsPath/);
+  assert.match(terrainViewer, /alongCenterOffsetM\?: number/);
+  assert.match(
+    terrainViewer,
+    /metadata\.view\.alongCenterOffsetM !== undefined/,
+  );
+  assert.match(
+    terrainViewer,
+    /!hasExplicitCenterOffset[\s\S]*metadata\.view\.alongCenterOffsetM !== undefined/,
+  );
   assert.match(terrainViewer, /linewidth: 3\.6/);
   assert.match(terrainViewer, /linewidth: 1\.7/);
   assert.match(
@@ -889,6 +919,22 @@ test("interactive terrain matches the static linear-light exposure", async () =>
   assert.match(terrainViewer, /terrain-action-icon is-reset/);
   assert.match(terrainViewer, /terrain-action-icon is-isobaths/);
   assert.match(terrainViewer, /terrain-action-icon is-fullscreen/);
+  assert.match(
+    experienceSource,
+    /initialOrbitAzimuthDeg=\{\s*activeSite\.interactiveInitialView\?\.orbitAzimuthDeg\s*\}/s,
+  );
+  assert.match(
+    experienceSource,
+    /initialCameraElevationDeg=\{\s*activeSite\.interactiveInitialView\s*\?\.cameraElevationDeg\s*\}/s,
+  );
+  assert.match(
+    experienceSource,
+    /initialPanRightM=\{\s*activeSite\.interactiveInitialView\?\.panRightM\s*\}/s,
+  );
+  assert.match(
+    experienceSource,
+    /initialPanUpM=\{\s*activeSite\.interactiveInitialView\?\.panUpM\s*\}/s,
+  );
   assert.doesNotMatch(terrainViewer, />\s*Isobathes 5 m\s*</);
   assert.doesNotMatch(terrainViewer, />\s*Réinitialiser la vue\s*</);
   assert.doesNotMatch(terrainViewer, />\s*Plein écran\s*</);

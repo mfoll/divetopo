@@ -1,0 +1,945 @@
+{
+  "schemaVersion": 1,
+  "visibility": "local-complete-preview",
+  "reunionOverview": {
+    "src": "/maps/paca/france-metropolitan-situation.png",
+    "width": 1000,
+    "height": 840,
+    "boundsWgs84": {
+      "west": -5.5,
+      "south": 42.0,
+      "east": 8.7,
+      "north": 51.3
+    },
+    "bytes": 1339867,
+    "sha256": "52fb8e5dc3c436486e18a61d3e5ad705415e198250329aae053514d809a8ceee",
+    "source": "GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024; metropolitan outline from Natural Earth 10m Admin 0 Countries v5.1.1; Corse excluded from the frame",
+    "sourceUrl": "https://wms.gebco.net/2024/mapserv",
+    "layer": "GEBCO_2024",
+    "request": {
+      "version": "1.1.1",
+      "srs": "EPSG:4326",
+      "bbox": [
+        -5.5,
+        42.0,
+        8.7,
+        51.3
+      ],
+      "width": 1000,
+      "height": 840,
+      "format": "image/png"
+    },
+    "outlineSource": "Natural Earth 10m Admin 0 Countries v5.1.1",
+    "outlineSourceUrl": "https://www.naturalearthdata.com/downloads/10m-cultural-vectors/10m-admin-0-countries/",
+    "style": "GEBCO raster retained; land-only grade calibrated against the existing PACA regional relief; real metropolitan outline and unlabeled Côte d’Azur extent rectangle only; no labels or site markers"
+  },
+  "westCoastLocator": {
+    "src": "/maps/paca/paca-regional-relief.png",
+    "width": 1864,
+    "height": 1440,
+    "boundsWgs84": {
+      "west": 5.65,
+      "south": 42.82,
+      "east": 7.0,
+      "north": 43.58
+    },
+    "bytes": 2247432,
+    "sha256": "cbc0711d3a06ef0e11f0fe53ae753611e023db22388485500a1e2d9c92469984",
+    "source": "Shom–IGN Limite terre-mer for the visible PACA coastline; Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; EMODnet Bathymetry DTM 2024 for offshore bathymetry; GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024 only as no-data fallback; IGN RGE ALTI for land relief",
+    "sourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "layer": "emodnet:mean",
+    "detailSourceUrl": "https://data.geopf.fr/wmts",
+    "detailLayer": "ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES",
+    "detailTileMatrixSet": "WGS84G_6_14",
+    "detailZoom": 11,
+    "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur",
+    "coastlineSource": "Shom–IGN Limite terre-mer COALNE + SLCONS vector features, LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne; Natural Earth 10m Admin 0 Countries v5.1.1 is used only for border flood-fill seeding and sanity checking",
+    "detailBathymetrySourceUrl": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL",
+    "detailBathymetryLayer": "LITTO3D PACA 2015 MNT5m",
+    "detailBathymetryCrs": "EPSG:2154",
+    "detailBathymetryResolutionM": 5.0,
+    "detailBathymetryArchiveCount": 6,
+    "detailBathymetryTileCount": 123,
+    "coastlineSourceUrl": "https://services.data.shom.fr/INSPIRE/wfs",
+    "coastlineLayer": "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne",
+    "coastlineResolution": "1–7 m product resolution",
+    "marineSourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "marineLayer": "emodnet:mean",
+    "marineResolution": "1/16 arc minute native DTM grid (~115 m)",
+    "coastlineFeatureTypes": "COALNE + SLCONS"
+  },
+  "sites": [
+    {
+      "slug": "la-gabiniere-port-cros",
+      "displayName": "La Gabinière",
+      "plateTitle": "La Gabinière, Port-Cros",
+      "assetBasePath": "/maps/paca/la-gabiniere-port-cros",
+      "location": {
+        "city": "Hyères · Port-Cros",
+        "latitude": 42.98868,
+        "longitude": 6.3930747
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 55.04257,
+        "yPercent": 77.80526
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "interactiveInitialView": {
+        "zoom": 0.78,
+        "orbitAzimuthDeg": -60,
+        "cameraElevationDeg": 18,
+        "panRightM": 45,
+        "panUpM": 85,
+        "isobathLabelFocusXNdc": 0.12
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "la-gabiniere-port-cros-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "la-gabiniere-port-cros-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "la-gabiniere-port-cros-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "la-gabiniere-port-cros-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 143802,
+            "sha256": "74838c649039f68db9389daf4f32606480dad1ee941e6379bf08c664b0776982"
+          },
+          "download": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3280361,
+            "sha256": "794c325388f64257e6e9b88675d2a78bcd0513f14bb96bc0a6bb8220974de235",
+            "filename": "la-gabiniere-port-cros-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 166200,
+            "sha256": "dcd833293e5bcfb2b822a9f56f2d602a7dd6c2394fc31744d812b584958a11ef"
+          },
+          "download": {
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3495325,
+            "sha256": "419b194a5c43c67996d82f3dbc56f857cf713caf7930f1b43430a829be6c3024",
+            "filename": "la-gabiniere-port-cros-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "pointe-portissol",
+      "displayName": "Pointe de Portissol",
+      "plateTitle": "Pointe de Portissol, Sanary-sur-Mer",
+      "assetBasePath": "/maps/paca/pointe-portissol",
+      "location": {
+        "city": "Sanary-sur-Mer",
+        "latitude": 43.11298029,
+        "longitude": 5.78799011
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 10.2215,
+        "yPercent": 61.45
+      },
+      "maxDepthM": 25,
+      "planMaxDepthM": 25,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "interactiveInitialView": {
+        "zoom": 1
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/pointe-portissol/maps/2d-topographic.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/pointe-portissol/maps/2d-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "pointe-portissol-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "pointe-portissol-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/pointe-portissol/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/pointe-portissol/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/pointe-portissol/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/pointe-portissol/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "pointe-portissol-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/pointe-portissol/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/pointe-portissol/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/pointe-portissol/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/pointe-portissol/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "pointe-portissol-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/paca/pointe-portissol/maps/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 137292,
+            "sha256": "d22cdd9e408f63a4a8ed4a17554e3b011922def5856998864fc4d33e1b47bae6"
+          },
+          "download": {
+            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3734670,
+            "sha256": "86e7c9699320e21840012ba5c5ebb5aa474756407608ab84ea0016a7003b1fb1",
+            "filename": "pointe-portissol-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/paca/pointe-portissol/maps/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 219634,
+            "sha256": "72e52d4e5d286fb31652574c2bc4fb00ab1f78bea847051cf6b41b865862331b"
+          },
+          "download": {
+            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4800813,
+            "sha256": "1a763f4c144cbdf2f38351654fae20f66cb5c572f308be2f17a386b43cce6e4c",
+            "filename": "pointe-portissol-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "deux-freres-cap-sicie",
+      "displayName": "Les Deux Frères",
+      "plateTitle": "Les Deux Frères, Cap Sicié",
+      "assetBasePath": "/maps/paca/deux-freres-cap-sicie",
+      "location": {
+        "city": "La Seyne-sur-Mer · Cap Sicié",
+        "latitude": 43.04862882,
+        "longitude": 5.86826973
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 16.16813,
+        "yPercent": 69.91726
+      },
+      "maxDepthM": 45,
+      "planMaxDepthM": 45,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "interactiveInitialView": {
+        "zoom": 0.9,
+        "centerOffsetEastM": 310,
+        "centerOffsetSouthM": 100
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "deux-freres-cap-sicie-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "deux-freres-cap-sicie-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "deux-freres-cap-sicie-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 662
+            },
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 157604,
+            "sha256": "cf303fa2d760458d021dba8c25e407a46fc5081f7aba18951c5ce94afaad0c5c"
+          },
+          "download": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3857606,
+            "sha256": "6288d23e8788665cc1881739342b57596716cd78fbff9c8c211be0377832bc05",
+            "filename": "deux-freres-cap-sicie-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 160102,
+            "sha256": "7ce7d79952c579b5acdcad5ff3363d910888daf4ef6595c88e1c7208d2254832"
+          },
+          "download": {
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3873495,
+            "sha256": "36738f1d645f35235cad83a02b151f72c72c34b913374c1c7e8afa03bfa48892",
+            "filename": "deux-freres-cap-sicie-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "les-pyramides-cap-dramont",
+      "displayName": "Les Pyramides",
+      "plateTitle": "Les Pyramides, Cap Dramont–Île d’Or",
+      "assetBasePath": "/maps/paca/les-pyramides-cap-dramont",
+      "location": {
+        "city": "Saint-Raphaël · Cap Dramont",
+        "latitude": 43.40906678,
+        "longitude": 6.84388276
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 88.43576,
+        "yPercent": 22.49121
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "interactiveInitialView": {
+        "zoom": 0.65
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-topographic.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "les-pyramides-cap-dramont-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "les-pyramides-cap-dramont-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "les-pyramides-cap-dramont-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "les-pyramides-cap-dramont-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 147494,
+            "sha256": "116acf158720fb4e04894ab09113b3fb87a30e1f3b7183d09424671e63e19817"
+          },
+          "download": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3495111,
+            "sha256": "7813dabae4dc614ebd9f86ae2a947b2dbbfeff3e81784fa068597134054779fc",
+            "filename": "les-pyramides-cap-dramont-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 156550,
+            "sha256": "352bfcb06c62971eecfe0fca7954f2b6ef8bdd32d36d7a5f2b4c8a203047135a"
+          },
+          "download": {
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3572627,
+            "sha256": "96da67b7019630afc9b3edd42319eef8037afdef04748004531515b1490f5bf5",
+            "filename": "les-pyramides-cap-dramont-planche.jpg"
+          }
+        }
+      ]
+    },
+    {
+      "slug": "cap-des-medes",
+      "displayName": "Cap des Mèdes",
+      "plateTitle": "Cap des Mèdes, Porquerolles",
+      "assetBasePath": "/maps/paca/cap-des-medes",
+      "location": {
+        "city": "Hyères · Porquerolles",
+        "latitude": 43.02828301,
+        "longitude": 6.24145058
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 43.81189,
+        "yPercent": 72.59436
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "interactiveInitialView": {
+        "zoom": 1
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/cap-des-medes/maps/2d-topographic.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/cap-des-medes/maps/2d-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "cap-des-medes-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "cap-des-medes-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/cap-des-medes/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/cap-des-medes/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/cap-des-medes/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/cap-des-medes/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "cap-des-medes-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/paca/cap-des-medes/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664
+            },
+            {
+              "src": "/maps/paca/cap-des-medes/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107
+            },
+            {
+              "src": "/maps/paca/cap-des-medes/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712
+            }
+          ],
+          "download": {
+            "src": "/maps/paca/cap-des-medes/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "filename": "cap-des-medes-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/paca/cap-des-medes/maps/planche-topographic-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 143632,
+            "sha256": "e7abe9999b16a074a511adab51291d51fa0a6fce74b2ba0507830a05f5bd0d8b"
+          },
+          "download": {
+            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-topographic-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3582757,
+            "sha256": "ea811c958ab32d53dc51cbf5d1a24e96256b81a575adc4f54936cdd11a7af936",
+            "filename": "cap-des-medes-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/paca/cap-des-medes/maps/planche-orthophoto-1800.webp",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 162122,
+            "sha256": "d8265cf03bb4b5eac035314895416c4bc4e718bba3ec8b69f403348ee6d368ee"
+          },
+          "download": {
+            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-orthophoto-full.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3836896,
+            "sha256": "de6da2fca27cc3ca7bae910bb10750651fc54d9c4bb7185c91473ebcdd00dded",
+            "filename": "cap-des-medes-planche.jpg"
+          }
+        }
+      ]
+    }
+  ]
+}

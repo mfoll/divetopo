@@ -296,17 +296,40 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
     stylesheet,
     controlsSource,
     preferencesSource,
+    pacaManifestSource,
   ] = await Promise.all([
     readFile(new URL("../content/regions.ts", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/PreferenceControls.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/preferences.ts", import.meta.url), "utf8"),
+    readFile(new URL("../content/paca-map-manifest.json", import.meta.url), "utf8"),
   ]);
 
   assert.match(regionsSource, /export const regions/);
   assert.match(regionsSource, /href:\s*"\/reunion"/);
   assert.match(regionsSource, /reunion-overview\.webp/);
+  assert.match(regionsSource, /pacaMapManifest\.westCoastLocator\.src/);
+  assert.match(regionsSource, /pacaMapManifest\.westCoastLocator\.width/);
+  assert.match(regionsSource, /pacaMapManifest\.westCoastLocator\.height/);
+  assert.match(pacaManifestSource, /"detailBathymetryLayer":\s*"LITTO3D PACA 2015 MNT5m"/);
+  assert.match(pacaManifestSource, /"detailBathymetryCrs":\s*"EPSG:2154"/);
+  assert.match(pacaManifestSource, /"detailBathymetryResolutionM":\s*5/);
+  assert.match(pacaManifestSource, /"detailBathymetryArchiveCount":\s*6/);
+  assert.match(pacaManifestSource, /"detailBathymetryTileCount":\s*123/);
+  assert.match(
+    pacaManifestSource,
+    /"coastlineLayer":\s*"LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne"/,
+  );
+  assert.match(
+    pacaManifestSource,
+    /"coastlineSource":\s*"Shom–IGN Limite terre-mer COALNE \+ SLCONS vector features/,
+  );
+  assert.match(pacaManifestSource, /"marineLayer":\s*"emodnet:mean"/);
+  assert.match(
+    pacaManifestSource,
+    /"marineResolution":\s*"1\/16 arc minute native DTM grid \(~115 m\)"/,
+  );
   assert.match(regionsSource, /fr:\s*"La Réunion"/);
   assert.match(regionsSource, /en:\s*"Réunion Island"/);
   assert.match(stylesheet, /:root\[data-theme="dark"\]/);
@@ -347,6 +370,10 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
     /\.contact-inner p\s*\{[^}]*max-width:/s,
   );
   assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*30rem;/s);
+  assert.match(
+    stylesheet,
+    /\.homepage-main \.region-visual img\s*\{[^}]*aspect-ratio:\s*auto;/s,
+  );
   assert.match(controlsSource, /document\.cookie/);
   assert.match(controlsSource, /Domain=\.divetopo\.com/);
   assert.match(controlsSource, /className="language-choice"/);

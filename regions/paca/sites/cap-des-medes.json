@@ -2,6 +2,10 @@
   "region": "paca",
   "slug": "cap-des-medes",
   "title": "Cap des Mèdes, Porquerolles",
+  "plate_relief_source": "interactive",
+  "paths": {
+    "output_locator": "apps/web/public/maps/paca/france-metropolitan-situation.png"
+  },
   "litto3d_archives": [
     {
       "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0960_6220/file/0960_6220.7z",

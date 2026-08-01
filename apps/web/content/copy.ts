@@ -92,8 +92,7 @@ export const topoReunionCopy = {
       north: "Nord",
       showSite: "Afficher",
       fiveKilometreScale: "Échelle de cinq kilomètres",
-      openIslandMap: "Ouvrir la carte de La Réunion en grand",
-      islandOverviewAlt:
+      overviewAlt:
         "Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest détaillée ci-dessus.",
     },
     activeSite: {
@@ -203,10 +202,7 @@ export const topoReunionCopy = {
     },
     dialogs: {
       largeMap: "Carte de",
-      largeIslandMap: "Carte de La Réunion en grand",
       close: "Fermer",
-      islandOverviewAlt:
-        "Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest couverte par la carte de sélection des sites.",
     },
     terrain: {
       interactiveTerrain: "Relief 3D interactif de",
@@ -284,8 +280,7 @@ export const topoReunionCopy = {
       north: "North",
       showSite: "Show",
       fiveKilometreScale: "Five-kilometre scale",
-      openIslandMap: "Open the Réunion Island map",
-      islandOverviewAlt:
+      overviewAlt:
         "Land and underwater terrain around Réunion Island. A rectangle marks the west-coast area shown in detail above.",
     },
     activeSite: {
@@ -395,10 +390,7 @@ export const topoReunionCopy = {
     },
     dialogs: {
       largeMap: "Full-size map of",
-      largeIslandMap: "Full-size map of Réunion Island",
       close: "Close",
-      islandOverviewAlt:
-        "Land and underwater terrain around Réunion Island. A rectangle marks the west-coast area covered by the site-selection map.",
     },
     terrain: {
       interactiveTerrain: "Interactive 3D terrain of",
@@ -418,3 +410,183 @@ export const topoReunionCopy = {
     },
   },
 } as const;
+
+const pacaSourceLinks = {
+  bathymetry: [
+    {
+      label: "Shom–IGN Litto3D PACA 2015",
+      href: "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+    },
+  ],
+  imagery: [
+    {
+      label: "IGN BD ORTHO",
+      href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO",
+    },
+  ],
+  regional: [
+    {
+      label: "GEBCO 2024 Grid",
+      href: "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid",
+    },
+  ],
+} as const;
+
+export const pacaCopy = {
+  fr: {
+    ...topoReunionCopy.fr,
+    topoReunionTitle:
+      "Plans des sites de plongée de la Côte d’Azur",
+    metadataDescription:
+      "Plans topo-bathymétriques 2D, perspectives 3D et reliefs interactifs des sites intégrés sur la Côte d’Azur.",
+    islandName: "Côte d’Azur",
+    picker: {
+      ...topoReunionCopy.fr.picker,
+      chooseDiveSite: "Choisir un site de Côte d’Azur",
+      overviewAlt:
+        "Carte de situation de la France métropolitaine, sans annotations.",
+      westCoastAlt:
+        "Relief terrestre et sous-marin de la Côte d’Azur, avec cinq sites de plongée repérés.",
+    },
+    sources: {
+      ...topoReunionCopy.fr.sources,
+      lead:
+        "Les cinq sites intégrés utilisent les sources déclarées pour la Côte d’Azur et les mêmes contrôles de production que La Réunion.",
+      cards: [
+        {
+          title: "Bathymétrie",
+          description:
+            "Les surfaces marines proviennent des données Shom–IGN Litto3D PACA 2015, avec un MNT maillé à 1 m.",
+          links: pacaSourceLinks.bathymetry,
+        },
+        {
+          title: "Topographie",
+          description:
+            "Les surfaces terrestres conservent la source et la référence verticale IGN69 déclarées par les configurations.",
+          links: pacaSourceLinks.bathymetry,
+        },
+        {
+          title: "Imagerie aérienne",
+          description:
+            "Les vues aériennes utilisent IGN BD ORTHO, avec la date de prise de vue conservée par site.",
+          links: pacaSourceLinks.imagery,
+        },
+        {
+          title: "Relief régional",
+          description:
+            "La carte de sélection reprend le relief régional validé GEBCO 2024 ; les cinq repères sont dérivés des coordonnées déclarées.",
+          links: pacaSourceLinks.regional,
+        },
+      ],
+      methodSteps: [
+        {
+          title: "Sources et contrôle du cache",
+          description:
+            "Chaque configuration déclare les prépaquets SHOM et leurs membres exacts. Le pipeline contrôle les emprises, la résolution, le contenu et les empreintes avant rendu.",
+        },
+        {
+          title: "Surface terre-mer continue",
+          description:
+            "Le traitement respecte le contrat de source de chaque site. Les profondeurs positives et les altitudes signées restent séparées des zones NoData.",
+        },
+        {
+          title: "Plans et perspectives",
+          description:
+            "Les plans 2D, les posters 3D, les cadrages et l’exagération verticale sont déterminés par chaque configuration ; les rendus intégrés restent inchangés.",
+        },
+        {
+          title: "Relief interactif et formats Web",
+          description:
+            "Chaque paquet Web conserve son champ d’altitude, ses masques et ses textures topographique et orthophoto, avec les téléchargements JPEG consolidés.",
+        },
+      ],
+    },
+    contact: {
+      title: "Contact",
+      question:
+        "Une question ou une remarque sur les cartes de la Côte d’Azur présentées ici ?",
+      action: "Écrivez-moi à",
+    },
+    footer: {
+      ...topoReunionCopy.fr.footer,
+      analytics: "Prévisualisation locale · aucune mesure d’audience.",
+    },
+  },
+  en: {
+    ...topoReunionCopy.en,
+    topoReunionTitle: "Dive site maps along the Côte d’Azur",
+    metadataDescription:
+      "2D topographic-bathymetric maps, 3D views and interactive terrain for integrated sites along the Côte d’Azur.",
+    islandName: "Côte d’Azur",
+    picker: {
+      ...topoReunionCopy.en.picker,
+      chooseDiveSite: "Choose a Côte d’Azur dive site",
+      overviewAlt:
+        "Situation map of metropolitan France, without annotations.",
+      westCoastAlt:
+        "Land and underwater terrain along the Côte d’Azur, with five mapped dive sites.",
+    },
+    sources: {
+      ...topoReunionCopy.en.sources,
+      lead:
+        "The five integrated sites use the sources declared for the Côte d’Azur and the same production checks as Réunion.",
+      cards: [
+        {
+          title: "Bathymetry",
+          description:
+            "Marine surfaces come from the 2015 Shom–IGN Litto3D PACA data, using a 1 m gridded terrain model.",
+          links: pacaSourceLinks.bathymetry,
+        },
+        {
+          title: "Topography",
+          description:
+            "Land surfaces retain the source and IGN69 vertical reference declared by each configuration.",
+          links: pacaSourceLinks.bathymetry,
+        },
+        {
+          title: "Aerial imagery",
+          description:
+            "Aerial views use IGN BD ORTHO, with the capture date retained for each site.",
+          links: pacaSourceLinks.imagery,
+        },
+        {
+          title: "Regional relief",
+          description:
+            "The selection map uses the validated GEBCO 2024 regional relief; all five markers come from declared coordinates.",
+          links: pacaSourceLinks.regional,
+        },
+      ],
+      methodSteps: [
+        {
+          title: "Sources and cache validation",
+          description:
+            "Each configuration declares the SHOM prepackages and their exact members. The pipeline checks extents, resolution, content and fingerprints before rendering.",
+        },
+        {
+          title: "Continuous land-sea surface",
+          description:
+            "Processing follows each site’s source contract. Positive depths and signed elevations remain separate from NoData areas.",
+        },
+        {
+          title: "Maps and perspectives",
+          description:
+            "The 2D maps, 3D posters, framing and vertical exaggeration are defined by each site configuration; integrated renders remain unchanged.",
+        },
+        {
+          title: "Interactive terrain and Web formats",
+          description:
+            "Each Web package keeps its height field, masks and topographic and aerial textures, together with the consolidated JPEG downloads.",
+        },
+      ],
+    },
+    contact: {
+      title: "Contact",
+      question: "Have a question or comment about the Côte d’Azur maps shown here?",
+      action: "Email me at",
+    },
+    footer: {
+      ...topoReunionCopy.en.footer,
+      analytics: "Local preview · no audience measurement.",
+    },
+  },
+} satisfies typeof topoReunionCopy;

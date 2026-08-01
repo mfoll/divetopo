@@ -7,7 +7,7 @@ type SurfaceStyle = "topographic" | "orthophoto";
 
 const TerrainViewer = lazy(() => import("../../../TerrainViewer"));
 
-const MAP_BASE = "/test-assets/paca/cap-des-medes/maps";
+const MAP_BASE = "/maps/paca/cap-des-medes/maps";
 const TERRAIN_SLUG = "cap-des-medes";
 const TERRAIN_BASE = `/terrain/${TERRAIN_SLUG}`;
 

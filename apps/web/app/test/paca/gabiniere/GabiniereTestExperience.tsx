@@ -7,7 +7,7 @@ type SurfaceStyle = "topographic" | "orthophoto";
 
 const TerrainViewer = lazy(() => import("../../../TerrainViewer"));
 
-const MAP_BASE = "/test-assets/paca/gabiniere/maps";
+const MAP_BASE = "/maps/paca/la-gabiniere-port-cros/maps";
 const TERRAIN_SLUG = "la-gabiniere-port-cros";
 const TERRAIN_BASE = `/terrain/${TERRAIN_SLUG}`;
 

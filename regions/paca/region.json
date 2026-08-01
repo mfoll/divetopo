@@ -1,6 +1,14 @@
 {
   "schemaVersion": 1,
   "slug": "paca",
+  "names": {
+    "fr": "Côte d’Azur",
+    "en": "Côte d’Azur"
+  },
+  "crs": {
+    "code": "EPSG:2154",
+    "name": "RGF93 / Lambert-93"
+  },
   "route": "/test/paca/gabiniere",
   "pipeline": {
     "siteConfigDirectory": "regions/paca/sites",

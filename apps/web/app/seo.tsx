@@ -1,28 +1,37 @@
 import type { Metadata } from "next";
 import type { Language } from "../content/preferences";
+import { pacaMapManifest } from "../content/regional";
 import {
   absoluteUrl,
   defaultSitePath,
   languagePath,
   localizedSitePath,
+  pacaPublishedSites,
   publishedSites,
   regionalSeoText,
   siteRepresentativeImages,
   siteSeoText,
   siteSocialImage,
   TOPO_REUNION_ORIGIN,
+  type PublishedSite,
 } from "../content/routing";
+import type { RegionSlug } from "../content/regional";
 
-type PublishedSite = (typeof publishedSites)[number];
-
-function languageAlternates(slug?: string) {
+function languageAlternates(
+  slug?: string,
+  region: RegionSlug = "reunion",
+) {
   const frenchPath = slug
-    ? localizedSitePath("fr", slug)
-    : languagePath("fr");
+    ? localizedSitePath("fr", slug, region)
+    : languagePath("fr", region);
   const englishPath = slug
-    ? localizedSitePath("en", slug)
-    : languagePath("en");
-  const defaultPath = slug ? defaultSitePath(slug) : "/reunion";
+    ? localizedSitePath("en", slug, region)
+    : languagePath("en", region);
+  const defaultPath = slug
+    ? defaultSitePath(slug, region)
+    : region === "paca"
+      ? "/paca"
+      : "/reunion";
 
   return {
     fr: absoluteUrl(frenchPath),
@@ -68,17 +77,27 @@ function socialMetadata(
   };
 }
 
-export function regionalMetadata(language: Language): Metadata {
-  const text = regionalSeoText(language);
-  const canonicalUrl = absoluteUrl(languagePath(language));
-  const image = { src: "/reunion-og.png", width: 1200, height: 630 };
+export function regionalMetadata(
+  language: Language,
+  region: RegionSlug = "reunion",
+): Metadata {
+  const text = regionalSeoText(language, region);
+  const canonicalUrl = absoluteUrl(languagePath(language, region));
+  const image =
+    region === "paca"
+      ? {
+          src: pacaMapManifest.westCoastLocator.src,
+          width: pacaMapManifest.westCoastLocator.width,
+          height: pacaMapManifest.westCoastLocator.height,
+        }
+      : { src: "/reunion-og.png", width: 1200, height: 630 };
 
   return {
     title: text.title,
     description: text.description,
     alternates: {
       canonical: canonicalUrl,
-      languages: languageAlternates(),
+      languages: languageAlternates(undefined, region),
     },
     robots: {
       index: true,
@@ -98,11 +117,12 @@ export function regionalMetadata(language: Language): Metadata {
 export function siteMetadata(
   language: Language,
   site: PublishedSite,
+  region: RegionSlug = "reunion",
 ): Metadata {
-  const text = siteSeoText(language, site);
-  const regionalText = regionalSeoText(language);
+  const text = siteSeoText(language, site, region);
+  const regionalText = regionalSeoText(language, region);
   const canonicalUrl = absoluteUrl(
-    localizedSitePath(language, site.slug),
+    localizedSitePath(language, site.slug, region),
   );
   const image = siteSocialImage(site);
 
@@ -111,7 +131,7 @@ export function siteMetadata(
     description: text.description,
     alternates: {
       canonical: canonicalUrl,
-      languages: languageAlternates(site.slug),
+      languages: languageAlternates(site.slug, region),
     },
     robots: {
       index: true,
@@ -119,7 +139,7 @@ export function siteMetadata(
     },
     ...socialMetadata(
       language,
-      regionalText.title,
+      text.title,
       text.description,
       canonicalUrl,
       image,
@@ -134,11 +154,14 @@ function safeJson(value: unknown) {
 
 export function RegionalStructuredData({
   language,
+  region = "reunion",
 }: {
   language: Language;
+  region?: RegionSlug;
 }) {
-  const text = regionalSeoText(language);
-  const pageUrl = absoluteUrl(languagePath(language));
+  const text = regionalSeoText(language, region);
+  const sites = region === "paca" ? pacaPublishedSites : publishedSites;
+  const pageUrl = absoluteUrl(languagePath(language, region));
 
   const data = {
     "@context": "https://schema.org",
@@ -160,12 +183,12 @@ export function RegionalStructuredData({
         isPartOf: { "@id": `${TOPO_REUNION_ORIGIN}/#website` },
         mainEntity: {
           "@type": "ItemList",
-          numberOfItems: publishedSites.length,
-          itemListElement: publishedSites.map((site, index) => ({
+          numberOfItems: sites.length,
+          itemListElement: sites.map((site, index) => ({
             "@type": "ListItem",
             position: index + 1,
             name: site.displayName,
-            url: absoluteUrl(localizedSitePath(language, site.slug)),
+            url: absoluteUrl(localizedSitePath(language, site.slug, region)),
           })),
         },
       },
@@ -183,16 +206,24 @@ export function RegionalStructuredData({
 export function SiteStructuredData({
   language,
   site,
+  region = "reunion",
 }: {
   language: Language;
   site: PublishedSite;
+  region?: RegionSlug;
 }) {
-  const text = siteSeoText(language, site);
-  const pageUrl = absoluteUrl(localizedSitePath(language, site.slug));
+  const text = siteSeoText(language, site, region);
+  const pageUrl = absoluteUrl(
+    localizedSitePath(language, site.slug, region),
+  );
+  const regionName =
+    region === "paca"
+      ? "Côte d’Azur"
+      : language === "fr"
+        ? "La Réunion"
+        : "Réunion Island";
   const placeName =
-    language === "fr"
-      ? `${site.displayName}, ${site.location.city}, La Réunion`
-      : `${site.displayName}, ${site.location.city}, Réunion Island`;
+    `${site.displayName}, ${site.location.city}, ${regionName}`;
   const imageObjects = siteRepresentativeImages(language, site).map(
     (image, index) => ({
       "@type": "ImageObject",

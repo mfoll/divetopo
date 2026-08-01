@@ -85,6 +85,7 @@ _ALLOWED_KEYS = frozenset(
         "interactive_initial_center_offset_east_m",
         "interactive_initial_center_offset_south_m",
         "interactive_initial_zoom",
+        "interactive_featured_vector_label_levels_m",
         "interactive_required_vector_label_levels_m",
         "interactive_reselect_vector_labels_on_camera_end",
         "interactive_vector_label_collision_padding_ndc",
@@ -630,17 +631,18 @@ def validate_config(config: Mapping[str, Any]) -> None:
         )
 
     region = region_slug(config)
-    if region != "reunion":
+    if region == "reunion":
+        _non_empty_string(config, "hyscores_tiff_url", required=True)
+        if "hyscores_directory" in config:
+            _non_empty_string(config, "hyscores_directory")
+        if "bathymetry_source_text" in config:
+            _non_empty_string(config, "bathymetry_source_text")
+        if "bathymetry_attribution" in config:
+            _non_empty_string(config, "bathymetry_attribution")
+    elif region != "paca":
         raise ValueError(
             f"Region {region!r} has no configured source validation contract"
         )
-    _non_empty_string(config, "hyscores_tiff_url", required=True)
-    if "hyscores_directory" in config:
-        _non_empty_string(config, "hyscores_directory")
-    if "bathymetry_source_text" in config:
-        _non_empty_string(config, "bathymetry_source_text")
-    if "bathymetry_attribution" in config:
-        _non_empty_string(config, "bathymetry_attribution")
 
     shom_fusion = config.get("shom_local_fusion")
     if shom_fusion is not None:
@@ -1152,7 +1154,7 @@ def validate_config(config: Mapping[str, Any]) -> None:
         bearing_delta = abs(
             (footprint_bearing - view_bearing + 180.0) % 360.0 - 180.0
         )
-        if bearing_delta > 1e-6:
+        if bearing_delta > 1e-6 and region != "paca":
             raise ValueError(
                 "interactive_footprint_utm40s.look_bearing_deg must match "
                 "view_bearing_deg"

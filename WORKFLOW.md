@@ -65,10 +65,91 @@ Use the target region's workflow. At minimum, every published site must have:
 - a canonical interactive terrain package;
 - responsive Web derivatives and downloads;
 - configuration, provenance and automated checks;
+- an initial-view equivalence check between the real route and every generated
+  3D fallback/HD pair, following [INTERACTIVE-TERRAIN.md](INTERACTIVE-TERRAIN.md);
 - full-resolution visual inspection and desktop/mobile interactive inspection.
 
 Relief mapping never demonstrates access, authorization, present conditions or
 safety. Document uncertainty instead of turning it into a geographic claim.
+
+### Browser geometry gate for the site map
+
+The server-rendered tests prove the route, manifest and asset contract. They do
+not prove the final geometry of the regional site map. Run this additional gate
+after generating the Web derivatives and before accepting a new site. It applies
+to every regional landing map that displays site markers.
+
+1. Open the final local Web build at the regional landing route, with the map
+   image and fonts fully loaded. Test at a desktop viewport of `1280 × 720`
+   with device-pixel ratio `2` and a mobile viewport of `390 × 844` with
+   device-pixel ratio `1` (or record the nearest supported equivalents). Keep
+   browser zoom at 100%.
+2. In the browser DOM, inspect `.site-picker-map` and every
+   `.site-map-marker`. For each marker, measure the `getBoundingClientRect()`
+   of `.site-map-marker-dot` (point), `.site-map-marker-line` (connector), and
+   `.site-map-marker-label` (cartouche). Record the computed values of
+   `--label-shift-y`, `--label-offset`, `--label-width`, `--connector-angle`,
+   and `--connector-width`.
+3. The gate passes only when all of the following hold at both viewports:
+   - the marker count equals the generated site inventory, and every marker has
+     a non-empty point, connector and cartouche rectangle;
+   - the point and cartouche remain inside the map rectangle, with no clipping
+     or viewport overflow;
+   - the cartouche does not intersect its own point, any other point, or any
+     other cartouche;
+   - the connector is rendered and visible, starts at the point centre, and
+     reaches the intended left or right cartouche edge within `2 px`; check the
+     transformed segment endpoints, not only the axis-aligned bounding box of
+     a rotated line;
+   - the connector does not pass through another point or cartouche, and no
+     connector is absent, reversed, or hidden behind a cartouche;
+   - the label text is not clipped or unintentionally wrapped, and its text
+     rectangle is vertically centred inside the cartouche within `2 px`;
+   - selecting the new site and exercising keyboard focus or touch does not
+     introduce a new overlap, overflow, or hidden connector.
+4. Save one desktop and one mobile screenshot, together with a compact record
+   per site containing the side, cartouche width and height, label offsets,
+   connector angle and length, point-to-connector error, connector-to-cartouche
+   error, and the pass/fail result. A failing site is corrected through its
+   regional layout parameters, then the complete two-viewport check is rerun.
+
+For a reproducible first measurement, run this in DevTools and retain the
+returned rectangles alongside the screenshots:
+
+```js
+(() => {
+  const rect = (element) => {
+    const { left, top, right, bottom, width, height } =
+      element.getBoundingClientRect();
+    return { left, top, right, bottom, width, height };
+  };
+  const variables = [
+    "--label-shift-y",
+    "--label-offset",
+    "--label-width",
+    "--connector-angle",
+    "--connector-width",
+  ];
+  const map = document.querySelector(".site-picker-map");
+  if (!map) throw new Error(".site-picker-map not found");
+  return {
+    map: rect(map),
+    markers: [...map.querySelectorAll(".site-map-marker")].map((marker) => {
+      const style = getComputedStyle(marker);
+      return {
+        site: marker.getAttribute("href"),
+        side: marker.classList.contains("label-left") ? "left" : "right",
+        point: rect(marker.querySelector(".site-map-marker-dot")),
+        connector: rect(marker.querySelector(".site-map-marker-line")),
+        label: rect(marker.querySelector(".site-map-marker-label")),
+        css: Object.fromEntries(
+          variables.map((name) => [name, style.getPropertyValue(name).trim()]),
+        ),
+      };
+    }),
+  };
+})()
+```
 
 ## Releasing
 

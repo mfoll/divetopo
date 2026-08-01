@@ -10,8 +10,9 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type MouseEvent,
 } from "react";
-import { topoReunionCopy } from "../content/copy";
+import { pacaCopy, topoReunionCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
 import {
   languagePath,
@@ -19,89 +20,72 @@ import {
   parseTopoRoute,
   regionalSeoText,
 } from "../content/routing";
-import mapManifestJson from "../content/map-manifest.json";
+import {
+  PACA_COMPACT_ATTRIBUTIONS,
+  PACA_SITE_LABEL_LAYOUT,
+  REUNION_COMPACT_ATTRIBUTIONS,
+  REUNION_SITE_LABEL_LAYOUT,
+  pacaMapManifest,
+  reunionMapManifest,
+  type AssetVariant,
+  type MapAsset,
+  type MapView,
+  type RegionalAssetSite,
+  type RegionalMapManifest,
+  type RegionSlug,
+  type SiteLabelLayout,
+  type SiteLocation,
+  type SurfaceStyle,
+} from "../content/regional";
 import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
 
-type SurfaceStyle = "topographic" | "orthophoto";
-type MapView = "2d" | "3d";
 type ViewMode = MapView | "interactive";
 type Unified3DRendererState = "loading" | "ready" | "error";
 
-type AssetVariant = {
-  src: string;
-  width: number;
-  height: number;
-};
-
-type MapAsset = {
-  view: MapView;
-  style: SurfaceStyle;
-  sourceDimensions: { width: number; height: number };
-  variants: AssetVariant[];
-  download: AssetVariant & { filename: string };
-};
-
-type PlancheAsset = {
-  style: SurfaceStyle;
-  preview: AssetVariant;
-  download: AssetVariant & { filename: string };
-};
-
-type SiteLocation = {
-  city: string;
-  latitude: number;
-  longitude: number;
-};
-
-type WestCoastLocatorPosition = {
-  xPercent: number;
-  yPercent: number;
-};
-
-type InteractiveInitialView = {
-  zoom: number;
-  centerOffsetEastM: number;
-  centerOffsetSouthM: number;
-};
-
-type TopoReunionAssetSite = {
-  slug: string;
-  displayName: string;
-  plateTitle: string;
-  location: SiteLocation;
-  westCoastLocatorPosition: WestCoastLocatorPosition;
-  maxDepthM: number;
-  planMaxDepthM: number;
-  verticalExaggeration: number;
-  orthophotoCaptureDate: string;
-  plateAuthor: string;
-  copyrightYear: number;
-  mapLicense: string;
-  compactAttributions?: Record<SurfaceStyle, string>;
-  interactiveInitialView?: InteractiveInitialView;
-  maps: MapAsset[];
-  planches: PlancheAsset[];
-};
-
-type MapManifest = {
-  reunionOverview: AssetVariant;
-  westCoastLocator: AssetVariant;
-  sites: TopoReunionAssetSite[];
-};
-
 const TerrainViewer = lazy(() => import("./TerrainViewer"));
-const REUNION_COMPACT_ATTRIBUTIONS: Record<SurfaceStyle, string> = {
-  orthophoto:
-    "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI · Orthophoto : IGN BD ORTHO",
-  topographic:
-    "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI",
+type RegionalCopy = typeof topoReunionCopy;
+
+export type RegionExperienceConfig = {
+  region: RegionSlug;
+  manifest: RegionalMapManifest;
+  copy: RegionalCopy;
+  compactAttributions: Record<SurfaceStyle, string>;
+  siteLabelLayout: Record<string, SiteLabelLayout>;
+  sectionId: string;
+  titleId: string;
+  viewerTestId: string;
 };
+
+export const REUNION_EXPERIENCE_CONFIG: RegionExperienceConfig = {
+  region: "reunion",
+  manifest: reunionMapManifest,
+  copy: topoReunionCopy,
+  compactAttributions: REUNION_COMPACT_ATTRIBUTIONS,
+  siteLabelLayout: REUNION_SITE_LABEL_LAYOUT,
+  sectionId: "topo-reunion",
+  titleId: "topo-reunion-title",
+  viewerTestId: "topo-reunion-viewer",
+};
+
+export const PACA_EXPERIENCE_CONFIG: RegionExperienceConfig = {
+  region: "paca",
+  manifest: pacaMapManifest,
+  copy: pacaCopy,
+  compactAttributions: PACA_COMPACT_ATTRIBUTIONS,
+  siteLabelLayout: PACA_SITE_LABEL_LAYOUT,
+  sectionId: "topo-paca",
+  titleId: "topo-paca-title",
+  viewerTestId: "topo-paca-viewer",
+};
+
 function dynamicCaptureAsset(
-  slug: string,
+  site: RegionalAssetSite,
   style: SurfaceStyle,
 ): MapAsset {
-  const base = `/maps/${slug}`;
+  const base = site.assetBasePath
+    ? `${site.assetBasePath}/maps`
+    : `/maps/${site.slug}`;
   return {
     view: "3d",
     style,
@@ -115,26 +99,23 @@ function dynamicCaptureAsset(
       src: `${base}/downloads/3d-dynamic-${style}-full.jpg`,
       width: 2474,
       height: 1712,
-      filename: `${slug}-3d-dynamique-${style}.jpg`,
+      filename: `${site.slug}-3d-dynamique-${style}.jpg`,
     },
   };
 }
 
 function dynamicMobileCapture(
-  slug: string,
+  site: RegionalAssetSite,
   style: SurfaceStyle,
 ): AssetVariant {
+  const base = site.assetBasePath
+    ? `${site.assetBasePath}/maps`
+    : `/maps/${site.slug}`;
   return {
-    src: `/maps/${slug}/3d-dynamic-${style}-mobile-960.webp`,
+    src: `${base}/3d-dynamic-${style}-mobile-960.webp`,
     width: 960,
     height: 662,
   };
-}
-const mapManifest = mapManifestJson as MapManifest;
-const initialSite = mapManifest.sites[0];
-
-if (!initialSite) {
-  throw new Error("Topo Réunion requires at least one site");
 }
 
 function assetSrcSet(variants: AssetVariant[]) {
@@ -142,7 +123,7 @@ function assetSrcSet(variants: AssetVariant[]) {
 }
 
 function selectedMap(
-  site: TopoReunionAssetSite,
+  site: RegionalAssetSite,
   view: MapView,
   style: SurfaceStyle,
 ) {
@@ -153,11 +134,10 @@ function selectedMap(
   return asset;
 }
 
-function selectedPlanche(site: TopoReunionAssetSite, style: SurfaceStyle) {
-  const asset = site.planches.find(
+function selectedPlanche(site: RegionalAssetSite, style: SurfaceStyle) {
+  const asset = site.planches?.find(
     (candidate) => candidate.style === style,
   );
-  if (!asset) throw new Error(`Missing ${style} planche for ${site.slug}`);
   return asset;
 }
 
@@ -190,12 +170,14 @@ function SurfaceToggle({
   value,
   onChange,
   language,
+  copy,
 }: {
   value: SurfaceStyle;
   onChange: (style: SurfaceStyle) => void;
   language: Language;
+  copy: RegionalCopy;
 }) {
-  const text = topoReunionCopy[language];
+  const text = copy[language];
 
   return (
     <fieldset className="segmented-control surface-control">
@@ -222,14 +204,16 @@ function ViewToggle({
   value,
   onChange,
   language,
+  copy,
   unified3D = false,
 }: {
   value: ViewMode;
   onChange: (view: ViewMode) => void;
   language: Language;
+  copy: RegionalCopy;
   unified3D?: boolean;
 }) {
-  const text = topoReunionCopy[language].views;
+  const text = copy[language].views;
 
   return (
     <fieldset
@@ -263,100 +247,29 @@ function ViewToggle({
   );
 }
 
-type SiteLabelLayout = {
-  side: "left" | "right";
-  shiftYRem: number;
-  connectorAngleDeg: number;
-  connectorWidthRem?: number;
-  labelOffsetRem?: number;
-  lines?: readonly string[];
-  widthRem?: number;
-};
-
-const SITE_LABEL_LAYOUT: Record<string, SiteLabelLayout> = {
-  "cap-la-houssaye": {
-    side: "right",
-    shiftYRem: -1.45,
-    connectorAngleDeg: -42,
-    connectorWidthRem: 1.35,
-  },
-  "boucan-canot": {
-    side: "left",
-    shiftYRem: -1.7,
-    connectorAngleDeg: 48,
-    connectorWidthRem: 1.45,
-  },
-  "cap-homard": {
-    side: "right",
-    shiftYRem: -0.15,
-    connectorAngleDeg: -10,
-    connectorWidthRem: 1.3,
-    labelOffsetRem: 2.6,
-  },
-  "pointe-des-aigrettes": {
-    side: "right",
-    shiftYRem: 2.15,
-    connectorAngleDeg: 58,
-    connectorWidthRem: 2.45,
-    labelOffsetRem: 2.65,
-  },
-  "roches-noires": {
-    side: "left",
-    shiftYRem: 0.9,
-    connectorAngleDeg: -58,
-    connectorWidthRem: 1,
-    labelOffsetRem: 1.9,
-    lines: ["Roches Noires"],
-  },
-  "passe-hermitage": {
-    side: "right",
-    shiftYRem: 0,
-    connectorAngleDeg: 0,
-  },
-  "trois-bassins": {
-    side: "left",
-    shiftYRem: -0.45,
-    connectorAngleDeg: 20,
-  },
-  "souris-chaude": {
-    side: "right",
-    shiftYRem: 0.15,
-    connectorAngleDeg: 8,
-  },
-  "pont-rouge": {
-    side: "left",
-    shiftYRem: -0.5,
-    connectorAngleDeg: 22,
-  },
-  "plage-cimetiere-saint-leu": {
-    side: "left",
-    shiftYRem: -0.5,
-    connectorAngleDeg: 22,
-  },
-  "pointe-au-sel-sec-jaune": {
-    side: "left",
-    shiftYRem: 0.45,
-    connectorAngleDeg: -18,
-  },
-} as const;
-
 function SitePicker({
+  config,
   activeSlug,
   hasSiteRoute,
   onSelect,
-  onOpenOverview,
   language,
 }: {
+  config: RegionExperienceConfig;
   activeSlug: string;
   hasSiteRoute: boolean;
   onSelect: (slug: string) => void;
-  onOpenOverview: () => void;
   language: Language;
 }) {
-  const text = topoReunionCopy[language].picker;
+  const { manifest, copy, region, siteLabelLayout } = config;
+  const text = copy[language].picker;
 
   return (
-    <aside className="site-picker" aria-label={text.chooseDiveSite}>
+    <aside
+      className={
+        region === "paca" ? "site-picker is-paca" : "site-picker"
+      }
+      aria-label={text.chooseDiveSite}
+    >
       <label className="site-picker-select">
         <span>{text.sites}</span>
         <select
@@ -364,7 +277,7 @@ function SitePicker({
           value={activeSlug}
           onChange={(event) => onSelect(event.target.value)}
         >
-          {mapManifest.sites.map((site) => (
+          {manifest.sites.map((site) => (
             <option key={site.slug} value={site.slug}>
               {site.displayName}
             </option>
@@ -378,11 +291,11 @@ function SitePicker({
           <p>{text.instruction}</p>
         </header>
 
-        <div className="site-picker-map">
+        <div className={`site-picker-map${region === "paca" ? " is-paca" : ""}`}>
           <img
-            src={mapManifest.westCoastLocator.src}
-            width={mapManifest.westCoastLocator.width}
-            height={mapManifest.westCoastLocator.height}
+            src={manifest.westCoastLocator.src}
+            width={manifest.westCoastLocator.width}
+            height={manifest.westCoastLocator.height}
             alt={text.westCoastAlt}
           />
           <div
@@ -394,9 +307,9 @@ function SitePicker({
             <strong>N</strong>
           </div>
 
-          {mapManifest.sites.map((site) => {
+          {manifest.sites.map((site) => {
             const selected = activeSlug === site.slug;
-            const layout = SITE_LABEL_LAYOUT[site.slug] ?? {
+            const layout = siteLabelLayout[site.slug] ?? {
               side: "right",
               shiftYRem: 0,
               connectorAngleDeg: 0,
@@ -421,7 +334,7 @@ function SitePicker({
                 aria-current={hasSiteRoute && selected ? "page" : undefined}
                 data-selected={selected}
                 aria-label={`${text.showSite} ${site.displayName}`}
-                href={localizedSitePath(language, site.slug)}
+                href={localizedSitePath(language, site.slug, region)}
                 onClick={(event) => {
                   if (
                     event.button !== 0 ||
@@ -461,38 +374,49 @@ function SitePicker({
           </div>
         </div>
 
-        <button
-          type="button"
-          className="reunion-overview"
-          aria-label={text.openIslandMap}
-          onClick={onOpenOverview}
+        <div
+          className={`reunion-overview${region === "paca" ? " is-paca" : ""}`}
+          role="img"
+          aria-label={text.overviewAlt}
         >
           <div className="reunion-overview-map">
             <img
-              src={mapManifest.reunionOverview.src}
-              width={mapManifest.reunionOverview.width}
-              height={mapManifest.reunionOverview.height}
-              alt={text.islandOverviewAlt}
+              src={manifest.reunionOverview.src}
+              width={manifest.reunionOverview.width}
+              height={manifest.reunionOverview.height}
+              alt=""
             />
-            <span className="reunion-overview-extent" aria-hidden="true" />
+            {region !== "paca" && (
+              <span className="reunion-overview-extent" aria-hidden="true" />
+            )}
           </div>
-        </button>
+        </div>
       </div>
     </aside>
   );
 }
 
-export function TopoReunionExperience({
-  language: initialLanguage,
-  theme,
-  initialSlug,
-}: {
+export type RegionalExperienceProps = {
   language: Language;
   theme: Theme;
   initialSlug?: string;
-}) {
+  config: RegionExperienceConfig;
+};
+
+export function TopoRegionExperience({
+  language: initialLanguage,
+  theme,
+  initialSlug,
+  config,
+}: RegionalExperienceProps) {
+  const { manifest, copy, region } = config;
+  const initialSite = manifest.sites[0];
+  if (!initialSite) {
+    throw new Error(`${region} requires at least one published site`);
+  }
+
   const resolvedInitialSite =
-    mapManifest.sites.find((site) => site.slug === initialSlug) ?? initialSite;
+    manifest.sites.find((site) => site.slug === initialSlug) ?? initialSite;
   const [language, setLanguage] = useState(initialLanguage);
   const [activeSlug, setActiveSlug] = useState(
     () => resolvedInitialSite.slug,
@@ -506,14 +430,13 @@ export function TopoReunionExperience({
   const [unified3DRendererState, setUnified3DRendererState] =
     useState<Unified3DRendererState>("loading");
   const [unified3DAttempt, setUnified3DAttempt] = useState(0);
-  const text = topoReunionCopy[language];
+  const text = copy[language];
   const dialogRef = useRef<HTMLDialogElement>(null);
-  const overviewDialogRef = useRef<HTMLDialogElement>(null);
 
   const activeSite =
-    mapManifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
+    manifest.sites.find((site) => site.slug === activeSlug) ?? initialSite;
   const usesUnified3D = true;
-  const pageSeoText = regionalSeoText(language);
+  const pageSeoText = regionalSeoText(language, region);
   const pageTitle = pageSeoText.title;
   const pageDescription = pageSeoText.description;
 
@@ -527,7 +450,7 @@ export function TopoReunionExperience({
 
   useEffect(() => {
     function restoreRouteFromHistory() {
-      const route = parseTopoRoute(window.location.pathname);
+      const route = parseTopoRoute(window.location.pathname, region);
       if (!route) {
         return;
       }
@@ -541,7 +464,7 @@ export function TopoReunionExperience({
         return;
       }
 
-      if (mapManifest.sites.some((site) => site.slug === route.slug)) {
+      if (manifest.sites.some((site) => site.slug === route.slug)) {
         setActiveSlug(route.slug);
         setHasSiteRoute(true);
         setUnified3DRendererState("loading");
@@ -555,7 +478,7 @@ export function TopoReunionExperience({
     window.addEventListener("popstate", restoreRouteFromHistory);
     return () =>
       window.removeEventListener("popstate", restoreRouteFromHistory);
-  }, []);
+  }, [initialSite.slug, manifest.sites, region]);
 
   const markUnifiedRendererReady = useCallback(() => {
     setUnified3DRendererState("ready");
@@ -571,11 +494,11 @@ export function TopoReunionExperience({
   }, []);
 
   function selectSite(slug: string) {
-    if (!mapManifest.sites.some((site) => site.slug === slug)) {
+    if (!manifest.sites.some((site) => site.slug === slug)) {
       return;
     }
 
-    const pathname = localizedSitePath(language, slug);
+    const pathname = localizedSitePath(language, slug, region);
     const nextUrl =
       `${pathname}${window.location.search}${window.location.hash}`;
     const currentUrl =
@@ -610,8 +533,8 @@ export function TopoReunionExperience({
 
   function changeLanguage(nextLanguage: Language) {
     const pathname = hasSiteRoute
-      ? localizedSitePath(nextLanguage, activeSlug)
-      : languagePath(nextLanguage);
+      ? localizedSitePath(nextLanguage, activeSlug, region)
+      : languagePath(nextLanguage, region);
     const nextUrl = `${pathname}${window.location.search}`;
 
     window.history.replaceState(window.history.state, "", nextUrl);
@@ -621,7 +544,7 @@ export function TopoReunionExperience({
   const staticView: MapView = viewMode === "2d" ? "2d" : "3d";
   const mapAsset =
     usesUnified3D && staticView === "3d"
-      ? dynamicCaptureAsset(activeSite.slug, surfaceStyle)
+      ? dynamicCaptureAsset(activeSite, surfaceStyle)
       : selectedMap(activeSite, staticView, surfaceStyle);
   const mapLargest = mapAsset.variants.at(-1) ?? mapAsset.variants[0];
   const planche = selectedPlanche(activeSite, surfaceStyle);
@@ -631,16 +554,8 @@ export function TopoReunionExperience({
     if (viewMode !== "interactive") dialogRef.current?.showModal();
   }
 
-  function closeOnBackdrop(event: React.MouseEvent<HTMLDialogElement>) {
+  function closeOnBackdrop(event: MouseEvent<HTMLDialogElement>) {
     if (event.target === dialogRef.current) dialogRef.current.close();
-  }
-
-  function closeOverviewOnBackdrop(
-    event: React.MouseEvent<HTMLDialogElement>,
-  ) {
-    if (event.target === overviewDialogRef.current) {
-      overviewDialogRef.current.close();
-    }
   }
 
   const mapAlt =
@@ -695,7 +610,7 @@ export function TopoReunionExperience({
           </a>
           <div className="masthead-actions">
             <nav aria-label={text.header.navigationLabel}>
-              <a href="#topo-reunion">{text.header.explore}</a>
+              <a href={`#${config.sectionId}`}>{text.header.explore}</a>
               <a href="#sources">{text.header.methodSources}</a>
               <a href="#contact">{text.header.contact}</a>
               <a
@@ -723,19 +638,19 @@ export function TopoReunionExperience({
       <main>
         <section
           className="topo-reunion-section"
-          id="topo-reunion"
-          aria-labelledby="topo-reunion-title"
+          id={config.sectionId}
+          aria-labelledby={config.titleId}
         >
           <div className="topo-reunion-intro">
-            <h1 id="topo-reunion-title">{text.topoReunionTitle}</h1>
+            <h1 id={config.titleId}>{text.topoReunionTitle}</h1>
           </div>
 
           <div className="topo-reunion-workspace">
             <SitePicker
+              config={config}
               activeSlug={activeSlug}
               hasSiteRoute={hasSiteRoute}
               onSelect={selectSite}
-              onOpenOverview={() => overviewDialogRef.current?.showModal()}
               language={language}
             />
 
@@ -774,19 +689,21 @@ export function TopoReunionExperience({
                     value={viewMode}
                     onChange={changeViewMode}
                     language={language}
+                    copy={copy}
                     unified3D={usesUnified3D}
                   />
                   <SurfaceToggle
                     value={surfaceStyle}
                     onChange={setSurfaceStyle}
                     language={language}
+                    copy={copy}
                   />
                 </div>
               </div>
 
               <div
                 className={`viewer-frame${showsRegularInteractive || showsUnifiedTerrain ? " is-interactive" : ""}${mountsUnifiedTerrain ? " has-unified-3d" : ""}`}
-                data-testid="topo-reunion-viewer"
+                data-testid={config.viewerTestId}
               >
                 {showsRegularInteractive ? (
                   <Suspense
@@ -804,7 +721,7 @@ export function TopoReunionExperience({
                       language={language}
                       compactAttributions={
                         activeSite.compactAttributions ??
-                        REUNION_COMPACT_ATTRIBUTIONS
+                        config.compactAttributions
                       }
                     />
                   </Suspense>
@@ -837,7 +754,7 @@ export function TopoReunionExperience({
                             media="(max-width: 560px)"
                             srcSet={
                               dynamicMobileCapture(
-                                activeSite.slug,
+                                activeSite,
                                 surfaceStyle,
                               ).src
                             }
@@ -874,6 +791,19 @@ export function TopoReunionExperience({
                           activeSite.interactiveInitialView?.zoom ??
                           (activeSite.slug === "cap-la-houssaye" ? 1.12 : 1)
                         }
+                        initialOrbitAzimuthDeg={
+                          activeSite.interactiveInitialView?.orbitAzimuthDeg
+                        }
+                        initialCameraElevationDeg={
+                          activeSite.interactiveInitialView
+                            ?.cameraElevationDeg
+                        }
+                        initialPanRightM={
+                          activeSite.interactiveInitialView?.panRightM
+                        }
+                        initialPanUpM={
+                          activeSite.interactiveInitialView?.panUpM
+                        }
                         initialCenterOffsetEastM={
                           activeSite.interactiveInitialView
                             ?.centerOffsetEastM ??
@@ -882,14 +812,20 @@ export function TopoReunionExperience({
                         initialCenterOffsetSouthM={
                           activeSite.interactiveInitialView
                             ?.centerOffsetSouthM ??
-                          (activeSite.slug === "cap-la-houssaye" ? 12 : 0)
+                          (region === "reunion" && activeSite.slug === "cap-la-houssaye"
+                            ? 12
+                            : 0)
+                        }
+                        isobathLabelFocusXNdc={
+                          activeSite.interactiveInitialView
+                            ?.isobathLabelFocusXNdc
                         }
                         onReady={markUnifiedRendererReady}
                         onError={markUnifiedRendererError}
                         onContextRestored={restoreUnifiedRenderer}
                         compactAttributions={
                           activeSite.compactAttributions ??
-                          REUNION_COMPACT_ATTRIBUTIONS
+                          config.compactAttributions
                         }
                         downloadHref={mapAsset.download.src}
                         downloadFilename={mapAsset.download.filename}
@@ -907,28 +843,30 @@ export function TopoReunionExperience({
                 <span>{text.map.interactionHelp}</span>
               </div>
 
-              <div className="planche-download">
-                <img
-                  key={`${activeSite.slug}-planche-${surfaceStyle}`}
-                  src={planche.preview.src}
-                  width={planche.preview.width}
-                  height={planche.preview.height}
-                  loading="lazy"
-                  alt={platePreviewAlt}
-                />
-                <div>
-                  <strong>{text.plate.printable}</strong>
-                  <span>
-                    {activeSite.displayName} · {surfaceText.label}
-                  </span>
+              {planche ? (
+                <div className="planche-download">
+                  <img
+                    key={`${activeSite.slug}-planche-${surfaceStyle}`}
+                    src={planche.preview.src}
+                    width={planche.preview.width}
+                    height={planche.preview.height}
+                    loading="lazy"
+                    alt={platePreviewAlt}
+                  />
+                  <div>
+                    <strong>{text.plate.printable}</strong>
+                    <span>
+                      {activeSite.displayName} · {surfaceText.label}
+                    </span>
+                  </div>
+                  <a
+                    href={planche.download.src}
+                    download={planche.download.filename}
+                  >
+                    {text.plate.download}
+                  </a>
                 </div>
-                <a
-                  href={planche.download.src}
-                  download={planche.download.filename}
-                >
-                  {text.plate.download}
-                </a>
-              </div>
+              ) : null}
             </article>
           </div>
         </section>
@@ -1096,30 +1034,21 @@ export function TopoReunionExperience({
         />
       </dialog>
 
-      <dialog
-        className="map-dialog overview-dialog"
-        ref={overviewDialogRef}
-        onClick={closeOverviewOnBackdrop}
-        aria-label={text.dialogs.largeIslandMap}
-      >
-        <button
-          type="button"
-          className="dialog-close"
-          onClick={() => overviewDialogRef.current?.close()}
-        >
-          {text.dialogs.close}
-        </button>
-        <div className="overview-dialog-map">
-          <img
-            src={mapManifest.reunionOverview.src}
-            width={mapManifest.reunionOverview.width}
-            height={mapManifest.reunionOverview.height}
-            loading="lazy"
-            alt={text.dialogs.islandOverviewAlt}
-          />
-          <span className="reunion-overview-extent" aria-hidden="true" />
-        </div>
-      </dialog>
     </>
+  );
+}
+
+export function TopoReunionExperience({
+  language,
+  theme,
+  initialSlug,
+}: Omit<RegionalExperienceProps, "config">) {
+  return (
+    <TopoRegionExperience
+      config={REUNION_EXPERIENCE_CONFIG}
+      language={language}
+      theme={theme}
+      initialSlug={initialSlug}
+    />
   );
 }

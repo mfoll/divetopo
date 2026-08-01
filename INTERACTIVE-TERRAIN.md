@@ -74,7 +74,13 @@ four UTM 40S corners. The optional `view.horizontalCenterOffsetM` field carries
 over the horizontal projection of the static center; a positive value moves
 the target toward the right side of the screen. It is currently used to align
 the initial views of Passe de l'Hermitage and Pont Rouge with their printable
-perspectives.
+perspectives. The optional `view.alongCenterOffsetM` field carries the
+projection along the viewing axis and is applied by the viewer before the
+camera target is built. These two offsets are independent and must not be
+replaced by a single arbitrary screen translation. A route that supplies an
+explicit `initialCenterOffsetEastM` or `initialCenterOffsetSouthM` keeps that
+page-level translation as the legacy capture override and does not apply the
+along-axis metadata a second time.
 
 The isobaths are neither a texture nor an additional vector file. The viewer
 calculates them analytically from the exported elevation field, in perfectly
@@ -112,3 +118,42 @@ Responsibilities are therefore divided as follows:
 
 The files in `apps/web/public/terrain/` are publication derivatives. The source
 of truth remains `regions/reunion/outputs/interactive-terrain/`.
+
+## Initial-view equivalence check
+
+Every generated site must be checked against the initial interactive viewer
+before its 3D fallback and HD download are accepted. The check captures the
+real route at desktop (`2474×1712`) and mobile (`960×662`) with DPR 2, switches
+through both surface styles, and compares the live canvas with the published
+desktop/mobile posters plus the corresponding desktop
+`downloads/3d-dynamic-*-full.jpg`. It fails below a default RGB correlation of
+`0.985`; this is a gate for large framing or readiness regressions, not a
+replacement for full-resolution visual inspection.
+
+With the production build served locally, run this from `apps/web/` for every
+site being generated:
+
+```bash
+node scripts/verify_unified_terrain_capture.mjs \
+  <slug> <route-path> <published-map-directory>
+```
+
+Examples:
+
+```bash
+node scripts/verify_unified_terrain_capture.mjs \
+  cap-des-medes \
+  /paca/fr/sites/cap-des-medes \
+  public/maps/paca/cap-des-medes/maps
+
+node scripts/verify_unified_terrain_capture.mjs \
+  roches-noires \
+  /reunion/fr/sites/roches-noires \
+  public/maps/roches-noires
+```
+
+Run the command again after changing the terrain metadata, initial camera,
+static framing, capture viewport, DPR, or generated 3D assets. A failure must
+be resolved before replacing the published derivatives. Keep the temporary
+captures outside the repository and still inspect the initial viewer on
+desktop and mobile as described in the regional workflow.

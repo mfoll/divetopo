@@ -1,10 +1,16 @@
-import { topoReunionCopy } from "./copy";
+import { pacaCopy, topoReunionCopy } from "./copy";
 import type { Language } from "./preferences";
-import mapManifestJson from "./map-manifest.json";
+import {
+  pacaMapManifest,
+  reunionMapManifest,
+  type RegionalAssetSite,
+  type RegionSlug,
+} from "./regional";
 
 export const DIVETOPO_ORIGIN = "https://divetopo.com";
 export const TOPO_REUNION_ORIGIN = DIVETOPO_ORIGIN;
 export const REUNION_BASE_PATH = "/reunion";
+export const PACA_BASE_PATH = "/paca";
 export const SUPPORTED_LANGUAGES = ["fr", "en"] as const;
 
 type AssetVariant = {
@@ -13,47 +19,21 @@ type AssetVariant = {
   height: number;
 };
 
-type DownloadAsset = AssetVariant & {
-  filename: string;
-};
+export type PublishedSite = RegionalAssetSite;
 
-type PublishedSite = {
-  slug: string;
-  displayName: string;
-  location: {
-    city: string;
-    latitude: number;
-    longitude: number;
-  };
-  maxDepthM: number;
-  planMaxDepthM: number;
-  plateAuthor: string;
-  copyrightYear: number;
-  mapLicense: string;
-  maps: Array<{
-    view: "2d" | "3d";
-    style: "topographic" | "orthophoto";
-    variants: AssetVariant[];
-    download: DownloadAsset;
-  }>;
-  planches: Array<{
-    style: "topographic" | "orthophoto";
-    preview: AssetVariant;
-    download: DownloadAsset;
-  }>;
-};
-
-type PublishedMapManifest = {
-  sites: PublishedSite[];
-};
-
-const mapManifest = mapManifestJson as PublishedMapManifest;
+const mapManifest = reunionMapManifest;
 
 export const publishedSites = mapManifest.sites;
+export const pacaPublishedSites = pacaMapManifest.sites;
 export const defaultSite = publishedSites[0];
+export const defaultPacaSite = pacaPublishedSites[0];
 
 if (!defaultSite) {
   throw new Error("Topo Réunion requires at least one published site");
+}
+
+if (!defaultPacaSite) {
+  throw new Error("PACA requires at least one published site");
 }
 
 export function isLanguage(value: string): value is Language {
@@ -64,16 +44,34 @@ export function findPublishedSite(slug: string) {
   return publishedSites.find((site) => site.slug === slug);
 }
 
-export function languagePath(language: Language) {
-  return `${REUNION_BASE_PATH}/${language}`;
+export function findPacaSite(slug: string) {
+  return pacaPublishedSites.find((site) => site.slug === slug);
 }
 
-export function localizedSitePath(language: Language, slug: string) {
-  return `${REUNION_BASE_PATH}/${language}/sites/${slug}`;
+function basePath(region: RegionSlug) {
+  return region === "paca" ? PACA_BASE_PATH : REUNION_BASE_PATH;
 }
 
-export function defaultSitePath(slug: string) {
-  return `${REUNION_BASE_PATH}/sites/${slug}`;
+export function languagePath(
+  language: Language,
+  region: RegionSlug = "reunion",
+) {
+  return `${basePath(region)}/${language}`;
+}
+
+export function localizedSitePath(
+  language: Language,
+  slug: string,
+  region: RegionSlug = "reunion",
+) {
+  return `${languagePath(language, region)}/sites/${slug}`;
+}
+
+export function defaultSitePath(
+  slug: string,
+  region: RegionSlug = "reunion",
+) {
+  return `${basePath(region)}/sites/${slug}`;
 }
 
 export function absoluteUrl(path: string) {
@@ -84,9 +82,13 @@ export type TopoRoute =
   | { kind: "overview"; language: Language }
   | { kind: "site"; language: Language; slug: string };
 
-export function parseTopoRoute(pathname: string): TopoRoute | null {
+export function parseTopoRoute(
+  pathname: string,
+  region: RegionSlug = "reunion",
+): TopoRoute | null {
+  const prefix = basePath(region);
   const siteMatch = pathname.match(
-    /^\/reunion\/(fr|en)\/sites\/([^/]+)\/?$/,
+    new RegExp(`^${prefix}/(fr|en)/sites/([^/]+)/?$`),
   );
   if (siteMatch) {
     return {
@@ -96,7 +98,9 @@ export function parseTopoRoute(pathname: string): TopoRoute | null {
     };
   }
 
-  const overviewMatch = pathname.match(/^\/reunion\/(fr|en)\/?$/);
+  const overviewMatch = pathname.match(
+    new RegExp(`^${prefix}/(fr|en)/?$`),
+  );
   if (overviewMatch) {
     return {
       kind: "overview",
@@ -107,8 +111,11 @@ export function parseTopoRoute(pathname: string): TopoRoute | null {
   return null;
 }
 
-export function regionalSeoText(language: Language) {
-  const copy = topoReunionCopy[language];
+export function regionalSeoText(
+  language: Language,
+  region: RegionSlug = "reunion",
+) {
+  const copy = (region === "paca" ? pacaCopy : topoReunionCopy)[language];
   return {
     heading: copy.topoReunionTitle,
     title: copy.topoReunionTitle,
@@ -117,27 +124,32 @@ export function regionalSeoText(language: Language) {
   };
 }
 
-export function siteSeoText(language: Language, site: PublishedSite) {
-  const description = topoReunionCopy[language].metadataDescription;
+export function siteSeoText(
+  language: Language,
+  site: PublishedSite,
+  region: RegionSlug = "reunion",
+) {
+  const copy = (region === "paca" ? pacaCopy : topoReunionCopy)[language];
+  const description = copy.metadataDescription;
+  const regionLabel =
+    region === "paca" ? "Côte d’Azur" : "La Réunion";
 
   if (language === "fr") {
-    const heading =
-      `Plan du site de plongée ${site.displayName} à La Réunion`;
+    const heading = `Plan du site de plongée ${site.displayName} en ${regionLabel}`;
     return {
       heading,
       title: `${heading} | DiveTopo`,
       description,
-      socialAlt: `Vue 3D du relief de ${site.displayName} à La Réunion`,
+      socialAlt: `Vue 3D du relief de ${site.displayName} en ${regionLabel}`,
     };
   }
 
-  const heading =
-    `${site.displayName} dive site map, Réunion Island`;
+  const heading = `${site.displayName} dive site map, ${regionLabel}`;
   return {
     heading,
     title: `${heading} | DiveTopo`,
     description,
-    socialAlt: `3D terrain view of ${site.displayName}, Réunion Island`,
+    socialAlt: `3D terrain view of ${site.displayName}, ${regionLabel}`,
   };
 }
 
@@ -172,28 +184,50 @@ export function siteRepresentativeImages(
 ) {
   const twoD = mapImage(site, "2d");
   const threeD = mapImage(site, "3d");
-  const plate = site.planches.find(
+  const plate = site.planches?.find(
     (candidate) => candidate.style === "orthophoto",
   )?.download;
 
-  if (!twoD || !threeD || !plate) {
+  if (!twoD || !threeD) {
     throw new Error(`Missing representative images for ${site.slug}`);
+  }
+
+  const images = [
+    language === "fr"
+      ? {
+          ...twoD,
+          caption:
+            `Plan topo-bathymétrique 2D de ${site.displayName} avec vue ` +
+            `aérienne, jusqu’à −${site.planMaxDepthM} m.`,
+        }
+      : {
+          ...twoD,
+          caption:
+            `2D topographic-bathymetric map of ${site.displayName} with ` +
+            `aerial imagery, to −${site.planMaxDepthM} m.`,
+        },
+    language === "fr"
+      ? {
+          ...threeD,
+          caption:
+            `Perspective topo-bathymétrique 3D de ${site.displayName} avec ` +
+            `vue aérienne, jusqu’à −${site.maxDepthM} m.`,
+        }
+      : {
+          ...threeD,
+          caption:
+            `3D topographic-bathymetric perspective of ${site.displayName} ` +
+            `with aerial imagery, to −${site.maxDepthM} m.`,
+        },
+  ];
+
+  if (!plate) {
+    return images;
   }
 
   if (language === "fr") {
     return [
-      {
-        ...twoD,
-        caption:
-          `Plan topo-bathymétrique 2D de ${site.displayName} avec vue ` +
-          `aérienne, jusqu’à −${site.planMaxDepthM} m.`,
-      },
-      {
-        ...threeD,
-        caption:
-          `Perspective topo-bathymétrique 3D de ${site.displayName} avec ` +
-          `vue aérienne, jusqu’à −${site.maxDepthM} m.`,
-      },
+      ...images,
       {
         ...plate,
         caption:
@@ -204,18 +238,7 @@ export function siteRepresentativeImages(
   }
 
   return [
-    {
-      ...twoD,
-      caption:
-        `2D topographic-bathymetric map of ${site.displayName} with ` +
-        `aerial imagery, to −${site.planMaxDepthM} m.`,
-    },
-    {
-      ...threeD,
-      caption:
-        `3D topographic-bathymetric perspective of ${site.displayName} ` +
-        `with aerial imagery, to −${site.maxDepthM} m.`,
-    },
+    ...images,
     {
       ...plate,
       caption:

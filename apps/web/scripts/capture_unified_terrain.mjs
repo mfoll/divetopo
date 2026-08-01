@@ -16,6 +16,7 @@ const [
   heightText = "1712",
   baseUrl = "http://127.0.0.1:3130",
   sourceAttribution = "",
+  routePath = `/reunion/fr/sites/${slug}`,
 ] = process.argv.slice(2);
 const outputWidth = Number(widthText);
 const outputHeight = Number(heightText);
@@ -28,7 +29,7 @@ if (
   !Number.isFinite(outputHeight)
 ) {
   throw new Error(
-    "Usage: capture_unified_terrain.mjs <slug> <orthophoto|topographic> <output.png> [width] [height] [base-url] [source-attribution]",
+    "Usage: capture_unified_terrain.mjs <slug> <orthophoto|topographic> <output.png> [width] [height] [base-url] [source-attribution] [route-path]",
   );
 }
 
@@ -153,7 +154,7 @@ try {
     screenHeight: viewportHeight,
   });
   await cdp.send("Page.navigate", {
-    url: `${baseUrl}/reunion/fr/sites/${slug}`,
+    url: new URL(routePath, baseUrl).toString(),
   });
   await waitFor(
     cdp,
@@ -175,7 +176,7 @@ try {
   await evaluate(
     cdp,
     `(async () => {
-      const viewer = document.querySelector('[data-testid="topo-reunion-viewer"]');
+     const viewer = document.querySelector('[data-testid$="-viewer"]');
       if (!viewer) throw new Error("Terrain viewer unavailable");
       const styles = document.createElement("style");
       styles.textContent = \`

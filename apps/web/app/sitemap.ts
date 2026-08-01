@@ -4,6 +4,7 @@ import {
   defaultSitePath,
   languagePath,
   localizedSitePath,
+  pacaPublishedSites,
   publishedSites,
   siteRepresentativeImages,
 } from "../content/routing";
@@ -65,5 +66,47 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }));
   });
 
-  return [...homepageEntries, ...reunionEntries, ...siteEntries];
+  const pacaLanguages = {
+    fr: absoluteUrl(languagePath("fr", "paca")),
+    en: absoluteUrl(languagePath("en", "paca")),
+    "x-default": absoluteUrl("/paca"),
+  };
+  const pacaEntries: MetadataRoute.Sitemap = LANGUAGES.map(
+    (language) => ({
+      url: absoluteUrl(languagePath(language, "paca")),
+      changeFrequency: "monthly",
+      priority: 0.9,
+      images: [
+        absoluteUrl("/maps/paca/france-metropolitan-situation.png"),
+      ],
+      alternates: { languages: pacaLanguages },
+    }),
+  );
+
+  const pacaSiteEntries = pacaPublishedSites.flatMap((site) => {
+    const languages = {
+      fr: absoluteUrl(localizedSitePath("fr", site.slug, "paca")),
+      en: absoluteUrl(localizedSitePath("en", site.slug, "paca")),
+      "x-default": absoluteUrl(defaultSitePath(site.slug, "paca")),
+    };
+    const images = siteRepresentativeImages("fr", site).map((image) =>
+      absoluteUrl(image.src),
+    );
+
+    return LANGUAGES.map((language) => ({
+      url: absoluteUrl(localizedSitePath(language, site.slug, "paca")),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+      alternates: { languages },
+      images,
+    }));
+  });
+
+  return [
+    ...homepageEntries,
+    ...reunionEntries,
+    ...pacaEntries,
+    ...siteEntries,
+    ...pacaSiteEntries,
+  ];
 }

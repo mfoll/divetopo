@@ -65,6 +65,9 @@ export default function HomepageExperience({
                       src={region.image.src}
                       width={region.image.width}
                       height={region.image.height}
+                      style={{
+                        aspectRatio: `${region.image.width} / ${region.image.height}`,
+                      }}
                       alt={region.image.alt[language]}
                       fetchPriority="high"
                     />

@@ -55,6 +55,7 @@ type TerrainMetadata = {
     visibleWidthM?: number;
     coastFrameFraction?: number;
     horizontalCenterOffsetM?: number;
+    alongCenterOffsetM?: number;
     vectorLabelVerticalInsetFraction?: number;
     vectorLabelCollisionPaddingNdc?: number;
     reselectVectorLabelsOnCameraEnd?: boolean;
@@ -962,6 +963,19 @@ export default function TerrainViewer({
         shore.addScaledVector(
           screenRight,
           metadata.view.horizontalCenterOffsetM - shore.dot(screenRight),
+        );
+      }
+      const hasExplicitCenterOffset =
+        initialCenterOffsetEastM !== 0 || initialCenterOffsetSouthM !== 0;
+      // A page-level center translation is already the canonical override for
+      // legacy captures that encoded the along-view shift in world axes.
+      if (
+        !hasExplicitCenterOffset &&
+        metadata.view.alongCenterOffsetM !== undefined
+      ) {
+        shore.addScaledVector(
+          horizontalForward,
+          metadata.view.alongCenterOffsetM - shore.dot(horizontalForward),
         );
       }
       const screenUp = new THREE.Vector3(

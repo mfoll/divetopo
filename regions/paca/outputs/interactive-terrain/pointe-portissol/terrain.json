@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "slug": "pointe-portissol",
-  "title": "Pointe de Portissol, Provence-Alpes-Côte d’Azur",
+  "title": "Pointe de Portissol, Côte d’Azur",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
     "west": 926100.0,

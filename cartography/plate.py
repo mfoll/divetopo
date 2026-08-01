@@ -8,7 +8,13 @@ from typing import Mapping
 from osgeo import osr
 from PIL import Image, ImageDraw, ImageFont
 
-from cartography.config import ROOT, paths_for, region_manifest, validate_config
+from cartography.config import (
+    ROOT,
+    paths_for,
+    region_manifest,
+    region_slug,
+    validate_config,
+)
 
 TEXT_FONT = "/System/Library/Fonts/Avenir Next.ttc"
 PLATE_CANVAS_WIDTH_PX = 5400
@@ -95,13 +101,25 @@ def _plate_paths(
     relief_path = paths[relief_key]
     if config.get("plate_relief_source", "static") == "interactive":
         style = "orthophoto" if use_orthophoto else "topographic"
-        relief_path = (
+        web_maps_root = (
             ROOT
             / "apps"
             / "web"
             / "public"
             / "maps"
+            / region_slug(config)
             / str(config["slug"])
+            / "maps"
+            if region_slug(config) == "paca"
+            else ROOT
+            / "apps"
+            / "web"
+            / "public"
+            / "maps"
+            / str(config["slug"])
+        )
+        relief_path = (
+            web_maps_root
             / "downloads"
             / f"3d-dynamic-{style}-full.jpg"
         )

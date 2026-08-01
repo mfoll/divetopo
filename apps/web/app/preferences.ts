@@ -60,7 +60,7 @@ function languageFromAcceptHeader(acceptLanguage: string | null): Language {
 }
 
 function languageFromPathname(pathname: string | null): Language | null {
-  const match = pathname?.match(/^\/(?:reunion\/)?(fr|en)(?:\/|$)/);
+  const match = pathname?.match(/^\/(?:(?:reunion|paca)\/)?(fr|en)(?:\/|$)/);
   return match ? (match[1] as Language) : null;
 }
 
