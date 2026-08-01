@@ -435,6 +435,10 @@ def main() -> None:
     with tempfile.TemporaryDirectory(prefix=".maps-build-", dir=PUBLIC_ROOT) as temp:
         build_root = Path(temp) / "maps"
         build_root.mkdir()
+        # This builder owns the Réunion derivatives only. Preserve regional
+        # packages and dynamic captures that live beside them in public/maps.
+        if OUTPUT_ROOT.exists():
+            shutil.copytree(OUTPUT_ROOT, build_root, dirs_exist_ok=True)
 
         manifest: dict[str, Any] = {
             "schemaVersion": 6,

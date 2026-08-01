@@ -40,6 +40,7 @@ from cartography.config import (
     bbox,
     paths_for,
     region_manifest,
+    region_slug,
     validate_config,
 )
 
@@ -849,12 +850,16 @@ def render(
     if copyright_text and map_license:
         copyright_text += f" · {map_license}"
     sources = region_manifest(config)["sources"]
-    detailed_sources = str(
-        config.get(
-            "bathymetry_source_text",
-            "Bathymétrie : HYSCORES / Litto3D · "
-            "Topographie : IGN RGE ALTI",
+    default_detailed_sources = (
+        "Bathymétrie : HYSCORES / Litto3D · Topographie : IGN RGE ALTI"
+    )
+    if region_slug(config) == "paca":
+        default_detailed_sources = (
+            f"Bathymétrie : {sources['bathymetry']['attribution']} · "
+            f"Topographie : {sources['landElevation']['attribution']}"
         )
+    detailed_sources = str(
+        config.get("bathymetry_source_text", default_detailed_sources)
     )
     orthophoto_sources = detailed_sources
     if config.get("orthophoto_enabled", False):
@@ -868,11 +873,9 @@ def render(
         and config.get("locator_map_enabled", False)
     ):
         marker = tuple(map(float, config["locator_marker_utm40s"]))
-        locator_attribution = (
-            f"Topographie : {sources['landElevation']['attribution']}"
-        )
+        locator_attribution = "Topographie : IGN RGE ALTI"
         if config.get("locator_bathymetry_enabled", False):
-            locator_attribution += f" · {config['locator_gebco_attribution']}"
+            locator_attribution += " · Bathymétrie : GEBCO 2024"
         make_locator_map(
             paths["locator_elevation"],
             paths["output_locator"],

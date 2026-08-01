@@ -649,7 +649,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
     /https:\/\/divetopo\.com\/maps\/cap-homard\/downloads\/planche-orthophoto-full\.jpg/,
   );
   assert.equal(
-    imageLocations.filter((location) => location.endsWith(".jpg")).length,
+    imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
+      .length,
     96,
     "expected the regional sitemap entries to use JPEG downloads",
   );

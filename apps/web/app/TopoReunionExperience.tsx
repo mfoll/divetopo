@@ -55,6 +55,8 @@ export type RegionExperienceConfig = {
   sectionId: string;
   titleId: string;
   viewerTestId: string;
+  pickerScaleLabel: string;
+  pickerScaleWidthPercent: number;
 };
 
 export const REUNION_EXPERIENCE_CONFIG: RegionExperienceConfig = {
@@ -66,6 +68,8 @@ export const REUNION_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   sectionId: "topo-reunion",
   titleId: "topo-reunion-title",
   viewerTestId: "topo-reunion-viewer",
+  pickerScaleLabel: "5 km",
+  pickerScaleWidthPercent: 29.4118,
 };
 
 export const PACA_EXPERIENCE_CONFIG: RegionExperienceConfig = {
@@ -77,6 +81,8 @@ export const PACA_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   sectionId: "topo-paca",
   titleId: "topo-paca-title",
   viewerTestId: "topo-paca-viewer",
+  pickerScaleLabel: "20 km",
+  pickerScaleWidthPercent: 18.2769,
 };
 
 function dynamicCaptureAsset(
@@ -260,7 +266,14 @@ function SitePicker({
   onSelect: (slug: string) => void;
   language: Language;
 }) {
-  const { manifest, copy, region, siteLabelLayout } = config;
+  const {
+    manifest,
+    copy,
+    region,
+    siteLabelLayout,
+    pickerScaleLabel,
+    pickerScaleWidthPercent,
+  } = config;
   const text = copy[language].picker;
 
   return (
@@ -367,10 +380,13 @@ function SitePicker({
           <div
             className="site-picker-scale"
             role="img"
-            aria-label={text.fiveKilometreScale}
+            aria-label={text.mapScale}
+            style={{
+              "--site-picker-scale-width": `${pickerScaleWidthPercent}%`,
+            } as CSSProperties}
           >
             <span aria-hidden="true" />
-            <strong>5 km</strong>
+            <strong>{pickerScaleLabel}</strong>
           </div>
         </div>
 

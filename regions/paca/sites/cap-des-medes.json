@@ -4,7 +4,7 @@
   "title": "Cap des Mèdes, Porquerolles",
   "plate_relief_source": "interactive",
   "paths": {
-    "output_locator": "apps/web/public/maps/paca/france-metropolitan-situation.png"
+    "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"
   },
   "litto3d_archives": [
     {
@@ -89,6 +89,7 @@
   ],
   "plate_site_name": "Cap des Mèdes",
   "plate_city": "Hyères",
+  "plate_city_detail": "Hyères · Porquerolles",
   "plate_title": "Cap des Mèdes, Porquerolles",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,

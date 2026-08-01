@@ -28,18 +28,48 @@ def sha256(path: Path) -> str:
 
 
 def image_record(path: Path, public_root: Path, width: int, height: int) -> dict[str, object]:
+    digest = sha256(path)
     return {
-        "src": f"/{path.relative_to(public_root).as_posix()}",
+        "src": f"/{path.relative_to(public_root).as_posix()}?v={digest[:12]}",
         "width": width,
         "height": height,
         "bytes": path.stat().st_size,
-        "sha256": sha256(path),
+        "sha256": digest,
     }
 
 
 def source_for(slug: str, style: str) -> Path:
     suffix = "-topographique" if style == "topographic" else ""
     return OUTPUT_ROOT / f"{slug}-planche{suffix}.jpg"
+
+
+def plan_source_for(slug: str, style: str) -> Path:
+    suffix = "-ortho" if style == "orthophoto" else ""
+    return OUTPUT_ROOT / f"{slug}-topobathy-2d{suffix}.jpg"
+
+
+def publish_plan(slug: str, style: str) -> dict[str, object]:
+    source = plan_source_for(slug, style)
+    if not source.is_file():
+        raise FileNotFoundError(f"Missing generated PACA 2D plan: {source}")
+    destination = (
+        PUBLIC_ROOT / "maps" / "paca" / slug / "maps" / f"2d-{style}.jpg"
+    )
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copyfile(source, destination)
+    with Image.open(destination) as image:
+        width, height = image.size
+    record = image_record(destination, PUBLIC_ROOT, width, height)
+    return {
+        "view": "2d",
+        "style": style,
+        "sourceDimensions": {"width": width, "height": height},
+        "variants": [record],
+        "download": {
+            **record,
+            "filename": source.name,
+        },
+    }
 
 
 def build_planche(slug: str, style: str) -> dict[str, object]:
@@ -90,6 +120,12 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
 def main() -> None:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
     for site in manifest["sites"]:
+        preserved_maps = [item for item in site["maps"] if item["view"] != "2d"]
+        site["maps"] = [
+            publish_plan(site["slug"], "topographic"),
+            publish_plan(site["slug"], "orthophoto"),
+            *preserved_maps,
+        ]
         site["planches"] = [
             build_planche(site["slug"], "topographic"),
             build_planche(site["slug"], "orthophoto"),
@@ -99,7 +135,7 @@ def main() -> None:
         encoding="utf-8",
     )
     print(f"Updated {MANIFEST_PATH}")
-    print(f"Built {len(manifest['sites']) * 2} PACA planche assets")
+    print(f"Built {len(manifest['sites']) * 2} PACA 2D and planche assets")
 
 
 if __name__ == "__main__":

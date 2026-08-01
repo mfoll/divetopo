@@ -91,7 +91,7 @@ export const topoReunionCopy = {
         "Relief terrestre et sous-marin de la côte ouest de La Réunion, du Cap La Houssaye à Saint-Leu.",
       north: "Nord",
       showSite: "Afficher",
-      fiveKilometreScale: "Échelle de cinq kilomètres",
+      mapScale: "Barre d’échelle de la carte",
       overviewAlt:
         "Relief terrestre et sous-marin de La Réunion. Un rectangle situe la zone ouest détaillée ci-dessus.",
     },
@@ -279,7 +279,7 @@ export const topoReunionCopy = {
         "Land and underwater terrain along Réunion Island’s west coast, from Cap La Houssaye to Saint-Leu.",
       north: "North",
       showSite: "Show",
-      fiveKilometreScale: "Five-kilometre scale",
+      mapScale: "Map scale bar",
       overviewAlt:
         "Land and underwater terrain around Réunion Island. A rectangle marks the west-coast area shown in detail above.",
     },

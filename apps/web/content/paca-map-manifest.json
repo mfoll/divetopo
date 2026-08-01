@@ -112,15 +112,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg",
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=46471ba99fbb",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 1317527,
+              "sha256": "46471ba99fbbad285c030255614f4f54f78343f99dc8a7fc6b3f541dfd025f60"
             }
           ],
           "download": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg",
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=46471ba99fbb",
             "width": 2474,
             "height": 1712,
+            "bytes": 1317527,
+            "sha256": "46471ba99fbbad285c030255614f4f54f78343f99dc8a7fc6b3f541dfd025f60",
             "filename": "la-gabiniere-port-cros-topobathy-2d.jpg"
           }
         },
@@ -133,15 +137,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg",
+              "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=c972f67e5071",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 1436848,
+              "sha256": "c972f67e5071c90fc45e4b32e0255dadc5959c7fc4a603ad29de3071cb0d8ea3"
             }
           ],
           "download": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg",
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=c972f67e5071",
             "width": 2474,
             "height": 1712,
+            "bytes": 1436848,
+            "sha256": "c972f67e5071c90fc45e4b32e0255dadc5959c7fc4a603ad29de3071cb0d8ea3",
             "filename": "la-gabiniere-port-cros-topobathy-2d-ortho.jpg"
           }
         },
@@ -212,36 +220,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/planche-topographic-1800.webp",
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/planche-topographic-1800.webp?v=ce2d033e7c9b",
             "width": 1800,
             "height": 1083,
-            "bytes": 143802,
-            "sha256": "74838c649039f68db9389daf4f32606480dad1ee941e6379bf08c664b0776982"
+            "bytes": 161382,
+            "sha256": "ce2d033e7c9bdce6dd5821e969b16cea5ca7a41f01e501efa438501719a77cfd"
           },
           "download": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-topographic-full.jpg",
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-topographic-full.jpg?v=30739e3427e0",
             "width": 5400,
             "height": 3250,
-            "bytes": 3280361,
-            "sha256": "794c325388f64257e6e9b88675d2a78bcd0513f14bb96bc0a6bb8220974de235",
+            "bytes": 3862041,
+            "sha256": "30739e3427e04a51f9a25be85c863b5ce071fa7d47699cfd570a7ad79f3f61ba",
             "filename": "la-gabiniere-port-cros-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp",
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp?v=6ae9d90319f6",
             "width": 1800,
             "height": 1083,
-            "bytes": 166200,
-            "sha256": "dcd833293e5bcfb2b822a9f56f2d602a7dd6c2394fc31744d812b584958a11ef"
+            "bytes": 181724,
+            "sha256": "6ae9d90319f6e45a3192b9a273d32acb80dec0f701952d9eb93c4ba1a562ab9e"
           },
           "download": {
-            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-orthophoto-full.jpg",
+            "src": "/maps/paca/la-gabiniere-port-cros/maps/downloads/planche-orthophoto-full.jpg?v=ebb8b23d8a5b",
             "width": 5400,
             "height": 3250,
-            "bytes": 3495325,
-            "sha256": "419b194a5c43c67996d82f3dbc56f857cf713caf7930f1b43430a829be6c3024",
+            "bytes": 4058771,
+            "sha256": "ebb8b23d8a5b0a1d97f2c27a45520564f3e8fa54d2c9e5ed77d8d8c3e02e08fa",
             "filename": "la-gabiniere-port-cros-planche.jpg"
           }
         }
@@ -285,15 +293,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/pointe-portissol/maps/2d-topographic.jpg",
+              "src": "/maps/paca/pointe-portissol/maps/2d-topographic.jpg?v=440405ac4b4d",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 1583259,
+              "sha256": "440405ac4b4d7731d6f93e4f2c3a88878fd4330ba9a65e415de2ce2b96e480c4"
             }
           ],
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/2d-topographic.jpg",
+            "src": "/maps/paca/pointe-portissol/maps/2d-topographic.jpg?v=440405ac4b4d",
             "width": 2474,
             "height": 1712,
+            "bytes": 1583259,
+            "sha256": "440405ac4b4d7731d6f93e4f2c3a88878fd4330ba9a65e415de2ce2b96e480c4",
             "filename": "pointe-portissol-topobathy-2d.jpg"
           }
         },
@@ -306,15 +318,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg",
+              "src": "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg?v=bc6f28ed64e0",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 2275223,
+              "sha256": "bc6f28ed64e021c197d83b7c0621054370de48b2f08bab81601d6f1081f62982"
             }
           ],
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg",
+            "src": "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg?v=bc6f28ed64e0",
             "width": 2474,
             "height": 1712,
+            "bytes": 2275223,
+            "sha256": "bc6f28ed64e021c197d83b7c0621054370de48b2f08bab81601d6f1081f62982",
             "filename": "pointe-portissol-topobathy-2d-ortho.jpg"
           }
         },
@@ -385,36 +401,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/paca/pointe-portissol/maps/planche-topographic-1800.webp",
+            "src": "/maps/paca/pointe-portissol/maps/planche-topographic-1800.webp?v=c143a5c7564a",
             "width": 1800,
             "height": 1083,
-            "bytes": 137292,
-            "sha256": "d22cdd9e408f63a4a8ed4a17554e3b011922def5856998864fc4d33e1b47bae6"
+            "bytes": 167540,
+            "sha256": "c143a5c7564a886f097819b9c857ff9e292d7d87fb109cd2bdc2d07be5e75687"
           },
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-topographic-full.jpg",
+            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-topographic-full.jpg?v=0cbb8beaec74",
             "width": 5400,
             "height": 3250,
-            "bytes": 3734670,
-            "sha256": "86e7c9699320e21840012ba5c5ebb5aa474756407608ab84ea0016a7003b1fb1",
+            "bytes": 4557939,
+            "sha256": "0cbb8beaec74b6eb900b87d90b7b0a35e4625c864adc0a7422f4e0b152bdca21",
             "filename": "pointe-portissol-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/paca/pointe-portissol/maps/planche-orthophoto-1800.webp",
+            "src": "/maps/paca/pointe-portissol/maps/planche-orthophoto-1800.webp?v=fc9b714eaf19",
             "width": 1800,
             "height": 1083,
-            "bytes": 219634,
-            "sha256": "72e52d4e5d286fb31652574c2bc4fb00ab1f78bea847051cf6b41b865862331b"
+            "bytes": 249654,
+            "sha256": "fc9b714eaf19ae984f6afe0cc7d16fe3e7062d7a2791c6d22f8601e677047334"
           },
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-orthophoto-full.jpg",
+            "src": "/maps/paca/pointe-portissol/maps/downloads/planche-orthophoto-full.jpg?v=99ac867886af",
             "width": 5400,
             "height": 3250,
-            "bytes": 4800813,
-            "sha256": "1a763f4c144cbdf2f38351654fae20f66cb5c572f308be2f17a386b43cce6e4c",
+            "bytes": 5556647,
+            "sha256": "99ac867886af1977aa077cbd2d7e80384c4756e92092505aa285b5c504db6acc",
             "filename": "pointe-portissol-planche.jpg"
           }
         }
@@ -460,15 +476,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg",
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=79fb2202eff3",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 1702947,
+              "sha256": "79fb2202eff308e6f2eea1c0c3fdda21adf039621996d4c96bb56e96be79784b"
             }
           ],
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg",
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=79fb2202eff3",
             "width": 2474,
             "height": 1712,
+            "bytes": 1702947,
+            "sha256": "79fb2202eff308e6f2eea1c0c3fdda21adf039621996d4c96bb56e96be79784b",
             "filename": "deux-freres-cap-sicie-topobathy-2d.jpg"
           }
         },
@@ -481,15 +501,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg",
+              "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=eef0964b7df5",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 2071127,
+              "sha256": "eef0964b7df5a964328721b759da9bcfbf6b70686a59e8ab663ffa38580b8c96"
             }
           ],
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg",
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=eef0964b7df5",
             "width": 2474,
             "height": 1712,
+            "bytes": 2071127,
+            "sha256": "eef0964b7df5a964328721b759da9bcfbf6b70686a59e8ab663ffa38580b8c96",
             "filename": "deux-freres-cap-sicie-topobathy-2d-ortho.jpg"
           }
         },
@@ -560,36 +584,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/planche-topographic-1800.webp",
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/planche-topographic-1800.webp?v=d00490ac4e7b",
             "width": 1800,
             "height": 1083,
-            "bytes": 157604,
-            "sha256": "cf303fa2d760458d021dba8c25e407a46fc5081f7aba18951c5ce94afaad0c5c"
+            "bytes": 187328,
+            "sha256": "d00490ac4e7b87cfc7fb6a9e59b38bf56d1baf834db52d0d350daf7906c2fadc"
           },
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-topographic-full.jpg",
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-topographic-full.jpg?v=0b39f834e52c",
             "width": 5400,
             "height": 3250,
-            "bytes": 3857606,
-            "sha256": "6288d23e8788665cc1881739342b57596716cd78fbff9c8c211be0377832bc05",
+            "bytes": 4724526,
+            "sha256": "0b39f834e52c8beea6904bbdd8e0aad541824563e99dc3e2e7435eefddc366bb",
             "filename": "deux-freres-cap-sicie-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp",
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp?v=165186626889",
             "width": 1800,
             "height": 1083,
-            "bytes": 160102,
-            "sha256": "7ce7d79952c579b5acdcad5ff3363d910888daf4ef6595c88e1c7208d2254832"
+            "bytes": 218660,
+            "sha256": "1651866268898744c092ddf4aad4babab5ab668247aa521942b67846220f106c"
           },
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-orthophoto-full.jpg",
+            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/planche-orthophoto-full.jpg?v=6c3cd326e619",
             "width": 5400,
             "height": 3250,
-            "bytes": 3873495,
-            "sha256": "36738f1d645f35235cad83a02b151f72c72c34b913374c1c7e8afa03bfa48892",
+            "bytes": 5146842,
+            "sha256": "6c3cd326e619c6b7030d8b80162ad2d608c3773dd02e493557d81e19e984d2d8",
             "filename": "deux-freres-cap-sicie-planche.jpg"
           }
         }
@@ -633,15 +657,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-topographic.jpg",
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-topographic.jpg?v=6a90afb4c9a7",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 1642777,
+              "sha256": "6a90afb4c9a738e7dfa7e6698b84eb21860e5f769e665fb6ccc31269935fa44e"
             }
           ],
           "download": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-topographic.jpg",
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-topographic.jpg?v=6a90afb4c9a7",
             "width": 2474,
             "height": 1712,
+            "bytes": 1642777,
+            "sha256": "6a90afb4c9a738e7dfa7e6698b84eb21860e5f769e665fb6ccc31269935fa44e",
             "filename": "les-pyramides-cap-dramont-topobathy-2d.jpg"
           }
         },
@@ -654,15 +682,19 @@
           },
           "variants": [
             {
-              "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg",
+              "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg?v=3200177eb72f",
               "width": 2474,
-              "height": 1712
+              "height": 1712,
+              "bytes": 1700620,
+              "sha256": "3200177eb72f17ff8ef8814c5e96b239909f51b231f7d731be3e76aacbf0db53"
             }
           ],
           "download": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg",
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg?v=3200177eb72f",
             "width": 2474,
             "height": 1712,
+            "bytes": 1700620,
+            "sha256": "3200177eb72f17ff8ef8814c5e96b239909f51b231f7d731be3e76aacbf0db53",
             "filename": "les-pyramides-cap-dramont-topobathy-2d-ortho.jpg"
           }
         },
@@ -733,36 +765,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/planche-topographic-1800.webp",
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/planche-topographic-1800.webp?v=12287a94f410",
             "width": 1800,
             "height": 1083,
-            "bytes": 147494,
-            "sha256": "116acf158720fb4e04894ab09113b3fb87a30e1f3b7183d09424671e63e19817"
+            "bytes": 172346,
+            "sha256": "12287a94f410ccd7737d99389e0716018db2e903339401d669d2660d0a26f282"
           },
           "download": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-topographic-full.jpg",
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-topographic-full.jpg?v=4e1cbb9cb719",
             "width": 5400,
             "height": 3250,
-            "bytes": 3495111,
-            "sha256": "7813dabae4dc614ebd9f86ae2a947b2dbbfeff3e81784fa068597134054779fc",
+            "bytes": 4248057,
+            "sha256": "4e1cbb9cb71975b9e8420470826e50df1ebf06eb151048e2a5f4c93861ad1366",
             "filename": "les-pyramides-cap-dramont-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/planche-orthophoto-1800.webp",
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/planche-orthophoto-1800.webp?v=bc6fa757769f",
             "width": 1800,
             "height": 1083,
-            "bytes": 156550,
-            "sha256": "352bfcb06c62971eecfe0fca7954f2b6ef8bdd32d36d7a5f2b4c8a203047135a"
+            "bytes": 180928,
+            "sha256": "bc6fa757769f90d60ba78942afad52f012d1f03f95c3186cc6389b925b71782a"
           },
           "download": {
-            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-orthophoto-full.jpg",
+            "src": "/maps/paca/les-pyramides-cap-dramont/maps/downloads/planche-orthophoto-full.jpg?v=20ca4b8726a5",
             "width": 5400,
             "height": 3250,
-            "bytes": 3572627,
-            "sha256": "96da67b7019630afc9b3edd42319eef8037afdef04748004531515b1490f5bf5",
+            "bytes": 4321272,
+            "sha256": "20ca4b8726a587ce152d75ac58ef3c0248161ba8955d248dcf923156c56b7324",
             "filename": "les-pyramides-cap-dramont-planche.jpg"
           }
         }
@@ -801,20 +833,24 @@
           "view": "2d",
           "style": "topographic",
           "sourceDimensions": {
-            "width": 2474,
-            "height": 1712
+            "width": 3102,
+            "height": 2152
           },
           "variants": [
             {
-              "src": "/maps/paca/cap-des-medes/maps/2d-topographic.jpg",
-              "width": 2474,
-              "height": 1712
+              "src": "/maps/paca/cap-des-medes/maps/2d-topographic.jpg?v=b396e054299a",
+              "width": 3102,
+              "height": 2152,
+              "bytes": 2476569,
+              "sha256": "b396e054299af7676d31b2969694e82347ad5d16098ade0536da38c56cdf6a41"
             }
           ],
           "download": {
-            "src": "/maps/paca/cap-des-medes/maps/2d-topographic.jpg",
-            "width": 2474,
-            "height": 1712,
+            "src": "/maps/paca/cap-des-medes/maps/2d-topographic.jpg?v=b396e054299a",
+            "width": 3102,
+            "height": 2152,
+            "bytes": 2476569,
+            "sha256": "b396e054299af7676d31b2969694e82347ad5d16098ade0536da38c56cdf6a41",
             "filename": "cap-des-medes-topobathy-2d.jpg"
           }
         },
@@ -822,20 +858,24 @@
           "view": "2d",
           "style": "orthophoto",
           "sourceDimensions": {
-            "width": 2474,
-            "height": 1712
+            "width": 3102,
+            "height": 2152
           },
           "variants": [
             {
-              "src": "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg",
-              "width": 2474,
-              "height": 1712
+              "src": "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg?v=746b58f861b3",
+              "width": 3102,
+              "height": 2152,
+              "bytes": 2650388,
+              "sha256": "746b58f861b365f88faf4e89d44df5204ae92279b20dc00f933a852ea85d37d9"
             }
           ],
           "download": {
-            "src": "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg",
-            "width": 2474,
-            "height": 1712,
+            "src": "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg?v=746b58f861b3",
+            "width": 3102,
+            "height": 2152,
+            "bytes": 2650388,
+            "sha256": "746b58f861b365f88faf4e89d44df5204ae92279b20dc00f933a852ea85d37d9",
             "filename": "cap-des-medes-topobathy-2d-ortho.jpg"
           }
         },
@@ -906,36 +946,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/paca/cap-des-medes/maps/planche-topographic-1800.webp",
+            "src": "/maps/paca/cap-des-medes/maps/planche-topographic-1800.webp?v=65844b4aea42",
             "width": 1800,
             "height": 1083,
-            "bytes": 143632,
-            "sha256": "e7abe9999b16a074a511adab51291d51fa0a6fce74b2ba0507830a05f5bd0d8b"
+            "bytes": 170828,
+            "sha256": "65844b4aea429fa42d2c7f649887737a9790cd7b1d60a38bf2c95bc4e7fff85f"
           },
           "download": {
-            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-topographic-full.jpg",
+            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-topographic-full.jpg?v=aa3e2a1c2cdc",
             "width": 5400,
             "height": 3250,
-            "bytes": 3582757,
-            "sha256": "ea811c958ab32d53dc51cbf5d1a24e96256b81a575adc4f54936cdd11a7af936",
+            "bytes": 4614516,
+            "sha256": "aa3e2a1c2cdcde4983db573676a8cc466c8ec3de8a510dcaad5a3d62ef2ce8d6",
             "filename": "cap-des-medes-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/paca/cap-des-medes/maps/planche-orthophoto-1800.webp",
+            "src": "/maps/paca/cap-des-medes/maps/planche-orthophoto-1800.webp?v=c0ad58d75eae",
             "width": 1800,
             "height": 1083,
-            "bytes": 162122,
-            "sha256": "d8265cf03bb4b5eac035314895416c4bc4e718bba3ec8b69f403348ee6d368ee"
+            "bytes": 185840,
+            "sha256": "c0ad58d75eae5a8d25314ca1ef354f24696295cbc76715ff6ee4631ca389267b"
           },
           "download": {
-            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-orthophoto-full.jpg",
+            "src": "/maps/paca/cap-des-medes/maps/downloads/planche-orthophoto-full.jpg?v=55dd60caefe1",
             "width": 5400,
             "height": 3250,
-            "bytes": 3836896,
-            "sha256": "de6da2fca27cc3ca7bae910bb10750651fc54d9c4bb7185c91473ebcdd00dded",
+            "bytes": 4834262,
+            "sha256": "55dd60caefe19271bfbfe10e28ebf8e0ecc5f359e34d7c1aaa1b34d960a4db93",
             "filename": "cap-des-medes-planche.jpg"
           }
         }

@@ -394,7 +394,7 @@ def make_locator_map(
     bathymetry_blur_px: float = 8.0,
     attribution_text: str = "Topographie : IGN RGE ALTI",
 ) -> None:
-    """Render an island-wide relief map with a geographic grid and site marker."""
+    """Render a clean island-wide relief map with only its site marker and sources."""
     dataset = gdal.Open(str(elevation_path))
     if dataset is None:
         raise RuntimeError(f"Cannot open locator elevation raster {elevation_path}")
@@ -453,93 +453,20 @@ def make_locator_map(
     def map_xy(easting: float, northing: float) -> tuple[float, float]:
         return (easting - min_x) / transform[1] * scale_x, (northing - max_y) / transform[5] * scale_y
 
-    geographic = osr.SpatialReference()
-    geographic.ImportFromEPSG(4326)
-    geographic.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
-    projected = osr.SpatialReference()
-    projected.ImportFromEPSG(32740)
-    projected.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
-    to_utm = osr.CoordinateTransformation(geographic, projected)
-
-    grid_color = (26, 84, 104, 78)
-    grid_width = max(1, round(output_width / 1200))
-    longitude_ticks = [55.0 + minute / 60.0 for minute in (10, 20, 30, 40, 50)]
-    latitude_ticks = [-(20.0 + minute / 60.0) for minute in (50, 60, 70, 80)]
-    for longitude in longitude_ticks:
-        points = []
-        for latitude in np.linspace(-21.48, -20.75, 160):
-            easting, northing, _ = to_utm.TransformPoint(longitude, float(latitude))
-            points.append(map_xy(easting, northing))
-        draw.line(points, fill=grid_color, width=grid_width)
-    for latitude in latitude_ticks:
-        points = []
-        for longitude in np.linspace(55.05, 55.98, 180):
-            easting, northing, _ = to_utm.TransformPoint(float(longitude), latitude)
-            points.append(map_xy(easting, northing))
-        draw.line(points, fill=grid_color, width=grid_width)
-
-    label_font = load_font(round(output_width * 0.015), True)
-    small_font = load_font(round(output_width * 0.013), True)
-    halo = (236, 244, 238, 235)
-    ink = (10, 39, 52, 240)
-    stroke = max(2, round(output_width / 1000))
-    for longitude in longitude_ticks:
-        easting, northing, _ = to_utm.TransformPoint(longitude, -20.80)
-        x, _ = map_xy(easting, northing)
-        degrees = int(longitude)
-        minutes = int(round((longitude - degrees) * 60))
-        draw.text((x, 18), f"{degrees}°{minutes:02d}′ E", anchor="ma", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-    for latitude in latitude_ticks:
-        easting, northing, _ = to_utm.TransformPoint(55.08, latitude)
-        _, y = map_xy(easting, northing)
-        absolute = abs(latitude)
-        degrees = int(absolute)
-        minutes = int(round((absolute - degrees) * 60))
-        y = max(34.0, min(output_height - 34.0, y))
-        draw.text((output_width - 18, y), f"{degrees}°{minutes:02d}′ S", anchor="rm", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-
     marker_x, marker_y = map_xy(float(marker_utm40s[0]), float(marker_utm40s[1]))
     radius = output_width * 0.012
     draw.ellipse((marker_x - radius - 4, marker_y - radius - 4, marker_x + radius + 4, marker_y + radius + 4), fill=(8, 20, 25, 155))
     draw.ellipse((marker_x - radius, marker_y - radius, marker_x + radius, marker_y + radius), fill=(220, 38, 38, 255), outline=(255, 247, 227, 255), width=max(4, round(output_width / 500)))
     draw.ellipse((marker_x - radius * 0.40, marker_y - radius * 0.50, marker_x - radius * 0.05, marker_y - radius * 0.15), fill=(255, 155, 145, 220))
-    draw.text((marker_x + radius * 1.45, marker_y), marker_label, anchor="lm", font=label_font, fill=(13, 25, 26, 255), stroke_width=stroke + 1, stroke_fill=(249, 245, 224, 245))
-
-    metres_per_output_pixel = abs(transform[1]) / scale_x
-    bar_length = 20_000.0 / metres_per_output_pixel
-    bar_x = output_width * 0.055
-    bar_y = output_height * 0.935
-    segment = bar_length / 4.0
-    bar_h = max(14, round(output_width * 0.009))
-    for index in range(4):
-        fill = (8, 15, 18, 255) if index % 2 == 0 else (247, 243, 221, 255)
-        draw.rectangle((bar_x + index * segment, bar_y, bar_x + (index + 1) * segment, bar_y + bar_h), fill=fill, outline=(8, 15, 18, 255), width=2)
-    draw.text((bar_x, bar_y - 8), "0", anchor="ls", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((bar_x + bar_length, bar_y - 8), "20 km", anchor="rs", font=small_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-
-    compass_x, compass_y = output_width * 0.91, output_height * 0.115
-    arm = output_width * 0.032
-    compass_halo = max(8, round(output_width / 230))
-    compass_ink = max(3, round(output_width / 620))
-    draw.line((compass_x - arm, compass_y, compass_x + arm, compass_y), fill=halo, width=compass_halo)
-    draw.line((compass_x, compass_y - arm, compass_x, compass_y + arm), fill=halo, width=compass_halo)
-    draw.line((compass_x - arm, compass_y, compass_x + arm, compass_y), fill=ink, width=compass_ink)
-    draw.line((compass_x, compass_y - arm, compass_x, compass_y + arm), fill=ink, width=compass_ink)
-    draw.polygon([(compass_x, compass_y - arm * 1.30), (compass_x - arm * 0.24, compass_y - arm * 0.62), (compass_x + arm * 0.24, compass_y - arm * 0.62)], fill=ink)
-    draw.text((compass_x, compass_y - arm * 1.62), "N", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((compass_x, compass_y + arm * 1.50), "S", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((compass_x - arm * 1.48, compass_y), "O", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-    draw.text((compass_x + arm * 1.48, compass_y), "E", anchor="mm", font=label_font, fill=ink, stroke_width=stroke, stroke_fill=halo)
-
-    attribution_font = load_font(round(output_width * 0.010), False)
+    attribution_font = load_font(round(output_width * 0.018), True)
     draw.text(
-        (output_width - 24, output_height - 20),
+        (output_width - 18, output_height - 14),
         attribution_text,
         anchor="rs",
         font=attribution_font,
-        fill=ink,
-        stroke_width=max(1, stroke - 1),
-        stroke_fill=halo,
+        fill=(245, 239, 218, 235),
+        stroke_width=max(1, round(output_width / 950)),
+        stroke_fill=(5, 9, 13, 220),
     )
 
     output.parent.mkdir(parents=True, exist_ok=True)

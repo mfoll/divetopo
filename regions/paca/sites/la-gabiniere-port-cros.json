@@ -4,7 +4,7 @@
   "title": "La Gabinière - prototype personnel",
   "plate_relief_source": "interactive",
   "paths": {
-    "output_locator": "apps/web/public/maps/paca/france-metropolitan-situation.png"
+    "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"
   },
   "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0975_6220/file/0975_6220.7z",
   "litto3d_archive_members": [
@@ -82,6 +82,7 @@
   ],
   "plate_site_name": "La Gabinière",
   "plate_city": "Hyères",
+  "plate_city_detail": "Hyères · Port-Cros",
   "plate_title": "La Gabinière, Port-Cros",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,

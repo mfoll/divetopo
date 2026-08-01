@@ -137,6 +137,7 @@ _ALLOWED_KEYS = frozenset(
         "plate_canvas_height_px",
         "plate_canvas_width_px",
         "plate_city",
+        "plate_city_detail",
         "plate_relief_source",
         "plate_site_name",
         "plate_title",
@@ -629,6 +630,8 @@ def validate_config(config: Mapping[str, Any]) -> None:
             "plate_city must not contain the region name; "
             "the region is rendered on its own line"
         )
+    if "plate_city_detail" in config:
+        _non_empty_string(config, "plate_city_detail")
 
     region = region_slug(config)
     if region == "reunion":

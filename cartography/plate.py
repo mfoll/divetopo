@@ -17,7 +17,9 @@ from cartography.config import (
 )
 
 TEXT_FONT = "/System/Library/Fonts/Avenir Next.ttc"
+MAP_SOURCE_FONT = "/System/Library/Fonts/Supplemental/Arial Bold.ttf"
 PLATE_CANVAS_WIDTH_PX = 5400
+PACA_MANIFEST_PATH = ROOT / "apps" / "web" / "content" / "paca-map-manifest.json"
 
 osr.UseExceptions()
 
@@ -80,6 +82,14 @@ def resized_width(image: Image.Image, width: int) -> Image.Image:
     return image.resize((width, height), Image.Resampling.LANCZOS)
 
 
+def resized_to_fit(image: Image.Image, width: int, height: int) -> Image.Image:
+    scale = min(width / image.width, height / image.height)
+    return image.resize(
+        (round(image.width * scale), round(image.height * scale)),
+        Image.Resampling.LANCZOS,
+    )
+
+
 def paste_panel(canvas: Image.Image, image: Image.Image, position: tuple[int, int]) -> None:
     x, y = position
     canvas.alpha_composite(image.convert("RGBA"), (x, y))
@@ -139,6 +149,54 @@ def _load_input(path: Path, description: str) -> Image.Image:
         raise RuntimeError(f"Unable to read {description} image: {path}") from error
 
 
+def _marked_locator(config: Mapping[str, object], locator: Image.Image) -> Image.Image:
+    """Add the current PACA site as a red point on the shared regional map."""
+    if region_slug(config) != "paca":
+        return locator
+    manifest = json.loads(PACA_MANIFEST_PATH.read_text(encoding="utf-8"))
+    bounds = manifest["westCoastLocator"]["boundsWgs84"]
+    region = region_manifest(config)
+    latitude, longitude = marker_wgs84(
+        config["locator_marker_utm40s"],
+        str(region["crs"]["code"]),
+    )
+    x = (longitude - float(bounds["west"])) / (
+        float(bounds["east"]) - float(bounds["west"])
+    ) * (locator.width - 1)
+    y = (float(bounds["north"]) - latitude) / (
+        float(bounds["north"]) - float(bounds["south"])
+    ) * (locator.height - 1)
+    if not (0.0 <= x < locator.width and 0.0 <= y < locator.height):
+        raise ValueError("PACA site marker falls outside the regional locator map")
+    marked = locator.copy()
+    draw = ImageDraw.Draw(marked, "RGBA")
+    radius = max(14, round(min(locator.size) * 0.013))
+    draw.ellipse(
+        (x - radius - 5, y - radius - 5, x + radius + 5, y + radius + 5),
+        fill=(255, 255, 255, 245),
+    )
+    draw.ellipse(
+        (x - radius, y - radius, x + radius, y + radius),
+        fill=(224, 36, 36, 255),
+        outline=(115, 18, 18, 255),
+        width=max(2, radius // 7),
+    )
+    source_face = ImageFont.truetype(
+        MAP_SOURCE_FONT,
+        max(18, round(locator.width * 0.018)),
+    )
+    draw.text(
+        (locator.width - 18, locator.height - 14),
+        "Relief : Shom–IGN Litto3D PACA · EMODnet 2024 · IGN RGE ALTI",
+        anchor="rb",
+        font=source_face,
+        fill=(245, 239, 218, 235),
+        stroke_width=max(1, round(locator.width / 950)),
+        stroke_fill=(5, 9, 13, 220),
+    )
+    return marked
+
+
 def compose(config: dict, land_style: str) -> Path:
     validate_config(config)
 
@@ -152,7 +210,7 @@ def compose(config: dict, land_style: str) -> Path:
     plan_path, relief_path, locator_path, output = _plate_paths(config, land_style)
     plan = _load_input(plan_path, "2D detail")
     relief = _load_input(relief_path, "3D relief")
-    locator = _load_input(locator_path, "locator")
+    locator = _marked_locator(config, _load_input(locator_path, "locator"))
 
     canvas = Image.new("RGBA", (canvas_width, canvas_height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(canvas, "RGBA")
@@ -160,7 +218,7 @@ def compose(config: dict, land_style: str) -> Path:
     secondary = (77, 91, 97, 255)
 
     site_name = str(config["plate_site_name"]).strip().upper()
-    city = str(config["plate_city"]).strip().upper()
+    city = str(config.get("plate_city_detail", config["plate_city"])).strip().upper()
     manifest = region_manifest(config)
     island = str(manifest["names"]["fr"]).upper()
     latitude, longitude = marker_wgs84(
@@ -280,9 +338,11 @@ def compose(config: dict, land_style: str) -> Path:
     paste_panel(canvas, plan, (side_margin, detail_y))
     paste_panel(canvas, relief, (side_margin + panel_width + panel_gap, detail_y))
 
-    locator = resized_width(locator, 1500)
+    locator_top = 90
+    locator_bottom = 1280
+    locator = resized_to_fit(locator, 1500, locator_bottom - locator_top)
     locator_x = canvas_width - side_margin - locator.width
-    locator_y = 50
+    locator_y = locator_top + (locator_bottom - locator_top - locator.height) // 2
     paste_panel(canvas, locator, (locator_x, locator_y))
 
     output.parent.mkdir(parents=True, exist_ok=True)
