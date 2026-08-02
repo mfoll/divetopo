@@ -691,9 +691,7 @@ export function TopoRegionExperience({
                       {activeSite.displayName}
                     </h2>
                     <p>
-                      <span>
-                        {activeSite.location.city}, {text.islandName}
-                      </span>
+                      <span>{activeSite.location.city}</span>
                       <span aria-hidden="true">·</span>
                       <span>{gpsLabel(activeSite.location, language)}</span>
                     </p>
