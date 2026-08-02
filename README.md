@@ -3,7 +3,7 @@
 # DiveTopo
 
 > [!IMPORTANT]
-> Explore the maps, interactive 3D terrain and original high-resolution downloads for DiveTopo's regional collections at **[divetopo.com](https://divetopo.com)**. The first published collection is **[Réunion Island](https://divetopo.com/reunion)**.
+> Explore the maps, interactive 3D terrain and original high-resolution downloads for DiveTopo's regional collections at **[divetopo.com](https://divetopo.com)**.
 
 [![Animated interactive 3D terrain of Cap La Houssaye, with bathymetric colours, aerial imagery and isobaths](.github/assets/cap-la-houssaye-interactive-3d.gif)](https://divetopo.com/reunion)
 
@@ -148,9 +148,9 @@ Rebuild the printable sheets or the canonical interactive package:
 .venv/bin/python -m cartography.interactive
 ```
 
-The shared rules are in [WORKFLOW.md](WORKFLOW.md); the Réunion-specific
-parameters, rendering controls and full acceptance gate are in
-[regions/reunion/WORKFLOW.md](regions/reunion/WORKFLOW.md).
+The shared rules are in [WORKFLOW.md](WORKFLOW.md); source-specific parameters,
+rendering controls and acceptance gates are in the applicable regional workflow,
+for example [regions/reunion/WORKFLOW.md](regions/reunion/WORKFLOW.md).
 
 ## Website and release model
 

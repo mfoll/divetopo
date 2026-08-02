@@ -3,7 +3,9 @@
 Source licences, required attributions and dataset-specific warnings are
 documented next to the relevant regional data when a regional notice exists:
 
-- [La Réunion](regions/reunion/THIRD-PARTY-NOTICES.md)
+Regional notices, when provided, are stored under
+`regions/<slug>/THIRD-PARTY-NOTICES.md` alongside the corresponding regional
+data.
 
 Do not infer a licence, permission, attribution or warning for one region from
 another region's notice. For a region without a linked notice, this index

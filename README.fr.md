@@ -3,7 +3,7 @@
 # DiveTopo
 
 > [!IMPORTANT]
-> Consultez les cartes, les reliefs 3D interactifs et les fichiers originaux en haute définition des collections régionales de DiveTopo sur **[divetopo.com](https://divetopo.com)**. La première collection publiée est **[La Réunion](https://divetopo.com/reunion)**.
+> Consultez les cartes, les reliefs 3D interactifs et les fichiers originaux en haute définition des collections régionales de DiveTopo sur **[divetopo.com](https://divetopo.com)**.
 
 [![Animation du relief 3D interactif du Cap La Houssaye, avec couleurs bathymétriques, vue aérienne et isobathes](.github/assets/cap-la-houssaye-interactive-3d.gif)](https://divetopo.com/reunion)
 
@@ -133,7 +133,8 @@ commandes ci-dessous montrent l'implémentation réunionnaise actuelle.
 ```
 
 Les règles communes sont dans [WORKFLOW.md](WORKFLOW.md). Les paramètres,
-contrôles de rendu et porte d'acceptation propres à La Réunion sont dans
+contrôles de rendu et portes d’acceptation propres aux sources sont dans le
+workflow de la région cible, par exemple
 [regions/reunion/WORKFLOW.md](regions/reunion/WORKFLOW.md).
 
 ## Site Web et publication
