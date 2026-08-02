@@ -3,7 +3,7 @@
 # DiveTopo
 
 > [!IMPORTANT]
-> Consultez les cartes, les reliefs 3D interactifs et les fichiers originaux en haute définition sur **[divetopo.com](https://divetopo.com)**. La première région publiée est **[La Réunion](https://divetopo.com/reunion)**.
+> Consultez les cartes, les reliefs 3D interactifs et les fichiers originaux en haute définition des collections régionales de DiveTopo sur **[divetopo.com](https://divetopo.com)**. La première collection publiée est **[La Réunion](https://divetopo.com/reunion)**.
 
 [![Animation du relief 3D interactif du Cap La Houssaye, avec couleurs bathymétriques, vue aérienne et isobathes](.github/assets/cap-la-houssaye-interactive-3d.gif)](https://divetopo.com/reunion)
 
@@ -12,7 +12,9 @@
 En préparant un voyage à La Réunion, j'ai eu beaucoup de mal à trouver des
 plans détaillés de ses sites de plongée. En cherchant, je me suis rendu compte
 que des données bathymétriques, topographiques et aériennes publiques
-existaient, mais qu'elles n'étaient pas faciles à consulter ensemble.
+existaient, mais qu'elles n'étaient pas faciles à consulter ensemble. Cette
+première collection régionale est devenue le point de départ d'un projet
+réutilisable pour plusieurs régions.
 
 J'ai donc téléchargé et assemblé ces données pour produire des plans 2D, des
 perspectives 3D statiques, des reliefs interactifs et des planches imprimables
@@ -21,9 +23,16 @@ désormais le moteur cartographique et l'application Web réutilisables des
 sources et configurations propres à chaque région.
 
 > [!NOTE]
-> Le code, le site et sa présentation originale ont été entièrement générés par IA, sous direction humaine, avec des itérations visuelles et une validation par rapport aux données sources. Les données géographiques proviennent des organismes publics indiqués ci-dessous.
+> Le code, le site et sa présentation originale ont été entièrement générés par IA, sous direction humaine, avec des itérations visuelles et une validation par rapport aux données sources. Chaque région documente ses propres sources géographiques, licences et attributions.
 
-## Sources des données pour La Réunion
+## Sources de données et attributions par région
+
+Les jeux de données, la couverture, les projections, les licences et les
+attributions requises sont définis par région. La collection réunionnaise
+ci-dessous est un exemple régional, pas une liste de sources ni une exigence de
+traitement universelle pour les autres régions.
+
+### La Réunion
 
 | Utilisation | Source | Rôle |
 |---|---|---|
@@ -47,13 +56,19 @@ Chaque configuration de site peut produire :
 - deux planches imprimables en haute définition ;
 - un paquet de relief 3D interactif compact pour le site Web.
 
-Les sept sites réunionnais utilisent des plans statiques de `2474 × 1712 px`
+Les dimensions, les seuils de transition et l'intervalle des isobathes sont
+définis par région. Les sept sites réunionnais utilisent des plans statiques de `2474 × 1712 px`
 et des planches de `5400 × 3250 px`. La vue aérienne reste opaque jusqu'à
 `−1,5 m`, disparaît progressivement entre `−1,5 m` et `−2 m`, puis laisse
 entièrement place à la palette bathymétrique. Les isobathes sont calculées tous
 les 5 m.
 
-## Régions et sites publiés
+## Inventaires régionaux
+
+Chaque région conserve son identité, son inventaire de sites et ses sorties
+canoniques sous `regions/<slug>/`. L'inventaire réunionnais ci-dessous est un
+exemple concret ; les autres régions doivent être lues dans leurs propres
+configurations et, lorsqu'elles existent, leurs notices régionales.
 
 ### La Réunion
 
@@ -96,7 +111,11 @@ Le site Web ne génère jamais le relief. Il copie des dérivés contrôlés dep
 les résultats régionaux canoniques. Le format interactif est documenté dans
 [INTERACTIVE-TERRAIN.md](INTERACTIVE-TERRAIN.md).
 
-## Reproduire les cartes de La Réunion
+## Workflows régionaux
+
+Utilisez le workflow du répertoire de la région cible pour l'acquisition, les
+paramètres de rendu et les contrôles d'acceptation propres aux sources. Les
+commandes ci-dessous montrent l'implémentation réunionnaise actuelle.
 
 ```bash
 ./bootstrap_macos.sh
@@ -113,25 +132,27 @@ les résultats régionaux canoniques. Le format interactif est documenté dans
 .venv/bin/python -m cartography.interactive
 ```
 
-Les règles communes sont dans [WORKFLOW.md](WORKFLOW.md). Les sources,
-paramètres de rendu et contrôles propres à La Réunion sont dans
+Les règles communes sont dans [WORKFLOW.md](WORKFLOW.md). Les paramètres,
+contrôles de rendu et porte d'acceptation propres à La Réunion sont dans
 [regions/reunion/WORKFLOW.md](regions/reunion/WORKFLOW.md).
 
 ## Site Web et publication
 
 `apps/web/` publie la page d'accueil générale et toutes les régions dans une
-seule application. La Réunion est accessible sous `/reunion`, avec ses routes
-françaises, anglaises et celles de chaque site. GitHub reste la source
-canonique, mais un push ne déploie pas automatiquement le site. Le processus
-est décrit dans [DEPLOYMENT.md](DEPLOYMENT.md).
+seule application. Chaque région fournit sa propre route et son inventaire de
+sites. La collection réunionnaise actuelle est accessible sous `/reunion`,
+avec ses routes françaises, anglaises et celles de chaque site. GitHub reste la
+source canonique, mais un push ne déploie pas automatiquement le site. Le
+processus est décrit dans [DEPLOYMENT.md](DEPLOYMENT.md).
 
 ## Licences et sécurité
 
 - Logiciel original : [MIT](LICENSE).
-- Cartes de La Réunion : [CC BY-NC-SA 4.0](LICENSE-MAPS.md), sous réserve des
-  droits attachés aux données sources.
-- Licences et attributions des données :
-  [notices tierces](THIRD-PARTY-NOTICES.md).
+- Cartes et figures originales : [CC BY-NC-SA 4.0](LICENSE-MAPS.md), dans la
+  mesure des droits détenus par Matthieu Foll sur ces contributions originales.
+- Licences régionales des jeux de données, attributions obligatoires et
+  avertissements : [notices tierces](THIRD-PARTY-NOTICES.md) et toute notice
+  applicable sous `regions/<slug>/`.
 
 Le site et son contenu sont gratuits et sans publicité. Les cartes facilitent
 la lecture du relief et l'orientation générale. Elles ne démontrent ni l'accès,
