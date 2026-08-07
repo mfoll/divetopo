@@ -2,6 +2,10 @@
   "region": "reunion",
   "slug": "pointe-au-sel-sec-jaune",
   "title": "Pointe au Sel - Sec Jaune",
+  "web": {
+    "published": true,
+    "site_label_layout": {"side": "left", "shift_y_rem": 0.45, "connector_angle_deg": -18}
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Leu/11_MOZ_SALE_20150522_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "shom_local_fusion": {
@@ -41,11 +45,12 @@
   "focus_bbox_utm40s": [321200.0, 7653800.0, 322067.2, 7654400.0],
   "context_bbox_utm40s": [320500.0, 7653000.0, 323000.0, 7655300.0],
   "interactive_footprint_utm40s": {
-    "center": [321581.5, 7654180.4],
-    "width_m": 1040.0,
+    "center": [321562.528, 7654213.261],
+    "width_m": 1350.0,
     "depth_m": 1545.0,
     "look_bearing_deg": 60.0
   },
+  "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 60.0,

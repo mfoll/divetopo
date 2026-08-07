@@ -152,6 +152,11 @@ test("server-renders the French Topo Réunion page with Auto theme by default", 
   assert.match(html, /Plage du Cimetière/);
   assert.match(html, /Pointe au Sel/);
   assert.match(html, /Saint-Paul/);
+  assert.match(
+    html,
+    /<span>Saint-Paul<\/span><span aria-hidden="true">·<\/span>/,
+  );
+  assert.doesNotMatch(html, /Saint-Paul<!-- -->, <!-- -->La Réunion/);
   assert.match(html, /21° 01′ 02\.5″ S/);
   assert.match(html, /Voir le site sur Google Maps/);
   assert.match(html, /google\.com\/maps\/search/);
@@ -316,7 +321,11 @@ test("uses the browser language for the English Topo Réunion page", async () =>
     html,
     /A non-exhaustive selection of dive sites along the west coast\./,
   );
-  assert.match(html, /Saint-Paul<!-- -->, <!-- -->Réunion Island/);
+  assert.match(
+    html,
+    /<span>Saint-Paul<\/span><span aria-hidden="true">·<\/span>/,
+  );
+  assert.doesNotMatch(html, /Saint-Paul<!-- -->, <!-- -->Réunion Island/);
   assert.match(html, /View site on Google Maps/);
   assert.match(html, />2D map<\/button>/);
   assert.match(html, />3D view<\/button>/);
@@ -397,6 +406,24 @@ test("server-renders an indexable localized page for every published site", asyn
       assert.ok(
         visibleText(html).includes(site.displayName),
         `${path}: expected the selected site name`,
+      );
+      const escapedCity = site.location.city.replace(
+        /[.*+?^${}()|[\]\\]/g,
+        "\\$&",
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `<span>${escapedCity}<\/span><span aria-hidden="true">·<\/span>`,
+        ),
+        `${path}: expected the city without a regional suffix`,
+      );
+      assert.doesNotMatch(
+        html,
+        new RegExp(
+          `${escapedCity}<!-- -->, <!-- -->${language === "fr" ? "La Réunion" : "Réunion Island"}`,
+        ),
+        `${path}: the regional suffix must not follow the city`,
       );
       const expectedHeading =
         language === "fr"
@@ -646,7 +673,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.match(
     sitemap,
-    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.2\.1\/cap-homard-planche\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.3\.0\/cap-homard-planche\.jpg/,
   );
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
@@ -780,7 +807,7 @@ test("map manifest supports adding future sites without component changes", asyn
       assert.match(
         planche.download.src,
         new RegExp(
-          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.2\\.1/${planche.download.filename}$`,
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.3\\.0/${planche.download.filename}$`,
         ),
       );
       assert.match(planche.download.filename, /\.jpg$/);
@@ -809,19 +836,27 @@ test("map manifest supports adding future sites without component changes", asyn
   );
 });
 
-test("interactive terrain manifest covers the same eleven sites", async () => {
-  const manifest = JSON.parse(
-    await readFile(
+test("interactive terrain manifest combines every published region", async () => {
+  const [manifest, pacaManifest] = await Promise.all([
+    readFile(
       new URL("../public/terrain/manifest.json", import.meta.url),
       "utf8",
     ),
-  );
+    readFile(
+      new URL("../content/paca-map-manifest.json", import.meta.url),
+      "utf8",
+    ),
+  ]).then((values) => values.map(JSON.parse));
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.equal(manifest.sites.length, 11);
+  assert.deepEqual(manifest.regions, ["paca", "reunion"]);
+  assert.equal(manifest.sites.length, 16);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
-    publishedSiteSlugs,
+    new Set([
+      ...publishedSiteSlugs,
+      ...pacaManifest.sites.map((site) => site.slug),
+    ]),
   );
 });
 

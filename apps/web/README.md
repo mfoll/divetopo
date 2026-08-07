@@ -30,18 +30,23 @@ npm run lint
 
 ## Cartographic assets
 
-Responsive maps and original downloads are built from the canonical Réunion
-outputs:
+Responsive maps, regional manifests and original downloads are built from the
+canonical regional outputs:
 
 ```bash
 ../../.venv/bin/python scripts/build_map_assets.py
+../../.venv/bin/python scripts/build_paca_map_assets.py
+../../.venv/bin/python scripts/build_interactive_terrain_manifest.py paca
 ../../.venv/bin/python scripts/sync_interactive_terrain.py
 ```
 
-The scripts read configurations and canonical outputs from
-`regions/reunion/`, verify the source artifacts, and publish self-contained
-copies under `public/maps/` and `public/terrain/`. The website never
-recalculates terrain geometry, textures or camera parameters.
+Each published site declares `web.published`, its regional-label layout and any
+initial camera override in its own JSON. The builders follow each
+`regions/<slug>/region.json` inventory, verify the source artifacts, and publish
+self-contained copies under `public/maps/` and `public/terrain/`. The terrain
+synchronizer merges every canonical regional package and rejects duplicate
+slugs or files. The website never recalculates terrain geometry, textures or
+camera parameters.
 
 ## Publishing
 

@@ -3,12 +3,24 @@ import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
 const pacaSites = [
-  ["la-gabiniere-port-cros", "La Gabinière"],
-  ["pointe-portissol", "Pointe de Portissol"],
-  ["deux-freres-cap-sicie", "Les Deux Frères"],
-  ["les-pyramides-cap-dramont", "Les Pyramides"],
-  ["cap-des-medes", "Cap des Mèdes"],
+  ["la-gabiniere-port-cros", "La Gabinière", "Hyères · Port-Cros"],
+  ["pointe-portissol", "Pointe de Portissol", "Sanary-sur-Mer"],
+  [
+    "deux-freres-cap-sicie",
+    "Les Deux Frères",
+    "La Seyne-sur-Mer · Cap Sicié",
+  ],
+  [
+    "les-pyramides-cap-dramont",
+    "Les Pyramides",
+    "Saint-Raphaël · Cap Dramont",
+  ],
+  ["cap-des-medes", "Cap des Mèdes", "Hyères · Porquerolles"],
 ];
+
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
 
 async function render(pathname) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -78,6 +90,19 @@ test("server-renders the complete public PACA region and five sites", async () =
         `${path}: link for ${slug}`,
       );
     }
+    const activeCity = pacaSites[0][2];
+    assert.match(
+      html,
+      new RegExp(
+        `<span>${escapeRegExp(activeCity)}<\/span><span aria-hidden="true">·<\/span>`,
+      ),
+      `${path}: expected the active city without a regional suffix`,
+    );
+    assert.doesNotMatch(
+      html,
+      new RegExp(`${escapeRegExp(activeCity)}<!-- -->, <!-- -->Côte d’Azur`),
+      `${path}: the regional suffix must not follow the active city`,
+    );
     assert.doesNotMatch(html, /noindex/i, path);
     assert.doesNotMatch(html, /test-assets\/paca/, path);
     assert.doesNotMatch(html, /Ouvrir .* en grand/, path);
@@ -85,7 +110,7 @@ test("server-renders the complete public PACA region and five sites", async () =
   }
 
   for (const language of ["fr", "en"]) {
-    for (const [slug, displayName] of pacaSites) {
+    for (const [slug, displayName, city] of pacaSites) {
       const path = `/paca/${language}/sites/${slug}`;
       const response = await render(path);
       assert.equal(response.status, 200, path);
@@ -113,7 +138,7 @@ test("server-renders the complete public PACA region and five sites", async () =
       assert.match(
         html,
         new RegExp(
-          `https://github\\.com/mfoll/divetopo/releases/download/v1\\.2\\.1/${slug}-planche\\.jpg`,
+          `https://github\\.com/mfoll/divetopo/releases/download/v1\\.3\\.0/${slug}-planche\\.jpg`,
         ),
         `${path}: expected the orthophoto printable download`,
       );
@@ -124,6 +149,18 @@ test("server-renders the complete public PACA region and five sites", async () =
         html.match(/"@type":"ImageObject"/g)?.length,
         3,
         `${path}: expected 2D, 3D and printable-planche images`,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `<span>${escapeRegExp(city)}<\/span><span aria-hidden="true">·<\/span>`,
+        ),
+        `${path}: expected the city without a regional suffix`,
+      );
+      assert.doesNotMatch(
+        html,
+        new RegExp(`${escapeRegExp(city)}<!-- -->, <!-- -->Côte d’Azur`),
+        `${path}: the regional suffix must not follow the city`,
       );
       assert.doesNotMatch(html, /noindex/i, path);
       assert.doesNotMatch(html, /test-assets\/paca/, path);
@@ -141,6 +178,7 @@ test("PACA asset paths resolve without regenerating or duplicating test maps", a
     ),
   );
 
+  assert.equal(manifest.schemaVersion, 2);
   assert.equal(manifest.sites.length, 5);
   assert.deepEqual(manifest.reunionOverview.boundsWgs84, {
     west: -5.5,
@@ -183,6 +221,10 @@ test("PACA asset paths resolve without regenerating or duplicating test maps", a
     ),
   );
   for (const site of manifest.sites) {
+    assert.match(site.config, /^regions\/paca\/sites\/.+\.json$/);
+    assert.ok(["left", "right"].includes(site.siteLabelLayout.side));
+    assert.equal(typeof site.siteLabelLayout.shiftYRem, "number");
+    assert.equal(typeof site.siteLabelLayout.connectorAngleDeg, "number");
     for (const map of site.maps) {
       for (const variant of map.variants) {
         await access(new URL(`../public${variant.src}`, import.meta.url));
@@ -203,7 +245,7 @@ test("PACA asset paths resolve without regenerating or duplicating test maps", a
       assert.match(
         planche.download.src,
         new RegExp(
-          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.2\\.1/${planche.download.filename}$`,
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.3\\.0/${planche.download.filename}$`,
         ),
       );
     }

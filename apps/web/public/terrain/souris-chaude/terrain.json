@@ -4,14 +4,14 @@
   "title": "Souris Chaude, Trois-Bassins · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 318206.0,
-    "south": 7662761.2,
-    "east": 320044.8,
-    "north": 7664600.0
+    "west": 317963.6,
+    "south": 7662756.0,
+    "east": 320050.0,
+    "north": 7664842.4
   },
   "physicalSizeM": {
-    "width": 1838.8,
-    "depth": 1838.8
+    "width": 2086.4,
+    "depth": 2086.4
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -106,48 +106,48 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 2,
-        "points": 600
+        "polylines": 4,
+        "points": 755
       },
       "10": {
-        "polylines": 1,
-        "points": 602
+        "polylines": 2,
+        "points": 693
       },
       "15": {
-        "polylines": 1,
-        "points": 526
+        "polylines": 2,
+        "points": 624
       },
       "20": {
         "polylines": 1,
-        "points": 460
+        "points": 493
       },
       "25": {
-        "polylines": 1,
-        "points": 240
+        "polylines": 2,
+        "points": 417
       },
       "30": {
         "polylines": 1,
-        "points": 181
+        "points": 271
       },
       "35": {
-        "polylines": 1,
-        "points": 176
+        "polylines": 2,
+        "points": 320
       },
       "40": {
-        "polylines": 3,
-        "points": 89
+        "polylines": 4,
+        "points": 135
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 11,
-      "points": 2874
+      "polylines": 18,
+      "points": 3708
     },
     "reprojectionResidualM": {
-      "samples": 2874,
-      "mean": 1.3864050019664685e-05,
-      "p95": 2.922129142213224e-07,
-      "max": 0.00928023442844772,
+      "samples": 3708,
+      "mean": 2.185685182685418e-05,
+      "p95": 1.5300872739487454e-06,
+      "max": 0.009936303299621585,
       "withinTolerance": true
     }
   },
@@ -158,7 +158,8 @@
     "cameraTilt": 0.35,
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 600.0,
-    "coastFrameFraction": 0.2758
+    "coastFrameFraction": 0.2758,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
@@ -181,28 +182,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      319125.5,
-      7663680.5
+      319006.7,
+      7663799.3
     ],
-    "widthM": 1300.0,
+    "widthM": 1650.0,
     "depthM": 1300.0,
     "lookBearingDeg": 45.0,
     "cornersUtm40s": [
       [
-        318206.261,
-        7663680.5
+        317963.717,
+        7663923.044
       ],
       [
-        319125.5,
-        7662761.261
+        319130.444,
+        7662756.317
       ],
       [
-        320044.739,
-        7663680.5
+        320049.683,
+        7663675.556
       ],
       [
-        319125.5,
-        7664599.739
+        318882.956,
+        7664842.283
       ]
     ]
   }

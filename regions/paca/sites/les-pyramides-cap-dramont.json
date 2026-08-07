@@ -2,6 +2,14 @@
   "region": "paca",
   "slug": "les-pyramides-cap-dramont",
   "title": "Les Pyramides, Cap Dramont–Île d’Or - prototype local",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left", "shift_y_rem": -1.0, "connector_angle_deg": 50.8,
+      "connector_width_rem": 1.39, "label_offset_rem": 2.25, "width_rem": 5.63
+    },
+    "interactive_initial_view": {"zoom": 0.65}
+  },
   "plate_relief_source": "interactive",
   "paths": {
     "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"
@@ -83,6 +91,7 @@
   ],
   "plate_site_name": "Les Pyramides",
   "plate_city": "Saint-Raphaël",
+  "plate_city_detail": "Saint-Raphaël · Cap Dramont",
   "plate_title": "Les Pyramides, Cap Dramont–Île d’Or",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,

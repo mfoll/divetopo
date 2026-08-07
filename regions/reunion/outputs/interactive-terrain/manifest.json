@@ -8,38 +8,38 @@
       "files": {
         "metadata": {
           "path": "boucan-canot/terrain.json",
-          "bytes": 4720,
-          "sha256": "cd5d98bf47bc993c5e56d4c99ccd636c0f077a19d3792ae312bb6df6038ce544"
+          "bytes": 4759,
+          "sha256": "1e6e16e5421a41c40d0ee18c2cd6fb8edf27fb568dd9da7f3dccc304d06cde96"
         },
         "height": {
           "path": "boucan-canot/height.bin",
           "bytes": 526338,
-          "sha256": "530a9d1286c89447499c7d290c8b41bacbb5fd5fbbf6e9c7197e18d5d791391d"
+          "sha256": "d596fbe05dd989f8b05b5836a42751db8392ba0d1d42bd3d35ac1960e816736d"
         },
         "validMask": {
           "path": "boucan-canot/valid-mask.bin",
           "bytes": 32897,
-          "sha256": "b4455badc4243531f77d81e658a6ba2ef2efb911d325bd0f01de50de3c6decca"
+          "sha256": "4c49767137d14a895787ad2965cf01d5680acb73601cb1cbbee4dc4d97871364"
         },
         "isobathMask": {
           "path": "boucan-canot/isobath-mask.bin",
           "bytes": 32897,
-          "sha256": "b4455badc4243531f77d81e658a6ba2ef2efb911d325bd0f01de50de3c6decca"
+          "sha256": "4c49767137d14a895787ad2965cf01d5680acb73601cb1cbbee4dc4d97871364"
         },
         "vectorIsobaths": {
           "path": "boucan-canot/isobaths-vector.json",
-          "bytes": 133065,
-          "sha256": "e90394389e7e9824681cbd0521aed960be94845525e9e67620820b776ffa1d39"
+          "bytes": 163665,
+          "sha256": "0c05fb7641ea4bf892506f89f5fd4fd61d4ef823c516f04f93f47e44f6fc8b73"
         },
         "topographicTexture": {
           "path": "boucan-canot/topographic.webp",
-          "bytes": 140284,
-          "sha256": "8b29796471b144fb471d4d494dbedff6b639e4bd434edb305e990019a2f5199b"
+          "bytes": 159476,
+          "sha256": "85d1494835571070b2b5df6f87287a089d76a99b76ae01b023a624b04d74580e"
         },
         "orthophotoTexture": {
           "path": "boucan-canot/orthophoto.webp",
-          "bytes": 325078,
-          "sha256": "88ec5015e94eecca4bbce4c4aa48d57601583a82c4fbffd2abc8411a63a76f77"
+          "bytes": 373902,
+          "sha256": "c13a0c5b84ca60c6b68edaecdff00ede915657316de083dd1b7c8a034498c884"
         }
       }
     },
@@ -50,38 +50,38 @@
       "files": {
         "metadata": {
           "path": "cap-homard/terrain.json",
-          "bytes": 4734,
-          "sha256": "a3f13f398b6e7bd4f1c6336dffb7dd3195aee35b8b3e477eaf144051a7c8c1c6"
+          "bytes": 4773,
+          "sha256": "13c178a3c45537ecfd7ac03420cdfb68f9e41e67a0214b98af23a8beb762ddff"
         },
         "height": {
           "path": "cap-homard/height.bin",
           "bytes": 526338,
-          "sha256": "f498bd7489a9b8423e43867a9324c5594fce3cfaf488585d0a2de7a99ec6331b"
+          "sha256": "3fe24631221ed2cc0a2a85ff8cbdd638f8db1b1995f040d92e2ab091e29ef752"
         },
         "validMask": {
           "path": "cap-homard/valid-mask.bin",
           "bytes": 32897,
-          "sha256": "88bbb08c0f5f60af0c58f2c91b968201cbcfed955af96f4200b82a774e3a7e16"
+          "sha256": "37ffe0a876c24da7057c2f5590c57bfe679c8a6db5e4ff22bf39417d44c8b898"
         },
         "isobathMask": {
           "path": "cap-homard/isobath-mask.bin",
           "bytes": 32897,
-          "sha256": "88bbb08c0f5f60af0c58f2c91b968201cbcfed955af96f4200b82a774e3a7e16"
+          "sha256": "37ffe0a876c24da7057c2f5590c57bfe679c8a6db5e4ff22bf39417d44c8b898"
         },
         "vectorIsobaths": {
           "path": "cap-homard/isobaths-vector.json",
-          "bytes": 124635,
-          "sha256": "7d7e6291d9a4ebfbce2184175146b2940283f0b1ad39cc0c64f62cac36a85c53"
+          "bytes": 162476,
+          "sha256": "930499b76b41a5daaf8ec794e1786582349686a76ab594fbf598d0c88fa009b0"
         },
         "topographicTexture": {
           "path": "cap-homard/topographic.webp",
-          "bytes": 131888,
-          "sha256": "cb912a9c5520c0f65dd6deb453f61f5decb1f4151156b6ab2963d0584025465b"
+          "bytes": 155506,
+          "sha256": "0963ff401bb35d2d08670521f6dfefd503a9c48ec0a28e421e206da1eb8cf8e9"
         },
         "orthophotoTexture": {
           "path": "cap-homard/orthophoto.webp",
-          "bytes": 374294,
-          "sha256": "da6dd4b638f86e68ab23d82d3e9fc047a333156480a9349f3647761cecded43f"
+          "bytes": 438626,
+          "sha256": "831d1fb8152df1870992f66e3fedc3aff2d545599873ef331df5abe8958c5d3c"
         }
       }
     },
@@ -92,38 +92,38 @@
       "files": {
         "metadata": {
           "path": "cap-la-houssaye/terrain.json",
-          "bytes": 4454,
-          "sha256": "ff6a03b40a6e86116594fe6fbb6cb7dc70ce4f443c71092465b557117a1f9eef"
+          "bytes": 4499,
+          "sha256": "d50d4c34d07926400b4ce6c3d507e1b3a0db5b0136d901f57a1ff7bda3c0eb60"
         },
         "height": {
           "path": "cap-la-houssaye/height.bin",
-          "bytes": 285228,
-          "sha256": "e866f546418f9bac3d22bda903370770111362e12d0a3250e8d4b4ec551feb68"
+          "bytes": 500688,
+          "sha256": "39bc3afbd35a51d9506132f1157eae1eafa2c0990deb7f523d9101696ea92123"
         },
         "validMask": {
           "path": "cap-la-houssaye/valid-mask.bin",
-          "bytes": 17827,
-          "sha256": "cdd6599d7baabadead5ea95869d5a54b133f5e2560ec772471d4a082a17ddaa5"
+          "bytes": 31293,
+          "sha256": "40314a720271d617a6d117ed15b3f08b73ff51409eddb71277bef079b1705328"
         },
         "isobathMask": {
           "path": "cap-la-houssaye/isobath-mask.bin",
-          "bytes": 17827,
-          "sha256": "cdd6599d7baabadead5ea95869d5a54b133f5e2560ec772471d4a082a17ddaa5"
+          "bytes": 31293,
+          "sha256": "40314a720271d617a6d117ed15b3f08b73ff51409eddb71277bef079b1705328"
         },
         "vectorIsobaths": {
           "path": "cap-la-houssaye/isobaths-vector.json",
-          "bytes": 81630,
-          "sha256": "e6ba1a9c9851e44c2dc31334bb0a1e2632a11d117ebec39fafb0c3c2cb00ef83"
+          "bytes": 144433,
+          "sha256": "4c4e321ed74a1bba3e5424757198e5d3ef981934fcbf59531df6d4023c2e2418"
         },
         "topographicTexture": {
           "path": "cap-la-houssaye/topographic.webp",
-          "bytes": 110116,
-          "sha256": "e052a027cc093afc0bc57f7c2c6764ffb4c3997c9a4853b9fcea44b46bc49302"
+          "bytes": 208624,
+          "sha256": "b43f18f71ac53ce6c2e2e7469ef05898d39042780f70f99a7835a2bc01194c6d"
         },
         "orthophotoTexture": {
           "path": "cap-la-houssaye/orthophoto.webp",
-          "bytes": 331994,
-          "sha256": "be9baf0c798a956833f351d34f1a504d142ddbdadc29b3a9d4d44a35327ce589"
+          "bytes": 547144,
+          "sha256": "c6be428b2bf7bffce929087d7d561c5da9632f830f352264bb0c22f1ac4ff7f8"
         }
       }
     },
@@ -134,38 +134,38 @@
       "files": {
         "metadata": {
           "path": "passe-hermitage/terrain.json",
-          "bytes": 4778,
-          "sha256": "88099f2ef8a45780788735b868cebe36e3dd839068fe20e43e84ce6394a1bfb2"
+          "bytes": 4773,
+          "sha256": "24594436166de76720bd990f24e66258b99a94605b5fdb66ea311b5c9fe9feb5"
         },
         "height": {
           "path": "passe-hermitage/height.bin",
           "bytes": 526338,
-          "sha256": "b905a59617c5bc4b4a9e7a746ea01dec82c49f0ab3d00798047563508290b021"
+          "sha256": "510c13c166282fd390e917a5cfb54454aee9249d240ae90f40289477b04da348"
         },
         "validMask": {
           "path": "passe-hermitage/valid-mask.bin",
           "bytes": 32897,
-          "sha256": "89b4c416ca6008be8f7dcaf5b5b08664327a8953a59e972e5c4ccd6109a5105c"
+          "sha256": "0d18a70a42c5addcbe52eb075717dd4b6c62eba10cd09de609dada54d8a4de2e"
         },
         "isobathMask": {
           "path": "passe-hermitage/isobath-mask.bin",
           "bytes": 32897,
-          "sha256": "89b4c416ca6008be8f7dcaf5b5b08664327a8953a59e972e5c4ccd6109a5105c"
+          "sha256": "0d18a70a42c5addcbe52eb075717dd4b6c62eba10cd09de609dada54d8a4de2e"
         },
         "vectorIsobaths": {
           "path": "passe-hermitage/isobaths-vector.json",
-          "bytes": 155128,
-          "sha256": "4da99b3b3bcdebdcaa3de9c6bb5f28ffc303a8d135b0ffaeae043dab8f52ee39"
+          "bytes": 172395,
+          "sha256": "3cc08f6a507bd70b80ac30093d673fc0c991dc4b0543a84f938f919b063459e1"
         },
         "topographicTexture": {
           "path": "passe-hermitage/topographic.webp",
-          "bytes": 148160,
-          "sha256": "e04e734f1a9a4ccbd742544d03eea109450d463761598e00a3d5dd68f7f46eda"
+          "bytes": 166610,
+          "sha256": "7b546864ef38aeffea8371d7a5582df61458c5f488158a93d85467baa6edeed3"
         },
         "orthophotoTexture": {
           "path": "passe-hermitage/orthophoto.webp",
-          "bytes": 191112,
-          "sha256": "def99ceb69aec9a64e3fa49a0607cff40f3e83f4a2f6f5284bc5e4aa101bba20"
+          "bytes": 221956,
+          "sha256": "959703b9ce1321837340f3e609530da73474596233b80e0028c6e0a15409fee4"
         }
       }
     },
@@ -176,38 +176,38 @@
       "files": {
         "metadata": {
           "path": "plage-cimetiere-saint-leu/terrain.json",
-          "bytes": 4733,
-          "sha256": "2350bd4713900c6bc74bb0fcbf16c74bac924fa43d1f0754dcf5a3498cc6c48f"
+          "bytes": 4783,
+          "sha256": "14fc0882e7f15d1fc0d06981f265223b86cddc3f36c9b7fe8770d36e385a8980"
         },
         "height": {
           "path": "plage-cimetiere-saint-leu/height.bin",
-          "bytes": 232902,
-          "sha256": "7728329d7379331f786b40ebd7d95935c1362f8b88666de9fd145cecbd06e2b0"
+          "bytes": 310878,
+          "sha256": "aa3d29664537879d2974dce68a418e382a339638d1676f364600b2a12944e094"
         },
         "validMask": {
           "path": "plage-cimetiere-saint-leu/valid-mask.bin",
-          "bytes": 14557,
-          "sha256": "0da136b44104f0429f7845fdd1aea9a0354de248beb80da96251f371e77bc37f"
+          "bytes": 19430,
+          "sha256": "32aa0790a135f977f014559506c92415c1dd6ada968eec44909f6cd53d56f6b2"
         },
         "isobathMask": {
           "path": "plage-cimetiere-saint-leu/isobath-mask.bin",
-          "bytes": 14557,
-          "sha256": "0da136b44104f0429f7845fdd1aea9a0354de248beb80da96251f371e77bc37f"
+          "bytes": 19430,
+          "sha256": "32aa0790a135f977f014559506c92415c1dd6ada968eec44909f6cd53d56f6b2"
         },
         "vectorIsobaths": {
           "path": "plage-cimetiere-saint-leu/isobaths-vector.json",
-          "bytes": 69074,
-          "sha256": "dfc59af4a9529646c5c1124a2b25d457b3d231d1728582890ef7d95da216e263"
+          "bytes": 108580,
+          "sha256": "5746891bd129fc32c2d66acd9c227240d38c599c6b9ee6004fd66ee6cf7b8dc3"
         },
         "topographicTexture": {
           "path": "plage-cimetiere-saint-leu/topographic.webp",
-          "bytes": 100154,
-          "sha256": "ce390c4770b57a4b060b053665290eb3818501706725132622d0b8e42422d47e"
+          "bytes": 132982,
+          "sha256": "37fbe8f830cbda11547d93787e1ea99e92933d7afecd17e0e45676abd34791cf"
         },
         "orthophotoTexture": {
           "path": "plage-cimetiere-saint-leu/orthophoto.webp",
-          "bytes": 319874,
-          "sha256": "d13dcc00e7666ee24ef85f7dbb7cff48e8a476e64de2189d73cf5aa83a6490db"
+          "bytes": 430366,
+          "sha256": "9e7325bf82ee1ea9cc73fbcd4e1994186e67b0fe43b28724287f0323b9038a22"
         }
       }
     },
@@ -218,38 +218,38 @@
       "files": {
         "metadata": {
           "path": "pointe-au-sel-sec-jaune/terrain.json",
-          "bytes": 5145,
-          "sha256": "e21ac7531139d9973ea956f5feaa6752b72bcc5dfbd62719c96b14be6f9a61e6"
+          "bytes": 5188,
+          "sha256": "f3b2d8d2d1e6311940455ddce3d2280c6c6d0e9e8e21741367933750ec3126e5"
         },
         "height": {
           "path": "pointe-au-sel-sec-jaune/height.bin",
-          "bytes": 474012,
-          "sha256": "62a5dfe24ac753f7c9d4414bcd176e99fac50d24c3894f234eb83d1d2c030386"
+          "bytes": 507870,
+          "sha256": "03fe71cb5bffab4eee75682cb66f405a31574ab05458862f51ae8b0cc05ed3f1"
         },
         "validMask": {
           "path": "pointe-au-sel-sec-jaune/valid-mask.bin",
-          "bytes": 29626,
-          "sha256": "4fbc2ef84ee4e16b9b5ca9216905bc93ff4760e62ff14d6a85fe44e03f8bb324"
+          "bytes": 31742,
+          "sha256": "d181a6298194ee562e03e73dac491da3e14fcecb866dc0eb530bd6c674d84d30"
         },
         "isobathMask": {
           "path": "pointe-au-sel-sec-jaune/isobath-mask.bin",
-          "bytes": 29626,
-          "sha256": "372ac66d10ac45d38e42bbb57310f2f6822d8733194f47f3dbbd00f980a898f7"
+          "bytes": 31742,
+          "sha256": "31f5fa3cf63a4d2ca5c15c51b7b8a929456dafce8482c465f8d57f41c35ecd0d"
         },
         "vectorIsobaths": {
           "path": "pointe-au-sel-sec-jaune/isobaths-vector.json",
-          "bytes": 188182,
-          "sha256": "cb0897fce2c11cae881c77be87719d5dca93f886fc401b4a26b94f070de96ba9"
+          "bytes": 185383,
+          "sha256": "eabca3a7a45820b41af7bac70e3a1f78fe3f96d9f88640b8d1760a957caa24e0"
         },
         "topographicTexture": {
           "path": "pointe-au-sel-sec-jaune/topographic.webp",
-          "bytes": 128728,
-          "sha256": "b85a1560e4cac773948453671ef81675fcadb1bcc34642fa5df2cf4e01d307ac"
+          "bytes": 144860,
+          "sha256": "a1c99fea33292a5048f108b87dd80131628b9f2b5d9dc97795afa7b5ee632c89"
         },
         "orthophotoTexture": {
           "path": "pointe-au-sel-sec-jaune/orthophoto.webp",
-          "bytes": 301658,
-          "sha256": "c93b703ca1cf32a8a6e21c6f303a554e19131eebce33ba263508e7cd2b85e738"
+          "bytes": 316388,
+          "sha256": "f21f28eea39ca973847e5e6ea4dc4fbe42b30184ea4dac01b18d865774fec079"
         }
       }
     },
@@ -260,38 +260,38 @@
       "files": {
         "metadata": {
           "path": "pointe-des-aigrettes/terrain.json",
-          "bytes": 4739,
-          "sha256": "104a2b69aae5f33b4555fda4fc558287c33bc1751996768e2666829fa0fd4d4b"
+          "bytes": 4782,
+          "sha256": "94947ef65e55561d5b3aee1a8247c4be843a9aa68ca34d835906152ef48c3a1f"
         },
         "height": {
           "path": "pointe-des-aigrettes/height.bin",
           "bytes": 526338,
-          "sha256": "27ddf9de72cb6b7b2d5ce67acdd304fbd5a38b5a6638a9d884580d8ecd6e0c49"
+          "sha256": "fc29757533cfb9dbac5f4eeea476f2c2b5c14d3a04f3b284a087d586fac309f9"
         },
         "validMask": {
           "path": "pointe-des-aigrettes/valid-mask.bin",
           "bytes": 32897,
-          "sha256": "f01aca644744f60f030d094113c173adee36f7587247a10c41ed6a123a1736fb"
+          "sha256": "5006ae63526be09d9fa758e17bcb76d762100fa44a0b77fe55835e99f269c11e"
         },
         "isobathMask": {
           "path": "pointe-des-aigrettes/isobath-mask.bin",
           "bytes": 32897,
-          "sha256": "f01aca644744f60f030d094113c173adee36f7587247a10c41ed6a123a1736fb"
+          "sha256": "5006ae63526be09d9fa758e17bcb76d762100fa44a0b77fe55835e99f269c11e"
         },
         "vectorIsobaths": {
           "path": "pointe-des-aigrettes/isobaths-vector.json",
-          "bytes": 143113,
-          "sha256": "733480ac33210dce49ee7a998b12cd5c749454a9023fb361858cd847b99de48e"
+          "bytes": 166474,
+          "sha256": "793ac6c90ef810ad6439be638f429eba2e50b7bfe234c64a6defad918eecccec"
         },
         "topographicTexture": {
           "path": "pointe-des-aigrettes/topographic.webp",
-          "bytes": 141610,
-          "sha256": "8a1a3691ad2f4ab48add7481e494af26bd6c54ff995b0d5138fbf492c9280172"
+          "bytes": 166504,
+          "sha256": "c576e26e4b96146a2e4e252575d7259413beb89937776874e61593a12e68a9b4"
         },
         "orthophotoTexture": {
           "path": "pointe-des-aigrettes/orthophoto.webp",
-          "bytes": 441616,
-          "sha256": "ba39beb302f367b2d2d4006db87b1b87e82fb3f1f68b9e59d3b4f97ab9a9f069"
+          "bytes": 490034,
+          "sha256": "cc5e93b3c8283e92f9da5e0f25edea8b6ff9de4855bd6be4b508c6ce5e5bd9c4"
         }
       }
     },
@@ -302,38 +302,38 @@
       "files": {
         "metadata": {
           "path": "pont-rouge/terrain.json",
-          "bytes": 4502,
-          "sha256": "01a0cdf4a78eb70755f8a1be45569d9fc3cdab6f1432ab5b643e63f1d188d4a3"
+          "bytes": 4509,
+          "sha256": "5d19719b4dba5b21783ad5bf78ccb513245bc4ee0b55b7845763cd32e4897eb2"
         },
         "height": {
           "path": "pont-rouge/height.bin",
-          "bytes": 400140,
-          "sha256": "0329deb480e7818c1396fa86d9a062330cb941e33e2619841e55e6d9c9f375d0"
+          "bytes": 432972,
+          "sha256": "eef470b735d9fce720ee9e0378ceb0bfba3f4f7e50a794971bfd9031101a9e67"
         },
         "validMask": {
           "path": "pont-rouge/valid-mask.bin",
-          "bytes": 25009,
-          "sha256": "979205d58067d816b9783dcfc3cabe0126f87ac69a0f7b6fdf124121ff6136c3"
+          "bytes": 27061,
+          "sha256": "52e27780b1e85bf8c16d2105296d9e668d5595d7ee4fc45798c4d52d42c7bf24"
         },
         "isobathMask": {
           "path": "pont-rouge/isobath-mask.bin",
-          "bytes": 25009,
-          "sha256": "979205d58067d816b9783dcfc3cabe0126f87ac69a0f7b6fdf124121ff6136c3"
+          "bytes": 27061,
+          "sha256": "52e27780b1e85bf8c16d2105296d9e668d5595d7ee4fc45798c4d52d42c7bf24"
         },
         "vectorIsobaths": {
           "path": "pont-rouge/isobaths-vector.json",
-          "bytes": 112656,
-          "sha256": "5fc0063c83b235921547e60ca248d3d6f1cef542813049d1b9a53d3992efa0b2"
+          "bytes": 136776,
+          "sha256": "6e792bade7e0c03dfe95be449ff60347ed636ce12c64e5cf46f9926c4a7a0c55"
         },
         "topographicTexture": {
           "path": "pont-rouge/topographic.webp",
-          "bytes": 146482,
-          "sha256": "f024105655ab0e3b61be9a481541ee8df0bfbc5458e58b5ad03eb70a36bb821e"
+          "bytes": 166278,
+          "sha256": "b629d158ef5fde02a2051126687b4912c818db82d6afc9583fdc6f37e72df6ca"
         },
         "orthophotoTexture": {
           "path": "pont-rouge/orthophoto.webp",
-          "bytes": 267950,
-          "sha256": "f55dcfffd3a71f96692ba78c495f6f46966eeebb443a0c71862157b955a2f0bd"
+          "bytes": 319832,
+          "sha256": "b2497bc0506dec51ac4a662978e1adfaf6dc2ce587ea15ca75db2311e8f18f8a"
         }
       }
     },
@@ -344,38 +344,38 @@
       "files": {
         "metadata": {
           "path": "roches-noires/terrain.json",
-          "bytes": 4725,
-          "sha256": "0e76c301ad99b71c9d4c8580468b137e17c08c567c11087f68c28c5f87d97914"
+          "bytes": 4762,
+          "sha256": "abd1e9cb1c564bc6b330c3896cdb0bfe2016b5cc7c4e1d1d39f88d8dbdbf30e4"
         },
         "height": {
           "path": "roches-noires/height.bin",
-          "bytes": 494532,
-          "sha256": "06f2e08f54722e87df7f46436acf409bad7d111c31b6ef7d45f393b75eeca049"
+          "bytes": 521208,
+          "sha256": "7e8de9ac29c44126e7c2ee5187966d4fe5f924c733ee8a95c2f1d1e96b54e6bd"
         },
         "validMask": {
           "path": "roches-noires/valid-mask.bin",
-          "bytes": 30909,
-          "sha256": "f0e51daa8498e5ab5b3fc1dd40f33df7bec1fbd813a20399612913210d8c135a"
+          "bytes": 32576,
+          "sha256": "909ed088afb89f2c5e3aa26beee8b76ffd44ea9cda2a9139c4831b1fd0030c33"
         },
         "isobathMask": {
           "path": "roches-noires/isobath-mask.bin",
-          "bytes": 30909,
-          "sha256": "f0e51daa8498e5ab5b3fc1dd40f33df7bec1fbd813a20399612913210d8c135a"
+          "bytes": 32576,
+          "sha256": "909ed088afb89f2c5e3aa26beee8b76ffd44ea9cda2a9139c4831b1fd0030c33"
         },
         "vectorIsobaths": {
           "path": "roches-noires/isobaths-vector.json",
-          "bytes": 119229,
-          "sha256": "c630fb0cd2ee5c92dab389847bec6dd488b658886dc0d6856c8361a4cdb5cd9f"
+          "bytes": 106611,
+          "sha256": "aee1898611e5caa1ef7c78218bffcfe5258b074e8da4bc8dae9b3164c8c1ad75"
         },
         "topographicTexture": {
           "path": "roches-noires/topographic.webp",
-          "bytes": 178784,
-          "sha256": "5bbc565449c15a970a3bf5b66e8a6f4d8a2ee2dc8e9d11f46dc36cbe07ccdb32"
+          "bytes": 180184,
+          "sha256": "9c98f0f80caab25f4cb19ad47ac3a57b179a03f7b0037e570e8a040c0934796c"
         },
         "orthophotoTexture": {
           "path": "roches-noires/orthophoto.webp",
-          "bytes": 500722,
-          "sha256": "c24cb378ff4a05ebfe1652bbdc5784191b89a359c76534927c42c89be47dba22"
+          "bytes": 628748,
+          "sha256": "9f339ecd026a1560e458745aae9ac1373e43e64d70be4eb5be3453ee1151f814"
         }
       }
     },
@@ -386,38 +386,38 @@
       "files": {
         "metadata": {
           "path": "souris-chaude/terrain.json",
-          "bytes": 4980,
-          "sha256": "4f7475d6f6f6eff708d473879ac5c177a23c9fcec50a3f91a6b32af6b984be3a"
+          "bytes": 5026,
+          "sha256": "ff6938271dc343773d0867757095b831d15815a4537da8c05c4186dda85da53a"
         },
         "height": {
           "path": "souris-chaude/height.bin",
           "bytes": 526338,
-          "sha256": "df0da2fa2ef4a5c163d117917e65b5e238749c6e9ed8e3bf3312ed7577f1ea46"
+          "sha256": "a329b125974e45fa9baf42e7c4830f549c23f36b9039aa4d6599b3ddc7328f07"
         },
         "validMask": {
           "path": "souris-chaude/valid-mask.bin",
           "bytes": 32897,
-          "sha256": "c93c94b54af04735cd055b3ba3e71d70034f0c033f0dec0e188cca67f2d99503"
+          "sha256": "429f212eefab0760b42437af086f4c76845c66365fa27b9e7b5dc8d530cd9568"
         },
         "isobathMask": {
           "path": "souris-chaude/isobath-mask.bin",
           "bytes": 32897,
-          "sha256": "cb2d4b15802d28ffbaa3a69255c11996ea5999e262bace82ea2c1ab2d18284a8"
+          "sha256": "0df3753cb570981be6ff0b5a459698f86e974f051f731c85f2440e41d23ad99b"
         },
         "vectorIsobaths": {
           "path": "souris-chaude/isobaths-vector.json",
-          "bytes": 112290,
-          "sha256": "5e90688da3368c2c343eb4ea4504db11615be559c32bbfc639cf1e706f34666a"
+          "bytes": 145011,
+          "sha256": "7d75f2096a02cbb94cde8e78cb0272f3e9c2fa5b464c107b6a15c3f8495ab2cb"
         },
         "topographicTexture": {
           "path": "souris-chaude/topographic.webp",
-          "bytes": 181514,
-          "sha256": "d050924d15af8d9a9ba76a54413944a5e07a4a6c14f15caa9efe88bd7a20b327"
+          "bytes": 194324,
+          "sha256": "8bee13be5af74d1b906f2b1b75659cc4b00b8e140d4ae63674ce3830b87dec37"
         },
         "orthophotoTexture": {
           "path": "souris-chaude/orthophoto.webp",
-          "bytes": 486556,
-          "sha256": "c687fdda2227e5ec5fba640427c8c9a9b90f8bc06370528fdb1340f4e67be7ce"
+          "bytes": 482386,
+          "sha256": "5b7196000e47c84618d4595ca92249dbc1e31931cc7100be86d9114e72657113"
         }
       }
     },
@@ -428,8 +428,8 @@
       "files": {
         "metadata": {
           "path": "trois-bassins/terrain.json",
-          "bytes": 5191,
-          "sha256": "93909e8ffc1673023a2dc6e9432bb1fde46c356325787c3c89af5529e61c17ae"
+          "bytes": 5227,
+          "sha256": "853a2df72fb7167771953025845a4f73151b64464e19d3b5327677722e55145e"
         },
         "height": {
           "path": "trois-bassins/height.bin",

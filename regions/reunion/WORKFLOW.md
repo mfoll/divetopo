@@ -98,7 +98,7 @@ sizes and SHA-256 hashes. The mesh retains physical elevations, and the
 viewer then applies the vertical exaggeration declared in the metadata.
 The elevation field has at most 513 vertices along its longest axis. Both
 textures are derived from rasters covering the interactive extent and are
-limited to `2048 px` on their longest side. All seven sites declare an
+limited to `2048 px` on their longest side. Each published site declares an
 `interactive_footprint_utm40s`, a rectangle oriented like the view and
 approximately parallel to the coastline. The pipeline crops its bounding
 rectangle from the context rasters, then masks the mesh and textures
@@ -108,8 +108,9 @@ with an exposure of `1.55` before the final sRGB conversion. This exposure is
 identical to that of the static perspectives: it brightens slopes without a CSS
 filter and without modifying the source WebPs.
 
-The website never generates these files. It copies the canonical package into
-its public directory with `apps/web/scripts/sync_interactive_terrain.py`. This
+The website never generates these files. It merges the canonical packages from
+all regional inventories into its public directory with
+`apps/web/scripts/sync_interactive_terrain.py`. This
 boundary makes it possible to change the interface or deployment without moving
 responsibility for the terrain, textures, camera, or provenance outside
 the pipeline. The complete format is described in
@@ -128,6 +129,9 @@ Copy the existing JSON to `regions/reunion/sites/<slug>.json`, then set:
 - `orthophoto_capture_date`, in ISO `YYYY-MM-DD` format, verified for this site rather than copied from a neighboring site;
 - versioned GEBCO references and their attribution for the island locator map;
 - camera parameters and, if necessary, output paths.
+- a `web` object containing the explicit publication state, the cartouche
+  layout, and only when needed an initial interactive-camera override. These
+  site-specific values must not be reintroduced into the shared React component.
 
 `rotation_k` mapping:
 
@@ -189,9 +193,9 @@ After the canonical maps and sheets are approved:
 1. Add the municipality and neutral identifying metadata to
    `apps/web/content/site-details.json`. Do not add a visible site description
    or replace the fixed regional heading without prior validation.
-2. Inspect the site-picker label placement and add a `SITE_LABEL_LAYOUT` entry
-   in `apps/web/app/TopoReunionExperience.tsx` if the automatic position overlaps a
-   neighbor.
+2. Reconcile all site-picker labels together, then store the validated
+   `web.site_label_layout` in the site JSON. Adding one site may require moving
+   neighboring cartouches; the shared React component remains unchanged.
 3. Update the explicit published-slug sets and count assertions in
    `tests/test_config.py` and `apps/web/tests/rendered-html.test.mjs`.
 4. Regenerate the complete interactive package without positional configs,
@@ -229,6 +233,7 @@ consistent until that duplication is removed.
 - `max_depth_m`: maximum depth shown by the palette and static terrain. Isobaths are generated automatically every 5 m down to this value; Boucan uses 30 m.
 - `plan_max_depth_m` and `interactive_max_depth_m`: optional limits, less than or equal to `max_depth_m`, specific to the 2D maps and the interactive package respectively. They are reserved for a documented source-coverage limitation, not for aesthetic cropping. Pointe au Sel uses `plan_max_depth_m: 30` and retains `max_depth_m: 40` for the static and interactive terrains. Its static view uses the validated framing at `60°` over `1200 × 1400 m`, with a visible width of `900 m` and a center shifted `50 m` north.
 - `relief_mesh_gap_fill_max_area_m2`: optional physical threshold, disabled by default, for interpolating only very small enclosed marine gaps in the static 3D mesh. A component touching an edge, land, or exceeding this threshold remains invalid. Pointe au Sel sets `64 m²`; the current rendering first fills 30 cells, or `19.2 m²`, from their valid boundary. The same check is applied again after rotation and cropping to close only micro-gaps that the transformation can reveal; it currently adds 2 cells, or `1.3 m²`. Both passes run after contour extraction, so isobaths and all other outputs remain faithful to the source.
+- `interactive_shallow_basin_correction_bbox_utm40s` and `interactive_shallow_basin_max_boundary_depth_m`: site-local visual correction for a documented shallow source anomaly in the interactive 3D mesh. The projected rectangle is interpolated only when its complete boundary is valid and remains shallower than the configured limit. Souris Chaude uses `[318798.0, 7663960.8, 318856.8, 7663996.8]` with a `2.5 m` boundary limit to preserve the shallow surface already validated in v1.2.1. The correction is excluded from source-derived isobaths and does not modify source rasters or 2D maps.
 - `deep_edge_nodata_terrain_fill` and `deep_edge_nodata_terrain_min_depth_m`: optional completion, disabled by default, of deep boundaries in the 3D terrains. A component must touch the outer edge, touch no known land, have a sufficiently long marine boundary, and encounter no boundary depth shallower than the threshold. Pointe au Sel uses `20 m`; qualifying components become a uniform plateau at `-40 m`, with no reconstructed slope. Static and interactive isobaths are masked over the fill and its transition.
 - `interactive_footprint_utm40s`: oriented rectangle of the interactive package, cropped from the context rasters and required to remain within `context_bbox_utm40s`. Its width follows the coastline approximately, and its depth follows the viewing axis from offshore toward land. Validation requires at least a 15% lateral margin and a 20% depth margin relative to the canonical initial framing. Pointe au Sel uses a `1040 × 1545 m` rectangle centered on `[321581.5, 7654180.4]` and oriented at `60°`.
 - `interactive_view_visible_width_m`: optional visible width specific to the initial Web framing. It replaces `view_visible_width_m` only in the interactive metadata without modifying the static perspective. Cap Homard uses `540 m` to keep its entire initial view within the available data.
@@ -307,7 +312,7 @@ Each JPEG carries its own data credits. The detailed maps include the required H
 
 These maps are aids for reading the relief and general orientation. They prove neither access, permission to dive, nor the current practicability or safety of a site. They do not replace local information, weather conditions, sea state, instructions from authorities, or a professional assessment.
 
-The orthophoto variants are additional outputs. In 2D, the texture replaces the topographic background within the land mask and, when configured, within the shallow marine depth band. In 3D, the orthophoto and its georeferenced alpha mask are aligned with the DTM, then rotated, cropped, and resampled in parallel with the mesh. The alpha mask becomes zero when the control depth reaches `imagery_sea_max_depth_m`; a band calculated only from distance to the coastline therefore cannot extend the image into deep water. By default, raster gaps remain invalid and receive a neutral background. Three visual exceptions are distinct: a deep marine edge gap may receive only the maximum-depth color in 2D; a small internal gap may be interpolated in the static mesh alone through `relief_mesh_gap_fill_max_area_m2`; a documented deep boundary may be completed in the static and interactive terrains by a uniform plateau through `deep_edge_nodata_terrain_fill`.
+The orthophoto variants are additional outputs. In 2D, the texture replaces the topographic background within the land mask and, when configured, within the shallow marine depth band. In 3D, the orthophoto and its georeferenced alpha mask are aligned with the DTM, then rotated, cropped, and resampled in parallel with the mesh. The alpha mask becomes zero when the control depth reaches `imagery_sea_max_depth_m`; a band calculated only from distance to the coastline therefore cannot extend the image into deep water. By default, raster gaps remain invalid and receive a neutral background. Four visual exceptions are distinct: a deep marine edge gap may receive only the maximum-depth color in 2D; a small internal gap may be interpolated in the static mesh alone through `relief_mesh_gap_fill_max_area_m2`; a bounded, documented shallow anomaly may be interpolated in the interactive mesh through `interactive_shallow_basin_correction_bbox_utm40s`; a documented deep boundary may be completed in the static and interactive terrains by a uniform plateau through `deep_edge_nodata_terrain_fill`.
 
 - `coast_frame_fraction`: height of the coastline in the 3D image, from 0 at the top to 1 at the bottom. Increasing it visually moves the camera closer to the coast by giving less height to the offshore area. L'Hermitage uses `0.26`; Cap La Houssaye uses `0.54` because its useful relief is concentrated near the two headlands and its offshore area quickly becomes uniform.
 - `vertical_exaggeration`: dimensionless ratio between the vertical and horizontal scales of the rendering. Its meaning remains stable when raster resolution, canvas, or visible width changes. The shared standard for all seven published sites and future sites is `3.9935327405`, or approximately `4×`, to make the underwater relief sufficiently readable while retaining the 2D map as the metric reference.

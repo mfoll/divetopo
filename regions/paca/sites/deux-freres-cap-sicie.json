@@ -2,6 +2,16 @@
   "region": "paca",
   "slug": "deux-freres-cap-sicie",
   "title": "Les Deux Frères, Cap Sicié - prototype personnel",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "right", "shift_y_rem": -2, "connector_angle_deg": -73.2,
+      "connector_width_rem": 2.17, "label_offset_rem": 2, "width_rem": 6.02
+    },
+    "interactive_initial_view": {
+      "zoom": 0.9, "center_offset_east_m": 310, "center_offset_south_m": 100
+    }
+  },
   "plate_relief_source": "interactive",
   "paths": {
     "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"
@@ -87,7 +97,8 @@
   ],
   "plate_site_name": "Les Deux Frères",
   "plate_city": "La Seyne-sur-Mer",
-  "plate_title": "Les Deux Frères, Cap Sicié, Côte d’Azur",
+  "plate_city_detail": "La Seyne-sur-Mer · Cap Sicié",
+  "plate_title": "Les Deux Frères, Cap Sicié",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",

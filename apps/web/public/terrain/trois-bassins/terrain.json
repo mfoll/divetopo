@@ -166,7 +166,8 @@
       25,
       30,
       35
-    ]
+    ],
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,

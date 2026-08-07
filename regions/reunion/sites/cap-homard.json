@@ -2,16 +2,24 @@
   "region": "reunion",
   "slug": "cap-homard",
   "title": "Cap Homard / Cap de Tonton",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "right", "shift_y_rem": -0.15, "connector_angle_deg": -10,
+      "connector_width_rem": 1.3, "label_offset_rem": 2.6
+    }
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [314715.3, 7672996.7, 315515.3, 7673550.7],
-  "context_bbox_utm40s": [314200.0, 7672300.0, 316100.0, 7674000.0],
+  "context_bbox_utm40s": [314180.0, 7672300.0, 316100.0, 7674140.0],
   "interactive_footprint_utm40s": {
-    "center": [315072.0, 7673198.0],
-    "width_m": 690.0,
+    "center": [315095.3, 7673221.3],
+    "width_m": 1000.0,
     "depth_m": 1565.0,
     "look_bearing_deg": 135.0
   },
+  "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 135.0,

@@ -15,19 +15,23 @@ import tempfile
 from pathlib import Path
 from typing import Any
 
-from osgeo import osr
 from PIL import Image, ImageOps
+
+from regional_manifest import (
+    load_published_configs,
+    marker_wgs84,
+    site_city,
+    web_site_metadata,
+)
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
 SITE_ROOT = SCRIPT_DIR.parent
 REPOSITORY_ROOT = SITE_ROOT.parents[1]
-REUNION_ROOT = REPOSITORY_ROOT / "regions" / "reunion"
-CONFIG_ROOT = REUNION_ROOT / "sites"
 BUNDLED_MANIFEST_PATH = SITE_ROOT / "content" / "map-manifest.json"
 PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "maps"
-RELEASE_TAG = "v1.2.1"
+RELEASE_TAG = "v1.3.0"
 RELEASE_ASSET_BASE = (
     f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
 )
@@ -63,9 +67,6 @@ PLANCHE_SOURCES = (
     ("topographic", "output_plate_topography"),
     ("orthophoto", "output_plate"),
 )
-
-osr.UseExceptions()
-
 
 def sha256(path: Path) -> str:
     digest = hashlib.sha256()
@@ -137,21 +138,6 @@ def configured_source(config: dict[str, Any], key: str) -> Path:
     return source
 
 
-def marker_wgs84(marker: list[float]) -> tuple[float, float]:
-    projected = osr.SpatialReference()
-    projected.ImportFromEPSG(32740)
-    projected.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
-    geographic = osr.SpatialReference()
-    geographic.ImportFromEPSG(4326)
-    geographic.SetAxisMappingStrategy(osr.OAMS_TRADITIONAL_GIS_ORDER)
-    transform = osr.CoordinateTransformation(projected, geographic)
-    longitude, latitude, _ = transform.TransformPoint(
-        float(marker[0]),
-        float(marker[1]),
-    )
-    return latitude, longitude
-
-
 def west_coast_locator_position(marker: list[float]) -> dict[str, float]:
     easting = float(marker[0])
     northing = float(marker[1])
@@ -212,29 +198,17 @@ def reunion_overview_record() -> dict[str, Any]:
 
 
 def load_configs() -> list[dict[str, Any]]:
-    configs: list[dict[str, Any]] = []
-    for path in sorted(CONFIG_ROOT.glob("*.json")):
-        with path.open(encoding="utf-8") as stream:
-            config = json.load(stream)
+    configs = load_published_configs(REPOSITORY_ROOT, "reunion")
+    for config in configs:
         if not config.get("orthophoto_enabled"):
-            raise ValueError(f"{path.name}: the website requires orthophoto variants")
+            raise ValueError(
+                f"{config['slug']}: the website requires orthophoto variants"
+            )
         if not str(config.get("plate_city", "")).strip():
-            raise ValueError(f"{path.name}: plate_city must identify the municipality")
-        config["_config_path"] = path.relative_to(REPOSITORY_ROOT).as_posix()
-        configs.append(config)
-
-    if not configs:
-        raise RuntimeError(f"No site configurations found under {CONFIG_ROOT}")
-
-    # A north-to-south order makes the west-coast collection read naturally.
-    return sorted(
-        configs,
-        key=lambda item: item.get(
-            "site_location_utm40s",
-            item["locator_marker_utm40s"],
-        )[1],
-        reverse=True,
-    )
+            raise ValueError(
+                f"{config['slug']}: plate_city must identify the municipality"
+            )
+    return configs
 
 
 def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
@@ -323,27 +297,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "site_location_utm40s",
         config["locator_marker_utm40s"],
     )
-    latitude, longitude = marker_wgs84(site_location)
-    interactive_initial_view = None
-    if any(
-        key in config
-        for key in (
-            "interactive_initial_zoom",
-            "interactive_initial_center_offset_east_m",
-            "interactive_initial_center_offset_south_m",
-        )
-    ):
-        interactive_initial_view = {
-            "zoom": config.get("interactive_initial_zoom", 1),
-            "centerOffsetEastM": config.get(
-                "interactive_initial_center_offset_east_m",
-                0,
-            ),
-            "centerOffsetSouthM": config.get(
-                "interactive_initial_center_offset_south_m",
-                0,
-            ),
-        }
+    latitude, longitude = marker_wgs84(site_location, 32740)
 
     compact_topographic = str(
         config.get(
@@ -363,7 +317,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "plateTitle": config["plate_title"],
         "config": config["_config_path"],
         "location": {
-            "city": config["plate_city"],
+            "city": site_city(config),
             "latitude": round(latitude, 8),
             "longitude": round(longitude, 8),
         },
@@ -380,9 +334,8 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "compactAttributions": compact_attributions,
         "maps": maps,
         "planches": planches,
+        **web_site_metadata(config),
     }
-    if interactive_initial_view is not None:
-        site["interactiveInitialView"] = interactive_initial_view
     return site
 
 

@@ -2,6 +2,13 @@
   "region": "reunion",
   "slug": "pointe-des-aigrettes",
   "title": "Pointe des Aigrettes",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "right", "shift_y_rem": 2.15, "connector_angle_deg": 58,
+      "connector_width_rem": 2.45, "label_offset_rem": 2.65
+    }
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [
@@ -11,20 +18,21 @@
     7673138.3
   ],
   "context_bbox_utm40s": [
-    314000.0,
+    313950.0,
     7671900.0,
     315800.0,
     7673800.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      314900.0,
-      7672860.0
+      314883.463,
+      7672843.463
     ],
-    "width_m": 700.0,
+    "width_m": 1000.0,
     "depth_m": 1580.0,
     "look_bearing_deg": 135.0
   },
+  "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 135.0,

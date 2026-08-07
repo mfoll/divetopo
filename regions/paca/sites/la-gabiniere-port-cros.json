@@ -2,6 +2,17 @@
   "region": "paca",
   "slug": "la-gabiniere-port-cros",
   "title": "La Gabinière - prototype personnel",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "right", "shift_y_rem": 1.5, "connector_angle_deg": 58.5,
+      "connector_width_rem": 1.67, "label_offset_rem": 2.25, "width_rem": 5.11
+    },
+    "interactive_initial_view": {
+      "zoom": 0.78, "orbit_azimuth_deg": -60, "camera_elevation_deg": 18,
+      "pan_right_m": 45, "pan_up_m": 85, "isobath_label_focus_x_ndc": 0.12
+    }
+  },
   "plate_relief_source": "interactive",
   "paths": {
     "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"

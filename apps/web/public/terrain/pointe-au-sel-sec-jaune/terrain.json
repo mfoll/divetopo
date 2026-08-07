@@ -4,14 +4,14 @@
   "title": "Sec Jaune, Pointe au Sel · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 320652.4,
-    "south": 7653343.6,
-    "east": 322510.8,
-    "north": 7655017.2
+    "west": 320556.0,
+    "south": 7653242.4,
+    "east": 322569.2,
+    "north": 7655184.4
   },
   "physicalSizeM": {
-    "width": 1858.4,
-    "depth": 1673.6
+    "width": 2013.2,
+    "depth": 1942.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 462,
-    "triangleCount": 472064,
+    "height": 495,
+    "triangleCount": 505856,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -107,47 +107,47 @@
     "levels": {
       "5": {
         "polylines": 4,
-        "points": 572
+        "points": 595
       },
       "10": {
-        "polylines": 7,
-        "points": 887
+        "polylines": 6,
+        "points": 874
       },
       "15": {
-        "polylines": 5,
-        "points": 619
+        "polylines": 4,
+        "points": 620
       },
       "20": {
         "polylines": 5,
-        "points": 762
+        "points": 769
       },
       "25": {
-        "polylines": 7,
-        "points": 948
+        "polylines": 5,
+        "points": 780
       },
       "30": {
         "polylines": 3,
-        "points": 381
+        "points": 401
       },
       "35": {
-        "polylines": 3,
-        "points": 262
+        "polylines": 2,
+        "points": 293
       },
       "40": {
-        "polylines": 4,
-        "points": 369
+        "polylines": 3,
+        "points": 402
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 38,
-      "points": 4800
+      "polylines": 32,
+      "points": 4734
     },
     "reprojectionResidualM": {
-      "samples": 4800,
-      "mean": 5.84576638359154e-05,
-      "p95": 4.439872780972475e-05,
-      "max": 0.009948368221575521,
+      "samples": 4734,
+      "mean": 4.1080828874874064e-05,
+      "p95": 3.2572914099304204e-05,
+      "max": 0.009069310918299323,
       "withinTolerance": true
     }
   },
@@ -158,11 +158,12 @@
     "cameraTilt": 0.36,
     "alongViewProjectionScale": 1.35,
     "visibleWidthM": 900.0,
-    "coastFrameFraction": 0.4468
+    "coastFrameFraction": 0.4468,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
-    "height": 1844,
+    "height": 1976,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D, corrigé localement par le levé Shom S199503500 · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -181,28 +182,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      321581.5,
-      7654180.4
+      321562.528,
+      7654213.261
     ],
-    "widthM": 1040.0,
+    "widthM": 1350.0,
     "depthM": 1545.0,
     "lookBearingDeg": 60.0,
     "cornersUtm40s": [
       [
-        320652.495,
-        7654244.483
+        320556.023,
+        7654411.578
       ],
       [
-        321172.495,
-        7653343.817
+        321231.023,
+        7653242.444
       ],
       [
-        322510.505,
-        7654116.317
+        322569.033,
+        7654014.944
       ],
       [
-        321990.505,
-        7655016.983
+        321894.033,
+        7655184.078
       ]
     ]
   }

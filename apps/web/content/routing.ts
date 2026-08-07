@@ -8,7 +8,7 @@ import {
 } from "./regional";
 
 export const DIVETOPO_ORIGIN = "https://divetopo.com";
-export const DIVETOPO_RELEASE_TAG = "v1.2.1";
+export const DIVETOPO_RELEASE_TAG = "v1.3.0";
 export const DIVETOPO_RELEASE_ASSET_BASE =
   `https://github.com/mfoll/divetopo/releases/download/${DIVETOPO_RELEASE_TAG}`;
 export const TOPO_REUNION_ORIGIN = DIVETOPO_ORIGIN;

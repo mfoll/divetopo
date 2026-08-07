@@ -2,6 +2,14 @@
   "region": "reunion",
   "slug": "roches-noires",
   "title": "Roches Noires",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left", "shift_y_rem": 0.9, "connector_angle_deg": -58,
+      "connector_width_rem": 1, "label_offset_rem": 1.9,
+      "lines": ["Roches Noires"]
+    }
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [
@@ -12,19 +20,20 @@
   ],
   "context_bbox_utm40s": [
     314100.0,
-    7669800.0,
-    316500.0,
+    7669500.0,
+    316700.0,
     7672140.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      315264.7152872702,
-      7670976.169591142
+      315386.99,
+      7670801.544
     ],
-    "width_m": 1300.0,
+    "width_m": 1750.0,
     "depth_m": 1850.0,
     "look_bearing_deg": 55.0
   },
+  "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 55.0,
@@ -35,6 +44,7 @@
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
   "topography_resolution_m": 0.5,
+  "context_topography_resolution_m": 0.55,
   "max_land_elevation_m": 55.0,
   "camera_tilt": 0.29,
   "along_view_projection_scale": 1.1,

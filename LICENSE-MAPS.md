@@ -1,14 +1,16 @@
 # License for maps and figures
 
-Unless otherwise stated, the Réunion maps and figures published in
-`regions/reunion/outputs/` are made available under the
-[Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en),
-to the extent of the rights held by Matthieu Foll in their composition,
-rendering and annotations.
+Unless otherwise stated, the original composition, rendering and annotations
+created by Matthieu Foll for DiveTopo maps and figures are made available under
+the [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en),
+to the extent of the rights held by Matthieu Foll in those original
+contributions. Regional outputs may include third-party data or additional
+regional terms; consult any applicable regional notice and the original source
+terms before reusing them.
 
 Recommended attribution:
 
-> Cap La Houssaye, La Réunion, Matthieu Foll, 2026, CC BY-NC-SA 4.0.
+> [Map or figure title], Matthieu Foll, [year], CC BY-NC-SA 4.0.
 
 The license permits sharing and adaptation for non-commercial purposes, with attribution, an indication of any changes, and distribution of adaptations under the same license. No additional permission for commercial use is granted here.
 

@@ -4,14 +4,14 @@
   "title": "Cap Homard, Cap de Tonton · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 314274.4,
-    "south": 7672400.4,
-    "east": 315869.6,
-    "north": 7673995.6
+    "west": 314188.4,
+    "south": 7672314.4,
+    "east": 316002.4,
+    "north": 7674128.4
   },
   "physicalSizeM": {
-    "width": 1595.2,
-    "depth": 1595.2
+    "width": 1814.0,
+    "depth": 1814.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 4,
-        "points": 591
+        "polylines": 2,
+        "points": 548
       },
       "10": {
-        "polylines": 2,
-        "points": 443
+        "polylines": 7,
+        "points": 1032
       },
       "15": {
         "polylines": 6,
-        "points": 761
+        "points": 931
       },
       "20": {
-        "polylines": 4,
+        "polylines": 2,
         "points": 584
       },
       "25": {
-        "polylines": 4,
-        "points": 462
+        "polylines": 3,
+        "points": 463
       },
       "30": {
-        "polylines": 6,
-        "points": 332
+        "polylines": 12,
+        "points": 592
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 26,
-      "points": 3173
+      "polylines": 32,
+      "points": 4150
     },
     "reprojectionResidualM": {
-      "samples": 3173,
-      "mean": 4.115663159084358e-05,
-      "p95": 1.2128192024718478e-05,
-      "max": 0.008490053954639976,
+      "samples": 4150,
+      "mean": 3.0619656481481575e-05,
+      "p95": 2.796961189144269e-05,
+      "max": 0.009232279422841216,
       "withinTolerance": true
     }
   },
@@ -140,7 +140,8 @@
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 540.0,
-    "coastFrameFraction": 0.4036
+    "coastFrameFraction": 0.4036,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
@@ -163,28 +164,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      315072.0,
-      7673198.0
+      315095.3,
+      7673221.3
     ],
-    "widthM": 690.0,
+    "widthM": 1000.0,
     "depthM": 1565.0,
     "lookBearingDeg": 135.0,
     "cornersUtm40s": [
       [
-        314762.641,
-        7673995.263
+        314895.542,
+        7674128.164
       ],
       [
-        314274.737,
-        7673507.359
+        314188.436,
+        7673421.058
       ],
       [
-        315381.359,
-        7672400.737
+        315295.058,
+        7672314.436
       ],
       [
-        315869.263,
-        7672888.641
+        316002.164,
+        7673021.542
       ]
     ]
   }

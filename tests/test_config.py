@@ -33,6 +33,19 @@ PUBLISHED_SITE_SLUGS = {
     "souris-chaude",
     "trois-bassins",
 }
+EXPECTED_REUNION_INTERACTIVE_WIDTH_M = {
+    "boucan-canot": 1000.0,
+    "cap-homard": 1000.0,
+    "cap-la-houssaye": 1000.0,
+    "passe-hermitage": 1000.0,
+    "plage-cimetiere-saint-leu": 1000.0,
+    "pointe-au-sel-sec-jaune": 1350.0,
+    "pointe-des-aigrettes": 1000.0,
+    "pont-rouge": 1000.0,
+    "roches-noires": 1750.0,
+    "souris-chaude": 1650.0,
+    "trois-bassins": 1050.0,
+}
 
 
 class SiteConfigTests(unittest.TestCase):
@@ -51,6 +64,49 @@ class SiteConfigTests(unittest.TestCase):
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
                 validate_config(config)
+
+    def test_published_sites_own_their_web_layout(self) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                self.assertTrue(config["web"]["published"])
+                layout = config["web"]["site_label_layout"]
+                self.assertIn(layout["side"], {"left", "right"})
+                self.assertIsInstance(layout["shift_y_rem"], (int, float))
+                self.assertIsInstance(
+                    layout["connector_angle_deg"],
+                    (int, float),
+                )
+        initial_views = {
+            config["slug"]: config["web"]["interactive_initial_view"]
+            for config in self.configs
+            if "interactive_initial_view" in config["web"]
+        }
+        self.assertEqual(
+            initial_views,
+            {
+                "souris-chaude": {
+                    "zoom": 1.0,
+                    "center_offset_east_m": 0,
+                    "center_offset_south_m": 0,
+                }
+            },
+        )
+
+    def test_web_metadata_rejects_unknown_or_invalid_values(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["unexpected"] = True
+        with self.assertRaisesRegex(ValueError, "Unknown web key"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["site_label_layout"]["side"] = "above"
+        with self.assertRaisesRegex(ValueError, "side must be left or right"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["interactive_initial_view"] = {"zoom": 0}
+        with self.assertRaisesRegex(ValueError, "zoom must be positive"):
+            validate_config(config)
 
     def test_region_manifest_owns_the_published_site_inventory(self) -> None:
         manifest = region_manifest({"region": "reunion"})
@@ -107,8 +163,8 @@ class SiteConfigTests(unittest.TestCase):
         self.assertEqual(
             pointe["interactive_footprint_utm40s"],
             {
-                "center": [321581.5, 7654180.4],
-                "width_m": 1040.0,
+                "center": [321562.528, 7654213.261],
+                "width_m": 1350.0,
                 "depth_m": 1545.0,
                 "look_bearing_deg": 60.0,
             },
@@ -126,6 +182,14 @@ class SiteConfigTests(unittest.TestCase):
             souris["deep_edge_nodata_terrain_min_depth_m"],
             14.8,
         )
+        self.assertEqual(
+            souris["interactive_shallow_basin_correction_bbox_utm40s"],
+            [318798.0, 7663960.8, 318856.8, 7663996.8],
+        )
+        self.assertEqual(
+            souris["interactive_shallow_basin_max_boundary_depth_m"],
+            2.5,
+        )
         for slug, config in configs.items():
             with self.subTest(slug=slug):
                 if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
@@ -141,6 +205,15 @@ class SiteConfigTests(unittest.TestCase):
                     )
                 if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
                     self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
+                if slug != "souris-chaude":
+                    self.assertNotIn(
+                        "interactive_shallow_basin_correction_bbox_utm40s",
+                        config,
+                    )
+                    self.assertNotIn(
+                        "interactive_shallow_basin_max_boundary_depth_m",
+                        config,
+                    )
 
     def test_static_interactive_center_alignment_is_site_local(self) -> None:
         self.assertEqual(
@@ -172,6 +245,18 @@ class SiteConfigTests(unittest.TestCase):
             configs["souris-chaude"]["interactive_view_visible_width_m"],
             600.0,
         )
+
+    def test_published_reunion_interactive_footprints_meet_width_policy(
+        self,
+    ) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                width_m = config["interactive_footprint_utm40s"]["width_m"]
+                self.assertGreaterEqual(width_m, 1000.0)
+                self.assertEqual(
+                    width_m,
+                    EXPECTED_REUNION_INTERACTIVE_WIDTH_M[config["slug"]],
+                )
 
     def test_all_sites_use_a_valid_coast_aligned_interactive_footprint(
         self,
@@ -292,6 +377,45 @@ class SiteConfigTests(unittest.TestCase):
         config["relief_mesh_gap_fill_max_area_m2"] = 0
         with self.assertRaisesRegex(ValueError, "relief_mesh_gap_fill_max_area_m2"):
             validate_config(config)
+
+    def test_shallow_basin_correction_is_bounded_and_complete(self) -> None:
+        souris = copy.deepcopy(
+            next(
+                config
+                for config in self.configs
+                if config["slug"] == "souris-chaude"
+            )
+        )
+        del souris["interactive_shallow_basin_max_boundary_depth_m"]
+        with self.assertRaisesRegex(ValueError, "requires both"):
+            validate_config(souris)
+
+        souris = copy.deepcopy(
+            next(
+                config
+                for config in self.configs
+                if config["slug"] == "souris-chaude"
+            )
+        )
+        souris["interactive_shallow_basin_max_boundary_depth_m"] = 0.0
+        with self.assertRaisesRegex(ValueError, "greater than 0"):
+            validate_config(souris)
+
+        souris = copy.deepcopy(
+            next(
+                config
+                for config in self.configs
+                if config["slug"] == "souris-chaude"
+            )
+        )
+        souris["interactive_shallow_basin_correction_bbox_utm40s"] = [
+            317952.0,
+            7663960.0,
+            317960.0,
+            7663970.0,
+        ]
+        with self.assertRaisesRegex(ValueError, "footprint.*contain"):
+            validate_config(souris)
 
     def test_reunion_depth_limit_remains_40_metres(self) -> None:
         config = copy.deepcopy(self.configs[0])

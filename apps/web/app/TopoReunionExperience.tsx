@@ -23,9 +23,7 @@ import {
 } from "../content/routing";
 import {
   PACA_COMPACT_ATTRIBUTIONS,
-  PACA_SITE_LABEL_LAYOUT,
   REUNION_COMPACT_ATTRIBUTIONS,
-  REUNION_SITE_LABEL_LAYOUT,
   pacaMapManifest,
   reunionMapManifest,
   type AssetVariant,
@@ -34,7 +32,6 @@ import {
   type RegionalAssetSite,
   type RegionalMapManifest,
   type RegionSlug,
-  type SiteLabelLayout,
   type SiteLocation,
   type SurfaceStyle,
 } from "../content/regional";
@@ -52,7 +49,6 @@ export type RegionExperienceConfig = {
   manifest: RegionalMapManifest;
   copy: RegionalCopy;
   compactAttributions: Record<SurfaceStyle, string>;
-  siteLabelLayout: Record<string, SiteLabelLayout>;
   sectionId: string;
   titleId: string;
   viewerTestId: string;
@@ -65,7 +61,6 @@ export const REUNION_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   manifest: reunionMapManifest,
   copy: topoReunionCopy,
   compactAttributions: REUNION_COMPACT_ATTRIBUTIONS,
-  siteLabelLayout: REUNION_SITE_LABEL_LAYOUT,
   sectionId: "topo-reunion",
   titleId: "topo-reunion-title",
   viewerTestId: "topo-reunion-viewer",
@@ -78,7 +73,6 @@ export const PACA_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   manifest: pacaMapManifest,
   copy: pacaCopy,
   compactAttributions: PACA_COMPACT_ATTRIBUTIONS,
-  siteLabelLayout: PACA_SITE_LABEL_LAYOUT,
   sectionId: "topo-paca",
   titleId: "topo-paca-title",
   viewerTestId: "topo-paca-viewer",
@@ -279,7 +273,6 @@ function SitePicker({
     manifest,
     copy,
     region,
-    siteLabelLayout,
     pickerScaleLabel,
     pickerScaleWidthPercent,
   } = config;
@@ -331,11 +324,7 @@ function SitePicker({
 
           {manifest.sites.map((site) => {
             const selected = activeSlug === site.slug;
-            const layout = siteLabelLayout[site.slug] ?? {
-              side: "right",
-              shiftYRem: 0,
-              connectorAngleDeg: 0,
-            };
+            const layout = site.siteLabelLayout;
             const style = {
               "--site-x": `${site.westCoastLocatorPosition.xPercent}%`,
               "--site-y": `${site.westCoastLocatorPosition.yPercent}%`,
@@ -691,9 +680,7 @@ export function TopoRegionExperience({
                       {activeSite.displayName}
                     </h2>
                     <p>
-                      <span>
-                        {activeSite.location.city}, {text.islandName}
-                      </span>
+                      <span>{activeSite.location.city}</span>
                       <span aria-hidden="true">·</span>
                       <span>{gpsLabel(activeSite.location, language)}</span>
                     </p>
