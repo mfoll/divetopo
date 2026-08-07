@@ -16,6 +16,7 @@ from cartography.interactive import (
     DEFAULT_VECTOR_ISOBATH_MAX_POLYLINES,
     artifact_record,
     complete_interactive_deep_edge_nodata,
+    correct_interactive_shallow_basin,
     fitted_dimensions,
     interactive_footprint_mask,
     interactive_source_paths,
@@ -212,6 +213,65 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
         np.testing.assert_array_equal(completed_valid, np.ones_like(valid))
         np.testing.assert_array_equal(surface, np.full_like(surface, -39.0))
         np.testing.assert_array_equal(depth, np.full_like(depth, 39.0))
+
+    def test_shallow_basin_correction_interpolates_only_its_bounded_mesh(self) -> None:
+        surface = np.full((7, 7), -1.0, dtype=np.float32)
+        depth = np.full((7, 7), 1.0, dtype=np.float32)
+        valid = np.ones((7, 7), dtype=bool)
+        surface[2:5, 2:5] = -40.0
+        depth[2:5, 2:5] = 40.0
+        valid[3, 3] = False
+        config = {
+            "interactive_shallow_basin_correction_bbox_utm40s": [
+                2.0,
+                2.0,
+                5.0,
+                5.0,
+            ],
+            "interactive_shallow_basin_max_boundary_depth_m": 2.5,
+        }
+
+        corrected_surface, corrected_depth, corrected_valid, correction = (
+            correct_interactive_shallow_basin(
+                config,
+                surface,
+                depth,
+                valid,
+                (0.0, 1.0, 0.0, 7.0, 0.0, -1.0),
+            )
+        )
+
+        expected = np.zeros((7, 7), dtype=bool)
+        expected[2:5, 2:5] = True
+        np.testing.assert_array_equal(correction, expected)
+        np.testing.assert_allclose(corrected_surface[correction], -1.0)
+        np.testing.assert_allclose(corrected_depth[correction], 1.0)
+        self.assertTrue(np.all(corrected_valid))
+        np.testing.assert_array_equal(surface[:2], corrected_surface[:2])
+
+    def test_shallow_basin_correction_rejects_a_deep_boundary(self) -> None:
+        surface = np.full((7, 7), -1.0, dtype=np.float32)
+        surface[1, 3] = -3.0
+        depth = np.maximum(-surface, 0.0)
+        valid = np.ones((7, 7), dtype=bool)
+        config = {
+            "interactive_shallow_basin_correction_bbox_utm40s": [
+                2.0,
+                2.0,
+                5.0,
+                5.0,
+            ],
+            "interactive_shallow_basin_max_boundary_depth_m": 2.5,
+        }
+
+        with self.assertRaisesRegex(ValueError, "beyond its configured"):
+            correct_interactive_shallow_basin(
+                config,
+                surface,
+                depth,
+                valid,
+                (0.0, 1.0, 0.0, 7.0, 0.0, -1.0),
+            )
 
     def test_isobath_mask_suppresses_every_filled_transition_cell(self) -> None:
         fill = np.zeros((5, 5), dtype=bool)

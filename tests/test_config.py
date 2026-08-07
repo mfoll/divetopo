@@ -139,6 +139,14 @@ class SiteConfigTests(unittest.TestCase):
             souris["deep_edge_nodata_terrain_min_depth_m"],
             14.8,
         )
+        self.assertEqual(
+            souris["interactive_shallow_basin_correction_bbox_utm40s"],
+            [318798.0, 7663960.8, 318856.8, 7663996.8],
+        )
+        self.assertEqual(
+            souris["interactive_shallow_basin_max_boundary_depth_m"],
+            2.5,
+        )
         for slug, config in configs.items():
             with self.subTest(slug=slug):
                 if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
@@ -154,6 +162,15 @@ class SiteConfigTests(unittest.TestCase):
                     )
                 if slug not in {"pointe-au-sel-sec-jaune", "souris-chaude"}:
                     self.assertNotIn("relief_mesh_gap_fill_max_area_m2", config)
+                if slug != "souris-chaude":
+                    self.assertNotIn(
+                        "interactive_shallow_basin_correction_bbox_utm40s",
+                        config,
+                    )
+                    self.assertNotIn(
+                        "interactive_shallow_basin_max_boundary_depth_m",
+                        config,
+                    )
 
     def test_static_interactive_center_alignment_is_site_local(self) -> None:
         self.assertEqual(
@@ -317,6 +334,45 @@ class SiteConfigTests(unittest.TestCase):
         config["relief_mesh_gap_fill_max_area_m2"] = 0
         with self.assertRaisesRegex(ValueError, "relief_mesh_gap_fill_max_area_m2"):
             validate_config(config)
+
+    def test_shallow_basin_correction_is_bounded_and_complete(self) -> None:
+        souris = copy.deepcopy(
+            next(
+                config
+                for config in self.configs
+                if config["slug"] == "souris-chaude"
+            )
+        )
+        del souris["interactive_shallow_basin_max_boundary_depth_m"]
+        with self.assertRaisesRegex(ValueError, "requires both"):
+            validate_config(souris)
+
+        souris = copy.deepcopy(
+            next(
+                config
+                for config in self.configs
+                if config["slug"] == "souris-chaude"
+            )
+        )
+        souris["interactive_shallow_basin_max_boundary_depth_m"] = 0.0
+        with self.assertRaisesRegex(ValueError, "greater than 0"):
+            validate_config(souris)
+
+        souris = copy.deepcopy(
+            next(
+                config
+                for config in self.configs
+                if config["slug"] == "souris-chaude"
+            )
+        )
+        souris["interactive_shallow_basin_correction_bbox_utm40s"] = [
+            317952.0,
+            7663960.0,
+            317960.0,
+            7663970.0,
+        ]
+        with self.assertRaisesRegex(ValueError, "footprint.*contain"):
+            validate_config(souris)
 
     def test_reunion_depth_limit_remains_40_metres(self) -> None:
         config = copy.deepcopy(self.configs[0])

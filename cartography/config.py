@@ -85,6 +85,8 @@ _ALLOWED_KEYS = frozenset(
         "interactive_initial_center_offset_east_m",
         "interactive_initial_center_offset_south_m",
         "interactive_initial_zoom",
+        "interactive_shallow_basin_correction_bbox_utm40s",
+        "interactive_shallow_basin_max_boundary_depth_m",
         "interactive_featured_vector_label_levels_m",
         "interactive_required_vector_label_levels_m",
         "interactive_reselect_vector_labels_on_camera_end",
@@ -1015,6 +1017,34 @@ def validate_config(config: Mapping[str, Any]) -> None:
                 "context_bbox_utm40s must contain "
                 "interactive_footprint_utm40s"
             )
+    shallow_basin_bbox_key = (
+        "interactive_shallow_basin_correction_bbox_utm40s"
+    )
+    shallow_basin_depth_key = (
+        "interactive_shallow_basin_max_boundary_depth_m"
+    )
+    if (shallow_basin_bbox_key in config) != (
+        shallow_basin_depth_key in config
+    ):
+        raise ValueError(
+            "Interactive shallow-basin correction requires both its bbox "
+            "and maximum boundary depth"
+        )
+    if shallow_basin_bbox_key in config:
+        correction_bbox = bbox(config, shallow_basin_bbox_key)
+        if not contains(context, correction_bbox):
+            raise ValueError(
+                "context_bbox_utm40s must contain the interactive "
+                "shallow-basin correction bbox"
+            )
+        if "interactive_footprint_utm40s" in config and not contains(
+            interactive,
+            correction_bbox,
+        ):
+            raise ValueError(
+                "interactive_footprint_utm40s must contain the interactive "
+                "shallow-basin correction bbox"
+            )
 
     max_depth = _number(config, "max_depth_m", 20.0)
     maximum_depth = 40.0 if region == "reunion" else 60.0
@@ -1035,6 +1065,13 @@ def validate_config(config: Mapping[str, Any]) -> None:
         if not 0.0 < interactive_max_depth <= max_depth:
             raise ValueError(
                 "interactive_max_depth_m must be greater than 0 and at most max_depth_m"
+            )
+    if shallow_basin_depth_key in config:
+        maximum_boundary_depth = _number(config, shallow_basin_depth_key)
+        if not 0.0 < maximum_boundary_depth <= interactive_max_depth:
+            raise ValueError(
+                "interactive_shallow_basin_max_boundary_depth_m must be "
+                "greater than 0 and at most the effective interactive depth"
             )
     if "deep_edge_nodata_terrain_min_depth_m" in config:
         minimum_fill_depth = _number(

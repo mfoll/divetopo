@@ -45,6 +45,8 @@
   "deep_edge_nodata_terrain_fill": true,
   "deep_edge_nodata_terrain_min_depth_m": 14.8,
   "relief_mesh_gap_fill_max_area_m2": 1000.0,
+  "interactive_shallow_basin_correction_bbox_utm40s": [318798.0, 7663960.8, 318856.8, 7663996.8],
+  "interactive_shallow_basin_max_boundary_depth_m": 2.5,
   "camera_tilt": 0.35,
   "along_view_projection_scale": 1.1,
   "view_left_crop_fraction": 0.0,

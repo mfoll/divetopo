@@ -13,10 +13,10 @@
     "bytes": 166996,
     "sha256": "efc70575468facf8a862da6882807a68c0b23b04a5ef2b5020725223ccb57c8d",
     "boundsUtm40s": {
-      "minEasting": 305000,
-      "minNorthing": 7628000,
-      "maxEasting": 386000,
-      "maxNorthing": 7696000
+      "minEasting": 305000.0,
+      "minNorthing": 7628000.0,
+      "maxEasting": 386000.0,
+      "maxNorthing": 7696000.0
     }
   },
   "westCoastLocator": {
@@ -26,10 +26,10 @@
     "bytes": 106950,
     "sha256": "92594462497ea99f09c52f741c5f364b5b28403602abeb0d7dd838f09bb86db3",
     "boundsUtm40s": {
-      "minEasting": 309000,
-      "minNorthing": 7652000,
-      "maxEasting": 326000,
-      "maxNorthing": 7678000
+      "minEasting": 309000.0,
+      "minNorthing": 7652000.0,
+      "maxEasting": 326000.0,
+      "maxNorthing": 7678000.0
     }
   },
   "sites": [
@@ -45,7 +45,7 @@
         "longitude": 55.23745137
       },
       "westCoastLocatorPosition": {
-        "xPercent": 46,
+        "xPercent": 46.0,
         "yPercent": 11.8462
       },
       "maxDepthM": 20,

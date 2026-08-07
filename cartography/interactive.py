@@ -27,6 +27,7 @@ from cartography.relief import (
     hillshade,
     imagery_alpha_across_shore,
     imagery_depth_alpha,
+    interpolate_mesh_gaps,
     land_palette,
     load_rgb_raster,
     local_slope_shade,
@@ -375,6 +376,88 @@ def complete_interactive_deep_edge_nodata(
     return filled_surface, filled_depth, filled_valid, fill_mask
 
 
+def correct_interactive_shallow_basin(
+    config: dict[str, Any],
+    surface: np.ndarray,
+    depth: np.ndarray,
+    valid: np.ndarray,
+    transform: tuple[float, float, float, float, float, float],
+) -> tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
+    """Replace one documented shallow source anomaly in the display mesh.
+
+    The correction is bounded in projected coordinates and is accepted only
+    when every cell around it is valid and shallower than the configured
+    boundary limit. Isobaths remain source-derived through the returned mask.
+    """
+    bbox_key = "interactive_shallow_basin_correction_bbox_utm40s"
+    if bbox_key not in config:
+        return surface, depth, valid, np.zeros_like(valid)
+    if abs(float(transform[2])) > 1e-9 or abs(float(transform[4])) > 1e-9:
+        raise ValueError("Shallow-basin correction raster must be north-up")
+
+    west, south, east, north = bbox(config, bbox_key)
+    rows, columns = surface.shape
+    eastings = (
+        float(transform[0])
+        + (np.arange(columns, dtype=np.float32) + 0.5)
+        * float(transform[1])
+    )
+    northings = (
+        float(transform[3])
+        + (np.arange(rows, dtype=np.float32) + 0.5)
+        * float(transform[5])
+    )
+    correction = (
+        (eastings[None, :] >= west)
+        & (eastings[None, :] <= east)
+        & (northings[:, None] >= south)
+        & (northings[:, None] <= north)
+    )
+    if not np.any(correction):
+        raise ValueError("Shallow-basin correction does not intersect its raster")
+
+    boundary = np.zeros_like(correction)
+    boundary[:-1] |= correction[1:]
+    boundary[1:] |= correction[:-1]
+    boundary[:, :-1] |= correction[:, 1:]
+    boundary[:, 1:] |= correction[:, :-1]
+    boundary &= ~correction
+    if not np.any(boundary) or not np.all(valid[boundary]):
+        raise ValueError(
+            "Shallow-basin correction must have a complete valid boundary"
+        )
+    maximum_boundary_depth = float(
+        config["interactive_shallow_basin_max_boundary_depth_m"]
+    )
+    observed_boundary_depth = float(
+        np.max(np.maximum(-surface[boundary], 0.0))
+    )
+    if observed_boundary_depth > maximum_boundary_depth + 1e-6:
+        raise ValueError(
+            "Shallow-basin correction boundary reaches "
+            f"{observed_boundary_depth:.3f} m, beyond its configured "
+            f"{maximum_boundary_depth:.3f} m limit"
+        )
+
+    source_valid = valid & ~correction
+    corrected_surface = interpolate_mesh_gaps(
+        surface,
+        correction,
+        source_valid,
+    )
+    corrected_depth = depth.copy()
+    corrected_depth[correction] = np.maximum(
+        -corrected_surface[correction],
+        0.0,
+    )
+    return (
+        corrected_surface,
+        corrected_depth,
+        valid | correction,
+        correction,
+    )
+
+
 def make_textures(
     config: dict[str, Any],
     paths: dict[str, Path],
@@ -646,6 +729,21 @@ def _export_site_from_paths(
         config,
         paths,
     )
+    source = open_raster(paths["focus_depth"], "focus depth raster")
+    transform = source.GetGeoTransform()
+    pixel_area_m2 = abs(
+        float(transform[1]) * float(transform[5])
+        - float(transform[2]) * float(transform[4])
+    )
+    surface, depth, valid, shallow_basin_correction = (
+        correct_interactive_shallow_basin(
+            config,
+            surface,
+            depth,
+            valid,
+            transform,
+        )
+    )
     surface, depth, valid, deep_edge_fill = (
         complete_interactive_deep_edge_nodata(
             config,
@@ -661,14 +759,17 @@ def _export_site_from_paths(
         valid.shape,
     )
     valid &= footprint_mask
+    shallow_basin_correction &= footprint_mask
     deep_edge_fill &= footprint_mask
-    if np.any(deep_edge_fill):
-        source = open_raster(paths["focus_depth"], "focus depth raster")
-        transform = source.GetGeoTransform()
-        pixel_area_m2 = abs(
-            float(transform[1]) * float(transform[5])
-            - float(transform[2]) * float(transform[4])
+    if np.any(shallow_basin_correction):
+        corrected_cells = int(np.count_nonzero(shallow_basin_correction))
+        warnings.warn(
+            f"Corrected {corrected_cells} shallow basin cells "
+            f"({corrected_cells * pixel_area_m2:.1f} m²) in the "
+            "interactive 3D mesh only; isobaths remain source-derived",
+            stacklevel=2,
         )
+    if np.any(deep_edge_fill):
         filled_cells = int(np.count_nonzero(deep_edge_fill))
         warnings.warn(
             f"Filled {filled_cells} deep edge cells "
@@ -700,7 +801,7 @@ def _export_site_from_paths(
     grid_valid = resize_mask(valid, grid_size)
     grid_land = resize_mask(land_mask, grid_size)
     grid_isobath_source = isobath_source_vertex_mask(
-        deep_edge_fill,
+        shallow_basin_correction | deep_edge_fill,
         grid_size,
         valid,
     )

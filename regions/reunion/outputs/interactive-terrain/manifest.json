@@ -387,37 +387,37 @@
         "metadata": {
           "path": "souris-chaude/terrain.json",
           "bytes": 5026,
-          "sha256": "a51bcca24ceeb046b6d96bb4a711792124b11e950e2b6a3015e6ef7e50f4c77b"
+          "sha256": "ff6938271dc343773d0867757095b831d15815a4537da8c05c4186dda85da53a"
         },
         "height": {
           "path": "souris-chaude/height.bin",
           "bytes": 526338,
-          "sha256": "cdcee1cb43729b6c2d3f9fe697e32f0f773deb861dee1c2cf2dde512f9329ccc"
+          "sha256": "a329b125974e45fa9baf42e7c4830f549c23f36b9039aa4d6599b3ddc7328f07"
         },
         "validMask": {
           "path": "souris-chaude/valid-mask.bin",
           "bytes": 32897,
-          "sha256": "66c5b3feae9ebdb4c0f79cdb33cdd79dc728edda7bb214c3083e316496443ed5"
+          "sha256": "429f212eefab0760b42437af086f4c76845c66365fa27b9e7b5dc8d530cd9568"
         },
         "isobathMask": {
           "path": "souris-chaude/isobath-mask.bin",
           "bytes": 32897,
-          "sha256": "2257b605f921a5aea0e2d9527db31b1455cbcd42d951f20eb767aa6423c308fa"
+          "sha256": "0df3753cb570981be6ff0b5a459698f86e974f051f731c85f2440e41d23ad99b"
         },
         "vectorIsobaths": {
           "path": "souris-chaude/isobaths-vector.json",
-          "bytes": 150703,
-          "sha256": "2a8a98d87b3e1d384751fb08eb3b02a6a9727fea637dc1e735eba1c01e828fc7"
+          "bytes": 145011,
+          "sha256": "7d75f2096a02cbb94cde8e78cb0272f3e9c2fa5b464c107b6a15c3f8495ab2cb"
         },
         "topographicTexture": {
           "path": "souris-chaude/topographic.webp",
-          "bytes": 195046,
-          "sha256": "32d21cdd3e152aefa02322a112c62ab10fa4c87fb8aee97ec96ed4ae3f6d9231"
+          "bytes": 194324,
+          "sha256": "8bee13be5af74d1b906f2b1b75659cc4b00b8e140d4ae63674ce3830b87dec37"
         },
         "orthophotoTexture": {
           "path": "souris-chaude/orthophoto.webp",
-          "bytes": 482634,
-          "sha256": "0329a20a66f7d64f2ff39bacac41224a86b0ed08aaeb0eab7ff82c43d0854b81"
+          "bytes": 482386,
+          "sha256": "5b7196000e47c84618d4595ca92249dbc1e31931cc7100be86d9114e72657113"
         }
       }
     },
