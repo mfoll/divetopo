@@ -2,6 +2,13 @@
   "region": "reunion",
   "slug": "souris-chaude",
   "title": "Souris Chaude",
+  "web": {
+    "published": true,
+    "site_label_layout": {"side": "right", "shift_y_rem": 0.15, "connector_angle_deg": 8},
+    "interactive_initial_view": {
+      "zoom": 1.0, "center_offset_east_m": 0, "center_offset_south_m": 0
+    }
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [318382.0, 7663450.0, 319288.0, 7664077.0],
@@ -12,7 +19,6 @@
     "depth_m": 1300.0,
     "look_bearing_deg": 45.0
   },
-  "interactive_initial_zoom": 1.0,
   "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",

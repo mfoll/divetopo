@@ -2,6 +2,13 @@
   "region": "reunion",
   "slug": "boucan-canot",
   "title": "Boucan Canot - Piscine naturelle",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left", "shift_y_rem": -1.7, "connector_angle_deg": 48,
+      "connector_width_rem": 1.45
+    }
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [315072.0, 7673642.4, 315872.0, 7674196.0],

@@ -98,7 +98,7 @@ sizes and SHA-256 hashes. The mesh retains physical elevations, and the
 viewer then applies the vertical exaggeration declared in the metadata.
 The elevation field has at most 513 vertices along its longest axis. Both
 textures are derived from rasters covering the interactive extent and are
-limited to `2048 px` on their longest side. All seven sites declare an
+limited to `2048 px` on their longest side. Each published site declares an
 `interactive_footprint_utm40s`, a rectangle oriented like the view and
 approximately parallel to the coastline. The pipeline crops its bounding
 rectangle from the context rasters, then masks the mesh and textures
@@ -108,8 +108,9 @@ with an exposure of `1.55` before the final sRGB conversion. This exposure is
 identical to that of the static perspectives: it brightens slopes without a CSS
 filter and without modifying the source WebPs.
 
-The website never generates these files. It copies the canonical package into
-its public directory with `apps/web/scripts/sync_interactive_terrain.py`. This
+The website never generates these files. It merges the canonical packages from
+all regional inventories into its public directory with
+`apps/web/scripts/sync_interactive_terrain.py`. This
 boundary makes it possible to change the interface or deployment without moving
 responsibility for the terrain, textures, camera, or provenance outside
 the pipeline. The complete format is described in
@@ -128,6 +129,9 @@ Copy the existing JSON to `regions/reunion/sites/<slug>.json`, then set:
 - `orthophoto_capture_date`, in ISO `YYYY-MM-DD` format, verified for this site rather than copied from a neighboring site;
 - versioned GEBCO references and their attribution for the island locator map;
 - camera parameters and, if necessary, output paths.
+- a `web` object containing the explicit publication state, the cartouche
+  layout, and only when needed an initial interactive-camera override. These
+  site-specific values must not be reintroduced into the shared React component.
 
 `rotation_k` mapping:
 
@@ -189,9 +193,9 @@ After the canonical maps and sheets are approved:
 1. Add the municipality and neutral identifying metadata to
    `apps/web/content/site-details.json`. Do not add a visible site description
    or replace the fixed regional heading without prior validation.
-2. Inspect the site-picker label placement and add a `SITE_LABEL_LAYOUT` entry
-   in `apps/web/app/TopoReunionExperience.tsx` if the automatic position overlaps a
-   neighbor.
+2. Reconcile all site-picker labels together, then store the validated
+   `web.site_label_layout` in the site JSON. Adding one site may require moving
+   neighboring cartouches; the shared React component remains unchanged.
 3. Update the explicit published-slug sets and count assertions in
    `tests/test_config.py` and `apps/web/tests/rendered-html.test.mjs`.
 4. Regenerate the complete interactive package without positional configs,

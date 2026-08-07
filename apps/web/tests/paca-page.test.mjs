@@ -178,6 +178,7 @@ test("PACA asset paths resolve without regenerating or duplicating test maps", a
     ),
   );
 
+  assert.equal(manifest.schemaVersion, 2);
   assert.equal(manifest.sites.length, 5);
   assert.deepEqual(manifest.reunionOverview.boundsWgs84, {
     west: -5.5,
@@ -220,6 +221,10 @@ test("PACA asset paths resolve without regenerating or duplicating test maps", a
     ),
   );
   for (const site of manifest.sites) {
+    assert.match(site.config, /^regions\/paca\/sites\/.+\.json$/);
+    assert.ok(["left", "right"].includes(site.siteLabelLayout.side));
+    assert.equal(typeof site.siteLabelLayout.shiftYRem, "number");
+    assert.equal(typeof site.siteLabelLayout.connectorAngleDeg, "number");
     for (const map of site.maps) {
       for (const variant of map.variants) {
         await access(new URL(`../public${variant.src}`, import.meta.url));

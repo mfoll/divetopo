@@ -7,8 +7,17 @@ import hashlib
 import json
 import shutil
 from pathlib import Path
+from typing import Any
 
 from PIL import Image
+
+from regional_manifest import (
+    load_published_configs,
+    locator_position_wgs84,
+    marker_wgs84,
+    site_city,
+    web_site_metadata,
+)
 
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[3]
@@ -16,11 +25,16 @@ WEB_ROOT = REPOSITORY_ROOT / "apps" / "web"
 PUBLIC_ROOT = WEB_ROOT / "public"
 OUTPUT_ROOT = REPOSITORY_ROOT / "regions" / "paca" / "outputs"
 MANIFEST_PATH = WEB_ROOT / "content" / "paca-map-manifest.json"
+REGION_SLUG = "paca"
 PREVIEW_WIDTH = 1800
 RELEASE_TAG = "v1.2.1"
 RELEASE_ASSET_BASE = (
     f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
 )
+PACA_COMPACT_ATTRIBUTIONS = {
+    "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+    "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69",
+}
 
 
 def sha256(path: Path) -> str:
@@ -39,6 +53,16 @@ def image_record(path: Path, public_root: Path, width: int, height: int) -> dict
         "height": height,
         "bytes": path.stat().st_size,
         "sha256": digest,
+    }
+
+
+def bundled_image_record(path: Path, width: int, height: int) -> dict[str, object]:
+    return {
+        "src": f"/{path.relative_to(PUBLIC_ROOT).as_posix()}",
+        "width": width,
+        "height": height,
+        "bytes": path.stat().st_size,
+        "sha256": sha256(path),
     }
 
 
@@ -117,25 +141,107 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
     }
 
 
+def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
+    site_root = PUBLIC_ROOT / "maps" / "paca" / slug / "maps"
+    variants: list[dict[str, object]] = []
+    for width in (960, 1600, 2474):
+        path = site_root / f"3d-dynamic-{style}-{width}.webp"
+        if not path.is_file():
+            raise FileNotFoundError(f"Missing PACA 3D capture: {path}")
+        with Image.open(path) as image:
+            output_width, output_height = image.size
+        variants.append(
+            bundled_image_record(path, output_width, output_height)
+        )
+    mobile = site_root / f"3d-dynamic-{style}-mobile-960.webp"
+    if not mobile.is_file():
+        raise FileNotFoundError(f"Missing PACA mobile 3D capture: {mobile}")
+    download = site_root / "downloads" / f"3d-dynamic-{style}-full.jpg"
+    if not download.is_file():
+        raise FileNotFoundError(f"Missing PACA 3D download: {download}")
+    with Image.open(download) as image:
+        source_width, source_height = image.size
+    return {
+        "view": "3d",
+        "style": style,
+        "sourceDimensions": {
+            "width": source_width,
+            "height": source_height,
+        },
+        "variants": variants,
+        "download": {
+            **bundled_image_record(download, source_width, source_height),
+            "filename": f"{slug}-3d-dynamique-{style}.jpg",
+        },
+    }
+
+
+def build_site(
+    config: dict[str, Any],
+    locator_bounds: dict[str, float],
+) -> dict[str, Any]:
+    slug = str(config["slug"])
+    marker = config.get("site_location_utm40s", config["locator_marker_utm40s"])
+    if not isinstance(marker, list):
+        raise ValueError(f"{slug}: invalid site marker")
+    latitude, longitude = marker_wgs84(marker, 2154)
+    return {
+        "slug": slug,
+        "displayName": config["plate_site_name"],
+        "plateTitle": config["plate_title"],
+        "config": config["_config_path"],
+        "assetBasePath": f"/maps/paca/{slug}",
+        "location": {
+            "city": site_city(config),
+            "latitude": round(latitude, 8),
+            "longitude": round(longitude, 8),
+        },
+        "westCoastLocatorPosition": locator_position_wgs84(
+            latitude,
+            longitude,
+            locator_bounds,
+        ),
+        "maxDepthM": config["max_depth_m"],
+        "planMaxDepthM": config.get("plan_max_depth_m", config["max_depth_m"]),
+        "verticalExaggeration": config["vertical_exaggeration"],
+        "orthophotoCaptureDate": config["orthophoto_capture_date"],
+        "plateAuthor": config["plate_author"],
+        "copyrightYear": config["copyright_year"],
+        "mapLicense": config["map_license"],
+        "compactAttributions": PACA_COMPACT_ATTRIBUTIONS,
+        "maps": [
+            publish_plan(slug, "topographic"),
+            publish_plan(slug, "orthophoto"),
+            build_dynamic_map(slug, "topographic"),
+            build_dynamic_map(slug, "orthophoto"),
+        ],
+        "planches": [
+            build_planche(slug, "topographic"),
+            build_planche(slug, "orthophoto"),
+        ],
+        **web_site_metadata(config),
+    }
+
+
 def main() -> None:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    for site in manifest["sites"]:
-        preserved_maps = [item for item in site["maps"] if item["view"] != "2d"]
-        site["maps"] = [
-            publish_plan(site["slug"], "topographic"),
-            publish_plan(site["slug"], "orthophoto"),
-            *preserved_maps,
-        ]
-        site["planches"] = [
-            build_planche(site["slug"], "topographic"),
-            build_planche(site["slug"], "orthophoto"),
-        ]
+    configs = load_published_configs(REPOSITORY_ROOT, REGION_SLUG)
+    locator_bounds = manifest["westCoastLocator"].get("boundsWgs84")
+    if not isinstance(locator_bounds, dict):
+        raise ValueError("PACA regional locator requires WGS84 bounds")
+    manifest["schemaVersion"] = 2
+    manifest["sites"] = [
+        build_site(config, locator_bounds) for config in configs
+    ]
     MANIFEST_PATH.write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(f"Updated {MANIFEST_PATH}")
-    print(f"Built {len(manifest['sites']) * 2} PACA 2D and planche assets")
+    print(
+        f"Built {len(manifest['sites'])} data-driven PACA site entries "
+        "with 2D, 3D and planche assets"
+    )
 
 
 if __name__ == "__main__":

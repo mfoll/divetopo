@@ -65,6 +65,49 @@ class SiteConfigTests(unittest.TestCase):
             with self.subTest(slug=config["slug"]):
                 validate_config(config)
 
+    def test_published_sites_own_their_web_layout(self) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                self.assertTrue(config["web"]["published"])
+                layout = config["web"]["site_label_layout"]
+                self.assertIn(layout["side"], {"left", "right"})
+                self.assertIsInstance(layout["shift_y_rem"], (int, float))
+                self.assertIsInstance(
+                    layout["connector_angle_deg"],
+                    (int, float),
+                )
+        initial_views = {
+            config["slug"]: config["web"]["interactive_initial_view"]
+            for config in self.configs
+            if "interactive_initial_view" in config["web"]
+        }
+        self.assertEqual(
+            initial_views,
+            {
+                "souris-chaude": {
+                    "zoom": 1.0,
+                    "center_offset_east_m": 0,
+                    "center_offset_south_m": 0,
+                }
+            },
+        )
+
+    def test_web_metadata_rejects_unknown_or_invalid_values(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["unexpected"] = True
+        with self.assertRaisesRegex(ValueError, "Unknown web key"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["site_label_layout"]["side"] = "above"
+        with self.assertRaisesRegex(ValueError, "side must be left or right"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["interactive_initial_view"] = {"zoom": 0}
+        with self.assertRaisesRegex(ValueError, "zoom must be positive"):
+            validate_config(config)
+
     def test_region_manifest_owns_the_published_site_inventory(self) -> None:
         manifest = region_manifest({"region": "reunion"})
         self.assertEqual(

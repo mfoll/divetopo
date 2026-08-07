@@ -21,6 +21,60 @@ SPEC.loader.exec_module(SYNC)
 
 
 class InteractiveTerrainSyncTests(unittest.TestCase):
+    def make_package(self, root: Path, slug: str) -> Path:
+        source_root = root / slug
+        site_root = source_root / slug
+        site_root.mkdir(parents=True)
+        files = {
+            "metadata": site_root / "terrain.json",
+            "height": site_root / "height.bin",
+            "validMask": site_root / "valid-mask.bin",
+            "isobathMask": site_root / "isobath-mask.bin",
+            "vectorIsobaths": site_root / "isobaths-vector.json",
+            "topographicTexture": site_root / "topographic.webp",
+            "orthophotoTexture": site_root / "orthophoto.webp",
+        }
+        for index, path in enumerate(files.values()):
+            path.write_bytes(f"{slug}-{index}".encode())
+        records = {
+            key: {
+                "path": path.relative_to(source_root).as_posix(),
+                "bytes": path.stat().st_size,
+                "sha256": SYNC.sha256(path),
+            }
+            for key, path in files.items()
+        }
+        (source_root / "manifest.json").write_text(
+            json.dumps(
+                {
+                    "schemaVersion": 2,
+                    "sites": [{"slug": slug, "files": records}],
+                }
+            ),
+            encoding="utf-8",
+        )
+        return source_root
+
+    def test_sync_combines_multiple_regional_packages(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            first = self.make_package(root, "first")
+            second = self.make_package(root, "second")
+            output_root = root / "public" / "terrain"
+
+            manifest = SYNC.sync_packages(
+                [("alpha", first), ("beta", second)],
+                output_root,
+            )
+
+            self.assertEqual(manifest["regions"], ["alpha", "beta"])
+            self.assertEqual(
+                [site["slug"] for site in manifest["sites"]],
+                ["first", "second"],
+            )
+            self.assertTrue((output_root / "first/terrain.json").is_file())
+            self.assertTrue((output_root / "second/terrain.json").is_file())
+
     def test_sync_accepts_legacy_package_without_vector_isobaths(self) -> None:
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)

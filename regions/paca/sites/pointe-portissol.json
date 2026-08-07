@@ -2,6 +2,14 @@
   "region": "paca",
   "slug": "pointe-portissol",
   "title": "Pointe de Portissol - prototype personnel",
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "right", "shift_y_rem": -3.5, "connector_angle_deg": -76.2,
+      "connector_width_rem": 3.68, "label_offset_rem": 2.25, "width_rem": 6.92
+    },
+    "interactive_initial_view": {"zoom": 1}
+  },
   "plate_relief_source": "interactive",
   "paths": {
     "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"
@@ -82,7 +90,7 @@
   ],
   "plate_site_name": "Pointe de Portissol",
   "plate_city": "Sanary-sur-Mer",
-  "plate_title": "Pointe de Portissol, Côte d’Azur",
+  "plate_title": "Pointe de Portissol, Sanary-sur-Mer",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",

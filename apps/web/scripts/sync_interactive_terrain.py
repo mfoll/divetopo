@@ -19,13 +19,7 @@ from typing import Any
 SCRIPT_DIR = Path(__file__).resolve().parent
 SITE_ROOT = SCRIPT_DIR.parent
 REPOSITORY_ROOT = SITE_ROOT.parents[1]
-CANONICAL_ROOT = (
-    REPOSITORY_ROOT
-    / "regions"
-    / "reunion"
-    / "outputs"
-    / "interactive-terrain"
-)
+REGIONS_ROOT = REPOSITORY_ROOT / "regions"
 PUBLIC_ROOT = SITE_ROOT / "public"
 OUTPUT_ROOT = PUBLIC_ROOT / "terrain"
 REQUIRED_FILE_KEYS = {
@@ -92,12 +86,52 @@ def swap_output(build_root: Path, output_root: Path) -> None:
 
 
 def sync_package(
-    source_root: Path = CANONICAL_ROOT,
+    source_root: Path,
     output_root: Path = OUTPUT_ROOT,
 ) -> dict[str, Any]:
-    source_root = source_root.resolve()
+    return sync_packages([source_root], output_root)
+
+
+def discover_source_roots(
+    regions_root: Path = REGIONS_ROOT,
+) -> list[tuple[str, Path]]:
+    packages: list[tuple[str, Path]] = []
+    for region_path in sorted(regions_root.glob("*/region.json")):
+        region = json.loads(region_path.read_text(encoding="utf-8"))
+        relative_path = region.get("pipeline", {}).get(
+            "interactiveTerrainDirectory"
+        )
+        if not relative_path:
+            continue
+        source_root = (REPOSITORY_ROOT / str(relative_path)).resolve()
+        if (source_root / "manifest.json").is_file():
+            packages.append((str(region["slug"]), source_root))
+    if not packages:
+        raise RuntimeError("No regional interactive terrain packages found")
+    return packages
+
+
+def sync_packages(
+    packages: list[Path] | list[tuple[str, Path]],
+    output_root: Path = OUTPUT_ROOT,
+) -> dict[str, Any]:
+    normalized: list[tuple[str, Path]] = []
+    for index, package in enumerate(packages):
+        if isinstance(package, tuple):
+            region_slug, source_root = package
+        else:
+            region_slug, source_root = f"package-{index + 1}", package
+        normalized.append((region_slug, source_root.resolve()))
     output_root = output_root.resolve()
-    manifest = load_manifest(source_root)
+    manifests = [
+        (region_slug, source_root, load_manifest(source_root))
+        for region_slug, source_root in normalized
+    ]
+    combined_manifest: dict[str, Any] = {
+        "schemaVersion": 2,
+        "regions": [region_slug for region_slug, _, _ in manifests],
+        "sites": [],
+    }
     output_root.parent.mkdir(parents=True, exist_ok=True)
 
     with tempfile.TemporaryDirectory(
@@ -108,41 +142,54 @@ def sync_package(
         build_root.mkdir()
         copied_paths: set[str] = set()
 
-        for site in manifest["sites"]:
-            files = site.get("files")
-            file_keys = set(files) if isinstance(files, dict) else set()
-            if (
-                not isinstance(files, dict)
-                or not REQUIRED_FILE_KEYS.issubset(file_keys)
-                or not file_keys.issubset(
-                    REQUIRED_FILE_KEYS | OPTIONAL_FILE_KEYS
-                )
-            ):
-                raise ValueError(
-                    f"{site.get('slug', '<unknown>')}: unexpected terrain file set"
-                )
-            for record in files.values():
-                source = verify_record(source_root, record)
-                relative_path = str(record["path"])
-                if relative_path in copied_paths:
-                    raise ValueError(f"Duplicate terrain artifact: {relative_path}")
-                copied_paths.add(relative_path)
-                destination = build_root / relative_path
-                destination.parent.mkdir(parents=True, exist_ok=True)
-                shutil.copy2(source, destination)
-                verify_record(build_root, record)
+        copied_slugs: set[str] = set()
+        for _, source_root, manifest in manifests:
+            for site in manifest["sites"]:
+                slug = str(site.get("slug", ""))
+                if not slug or slug in copied_slugs:
+                    raise ValueError(f"Duplicate terrain site slug: {slug}")
+                copied_slugs.add(slug)
+                files = site.get("files")
+                file_keys = set(files) if isinstance(files, dict) else set()
+                if (
+                    not isinstance(files, dict)
+                    or not REQUIRED_FILE_KEYS.issubset(file_keys)
+                    or not file_keys.issubset(
+                        REQUIRED_FILE_KEYS | OPTIONAL_FILE_KEYS
+                    )
+                ):
+                    raise ValueError(
+                        f"{slug or '<unknown>'}: unexpected terrain file set"
+                    )
+                for record in files.values():
+                    source = verify_record(source_root, record)
+                    relative_path = str(record["path"])
+                    if relative_path in copied_paths:
+                        raise ValueError(
+                            f"Duplicate terrain artifact: {relative_path}"
+                        )
+                    copied_paths.add(relative_path)
+                    destination = build_root / relative_path
+                    destination.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(source, destination)
+                    verify_record(build_root, record)
+                combined_manifest["sites"].append(site)
 
-        shutil.copy2(source_root / "manifest.json", build_root / "manifest.json")
+        (build_root / "manifest.json").write_text(
+            json.dumps(combined_manifest, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
         swap_output(build_root, output_root)
 
-    return manifest
+    return combined_manifest
 
 
 def main() -> None:
-    manifest = sync_package()
+    packages = discover_source_roots()
+    manifest = sync_packages(packages)
     print(
         f"Copied {len(manifest['sites'])} canonical terrain packages "
-        f"from {CANONICAL_ROOT} to {OUTPUT_ROOT}"
+        f"from {len(packages)} regions to {OUTPUT_ROOT}"
     )
 
 

@@ -836,19 +836,27 @@ test("map manifest supports adding future sites without component changes", asyn
   );
 });
 
-test("interactive terrain manifest covers the same eleven sites", async () => {
-  const manifest = JSON.parse(
-    await readFile(
+test("interactive terrain manifest combines every published region", async () => {
+  const [manifest, pacaManifest] = await Promise.all([
+    readFile(
       new URL("../public/terrain/manifest.json", import.meta.url),
       "utf8",
     ),
-  );
+    readFile(
+      new URL("../content/paca-map-manifest.json", import.meta.url),
+      "utf8",
+    ),
+  ]).then((values) => values.map(JSON.parse));
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.equal(manifest.sites.length, 11);
+  assert.deepEqual(manifest.regions, ["paca", "reunion"]);
+  assert.equal(manifest.sites.length, 16);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
-    publishedSiteSlugs,
+    new Set([
+      ...publishedSiteSlugs,
+      ...pacaManifest.sites.map((site) => site.slug),
+    ]),
   );
 });
 

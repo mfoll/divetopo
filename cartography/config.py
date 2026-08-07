@@ -82,9 +82,6 @@ _ALLOWED_KEYS = frozenset(
         "interactive_match_static_along_center",
         "interactive_match_static_horizontal_center",
         "interactive_max_depth_m",
-        "interactive_initial_center_offset_east_m",
-        "interactive_initial_center_offset_south_m",
-        "interactive_initial_zoom",
         "interactive_shallow_basin_correction_bbox_utm40s",
         "interactive_shallow_basin_max_boundary_depth_m",
         "interactive_featured_vector_label_levels_m",
@@ -170,6 +167,7 @@ _ALLOWED_KEYS = frozenset(
         "title",
         "topography_resolution_m",
         "vertical_exaggeration",
+        "web",
         "view_bearing_deg",
         "view_canvas_height_px",
         "view_canvas_width_px",
@@ -1131,14 +1129,116 @@ def validate_config(config: Mapping[str, Any]) -> None:
         _number(config, "interactive_view_along_center_offset_m")
     if "interactive_view_horizontal_center_offset_m" in config:
         _number(config, "interactive_view_horizontal_center_offset_m")
-    if "interactive_initial_zoom" in config:
-        _positive(config, "interactive_initial_zoom")
-    for key in (
-        "interactive_initial_center_offset_east_m",
-        "interactive_initial_center_offset_south_m",
+    web = config.get("web")
+    if web is None:
+        web = {
+            "published": False,
+            "site_label_layout": {
+                "side": "right",
+                "shift_y_rem": 0,
+                "connector_angle_deg": 0,
+            },
+        }
+    elif not isinstance(web, Mapping):
+        raise ValueError("web must be an object")
+    unknown_web_keys = sorted(
+        set(web) - {"published", "site_label_layout", "interactive_initial_view"}
+    )
+    if unknown_web_keys:
+        raise ValueError("Unknown web key(s): " + ", ".join(unknown_web_keys))
+    if not isinstance(web.get("published"), bool):
+        raise ValueError("web.published must be a boolean")
+    layout = web.get("site_label_layout")
+    if not isinstance(layout, Mapping):
+        raise ValueError("web.site_label_layout must be an object")
+    allowed_layout_keys = {
+        "side",
+        "shift_y_rem",
+        "connector_angle_deg",
+        "connector_width_rem",
+        "label_offset_rem",
+        "lines",
+        "width_rem",
+    }
+    unknown_layout_keys = sorted(set(layout) - allowed_layout_keys)
+    if unknown_layout_keys:
+        raise ValueError(
+            "Unknown web.site_label_layout key(s): "
+            + ", ".join(unknown_layout_keys)
+        )
+    if layout.get("side") not in {"left", "right"}:
+        raise ValueError("web.site_label_layout.side must be left or right")
+    for key in ("shift_y_rem", "connector_angle_deg"):
+        value = layout.get(key)
+        if (
+            isinstance(value, bool)
+            or not isinstance(value, (int, float))
+            or not math.isfinite(float(value))
+        ):
+            raise ValueError(f"web.site_label_layout.{key} must be finite")
+    for key in ("connector_width_rem", "label_offset_rem", "width_rem"):
+        if key in layout and (
+            isinstance(layout[key], bool)
+            or not isinstance(layout[key], (int, float))
+            or not math.isfinite(float(layout[key]))
+            or float(layout[key]) <= 0.0
+        ):
+            raise ValueError(f"web.site_label_layout.{key} must be positive")
+    if "lines" in layout and (
+        not isinstance(layout["lines"], list)
+        or not layout["lines"]
+        or not all(
+            isinstance(line, str) and line.strip() for line in layout["lines"]
+        )
     ):
-        if key in config:
-            _number(config, key)
+        raise ValueError(
+            "web.site_label_layout.lines must be non-empty strings"
+        )
+    initial_view = web.get("interactive_initial_view")
+    if initial_view is not None:
+        if not isinstance(initial_view, Mapping):
+            raise ValueError("web.interactive_initial_view must be an object")
+        allowed_initial_view_keys = {
+            "zoom",
+            "orbit_azimuth_deg",
+            "camera_elevation_deg",
+            "pan_right_m",
+            "pan_up_m",
+            "center_offset_east_m",
+            "center_offset_south_m",
+            "isobath_label_focus_x_ndc",
+        }
+        unknown_initial_view_keys = sorted(
+            set(initial_view) - allowed_initial_view_keys
+        )
+        if unknown_initial_view_keys:
+            raise ValueError(
+                "Unknown web.interactive_initial_view key(s): "
+                + ", ".join(unknown_initial_view_keys)
+            )
+        for key, value in initial_view.items():
+            if (
+                isinstance(value, bool)
+                or not isinstance(value, (int, float))
+                or not math.isfinite(float(value))
+            ):
+                raise ValueError(
+                    f"web.interactive_initial_view.{key} must be finite"
+                )
+        if "zoom" in initial_view and float(initial_view["zoom"]) <= 0.0:
+            raise ValueError("web.interactive_initial_view.zoom must be positive")
+        if "camera_elevation_deg" in initial_view and not (
+            0.0 < float(initial_view["camera_elevation_deg"]) < 90.0
+        ):
+            raise ValueError(
+                "web.interactive_initial_view.camera_elevation_deg must be between 0 and 90"
+            )
+        if "isobath_label_focus_x_ndc" in initial_view and not (
+            -1.0 <= float(initial_view["isobath_label_focus_x_ndc"]) <= 1.0
+        ):
+            raise ValueError(
+                "web.interactive_initial_view.isobath_label_focus_x_ndc must be between -1 and 1"
+            )
     if "interactive_vector_label_vertical_inset_fraction" in config:
         inset = _fraction(
             config,

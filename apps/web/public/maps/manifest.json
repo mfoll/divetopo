@@ -254,7 +254,13 @@
             "filename": "cap-la-houssaye-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1.45,
+        "connectorAngleDeg": -42,
+        "connectorWidthRem": 1.35
+      }
     },
     {
       "slug": "boucan-canot",
@@ -477,7 +483,13 @@
             "filename": "boucan-canot-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -1.7,
+        "connectorAngleDeg": 48,
+        "connectorWidthRem": 1.45
+      }
     },
     {
       "slug": "cap-homard",
@@ -700,7 +712,14 @@
             "filename": "cap-homard-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -0.15,
+        "connectorAngleDeg": -10,
+        "connectorWidthRem": 1.3,
+        "labelOffsetRem": 2.6
+      }
     },
     {
       "slug": "pointe-des-aigrettes",
@@ -923,7 +942,14 @@
             "filename": "pointe-des-aigrettes-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 2.15,
+        "connectorAngleDeg": 58,
+        "connectorWidthRem": 2.45,
+        "labelOffsetRem": 2.65
+      }
     },
     {
       "slug": "roches-noires",
@@ -1146,7 +1172,17 @@
             "filename": "roches-noires-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0.9,
+        "connectorAngleDeg": -58,
+        "connectorWidthRem": 1,
+        "labelOffsetRem": 1.9,
+        "lines": [
+          "Roches Noires"
+        ]
+      }
     },
     {
       "slug": "passe-hermitage",
@@ -1369,7 +1405,12 @@
             "filename": "passe-hermitage-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      }
     },
     {
       "slug": "trois-bassins",
@@ -1592,7 +1633,12 @@
             "filename": "trois-bassins-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -0.45,
+        "connectorAngleDeg": 20
+      }
     },
     {
       "slug": "souris-chaude",
@@ -1816,6 +1862,11 @@
           }
         }
       ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0.15,
+        "connectorAngleDeg": 8
+      },
       "interactiveInitialView": {
         "zoom": 1.0,
         "centerOffsetEastM": 0,
@@ -2043,7 +2094,12 @@
             "filename": "pont-rouge-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -0.5,
+        "connectorAngleDeg": 22
+      }
     },
     {
       "slug": "plage-cimetiere-saint-leu",
@@ -2266,7 +2322,12 @@
             "filename": "plage-cimetiere-saint-leu-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -0.5,
+        "connectorAngleDeg": 22
+      }
     },
     {
       "slug": "pointe-au-sel-sec-jaune",
@@ -2489,7 +2550,12 @@
             "filename": "pointe-au-sel-sec-jaune-planche.jpg"
           }
         }
-      ]
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0.45,
+        "connectorAngleDeg": -18
+      }
     }
   ],
   "totals": {

@@ -42,6 +42,174 @@
           "sha256": "8deb8c6eda0383283fc65852cbdd5a085d160e8af4fdca66ffb71209d4234041"
         }
       }
+    },
+    {
+      "slug": "pointe-portissol",
+      "title": "Pointe de Portissol, Côte d’Azur",
+      "metadata": "pointe-portissol/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-portissol/terrain.json",
+          "bytes": 4326,
+          "sha256": "167e37fd3f694a17a385e70b332c90ad8f2f5a521e711772371f82e233b9b71a"
+        },
+        "height": {
+          "path": "pointe-portissol/height.bin",
+          "bytes": 390906,
+          "sha256": "3a9a055c480fc04b8f91eacfbaf53587b7d5ef740b961d57c3d671b404b2382c"
+        },
+        "validMask": {
+          "path": "pointe-portissol/valid-mask.bin",
+          "bytes": 24432,
+          "sha256": "946bd79993f8f6bd09f651ffa4166df4fa7282d17da382267865cd067d66cd7d"
+        },
+        "isobathMask": {
+          "path": "pointe-portissol/isobath-mask.bin",
+          "bytes": 24432,
+          "sha256": "946bd79993f8f6bd09f651ffa4166df4fa7282d17da382267865cd067d66cd7d"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-portissol/isobaths-vector.json",
+          "bytes": 104236,
+          "sha256": "4d30ed860a0d21139254186d398793b08002246e47a998367d2389e7e3f52b0a"
+        },
+        "topographicTexture": {
+          "path": "pointe-portissol/topographic.webp",
+          "bytes": 81960,
+          "sha256": "30e5a3cf6b1880e464bba2322de05f5c986543aed85415663e0ce9a16fae4f99"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-portissol/orthophoto.webp",
+          "bytes": 168580,
+          "sha256": "7f1735833b61af5e91a2ea647df23b6d29b155b314166c17311a3babca6e5fca"
+        }
+      }
+    },
+    {
+      "slug": "deux-freres-cap-sicie",
+      "title": "Les Deux Frères, Cap Sicié, Côte d’Azur",
+      "metadata": "deux-freres-cap-sicie/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "deux-freres-cap-sicie/terrain.json",
+          "bytes": 5457,
+          "sha256": "5e1d4df995a8371c7ea11115b43cc9590f90114eacddd08c5855754b66a1c93d"
+        },
+        "height": {
+          "path": "deux-freres-cap-sicie/height.bin",
+          "bytes": 501714,
+          "sha256": "db0e44c2c7213ac36f2e69f44701092ca495ca9217a734f1f254b9fa00b258c7"
+        },
+        "validMask": {
+          "path": "deux-freres-cap-sicie/valid-mask.bin",
+          "bytes": 31358,
+          "sha256": "1afa30e99d79283a9eb965cb78638a9a9fbd23de487c208f7248db35da3f71c8"
+        },
+        "isobathMask": {
+          "path": "deux-freres-cap-sicie/isobath-mask.bin",
+          "bytes": 31358,
+          "sha256": "1afa30e99d79283a9eb965cb78638a9a9fbd23de487c208f7248db35da3f71c8"
+        },
+        "vectorIsobaths": {
+          "path": "deux-freres-cap-sicie/isobaths-vector.json",
+          "bytes": 153956,
+          "sha256": "d1545790c909598bb9ac8608e52f0600c357fc2ff7a0da62e7fd438ee3793eb5"
+        },
+        "topographicTexture": {
+          "path": "deux-freres-cap-sicie/topographic.webp",
+          "bytes": 52960,
+          "sha256": "59d2ab1b4475a956e76f81aaea998da88b9969c4b4b90ebf025044010e16dfae"
+        },
+        "orthophotoTexture": {
+          "path": "deux-freres-cap-sicie/orthophoto.webp",
+          "bytes": 106194,
+          "sha256": "aea384a6285bbfe7cf7c3b834e906864797c0771da51864a71f6625b294e2f13"
+        }
+      }
+    },
+    {
+      "slug": "cap-des-medes",
+      "title": "Cap des Mèdes, Porquerolles",
+      "metadata": "cap-des-medes/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "cap-des-medes/terrain.json",
+          "bytes": 4999,
+          "sha256": "f1f2e88f2fd4930e0ed24aaff756431c676c91f8da948a3a77f3ca137360fac1"
+        },
+        "height": {
+          "path": "cap-des-medes/height.bin",
+          "bytes": 510948,
+          "sha256": "8b9327edb66bf1ff4a4ed438a8ef1b31d40ead94d60c88afcf64343dc16235ff"
+        },
+        "validMask": {
+          "path": "cap-des-medes/valid-mask.bin",
+          "bytes": 31935,
+          "sha256": "1cc032851b73e77131fd47b671bccdf5c4863f35926eec7e1946b194fa2bd1d3"
+        },
+        "isobathMask": {
+          "path": "cap-des-medes/isobath-mask.bin",
+          "bytes": 31935,
+          "sha256": "1cc032851b73e77131fd47b671bccdf5c4863f35926eec7e1946b194fa2bd1d3"
+        },
+        "vectorIsobaths": {
+          "path": "cap-des-medes/isobaths-vector.json",
+          "bytes": 210922,
+          "sha256": "ada8ba9c4b2afe21dd5ea4a5b07f60964b5022678006b044831abf6fb8c17a7f"
+        },
+        "topographicTexture": {
+          "path": "cap-des-medes/topographic.webp",
+          "bytes": 97404,
+          "sha256": "c19e8597681251892a6f709ffb9868548b9a30bf81ab178f1e7a191358c0296d"
+        },
+        "orthophotoTexture": {
+          "path": "cap-des-medes/orthophoto.webp",
+          "bytes": 119768,
+          "sha256": "c112712fbdb85b72e67a07022200c450378a17ab14e634ca5ab9dbad30fffa43"
+        }
+      }
+    },
+    {
+      "slug": "les-pyramides-cap-dramont",
+      "title": "Les Pyramides, Cap Dramont–Île d’Or",
+      "metadata": "les-pyramides-cap-dramont/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "les-pyramides-cap-dramont/terrain.json",
+          "bytes": 5044,
+          "sha256": "a55d4a063a3a3c0f0783c8f9b9b24fd7e805bade04aa4c6699c3e2b0df3b0118"
+        },
+        "height": {
+          "path": "les-pyramides-cap-dramont/height.bin",
+          "bytes": 523260,
+          "sha256": "d3daacd6b77c5e01aebadefa2dbc25b4543f4fb3dc6dac722d49affc0d8cff00"
+        },
+        "validMask": {
+          "path": "les-pyramides-cap-dramont/valid-mask.bin",
+          "bytes": 32704,
+          "sha256": "38dcfa5869d76247101e7337479e370ac582110679343afbef62ed3137dcf809"
+        },
+        "isobathMask": {
+          "path": "les-pyramides-cap-dramont/isobath-mask.bin",
+          "bytes": 32704,
+          "sha256": "38dcfa5869d76247101e7337479e370ac582110679343afbef62ed3137dcf809"
+        },
+        "vectorIsobaths": {
+          "path": "les-pyramides-cap-dramont/isobaths-vector.json",
+          "bytes": 146826,
+          "sha256": "197b6b12931d6f0be9d5cfe3f5f9e2749c420dcc5b734ec52e6c540239abf0ff"
+        },
+        "topographicTexture": {
+          "path": "les-pyramides-cap-dramont/topographic.webp",
+          "bytes": 33252,
+          "sha256": "0df0aafd0d76fd9f30ba2656cbb747d14b82a23c366baa25272326f156acf361"
+        },
+        "orthophotoTexture": {
+          "path": "les-pyramides-cap-dramont/orthophoto.webp",
+          "bytes": 26370,
+          "sha256": "dd8a9d9b15b0a3a1528abb2e911d7c6219bcb18cf766c670c466029716bc10f0"
+        }
+      }
     }
   ]
 }

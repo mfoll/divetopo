@@ -2,6 +2,10 @@
   "region": "reunion",
   "slug": "passe-hermitage",
   "title": "Passe de l'Hermitage",
+  "web": {
+    "published": true,
+    "site_label_layout": {"side": "right", "shift_y_rem": 0, "connector_angle_deg": 0}
+  },
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [314880.0, 7666904.0, 315880.0, 7667596.0],
