@@ -1817,9 +1817,9 @@
         }
       ],
       "interactiveInitialView": {
-        "zoom": 1,
-        "centerOffsetEastM": -100,
-        "centerOffsetSouthM": -100
+        "zoom": 1.0,
+        "centerOffsetEastM": 0,
+        "centerOffsetSouthM": 0
       }
     },
     {

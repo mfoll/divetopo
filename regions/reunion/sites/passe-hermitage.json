@@ -8,7 +8,7 @@
   "context_bbox_utm40s": [313700.0, 7665400.0, 317000.0, 7669000.0],
   "interactive_footprint_utm40s": {
     "center": [315120.0, 7667070.0],
-    "width_m": 750.0,
+    "width_m": 1000.0,
     "depth_m": 1695.0,
     "look_bearing_deg": 45.0
   },

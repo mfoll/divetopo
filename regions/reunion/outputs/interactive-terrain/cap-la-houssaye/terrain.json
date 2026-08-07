@@ -4,13 +4,13 @@
   "title": "Cap La Houssaye, La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 316516.0,
+    "west": 316287.6,
     "south": 7674382.8,
-    "east": 317086.0,
+    "east": 317288.0,
     "north": 7675435.2
   },
   "physicalSizeM": {
-    "width": 570.0,
+    "width": 1000.4,
     "depth": 1052.4
   },
   "orientation": {
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 278,
+    "width": 488,
     "height": 513,
-    "triangleCount": 283648,
+    "triangleCount": 498688,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -86,32 +86,32 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 4,
-        "points": 522
+        "polylines": 6,
+        "points": 1046
       },
       "10": {
-        "polylines": 5,
-        "points": 832
+        "polylines": 7,
+        "points": 1478
       },
       "15": {
         "polylines": 1,
-        "points": 389
+        "points": 644
       },
       "20": {
-        "polylines": 3,
-        "points": 351
+        "polylines": 1,
+        "points": 545
       }
     },
     "totals": {
       "levels": 4,
-      "polylines": 13,
-      "points": 2094
+      "polylines": 15,
+      "points": 3713
     },
     "reprojectionResidualM": {
-      "samples": 2094,
-      "mean": 2.476939862369464e-05,
-      "p95": 7.821685315292362e-05,
-      "max": 0.00408928003175113,
+      "samples": 3713,
+      "mean": 2.2047084840920453e-05,
+      "p95": 5.3221394825442256e-05,
+      "max": 0.007833606619821687,
       "withinTolerance": true
     }
   },
@@ -122,10 +122,11 @@
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.35,
     "visibleWidthM": 494.8,
-    "coastFrameFraction": 0.425
+    "coastFrameFraction": 0.425,
+    "horizontalCenterOffsetM": -12.0
   },
   "textures": {
-    "width": 1109,
+    "width": 1947,
     "height": 2048,
     "topographic": {
       "file": "topographic.webp",
@@ -145,27 +146,27 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      316801.0,
+      316787.9,
       7674909.0
     ],
-    "widthM": 570.0,
+    "widthM": 1000.0,
     "depthM": 1052.0,
     "lookBearingDeg": 180.0,
     "cornersUtm40s": [
       [
-        317086.0,
+        317287.9,
         7675435.0
       ],
       [
-        316516.0,
+        316287.9,
         7675435.0
       ],
       [
-        316516.0,
+        316287.9,
         7674383.0
       ],
       [
-        317086.0,
+        317287.9,
         7674383.0
       ]
     ]

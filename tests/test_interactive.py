@@ -343,6 +343,24 @@ class InteractiveTerrainPackageTests(unittest.TestCase):
             {"alongCenterOffsetM": -12.345679},
         )
 
+    def test_horizontal_center_metadata_prefers_explicit_override(self) -> None:
+        config = {
+            "interactive_match_static_horizontal_center": True,
+            "interactive_view_horizontal_center_offset_m": -12.3456789,
+            "context_bbox_utm40s": [0.0, 0.0, 1000.0, 1000.0],
+            "view_center_offset_east_m": 100.0,
+            "view_center_offset_north_m": 50.0,
+            "view_bearing_deg": 90.0,
+        }
+
+        self.assertEqual(
+            view_center_metadata(
+                config,
+                (100.0, 100.0, 900.0, 900.0),
+            ),
+            {"horizontalCenterOffsetM": -12.345679},
+        )
+
     def test_two_corrected_sites_export_their_static_horizontal_centres(
         self,
     ) -> None:

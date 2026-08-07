@@ -5,13 +5,14 @@
   "hyscores_directory": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/",
   "hyscores_tiff_url": "https://sextant.ifremer.fr/sextant_data/HYSCORES/HYSCORES_02_Bathy_OUEST_REU/Saint_Gilles/11_MOZ_SAGI_20150521-23_MNTHS_flld_mskd35-200_MskdTC_crop_TIFF.tif",
   "focus_bbox_utm40s": [316526.1, 7674709.1, 317020.8, 7675051.2],
-  "context_bbox_utm40s": [316300.0, 7674350.0, 317160.0, 7675650.0],
+  "context_bbox_utm40s": [316280.0, 7674350.0, 317300.0, 7675650.0],
   "interactive_footprint_utm40s": {
-    "center": [316801.0, 7674909.0],
-    "width_m": 570.0,
+    "center": [316787.9, 7674909.0],
+    "width_m": 1000.0,
     "depth_m": 1052.0,
     "look_bearing_deg": 180.0
   },
+  "interactive_view_horizontal_center_offset_m": -12.0,
   "rotation_k": 0,
   "view_visible_width_m": 494.8,
   "max_depth_m": 20,

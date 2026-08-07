@@ -91,6 +91,7 @@ _ALLOWED_KEYS = frozenset(
         "interactive_vector_label_collision_padding_ndc",
         "interactive_vector_label_vertical_inset_fraction",
         "interactive_view_along_center_offset_m",
+        "interactive_view_horizontal_center_offset_m",
         "interactive_view_visible_width_m",
         "land_sieve_threshold_px",
         "litto3d_archives",
@@ -1091,6 +1092,8 @@ def validate_config(config: Mapping[str, Any]) -> None:
             _positive(config, key)
     if "interactive_view_along_center_offset_m" in config:
         _number(config, "interactive_view_along_center_offset_m")
+    if "interactive_view_horizontal_center_offset_m" in config:
+        _number(config, "interactive_view_horizontal_center_offset_m")
     if "interactive_initial_zoom" in config:
         _positive(config, "interactive_initial_zoom")
     for key in (

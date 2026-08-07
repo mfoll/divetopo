@@ -4,14 +4,14 @@
   "title": "Pont Rouge, La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 320914.8,
-    "south": 7658159.6,
-    "east": 322723.6,
-    "north": 7659532.8
+    "west": 320879.2,
+    "south": 7658074.0,
+    "east": 322758.8,
+    "north": 7659618.4
   },
   "physicalSizeM": {
-    "width": 1808.8,
-    "depth": 1373.2
+    "width": 1879.6,
+    "depth": 1544.4
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 390,
-    "triangleCount": 398336,
+    "height": 422,
+    "triangleCount": 431104,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -86,32 +86,32 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 3,
-        "points": 598
+        "polylines": 5,
+        "points": 727
       },
       "10": {
-        "polylines": 5,
-        "points": 736
+        "polylines": 7,
+        "points": 999
       },
       "15": {
-        "polylines": 4,
-        "points": 680
+        "polylines": 6,
+        "points": 855
       },
       "20": {
         "polylines": 8,
-        "points": 867
+        "points": 916
       }
     },
     "totals": {
       "levels": 4,
-      "polylines": 20,
-      "points": 2881
+      "polylines": 26,
+      "points": 3497
     },
     "reprojectionResidualM": {
-      "samples": 2881,
-      "mean": 4.7166961944898515e-05,
-      "p95": 0.0001287453270819583,
-      "max": 0.009392300522559793,
+      "samples": 3497,
+      "mean": 2.6353573025756917e-05,
+      "p95": 3.2814927744339944e-05,
+      "max": 0.005172964930377333,
       "withinTolerance": true
     }
   },
@@ -123,11 +123,11 @@
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 620.0,
     "coastFrameFraction": 0.15,
-    "horizontalCenterOffsetM": 0.038268
+    "horizontalCenterOffsetM": -0.038268
   },
   "textures": {
     "width": 2048,
-    "height": 1555,
+    "height": 1683,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -146,28 +146,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      321819.1,
-      7658846.2
+      321819.085,
+      7658846.165
     ],
-    "widthM": 815.0,
+    "widthM": 1000.0,
     "depthM": 1620.0,
     "lookBearingDeg": 112.5,
     "cornersUtm40s": [
       [
-        321226.701,
-        7659532.654
+        321262.084,
+        7659618.078
       ],
       [
-        320914.814,
-        7658779.693
+        320879.401,
+        7658694.199
       ],
       [
-        322411.499,
-        7658159.746
+        322376.086,
+        7658074.252
       ],
       [
-        322723.386,
-        7658912.707
+        322758.769,
+        7658998.131
       ]
     ]
   }

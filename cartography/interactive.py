@@ -608,10 +608,14 @@ def view_center_metadata(
     focus_bounds: tuple[float, float, float, float],
 ) -> dict[str, float]:
     metadata: dict[str, float] = {}
-    horizontal_center_offset = static_view_horizontal_center_offset_m(
-        config,
-        focus_bounds,
+    horizontal_center_offset = config.get(
+        "interactive_view_horizontal_center_offset_m"
     )
+    if horizontal_center_offset is None:
+        horizontal_center_offset = static_view_horizontal_center_offset_m(
+            config,
+            focus_bounds,
+        )
     if horizontal_center_offset is not None:
         metadata["horizontalCenterOffsetM"] = round(
             horizontal_center_offset,

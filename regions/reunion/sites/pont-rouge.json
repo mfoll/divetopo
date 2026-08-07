@@ -7,8 +7,8 @@
   "focus_bbox_utm40s": [321543.6, 7658637.2, 322343.6, 7659190.8],
   "context_bbox_utm40s": [320749.7, 7657781.1, 323249.7, 7660281.1],
   "interactive_footprint_utm40s": {
-    "center": [321819.1, 7658846.2],
-    "width_m": 815.0,
+    "center": [321819.085, 7658846.165],
+    "width_m": 1000.0,
     "depth_m": 1620.0,
     "look_bearing_deg": 112.5
   },

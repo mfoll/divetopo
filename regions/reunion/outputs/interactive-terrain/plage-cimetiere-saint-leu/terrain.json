@@ -5,13 +5,13 @@
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
     "west": 321068.4,
-    "south": 7655672.0,
+    "south": 7655575.2,
     "east": 322763.6,
-    "north": 7656422.0
+    "north": 7656575.6
   },
   "physicalSizeM": {
     "width": 1695.2,
-    "depth": 750.0
+    "depth": 1000.4
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 227,
-    "triangleCount": 231424,
+    "height": 303,
+    "triangleCount": 309248,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 3,
-        "points": 498
+        "polylines": 4,
+        "points": 796
       },
       "10": {
-        "polylines": 1,
-        "points": 324
+        "polylines": 2,
+        "points": 552
       },
       "15": {
-        "polylines": 1,
-        "points": 316
+        "polylines": 2,
+        "points": 482
       },
       "20": {
         "polylines": 1,
-        "points": 206
+        "points": 286
       },
       "25": {
-        "polylines": 1,
-        "points": 184
+        "polylines": 3,
+        "points": 277
       },
       "30": {
-        "polylines": 2,
-        "points": 240
+        "polylines": 6,
+        "points": 383
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 9,
-      "points": 1768
+      "polylines": 18,
+      "points": 2776
     },
     "reprojectionResidualM": {
-      "samples": 1768,
-      "mean": 1.5007009967278651e-05,
-      "p95": 3.5311107464685682e-06,
-      "max": 0.006960979637288034,
+      "samples": 2776,
+      "mean": 2.068536686661421e-05,
+      "p95": 2.8280681221737325e-05,
+      "max": 0.0062648232778217405,
       "withinTolerance": true
     }
   },
@@ -140,11 +140,12 @@
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 650.0,
-    "coastFrameFraction": 0.4036
+    "coastFrameFraction": 0.4036,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
-    "height": 906,
+    "height": 1209,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -164,27 +165,27 @@
     "shape": "oriented-rectangle",
     "centerUtm40s": [
       321916.0,
-      7656047.0
+      7656075.208
     ],
-    "widthM": 750.0,
+    "widthM": 1000.0,
     "depthM": 1695.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
       [
         321068.5,
-        7656422.0
+        7656575.208
       ],
       [
         321068.5,
-        7655672.0
+        7655575.208
       ],
       [
         322763.5,
-        7655672.0
+        7655575.208
       ],
       [
         322763.5,
-        7656422.0
+        7656575.208
       ]
     ]
   }

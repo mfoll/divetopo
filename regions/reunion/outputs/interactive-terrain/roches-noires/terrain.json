@@ -4,14 +4,14 @@
   "title": "Roches Noires · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 314134.0,
-    "south": 7669912.8,
-    "east": 316395.6,
-    "north": 7672039.2
+    "west": 314127.2,
+    "south": 7669554.0,
+    "east": 316646.8,
+    "north": 7672049.2
   },
   "physicalSizeM": {
-    "width": 2261.6,
-    "depth": 2126.4
+    "width": 2519.6,
+    "depth": 2495.2
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 482,
-    "triangleCount": 492544,
+    "height": 508,
+    "triangleCount": 519168,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 2,
-        "points": 687
+        "polylines": 1,
+        "points": 606
       },
       "10": {
-        "polylines": 2,
-        "points": 526
+        "polylines": 1,
+        "points": 428
       },
       "15": {
-        "polylines": 6,
-        "points": 816
+        "polylines": 5,
+        "points": 729
       },
       "20": {
-        "polylines": 2,
-        "points": 460
+        "polylines": 3,
+        "points": 446
       },
       "25": {
         "polylines": 1,
-        "points": 240
+        "points": 190
       },
       "30": {
         "polylines": 2,
-        "points": 321
+        "points": 326
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 15,
-      "points": 3050
+      "polylines": 13,
+      "points": 2725
     },
     "reprojectionResidualM": {
-      "samples": 3050,
-      "mean": 2.0132738231582415e-05,
-      "p95": 2.4815546178213813e-05,
-      "max": 0.00679689873324385,
+      "samples": 2725,
+      "mean": 2.9598511892103504e-05,
+      "p95": 4.2644316782514046e-05,
+      "max": 0.009480056243794444,
       "withinTolerance": true
     }
   },
@@ -140,11 +140,12 @@
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 700.0,
-    "coastFrameFraction": 0.3003
+    "coastFrameFraction": 0.3003,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
-    "height": 1926,
+    "height": 2028,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -163,28 +164,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      315264.715,
-      7670976.17
+      315386.99,
+      7670801.544
     ],
-    "widthM": 1300.0,
+    "widthM": 1750.0,
     "depthM": 1850.0,
     "lookBearingDeg": 55.0,
     "cornersUtm40s": [
       [
-        314134.175,
-        7670978.06
+        314127.395,
+        7670987.744
       ],
       [
-        314879.824,
-        7669913.163
+        315131.154,
+        7669554.228
       ],
       [
-        316395.256,
-        7670974.279
+        316646.585,
+        7670615.344
       ],
       [
-        315649.606,
-        7672039.177
+        315642.826,
+        7672048.86
       ]
     ]
   }

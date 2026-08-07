@@ -4,14 +4,14 @@
   "title": "Pointe des Aigrettes · La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 314093.6,
-    "south": 7672053.6,
-    "east": 315706.4,
-    "north": 7673666.4
+    "west": 313971.2,
+    "south": 7671931.2,
+    "east": 315796.0,
+    "north": 7673756.0
   },
   "physicalSizeM": {
-    "width": 1612.8,
-    "depth": 1612.8
+    "width": 1824.8,
+    "depth": 1824.8
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 3,
-        "points": 537
+        "polylines": 2,
+        "points": 552
       },
       "10": {
-        "polylines": 2,
-        "points": 464
+        "polylines": 1,
+        "points": 448
       },
       "15": {
-        "polylines": 7,
-        "points": 845
+        "polylines": 9,
+        "points": 1140
       },
       "20": {
-        "polylines": 5,
-        "points": 672
+        "polylines": 3,
+        "points": 677
       },
       "25": {
-        "polylines": 6,
-        "points": 680
+        "polylines": 5,
+        "points": 696
       },
       "30": {
-        "polylines": 5,
-        "points": 442
+        "polylines": 10,
+        "points": 731
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 28,
-      "points": 3640
+      "polylines": 30,
+      "points": 4244
     },
     "reprojectionResidualM": {
-      "samples": 3640,
-      "mean": 3.0913185312512155e-05,
-      "p95": 3.546339573219334e-05,
-      "max": 0.008394989161374156,
+      "samples": 4244,
+      "mean": 3.9292572960074265e-05,
+      "p95": 7.808278988932202e-05,
+      "max": 0.009344430845786178,
       "withinTolerance": true
     }
   },
@@ -140,7 +140,8 @@
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 600.0,
-    "coastFrameFraction": 0.4036
+    "coastFrameFraction": 0.4036,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
@@ -163,28 +164,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      314900.0,
-      7672860.0
+      314883.463,
+      7672843.463
     ],
-    "widthM": 700.0,
+    "widthM": 1000.0,
     "depthM": 1580.0,
     "lookBearingDeg": 135.0,
     "cornersUtm40s": [
       [
-        314588.873,
-        7673666.102
+        314678.402,
+        7673755.631
       ],
       [
-        314093.898,
-        7673171.127
+        313971.295,
+        7673048.524
       ],
       [
-        315211.127,
-        7672053.898
+        315088.524,
+        7671931.295
       ],
       [
-        315706.102,
-        7672548.873
+        315795.631,
+        7672638.402
       ]
     ]
   }

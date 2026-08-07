@@ -4,14 +4,14 @@
   "title": "Passe de l'Hermitage, La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 314255.2,
-    "south": 7666205.2,
-    "east": 315984.8,
-    "north": 7667934.8
+    "west": 314166.8,
+    "south": 7666116.8,
+    "east": 316073.2,
+    "north": 7668023.2
   },
   "physicalSizeM": {
-    "width": 1729.6,
-    "depth": 1729.6
+    "width": 1906.4,
+    "depth": 1906.4
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -30.0,
-      "scaleMPerUnit": 0.0005336009056351501,
+      "scaleMPerUnit": 0.0005336401600254531,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -30.0,
-    "max": 4.9695353507995605
+    "max": 4.972107887268066
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 8,
-        "points": 955
+        "polylines": 7,
+        "points": 869
       },
       "10": {
-        "polylines": 4,
-        "points": 663
+        "polylines": 2,
+        "points": 615
       },
       "15": {
-        "polylines": 3,
-        "points": 521
+        "polylines": 5,
+        "points": 757
       },
       "20": {
-        "polylines": 4,
-        "points": 578
+        "polylines": 2,
+        "points": 605
       },
       "25": {
-        "polylines": 5,
-        "points": 766
+        "polylines": 6,
+        "points": 849
       },
       "30": {
-        "polylines": 4,
-        "points": 488
+        "polylines": 8,
+        "points": 727
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 28,
-      "points": 3971
+      "polylines": 30,
+      "points": 4422
     },
     "reprojectionResidualM": {
-      "samples": 3971,
-      "mean": 2.926647030661949e-05,
-      "p95": 2.5485500730670907e-05,
-      "max": 0.008672828444542091,
+      "samples": 4422,
+      "mean": 3.514003873133202e-05,
+      "p95": 0.0001256920506772727,
+      "max": 0.009237087687264278,
       "withinTolerance": true
     }
   },
@@ -167,25 +167,25 @@
       315120.0,
       7667070.0
     ],
-    "widthM": 750.0,
+    "widthM": 1000.0,
     "depthM": 1695.0,
     "lookBearingDeg": 45.0,
     "cornersUtm40s": [
       [
-        314255.562,
-        7666735.892
+        314167.174,
+        7666824.28
       ],
       [
-        314785.892,
-        7666205.562
+        314874.28,
+        7666117.174
       ],
       [
-        315984.438,
-        7667404.108
+        316072.826,
+        7667315.72
       ],
       [
-        315454.108,
-        7667934.438
+        315365.72,
+        7668022.826
       ]
     ]
   }

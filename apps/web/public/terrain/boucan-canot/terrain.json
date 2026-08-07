@@ -4,14 +4,14 @@
   "title": "Boucan Canot, La Réunion",
   "crs": "EPSG:32740",
   "sourceBboxUtm40s": {
-    "west": 314763.2,
-    "south": 7673156.4,
-    "east": 316306.8,
-    "north": 7674699.6
+    "west": 314666.4,
+    "south": 7673059.2,
+    "east": 316442.8,
+    "north": 7674836.0
   },
   "physicalSizeM": {
-    "width": 1543.6,
-    "depth": 1543.2
+    "width": 1776.4,
+    "depth": 1776.8
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 2,
-        "points": 426
+        "polylines": 1,
+        "points": 460
       },
       "10": {
-        "polylines": 5,
-        "points": 708
+        "polylines": 8,
+        "points": 1037
       },
       "15": {
-        "polylines": 5,
-        "points": 764
+        "polylines": 3,
+        "points": 701
       },
       "20": {
         "polylines": 6,
-        "points": 657
+        "points": 760
       },
       "25": {
-        "polylines": 2,
-        "points": 400
+        "polylines": 5,
+        "points": 767
       },
       "30": {
-        "polylines": 8,
-        "points": 439
+        "polylines": 7,
+        "points": 456
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 28,
-      "points": 3394
+      "polylines": 30,
+      "points": 4181
     },
     "reprojectionResidualM": {
-      "samples": 3394,
-      "mean": 3.161779116089855e-05,
-      "p95": 9.796244407342943e-05,
-      "max": 0.008617170059103785,
+      "samples": 4181,
+      "mean": 2.5690613690386028e-05,
+      "p95": 6.924719430401183e-05,
+      "max": 0.008717807874349504,
       "withinTolerance": true
     }
   },
@@ -140,11 +140,12 @@
     "cameraTilt": 0.29,
     "alongViewProjectionScale": 1.1,
     "visibleWidthM": 580.0,
-    "coastFrameFraction": 0.4036
+    "coastFrameFraction": 0.4036,
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
     "width": 2048,
-    "height": 2047,
+    "height": 2048,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Projet HYSCORES (Ifremer, UBO, Office de l'Eau Réunion), 2015, incluant Litto3D · Topographie : IGN RGE ALTI, mise à jour arrêtée en 2024"
@@ -163,28 +164,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      315535.0,
-      7673928.0
+      315554.6,
+      7673947.6
     ],
-    "widthM": 670.0,
+    "widthM": 1000.0,
     "depthM": 1512.0,
     "lookBearingDeg": 135.0,
     "cornersUtm40s": [
       [
-        315237.308,
-        7674699.453
+        315373.581,
+        7674835.726
       ],
       [
-        314763.547,
-        7674225.692
+        314666.474,
+        7674128.619
       ],
       [
-        315832.692,
-        7673156.547
+        315735.619,
+        7673059.474
       ],
       [
-        316306.453,
-        7673630.308
+        316442.726,
+        7673766.581
       ]
     ]
   }

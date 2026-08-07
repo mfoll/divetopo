@@ -11,20 +11,21 @@
     7673138.3
   ],
   "context_bbox_utm40s": [
-    314000.0,
+    313950.0,
     7671900.0,
     315800.0,
     7673800.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      314900.0,
-      7672860.0
+      314883.463,
+      7672843.463
     ],
-    "width_m": 700.0,
+    "width_m": 1000.0,
     "depth_m": 1580.0,
     "look_bearing_deg": 135.0
   },
+  "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 135.0,

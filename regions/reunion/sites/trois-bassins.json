@@ -12,6 +12,7 @@
     "depth_m": 1950.0,
     "look_bearing_deg": 60.0
   },
+  "interactive_view_horizontal_center_offset_m": 0.0,
   "rotation_k": 0,
   "coast_mode": "mask",
   "view_bearing_deg": 60.0,

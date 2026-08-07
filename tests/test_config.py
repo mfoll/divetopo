@@ -33,6 +33,19 @@ PUBLISHED_SITE_SLUGS = {
     "souris-chaude",
     "trois-bassins",
 }
+EXPECTED_REUNION_INTERACTIVE_WIDTH_M = {
+    "boucan-canot": 1000.0,
+    "cap-homard": 1000.0,
+    "cap-la-houssaye": 1000.0,
+    "passe-hermitage": 1000.0,
+    "plage-cimetiere-saint-leu": 1000.0,
+    "pointe-au-sel-sec-jaune": 1350.0,
+    "pointe-des-aigrettes": 1000.0,
+    "pont-rouge": 1000.0,
+    "roches-noires": 1750.0,
+    "souris-chaude": 1650.0,
+    "trois-bassins": 1050.0,
+}
 
 
 class SiteConfigTests(unittest.TestCase):
@@ -107,8 +120,8 @@ class SiteConfigTests(unittest.TestCase):
         self.assertEqual(
             pointe["interactive_footprint_utm40s"],
             {
-                "center": [321581.5, 7654180.4],
-                "width_m": 1040.0,
+                "center": [321562.528, 7654213.261],
+                "width_m": 1350.0,
                 "depth_m": 1545.0,
                 "look_bearing_deg": 60.0,
             },
@@ -172,6 +185,18 @@ class SiteConfigTests(unittest.TestCase):
             configs["souris-chaude"]["interactive_view_visible_width_m"],
             600.0,
         )
+
+    def test_published_reunion_interactive_footprints_meet_width_policy(
+        self,
+    ) -> None:
+        for config in self.configs:
+            with self.subTest(slug=config["slug"]):
+                width_m = config["interactive_footprint_utm40s"]["width_m"]
+                self.assertGreaterEqual(width_m, 1000.0)
+                self.assertEqual(
+                    width_m,
+                    EXPECTED_REUNION_INTERACTIVE_WIDTH_M[config["slug"]],
+                )
 
     def test_all_sites_use_a_valid_coast_aligned_interactive_footprint(
         self,
