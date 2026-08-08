@@ -159,7 +159,7 @@
     "alongViewProjectionScale": 1.2,
     "visibleWidthM": 450.0,
     "coastFrameFraction": 0.52,
-    "horizontalCenterOffsetM": -79.5
+    "horizontalCenterOffsetM": -80.0
   },
   "textures": {
     "width": 1000,

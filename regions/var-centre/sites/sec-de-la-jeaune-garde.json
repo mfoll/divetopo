@@ -19,10 +19,10 @@
     "0955_6220/LITTO3D_FRA_0957_6217_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0957_6217_MNT_20150529_LAMB93_RGF93_IGN69.asc"
   ],
   "focus_bbox_utm40s": [
-    957150.0,
-    6216200.0,
-    957900.0,
-    6216900.0
+    957099.5,
+    6216274.5,
+    957899.5,
+    6216828.5
   ],
   "context_bbox_utm40s": [
     956999.5,
@@ -56,7 +56,7 @@
   "interactive_max_depth_m": 40.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_source_text": "Données : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
@@ -76,6 +76,12 @@
   "output_scale": 2.0,
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
   "map_style_scale": 2.0,
   "relief_suppressed_label_levels": [
     10
