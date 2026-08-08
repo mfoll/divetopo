@@ -15,14 +15,20 @@ SPEC.loader.exec_module(REGIONAL)
 
 class RegionalManifestTests(unittest.TestCase):
     def test_region_inventory_filters_unpublished_site_drafts(self) -> None:
-        configs = REGIONAL.load_published_configs(ROOT, "paca")
+        var_ouest = REGIONAL.load_published_configs(ROOT, "var-ouest")
+        var_centre = REGIONAL.load_published_configs(ROOT, "var-centre")
         self.assertEqual(
-            [config["slug"] for config in configs],
+            [config["slug"] for config in var_ouest],
             [
-                "la-gabiniere-port-cros",
                 "pointe-portissol",
                 "deux-freres-cap-sicie",
+            ],
+        )
+        self.assertEqual(
+            [config["slug"] for config in var_centre],
+            [
                 "cap-des-medes",
+                "la-gabiniere-port-cros",
             ],
         )
 

@@ -36,6 +36,7 @@ OUTPUT = WEB_ROOT / "public" / "maps" / "paca" / "paca-regional-relief.png"
 MANIFEST = WEB_ROOT / "content" / "paca-map-manifest.json"
 CACHE = ROOT / ".tmp" / "paca-regional-relief"
 SITE_CONFIG_DIR = ROOT / "regions" / "paca" / "sites"
+REGION_SLUG = "paca"
 NATURAL_EARTH_ZIP = (
     "https://naturalearth.s3.amazonaws.com/10m_cultural/"
     "ne_10m_admin_0_countries.zip"
@@ -951,13 +952,13 @@ def render(*, refresh: bool) -> None:
     locator = manifest["westCoastLocator"]
     locator.update(
         {
-            "src": "/maps/paca/paca-regional-relief.png",
+            "src": f"/maps/{REGION_SLUG}/{REGION_SLUG}-regional-relief.png",
             "width": WIDTH,
             "height": HEIGHT,
             "bytes": OUTPUT.stat().st_size,
             "sha256": sha256(OUTPUT),
             "source": (
-                "Shom–IGN Limite terre-mer for the visible PACA coastline; "
+                f"Shom–IGN Limite terre-mer for the visible {REGION_SLUG} coastline; "
                 "Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; "
                 "EMODnet Bathymetry DTM 2024 for offshore bathymetry; "
                 "GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer "

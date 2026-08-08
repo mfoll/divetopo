@@ -31,7 +31,7 @@ RELEASE_TAG = "v1.3.0"
 RELEASE_ASSET_BASE = (
     f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
 )
-PACA_COMPACT_ATTRIBUTIONS = {
+MEDITERRANEAN_COMPACT_ATTRIBUTIONS = {
     "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
     "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69",
 }
@@ -79,9 +79,16 @@ def plan_source_for(slug: str, style: str) -> Path:
 def publish_plan(slug: str, style: str) -> dict[str, object]:
     source = plan_source_for(slug, style)
     if not source.is_file():
-        raise FileNotFoundError(f"Missing generated PACA 2D plan: {source}")
+        raise FileNotFoundError(
+            f"Missing generated {REGION_SLUG} 2D plan: {source}"
+        )
     destination = (
-        PUBLIC_ROOT / "maps" / "paca" / slug / "maps" / f"2d-{style}.jpg"
+        PUBLIC_ROOT
+        / "maps"
+        / REGION_SLUG
+        / slug
+        / "maps"
+        / f"2d-{style}.jpg"
     )
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copyfile(source, destination)
@@ -103,9 +110,11 @@ def publish_plan(slug: str, style: str) -> dict[str, object]:
 def build_planche(slug: str, style: str) -> dict[str, object]:
     source = source_for(slug, style)
     if not source.is_file():
-        raise FileNotFoundError(f"Missing generated PACA planche: {source}")
+        raise FileNotFoundError(
+            f"Missing generated {REGION_SLUG} planche: {source}"
+        )
 
-    site_root = PUBLIC_ROOT / "maps" / "paca" / slug / "maps"
+    site_root = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps"
     preview_path = site_root / f"planche-{style}-{PREVIEW_WIDTH}.webp"
 
     with Image.open(source) as image:
@@ -142,12 +151,14 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
 
 
 def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
-    site_root = PUBLIC_ROOT / "maps" / "paca" / slug / "maps"
+    site_root = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps"
     variants: list[dict[str, object]] = []
     for width in (960, 1600, 2474):
         path = site_root / f"3d-dynamic-{style}-{width}.webp"
         if not path.is_file():
-            raise FileNotFoundError(f"Missing PACA 3D capture: {path}")
+            raise FileNotFoundError(
+                f"Missing {REGION_SLUG} 3D capture: {path}"
+            )
         with Image.open(path) as image:
             output_width, output_height = image.size
         variants.append(
@@ -155,10 +166,14 @@ def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
         )
     mobile = site_root / f"3d-dynamic-{style}-mobile-960.webp"
     if not mobile.is_file():
-        raise FileNotFoundError(f"Missing PACA mobile 3D capture: {mobile}")
+        raise FileNotFoundError(
+            f"Missing {REGION_SLUG} mobile 3D capture: {mobile}"
+        )
     download = site_root / "downloads" / f"3d-dynamic-{style}-full.jpg"
     if not download.is_file():
-        raise FileNotFoundError(f"Missing PACA 3D download: {download}")
+        raise FileNotFoundError(
+            f"Missing {REGION_SLUG} 3D download: {download}"
+        )
     with Image.open(download) as image:
         source_width, source_height = image.size
     return {
@@ -190,7 +205,7 @@ def build_site(
         "displayName": config["plate_site_name"],
         "plateTitle": config["plate_title"],
         "config": config["_config_path"],
-        "assetBasePath": f"/maps/paca/{slug}",
+        "assetBasePath": f"/maps/{REGION_SLUG}/{slug}",
         "location": {
             "city": site_city(config),
             "latitude": round(latitude, 8),
@@ -208,7 +223,7 @@ def build_site(
         "plateAuthor": config["plate_author"],
         "copyrightYear": config["copyright_year"],
         "mapLicense": config["map_license"],
-        "compactAttributions": PACA_COMPACT_ATTRIBUTIONS,
+        "compactAttributions": MEDITERRANEAN_COMPACT_ATTRIBUTIONS,
         "maps": [
             publish_plan(slug, "topographic"),
             publish_plan(slug, "orthophoto"),
@@ -239,7 +254,7 @@ def main() -> None:
     )
     print(f"Updated {MANIFEST_PATH}")
     print(
-        f"Built {len(manifest['sites'])} data-driven PACA site entries "
+        f"Built {len(manifest['sites'])} data-driven {REGION_SLUG} site entries "
         "with 2D, 3D and planche assets"
     )
 
