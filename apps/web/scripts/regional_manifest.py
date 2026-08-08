@@ -33,11 +33,11 @@ INITIAL_VIEW_KEYS = {
 }
 
 
-def load_published_configs(
+def load_region_configs(
     repository_root: Path,
     region_slug: str,
 ) -> list[dict[str, Any]]:
-    """Load explicitly published sites in the region inventory order."""
+    """Load site configs in the region inventory order."""
     region_path = repository_root / "regions" / region_slug / "region.json"
     region = json.loads(region_path.read_text(encoding="utf-8"))
     configs: list[dict[str, Any]] = []
@@ -53,17 +53,28 @@ def load_published_configs(
             raise ValueError(
                 f"{config_path}: slug does not match its region inventory entry"
             )
-        web = config.get("web")
-        if not isinstance(web, dict) or web.get("published") is not True:
-            continue
         slug = str(config["slug"])
         if slug in seen:
-            raise ValueError(f"{region_slug}: duplicate published slug: {slug}")
+            raise ValueError(f"{region_slug}: duplicate slug: {slug}")
         seen.add(slug)
         config["_config_path"] = config_path.relative_to(
             repository_root
         ).as_posix()
         configs.append(config)
+    return configs
+
+
+def load_published_configs(
+    repository_root: Path,
+    region_slug: str,
+) -> list[dict[str, Any]]:
+    """Load explicitly published sites in the region inventory order."""
+    configs = [
+        config
+        for config in load_region_configs(repository_root, region_slug)
+        if isinstance(config.get("web"), dict)
+        and config["web"].get("published") is True
+    ]
     if not configs:
         raise RuntimeError(f"{region_slug}: no explicitly published sites")
     return configs

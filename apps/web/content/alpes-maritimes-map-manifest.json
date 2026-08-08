@@ -40,5 +40,111 @@
     "coastlineResolution": "1–7 m product resolution",
     "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
   },
-  "sites": []
+  "sites": [],
+  "plannedSites": [
+    {
+      "slug": "grande-baie-cap-ferrat",
+      "displayName": "Grande Baie",
+      "location": {
+        "city": "Saint-Jean-Cap-Ferrat · côte ouest du Cap-Ferrat",
+        "latitude": 43.68611111,
+        "longitude": 7.32138888
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 86.50613,
+        "yPercent": 18.13659
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1,
+        "connectorAngleDeg": -16,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 6.8
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "pointe-causiniere-cap-ferrat",
+      "displayName": "Pointe de la Causinière",
+      "location": {
+        "city": "Saint-Jean-Cap-Ferrat · Cap-Ferrat",
+        "latitude": 43.67468334,
+        "longitude": 7.33099999
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 88.46154,
+        "yPercent": 21.79933
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -0.5,
+        "connectorAngleDeg": -18,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 7.6
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "la-vaquette",
+      "displayName": "La Vaquette",
+      "location": {
+        "city": "Théoule-sur-Mer · Pointe de l’Esquillon",
+        "latitude": 43.48286951,
+        "longitude": 6.95291152
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 11.53846,
+        "yPercent": 83.27812
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "la-tradeliere",
+      "displayName": "La Tradelière",
+      "location": {
+        "city": "Cannes · Îles de Lérins",
+        "latitude": 43.5134,
+        "longitude": 7.07158333
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 35.68255,
+        "yPercent": 73.49271
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "grotte-a-corail-villefranche",
+      "displayName": "Grotte à Corail",
+      "location": {
+        "city": "Villefranche-sur-Mer · rade de Villefranche",
+        "latitude": 43.690525,
+        "longitude": 7.30885556
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 83.9562,
+        "yPercent": 16.72188
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1,
+        "connectorAngleDeg": -18,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 6.2
+      },
+      "status": "preparing"
+    }
+  ]
 }

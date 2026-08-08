@@ -40,5 +40,126 @@
     "coastlineResolution": "1–7 m product resolution",
     "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
   },
-  "sites": []
+  "sites": [],
+  "plannedSites": [
+    {
+      "slug": "grotte-a-corail-maire",
+      "displayName": "Grotte à Corail – Maïre",
+      "location": {
+        "city": "Marseille · île Maïre",
+        "latitude": 43.21033333,
+        "longitude": 5.33183333
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 54.79968,
+        "yPercent": 55.14418
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1.5,
+        "connectorAngleDeg": -18,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 3.6,
+        "lines": [
+          "Grotte à Corail",
+          "Maïre"
+        ],
+        "widthRem": 6.3
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "pains-de-sucre-riou",
+      "displayName": "Pains de Sucre – Riou",
+      "location": {
+        "city": "Marseille · Riou",
+        "latitude": 43.17558333,
+        "longitude": 5.39711667
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 70.49279,
+        "yPercent": 66.282
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -0.5,
+        "connectorAngleDeg": -12,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 2.5,
+        "lines": [
+          "Pains de Sucre",
+          "Riou"
+        ],
+        "widthRem": 5.8
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "imperial-de-terre-riou",
+      "displayName": "Impérial de Terre",
+      "location": {
+        "city": "Marseille · Riou",
+        "latitude": 43.172833,
+        "longitude": 5.393
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 69.5032,
+        "yPercent": 67.16351
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "pierre-a-la-bague-plateau",
+      "displayName": "Pierre à la Bague – plateau",
+      "location": {
+        "city": "Marseille · Planier",
+        "latitude": 43.19711667,
+        "longitude": 5.22661667
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 29.50721,
+        "yPercent": 59.38029
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 2.5,
+        "lines": [
+          "Pierre à la Bague",
+          "plateau"
+        ],
+        "widthRem": 7.2
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "tiboulen-du-frioul",
+      "displayName": "Tiboulen du Frioul",
+      "location": {
+        "city": "Marseille · Frioul",
+        "latitude": 43.27993333,
+        "longitude": 5.285
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 43.54167,
+        "yPercent": 32.83649
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1.0,
+        "connectorAngleDeg": 18.0,
+        "connectorWidthRem": 2.8,
+        "labelOffsetRem": 1.8,
+        "widthRem": 6.2
+      },
+      "status": "preparing"
+    }
+  ]
 }

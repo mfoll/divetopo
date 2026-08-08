@@ -458,5 +458,108 @@
         "isobathLabelFocusXNdc": 0.12
       }
     }
+  ],
+  "plannedSites": [
+    {
+      "slug": "les-fourmigues",
+      "displayName": "Les Fourmigues",
+      "location": {
+        "city": "Hyères · Giens",
+        "latitude": 43.03993995,
+        "longitude": 6.06926029
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 15.05659,
+        "yPercent": 25.02502
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "sec-de-la-jeaune-garde",
+      "displayName": "Sec de la Jeaune Garde",
+      "location": {
+        "city": "Hyères · Porquerolles",
+        "latitude": 43.0025756,
+        "longitude": 6.15766546
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 34.2751,
+        "yPercent": 40.5935
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "sec-du-langoustier",
+      "displayName": "Sec du Langoustier",
+      "location": {
+        "city": "Hyères · Porquerolles",
+        "latitude": 42.99933298,
+        "longitude": 6.15483388
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 33.65954,
+        "yPercent": 41.94459
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "cap-des-medes",
+      "displayName": "Cap des Mèdes",
+      "location": {
+        "city": "Hyères · Porquerolles",
+        "latitude": 43.02828301,
+        "longitude": 6.24145058
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 52.48926,
+        "yPercent": 29.88208
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1,
+        "connectorAngleDeg": -26.8,
+        "connectorWidthRem": 2.38,
+        "labelOffsetRem": 3.5,
+        "widthRem": 5.86
+      },
+      "status": "published"
+    },
+    {
+      "slug": "la-gabiniere-port-cros",
+      "displayName": "La Gabinière",
+      "location": {
+        "city": "Hyères · Port-Cros",
+        "latitude": 42.98868,
+        "longitude": 6.3930747
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 85.45102,
+        "yPercent": 46.38333
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 1.5,
+        "connectorAngleDeg": 58.5,
+        "connectorWidthRem": 1.67,
+        "labelOffsetRem": 2.25,
+        "widthRem": 5.11
+      },
+      "status": "published"
+    }
   ]
 }

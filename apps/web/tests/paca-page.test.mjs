@@ -39,7 +39,7 @@ test("retires the PACA aggregate through localized redirects", async () => {
   );
 });
 
-test("renders autonomous Mediterranean regions without exposing drafts", async () => {
+test("renders five regional sites while keeping drafts non-clickable", async () => {
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 2],
     ["/var-centre/en", "topo-var-centre-title", 2],
@@ -49,11 +49,19 @@ test("renders autonomous Mediterranean regions without exposing drafts", async (
     assert.equal(response.status, 200, path);
     const html = await response.text();
     assert.match(html, new RegExp(`id="${titleId}"`), path);
+    assert.equal(html.match(/class="site-map-marker label-/g)?.length, siteCount, path);
     assert.equal(
-      html.match(/class="site-map-marker label-/g)?.length,
-      siteCount,
+      html.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length,
+      5 - siteCount,
       path,
     );
+    const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
+    assert.equal(html.match(preparingHeading)?.length, 1, path);
+    for (const name of path.endsWith("/en")
+      ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
+      : ["Pointe de la Cride", "Les Magnons", "La Merveilleuse"]) {
+      assert.match(html, new RegExp(name), path);
+    }
     assert.doesNotMatch(html, /noindex/i, path);
   }
 
@@ -66,7 +74,37 @@ test("renders autonomous Mediterranean regions without exposing drafts", async (
     assert.equal(response.status, 200, region);
     const html = await response.text();
     assert.match(html, /cinq premières cartographies/, region);
+    assert.equal(
+      html.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length,
+      5,
+      region,
+    );
+    assert.equal(html.match(/<li>/g)?.length, 5, region);
+    assert.equal(html.match(/<em>En préparation<\/em>/g)?.length, 5, region);
     assert.doesNotMatch(html, new RegExp(`/${region}/fr/sites/`), region);
+  }
+});
+
+test("regional planning inventories contain exactly five classified sites", async () => {
+  for (const region of [
+    "bouches-du-rhone",
+    "var-ouest",
+    "var-centre",
+    "var-est",
+    "alpes-maritimes",
+  ]) {
+    const manifest = JSON.parse(
+      await readFile(
+        new URL(`../content/${region}-map-manifest.json`, import.meta.url),
+        "utf8",
+      ),
+    );
+    assert.equal(manifest.plannedSites.length, 5, region);
+    assert.deepEqual(
+      manifest.plannedSites.filter((site) => site.status === "published").map((site) => site.slug),
+      manifest.sites.map((site) => site.slug),
+      region,
+    );
   }
 });
 

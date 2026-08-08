@@ -342,12 +342,16 @@ function SitePicker({
             <strong>N</strong>
           </div>
 
-          {manifest.sites.map((site) => {
-            const selected = activeSlug === site.slug;
-            const layout = site.siteLabelLayout;
+          {(manifest.plannedSites ?? manifest.sites).map((plannedSite) => {
+            const site = manifest.sites.find(
+              (candidate) => candidate.slug === plannedSite.slug,
+            );
+            const selected = activeSlug === plannedSite.slug;
+            const preparing = !site;
+            const layout = plannedSite.siteLabelLayout;
             const style = {
-              "--site-x": `${site.westCoastLocatorPosition.xPercent}%`,
-              "--site-y": `${site.westCoastLocatorPosition.yPercent}%`,
+              "--site-x": `${plannedSite.westCoastLocatorPosition.xPercent}%`,
+              "--site-y": `${plannedSite.westCoastLocatorPosition.yPercent}%`,
               "--label-shift-y": `${layout.shiftYRem}rem`,
               "--label-width": layout.widthRem
                 ? `${layout.widthRem}rem`
@@ -357,7 +361,25 @@ function SitePicker({
               "--connector-width": `${layout.connectorWidthRem ?? 1}rem`,
             } as CSSProperties;
 
-            return (
+            const markerContent = preparing ? (
+              <span className="site-map-marker-dot" aria-hidden="true" />
+            ) : (
+              <>
+                <span className="site-map-marker-dot" aria-hidden="true" />
+                <span className="site-map-marker-line" aria-hidden="true" />
+                <span
+                  className={`site-map-marker-label${layout.lines ? " is-multiline" : ""}`}
+                >
+                  {layout.lines
+                    ? layout.lines.map((line) => (
+                        <span key={line}>{line}</span>
+                      ))
+                    : plannedSite.displayName}
+                </span>
+              </>
+            );
+
+            return site ? (
               <a
                 key={site.slug}
                 className={`site-map-marker label-${layout.side}`}
@@ -380,18 +402,17 @@ function SitePicker({
                   onSelect(site.slug);
                 }}
               >
-                <span className="site-map-marker-dot" aria-hidden="true" />
-                <span className="site-map-marker-line" aria-hidden="true" />
-                <span
-                  className={`site-map-marker-label${layout.lines ? " is-multiline" : ""}`}
-                >
-                  {layout.lines
-                    ? layout.lines.map((line) => (
-                        <span key={line}>{line}</span>
-                      ))
-                    : site.displayName}
-                </span>
+                {markerContent}
               </a>
+            ) : (
+              <span
+                key={plannedSite.slug}
+                className={`site-map-marker site-map-marker-preparing label-${layout.side}`}
+                style={style}
+                aria-label={`${plannedSite.displayName}, ${language === "fr" ? "en préparation" : "in preparation"}`}
+              >
+                {markerContent}
+              </span>
             );
           })}
 
@@ -425,6 +446,19 @@ function SitePicker({
             )}
           </div>
         </div>
+
+        {manifest.plannedSites?.some((site) => site.status === "preparing") ? (
+          <div className="site-picker-planned-list">
+            <h3>{language === "fr" ? "Sites en préparation" : "Sites in preparation"}</h3>
+            <ul>
+              {manifest.plannedSites
+                .filter((site) => site.status === "preparing")
+                .map((site) => (
+                  <li key={site.slug}>{site.displayName}</li>
+                ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
     </aside>
   );

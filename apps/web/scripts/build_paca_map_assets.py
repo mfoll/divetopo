@@ -12,7 +12,7 @@ from typing import Any
 from PIL import Image
 
 from regional_manifest import (
-    load_published_configs,
+    load_region_configs,
     locator_position_wgs84,
     marker_wgs84,
     site_city,
@@ -196,7 +196,9 @@ def build_site(
     locator_bounds: dict[str, float],
 ) -> dict[str, Any]:
     slug = str(config["slug"])
-    marker = config.get("site_location_utm40s", config["locator_marker_utm40s"])
+    marker = config.get("site_location_utm40s") or config.get(
+        "locator_marker_utm40s"
+    )
     if not isinstance(marker, list):
         raise ValueError(f"{slug}: invalid site marker")
     latitude, longitude = marker_wgs84(marker, 2154)
@@ -238,13 +240,53 @@ def build_site(
     }
 
 
+def build_planned_site(
+    config: dict[str, Any],
+    locator_bounds: dict[str, float],
+) -> dict[str, Any]:
+    slug = str(config["slug"])
+    marker = config.get("site_location_utm40s") or config.get(
+        "locator_marker_utm40s"
+    )
+    if not isinstance(marker, list):
+        raise ValueError(f"{slug}: invalid site marker")
+    latitude, longitude = marker_wgs84(marker, 2154)
+    web = config.get("web", {})
+    return {
+        "slug": slug,
+        "displayName": config["plate_site_name"],
+        "location": {
+            "city": site_city(config),
+            "latitude": round(latitude, 8),
+            "longitude": round(longitude, 8),
+        },
+        "westCoastLocatorPosition": locator_position_wgs84(
+            latitude,
+            longitude,
+            locator_bounds,
+        ),
+        "siteLabelLayout": web_site_metadata(config)["siteLabelLayout"],
+        "status": "published" if web.get("published") is True else "preparing",
+    }
+
+
 def main() -> None:
     manifest = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))
-    configs = load_published_configs(REPOSITORY_ROOT, REGION_SLUG)
+    all_configs = load_region_configs(REPOSITORY_ROOT, REGION_SLUG)
+    configs = [
+        config
+        for config in all_configs
+        if isinstance(config.get("web"), dict)
+        and config["web"].get("published") is True
+    ]
     locator_bounds = manifest["westCoastLocator"].get("boundsWgs84")
     if not isinstance(locator_bounds, dict):
         raise ValueError("PACA regional locator requires WGS84 bounds")
     manifest["schemaVersion"] = 2
+    manifest["plannedSites"] = [
+        build_planned_site(config, locator_bounds)
+        for config in all_configs
+    ]
     manifest["sites"] = [
         build_site(config, locator_bounds) for config in configs
     ]

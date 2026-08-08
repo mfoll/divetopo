@@ -455,5 +455,114 @@
         "centerOffsetSouthM": 100
       }
     }
+  ],
+  "plannedSites": [
+    {
+      "slug": "pointe-portissol",
+      "displayName": "Pointe de Portissol",
+      "location": {
+        "city": "Sanary-sur-Mer",
+        "latitude": 43.11298029,
+        "longitude": 5.78799011
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 44.85903,
+        "yPercent": 40.06602
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -3.5,
+        "connectorAngleDeg": -76.2,
+        "connectorWidthRem": 3.68,
+        "labelOffsetRem": 2.25,
+        "widthRem": 6.92
+      },
+      "status": "published"
+    },
+    {
+      "slug": "deux-freres-cap-sicie",
+      "displayName": "Les Deux Frères",
+      "location": {
+        "city": "La Seyne-sur-Mer · Cap Sicié",
+        "latitude": 43.04862882,
+        "longitude": 5.86826973
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 64.15702,
+        "yPercent": 60.69149
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -2,
+        "connectorAngleDeg": -73.2,
+        "connectorWidthRem": 2.17,
+        "labelOffsetRem": 2,
+        "widthRem": 6.02
+      },
+      "status": "published"
+    },
+    {
+      "slug": "pointe-de-la-cride",
+      "displayName": "Pointe de la Cride",
+      "location": {
+        "city": "Sanary-sur-Mer · La Cride",
+        "latitude": 43.1153437,
+        "longitude": 5.7659319
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 39.55658,
+        "yPercent": 39.30851
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "les-magnons",
+      "displayName": "Les Magnons",
+      "location": {
+        "city": "Six-Fours-les-Plages · Le Brusc",
+        "latitude": 43.07863989,
+        "longitude": 5.76018039
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 38.174,
+        "yPercent": 51.07256
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 2.6,
+        "labelOffsetRem": 2.3,
+        "widthRem": 5.8
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "la-merveilleuse",
+      "displayName": "La Merveilleuse",
+      "location": {
+        "city": "Six-Fours-les-Plages · Les Embiez",
+        "latitude": 43.07441666,
+        "longitude": 5.75048334
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 35.84298,
+        "yPercent": 52.42615
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1.5,
+        "connectorAngleDeg": -38.0,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 2.25,
+        "widthRem": 6.0
+      },
+      "status": "preparing"
+    }
   ]
 }

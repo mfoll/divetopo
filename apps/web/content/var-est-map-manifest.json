@@ -40,5 +40,114 @@
     "coastlineResolution": "1–7 m product resolution",
     "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
   },
-  "sites": []
+  "sites": [],
+  "plannedSites": [
+    {
+      "slug": "les-pyramides-cap-dramont",
+      "displayName": "Les Pyramides",
+      "location": {
+        "city": "Saint-Raphaël · Cap Dramont",
+        "latitude": 43.40906678,
+        "longitude": 6.84388276
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 39.64937,
+        "yPercent": 60.56622
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -1.0,
+        "connectorAngleDeg": 50.8,
+        "connectorWidthRem": 1.39,
+        "labelOffsetRem": 2.25,
+        "widthRem": 5.63
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "sec-de-l-ile-d-or",
+      "displayName": "Sec de l’Île d’Or",
+      "location": {
+        "city": "Saint-Raphaël · Cap Dramont",
+        "latitude": 43.40986826,
+        "longitude": 6.84479991
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 39.86984,
+        "yPercent": 60.30934
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -0.8,
+        "connectorAngleDeg": 32.0,
+        "connectorWidthRem": 1.5,
+        "labelOffsetRem": 2.0,
+        "widthRem": 5.8
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "arche-du-dramont",
+      "displayName": "Arche du Dramont",
+      "location": {
+        "city": "Saint-Raphaël · Dramont",
+        "latitude": 43.40916,
+        "longitude": 6.84610999
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 40.18476,
+        "yPercent": 60.53634
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "cathedrale-du-trayas",
+      "displayName": "Cathédrale du Trayas",
+      "location": {
+        "city": "Saint-Raphaël · Cap Trayas",
+        "latitude": 43.475,
+        "longitude": 6.93000001
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 60.35063,
+        "yPercent": 39.43378
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 320,
+        "connectorWidthRem": 1.3,
+        "labelOffsetRem": 2.1,
+        "widthRem": 5.8
+      },
+      "status": "preparing"
+    },
+    {
+      "slug": "le-village",
+      "displayName": "Le Village",
+      "location": {
+        "city": "Saint-Raphaël · Cap Dramont",
+        "latitude": 43.41131715,
+        "longitude": 6.85673293
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 42.73835,
+        "yPercent": 59.84495
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1.0,
+        "connectorAngleDeg": 50.0,
+        "connectorWidthRem": 1.4,
+        "labelOffsetRem": 2.25,
+        "widthRem": 5.4
+      },
+      "status": "preparing"
+    }
+  ]
 }

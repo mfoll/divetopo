@@ -79,10 +79,23 @@ export type RegionalAssetSite = {
   planches?: PlancheAsset[];
 };
 
+export type RegionalPlannedSite = {
+  slug: string;
+  displayName: string;
+  location: SiteLocation;
+  westCoastLocatorPosition: {
+    xPercent: number;
+    yPercent: number;
+  };
+  siteLabelLayout: SiteLabelLayout;
+  status: "published" | "preparing";
+};
+
 export type RegionalMapManifest = {
   reunionOverview: AssetVariant;
   westCoastLocator: AssetVariant;
   sites: RegionalAssetSite[];
+  plannedSites?: RegionalPlannedSite[];
 };
 
 export type RegionSlug =
