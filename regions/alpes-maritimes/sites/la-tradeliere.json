@@ -1,0 +1,102 @@
+{
+  "region": "alpes-maritimes",
+  "slug": "la-tradeliere",
+  "title": "La Tradelière, Cannes",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0
+    },
+    "interactive_initial_view": {
+      "zoom": 1,
+      "orbit_azimuth_deg": 225,
+      "camera_elevation_deg": 24,
+      "isobath_label_focus_x_ndc": 0
+    }
+  },
+  "plate_relief_source": "interactive",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1025_6280/file/1025_6280.7z",
+      "members": [
+        "1025_6280/LITTO3D_FRA_1028_6276_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1028_6276_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "1025_6280/LITTO3D_FRA_1028_6277_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1028_6277_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "1025_6280/LITTO3D_FRA_1028_6278_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1028_6278_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "1025_6280/LITTO3D_FRA_1029_6277_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1029_6277_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "1025_6280/LITTO3D_FRA_1029_6278_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1029_6278_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "site_location_utm40s": [
+    1029208.587,
+    6276747.228
+  ],
+  "focus_bbox_utm40s": [
+    1028100,
+    6275900,
+    1029300,
+    6277100
+  ],
+  "context_bbox_utm40s": [
+    1028000,
+    6275800,
+    1029400,
+    6277200
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1028700,
+      6276500
+    ],
+    "width_m": 700,
+    "depth_m": 900,
+    "look_bearing_deg": 225
+  },
+  "view_bearing_deg": 225,
+  "view_visible_width_m": 500,
+  "interactive_view_visible_width_m": 400,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_along_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 42,
+  "interactive_max_depth_m": 42,
+  "plan_max_depth_m": 42,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · NoData du levé conservé, sans interpolation",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 15,
+  "camera_tilt": 0.34,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.45,
+  "view_left_crop_fraction": 0,
+  "view_right_crop_fraction": 0,
+  "view_top_crop_fraction": 0,
+  "output_scale": 2,
+  "plan_output_scale": 2,
+  "relief_output_scale": 1,
+  "map_style_scale": 2,
+  "orthophoto_enabled": false,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    1029208.587,
+    6276747.228
+  ],
+  "locator_label": "La Tradelière",
+  "plate_site_name": "La Tradelière",
+  "plate_city": "Cannes",
+  "plate_city_detail": "Cannes · Îles de Lérins",
+  "plate_title": "La Tradelière, Cannes",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true
+}

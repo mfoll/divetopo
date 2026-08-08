@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 2,
+  "slug": "la-tradeliere",
+  "title": "La Tradelière, Cannes",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 1028134.315,
+    "south": 6275934.315,
+    "east": 1029265.685,
+    "north": 6277065.685
+  },
+  "physicalSizeM": {
+    "width": 1131.371,
+    "depth": 1131.371
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 513,
+    "height": 513,
+    "triangleCount": 524288,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -42.0,
+      "scaleMPerUnit": 0.0007461661722036688,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = NoData or unmeasured source area"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 3.6,
+      "centreWidthCssPx": 1.7,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -42.0,
+    "max": 6.900000095367432
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        125,
+        29
+      ],
+      "10": [
+        134,
+        223,
+        110
+      ],
+      "15": [
+        40,
+        130,
+        211
+      ],
+      "20": [
+        12,
+        41,
+        119
+      ],
+      "25": [
+        6,
+        26,
+        90
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        14,
+        61
+      ],
+      "40": [
+        1,
+        9,
+        42
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 1,
+        "points": 200
+      },
+      "10": {
+        "polylines": 2,
+        "points": 242
+      },
+      "15": {
+        "polylines": 2,
+        "points": 275
+      },
+      "20": {
+        "polylines": 2,
+        "points": 382
+      },
+      "25": {
+        "polylines": 2,
+        "points": 699
+      },
+      "30": {
+        "polylines": 1,
+        "points": 617
+      },
+      "35": {
+        "polylines": 1,
+        "points": 668
+      },
+      "40": {
+        "polylines": 5,
+        "points": 887
+      }
+    },
+    "totals": {
+      "levels": 8,
+      "polylines": 16,
+      "points": 3970
+    },
+    "reprojectionResidualM": {
+      "samples": 0,
+      "mean": 0.0,
+      "p95": 0.0,
+      "max": 0.0,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 225.0,
+    "gridLookBearingDeg": 225.0,
+    "cameraTilt": 0.34,
+    "alongViewProjectionScale": 1.2,
+    "visibleWidthM": 400.0,
+    "coastFrameFraction": 0.45,
+    "horizontalCenterOffsetM": 0.0,
+    "alongCenterOffsetM": 0.0
+  },
+  "textures": {
+    "width": 800,
+    "height": 800,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie et topographie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie et topographie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      1028700.0,
+      6276500.0
+    ],
+    "widthM": 700.0,
+    "depthM": 900.0,
+    "lookBearingDeg": 225.0,
+    "cornersUtm40s": [
+      [
+        1029265.685,
+        6276570.711
+      ],
+      [
+        1028770.711,
+        6277065.685
+      ],
+      [
+        1028134.315,
+        6276429.289
+      ],
+      [
+        1028629.289,
+        6275934.315
+      ]
+    ]
+  }
+}
