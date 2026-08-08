@@ -15,7 +15,7 @@
     "en"
   ],
   "route": "/var-centre",
-  "routeStatus": "conceptual",
+  "routeStatus": "implemented",
   "regionalMap": {
     "status": "generated",
     "boundsWgs84": [

@@ -2,6 +2,132 @@
   "schemaVersion": 2,
   "sites": [
     {
+      "slug": "les-fourmigues",
+      "title": "Les Fourmigues, Giens",
+      "metadata": "les-fourmigues/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "les-fourmigues/terrain.json",
+          "bytes": 5072,
+          "sha256": "a5b8e24855f53b186acb532a919725f863d3d3fb3d568d607476c2b837945b71"
+        },
+        "height": {
+          "path": "les-fourmigues/height.bin",
+          "bytes": 399456,
+          "sha256": "734a6fd99601624e495c39217fedda99280145c8e87bfb74592f8ad270ae7a4b"
+        },
+        "validMask": {
+          "path": "les-fourmigues/valid-mask.bin",
+          "bytes": 24966,
+          "sha256": "3b117e98bae16cfcc5555d57008af4b621cfb46e38b8dfa87a9309f04ba85cf8"
+        },
+        "isobathMask": {
+          "path": "les-fourmigues/isobath-mask.bin",
+          "bytes": 24966,
+          "sha256": "3b117e98bae16cfcc5555d57008af4b621cfb46e38b8dfa87a9309f04ba85cf8"
+        },
+        "vectorIsobaths": {
+          "path": "les-fourmigues/isobaths-vector.json",
+          "bytes": 96133,
+          "sha256": "8af20914ee91e79c779d3b066a0a3b5614aeadaf96cd4624e594dd1fd61bdc74"
+        },
+        "topographicTexture": {
+          "path": "les-fourmigues/topographic.webp",
+          "bytes": 11742,
+          "sha256": "850bea44951d37383d7ba03ee8bdce90b5179454b08253b110fe7df452638ade"
+        },
+        "orthophotoTexture": {
+          "path": "les-fourmigues/orthophoto.webp",
+          "bytes": 10058,
+          "sha256": "cd04adf1e714834bf968f7b3ec6894e782d4c245612ab9d2d866fc8fcf666107"
+        }
+      }
+    },
+    {
+      "slug": "sec-de-la-jeaune-garde",
+      "title": "Sec de la Jeaune Garde, Porquerolles",
+      "metadata": "sec-de-la-jeaune-garde/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-de-la-jeaune-garde/terrain.json",
+          "bytes": 4976,
+          "sha256": "4561b0518e2afced8a10708dc9baf30f58b4670aa69b5d333b4c16511772b32f"
+        },
+        "height": {
+          "path": "sec-de-la-jeaune-garde/height.bin",
+          "bytes": 526338,
+          "sha256": "080a219753a221ef649229a59a0508a09a5acb84e4301fbac88c48bbc748ba10"
+        },
+        "validMask": {
+          "path": "sec-de-la-jeaune-garde/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+        },
+        "isobathMask": {
+          "path": "sec-de-la-jeaune-garde/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+        },
+        "vectorIsobaths": {
+          "path": "sec-de-la-jeaune-garde/isobaths-vector.json",
+          "bytes": 271158,
+          "sha256": "5cf5368a99b0d571ed2a64c7fc5e343ee5d2ca7d875dd982a44fa1923e5d1df1"
+        },
+        "topographicTexture": {
+          "path": "sec-de-la-jeaune-garde/topographic.webp",
+          "bytes": 53234,
+          "sha256": "7633b16f10064c40ade982b63836ce2ac18b9e45280b7ea88a9d89000d5cf1df"
+        },
+        "orthophotoTexture": {
+          "path": "sec-de-la-jeaune-garde/orthophoto.webp",
+          "bytes": 47440,
+          "sha256": "6dc63bb127efac62e6d7d584434c1780576b090e915076ec9ec8cff39b192285"
+        }
+      }
+    },
+    {
+      "slug": "sec-du-langoustier",
+      "title": "Sec du Langoustier (sud-est), Porquerolles",
+      "metadata": "sec-du-langoustier/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-du-langoustier/terrain.json",
+          "bytes": 5049,
+          "sha256": "1d4d3ca2a4f929018c76a7f558c520ea2b78b2381cd444a2f92d069b03240692"
+        },
+        "height": {
+          "path": "sec-du-langoustier/height.bin",
+          "bytes": 448362,
+          "sha256": "1b24d1cf548c1b9e621f9e6f534906124e252d2216c5d5d474791ac65dc6504d"
+        },
+        "validMask": {
+          "path": "sec-du-langoustier/valid-mask.bin",
+          "bytes": 28023,
+          "sha256": "98a6af0826a0e9d01540cd1812642887c485fb0cfb87d76ae054fea025c87f03"
+        },
+        "isobathMask": {
+          "path": "sec-du-langoustier/isobath-mask.bin",
+          "bytes": 28023,
+          "sha256": "98a6af0826a0e9d01540cd1812642887c485fb0cfb87d76ae054fea025c87f03"
+        },
+        "vectorIsobaths": {
+          "path": "sec-du-langoustier/isobaths-vector.json",
+          "bytes": 153755,
+          "sha256": "074cfe2cf6bca2c1b004d9db06eba173316c40ad1d5483301c8e2bf19612c86d"
+        },
+        "topographicTexture": {
+          "path": "sec-du-langoustier/topographic.webp",
+          "bytes": 16290,
+          "sha256": "f5db1f74795a2534aea4d47eeb4c52708a3f69e4c5d61a4536a6dd2ecbbf910a"
+        },
+        "orthophotoTexture": {
+          "path": "sec-du-langoustier/orthophoto.webp",
+          "bytes": 12836,
+          "sha256": "bb7ceae367e12ea712f3bace3ffbfb654f214e956001262c26b5aaa42d5ae2b2"
+        }
+      }
+    },
+    {
       "slug": "cap-des-medes",
       "title": "Cap des Mèdes, Porquerolles",
       "metadata": "cap-des-medes/terrain.json",

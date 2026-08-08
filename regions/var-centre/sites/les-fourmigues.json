@@ -3,11 +3,14 @@
   "slug": "les-fourmigues",
   "title": "Les Fourmigues, Giens",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0
+      "shift_y_rem": -1.9,
+      "connector_angle_deg": -73,
+      "connector_width_rem": 3.2,
+      "label_offset_rem": 2.3,
+      "width_rem": 6.1
     }
   },
   "plate_relief_source": "interactive",

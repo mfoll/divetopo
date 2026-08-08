@@ -3,11 +3,18 @@
   "slug": "sec-de-la-jeaune-garde",
   "title": "Sec de la Jeaune Garde, Porquerolles",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0
+      "shift_y_rem": 0.6,
+      "connector_angle_deg": -34,
+      "connector_width_rem": 1.2,
+      "label_offset_rem": 2.3,
+      "lines": [
+        "Sec de la",
+        "Jeaune Garde"
+      ],
+      "width_rem": 6.8
     }
   },
   "plate_relief_source": "interactive",

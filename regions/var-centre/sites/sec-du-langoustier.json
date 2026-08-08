@@ -3,11 +3,18 @@
   "slug": "sec-du-langoustier",
   "title": "Sec du Langoustier (sud-est), Porquerolles",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0
+      "shift_y_rem": 3.3,
+      "connector_angle_deg": 67,
+      "connector_width_rem": 2.3,
+      "label_offset_rem": 2.3,
+      "lines": [
+        "Sec du",
+        "Langoustier"
+      ],
+      "width_rem": 6.8
     }
   },
   "plate_relief_source": "static",

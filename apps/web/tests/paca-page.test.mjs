@@ -39,10 +39,10 @@ test("retires the PACA aggregate through localized redirects", async () => {
   );
 });
 
-test("renders published regional sites while keeping drafts non-clickable", async () => {
+test("renders five-site regional inventories and keeps remaining drafts non-clickable", async () => {
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 2],
-    ["/var-centre/en", "topo-var-centre-title", 2],
+    ["/var-centre/en", "topo-var-centre-title", 5],
   ];
   for (const [path, titleId, siteCount] of published) {
     const response = await render(path);
@@ -51,12 +51,12 @@ test("renders published regional sites while keeping drafts non-clickable", asyn
     assert.match(html, new RegExp(`id="${titleId}"`), path);
     assert.equal(html.match(/class="site-map-marker label-/g)?.length, siteCount, path);
     assert.equal(
-      html.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length,
+      html.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length ?? 0,
       5 - siteCount,
       path,
     );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
-    assert.equal(html.match(preparingHeading)?.length, 1, path);
+    assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < 5 ? 1 : 0, path);
     for (const name of path.endsWith("/en")
       ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
       : ["Pointe de la Cride", "Les Magnons", "La Merveilleuse"]) {
@@ -146,7 +146,7 @@ test("published autonomous-region asset paths resolve", async () => {
     );
   }
 
-  for (const region of ["var-ouest", "var-centre"]) {
+  for (const [region, expectedSiteCount] of [["var-ouest", 2], ["var-centre", 5]]) {
     const manifest = JSON.parse(
       await readFile(
         new URL(`../content/${region}-map-manifest.json`, import.meta.url),
@@ -154,7 +154,7 @@ test("published autonomous-region asset paths resolve", async () => {
       ),
     );
     assert.equal(manifest.schemaVersion, 2);
-    assert.equal(manifest.sites.length, 2);
+    assert.equal(manifest.sites.length, expectedSiteCount);
     for (const site of manifest.sites) {
       assert.match(
         site.config,

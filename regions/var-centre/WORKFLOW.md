@@ -1,200 +1,134 @@
 # Workflow topo-bathymétrique du Var Centre
 
-Cette région couvre Giens, Porquerolles et Port-Cros. Elle est autonome : son
-identité, son inventaire, ses configurations, ses sorties et sa future route
-Web appartiennent à `var-centre`, et non à une sous-région de `paca`.
+Var Centre couvre Giens, Porquerolles et Port-Cros. La région est autonome :
+son inventaire, ses configurations, ses sorties, ses manifestes et sa route
+`/var-centre` n'appartiennent pas à la région PACA.
 
-## État du contrat au commit de fondation v1.4
+## Périmètre v1.4
 
-- La route cible est `/var-centre`. Elle est conceptuelle tant que le
-  coordinateur global n'a pas généralisé les types, routes, manifestes, copies
-  et builders Web partagés.
-- `region.json` contient exactement les cinq configurations intégrées de la
-  première vague. Les deux sites déjà publiés conservent ce statut; les trois
-  nouveaux restent des brouillons non publiés.
-- Le module déclaré `cartography.regions.var_centre` est le point d'entrée
-  contractuel futur. Sa création relève de la généralisation partagée et ne
-  fait pas partie du présent socle local.
-- Aucun fichier de ce dossier n'autorise à modifier la page d'accueil globale,
-  une autre région, une version, une release ou un déploiement.
+La première vague contient exactement cinq sites publiés :
 
-## Priorisation de la première vague
-
-La première vague est limitée à exactement cinq sites. Les deux sites déjà
-publiés doivent être migrés sans régénération inutile :
-
-- La Gabinière (`la-gabiniere-port-cros`);
-- Cap des Mèdes (`cap-des-medes`).
-
-Les trois nouveaux sites de la première vague restent des brouillons non
-publiés jusqu'à QA complète et décision explicite :
-
+- Les Fourmigues (`les-fourmigues`);
 - Sec de la Jeaune Garde (`sec-de-la-jeaune-garde`);
-- Sec du Langoustier (`sec-du-langoustier`);
-- Les Fourmigues (`les-fourmigues`).
+- Sec du Langoustier (`sec-du-langoustier`), limité au secteur sud-est couvert
+  sans lacune par la source officielle;
+- Cap des Mèdes (`cap-des-medes`);
+- La Gabinière (`la-gabiniere-port-cros`).
 
-Les sites suivants sont différés. Ne pas cherry-picker leurs commits, ne pas
-les ajouter à `region.json` et ne pas produire leurs sorties dans cette vague :
+Les cinq configurations portent `region: var-centre` et
+`web.published: true`. Le manifeste régional, le manifeste interactif et le
+sélecteur Web contiennent ces cinq sites, sans entrée « en préparation ».
 
-- Cimentier de la Jaume Garde (`cimentier-de-la-jaume-garde`);
-- Pointe Escampobariou (`pointe-escampobariou`);
-- Anse du Raba (`anse-du-raba`);
-- Anse au Blé (`anse-au-ble`);
-- Sec des Carrières (`sec-des-carrieres`).
-
-Les cinq commits de la première vague ont été intégrés par `git cherry-pick`
-après inspection de leur périmètre. Tout commit d'un site différé reste laissé
-de côté. La propriété de publication est portée par `web.published` dans chaque
-configuration : `true` reste réservé aux deux sites déjà publiés pendant leur
-migration; les trois nouveaux sites restent à `false` jusqu'à une décision
-explicite.
+Les sites suivants restent différés et sont absents de l'inventaire et des
+sorties de cette vague : Cimentier de la Jaume Garde, Pointe Escampobariou,
+Anse du Raba, Anse au Blé et Sec des Carrières.
 
 ## Sources et référentiels
 
 - Bathymétrie et élévation côtière détaillées : Shom–IGN Litto3D PACA 2015,
-  grille de 1 m, projection Lambert-93 (`EPSG:2154`) et référentiel vertical
-  IGN69.
-- Imagerie terrestre : IGN BD ORTHO; la date de prise de vue doit être vérifiée
-  et enregistrée site par site.
-- Carte régionale : Litto3D près de la côte, EMODnet Bathymetry DTM 2024 au
-  large, GEBCO 2024 uniquement en repli sur les cellules NoData, et relief
-  terrestre compatible avec le pipeline régional global.
+  grille de 1 m, Lambert-93 (`EPSG:2154`), référentiel vertical IGN69.
+- Imagerie : IGN BD ORTHO, avec la prise de vue déclarée par site.
+- Relief régional : EMODnet Bathymetry DTM 2024 au large et GEBCO 2024 en
+  repli NoData, avec le masque terre-mer officiel utilisé par le builder
+  régional partagé.
 
-Les cartes montrent le relief et la couverture des données. Elles ne
+Les cartes décrivent le relief et la couverture des données. Elles ne
 démontrent ni l'accès, ni l'autorisation, ni les conditions présentes, ni la
-sécurité d'une plongée. Litto3D est en IGN69; aucune sonde hydrographique ne
-doit être fusionnée directement sans transformation verticale documentée.
+sécurité d'une plongée.
 
 ## Configurations et sorties
 
-Les configurations de sites vivent dans `regions/var-centre/sites/`. Les
-sorties canoniques vivent dans `regions/var-centre/outputs/`; leur convention
-détaillée est décrite dans [outputs/README.md](outputs/README.md).
+Les configurations vivent dans `regions/var-centre/sites/`. Les sorties
+canoniques vivent dans `regions/var-centre/outputs/`; leur convention complète
+est décrite dans [outputs/README.md](outputs/README.md).
 
-Chaque configuration doit déclarer `"region": "var-centre"`. Les chemins
-explicites hérités de PACA doivent être remplacés par leurs équivalents
-`var-centre`, notamment la carte régionale. Une migration sans régénération
-compare les SHA-256 avant et après déplacement de chaque artefact.
+Chaque site publié fournit les six actifs natifs attendus : plans 2D
+topographique et orthophoto, vues 3D statiques topographique et orthophoto,
+planches topographique et orthophoto. Ses quatorze dérivés Web et son paquet de
+terrain interactif à sept fichiers sont présents. Les manifestes interactifs
+régional et combiné enregistrent tailles et SHA-256.
 
-Le chemin réservé à la future carte régionale canonique est :
+La carte régionale canonique est :
 
 ```text
 regions/var-centre/outputs/var-centre-regional-relief.png
 ```
 
-La carte n'est pas produite dans le commit régional intermédiaire. Son emprise,
-ses positions de marqueurs et d'étiquettes doivent être calculées à partir des
-cinq configurations par le builder régional partagé, sans recadrer le raster
-PACA ni reprendre ses bornes. Les coordonnées déclarées dans les configurations
-restent la source de vérité des marqueurs. Les dérivés Web ne sont produits
-qu'après la généralisation du builder partagé.
+Elle mesure `1864 × 1440 px`, couvre l'emprise WGS84
+`[6.00, 42.86, 6.46, 43.10]` et porte le SHA-256
+`044aa08d3b0715ae690003f3c37b74707e241d73a90de233bf73c218172d2a96`.
+La copie Web est octet-identique.
 
-## Séquence d'intégration d'un site
+## Construction reproductible
 
-1. Examiner le commit transmis et vérifier qu'il ne touche que le site et les
-   contrats régionaux attendus.
-2. Cherry-picker le commit, résoudre les éventuels conflits sans modifier les
-   autres régions, puis valider la configuration.
-3. Pour La Gabinière et Cap des Mèdes, déplacer les artefacts canoniques et les
-   dérivés existants en conservant leurs octets lorsqu'aucune correction n'est
-   requise; enregistrer les hashes avant/après.
-4. Pour un nouveau site, inspecter les tuiles ASC, le masque et les NoData avant
-   de qualifier la couverture. Un JSON valide ne vaut pas QA cartographique.
-5. Produire et inspecter à pleine résolution les plans 2D, vues 3D, planches et
-   terrain interactif. Garder `web.published: false`.
-6. Mettre à jour l'inventaire de `region.json` seulement lorsque le chemin de
-   configuration existe et que son slug concorde.
+Avec le runtime local canonique, sans téléchargement de dépendance :
 
-## QA régionale avant décision de publication
+```text
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/build_regional_relief.py var-centre
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/build_interactive_terrain_manifest.py var-centre
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/build_regional_map_assets.py var-centre
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/sync_interactive_terrain.py
+```
 
-- Vérifier la concordance entre `region.json`, les configurations, les sorties
-  canoniques, les paquets interactifs et les manifestes générés.
-- Régénérer la carte régionale à partir des coordonnées déclarées; contrôler
-  chaque marqueur, cartouche et connecteur à pleine résolution.
-- Tester la future page régionale à `1280 × 720` (DPR 2) et `390 × 844`
-  (DPR 1), zoom navigateur 100 %, selon le gate géométrique du workflow racine.
-- Contrôler la navigation au clavier, le toucher, les états sélectionnés, les
-  débordements, les collisions d'étiquettes et le cadrage de la carte.
-- Exécuter les validations de configuration, la suite Python, le lint, les
-  tests Web et le build disponibles, sans télécharger de dépendances.
-- Inspecter le diff complet de zone avant le commit. Ne pas pousser, publier,
-  releaser ou déployer depuis ce workflow régional.
+Les coordonnées des configurations sont la source de vérité des marqueurs. Les
+points géographiques ne sont pas des cibles interactives : les cartouches
+nominatifs, le clavier et le sélecteur ouvrent les fiches. Cette distinction
+évite qu'une paire de points très proches ouvre silencieusement le mauvais
+site.
 
-Un nouveau site ne devient publiable qu'après réussite de ces contrôles et
-décision explicite du coordinateur global.
+## QA finale du 8 août 2026
 
-## Limites du commit régional intermédiaire
+### Actifs natifs et interactifs
 
-La QA native vérifie l'inventaire, les statuts de publication, les fichiers
-attendus, les hashes, les dimensions et les contrats internes des paquets
-interactifs. Le manifeste interactif combiné n'indexe que La Gabinière et Cap
-des Mèdes; les trois brouillons restent physiquement régionaux mais absents du
-manifeste publiable.
+- Les cinq configurations concordent avec `region.json`, les manifestes et les
+  répertoires publics. Chaque fiche expose ses plans 2D, vues 3D statiques,
+  planches et terrain interactif.
+- Les sorties canoniques des trois nouveaux sites ont été régénérées et
+  inspectées en pleine définition. Les deux sites migrés ont reçu uniquement
+  les vues statiques manquantes, sans régénération générale inutile.
+- Le secteur sud-est du Sec du Langoustier atteint `100 %` de couverture utile;
+  son nom Web explicite cette emprise. Les Fourmigues conservent leurs deux
+  îlots entièrement dans le cadre. Aucun bord gris ou NoData ne subsiste dans
+  les rendus acceptés.
 
-Les contrôles suivants restent explicitement en attente :
+### Carte régionale plein format
 
-- QA Web des marqueurs, cartouches, connecteurs, desktop, mobile, clavier et
-  toucher, jusqu'au câblage de la route `/var-centre` et à la disponibilité de
-  toutes les captures dynamiques des deux sites déjà publiés.
+- Giens, Porquerolles, Port-Cros, les ports, baies et îlots sont continus. Aucun
+  triangle, diagonale, damier, raccord de tuile, zone grise ou trou NoData n'a
+  été observé. Les transitions tonales bathymétriques au large restent des
+  variations douces du relief source, sans couture géométrique.
+- Les cinq coordonnées projetées tombent au bon endroit. Les cartouches et
+  connecteurs sont associés sans ambiguïté aux cinq repères.
+- À `1280 × 720`, les cinq cartouches sont dans la carte, sans chevauchement.
+  Les marges les plus courtes restent de `14 px` à droite pour Cap des Mèdes et
+  `9 px` en bas pour La Gabinière.
+- À `390 × 844`, la carte mesure environ `347 × 268 px`; les cinq noms restent
+  entiers, sans chevauchement, collision avec les bords, la rose, l'échelle ou
+  les crédits. Aucun débordement horizontal n'est mesuré.
+- Les thèmes clair et sombre conservent un contraste lisible pour les cinq
+  cartouches et leur état sélectionné.
 
-Ces attentes interdisent de considérer les trois nouveaux sites comme
-publiables, même si leurs actifs natifs passent les contrôles locaux.
+### Navigation et terrains Web
 
-### Résultats de la QA native intermédiaire du 8 août 2026
+- Chaque cartouche visible ouvre la bonne route; chaque lien focalisé et activé
+  par `Entrée` conserve la bonne route; chacune des cinq options du sélecteur
+  ouvre la bonne fiche et le bon titre.
+- Les points proches de Jeaune Garde et Langoustier sont non interactifs. Deux
+  clics directs sur ces points ne changent ni route ni fiche.
+- Sur les cinq fiches, les bascules Plan 2D/Vue 3D et
+  orthophoto/topographie, la commande d'isobathes et la remise à zéro du terrain
+  répondent correctement.
+- À `390 × 844`, les cinq terrains sont prêts. Pour chacun,
+  `sourceScaleOverlap=false`, `copyrightScaleOverlap=false` et
+  `horizontalOverflow=false`; l'échelle est au-dessus de l'attribution.
+- La console ne contient aucune erreur ni aucun avertissement applicatif. La
+  page ne contient aucune mention « en préparation ».
+- Les `124` tests Python et les `37` tests Web passent. Le build Web termine
+  correctement; le lint compte `0` erreur et `11` avertissements préexistants
+  liés aux pages de test et au script de capture.
 
-- Les cinq configurations concordent avec l'inventaire et pointent vers le
-  chemin réservé de la carte Var Centre. Seuls La Gabinière et Cap des Mèdes
-  ont `web.published: true`.
-- Les cinq paquets interactifs sont complets : métadonnées, heightfield,
-  masques, isobathes vectorielles et deux textures concordent en dimensions et
-  en structure. Le manifeste combiné vérifie ses tailles et SHA-256 et ne
-  contient que les deux sites déjà publiés.
-- La migration conserve 20 des 22 blobs publiés contrôlés à l'identique depuis
-  le commit de fondation. Les deux exceptions sont les planches de Cap des
-  Mèdes, adaptées au libellé `VAR CENTRE`; leurs dimensions restent
-  `5400 × 3250 px`. Les planches de La Gabinière restent octet-identiques et
-  portent encore le libellé historique `CÔTE D’AZUR` en attendant la carte et
-  la composition régionales partagées.
-- Les trois brouillons ont des plans 2D natifs non canoniques : Les Fourmigues
-  `850 × 800 px`, Sec de la Jeaune Garde `1502 × 1402 px`, Sec du Langoustier
-  `1700 × 1700 px`. Les crédits sont coupés à droite sur Les Fourmigues et Sec
-  de la Jeaune Garde; Sec du Langoustier montre de larges zones NoData grises
-  sur les bords gauche et bas.
-- Les Fourmigues et Sec de la Jeaune Garde possèdent des vues 3D statiques mais
-  aucune planche. Sec du Langoustier ne possède encore ni vues 3D statiques ni
-  planches. Ces absences sont acceptées uniquement pour ce commit intermédiaire
-  non publiable.
-- La suite Python exécute 41 tests avec succès dans l'environnement disponible.
-  Quatre modules de tests restent non chargeables faute de Pillow dans le
-  Python GDAL local, sans installation autorisée. Un test de manifeste PACA
-  reste obsolète après le déplacement approuvé de La Gabinière et Cap des Mèdes
-  et doit être corrigé dans la généralisation partagée.
+## Garde-fous
 
-### Carte régionale et QA du 8 août 2026
-
-- Le builder partagé produit la carte régionale en `1864 × 1440 px` sur
-  l'emprise WGS84 `[6.00, 42.86, 6.46, 43.10]`. Les copies régionale et Web sont
-  identiques, avec le SHA-256
-  `044aa08d3b0715ae690003f3c37b74707e241d73a90de233bf73c218172d2a96`.
-- L'inspection plein format confirme une emprise propre à Giens, Porquerolles
-  et Port-Cros, une côte continue et l'absence de grand polygone artificiel en
-  mer. Le masque repose sur `885` polygones terre officiels Shom–IGN, totalisant
-  `722 931` sommets; sa surface de `0,066` diffère de `0,005` de la garde
-  Natural Earth. Le relief reste continu et détaillé sur les trois secteurs,
-  et les petits îlots sont conservés sans damiers RGE ni segments rectilignes.
-- Les cinq positions transformées depuis EPSG:2154 tombent dans le cadre. Les
-  positions relatives vont de `15.05659 %` à `85.45102 %` horizontalement et de
-  `25.02502 %` à `46.38333 %` verticalement. Cap des Mèdes et La Gabinière
-  conservent leurs réglages d'étiquette spécifiques; les trois brouillons
-  restent `web.published: false`.
-- Le manifeste de relief reste volontairement sans entrée de site tant que le
-  builder d'actifs Web ne peut pas reconstruire les deux fiches publiées. Il
-  s'arrête sur la capture manquante
-  `cap-des-medes/maps/3d-dynamic-topographic-960.webp`; aucun substitut n'a été
-  créé et aucun actif partiel n'est conservé. Les trois brouillons ne sont donc
-  exposés par aucun manifeste publiable.
-- Les 32 tests de configuration et de manifeste passent avec le runtime
-  canonique, ainsi que les contrôles directs des dimensions, hashes, bornes et
-  positions. Le test partagé du builder reste inapplicable dans ce worktree :
-  il exige les quatre autres régions non intégrées et une hauteur minimale de
-  `0,3°`, supérieure à l'emprise Var Centre validée de `0,24°`.
+Inspecter le diff complet avant tout commit régional. Ne pas modifier une autre
+région, la page d'accueil globale, les versions ou les releases. Ne pas pousser,
+publier ou déployer depuis ce workflow régional.

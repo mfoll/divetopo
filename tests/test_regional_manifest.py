@@ -27,6 +27,9 @@ class RegionalManifestTests(unittest.TestCase):
         self.assertEqual(
             [config["slug"] for config in var_centre],
             [
+                "les-fourmigues",
+                "sec-de-la-jeaune-garde",
+                "sec-du-langoustier",
                 "cap-des-medes",
                 "la-gabiniere-port-cros",
             ],
