@@ -3,7 +3,7 @@
   "slug": "la-merveilleuse",
   "title": "La Merveilleuse, Six-Fours-les-Plages",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
       "shift_y_rem": -1.5,
@@ -13,15 +13,11 @@
       "width_rem": 6.0
     },
     "interactive_initial_view": {
-      "zoom": 0.9,
-      "orbit_azimuth_deg": -42,
-      "camera_elevation_deg": 20,
-      "pan_right_m": 35,
-      "pan_up_m": 20,
-      "isobath_label_focus_x_ndc": 0.08
+      "zoom": 1,
+      "pan_up_m": 40
     }
   },
-  "plate_relief_source": "interactive",
+  "plate_relief_source": "static",
   "paths": {
     "output_locator": "apps/web/public/maps/var-ouest/var-ouest-regional-relief.png"
   },
@@ -45,40 +41,40 @@
     6223362.154
   ],
   "focus_bbox_utm40s": [
-    924000.0,
-    6223200.0,
-    925400.0,
-    6223950.0
+    924100.0,
+    6223320.0,
+    925083.0,
+    6224000.0
   ],
   "context_bbox_utm40s": [
-    923800.0,
-    6223000.0,
-    925900.0,
+    924100.0,
+    6223320.0,
+    925083.0,
     6224000.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      924650.0,
-      6223450.0
+      924600.0,
+      6223650.0
     ],
-    "width_m": 500.0,
-    "depth_m": 1000.0,
-    "look_bearing_deg": 63.0
+    "width_m": 600.0,
+    "depth_m": 900.0,
+    "look_bearing_deg": 90.0
   },
-  "view_bearing_deg": 63.0,
-  "view_visible_width_m": 300.0,
-  "view_crop_width_m": 1000.0,
+  "view_bearing_deg": 90.0,
+  "view_visible_width_m": 500.0,
+  "view_crop_width_m": 600.0,
   "view_crop_depth_m": 900.0,
-  "interactive_view_visible_width_m": 300.0,
-  "view_center_offset_east_m": -100.0,
-  "view_center_offset_north_m": -90.0,
+  "interactive_view_visible_width_m": 500.0,
+  "view_center_offset_east_m": 0.0,
+  "view_center_offset_north_m": 16.0,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
   "max_depth_m": 30.0,
   "interactive_max_depth_m": 30.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
@@ -86,7 +82,7 @@
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
   "max_land_elevation_m": 20.0,
-  "camera_tilt": 0.34,
+  "camera_tilt": 0.4,
   "along_view_projection_scale": 1.2,
   "coast_frame_fraction": 0.52,
   "view_left_crop_fraction": 0.0,
@@ -98,6 +94,9 @@
   "output_scale": 2.0,
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
+  "relief_compass_inset_px": 88.0,
+  "relief_footer_inset_px": 44.0,
+  "relief_label_edge_inset_px": 52.0,
   "view_canvas_width_px": 1545,
   "view_canvas_height_px": 1069,
   "map_style_scale": 2.0,
