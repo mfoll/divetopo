@@ -47,6 +47,18 @@
   },
   "sites": [
     {
+      "slug": "grande-baie-cap-ferrat",
+      "name": "Grande Baie – Cap-Ferrat",
+      "municipality": "Saint-Jean-Cap-Ferrat",
+      "config": "regions/alpes-maritimes/sites/grande-baie-cap-ferrat.json"
+    },
+    {
+      "slug": "pointe-causiniere-cap-ferrat",
+      "name": "Pointe de la Causinière – Cap-Ferrat",
+      "municipality": "Saint-Jean-Cap-Ferrat",
+      "config": "regions/alpes-maritimes/sites/pointe-causiniere-cap-ferrat.json"
+    },
+    {
       "slug": "la-vaquette",
       "name": "La Vaquette",
       "municipality": "Théoule-sur-Mer",

@@ -14,9 +14,15 @@ from cartography.config import (
 
 REGION_ROOT = ROOT / "regions" / "alpes-maritimes"
 INTEGRATED_DRAFTS = {
+    "grande-baie-cap-ferrat",
     "grotte-a-corail-villefranche",
     "la-tradeliere",
     "la-vaquette",
+    "pointe-causiniere-cap-ferrat",
+}
+EXCLUDED_FROM_FIRST_WAVE = {
+    "cap-gros",
+    "la-fourmigue-antibes",
 }
 
 
@@ -33,6 +39,11 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
         self.assertEqual(
             {site["slug"] for site in manifest["sites"]},
             INTEGRATED_DRAFTS,
+        )
+        self.assertTrue(
+            EXCLUDED_FROM_FIRST_WAVE.isdisjoint(
+                {site["slug"] for site in manifest["sites"]}
+            )
         )
         self.assertEqual(
             region_output_directory({"region": "alpes-maritimes"}),

@@ -45,9 +45,9 @@ configuration, so the repository never points to a missing file.
 
 The first wave is limited to exactly these five sites:
 
-1. Grande Baie – Cap-Ferrat — pending its site-task SHA and MNT validation;
-2. Pointe de la Causinière – Cap-Ferrat — pending its site-task SHA and MNT
-   validation;
+1. Grande Baie – Cap-Ferrat — integrated as an unpublished static draft;
+2. Pointe de la Causinière – Cap-Ferrat — integrated as an unpublished static
+   draft;
 3. La Vaquette — integrated as an unpublished draft;
 4. La Tradelière — integrated as an unpublished draft;
 5. Grotte à Corail – Villefranche — integrated as an unpublished draft.
@@ -73,8 +73,8 @@ the complete site and regional QA gates.
 1. Receive the exact site commit from the global coordinator.
 2. Confirm that the site belongs to the active five-site wave. Do not
    cherry-pick a deferred or MNT-rejected site even if its commit is available.
-   For either Cap-Ferrat replacement, require both the exact SHA from the global
-   coordinator and the site task's explicit MNT validation.
+   Both Cap-Ferrat replacements were admitted only after receipt of their exact
+   SHA and explicit MNT-validation evidence.
 3. Inspect its parent, file list and diff before cherry-picking it.
 4. Reject or split any commit that touches another region, shared Web routing,
    release metadata, versions or deployment state.
@@ -101,7 +101,7 @@ or manifest check is not a substitute for visual inspection.
 
 ## Regional acceptance gate
 
-Before the zone commit:
+Before a publication-ready zone commit:
 
 1. All five first-wave configurations are present in the regional inventory and
    validate against the live cartographic contract; the two Cap-Ferrat
