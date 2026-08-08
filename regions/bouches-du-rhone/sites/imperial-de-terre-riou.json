@@ -34,17 +34,19 @@
   "interactive_footprint_utm40s": {
     "center": [
       894690.0,
-      6233350.0
+      6233400.0
     ],
-    "width_m": 300.0,
-    "depth_m": 450.0,
-    "look_bearing_deg": 0.0
+    "width_m": 360.0,
+    "depth_m": 420.0,
+    "look_bearing_deg": 290.0
   },
-  "view_bearing_deg": 0.0,
-  "view_visible_width_m": 220.0,
-  "interactive_view_visible_width_m": 220.0,
-  "view_center_offset_east_m": 40.0,
-  "view_center_offset_north_m": 0.0,
+  "view_bearing_deg": 290.0,
+  "view_crop_width_m": 400.0,
+  "view_crop_depth_m": 420.0,
+  "view_visible_width_m": 300.0,
+  "interactive_view_visible_width_m": 300.0,
+  "view_center_offset_east_m": 50.0,
+  "view_center_offset_north_m": 50.0,
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": true,
   "coast_mode": "mask",
@@ -61,6 +63,7 @@
     20
   ],
   "relief_suppressed_label_levels": [
+    10,
     15,
     20,
     25
@@ -68,10 +71,10 @@
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
-  "max_land_elevation_m": 35.0,
-  "camera_tilt": 0.34,
-  "along_view_projection_scale": 1.2,
-  "coast_frame_fraction": 0.52,
+  "max_land_elevation_m": 8.0,
+  "camera_tilt": 0.9,
+  "along_view_projection_scale": 1.0,
+  "coast_frame_fraction": 0.45,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.0,
@@ -100,10 +103,13 @@
   "plate_city": "Marseille",
   "plate_city_detail": "Marseille · Riou",
   "plate_title": "Impérial de Terre, Riou",
+  "plate_canvas_height_px": 4000,
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
-  "vertical_exaggeration": 3.9935327405,
+  "vertical_exaggeration": 1.0,
+  "view_canvas_width_px": 1545,
   "clip_rotated_outside": true,
-  "relief_footer_inset_px": 12.0
+  "relief_footer_inset_px": 44.0,
+  "relief_label_edge_inset_px": 60.0
 }
