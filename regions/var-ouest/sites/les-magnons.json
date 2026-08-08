@@ -1,0 +1,102 @@
+{
+  "region": "var-ouest",
+  "slug": "les-magnons",
+  "title": "Les Magnons, Le Brusc",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0,
+      "connector_width_rem": 2.6,
+      "label_offset_rem": 2.3,
+      "width_rem": 5.8
+    },
+    "interactive_initial_view": {
+      "zoom": 1
+    }
+  },
+  "plate_relief_source": "interactive",
+  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0920_6225/file/0920_6225.7z",
+  "litto3d_archive_members": [
+    "0920_6225/LITTO3D_FRA_0924_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+  ],
+  "focus_bbox_utm40s": [
+    924000.0,
+    6223000.0,
+    925000.0,
+    6224000.0
+  ],
+  "context_bbox_utm40s": [
+    924000.0,
+    6223000.0,
+    925000.0,
+    6224000.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      924650.0,
+      6223650.0
+    ],
+    "width_m": 700.0,
+    "depth_m": 700.0,
+    "look_bearing_deg": 90.0
+  },
+  "view_bearing_deg": 90.0,
+  "view_crop_width_m": 700.0,
+  "view_crop_depth_m": 700.0,
+  "view_visible_width_m": 300.0,
+  "interactive_view_visible_width_m": 300.0,
+  "view_center_offset_east_m": 150.0,
+  "view_center_offset_north_m": 100.0,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 25.0,
+  "interactive_max_depth_m": 25.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 20.0,
+  "camera_tilt": 0.34,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.30,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 1.0,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "site_location_utm40s": [
+    924917.4,
+    6223859.0
+  ],
+  "locator_marker_utm40s": [
+    924917.4,
+    6223859.0
+  ],
+  "plate_site_name": "Les Magnons",
+  "plate_city": "Six-Fours-les-Plages",
+  "plate_city_detail": "Six-Fours-les-Plages · Le Brusc",
+  "plate_title": "Les Magnons, Le Brusc",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true
+}
