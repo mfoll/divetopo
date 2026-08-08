@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "slug": "bouches-du-rhone",
+  "route": "/bouches-du-rhone",
+  "names": {
+    "fr": "Bouches-du-Rhône : Frioul, Planier, Riou et Calanques",
+    "en": "Bouches-du-Rhône: Frioul, Planier, Riou and Calanques"
+  },
+  "defaultLanguage": "fr",
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "crs": {
+    "code": "EPSG:2154",
+    "name": "RGF93 v1 / Lambert-93"
+  },
+  "pipeline": {
+    "module": "cartography.regions.bouches_du_rhone",
+    "siteConfigDirectory": "regions/bouches-du-rhone/sites",
+    "outputDirectory": "regions/bouches-du-rhone/outputs",
+    "interactiveTerrainDirectory": "regions/bouches-du-rhone/outputs/interactive-terrain"
+  },
+  "sources": {
+    "bathymetry": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m"
+    },
+    "landElevation": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "aerialImagery": {
+      "id": "ign-bd-ortho",
+      "name": "IGN BD ORTHO",
+      "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO"
+    },
+    "regionalRelief": {
+      "id": "emodnet-bathymetry-dtm-2024",
+      "name": "EMODnet Bathymetry DTM 2024",
+      "url": "https://emodnet.ec.europa.eu/en/bathymetry"
+    }
+  },
+  "sites": []
+}
