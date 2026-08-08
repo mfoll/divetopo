@@ -107,6 +107,22 @@ def manifest_template(
     }
 
 
+def refresh_manifest_data(
+    region_slug: str,
+    bounds: tuple[float, float, float, float],
+    manifest_data: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    template = manifest_template(region_slug, bounds)
+    if manifest_data is None:
+        return template
+
+    locator = manifest_data.setdefault("westCoastLocator", {})
+    locator.update(template["westCoastLocator"])
+    manifest_data.setdefault("reunionOverview", template["reunionOverview"])
+    manifest_data.setdefault("sites", [])
+    return manifest_data
+
+
 def configure(region_slug: str) -> tuple[dict[str, Any], Path, Path, Any]:
     import build_paca_regional_relief as builder
 
@@ -120,16 +136,15 @@ def configure(region_slug: str) -> tuple[dict[str, Any], Path, Path, Any]:
         / f"{region_slug}-regional-relief.png"
     )
     manifest = WEB_ROOT / "content" / f"{region_slug}-map-manifest.json"
-    if not manifest.is_file():
-        manifest.write_text(
-            json.dumps(
-                manifest_template(region_slug, bounds),
-                ensure_ascii=False,
-                indent=2,
-            )
-            + "\n",
-            encoding="utf-8",
-        )
+    if manifest.is_file():
+        manifest_data = json.loads(manifest.read_text(encoding="utf-8"))
+    else:
+        manifest_data = None
+    manifest_data = refresh_manifest_data(region_slug, bounds, manifest_data)
+    manifest.write_text(
+        json.dumps(manifest_data, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
     builder.REGION_SLUG = region_slug
     builder.OUTPUT = public_output

@@ -51,6 +51,32 @@ class RegionalReliefBuilderTests(unittest.TestCase):
         )
         self.assertEqual(manifest["sites"], [])
 
+    def test_existing_manifest_locator_is_refreshed_without_losing_sites(self) -> None:
+        existing = {
+            "westCoastLocator": {
+                "src": "/maps/old.png",
+                "boundsWgs84": {"west": 0, "south": 0, "east": 1, "north": 1},
+            },
+            "sites": [{"slug": "cap-des-medes"}],
+            "custom": True,
+        }
+        manifest = BUILDER.refresh_manifest_data(
+            "var-centre",
+            (6.0, 42.86, 6.46, 43.1),
+            existing,
+        )
+
+        self.assertEqual(
+            manifest["westCoastLocator"]["boundsWgs84"],
+            {"west": 6.0, "south": 42.86, "east": 6.46, "north": 43.1},
+        )
+        self.assertEqual(
+            manifest["westCoastLocator"]["src"],
+            "/maps/var-centre/var-centre-regional-relief.png",
+        )
+        self.assertEqual(manifest["sites"], [{"slug": "cap-des-medes"}])
+        self.assertTrue(manifest["custom"])
+
 
 if __name__ == "__main__":
     unittest.main()
