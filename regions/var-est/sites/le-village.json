@@ -1,0 +1,107 @@
+{
+  "region": "var-est",
+  "slug": "le-village",
+  "title": "Le Village, Cap Dramont",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -1.0,
+      "connector_angle_deg": 50.0,
+      "connector_width_rem": 1.4,
+      "label_offset_rem": 2.25,
+      "width_rem": 5.4
+    },
+    "interactive_initial_view": {
+      "zoom": 0.65
+    }
+  },
+  "plate_relief_source": "interactive",
+  "cache_dir": ".tmp/var-est-sources",
+  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1010_6265/file/1010_6265.7z",
+  "litto3d_archive_members": [
+    "1010_6265/LITTO3D_FRA_1012_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1012_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+  ],
+  "site_location_utm40s": [
+    1012405.0,
+    6264542.0
+  ],
+  "focus_bbox_utm40s": [
+    1012150.0,
+    6264350.0,
+    1012550.0,
+    6264750.0
+  ],
+  "context_bbox_utm40s": [
+    1012050.0,
+    6264200.0,
+    1012700.0,
+    6264900.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1012405.0,
+      6264542.0
+    ],
+    "width_m": 420.0,
+    "depth_m": 500.0,
+    "look_bearing_deg": 270.0
+  },
+  "view_bearing_deg": 270.0,
+  "view_visible_width_m": 300.0,
+  "interactive_view_visible_width_m": 300.0,
+  "view_center_offset_east_m": 0.0,
+  "view_center_offset_north_m": 0.0,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 40.0,
+  "interactive_max_depth_m": 40.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT brut à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 60.0,
+  "camera_tilt": 0.42,
+  "along_view_projection_scale": 1.6,
+  "coast_frame_fraction": 0.50,
+  "view_crop_width_m": 400.0,
+  "view_crop_depth_m": 400.0,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    1012405.0,
+    6264542.0
+  ],
+  "plate_site_name": "Le Village",
+  "plate_city": "Saint-Raphaël",
+  "plate_city_detail": "Saint-Raphaël · Cap Dramont",
+  "plate_title": "Le Village, Cap Dramont",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 2.2,
+  "clip_rotated_outside": true
+}

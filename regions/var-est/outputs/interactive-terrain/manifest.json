@@ -84,6 +84,48 @@
           "sha256": "e2ca8b79efcfe0a9b8f985b47f8e57e07669277ffb772f2c1e10359ec8f64da1"
         }
       }
+    },
+    {
+      "slug": "le-village",
+      "title": "Le Village, Cap Dramont",
+      "metadata": "le-village/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "le-village/terrain.json",
+          "bytes": 4925,
+          "sha256": "312b54643bc1558eab067ba88621bba92686307c108e0034a9b6809a161d3cc9"
+        },
+        "height": {
+          "path": "le-village/height.bin",
+          "bytes": 421842,
+          "sha256": "9fe5585065fc46234c35841b85fcad36dcb0ad23ef00a57f22105a1288dbc555"
+        },
+        "validMask": {
+          "path": "le-village/valid-mask.bin",
+          "bytes": 26366,
+          "sha256": "71407aab43fef02307f17d99639e9e29a9539edfc8256ad45cdee775958314f6"
+        },
+        "isobathMask": {
+          "path": "le-village/isobath-mask.bin",
+          "bytes": 26366,
+          "sha256": "71407aab43fef02307f17d99639e9e29a9539edfc8256ad45cdee775958314f6"
+        },
+        "vectorIsobaths": {
+          "path": "le-village/isobaths-vector.json",
+          "bytes": 124154,
+          "sha256": "09c78916500458af96aadd652ed961cff865d0f9333dc8534cc32667b119c4d2"
+        },
+        "topographicTexture": {
+          "path": "le-village/topographic.webp",
+          "bytes": 16586,
+          "sha256": "809ed8616c274d30eb025f9dff10181b01b2863370278417f13f130f98b89ab6"
+        },
+        "orthophotoTexture": {
+          "path": "le-village/orthophoto.webp",
+          "bytes": 18228,
+          "sha256": "4d9105a631a1a29e33e956f33924f5bb0fd9316d46a4a96a24ae8d54b2419a19"
+        }
+      }
     }
   ]
 }
