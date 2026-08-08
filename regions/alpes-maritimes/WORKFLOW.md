@@ -1,0 +1,108 @@
+# Alpes-Maritimes topo-bathymetric workflow
+
+This directory owns the autonomous DiveTopo region covering Théoule-sur-Mer,
+Cannes, the Lérins Islands, Antibes, Nice and Villefranche-sur-Mer. It is not a
+sub-region of `regions/paca/`: its inventory, outputs, interactive packages,
+regional map and future Web route are independent.
+
+Read the root [WORKFLOW.md](../../WORKFLOW.md) before using this workflow.
+
+## Regional contract
+
+- Region slug: `alpes-maritimes`.
+- Conceptual localized routes: `/alpes-maritimes/fr` and
+  `/alpes-maritimes/en`; site routes will live below
+  `/alpes-maritimes/<language>/sites/<slug>`.
+- Site configurations: `regions/alpes-maritimes/sites/`.
+- Canonical maps and printable sheets: `regions/alpes-maritimes/outputs/`.
+- Canonical interactive packages:
+  `regions/alpes-maritimes/outputs/interactive-terrain/`.
+- Regional locator map:
+  `regions/alpes-maritimes/outputs/alpes-maritimes-regional-relief.png`.
+
+The route is a regional ownership contract only. Adding it to the shared Web
+router, homepage, sitemap or production build belongs to the global integration
+task and must not be done from a site worktree.
+
+## Sources and projection
+
+- Bathymetry and coastal elevation: Shom–IGN Litto3D PACA 2015, 1 m grid,
+  distributed in Lambert-93 (`EPSG:2154`). The elevation reference is IGN69.
+- Land imagery: IGN BD ORTHO, with the capture date verified per site.
+- Regional relief: pinned GEBCO 2024 data. A derived regional map must retain
+  its exact source identity, bounds and attribution in its manifest or build
+  record.
+
+Do not infer access, authorization, current conditions or dive safety from the
+terrain. Do not combine depths in another vertical datum with Litto3D elevations
+without an explicit transformation.
+
+## Target inventory for v1.4
+
+The region starts with no published sites. Add an inventory entry to
+`region.json` only in the same integration change that adds its real site
+configuration, so the repository never points to a missing file.
+
+The target queue is:
+
+1. Cap Gros
+2. Rascouï
+3. Grand Boule
+4. La Lauve
+5. La Fourmigue d’Antibes
+6. La Vaquette
+7. La Tradelière
+8. La Fouillée
+9. Enfer de Dante
+10. Grotte à Corail – Villefranche
+
+Every new configuration must declare `region: "alpes-maritimes"` and
+`web.published: false`. Publication remains an explicit later decision after
+the complete site and regional QA gates.
+
+## Integrating a site worktree
+
+1. Receive the exact site commit from the global coordinator.
+2. Inspect its parent, file list and diff before cherry-picking it.
+3. Reject or split any commit that touches another region, shared Web routing,
+   release metadata, versions or deployment state.
+4. Cherry-pick the site-local commit into this detached coordination worktree.
+5. Confirm that the configuration and outputs live under this region, then add
+   its `region.json` inventory entry if the site commit did not already do so.
+6. Preserve existing generated artifacts byte-for-byte when migrating an
+   already published site. Compare SHA-256 values before and after the move;
+   do not regenerate it merely to change ownership.
+7. Keep `web.published` false for every new site until explicit approval.
+
+## Regional map gate
+
+The regional map is a canonical regional output used by both the homepage card
+and the regional landing page. It must be generated independently of the PACA
+Web manifest, cover the full Théoule-to-Villefranche scope, use documented
+geographic bounds, and keep all labels and markers legible at the homepage-card
+crop and the full regional-page size.
+
+Before acceptance, inspect the full-resolution source and the exact responsive
+derivatives. Verify coastline and relief coverage, marker positions, label and
+connector collisions, attribution, dimensions and hashes. An automated image
+or manifest check is not a substitute for visual inspection.
+
+## Regional acceptance gate
+
+Before the zone commit:
+
+1. All ten expected configurations are present in the regional inventory and
+   validate against the live cartographic contract.
+2. All new sites remain unpublished unless the user has explicitly approved
+   publication after site QA.
+3. Canonical outputs and interactive packages are complete and their manifests
+   agree with the inventory.
+4. The regional map is inspected at full resolution and in its homepage-card
+   and regional-page renderings.
+5. Regional markers, labels and connectors pass the root workflow geometry gate
+   at desktop and mobile sizes.
+6. The localized overview and site routes pass server-rendered, responsive,
+   keyboard and touch checks without exposing a draft.
+7. The complete diff is region-scoped apart from explicitly coordinated shared
+   integration, and contains no version, release, homepage-global or deployment
+   change.
