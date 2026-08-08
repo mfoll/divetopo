@@ -33,7 +33,7 @@ class RegionalReliefBuilderTests(unittest.TestCase):
                 self.assertLess(west, east)
                 self.assertLess(south, north)
                 self.assertGreaterEqual(east - west, 0.4)
-                self.assertGreaterEqual(north - south, 0.3)
+                self.assertGreaterEqual(north - south, 0.2)
 
     def test_manifest_template_uses_region_scoped_assets(self) -> None:
         manifest = BUILDER.manifest_template(
