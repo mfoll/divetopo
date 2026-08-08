@@ -739,7 +739,7 @@ img {
     0 3px 8px rgba(6, 46, 54, 0.28);
   height: 0.78rem;
   left: calc(50% - 0.39rem);
-  pointer-events: auto;
+  pointer-events: none;
   position: absolute;
   top: calc(50% - 0.39rem);
   transition:

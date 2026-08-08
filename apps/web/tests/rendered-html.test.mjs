@@ -937,6 +937,25 @@ test("includes the shared west-coast site selector map", async () => {
   ]);
 });
 
+test("keeps overlapping geographic dots non-interactive", async () => {
+  const styles = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    styles,
+    /\.site-map-marker\s*\{[^}]*pointer-events:\s*none;/s,
+  );
+  assert.match(
+    styles,
+    /\.site-map-marker-dot\s*\{[^}]*pointer-events:\s*none;/s,
+  );
+  assert.match(
+    styles,
+    /\.site-map-marker-label\s*\{[^}]*pointer-events:\s*auto;/s,
+  );
+});
+
 test("interactive terrain matches the static linear-light exposure", async () => {
   const [
     terrainViewer,
