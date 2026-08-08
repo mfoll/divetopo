@@ -1,0 +1,137 @@
+{
+  "region": "bouches-du-rhone",
+  "slug": "tiboulen-du-frioul",
+  "title": "Tiboulen du Frioul",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -1.0,
+      "connector_angle_deg": 18.0,
+      "connector_width_rem": 2.8,
+      "label_offset_rem": 1.8,
+      "width_rem": 6.2
+    },
+    "interactive_initial_view": {
+      "zoom": 0.85
+    }
+  },
+  "plate_relief_source": "interactive",
+  "cache_dir": ".tmp/bouches-du-rhone-sources",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0885_6245/file/0885_6245.7z",
+      "members": [
+        "0885_6245/LITTO3D_FRA_0885_6245_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0885_6245_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0885_6250/file/0885_6250.7z",
+      "members": [
+        "0885_6250/LITTO3D_FRA_0885_6246_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0885_6246_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "site_location_utm40s": [
+    885561.048,
+    6244991.465
+  ],
+  "focus_bbox_utm40s": [
+    885400.0,
+    6244750.0,
+    885850.0,
+    6245150.0
+  ],
+  "context_bbox_utm40s": [
+    885380.0,
+    6244730.0,
+    885870.0,
+    6245170.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      885625.0,
+      6244950.0
+    ],
+    "width_m": 260.0,
+    "depth_m": 360.0,
+    "look_bearing_deg": 125.0
+  },
+  "view_bearing_deg": 125.0,
+  "view_visible_width_m": 300.0,
+  "view_crop_width_m": 300.0,
+  "view_crop_depth_m": 280.0,
+  "interactive_view_visible_width_m": 220.0,
+  "view_center_offset_east_m": 0.0,
+  "view_center_offset_north_m": 0.0,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 40.0,
+  "interactive_max_depth_m": 40.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 32.0,
+  "camera_tilt": 0.34,
+  "along_view_projection_scale": 1.8,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.03,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-06-24",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1.0,
+  "land_sieve_threshold_px": 200,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    885561.048,
+    6244991.465
+  ],
+  "plate_site_name": "Tiboulen du Frioul",
+  "plate_city": "Marseille",
+  "plate_city_detail": "Marseille · Frioul",
+  "plate_title": "Tiboulen du Frioul",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.8,
+  "clip_rotated_outside": true,
+  "interactive_vector_label_vertical_inset_fraction": 0.08,
+  "interactive_vector_label_collision_padding_ndc": 0.08,
+  "interactive_reselect_vector_labels_on_camera_end": true,
+  "interactive_required_vector_label_levels_m": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35
+  ],
+  "interactive_featured_vector_label_levels_m": [
+    10,
+    20,
+    30
+  ]
+}

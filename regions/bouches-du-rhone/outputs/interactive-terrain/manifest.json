@@ -2,6 +2,48 @@
   "schemaVersion": 2,
   "sites": [
     {
+      "slug": "grotte-a-corail-maire",
+      "title": "Grotte à Corail – Maïre",
+      "metadata": "grotte-a-corail-maire/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "grotte-a-corail-maire/terrain.json",
+          "bytes": 5120,
+          "sha256": "ae10a379ad9bd45867f6424a2d6ad025aa81e9534deddc1a1231815ed437bbdc"
+        },
+        "height": {
+          "path": "grotte-a-corail-maire/height.bin",
+          "bytes": 526338,
+          "sha256": "742221bd6474a8ce3fd12475926afefa0691578ef1cbceececd8206aeea14d98"
+        },
+        "validMask": {
+          "path": "grotte-a-corail-maire/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "323f3a7320da14cede4f252acb7fc97b973f2532ed132e72f90e9141e167ec8c"
+        },
+        "isobathMask": {
+          "path": "grotte-a-corail-maire/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "323f3a7320da14cede4f252acb7fc97b973f2532ed132e72f90e9141e167ec8c"
+        },
+        "vectorIsobaths": {
+          "path": "grotte-a-corail-maire/isobaths-vector.json",
+          "bytes": 112699,
+          "sha256": "c2ebaf087a95c4bcf37771d44676189f6cad8b8d2f3a8759d2e70f836ffcbb4e"
+        },
+        "topographicTexture": {
+          "path": "grotte-a-corail-maire/topographic.webp",
+          "bytes": 23592,
+          "sha256": "6bbbb0c6dea933c72855370d27d476a5d40fd339613b96287820a6a9f10854b4"
+        },
+        "orthophotoTexture": {
+          "path": "grotte-a-corail-maire/orthophoto.webp",
+          "bytes": 59746,
+          "sha256": "ccdffb421eb44f84730c3bfb619af4cfb12b89fe217a8196583c5b2f35001ee1"
+        }
+      }
+    },
+    {
       "slug": "imperial-de-terre-riou",
       "title": "Impérial de Terre, Riou",
       "metadata": "imperial-de-terre-riou/terrain.json",
@@ -40,6 +82,90 @@
           "path": "imperial-de-terre-riou/orthophoto.webp",
           "bytes": 22890,
           "sha256": "7eb10034d4367dc9b97eb4038e2cf4eb7c13da587a0ed643cfcf5c7d61324d33"
+        }
+      }
+    },
+    {
+      "slug": "pierre-a-la-bague-plateau",
+      "title": "Pierre à la Bague – plateau, Planier",
+      "metadata": "pierre-a-la-bague-plateau/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pierre-a-la-bague-plateau/terrain.json",
+          "bytes": 5245,
+          "sha256": "7c71b6596cdf8e19e13dd2fbafce3abcee3dd2fb145b6b332adb973699205b39"
+        },
+        "height": {
+          "path": "pierre-a-la-bague-plateau/height.bin",
+          "bytes": 409374,
+          "sha256": "d06c7f09d01b77c4ad12eeb65368652e5f47dce4515a7772180aa966133d62a1"
+        },
+        "validMask": {
+          "path": "pierre-a-la-bague-plateau/valid-mask.bin",
+          "bytes": 25586,
+          "sha256": "491e99e8fa28d59c75ef4a073eac974c787f3f22df5767c474b02a1f1e1b4760"
+        },
+        "isobathMask": {
+          "path": "pierre-a-la-bague-plateau/isobath-mask.bin",
+          "bytes": 25586,
+          "sha256": "491e99e8fa28d59c75ef4a073eac974c787f3f22df5767c474b02a1f1e1b4760"
+        },
+        "vectorIsobaths": {
+          "path": "pierre-a-la-bague-plateau/isobaths-vector.json",
+          "bytes": 188702,
+          "sha256": "baf6498e32b4956bcd1c653292b9a0fb5e5b82ac8cd3a9f7f5b5b5919e8c2ffc"
+        },
+        "topographicTexture": {
+          "path": "pierre-a-la-bague-plateau/topographic.webp",
+          "bytes": 43308,
+          "sha256": "788b9c7e72f635f0e0219c1e1137ea09793f21e9081f0123aeceab2bd8a3dc8a"
+        },
+        "orthophotoTexture": {
+          "path": "pierre-a-la-bague-plateau/orthophoto.webp",
+          "bytes": 36524,
+          "sha256": "b2aca92ffd3a3e2fbeb9432b7f8b16663f8e3ef34f277718d073b1ca2ac5fa03"
+        }
+      }
+    },
+    {
+      "slug": "tiboulen-du-frioul",
+      "title": "Tiboulen du Frioul",
+      "metadata": "tiboulen-du-frioul/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "tiboulen-du-frioul/terrain.json",
+          "bytes": 5222,
+          "sha256": "55ea02b5152652185f5189dd29c7785b56a224e213c0985ba2e4089392e93796"
+        },
+        "height": {
+          "path": "tiboulen-du-frioul/height.bin",
+          "bytes": 374690,
+          "sha256": "5b3d85b794f4fb89b0ce10984a521ded895056d35894de4dae9d89fc8f89e6ba"
+        },
+        "validMask": {
+          "path": "tiboulen-du-frioul/valid-mask.bin",
+          "bytes": 23419,
+          "sha256": "a23665f891ce0a7d4209d9ec17d3a3c20f6a278f9ac12405cb1f81625af8d9ff"
+        },
+        "isobathMask": {
+          "path": "tiboulen-du-frioul/isobath-mask.bin",
+          "bytes": 23419,
+          "sha256": "a23665f891ce0a7d4209d9ec17d3a3c20f6a278f9ac12405cb1f81625af8d9ff"
+        },
+        "vectorIsobaths": {
+          "path": "tiboulen-du-frioul/isobaths-vector.json",
+          "bytes": 52267,
+          "sha256": "3aeccbeeb231e7e64ae84112d8735c77f2f06ecfab519d33aab6ea0d01e70bd5"
+        },
+        "topographicTexture": {
+          "path": "tiboulen-du-frioul/topographic.webp",
+          "bytes": 10958,
+          "sha256": "4b25bef239c93350d06f5564f06f9f04f69ea11cf1d8a47c31f568daf69311ec"
+        },
+        "orthophotoTexture": {
+          "path": "tiboulen-du-frioul/orthophoto.webp",
+          "bytes": 11270,
+          "sha256": "cad6ec35ecb940de3b3518c6178987d7785a409d78a1472e4fc19b0630cc9c08"
         }
       }
     }
