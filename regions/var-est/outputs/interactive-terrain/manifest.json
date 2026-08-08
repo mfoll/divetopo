@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "sites": [
+    {
+      "slug": "sec-de-l-ile-d-or",
+      "title": "Sec de l’Île d’Or, Cap Dramont",
+      "metadata": "sec-de-l-ile-d-or/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-de-l-ile-d-or/terrain.json",
+          "bytes": 5028,
+          "sha256": "1418db638083c65f05bcd8110902c56fe7f38eb4cfc39c9fbf64bd2d83b2d65c"
+        },
+        "height": {
+          "path": "sec-de-l-ile-d-or/height.bin",
+          "bytes": 522234,
+          "sha256": "3e3e0a66cdeb3a4e739b561c5e3a30d3420d26ee2f3b3719eb1bfe07530a5ebd"
+        },
+        "validMask": {
+          "path": "sec-de-l-ile-d-or/valid-mask.bin",
+          "bytes": 32640,
+          "sha256": "8d0ac85192db6243ef0bc3c969b215a84cee67b8eb9edaf8f469c8fcc71904ed"
+        },
+        "isobathMask": {
+          "path": "sec-de-l-ile-d-or/isobath-mask.bin",
+          "bytes": 32640,
+          "sha256": "8d0ac85192db6243ef0bc3c969b215a84cee67b8eb9edaf8f469c8fcc71904ed"
+        },
+        "vectorIsobaths": {
+          "path": "sec-de-l-ile-d-or/isobaths-vector.json",
+          "bytes": 147787,
+          "sha256": "50ac1113d2ec71fffc67135cd3a0c2f7ca5a7e8460e4dadd0ffd77d4cac0bd73"
+        },
+        "topographicTexture": {
+          "path": "sec-de-l-ile-d-or/topographic.webp",
+          "bytes": 24828,
+          "sha256": "5f88918b2f06dcd1f41e32f9de06c0aaf4b439a6008354011cb833b15e5bb7a4"
+        },
+        "orthophotoTexture": {
+          "path": "sec-de-l-ile-d-or/orthophoto.webp",
+          "bytes": 20322,
+          "sha256": "71253a7522e88ad0e7ee73c6b6f4f154bf21f3969546c30af8309b33aa746697"
+        }
+      }
+    }
+  ]
+}
