@@ -546,19 +546,14 @@ def iter_geojson_lines(geometry: dict[str, object]):
 
 
 def limtm_land_mask(
-    *,
-    refresh: bool,
-    natural_land_array: np.ndarray,
-    marine_seed_array: np.ndarray,
+    *, refresh: bool, natural_land_array: np.ndarray
 ) -> tuple[np.ndarray, int, int]:
     """Build one coherent land mask from the official Shom–IGN boundary.
 
     The WFS contains both natural coastline (COALNE) and constructed coastal
     limits (SLCONS). Keeping both closes the small harbour/port gaps that made
     the old vector overlay discontinuous. Natural Earth is used only to tell
-    the border flood which map-border pixels are ocean and as a sanity check.
-    Negative EMODnet cells seed enclosed marine basins so harbour closures do
-    not become land merely because SLCONS disconnects them from the frame.
+    the flood fill which map-border pixels are ocean and as a sanity check.
     """
     source_path = CACHE / "limtm-paca-ligne.geojson"
     download(limtm_url(), source_path, refresh=refresh)
@@ -633,16 +628,6 @@ def limtm_land_mask(
         flood_seed(0, y)
         flood_seed(WIDTH - 1, y)
 
-    # Re-open marine basins enclosed by constructed limits. Most candidates
-    # already belong to the border-connected ocean and are skipped; each truly
-    # enclosed basin triggers only one additional flood fill.
-    seeded_marine_basins = 0
-    for y in range(HEIGHT):
-        for x in np.flatnonzero(marine_seed_array[y]):
-            if walk.getpixel((int(x), y)) == 0:
-                ImageDraw.floodfill(walk, (int(x), y), 128, thresh=0)
-                seeded_marine_basins += 1
-
     official_land_array = np.asarray(walk, dtype=np.uint8) != 128
 
     # Drop detached structures that are below the regional display scale only
@@ -700,7 +685,6 @@ def limtm_land_mask(
     print(
         "Built Shom–IGN Limite terre-mer land mask: "
         f"{drawn_features} segments, {drawn_vertices} vertices, "
-        f"seeded marine basins={seeded_marine_basins}, "
         f"removed isolated components={removed_components}, "
         f"land area={official_area:.3f}, delta vs Natural Earth={area_delta:.3f}"
     )
@@ -898,14 +882,13 @@ def render(*, refresh: bool) -> None:
     if base.size != (WIDTH, HEIGHT):
         raise ValueError(f"Unexpected GEBCO image dimensions: {base.size}")
 
-    emodnet_surface, emodnet_valid = load_emodnet_crop(refresh=refresh)
     natural_land = natural_earth_land_mask(refresh=refresh)
     natural_land_array = np.asarray(natural_land, dtype=bool)
     land_mask, _, _ = limtm_land_mask(
-        refresh=refresh,
-        natural_land_array=natural_land_array,
-        marine_seed_array=emodnet_valid & (emodnet_surface < -1.0),
+        refresh=refresh, natural_land_array=natural_land_array
     )
+
+    emodnet_surface, emodnet_valid = load_emodnet_crop(refresh=refresh)
     # EMODnet is the primary marine field. GEBCO remains available only for
     # cells where the official DTM has no valid value, so its coarse grid can
     # no longer tile the visible sea by default.
