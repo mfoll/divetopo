@@ -74,9 +74,11 @@ Full-resolution inspection found additional publication blockers:
 
 ## Regional relief map QA
 
-The regional relief builder was run with the existing project environment and
-official cached sources after integrating the shared builder fixes. The final
-asset is an RGB PNG measuring `1864 × 1440` pixels, with bounds:
+The regional relief builder was run without `--refresh` in the existing project
+environment after integrating the shared polygon builder. Existing official
+source caches were reused and the previously absent official Shom–IGN polygon
+layer was fetched once. The final asset is an RGB PNG measuring `1864 × 1440`
+pixels, with bounds:
 
 - west: `6.896198253587896`
 - south: `43.43069725776767`
@@ -84,12 +86,15 @@ asset is an RGB PNG measuring `1864 × 1440` pixels, with bounds:
 - north: `43.74269725776767`
 
 The canonical output and its Web derivative are byte-identical, with SHA-256
-`a3d5122220c7e52bb8b51aeea159f5d7dc189dbd7b0eef50cf8a62493c486e79`.
+`637d730966fc0b4e2bbb27a7a1e26aa29a94715a569720cee49151dbeea79759`.
 The final build reports 67 Litto3D MNT5 tiles from three official archives and
-a Limite terre-mer mask differing from the Natural Earth topology guard by
-`0.007`. Full-resolution inspection found a coherent coastline and relief from
-Théoule, Cannes and Lérins through Antibes, Nice and Villefranche, without a
-surviving implausible large SLCONS polygon offshore.
+an official Limite terre-mer polygon mask containing 647 features and 831,995
+vertices. Its land area is `0.428`, with a difference below `0.001` from the
+Natural Earth sanity guard. Full-resolution comparison with the earlier
+line-flood map found a coherent and more detailed coastline and relief from
+Théoule, Cannes and Lérins through Antibes, Nice and Villefranche. Lérins and
+Cap-Ferrat remain continuous, small official harbour structures are retained,
+and no implausible large SLCONS closure or terrestrial wedge survives offshore.
 
 All five draft positions were projected against the generated bounds and
 inspected on a temporary QA overlay that is not part of the committed output:
