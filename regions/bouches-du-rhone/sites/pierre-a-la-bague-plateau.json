@@ -27,30 +27,30 @@
   ],
   "focus_bbox_utm40s": [
     880950.0,
-    6235300.0,
-    881850.0,
-    6236000.0
+    6235350.0,
+    881600.0,
+    6235800.0
   ],
   "context_bbox_utm40s": [
-    880850.0,
-    6235050.0,
-    881950.0,
-    6236000.0
+    880900.0,
+    6235300.0,
+    881600.0,
+    6235900.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      881400.0,
-      6235650.0
+      881125.0,
+      6235575.0
     ],
-    "width_m": 900.0,
-    "depth_m": 700.0,
-    "look_bearing_deg": 0.0
+    "width_m": 350.0,
+    "depth_m": 400.0,
+    "look_bearing_deg": 90.0
   },
-  "view_bearing_deg": 0.0,
-  "view_crop_width_m": 750.0,
-  "view_crop_depth_m": 700.0,
-  "view_visible_width_m": 600.0,
-  "interactive_view_visible_width_m": 500.0,
+  "view_bearing_deg": 90.0,
+  "view_crop_width_m": 450.0,
+  "view_crop_depth_m": 450.0,
+  "view_visible_width_m": 380.0,
+  "interactive_view_visible_width_m": 280.0,
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": true,
   "coast_mode": "mask",
@@ -58,14 +58,14 @@
   "interactive_max_depth_m": 40.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_source_text": "Bathymétrie/topographie : Shom–IGN Litto3D PACA 2015 · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
-  "max_land_elevation_m": 80.0,
+  "max_land_elevation_m": 6.0,
   "camera_tilt": 0.55,
   "along_view_projection_scale": 1.2,
   "coast_frame_fraction": 0.52,
@@ -78,9 +78,22 @@
   "output_scale": 2.0,
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
-  "relief_compass_inset_px": 88.0,
-  "relief_footer_inset_px": 44.0,
-  "relief_label_edge_inset_px": 52.0,
+  "relief_compass_inset_px": 130.0,
+  "relief_footer_inset_px": 52.0,
+  "relief_label_edge_inset_px": 90.0,
+  "plan_suppressed_label_levels": [
+    30,
+    35,
+    40
+  ],
+  "relief_suppressed_label_levels": [
+    15,
+    20,
+    25,
+    30,
+    35,
+    40
+  ],
   "map_style_scale": 2.0,
   "final_output_size_px": [
     2474,
@@ -95,6 +108,9 @@
   "orthophoto_3d_resolution_m": 1.0,
   "orthophoto_coastline_visible": false,
   "locator_map_enabled": false,
+  "paths": {
+    "output_locator": "regions/bouches-du-rhone/outputs/bouches-du-rhone-regional-relief.png"
+  },
   "locator_marker_utm40s": [
     881080.689,
     6235652.944
@@ -111,6 +127,8 @@
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
   "vertical_exaggeration": 3.9935327405,
+  "view_center_offset_east_m": -100.0,
+  "view_center_offset_north_m": 0.0,
   "clip_rotated_outside": true,
   "interactive_vector_label_vertical_inset_fraction": 0.08,
   "interactive_vector_label_collision_padding_ndc": 0.08,
