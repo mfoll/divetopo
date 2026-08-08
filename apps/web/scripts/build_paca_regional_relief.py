@@ -69,6 +69,7 @@ LIMTM_WFS_TYPENAME = (
 LIMTM_LINE_WIDTH_PX = 2.0
 LIMTM_CLOSE_RADIUS_PX = 2
 LIMTM_ISOLATED_COMPONENT_MAX_PX = 96
+LIMTM_REFINEMENT_RADIUS_PX = 4
 RGE_WMTS = "https://data.geopf.fr/wmts"
 RGE_LAYER = "ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES"
 RGE_TILE_MATRIX_SET = "WGS84G_6_14"
@@ -656,15 +657,24 @@ def limtm_land_mask(
     area_delta = abs(official_area - natural_area)
     if area_delta > 0.05:
         # Small autonomous-region frames can clip a LIMTM segment at the map
-        # edge. Reconcile that incomplete flood fill conservatively with the
-        # Natural Earth topology already used to seed and validate it:
-        # restore missing land, or remove an implausible flooded sea. This
-        # keeps every official boundary pixel while preventing an open WFS
-        # segment from erasing or flooding most of the regional frame.
-        if official_area < natural_area:
-            official_land_array |= natural_land_array
-        else:
-            official_land_array &= natural_land_array
+        # edge. Keep the Natural Earth topology used to seed and validate the
+        # flood, and retain official LIMTM refinements only in a narrow coastal
+        # band. Detached harbour/SLCONS polygons classified as land far out at
+        # sea are therefore removed instead of surviving a global union.
+        natural_near_coast = np.asarray(
+            Image.fromarray(
+                natural_land_array.astype(np.uint8) * 255,
+                mode="L",
+            ).filter(
+                ImageFilter.MaxFilter(
+                    LIMTM_REFINEMENT_RADIUS_PX * 2 + 1
+                )
+            ),
+            dtype=np.uint8,
+        ) > 0
+        official_land_array = natural_land_array | (
+            official_land_array & natural_near_coast
+        )
         official_area = float(official_land_array.mean())
         area_delta = abs(official_area - natural_area)
     if area_delta > 0.05 or not official_land_array.any() or official_land_array.all():
