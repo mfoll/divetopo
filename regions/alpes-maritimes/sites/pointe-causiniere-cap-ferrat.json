@@ -1,0 +1,109 @@
+{
+  "region": "alpes-maritimes",
+  "slug": "pointe-causiniere-cap-ferrat",
+  "title": "Pointe de la Causinière, Saint-Jean-Cap-Ferrat",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -0.5,
+      "connector_angle_deg": -18,
+      "connector_width_rem": 2.2,
+      "label_offset_rem": 3.0,
+      "width_rem": 7.6
+    },
+    "interactive_initial_view": {
+      "zoom": 0.9,
+      "camera_elevation_deg": 32,
+      "isobath_label_focus_x_ndc": 0.1
+    }
+  },
+  "plate_relief_source": "interactive",
+  "paths": {
+    "output_2d": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-2d.jpg",
+    "output_3d": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-3d.jpg"
+  },
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1045_6300/file/1045_6300.7z",
+      "members": [
+        "1045_6300/LITTO3D_FRA_1049_6296_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1049_6296_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    1049000.0,
+    6295560.0,
+    1049300.0,
+    6295782.0
+  ],
+  "context_bbox_utm40s": [
+    1049000.0,
+    6295560.0,
+    1049350.0,
+    6296000.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1049180.679,
+      6295820.0
+    ],
+    "width_m": 200.0,
+    "depth_m": 280.0,
+    "look_bearing_deg": 110.0
+  },
+  "view_bearing_deg": 110.0,
+  "view_crop_width_m": 200.0,
+  "view_crop_depth_m": 260.0,
+  "view_visible_width_m": 170.0,
+  "interactive_view_visible_width_m": 170.0,
+  "coast_mode": "mask",
+  "coastline_visible": true,
+  "max_depth_m": 40.0,
+  "plan_max_depth_m": 40.0,
+  "interactive_max_depth_m": 40.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Litto3D PACA 2015 · dalle 1049_6296 · MNT 1 m · EPSG:2154 / IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, prépaquet 1045_6300, dalle 1049_6296, MNT maillé à 1 m, RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche documentée jusqu’à environ -65 m reste hors MNT vérifié ; aucun fragment d’isobathe n’est interpolé en MNT",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 80.0,
+  "camera_tilt": 0.6,
+  "along_view_projection_scale": 1.1,
+  "coast_frame_fraction": 0.5,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "final_output_size_px": [
+    1600,
+    1184
+  ],
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "orthophoto_enabled": false,
+  "locator_map_enabled": false,
+  "site_location_utm40s": [
+    1049180.679,
+    6295761.403
+  ],
+  "locator_marker_utm40s": [
+    1049180.679,
+    6295761.403
+  ],
+  "plate_site_name": "Pointe de la Causinière",
+  "plate_city": "Saint-Jean-Cap-Ferrat",
+  "plate_city_detail": "Saint-Jean-Cap-Ferrat · Cap-Ferrat",
+  "plate_title": "Pointe de la Causinière, Saint-Jean-Cap-Ferrat",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "deep_edge_nodata_terrain_fill": false,
+  "clip_rotated_outside": true
+}
