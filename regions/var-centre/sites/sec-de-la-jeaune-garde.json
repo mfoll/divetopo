@@ -1,5 +1,5 @@
 {
-  "region": "paca",
+  "region": "var-centre",
   "slug": "sec-de-la-jeaune-garde",
   "title": "Sec de la Jeaune Garde, Porquerolles",
   "web": {
@@ -12,7 +12,7 @@
   },
   "plate_relief_source": "interactive",
   "paths": {
-    "output_locator": "apps/web/public/maps/paca/paca-regional-relief.png"
+    "output_locator": "regions/var-centre/outputs/var-centre-regional-relief.png"
   },
   "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0955_6220/file/0955_6220.7z",
   "litto3d_archive_members": [
@@ -25,25 +25,31 @@
     6216900.0
   ],
   "context_bbox_utm40s": [
-    957000.0,
-    6216000.0,
-    958000.0,
-    6217000.0
+    956999.5,
+    6216000.5,
+    957999.5,
+    6217000.5
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      957500.0,
-      6216500.0
+      957499.5,
+      6216500.5
     ],
     "width_m": 1000.0,
     "depth_m": 1000.0,
     "look_bearing_deg": 90.0
   },
+  "site_location_utm40s": [
+    957629.0,
+    6216622.0
+  ],
   "view_bearing_deg": 90.0,
   "view_visible_width_m": 450.0,
   "interactive_view_visible_width_m": 450.0,
   "view_center_offset_east_m": 150.0,
   "view_center_offset_north_m": 80.0,
+  "view_crop_width_m": 750.0,
+  "view_crop_depth_m": 700.0,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
   "max_depth_m": 40.0,
@@ -71,6 +77,9 @@
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
   "map_style_scale": 2.0,
+  "relief_suppressed_label_levels": [
+    10
+  ],
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
   "orthophoto_capture_date": "2023-07-13",

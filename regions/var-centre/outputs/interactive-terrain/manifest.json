@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "sites": [
+    {
+      "slug": "sec-de-la-jeaune-garde",
+      "title": "Sec de la Jeaune Garde, Porquerolles",
+      "metadata": "sec-de-la-jeaune-garde/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-de-la-jeaune-garde/terrain.json",
+          "bytes": 4976,
+          "sha256": "2efc99ae23e092718bf713d9ea488545a7455f0a239f6727995eff8c88fc7982"
+        },
+        "height": {
+          "path": "sec-de-la-jeaune-garde/height.bin",
+          "bytes": 526338,
+          "sha256": "080a219753a221ef649229a59a0508a09a5acb84e4301fbac88c48bbc748ba10"
+        },
+        "validMask": {
+          "path": "sec-de-la-jeaune-garde/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+        },
+        "isobathMask": {
+          "path": "sec-de-la-jeaune-garde/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+        },
+        "vectorIsobaths": {
+          "path": "sec-de-la-jeaune-garde/isobaths-vector.json",
+          "bytes": 271158,
+          "sha256": "5cf5368a99b0d571ed2a64c7fc5e343ee5d2ca7d875dd982a44fa1923e5d1df1"
+        },
+        "topographicTexture": {
+          "path": "sec-de-la-jeaune-garde/topographic.webp",
+          "bytes": 53234,
+          "sha256": "7633b16f10064c40ade982b63836ce2ac18b9e45280b7ea88a9d89000d5cf1df"
+        },
+        "orthophotoTexture": {
+          "path": "sec-de-la-jeaune-garde/orthophoto.webp",
+          "bytes": 47440,
+          "sha256": "6dc63bb127efac62e6d7d584434c1780576b090e915076ec9ec8cff39b192285"
+        }
+      }
+    }
+  ]
+}
