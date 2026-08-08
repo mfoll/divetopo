@@ -39,24 +39,58 @@ Les membres d'archives Litto3D et leur couverture doivent être vérifiés site
 par site. Une carte ne prouve ni l'accès, ni l'autorisation, ni la sécurité,
 ni les conditions présentes.
 
-## Sites cibles de la version 1.4
+## Première vague de la version 1.4
 
 Les configurations ne sont ajoutées à `region.json` que lorsqu'elles existent
 dans cette région. La publication reste `web.published: false` jusqu'à la QA
 complète et une décision explicite.
 
-| Site | Slug attendu | Secteur |
-|---|---|---|
-| Grotte à Corail – Maïre | `grotte-a-corail-maire` | Maïre |
-| Pains de Sucre – Riou | `pains-de-sucre-riou` | Riou |
-| Impérial de Terre | `imperial-de-terre` | Riou |
-| Impérial du Milieu | `imperial-du-milieu` | Riou |
-| Moyades | `moyades` | Riou |
-| Pierre à la Bague – plateau | `pierre-a-la-bague-plateau` | Planier |
-| Tiboulen du Frioul | `tiboulen-du-frioul` | Frioul |
-| Pierre de Briançon – Jarre | `pierre-de-briancon-jarre` | Jarre |
-| Pharillons | `pharillons` | Frioul |
-| Grand Salaman | `grand-salaman` | Frioul |
+| Site | Slug canonique | Secteur | État intégré |
+|---|---|---|---|
+| Grotte à Corail – Maïre | `grotte-a-corail-maire` | Maïre | Configuration et terrain interactif présents ; jeu statique incomplet ; non publié |
+| Pains de Sucre – Riou | `pains-de-sucre-riou` | Riou | Configuration seulement ; actifs bloqués par le runtime GDAL/Pillow ; non publié |
+| Impérial de Terre – Riou | `imperial-de-terre-riou` | Riou | Configuration, cartes et terrain interactif présents ; QA visuelle en échec ; non publié |
+| Pierre à la Bague – plateau | `pierre-a-la-bague-plateau` | Planier | Configuration, cartes et terrain interactif présents ; QA visuelle en échec ; non publié |
+| Tiboulen du Frioul | `tiboulen-du-frioul` | Frioul | Configuration, cartes et terrain interactif présents ; QA visuelle en échec ; non publié |
+
+Les sites suivants sont explicitement différés après la première vague et ne
+doivent pas être cherry-pickés dans ce chantier : Impérial du Milieu, Moyades,
+Pierre de Briançon – Jarre, Pharillons et Grand Salaman.
+
+Le manifeste interactif régional indexe uniquement les quatre paquets complets.
+Pains de Sucre reste dans l'inventaire de travail avec `web.published: false`,
+mais n'entre dans aucun manifeste d'actifs tant que ses sorties n'existent pas.
+
+## État de QA intermédiaire
+
+L'intégration de la première vague ne constitue pas une validation de
+publication. Les contrôles structurels confirment cinq configurations de draft,
+quatre paquets interactifs complets et vérifiables par taille et SHA-256, et
+l'absence volontaire de tout actif Pains de Sucre.
+
+L'inspection directe des JPEG et textures WebP à leur résolution native relève
+les défauts bloquants suivants :
+
+- Grotte à Corail – Maïre : plans limités à `800 × 800 px`, zones NoData grises
+  importantes, chevauchements de libellés en 3D et absence de la variante 3D
+  orthophoto ;
+- Impérial de Terre – Riou : rideaux verticaux et déformations de terrain très
+  marqués dans les vues 3D, avec texte de pied proche du bord ;
+- Pierre à la Bague – plateau : pic de terrain majeur dans la 3D orthophoto,
+  isobathes confuses sur la côte et éléments de boussole, libellés ou pied de
+  carte coupés dans plusieurs rendus ;
+- Tiboulen du Frioul : éléments de boussole, libellés profonds et attribution
+  coupés au bord dans plusieurs rendus statiques.
+
+Le validateur partagé refuse encore le slug régional avec
+`Region 'bouches-du-rhone' has no configured source validation contract`.
+Cette correction appartient à la généralisation globale et ne doit pas être
+contournée dans le commit régional. Les routes Web, la géométrie desktop/mobile
+des marqueurs et les interactions ne sont pas testables avant cette intégration.
+
+La carte régionale est également différée : elle attend le builder partagé.
+Il est interdit de créer un builder Bouches-du-Rhône dédié ou de réutiliser les
+bornes de la carte PACA actuelle.
 
 Les sites déjà publiés qui appartiennent à cette zone doivent être migrés par
 copie contrôlée de leurs configurations et actifs canoniques, sans

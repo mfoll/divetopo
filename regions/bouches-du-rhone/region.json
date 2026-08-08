@@ -45,5 +45,36 @@
       "url": "https://emodnet.ec.europa.eu/en/bathymetry"
     }
   },
-  "sites": []
+  "sites": [
+    {
+      "slug": "grotte-a-corail-maire",
+      "name": "Grotte à Corail – Maïre",
+      "municipality": "Marseille",
+      "config": "regions/bouches-du-rhone/sites/grotte-a-corail-maire.json"
+    },
+    {
+      "slug": "pains-de-sucre-riou",
+      "name": "Pains de Sucre – Riou",
+      "municipality": "Marseille",
+      "config": "regions/bouches-du-rhone/sites/pains-de-sucre-riou.json"
+    },
+    {
+      "slug": "imperial-de-terre-riou",
+      "name": "Impérial de Terre – Riou",
+      "municipality": "Marseille",
+      "config": "regions/bouches-du-rhone/sites/imperial-de-terre-riou.json"
+    },
+    {
+      "slug": "pierre-a-la-bague-plateau",
+      "name": "Pierre à la Bague – plateau",
+      "municipality": "Marseille",
+      "config": "regions/bouches-du-rhone/sites/pierre-a-la-bague-plateau.json"
+    },
+    {
+      "slug": "tiboulen-du-frioul",
+      "name": "Tiboulen du Frioul",
+      "municipality": "Marseille",
+      "config": "regions/bouches-du-rhone/sites/tiboulen-du-frioul.json"
+    }
+  ]
 }
