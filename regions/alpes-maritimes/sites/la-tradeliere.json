@@ -6,17 +6,23 @@
     "published": false,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0
+      "shift_y_rem": 0.5,
+      "connector_angle_deg": -8,
+      "connector_width_rem": 2.2,
+      "label_offset_rem": 3.0,
+      "width_rem": 6.2
     },
     "interactive_initial_view": {
       "zoom": 1,
-      "orbit_azimuth_deg": 225,
+      "orbit_azimuth_deg": 90,
       "camera_elevation_deg": 24,
       "isobath_label_focus_x_ndc": 0
     }
   },
   "plate_relief_source": "interactive",
+  "paths": {
+    "output_locator": "regions/alpes-maritimes/outputs/la-tradeliere-locator-alpes-maritimes.jpg"
+  },
   "litto3d_archives": [
     {
       "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1025_6280/file/1025_6280.7z",
@@ -35,26 +41,26 @@
   ],
   "focus_bbox_utm40s": [
     1028100,
-    6275900,
+    6276600,
     1029300,
     6277100
   ],
   "context_bbox_utm40s": [
     1028000,
-    6275800,
-    1029400,
+    6276600,
+    1029300,
     6277200
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      1028700,
-      6276500
+      1028850,
+      6276850
     ],
-    "width_m": 700,
-    "depth_m": 900,
-    "look_bearing_deg": 225
+    "width_m": 500,
+    "depth_m": 800,
+    "look_bearing_deg": 90
   },
-  "view_bearing_deg": 225,
+  "view_bearing_deg": 90,
   "view_visible_width_m": 500,
   "interactive_view_visible_width_m": 400,
   "interactive_match_static_horizontal_center": true,
@@ -65,25 +71,37 @@
   "plan_max_depth_m": 42,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · NoData du levé conservé, sans interpolation",
-  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "bathymetry_source_text": "Litto3D",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes tous les mètres (2007) ; les fragments d’isobathes ne sont pas interpolés en MNT et les NoData du levé sont conservés",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1,
   "context_topography_resolution_m": 1,
   "max_land_elevation_m": 15,
-  "camera_tilt": 0.34,
+  "camera_tilt": 0.45,
   "along_view_projection_scale": 1.2,
   "coast_frame_fraction": 0.45,
   "view_left_crop_fraction": 0,
   "view_right_crop_fraction": 0,
   "view_top_crop_fraction": 0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
   "output_scale": 2,
   "plan_output_scale": 2,
   "relief_output_scale": 1,
   "map_style_scale": 2,
-  "orthophoto_enabled": false,
+  "imagery_sea_full_depth_m": 0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-06-26",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 0.8,
+  "orthophoto_coastline_visible": false,
   "locator_map_enabled": false,
   "locator_marker_utm40s": [
     1029208.587,
