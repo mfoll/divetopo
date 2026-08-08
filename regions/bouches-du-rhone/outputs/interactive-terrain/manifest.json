@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 2,
+  "sites": [
+    {
+      "slug": "imperial-de-terre-riou",
+      "title": "Impérial de Terre, Riou",
+      "metadata": "imperial-de-terre-riou/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "imperial-de-terre-riou/terrain.json",
+          "bytes": 4587,
+          "sha256": "9161d52dde75bf32b7c13b80d3b086f740f74672d83176bb6a7355449abfac40"
+        },
+        "height": {
+          "path": "imperial-de-terre-riou/height.bin",
+          "bytes": 270000,
+          "sha256": "316fd80385b66350e1e948aa980663026556ac2915dc8903915af036a0316ce9"
+        },
+        "validMask": {
+          "path": "imperial-de-terre-riou/valid-mask.bin",
+          "bytes": 16875,
+          "sha256": "7810813400ab4b000bce44f0ed97e67c305661ce499891e4a7e94916a040a42d"
+        },
+        "isobathMask": {
+          "path": "imperial-de-terre-riou/isobath-mask.bin",
+          "bytes": 16875,
+          "sha256": "7810813400ab4b000bce44f0ed97e67c305661ce499891e4a7e94916a040a42d"
+        },
+        "vectorIsobaths": {
+          "path": "imperial-de-terre-riou/isobaths-vector.json",
+          "bytes": 57182,
+          "sha256": "5f223ab48a0513e82939982f56a1388a4389db771cb8c0d3c7412e7b0b5b0245"
+        },
+        "topographicTexture": {
+          "path": "imperial-de-terre-riou/topographic.webp",
+          "bytes": 6526,
+          "sha256": "e765296d4084d613cca41536a8886b72b3b22a2644f2ee3501c296c0072a67e5"
+        },
+        "orthophotoTexture": {
+          "path": "imperial-de-terre-riou/orthophoto.webp",
+          "bytes": 22890,
+          "sha256": "7eb10034d4367dc9b97eb4038e2cf4eb7c13da587a0ed643cfcf5c7d61324d33"
+        }
+      }
+    }
+  ]
+}
