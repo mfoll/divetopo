@@ -1,0 +1,214 @@
+{
+  "schemaVersion": 2,
+  "slug": "grotte-a-corail-villefranche",
+  "title": "Grotte à Corail, Villefranche-sur-Mer",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 1047100.0,
+    "south": 6297205.0,
+    "east": 1047470.0,
+    "north": 6297465.0
+  },
+  "physicalSizeM": {
+    "width": 370.0,
+    "depth": 260.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 370,
+    "height": 260,
+    "triangleCount": 191142,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -40.34762191772461,
+      "scaleMPerUnit": 0.0018363585922859386,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -40.34762191772461,
+    "max": 79.99813842773438
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        125,
+        29
+      ],
+      "10": [
+        134,
+        223,
+        110
+      ],
+      "15": [
+        40,
+        130,
+        211
+      ],
+      "20": [
+        12,
+        41,
+        119
+      ],
+      "25": [
+        6,
+        26,
+        90
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        14,
+        61
+      ],
+      "40": [
+        1,
+        9,
+        42
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 1,
+        "points": 92
+      },
+      "10": {
+        "polylines": 1,
+        "points": 77
+      },
+      "15": {
+        "polylines": 1,
+        "points": 75
+      },
+      "20": {
+        "polylines": 1,
+        "points": 80
+      },
+      "25": {
+        "polylines": 1,
+        "points": 89
+      },
+      "30": {
+        "polylines": 1,
+        "points": 101
+      },
+      "35": {
+        "polylines": 1,
+        "points": 114
+      },
+      "40": {
+        "polylines": 0,
+        "points": 0
+      }
+    },
+    "totals": {
+      "levels": 8,
+      "polylines": 7,
+      "points": 628
+    },
+    "reprojectionResidualM": {
+      "samples": 628,
+      "mean": 2.6209146671776957e-11,
+      "p95": 1.5766943306516516e-12,
+      "max": 4.321943691820707e-09,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 90.0,
+    "gridLookBearingDeg": 90.0,
+    "cameraTilt": 0.45,
+    "alongViewProjectionScale": 1.1,
+    "visibleWidthM": 170.0,
+    "coastFrameFraction": 0.52
+  },
+  "textures": {
+    "width": 370,
+    "height": 260,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes tous les mètres (2007) ; les fragments d’isobathes ne sont pas interpolés en MNT · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-07-13",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes tous les mètres (2007) ; les fragments d’isobathes ne sont pas interpolés en MNT · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 13-07-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes tous les mètres (2007) ; les fragments d’isobathes ne sont pas interpolés en MNT · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 13-07-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      1047285.0,
+      6297335.0
+    ],
+    "widthM": 260.0,
+    "depthM": 370.0,
+    "lookBearingDeg": 90.0,
+    "cornersUtm40s": [
+      [
+        1047100.0,
+        6297465.0
+      ],
+      [
+        1047100.0,
+        6297205.0
+      ],
+      [
+        1047470.0,
+        6297205.0
+      ],
+      [
+        1047470.0,
+        6297465.0
+      ]
+    ]
+  }
+}

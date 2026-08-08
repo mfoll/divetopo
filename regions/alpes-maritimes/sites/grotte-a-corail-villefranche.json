@@ -23,7 +23,10 @@
     "output_2d": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-topobathy-2d.jpg",
     "output_2d_ortho": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-topobathy-2d-ortho.jpg",
     "output_3d": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-topobathy-3d.jpg",
-    "output_3d_ortho": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-topobathy-3d-ortho.jpg"
+    "output_3d_ortho": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-topobathy-3d-ortho.jpg",
+    "output_locator": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-locator-alpes-maritimes.jpg",
+    "output_plate": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-planche.jpg",
+    "output_plate_topography": "regions/alpes-maritimes/outputs/grotte-a-corail-villefranche-planche-topographique.jpg"
   },
   "litto3d_archives": [
     {
