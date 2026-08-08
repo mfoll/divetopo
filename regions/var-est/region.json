@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "slug": "var-est",
+  "route": "/var-est",
+  "names": {
+    "fr": "Var Est : Estérel, Saint-Raphaël et Anthéor",
+    "en": "Eastern Var: Estérel, Saint-Raphaël and Anthéor"
+  },
+  "defaultLanguage": "fr",
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "crs": {
+    "code": "EPSG:2154",
+    "name": "RGF93 v1 / Lambert-93"
+  },
+  "pipeline": {
+    "module": "cartography.regions.var_est",
+    "siteConfigDirectory": "regions/var-est/sites",
+    "outputDirectory": "regions/var-est/outputs",
+    "interactiveTerrainDirectory": "regions/var-est/outputs/interactive-terrain"
+  },
+  "regionalMap": {
+    "output": "regions/var-est/outputs/var-est-regional-relief.png",
+    "webDerivative": "apps/web/public/maps/var-est/var-est-regional-relief.png"
+  },
+  "sources": {
+    "bathymetry": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m"
+    },
+    "landElevation": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "aerialImagery": {
+      "id": "ign-bd-ortho",
+      "name": "IGN BD ORTHO",
+      "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO"
+    },
+    "regionalRelief": {
+      "id": "emodnet-bathymetry-dtm-2024",
+      "name": "EMODnet Bathymetry DTM 2024",
+      "url": "https://ows.emodnet-bathymetry.eu/wcs",
+      "attribution": "EMODnet Bathymetry DTM 2024; Shom–IGN Litto3D PACA 2015 nearshore; GEBCO 2024 only as no-data fallback; IGN RGE ALTI on land"
+    }
+  },
+  "sites": []
+}
