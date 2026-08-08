@@ -22,6 +22,7 @@
     "interactiveTerrainDirectory": "regions/var-est/outputs/interactive-terrain"
   },
   "regionalMap": {
+    "status": "awaiting-shared-builder",
     "output": "regions/var-est/outputs/var-est-regional-relief.png",
     "webDerivative": "apps/web/public/maps/var-est/var-est-regional-relief.png"
   },
@@ -50,5 +51,36 @@
       "attribution": "EMODnet Bathymetry DTM 2024; Shom–IGN Litto3D PACA 2015 nearshore; GEBCO 2024 only as no-data fallback; IGN RGE ALTI on land"
     }
   },
-  "sites": []
+  "sites": [
+    {
+      "slug": "les-pyramides-cap-dramont",
+      "name": "Les Pyramides",
+      "municipality": "Saint-Raphaël",
+      "config": "regions/var-est/sites/les-pyramides-cap-dramont.json"
+    },
+    {
+      "slug": "sec-de-l-ile-d-or",
+      "name": "Sec de l’Île d’Or",
+      "municipality": "Saint-Raphaël",
+      "config": "regions/var-est/sites/sec-de-l-ile-d-or.json"
+    },
+    {
+      "slug": "arche-du-dramont",
+      "name": "Arche du Dramont",
+      "municipality": "Saint-Raphaël",
+      "config": "regions/var-est/sites/arche-du-dramont.json"
+    },
+    {
+      "slug": "cathedrale-du-trayas",
+      "name": "Cathédrale du Trayas",
+      "municipality": "Saint-Raphaël",
+      "config": "regions/var-est/sites/cathedrale-du-trayas.json"
+    },
+    {
+      "slug": "le-village",
+      "name": "Le Village",
+      "municipality": "Saint-Raphaël",
+      "config": "regions/var-est/sites/le-village.json"
+    }
+  ]
 }

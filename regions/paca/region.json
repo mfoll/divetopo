@@ -63,12 +63,6 @@
       "name": "Les Magnons",
       "municipality": "Six-Fours-les-Plages",
       "config": "regions/paca/sites/les-magnons.json"
-    },
-    {
-      "slug": "les-pyramides-cap-dramont",
-      "name": "Les Pyramides",
-      "municipality": "Saint-Raphaël",
-      "config": "regions/paca/sites/les-pyramides-cap-dramont.json"
     }
   ]
 }

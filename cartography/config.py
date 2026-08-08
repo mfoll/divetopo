@@ -643,7 +643,7 @@ def validate_config(config: Mapping[str, Any]) -> None:
             _non_empty_string(config, "bathymetry_source_text")
         if "bathymetry_attribution" in config:
             _non_empty_string(config, "bathymetry_attribution")
-    elif region != "paca":
+    elif region not in {"paca", "var-est"}:
         raise ValueError(
             f"Region {region!r} has no configured source validation contract"
         )

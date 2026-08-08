@@ -7,17 +7,21 @@ Its canonical route is `/var-est`; its site routes will be
 
 ## Regional boundary
 
-The target inventory is:
+The first-wave inventory is limited to exactly five sites:
 
 - Les Pyramides;
 - Sec de l’Île d’Or;
 - Arche du Dramont;
-- Sec des Suisses / Cigales;
+- Cathédrale du Trayas;
 - Le Village;
+
+The following sites are explicitly deferred and their commits must not be
+cherry-picked into the first wave:
+
+- Sec des Suisses / Cigales;
 - La Vitrine;
 - Péniches d’Anthéor;
-- Lion de Mer;
-- Cathédrale du Trayas.
+- Lion de Mer.
 
 Only a site listed in `region.json` and carrying `web.published: true` is part
 of the generated public inventory. A new site remains a draft with
@@ -64,6 +68,12 @@ image or present itself as a crop of the PACA page. Its canonical image is used
 both for the homepage card and the regional site picker; the Web copy is a
 derived asset whose hash is recorded in the regional manifest.
 
+For the first regional integration commit, `regionalMap.status` is
+`awaiting-shared-builder`: the canonical and Web paths are reserved but no map
+is fabricated, cropped from PACA, or published. The global coordinator owns
+the shared regional builder. Map generation and its visual QA therefore belong
+to a second, targeted commit after that builder is integrated.
+
 Do not download source data or dependencies without explicit authorization.
 Rendering may reuse a valid local cache only after its projection, extent,
 resolution, signal and provenance have passed the pipeline checks.
@@ -83,7 +93,9 @@ separate decision:
 1. record SHA-256 hashes for every canonical output, interactive-terrain file
    and Web derivative before the move;
 2. move the configuration and canonical outputs to the Var Est paths, changing
-   the region identity and publication paths only;
+   the region identity and publication paths only, and remove only the
+   now-stale Les Pyramides entry from `regions/paca/region.json` as the narrowly
+   approved cross-region exception;
 3. move the Web derivatives from `/maps/paca/` to `/maps/var-est/`;
 4. rebuild manifests without rendering the site;
 5. compare all content hashes with the recorded pre-migration hashes;

@@ -2,6 +2,48 @@
   "schemaVersion": 2,
   "sites": [
     {
+      "slug": "les-pyramides-cap-dramont",
+      "title": "Les Pyramides, Cap Dramont–Île d’Or",
+      "metadata": "les-pyramides-cap-dramont/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "les-pyramides-cap-dramont/terrain.json",
+          "bytes": 5044,
+          "sha256": "a55d4a063a3a3c0f0783c8f9b9b24fd7e805bade04aa4c6699c3e2b0df3b0118"
+        },
+        "height": {
+          "path": "les-pyramides-cap-dramont/height.bin",
+          "bytes": 523260,
+          "sha256": "d3daacd6b77c5e01aebadefa2dbc25b4543f4fb3dc6dac722d49affc0d8cff00"
+        },
+        "validMask": {
+          "path": "les-pyramides-cap-dramont/valid-mask.bin",
+          "bytes": 32704,
+          "sha256": "38dcfa5869d76247101e7337479e370ac582110679343afbef62ed3137dcf809"
+        },
+        "isobathMask": {
+          "path": "les-pyramides-cap-dramont/isobath-mask.bin",
+          "bytes": 32704,
+          "sha256": "38dcfa5869d76247101e7337479e370ac582110679343afbef62ed3137dcf809"
+        },
+        "vectorIsobaths": {
+          "path": "les-pyramides-cap-dramont/isobaths-vector.json",
+          "bytes": 146826,
+          "sha256": "197b6b12931d6f0be9d5cfe3f5f9e2749c420dcc5b734ec52e6c540239abf0ff"
+        },
+        "topographicTexture": {
+          "path": "les-pyramides-cap-dramont/topographic.webp",
+          "bytes": 33252,
+          "sha256": "0df0aafd0d76fd9f30ba2656cbb747d14b82a23c366baa25272326f156acf361"
+        },
+        "orthophotoTexture": {
+          "path": "les-pyramides-cap-dramont/orthophoto.webp",
+          "bytes": 26370,
+          "sha256": "dd8a9d9b15b0a3a1528abb2e911d7c6219bcb18cf766c670c466029716bc10f0"
+        }
+      }
+    },
+    {
       "slug": "sec-de-l-ile-d-or",
       "title": "Sec de l’Île d’Or, Cap Dramont",
       "metadata": "sec-de-l-ile-d-or/terrain.json",

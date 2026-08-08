@@ -1,0 +1,67 @@
+from __future__ import annotations
+
+import json
+import unittest
+from pathlib import Path
+
+from cartography.config import ROOT, validate_config
+
+
+REGION_PATH = ROOT / "regions" / "var-est" / "region.json"
+EXPECTED_SITES = [
+    "les-pyramides-cap-dramont",
+    "sec-de-l-ile-d-or",
+    "arche-du-dramont",
+    "cathedrale-du-trayas",
+    "le-village",
+]
+EXPECTED_TERRAIN_PACKAGES = [
+    "les-pyramides-cap-dramont",
+    "sec-de-l-ile-d-or",
+    "cathedrale-du-trayas",
+    "le-village",
+]
+
+
+class VarEstRegionTests(unittest.TestCase):
+    def test_first_wave_inventory_is_exact_and_unpublished(self) -> None:
+        region = json.loads(REGION_PATH.read_text(encoding="utf-8"))
+        self.assertEqual(region["slug"], "var-est")
+        self.assertEqual(region["route"], "/var-est")
+        self.assertEqual(region["regionalMap"]["status"], "awaiting-shared-builder")
+        self.assertEqual(
+            [site["slug"] for site in region["sites"]],
+            EXPECTED_SITES,
+        )
+
+        for site in region["sites"]:
+            config = json.loads((ROOT / site["config"]).read_text(encoding="utf-8"))
+            with self.subTest(slug=site["slug"]):
+                self.assertEqual(config["region"], "var-est")
+                self.assertEqual(config["slug"], site["slug"])
+                self.assertIs(config["web"]["published"], False)
+                self.assertTrue(
+                    config.get("locator_marker_utm40s")
+                    or config.get("site_location_utm40s")
+                )
+                validate_config(config)
+
+    def test_combined_manifest_indexes_only_delivered_packages(self) -> None:
+        manifest_path = (
+            ROOT
+            / "regions"
+            / "var-est"
+            / "outputs"
+            / "interactive-terrain"
+            / "manifest.json"
+        )
+        manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+        self.assertEqual(manifest["schemaVersion"], 2)
+        self.assertEqual(
+            [site["slug"] for site in manifest["sites"]],
+            EXPECTED_TERRAIN_PACKAGES,
+        )
+
+
+if __name__ == "__main__":
+    unittest.main()

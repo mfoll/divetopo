@@ -23,7 +23,6 @@ class RegionalManifestTests(unittest.TestCase):
                 "pointe-portissol",
                 "deux-freres-cap-sicie",
                 "cap-des-medes",
-                "les-pyramides-cap-dramont",
             ],
         )
 
