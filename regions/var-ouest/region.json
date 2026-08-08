@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "slug": "var-ouest",
+  "names": {
+    "fr": "Var Ouest",
+    "en": "Western Var"
+  },
+  "description": {
+    "fr": "Sanary-sur-Mer, Le Brusc, les Embiez et le cap Sicié",
+    "en": "Sanary-sur-Mer, Le Brusc, the Embiez islands and Cape Sicié"
+  },
+  "crs": {
+    "code": "EPSG:2154",
+    "name": "RGF93 v1 / Lambert-93"
+  },
+  "defaultLanguage": "fr",
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "route": "/var-ouest",
+  "pipeline": {
+    "module": "cartography.regions.var_ouest",
+    "siteConfigDirectory": "regions/var-ouest/sites",
+    "outputDirectory": "regions/var-ouest/outputs",
+    "interactiveTerrainDirectory": "regions/var-ouest/outputs/interactive-terrain"
+  },
+  "web": {
+    "regionalMap": "apps/web/public/maps/var-ouest/var-ouest-regional-relief.png",
+    "mapManifest": "apps/web/content/var-ouest-map-manifest.json"
+  },
+  "sources": {
+    "bathymetry": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m"
+    },
+    "landElevation": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "aerialImagery": {
+      "id": "ign-bd-ortho",
+      "name": "IGN BD ORTHO",
+      "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO"
+    },
+    "regionalRelief": {
+      "id": "emodnet-bathymetry-2024",
+      "name": "EMODnet Bathymetry DTM 2024",
+      "url": "https://emodnet.ec.europa.eu/en/bathymetry"
+    },
+    "regionalReliefFallback": {
+      "id": "gebco-2024",
+      "name": "GEBCO 2024",
+      "url": "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid"
+    }
+  },
+  "sites": [
+    {
+      "slug": "pointe-portissol",
+      "name": "Pointe de Portissol",
+      "municipality": "Sanary-sur-Mer",
+      "publication": "published",
+      "config": "regions/var-ouest/sites/pointe-portissol.json"
+    },
+    {
+      "slug": "deux-freres-cap-sicie",
+      "name": "Les Deux Frères",
+      "municipality": "La Seyne-sur-Mer",
+      "publication": "published",
+      "config": "regions/var-ouest/sites/deux-freres-cap-sicie.json"
+    },
+    {
+      "slug": "pointe-de-la-cride",
+      "name": "Pointe de la Cride",
+      "municipality": "Sanary-sur-Mer",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/pointe-de-la-cride.json"
+    },
+    {
+      "slug": "les-magnons",
+      "name": "Les Magnons",
+      "municipality": "Six-Fours-les-Plages",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/les-magnons.json"
+    },
+    {
+      "slug": "la-merveilleuse",
+      "name": "La Merveilleuse",
+      "municipality": "Six-Fours-les-Plages",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/la-merveilleuse.json"
+    },
+    {
+      "slug": "plate-aux-merous",
+      "name": "Plate aux Mérous",
+      "municipality": "Six-Fours-les-Plages",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/plate-aux-merous.json"
+    },
+    {
+      "slug": "pierre-du-jas",
+      "name": "Pierre du Jas",
+      "municipality": "Six-Fours-les-Plages",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/pierre-du-jas.json"
+    },
+    {
+      "slug": "basses-moulinieres",
+      "name": "Basses Moulinières",
+      "municipality": "Six-Fours-les-Plages",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/basses-moulinieres.json"
+    },
+    {
+      "slug": "seche-guenaud",
+      "name": "Sèche Guenaud",
+      "municipality": "Six-Fours-les-Plages",
+      "publication": "draft",
+      "config": "regions/var-ouest/sites/seche-guenaud.json"
+    }
+  ]
+}
