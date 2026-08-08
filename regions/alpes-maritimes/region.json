@@ -76,5 +76,17 @@
       "municipality": "Villefranche-sur-Mer",
       "config": "regions/alpes-maritimes/sites/grotte-a-corail-villefranche.json"
     }
-  ]
+  ],
+  "regionalMap": {
+    "status": "generated",
+    "output": "regions/alpes-maritimes/outputs/alpes-maritimes-regional-relief.png",
+    "webDerivative": "apps/web/public/maps/alpes-maritimes/alpes-maritimes-regional-relief.png",
+    "boundsWgs84": [
+      6.896198253587896,
+      43.43069725776767,
+      7.387713264808246,
+      43.74269725776767
+    ],
+    "sha256": "a3d5122220c7e52bb8b51aeea159f5d7dc189dbd7b0eef50cf8a62493c486e79"
+  }
 }

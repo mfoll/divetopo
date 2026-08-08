@@ -51,8 +51,9 @@ regional inventory.
   orthophoto texture.
 - Grotte à Corail contains topographic and orthophoto static outputs and both
   interactive textures.
-- No regional locator map, responsive Web derivatives, regional Web manifest or
-  localized route is integrated yet.
+- The regional relief map and its byte-identical Web derivative are now
+  integrated. The Web manifest intentionally contains `sites: []`, so none of
+  the five drafts is exposed. No localized site route is integrated yet.
 
 Full-resolution inspection found additional publication blockers:
 
@@ -71,7 +72,43 @@ Full-resolution inspection found additional publication blockers:
   land texture. It is not an acceptable publication fallback in its current
   form.
 
-This commit completes regional inventory integration, not publication QA. The
-five drafts must remain unpublished until the missing regional map, Web assets,
-manifest, desktop/mobile marker geometry and complete interactive requirements
-have been produced, inspected and explicitly approved.
+## Regional relief map QA
+
+The regional relief builder was run with the existing project environment and
+official cached sources after integrating the shared builder fixes. The final
+asset is an RGB PNG measuring `1864 × 1440` pixels, with bounds:
+
+- west: `6.896198253587896`
+- south: `43.43069725776767`
+- east: `7.387713264808246`
+- north: `43.74269725776767`
+
+The canonical output and its Web derivative are byte-identical, with SHA-256
+`a3d5122220c7e52bb8b51aeea159f5d7dc189dbd7b0eef50cf8a62493c486e79`.
+The final build reports 67 Litto3D MNT5 tiles from three official archives and
+a Limite terre-mer mask differing from the Natural Earth topology guard by
+`0.007`. Full-resolution inspection found a coherent coastline and relief from
+Théoule, Cannes and Lérins through Antibes, Nice and Villefranche, without a
+surviving implausible large SLCONS polygon offshore.
+
+All five draft positions were projected against the generated bounds and
+inspected on a temporary QA overlay that is not part of the committed output:
+
+| Site | Map position | Pixel position |
+| --- | --- | --- |
+| Grande Baie – Cap-Ferrat | `86.50613%`, `18.13659%` | `1612, 261` |
+| Pointe de la Causinière – Cap-Ferrat | `88.46154%`, `21.79933%` | `1648, 314` |
+| La Vaquette | `11.53846%`, `83.27812%` | `215, 1198` |
+| La Tradelière | `35.68255%`, `73.49271%` | `665, 1058` |
+| Grotte à Corail – Villefranche | `83.95620%`, `16.72188%` | `1564, 241` |
+
+The point locations are geographically plausible and remain inside the map
+bounds. The three Cap-Ferrat/Villefranche labels overlap when rendered with the
+temporary overlay's naive label placement. This does not affect the unlabelled
+regional relief asset, but desktop/mobile marker and label geometry remains an
+explicit publication gate.
+
+The regional base-map gate therefore passes, while publication QA does not.
+The five drafts must remain unpublished until their site-level asset blockers,
+localized Web routing, responsive marker/label layout and complete interactive
+requirements have been resolved, inspected and explicitly approved.
