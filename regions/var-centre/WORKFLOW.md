@@ -18,31 +18,37 @@ Web appartiennent à `var-centre`, et non à une sous-région de `paca`.
 - Aucun fichier de ce dossier n'autorise à modifier la page d'accueil globale,
   une autre région, une version, une release ou un déploiement.
 
-## Inventaire attendu
+## Priorisation de la première vague
 
-Les deux sites déjà publiés doivent être migrés sans régénération inutile :
+La première vague est limitée à exactement cinq sites. Les deux sites déjà
+publiés doivent être migrés sans régénération inutile :
 
 - La Gabinière (`la-gabiniere-port-cros`);
 - Cap des Mèdes (`cap-des-medes`).
 
-Les sites suivants restent des brouillons non publiés jusqu'à QA complète et
-décision explicite :
+Les trois nouveaux sites de la première vague restent des brouillons non
+publiés jusqu'à QA complète et décision explicite :
 
 - Sec de la Jeaune Garde (`sec-de-la-jeaune-garde`);
-- Cimentier de la Jaume Garde (`cimentier-de-la-jaume-garde`);
 - Sec du Langoustier (`sec-du-langoustier`);
-- Les Fourmigues (`les-fourmigues`);
+- Les Fourmigues (`les-fourmigues`).
+
+Les sites suivants sont différés. Ne pas cherry-picker leurs commits, ne pas
+les ajouter à `region.json` et ne pas produire leurs sorties dans cette vague :
+
+- Cimentier de la Jaume Garde (`cimentier-de-la-jaume-garde`);
 - Pointe Escampobariou (`pointe-escampobariou`);
 - Anse du Raba (`anse-du-raba`);
 - Anse au Blé (`anse-au-ble`);
 - Sec des Carrières (`sec-des-carrieres`).
 
-Un commit de site reçu d'un worktree est intégré par `git cherry-pick` après
-inspection de son périmètre. Les conflits sont résolus dans la région, sans
+Un commit reçu pour l'un des cinq sites de la première vague est intégré par
+`git cherry-pick` après inspection de son périmètre. Tout commit d'un site
+différé est laissé de côté. Les conflits sont résolus dans la région, sans
 réécrire ni absorber des changements étrangers. La propriété de publication
 reste portée par `web.published` dans chaque configuration : `true` est réservé
-aux deux sites déjà publiés pendant leur migration; tout nouveau site reste à
-`false` jusqu'à une décision explicite.
+aux deux sites déjà publiés pendant leur migration; les trois nouveaux sites
+restent à `false` jusqu'à une décision explicite.
 
 ## Sources et référentiels
 
