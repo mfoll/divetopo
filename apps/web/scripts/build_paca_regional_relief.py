@@ -394,13 +394,21 @@ def read_litto3d_ascii(path: Path) -> tuple[np.ndarray, tuple[float, float, floa
         raise ValueError(f"Unexpected Litto3D grid shape in {path}: {values.shape}")
     if abs(cellsize - LITTO3D_CELL_SIZE_M) > 0.01:
         raise ValueError(f"Unexpected Litto3D cell size in {path}: {cellsize}")
-    xllcenter = headers["xllcenter"]
-    yllcenter = headers["yllcenter"]
+    if "xllcenter" in headers and "yllcenter" in headers:
+        origin_x = headers["xllcenter"] - cellsize / 2.0
+        origin_y = headers["yllcenter"] + (nrows - 0.5) * cellsize
+    elif "xllcorner" in headers and "yllcorner" in headers:
+        origin_x = headers["xllcorner"]
+        origin_y = headers["yllcorner"] + nrows * cellsize
+    else:
+        raise ValueError(
+            f"Missing ESRI ASCII lower-left origin in {path}"
+        )
     geotransform = (
-        xllcenter - cellsize / 2.0,
+        origin_x,
         cellsize,
         0.0,
-        yllcenter + (nrows - 0.5) * cellsize,
+        origin_y,
         0.0,
         -cellsize,
     )
