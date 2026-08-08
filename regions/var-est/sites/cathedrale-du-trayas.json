@@ -1,0 +1,118 @@
+{
+  "region": "var-est",
+  "slug": "cathedrale-du-trayas",
+  "title": "Cathédrale du Trayas",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 320,
+      "connector_width_rem": 1.3,
+      "label_offset_rem": 2.1,
+      "width_rem": 5.8
+    },
+    "interactive_initial_view": {
+      "zoom": 0.68,
+      "orbit_azimuth_deg": 325,
+      "camera_elevation_deg": 22
+    }
+  },
+  "plate_relief_source": "interactive",
+  "cache_dir": ".tmp/var-est-sources",
+  "paths": {
+    "context_depth_raw": ".tmp/var-est-sources/cathedrale-du-trayas-context-depth.tif",
+    "context_depth": ".tmp/var-est-sources/cathedrale-du-trayas-context-depth-positive.tif",
+    "context_elevation": ".tmp/var-est-sources/cathedrale-du-trayas-context-elevation.tif",
+    "focus_depth": ".tmp/var-est-sources/cathedrale-du-trayas-focus-depth-positive.tif",
+    "focus_elevation": ".tmp/var-est-sources/cathedrale-du-trayas-focus-elevation.tif",
+    "output_2d": "regions/var-est/outputs/cathedrale-du-trayas-topobathy-2d.jpg",
+    "output_2d_ortho": "regions/var-est/outputs/cathedrale-du-trayas-topobathy-2d-ortho.jpg",
+    "output_3d": "regions/var-est/outputs/cathedrale-du-trayas-topobathy-3d.jpg",
+    "output_3d_ortho": "regions/var-est/outputs/cathedrale-du-trayas-topobathy-3d-ortho.jpg"
+  },
+  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1015_6275/file/1015_6275.7z",
+  "litto3d_archive_members": [
+    "1015_6275/LITTO3D_FRA_1017_6272_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1017_6272_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "1015_6275/LITTO3D_FRA_1017_6273_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1017_6273_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "1015_6275/LITTO3D_FRA_1018_6272_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1018_6272_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "1015_6275/LITTO3D_FRA_1018_6273_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1018_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+  ],
+  "site_location_utm40s": [
+    1017982.805,
+    6271904.377
+  ],
+  "focus_bbox_utm40s": [
+    1017600,
+    6271400,
+    1018200,
+    6272200
+  ],
+  "context_bbox_utm40s": [
+    1017000,
+    6271000,
+    1018500,
+    6272300
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1018070,
+      6271790
+    ],
+    "width_m": 500,
+    "depth_m": 600,
+    "look_bearing_deg": 325
+  },
+  "view_bearing_deg": 325,
+  "view_visible_width_m": 340,
+  "interactive_view_visible_width_m": 340,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 20,
+  "plan_max_depth_m": 20,
+  "interactive_max_depth_m": 20,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Litto3D 2015 · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 35,
+  "camera_tilt": 0.38,
+  "along_view_projection_scale": 1.35,
+  "view_crop_width_m": 500,
+  "view_crop_depth_m": 700,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0,
+  "view_right_crop_fraction": 0,
+  "view_top_crop_fraction": 0,
+  "imagery_sea_full_depth_m": 0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5,
+  "output_scale": 2,
+  "plan_output_scale": 2,
+  "relief_output_scale": 1,
+  "map_style_scale": 2,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    1017982.805,
+    6271904.377
+  ],
+  "plate_site_name": "Cathédrale du Trayas",
+  "plate_city": "Saint-Raphaël",
+  "plate_city_detail": "Saint-Raphaël · Cap Trayas",
+  "plate_title": "Cathédrale du Trayas",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true
+}
