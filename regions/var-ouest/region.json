@@ -93,34 +93,6 @@
       "municipality": "Six-Fours-les-Plages",
       "publication": "draft",
       "config": "regions/var-ouest/sites/la-merveilleuse.json"
-    },
-    {
-      "slug": "plate-aux-merous",
-      "name": "Plate aux Mérous",
-      "municipality": "Six-Fours-les-Plages",
-      "publication": "draft",
-      "config": "regions/var-ouest/sites/plate-aux-merous.json"
-    },
-    {
-      "slug": "pierre-du-jas",
-      "name": "Pierre du Jas",
-      "municipality": "Six-Fours-les-Plages",
-      "publication": "draft",
-      "config": "regions/var-ouest/sites/pierre-du-jas.json"
-    },
-    {
-      "slug": "basses-moulinieres",
-      "name": "Basses Moulinières",
-      "municipality": "Six-Fours-les-Plages",
-      "publication": "draft",
-      "config": "regions/var-ouest/sites/basses-moulinieres.json"
-    },
-    {
-      "slug": "seche-guenaud",
-      "name": "Sèche Guenaud",
-      "municipality": "Six-Fours-les-Plages",
-      "publication": "draft",
-      "config": "regions/var-ouest/sites/seche-guenaud.json"
     }
   ]
 }

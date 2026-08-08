@@ -47,8 +47,11 @@ le champ explicite `web.published` de chaque configuration et par la présence
 du jeu d'artefacts complet dans le manifeste Web généré.
 
 - Pointe de Portissol et Les Deux Frères sont les deux sites publiés à migrer.
-- Pointe de la Cride, Les Magnons, La Merveilleuse, Plate aux Mérous, Pierre du
-  Jas, Basses Moulinières et Sèche Guenaud restent des brouillons.
+- Pointe de la Cride, Les Magnons et La Merveilleuse complètent la première
+  vague de cinq sites et restent des brouillons.
+- Plate aux Mérous, Pierre du Jas, Basses Moulinières et Sèche Guenaud sont
+  différés. Ils restent hors de l'inventaire actif et aucun de leurs commits ne
+  doit être cherry-pické pendant cette vague.
 - Un cherry-pick, une configuration valide ou la présence d'images ne suffit
   jamais à publier un brouillon.
 - Le passage de `web.published: false` à `true` exige la QA puis une décision
