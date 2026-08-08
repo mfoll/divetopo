@@ -1,0 +1,108 @@
+{
+  "region": "alpes-maritimes",
+  "slug": "grande-baie-cap-ferrat",
+  "title": "Grande Baie, Saint-Jean-Cap-Ferrat",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -1,
+      "connector_angle_deg": -16,
+      "connector_width_rem": 2.2,
+      "label_offset_rem": 3.0,
+      "width_rem": 6.8
+    },
+    "interactive_initial_view": {
+      "zoom": 0.95,
+      "orbit_azimuth_deg": 90,
+      "camera_elevation_deg": 28,
+      "isobath_label_focus_x_ndc": 0.05
+    }
+  },
+  "plate_relief_source": "static",
+  "paths": {
+    "output_2d": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-2d.jpg",
+    "output_3d": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-3d.jpg"
+  },
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1045_6300/file/1045_6300.7z",
+      "members": [
+        "1045_6300/LITTO3D_FRA_1048_6297_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1048_6297_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "1045_6300/LITTO3D_FRA_1048_6298_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1048_6298_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "1045_6300/LITTO3D_FRA_1049_6297_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1049_6297_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "1045_6300/LITTO3D_FRA_1049_6298_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1049_6298_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    1048300.0,
+    6296600.0,
+    1048900.0,
+    6297100.0
+  ],
+  "context_bbox_utm40s": [
+    1048200.0,
+    6296500.0,
+    1049000.0,
+    6297200.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1048500.0,
+      6296850.0
+    ],
+    "width_m": 450.0,
+    "depth_m": 600.0,
+    "look_bearing_deg": 90.0
+  },
+  "view_bearing_deg": 90.0,
+  "view_visible_width_m": 500.0,
+  "interactive_view_visible_width_m": 350.0,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_along_center": true,
+  "coast_mode": "mask",
+  "coastline_visible": true,
+  "max_depth_m": 45.0,
+  "interactive_max_depth_m": 45.0,
+  "plan_max_depth_m": 45.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · EPSG:2154 RGF93/Lambert-93 · IGN69 · dalle MNT du 16/01/2015 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "plan_suppressed_label_levels": [10, 15, 25, 30, 35],
+  "relief_suppressed_label_levels": [10, 15, 25, 30, 35],
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 80.0,
+  "camera_tilt": 0.55,
+  "along_view_projection_scale": 1.15,
+  "coast_frame_fraction": 0.48,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "orthophoto_enabled": false,
+  "locator_map_enabled": false,
+  "site_location_utm40s": [
+    1048337.102,
+    6296987.064
+  ],
+  "locator_label": "Grande Baie",
+  "plate_site_name": "Grande Baie",
+  "plate_city": "Saint-Jean-Cap-Ferrat",
+  "plate_city_detail": "Saint-Jean-Cap-Ferrat · côte ouest du Cap-Ferrat",
+  "plate_title": "Grande Baie, Saint-Jean-Cap-Ferrat",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "deep_edge_nodata_terrain_fill": false,
+  "clip_rotated_outside": true
+}
