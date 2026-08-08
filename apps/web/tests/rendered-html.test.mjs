@@ -22,11 +22,6 @@ const publishedSiteSlugs = new Set([
   "souris-chaude",
   "trois-bassins",
 ]);
-const regionalMetadataDescriptions = {
-  fr: "Plans topo-bathymétriques 2D et vues 3D interactives de sites de plongée à La Réunion.",
-  en: "Explore 2D topographic-bathymetric maps and interactive 3D views of dive sites around Réunion Island.",
-};
-
 async function render(pathOrHeaders = "/reunion/fr", additionalHeaders = {}) {
   const path =
     typeof pathOrHeaders === "string" ? pathOrHeaders : "/reunion/fr";
@@ -70,6 +65,20 @@ function extractH1(html) {
   const heading = html.match(/<h1\b[\s\S]*?<\/h1>/i)?.[0];
   assert.ok(heading, "expected the rendered page to contain an H1");
   return visibleText(heading);
+}
+
+function extractTitle(html) {
+  const title = html.match(/<title>([\s\S]*?)<\/title>/i)?.[1];
+  assert.ok(title, "expected the rendered page to contain a title");
+  return visibleText(title);
+}
+
+function extractMetadataDescription(html) {
+  const description = html.match(
+    /<meta name="description" content="([^"]*)"\/>/i,
+  )?.[1];
+  assert.ok(description, "expected the rendered page to contain a description");
+  return visibleText(description);
 }
 
 function visibleText(html) {
@@ -434,20 +443,28 @@ test("server-renders an indexable localized page for every published site", asyn
         expectedHeading,
         `${path}: expected the fixed regional H1`,
       );
-      assert.ok(
-        html.includes(`<title>${expectedHeading}</title>`),
-        `${path}: expected the fixed regional document title`,
+      const expectedTitle =
+        language === "fr"
+          ? `Plan de plongée ${site.displayName} à ${site.location.city} | DiveTopo`
+          : `${site.displayName} dive site map, ${site.location.city} | DiveTopo`;
+      assert.equal(
+        extractTitle(html),
+        expectedTitle,
+        `${path}: expected site-specific document title`,
       );
       assert.doesNotMatch(
         html,
         /class="site-introduction"/,
         `${path}: site-specific introductory prose must not render`,
       );
-      assert.ok(
-        html.includes(
-          `name="description" content="${regionalMetadataDescriptions[language]}"`,
-        ),
-        `${path}: expected the fixed regional metadata description`,
+      const expectedDescription =
+        language === "fr"
+          ? `Cartes topo-bathymétriques 2D et vue 3D interactive du site de plongée ${site.displayName}, à ${site.location.city}, jusqu’à −${site.planMaxDepthM} m.`
+          : `Explore 2D topographic-bathymetric maps and an interactive 3D view of the ${site.displayName} dive site in ${site.location.city}, to −${site.planMaxDepthM} m.`;
+      assert.equal(
+        extractMetadataDescription(html),
+        expectedDescription,
+        `${path}: expected a site-specific metadata description`,
       );
       assert.match(
         html,
@@ -569,6 +586,30 @@ test("redirects the neutral Réunion URL from saved and weighted language prefer
   assert.equal(
     neutralSiteResponse.headers.get("location"),
     "http://localhost/reunion/fr/sites/cap-homard",
+  );
+});
+
+test("permanently redirects the former Pont Rouge slug", async () => {
+  const [frenchResponse, englishResponse, neutralResponse] = await Promise.all([
+    render("/reunion/fr/sites/pont-rouge-la-tortue"),
+    render("/reunion/en/sites/pont-rouge-la-tortue"),
+    render("/reunion/sites/pont-rouge-la-tortue"),
+  ]);
+
+  assert.equal(frenchResponse.status, 308);
+  assert.equal(
+    frenchResponse.headers.get("location"),
+    "http://localhost/reunion/fr/sites/pont-rouge",
+  );
+  assert.equal(englishResponse.status, 308);
+  assert.equal(
+    englishResponse.headers.get("location"),
+    "http://localhost/reunion/en/sites/pont-rouge",
+  );
+  assert.equal(neutralResponse.status, 308);
+  assert.equal(
+    neutralResponse.headers.get("location"),
+    "http://localhost/reunion/sites/pont-rouge",
   );
 });
 

@@ -31,6 +31,10 @@ export const pacaPublishedSites = pacaMapManifest.sites;
 export const defaultSite = publishedSites[0];
 export const defaultPacaSite = pacaPublishedSites[0];
 
+const reunionSiteSlugAliases: Readonly<Record<string, string>> = {
+  "pont-rouge-la-tortue": "pont-rouge",
+};
+
 if (!defaultSite) {
   throw new Error("Topo Réunion requires at least one published site");
 }
@@ -45,6 +49,10 @@ export function isLanguage(value: string): value is Language {
 
 export function findPublishedSite(slug: string) {
   return publishedSites.find((site) => site.slug === slug);
+}
+
+export function canonicalReunionSiteSlug(slug: string) {
+  return reunionSiteSlugAliases[slug] ?? slug;
 }
 
 export function findPacaSite(slug: string) {
@@ -136,8 +144,6 @@ export function siteSeoText(
   site: PublishedSite,
   region: RegionSlug = "reunion",
 ) {
-  const copy = (region === "paca" ? pacaCopy : topoReunionCopy)[language];
-  const description = copy.metadataDescription;
   const regionLabel =
     region === "paca" ? "Côte d’Azur" : "La Réunion";
 
@@ -145,8 +151,11 @@ export function siteSeoText(
     const heading = `Plan du site de plongée ${site.displayName} en ${regionLabel}`;
     return {
       heading,
-      title: `${heading} | DiveTopo`,
-      description,
+      title: `Plan de plongée ${site.displayName} à ${site.location.city} | DiveTopo`,
+      description:
+        `Cartes topo-bathymétriques 2D et vue 3D interactive du site de ` +
+        `plongée ${site.displayName}, à ${site.location.city}, jusqu’à ` +
+        `−${site.planMaxDepthM} m.`,
       socialAlt: `Vue 3D du relief de ${site.displayName} en ${regionLabel}`,
     };
   }
@@ -154,8 +163,11 @@ export function siteSeoText(
   const heading = `${site.displayName} dive site map, ${regionLabel}`;
   return {
     heading,
-    title: `${heading} | DiveTopo`,
-    description,
+    title: `${site.displayName} dive site map, ${site.location.city} | DiveTopo`,
+    description:
+      `Explore 2D topographic-bathymetric maps and an interactive 3D view ` +
+      `of the ${site.displayName} dive site in ${site.location.city}, to ` +
+      `−${site.planMaxDepthM} m.`,
     socialAlt: `3D terrain view of ${site.displayName}, ${regionLabel}`,
   };
 }

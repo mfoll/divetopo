@@ -120,14 +120,13 @@ export function siteMetadata(
   region: RegionSlug = "reunion",
 ): Metadata {
   const text = siteSeoText(language, site, region);
-  const regionalText = regionalSeoText(language, region);
   const canonicalUrl = absoluteUrl(
     localizedSitePath(language, site.slug, region),
   );
   const image = siteSocialImage(site);
 
   return {
-    title: regionalText.title,
+    title: text.title,
     description: text.description,
     alternates: {
       canonical: canonicalUrl,

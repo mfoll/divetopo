@@ -118,6 +118,22 @@ test("server-renders the complete public PACA region and five sites", async () =
 
       assert.match(html, new RegExp(`<html lang="${language}"`), path);
       assert.match(html, new RegExp(`<h2[^>]*>${displayName}</h2>`), path);
+      const expectedTitle =
+        language === "fr"
+          ? `Plan de plongée ${displayName} à ${city} | DiveTopo`
+          : `${displayName} dive site map, ${city} | DiveTopo`;
+      assert.match(
+        html,
+        new RegExp(`<title>${escapeRegExp(expectedTitle)}</title>`),
+        `${path}: expected site-specific document title`,
+      );
+      assert.match(
+        html,
+        new RegExp(
+          `name="description" content="[^"]*${escapeRegExp(displayName)}[^"]*${escapeRegExp(city)}[^"]*"`,
+        ),
+        `${path}: expected site-specific metadata description`,
+      );
       assert.match(
         html,
         new RegExp(`/maps/paca/${slug}/maps/3d-dynamic-orthophoto-2474\\.webp`),

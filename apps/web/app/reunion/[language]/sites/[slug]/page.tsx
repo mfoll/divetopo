@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import {
+  canonicalReunionSiteSlug,
   findPublishedSite,
   isLanguage,
   publishedSites,
@@ -36,6 +37,11 @@ export async function generateMetadata({
 
 export default async function SitePage({ params }: SitePageProps) {
   const { language, slug } = await params;
+  const canonicalSlug = canonicalReunionSiteSlug(slug);
+  if (isLanguage(language) && canonicalSlug !== slug) {
+    permanentRedirect(`/reunion/${language}/sites/${canonicalSlug}`);
+  }
+
   const site = findPublishedSite(slug);
   if (!isLanguage(language) || !site) {
     notFound();

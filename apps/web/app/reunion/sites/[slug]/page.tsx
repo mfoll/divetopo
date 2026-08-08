@@ -1,5 +1,8 @@
-import { notFound, redirect } from "next/navigation";
-import { findPublishedSite } from "../../../../content/routing";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
+import {
+  canonicalReunionSiteSlug,
+  findPublishedSite,
+} from "../../../../content/routing";
 import { getPreferences } from "../../../preferences";
 
 export default async function DefaultSitePage({
@@ -8,6 +11,11 @@ export default async function DefaultSitePage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
+  const canonicalSlug = canonicalReunionSiteSlug(slug);
+  if (canonicalSlug !== slug) {
+    permanentRedirect(`/reunion/sites/${canonicalSlug}`);
+  }
+
   if (!findPublishedSite(slug)) {
     notFound();
   }
