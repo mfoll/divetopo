@@ -13,13 +13,20 @@
       "width_rem": 5.4
     },
     "interactive_initial_view": {
-      "zoom": 0.76,
-      "camera_elevation_deg": 45.0
+      "zoom": 0.80,
+      "camera_elevation_deg": 36.0,
+      "pan_up_m": 20.0
     }
   },
   "plate_relief_source": "static",
   "paths": {
-    "output_locator": "regions/var-est/outputs/le-village-locator-var-est.jpg"
+    "output_2d": "regions/var-est/outputs/le-village-topobathy-2d.jpg",
+    "output_2d_ortho": "regions/var-est/outputs/le-village-topobathy-2d-ortho.jpg",
+    "output_3d": "regions/var-est/outputs/le-village-topobathy-3d.jpg",
+    "output_3d_ortho": "regions/var-est/outputs/le-village-topobathy-3d-ortho.jpg",
+    "output_locator": "regions/var-est/outputs/le-village-locator-var-est.jpg",
+    "output_plate": "regions/var-est/outputs/le-village-planche.jpg",
+    "output_plate_topography": "regions/var-est/outputs/le-village-planche-topographique.jpg"
   },
   "cache_dir": ".tmp/var-est-sources",
   "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1010_6265/file/1010_6265.7z",
@@ -32,9 +39,9 @@
   ],
   "focus_bbox_utm40s": [
     1012150.0,
-    6264350.0,
+    6264403.0,
     1012550.0,
-    6264750.0
+    6264680.0
   ],
   "context_bbox_utm40s": [
     1012050.0,
@@ -66,6 +73,11 @@
   "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT brut à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
+  "plan_open_label_offsets_px": {
+    "5": [-34.0, 8.0],
+    "10": [0.0, -26.0],
+    "15": [34.0, 10.0]
+  },
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
