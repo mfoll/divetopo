@@ -30,9 +30,9 @@
   ],
   "focus_bbox_utm40s": [
     950050,
-    6220375,
+    6220429,
     950475,
-    6220775
+    6220723
   ],
   "context_bbox_utm40s": [
     949950,
@@ -47,15 +47,17 @@
     ],
     "width_m": 400,
     "depth_m": 380,
-    "look_bearing_deg": 0
+    "look_bearing_deg": 9
   },
-  "view_bearing_deg": 0,
-  "view_visible_width_m": 400,
+  "view_bearing_deg": 9,
+  "view_visible_width_m": 320,
   "interactive_view_visible_width_m": 320,
-  "view_center_offset_east_m": -25,
-  "view_center_offset_north_m": -75,
-  "view_crop_width_m": 450,
-  "view_crop_depth_m": 500,
+  "view_center_offset_east_m": -30,
+  "view_center_offset_north_m": 0,
+  "view_crop_width_m": 400,
+  "view_crop_depth_m": 400,
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
   "max_depth_m": 45,
@@ -70,6 +72,7 @@
     40
   ],
   "relief_suppressed_label_levels": [
+    35,
     40
   ],
   "interactive_exposure": 1.55,
@@ -86,9 +89,13 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5,
   "output_scale": 2,
-  "plan_output_scale": 2,
+  "plan_output_scale": 6,
   "relief_output_scale": 1,
   "map_style_scale": 2,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
   "orthophoto_capture_date": "2023-07-13",

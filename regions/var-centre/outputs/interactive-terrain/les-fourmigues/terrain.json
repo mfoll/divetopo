@@ -4,14 +4,14 @@
   "title": "Les Fourmigues, Giens",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 950050.0,
-    "south": 6220385.0,
-    "east": 950450.0,
-    "north": 6220765.0
+    "west": 950022.0,
+    "south": 6220356.0,
+    "east": 950478.0,
+    "north": 6220794.0
   },
   "physicalSizeM": {
-    "width": 400.0,
-    "depth": 380.0
+    "width": 456.0,
+    "depth": 438.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 400,
-    "height": 380,
-    "triangleCount": 302442,
+    "width": 456,
+    "height": 438,
+    "triangleCount": 397670,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -45.0,
-      "scaleMPerUnit": 0.0008666240424088303,
+      "scaleMPerUnit": 0.0008664693095331708,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -45.0,
-    "max": 11.794206619262695
+    "max": 11.784066200256348
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -120,27 +120,27 @@
       },
       "15": {
         "polylines": 4,
-        "points": 382
+        "points": 381
       },
       "20": {
         "polylines": 2,
-        "points": 425
+        "points": 438
       },
       "25": {
-        "polylines": 5,
-        "points": 566
+        "polylines": 4,
+        "points": 580
       },
       "30": {
-        "polylines": 3,
-        "points": 299
+        "polylines": 2,
+        "points": 325
       },
       "35": {
         "polylines": 3,
-        "points": 214
+        "points": 221
       },
       "40": {
         "polylines": 2,
-        "points": 164
+        "points": 181
       },
       "45": {
         "polylines": 0,
@@ -149,30 +149,30 @@
     },
     "totals": {
       "levels": 9,
-      "polylines": 23,
-      "points": 2394
+      "polylines": 21,
+      "points": 2470
     },
     "reprojectionResidualM": {
-      "samples": 2394,
-      "mean": 1.400538861678294e-08,
-      "p95": 1.892337841979941e-10,
-      "max": 1.4020400616487905e-05,
+      "samples": 2470,
+      "mean": 1.2770055753245885e-05,
+      "p95": 2.9352773545099067e-10,
+      "max": 0.009322334680518907,
       "withinTolerance": true
     }
   },
   "verticalExaggeration": 1.5,
   "view": {
-    "lookBearingDeg": 0.0,
-    "gridLookBearingDeg": 0.0,
+    "lookBearingDeg": 9.0,
+    "gridLookBearingDeg": 9.0,
     "cameraTilt": 0.65,
     "alongViewProjectionScale": 1.2,
     "visibleWidthM": 320.0,
     "coastFrameFraction": 0.52,
-    "horizontalCenterOffsetM": 25.0
+    "horizontalCenterOffsetM": 19.753767
   },
   "textures": {
-    "width": 400,
-    "height": 380,
+    "width": 456,
+    "height": 438,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -196,23 +196,23 @@
     ],
     "widthM": 400.0,
     "depthM": 380.0,
-    "lookBearingDeg": 0.0,
+    "lookBearingDeg": 9.0,
     "cornersUtm40s": [
       [
-        950050.0,
-        6220385.0
+        950022.74,
+        6220418.626
       ],
       [
-        950450.0,
-        6220385.0
+        950417.815,
+        6220356.052
       ],
       [
-        950450.0,
-        6220765.0
+        950477.26,
+        6220731.374
       ],
       [
-        950050.0,
-        6220765.0
+        950082.185,
+        6220793.948
       ]
     ]
   }
