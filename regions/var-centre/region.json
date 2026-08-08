@@ -26,7 +26,7 @@
     ],
     "output": "regions/var-centre/outputs/var-centre-regional-relief.png",
     "webDerivative": "apps/web/public/maps/var-centre/var-centre-regional-relief.png",
-    "sha256": "0662dbd7174a037bec8415fe533ec91a28650b5234dadc962a2d4acecd61eba1"
+    "sha256": "044aa08d3b0715ae690003f3c37b74707e241d73a90de233bf73c218172d2a96"
   },
   "pipeline": {
     "module": "cartography.regions.var_centre",

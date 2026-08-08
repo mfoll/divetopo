@@ -175,12 +175,13 @@ publiables, même si leurs actifs natifs passent les contrôles locaux.
 - Le builder partagé produit la carte régionale en `1864 × 1440 px` sur
   l'emprise WGS84 `[6.00, 42.86, 6.46, 43.10]`. Les copies régionale et Web sont
   identiques, avec le SHA-256
-  `0662dbd7174a037bec8415fe533ec91a28650b5234dadc962a2d4acecd61eba1`.
+  `044aa08d3b0715ae690003f3c37b74707e241d73a90de233bf73c218172d2a96`.
 - L'inspection plein format confirme une emprise propre à Giens, Porquerolles
-  et Port-Cros, une côte continue et l'absence de grand polygone SLCONS en mer.
-  Le relief terrestre et la bathymétrie restent lisibles. Les fragments de
-  terre coupés aux bords nord et est montrent la résolution RGE de bord, sans
-  affecter les cinq secteurs de plongée.
+  et Port-Cros, une côte continue et l'absence de grand polygone artificiel en
+  mer. Le masque repose sur `885` polygones terre officiels Shom–IGN, totalisant
+  `722 931` sommets; sa surface de `0,066` diffère de `0,005` de la garde
+  Natural Earth. Le relief reste continu et détaillé sur les trois secteurs,
+  et les petits îlots sont conservés sans damiers RGE ni segments rectilignes.
 - Les cinq positions transformées depuis EPSG:2154 tombent dans le cadre. Les
   positions relatives vont de `15.05659 %` à `85.45102 %` horizontalement et de
   `25.02502 %` à `46.38333 %` verticalement. Cap des Mèdes et La Gabinière
