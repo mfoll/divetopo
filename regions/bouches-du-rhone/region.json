@@ -76,5 +76,22 @@
       "municipality": "Marseille",
       "config": "regions/bouches-du-rhone/sites/tiboulen-du-frioul.json"
     }
-  ]
+  ],
+  "regionalMap": {
+    "status": "generated",
+    "output": "regions/bouches-du-rhone/outputs/bouches-du-rhone-regional-relief.png",
+    "webDerivative": "apps/web/public/maps/bouches-du-rhone/bouches-du-rhone-regional-relief.png",
+    "boundsWgs84": [
+      5.10386666850576,
+      43.07038316631086,
+      5.5198666685057605,
+      43.38238316631086
+    ],
+    "sha256": "7604240d5e16d7a39aaf800a6e4b8b4a98a07f8f446a73d2080bc72785060f6d",
+    "qa": {
+      "fullResolutionInspected": true,
+      "markerPositionsVerified": true,
+      "draftMarkersExposed": false
+    }
+  }
 }

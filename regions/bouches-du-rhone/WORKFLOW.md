@@ -88,9 +88,35 @@ Cette correction appartient à la généralisation globale et ne doit pas être
 contournée dans le commit régional. Les routes Web, la géométrie desktop/mobile
 des marqueurs et les interactions ne sont pas testables avant cette intégration.
 
-La carte régionale est également différée : elle attend le builder partagé.
-Il est interdit de créer un builder Bouches-du-Rhône dédié ou de réutiliser les
-bornes de la carte PACA actuelle.
+La carte régionale a été produite avec le builder partagé, sans builder
+Bouches-du-Rhône dédié et sans réutiliser les bornes de la carte PACA. Les
+deux copies canoniques sont identiques :
+
+- dimensions : `1864 × 1440 px` ;
+- bornes WGS84 : `5.10386667, 43.07038317, 5.51986667, 43.38238317` ;
+- SHA-256 :
+  `7604240d5e16d7a39aaf800a6e4b8b4a98a07f8f446a73d2080bc72785060f6d` ;
+- sortie régionale :
+  `regions/bouches-du-rhone/outputs/bouches-du-rhone-regional-relief.png` ;
+- dérivé Web :
+  `apps/web/public/maps/bouches-du-rhone/bouches-du-rhone-regional-relief.png`.
+
+L'inspection pleine résolution confirme une emprise cohérente couvrant
+Marseille, Frioul, Planier, Maïre, Riou et les Calanques, un trait de côte
+continu et un relief terrestre lisible. Les positions projetées dans le cadre
+sont :
+
+| Site | Longitude | Latitude | Position dans la carte |
+|---|---:|---:|---:|
+| Grotte à Corail – Maïre | 5.33183333 | 43.21033333 | 54.79968 %, 55.14418 % |
+| Pains de Sucre – Riou | 5.39711667 | 43.17558333 | 70.49279 %, 66.28200 % |
+| Impérial de Terre – Riou | 5.39300000 | 43.17283300 | 69.50320 %, 67.16351 % |
+| Pierre à la Bague – plateau | 5.22661667 | 43.19711667 | 29.50721 %, 59.38029 % |
+| Tiboulen du Frioul | 5.28500000 | 43.27993333 | 43.54167 %, 32.83649 % |
+
+Ces positions se trouvent toutes dans les bornes et correspondent visuellement
+aux secteurs attendus. Le manifeste Web conserve volontairement `sites: []` :
+aucun draft n'est publié et aucun marqueur de brouillon n'est exposé.
 
 Les sites déjà publiés qui appartiennent à cette zone doivent être migrés par
 copie contrôlée de leurs configurations et actifs canoniques, sans
