@@ -652,31 +652,26 @@ def limtm_land_mask(
             ):
                 official_land_array[component] = False
                 removed_components += 1
+    # A small global area delta does not guarantee a locally plausible mask:
+    # harbour SLCONS closures can create large straight-edged wedges in the
+    # sea while removing a similar area elsewhere. Keep Natural Earth as the
+    # regional topology and accept official refinements only in a narrow band
+    # around that coast for every frame, not only after an area sanity failure.
+    natural_near_coast = np.asarray(
+        Image.fromarray(
+            natural_land_array.astype(np.uint8) * 255,
+            mode="L",
+        ).filter(
+            ImageFilter.MaxFilter(LIMTM_REFINEMENT_RADIUS_PX * 2 + 1)
+        ),
+        dtype=np.uint8,
+    ) > 0
+    official_land_array = natural_land_array | (
+        official_land_array & natural_near_coast
+    )
     natural_area = float(natural_land_array.mean())
     official_area = float(official_land_array.mean())
     area_delta = abs(official_area - natural_area)
-    if area_delta > 0.05:
-        # Small autonomous-region frames can clip a LIMTM segment at the map
-        # edge. Keep the Natural Earth topology used to seed and validate the
-        # flood, and retain official LIMTM refinements only in a narrow coastal
-        # band. Detached harbour/SLCONS polygons classified as land far out at
-        # sea are therefore removed instead of surviving a global union.
-        natural_near_coast = np.asarray(
-            Image.fromarray(
-                natural_land_array.astype(np.uint8) * 255,
-                mode="L",
-            ).filter(
-                ImageFilter.MaxFilter(
-                    LIMTM_REFINEMENT_RADIUS_PX * 2 + 1
-                )
-            ),
-            dtype=np.uint8,
-        ) > 0
-        official_land_array = natural_land_array | (
-            official_land_array & natural_near_coast
-        )
-        official_area = float(official_land_array.mean())
-        area_delta = abs(official_area - natural_area)
     if area_delta > 0.05 or not official_land_array.any() or official_land_array.all():
         raise RuntimeError(
             "The Shom–IGN land-mask flood fill is implausible: "
