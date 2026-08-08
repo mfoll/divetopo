@@ -57,6 +57,26 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 - Le passage de `web.published: false` à `true` exige la QA puis une décision
   explicite. Il ne fait pas partie de l'intégration technique initiale.
 
+## État intégré de la vague 1
+
+| Site | Publication | Actifs reçus | Verdict de QA native |
+|---|---|---|---|
+| Pointe de Portissol | Publié avant migration | Plans 2D, planches, paquet interactif et dérivés Web complets | Migration bit à bit validée. Les 11 actifs canoniques/interactifs et les 14 dérivés Web ont les mêmes SHA-256 que leurs sources PACA. Les planches historiques conservent la mention « Côte d’Azur » afin de ne pas régénérer un site déjà publié. |
+| Les Deux Frères | Publié avant migration | Plans 2D, planches, paquet interactif et dérivés Web complets | Migration bit à bit validée. Les 11 actifs canoniques/interactifs et les 14 dérivés Web ont les mêmes SHA-256 que leurs sources PACA. Les planches historiques conservent la mention « Côte d’Azur ». |
+| Pointe de la Cride | Brouillon | Configuration uniquement | Incomplet : aucun plan, aucune planche, aucun paquet interactif et aucun dérivé Web. Exclu du manifeste interactif. |
+| Les Magnons | Brouillon | Plans 2D, vues 3D et paquet interactif | Incomplet : aucune planche et aucun dérivé Web. Les plans 2D reçus font `2000 × 2000 px` et les vues 3D `1455 × 1069 px`, hors dimensions canoniques `2474 × 1712 px`. Le paquet interactif passe le contrat de structure et de hash, mais ne vaut pas validation Web. |
+| La Merveilleuse | Brouillon | Plans 2D et paquet interactif | Incomplet : aucune vue 3D, aucune planche et aucun dérivé Web. Les crédits sont visiblement rognés à gauche et à droite sur les deux plans 2D. Le paquet interactif passe le contrat de structure et de hash ; ses coins extérieurs masqués restent à vérifier dans le viewer. |
+
+Le manifeste `outputs/interactive-terrain/manifest.json` indexe les quatre
+paquets techniquement complets : Portissol, Deux Frères, Magnons et La
+Merveilleuse. Il décrit la disponibilité d'un paquet, pas son état de
+publication. Cride en est absent. Les trois nouveaux sites conservent
+`web.published: false`.
+
+La carte régionale, les marqueurs et la QA Web desktop/mobile restent en attente
+du builder régional partagé. Aucun générateur propre à Var Ouest ne doit être
+créé pour contourner cette dépendance.
+
 ## Intégration des commits de sites
 
 1. Vérifier que le worktree est toujours fondé sur le commit v1.4 attendu et

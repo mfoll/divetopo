@@ -3,7 +3,7 @@
   "slug": "deux-freres-cap-sicie",
   "title": "Les Deux Frères, Cap Sicié",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right", "shift_y_rem": -2, "connector_angle_deg": -73.2,
       "connector_width_rem": 2.17, "label_offset_rem": 2, "width_rem": 6.02

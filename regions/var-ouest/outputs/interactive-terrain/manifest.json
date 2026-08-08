@@ -2,6 +2,90 @@
   "schemaVersion": 2,
   "sites": [
     {
+      "slug": "pointe-portissol",
+      "title": "Pointe de Portissol, Côte d’Azur",
+      "metadata": "pointe-portissol/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-portissol/terrain.json",
+          "bytes": 4326,
+          "sha256": "167e37fd3f694a17a385e70b332c90ad8f2f5a521e711772371f82e233b9b71a"
+        },
+        "height": {
+          "path": "pointe-portissol/height.bin",
+          "bytes": 390906,
+          "sha256": "3a9a055c480fc04b8f91eacfbaf53587b7d5ef740b961d57c3d671b404b2382c"
+        },
+        "validMask": {
+          "path": "pointe-portissol/valid-mask.bin",
+          "bytes": 24432,
+          "sha256": "946bd79993f8f6bd09f651ffa4166df4fa7282d17da382267865cd067d66cd7d"
+        },
+        "isobathMask": {
+          "path": "pointe-portissol/isobath-mask.bin",
+          "bytes": 24432,
+          "sha256": "946bd79993f8f6bd09f651ffa4166df4fa7282d17da382267865cd067d66cd7d"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-portissol/isobaths-vector.json",
+          "bytes": 104236,
+          "sha256": "4d30ed860a0d21139254186d398793b08002246e47a998367d2389e7e3f52b0a"
+        },
+        "topographicTexture": {
+          "path": "pointe-portissol/topographic.webp",
+          "bytes": 81960,
+          "sha256": "30e5a3cf6b1880e464bba2322de05f5c986543aed85415663e0ce9a16fae4f99"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-portissol/orthophoto.webp",
+          "bytes": 168580,
+          "sha256": "7f1735833b61af5e91a2ea647df23b6d29b155b314166c17311a3babca6e5fca"
+        }
+      }
+    },
+    {
+      "slug": "deux-freres-cap-sicie",
+      "title": "Les Deux Frères, Cap Sicié, Côte d’Azur",
+      "metadata": "deux-freres-cap-sicie/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "deux-freres-cap-sicie/terrain.json",
+          "bytes": 5457,
+          "sha256": "5e1d4df995a8371c7ea11115b43cc9590f90114eacddd08c5855754b66a1c93d"
+        },
+        "height": {
+          "path": "deux-freres-cap-sicie/height.bin",
+          "bytes": 501714,
+          "sha256": "db0e44c2c7213ac36f2e69f44701092ca495ca9217a734f1f254b9fa00b258c7"
+        },
+        "validMask": {
+          "path": "deux-freres-cap-sicie/valid-mask.bin",
+          "bytes": 31358,
+          "sha256": "1afa30e99d79283a9eb965cb78638a9a9fbd23de487c208f7248db35da3f71c8"
+        },
+        "isobathMask": {
+          "path": "deux-freres-cap-sicie/isobath-mask.bin",
+          "bytes": 31358,
+          "sha256": "1afa30e99d79283a9eb965cb78638a9a9fbd23de487c208f7248db35da3f71c8"
+        },
+        "vectorIsobaths": {
+          "path": "deux-freres-cap-sicie/isobaths-vector.json",
+          "bytes": 153956,
+          "sha256": "d1545790c909598bb9ac8608e52f0600c357fc2ff7a0da62e7fd438ee3793eb5"
+        },
+        "topographicTexture": {
+          "path": "deux-freres-cap-sicie/topographic.webp",
+          "bytes": 52960,
+          "sha256": "59d2ab1b4475a956e76f81aaea998da88b9969c4b4b90ebf025044010e16dfae"
+        },
+        "orthophotoTexture": {
+          "path": "deux-freres-cap-sicie/orthophoto.webp",
+          "bytes": 106194,
+          "sha256": "aea384a6285bbfe7cf7c3b834e906864797c0771da51864a71f6625b294e2f13"
+        }
+      }
+    },
+    {
       "slug": "les-magnons",
       "title": "Les Magnons, Le Brusc",
       "metadata": "les-magnons/terrain.json",
@@ -40,6 +124,48 @@
           "path": "les-magnons/orthophoto.webp",
           "bytes": 18988,
           "sha256": "59c1bf53a780c35b6a286273d32c3e20009e62cb395ea5123f397cca2a51451d"
+        }
+      }
+    },
+    {
+      "slug": "la-merveilleuse",
+      "title": "La Merveilleuse, Six-Fours-les-Plages",
+      "metadata": "la-merveilleuse/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "la-merveilleuse/terrain.json",
+          "bytes": 4737,
+          "sha256": "bd0d69960d4710c373f9b35282ee33154bf4ad8fe145fb60021b9ffe269fe677"
+        },
+        "height": {
+          "path": "la-merveilleuse/height.bin",
+          "bytes": 423738,
+          "sha256": "0df8ecdc8a0f3519fe692034cde5ba84f2726a5a76592c1307ee74113bcecbc0"
+        },
+        "validMask": {
+          "path": "la-merveilleuse/valid-mask.bin",
+          "bytes": 26484,
+          "sha256": "bfe6c5c34ecd6398c94d45d7ab352a03a6c030a9f4ef2f77dbf0f3f3cae14f49"
+        },
+        "isobathMask": {
+          "path": "la-merveilleuse/isobath-mask.bin",
+          "bytes": 26484,
+          "sha256": "bfe6c5c34ecd6398c94d45d7ab352a03a6c030a9f4ef2f77dbf0f3f3cae14f49"
+        },
+        "vectorIsobaths": {
+          "path": "la-merveilleuse/isobaths-vector.json",
+          "bytes": 193049,
+          "sha256": "9ed9eb82b2a1a46b665cc8f4762998bfffea0c548ec7f5546ae347788d576e78"
+        },
+        "topographicTexture": {
+          "path": "la-merveilleuse/topographic.webp",
+          "bytes": 35670,
+          "sha256": "1b9d7678ec6229cd596951ebfcfe255439e15de96e4e975f93d9e879c7bfddef"
+        },
+        "orthophotoTexture": {
+          "path": "la-merveilleuse/orthophoto.webp",
+          "bytes": 25474,
+          "sha256": "e078e2e132df3c0fbd5ef07f9d9fa714d9d49d6073d59fa8098e852cb1e24483"
         }
       }
     }

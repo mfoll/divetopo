@@ -64,6 +64,13 @@
       "name": "Pointe de Portissol",
       "municipality": "Sanary-sur-Mer",
       "publication": "published",
+      "artifacts": {
+        "status": "complete-migrated",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/var-ouest/sites/pointe-portissol.json"
     },
     {
@@ -71,6 +78,13 @@
       "name": "Les Deux Frères",
       "municipality": "La Seyne-sur-Mer",
       "publication": "published",
+      "artifacts": {
+        "status": "complete-migrated",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/var-ouest/sites/deux-freres-cap-sicie.json"
     },
     {
@@ -78,6 +92,13 @@
       "name": "Pointe de la Cride",
       "municipality": "Sanary-sur-Mer",
       "publication": "draft",
+      "artifacts": {
+        "status": "config-only",
+        "staticMaps": false,
+        "planches": false,
+        "interactiveTerrain": false,
+        "webDerivatives": false
+      },
       "config": "regions/var-ouest/sites/pointe-de-la-cride.json"
     },
     {
@@ -85,6 +106,13 @@
       "name": "Les Magnons",
       "municipality": "Six-Fours-les-Plages",
       "publication": "draft",
+      "artifacts": {
+        "status": "partial",
+        "staticMaps": true,
+        "planches": false,
+        "interactiveTerrain": true,
+        "webDerivatives": false
+      },
       "config": "regions/var-ouest/sites/les-magnons.json"
     },
     {
@@ -92,6 +120,13 @@
       "name": "La Merveilleuse",
       "municipality": "Six-Fours-les-Plages",
       "publication": "draft",
+      "artifacts": {
+        "status": "partial",
+        "staticMaps": true,
+        "planches": false,
+        "interactiveTerrain": true,
+        "webDerivatives": false
+      },
       "config": "regions/var-ouest/sites/la-merveilleuse.json"
     }
   ]
