@@ -73,9 +73,11 @@ Merveilleuse. Il décrit la disponibilité d'un paquet, pas son état de
 publication. Cride en est absent. Les trois nouveaux sites conservent
 `web.published: false`.
 
-La carte régionale, les marqueurs et la QA Web desktop/mobile restent en attente
-du builder régional partagé. Aucun générateur propre à Var Ouest ne doit être
-créé pour contourner cette dépendance.
+Le builder régional partagé produit la carte et son manifeste Web. Le manifeste
+final de la vague 1 contient uniquement Pointe de Portissol et Les Deux Frères,
+les deux sites publiés et complets. Pointe de la Cride, Les Magnons et La
+Merveilleuse en restent exclus avec `web.published: false`. Aucun générateur
+propre à Var Ouest n'a été créé.
 
 ## Intégration des commits de sites
 
@@ -121,6 +123,32 @@ Avant validation, contrôler à pleine résolution :
 - absence de chevauchement entre points, connecteurs et étiquettes ;
 - orthographe et rattachement communal ;
 - crédits et sources correspondant réellement aux couches rendues.
+
+### Résultat de QA de la carte v1.4
+
+La carte `1864 × 1440 px` a été inspectée à sa résolution native. Le masque de
+terre rasterise directement la couche polygonale officielle Shom–IGN
+`LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones` : `863`
+features, `880196` sommets, fraction terrestre `0.384` et écart `0.004` avec le
+garde-fou Natural Earth. Les anciens triangles de fermeture, raccords diagonaux
+et blocs côtiers trompeurs ne sont plus présents. Le SHA-256 du PNG canonique et
+de son dérivé Web est
+`da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460`.
+
+Le manifeste Web contient exactement deux marqueurs : Pointe de Portissol à
+`44.85903 %, 40.06602 %` et Les Deux Frères à `64.15702 %, 60.69149 %`. Les
+positions concordent avec leurs coordonnées WGS84, les deux étiquettes sont
+lisibles à droite de marqueurs nettement séparés et leurs connecteurs ne se
+chevauchent pas. Les `28` actifs Web locaux référencés par leurs cartes et
+aperçus de planches ont été vérifiés par chemin, taille et SHA-256, sans écart.
+Les téléchargements de planches historiques restent les actifs de release v1.3
+déjà validés lors de la migration bit à bit.
+
+La QA Web n'a pas pu être reproduite localement : ce worktree ne contient aucun
+`node_modules` et aucune dépendance n'a été téléchargée. Le coordinateur global
+a rapporté la validation des routes desktop sur la branche principale. La vue
+mobile n'a pas été reproduite dans ce worktree ; cette limite est conservée dans
+`region.json` au lieu d'être déclarée comme un succès local.
 
 ## Gate de QA régionale
 

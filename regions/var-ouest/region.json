@@ -129,5 +129,45 @@
       },
       "config": "regions/var-ouest/sites/la-merveilleuse.json"
     }
-  ]
+  ],
+  "regionalMap": {
+    "status": "generated",
+    "output": "regions/var-ouest/outputs/var-ouest-regional-relief.png",
+    "webDerivative": "apps/web/public/maps/var-ouest/var-ouest-regional-relief.png",
+    "boundsWgs84": [
+      5.60137653225283,
+      42.925986259900625,
+      6.017376532252831,
+      43.23798625990062
+    ],
+    "sha256": "da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460",
+    "qa": {
+      "status": "passed-with-web-qa-delegated",
+      "validatedOn": "2026-08-08",
+      "fullResolutionInspection": "passed",
+      "officialLandPolygons": {
+        "features": 863,
+        "vertices": 880196,
+        "landAreaFraction": 0.384,
+        "naturalEarthAreaDelta": 0.004
+      },
+      "manifest": {
+        "publishedSites": [
+          "pointe-portissol",
+          "deux-freres-cap-sicie"
+        ],
+        "draftSitesExcluded": [
+          "pointe-de-la-cride",
+          "les-magnons",
+          "la-merveilleuse"
+        ],
+        "localAssetsChecked": 28
+      },
+      "web": {
+        "localDesktopMobile": "not-run-node-modules-absent",
+        "globalDesktop": "reported-passed-by-global-coordinator",
+        "mobile": "not-reproduced-in-this-worktree"
+      }
+    }
+  }
 }

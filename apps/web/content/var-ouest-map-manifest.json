@@ -1,0 +1,459 @@
+{
+  "schemaVersion": 2,
+  "reunionOverview": {
+    "src": "/maps/paca/france-metropolitan-situation.png",
+    "width": 1000,
+    "height": 840
+  },
+  "westCoastLocator": {
+    "src": "/maps/var-ouest/var-ouest-regional-relief.png",
+    "width": 1864,
+    "height": 1440,
+    "boundsWgs84": {
+      "west": 5.60137653225283,
+      "south": 42.925986259900625,
+      "east": 6.017376532252831,
+      "north": 43.23798625990062
+    },
+    "bytes": 1406078,
+    "sha256": "da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460",
+    "source": "Shom–IGN Limite terre-mer for the visible var-ouest coastline; Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; EMODnet Bathymetry DTM 2024 for offshore bathymetry; GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024 only as no-data fallback; IGN RGE ALTI for land relief",
+    "sourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "layer": "emodnet:mean",
+    "marineSourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "marineLayer": "emodnet:mean",
+    "marineResolution": "1/16 arc minute native DTM grid (~115 m)",
+    "detailSourceUrl": "https://data.geopf.fr/wmts",
+    "detailLayer": "ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES",
+    "detailTileMatrixSet": "WGS84G_6_14",
+    "detailZoom": 11,
+    "detailBathymetrySourceUrl": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL",
+    "detailBathymetryLayer": "LITTO3D PACA 2015 MNT5m",
+    "detailBathymetryCrs": "EPSG:2154",
+    "detailBathymetryResolutionM": 5.0,
+    "detailBathymetryArchiveCount": 4,
+    "detailBathymetryTileCount": 71,
+    "coastlineSource": "Shom–IGN Limite terre-mer official land polygons, LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones; Natural Earth 10m Admin 0 Countries v5.1.1 is used only for sanity checking",
+    "coastlineSourceUrl": "https://services.data.shom.fr/INSPIRE/wfs",
+    "coastlineLayer": "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones",
+    "coastlineFeatureTypes": "official land polygons",
+    "coastlineResolution": "1–7 m product resolution",
+    "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
+  },
+  "sites": [
+    {
+      "slug": "pointe-portissol",
+      "displayName": "Pointe de Portissol",
+      "plateTitle": "Pointe de Portissol, Sanary-sur-Mer",
+      "config": "regions/var-ouest/sites/pointe-portissol.json",
+      "assetBasePath": "/maps/var-ouest/pointe-portissol",
+      "location": {
+        "city": "Sanary-sur-Mer",
+        "latitude": 43.11298029,
+        "longitude": 5.78799011
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 44.85903,
+        "yPercent": 40.06602
+      },
+      "maxDepthM": 25,
+      "planMaxDepthM": 25,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/2d-topographic.jpg?v=440405ac4b4d",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1583259,
+              "sha256": "440405ac4b4d7731d6f93e4f2c3a88878fd4330ba9a65e415de2ce2b96e480c4"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-portissol/maps/2d-topographic.jpg?v=440405ac4b4d",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1583259,
+            "sha256": "440405ac4b4d7731d6f93e4f2c3a88878fd4330ba9a65e415de2ce2b96e480c4",
+            "filename": "pointe-portissol-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/2d-orthophoto.jpg?v=bc6f28ed64e0",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2275223,
+              "sha256": "bc6f28ed64e021c197d83b7c0621054370de48b2f08bab81601d6f1081f62982"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-portissol/maps/2d-orthophoto.jpg?v=bc6f28ed64e0",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2275223,
+            "sha256": "bc6f28ed64e021c197d83b7c0621054370de48b2f08bab81601d6f1081f62982",
+            "filename": "pointe-portissol-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 68480,
+              "sha256": "53bbe8c9592219eaaf870760b1df1ec65cb0d82dd488ca485dafc6b37700625f"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 129650,
+              "sha256": "59b825ce17b031cdbd808fd0b6c403e023dd8b359ca85ba7c0757d598f48ceae"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 224980,
+              "sha256": "6869badbe011b0551e8e173a723a02d408feed4ad658c77e875d4df5cfd4c545"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-portissol/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 722353,
+            "sha256": "409853b56f3f49fc8db4863f03f39df63584042c40908b81e7d94aab5c3e68c5",
+            "filename": "pointe-portissol-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 98002,
+              "sha256": "b2c179073a78134cce97911f1342dd512c876d21adecb39f355aca31b60c2051"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 187118,
+              "sha256": "f22c579cc9b266e791176b429ee26565f34a819d49969027aaad6705a0606308"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-portissol/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 308184,
+              "sha256": "8e2ee9c17962eb1207a6594355c5ccb72f9b9eebc96ad8cc2d2e7264e12aaf41"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-portissol/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 877997,
+            "sha256": "f31a4a949f684a7ef03180dc10c5ab7e2db9735f66c719b621170e7d33fcf091",
+            "filename": "pointe-portissol-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-ouest/pointe-portissol/maps/planche-topographic-1800.webp?v=c143a5c7564a",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 167540,
+            "sha256": "c143a5c7564a886f097819b9c857ff9e292d7d87fb109cd2bdc2d07be5e75687"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-portissol-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4557939,
+            "sha256": "0cbb8beaec74b6eb900b87d90b7b0a35e4625c864adc0a7422f4e0b152bdca21",
+            "filename": "pointe-portissol-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-ouest/pointe-portissol/maps/planche-orthophoto-1800.webp?v=fc9b714eaf19",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 249654,
+            "sha256": "fc9b714eaf19ae984f6afe0cc7d16fe3e7062d7a2791c6d22f8601e677047334"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-portissol-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5556647,
+            "sha256": "99ac867886af1977aa077cbd2d7e80384c4756e92092505aa285b5c504db6acc",
+            "filename": "pointe-portissol-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -3.5,
+        "connectorAngleDeg": -76.2,
+        "connectorWidthRem": 3.68,
+        "labelOffsetRem": 2.25,
+        "widthRem": 6.92
+      },
+      "interactiveInitialView": {
+        "zoom": 1
+      }
+    },
+    {
+      "slug": "deux-freres-cap-sicie",
+      "displayName": "Les Deux Frères",
+      "plateTitle": "Les Deux Frères, Cap Sicié",
+      "config": "regions/var-ouest/sites/deux-freres-cap-sicie.json",
+      "assetBasePath": "/maps/var-ouest/deux-freres-cap-sicie",
+      "location": {
+        "city": "La Seyne-sur-Mer · Cap Sicié",
+        "latitude": 43.04862882,
+        "longitude": 5.86826973
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 64.15702,
+        "yPercent": 60.69149
+      },
+      "maxDepthM": 45,
+      "planMaxDepthM": 45,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=79fb2202eff3",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1702947,
+              "sha256": "79fb2202eff308e6f2eea1c0c3fdda21adf039621996d4c96bb56e96be79784b"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=79fb2202eff3",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1702947,
+            "sha256": "79fb2202eff308e6f2eea1c0c3fdda21adf039621996d4c96bb56e96be79784b",
+            "filename": "deux-freres-cap-sicie-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=eef0964b7df5",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2071127,
+              "sha256": "eef0964b7df5a964328721b759da9bcfbf6b70686a59e8ab663ffa38580b8c96"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=eef0964b7df5",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2071127,
+            "sha256": "eef0964b7df5a964328721b759da9bcfbf6b70686a59e8ab663ffa38580b8c96",
+            "filename": "deux-freres-cap-sicie-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 81848,
+              "sha256": "543973cacf8ef34480ca4385808bd62cc690ba7a496e3af37bf9a651e7b97c24"
+            },
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 163506,
+              "sha256": "2b24dd7167ec1fcd81db8f8b61d515f68373d00bd273aa16cf602f629ac4907a"
+            },
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 278770,
+              "sha256": "2a94c1028edc50c8562f78f667a2b4b18825e5708ed8aefbb4ae847226eb9e1d"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 782488,
+            "sha256": "663d8be5f9fddb398243861a8d466d0aaebd49ba78166581a2a6024669fadc6f",
+            "filename": "deux-freres-cap-sicie-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 83798,
+              "sha256": "84ec71b95bab9222c5dc5716bc02cdae440984c87cb488c88550a001ed64e965"
+            },
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 166946,
+              "sha256": "eda36a076aea460525e1d5fa6dd18aab8dfed3f7bee9e4b9f4031f748825f823"
+            },
+            {
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 284260,
+              "sha256": "89dab292612735066c01bae8105599bb4d7508991ba69440d661e15b8b45adde"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 793385,
+            "sha256": "b56ad07ff25c6a2f66ad2f0c16c2bbd3bb669b63e00f1f1142e263679f0bb333",
+            "filename": "deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/planche-topographic-1800.webp?v=d00490ac4e7b",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 187328,
+            "sha256": "d00490ac4e7b87cfc7fb6a9e59b38bf56d1baf834db52d0d350daf7906c2fadc"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/deux-freres-cap-sicie-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4724526,
+            "sha256": "0b39f834e52c8beea6904bbdd8e0aad541824563e99dc3e2e7435eefddc366bb",
+            "filename": "deux-freres-cap-sicie-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp?v=165186626889",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 218660,
+            "sha256": "1651866268898744c092ddf4aad4babab5ab668247aa521942b67846220f106c"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/deux-freres-cap-sicie-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5146842,
+            "sha256": "6c3cd326e619c6b7030d8b80162ad2d608c3773dd02e493557d81e19e984d2d8",
+            "filename": "deux-freres-cap-sicie-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -2,
+        "connectorAngleDeg": -73.2,
+        "connectorWidthRem": 2.17,
+        "labelOffsetRem": 2,
+        "widthRem": 6.02
+      },
+      "interactiveInitialView": {
+        "zoom": 0.9,
+        "centerOffsetEastM": 310,
+        "centerOffsetSouthM": 100
+      }
+    }
+  ]
+}
