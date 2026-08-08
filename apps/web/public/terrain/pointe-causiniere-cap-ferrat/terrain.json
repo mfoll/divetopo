@@ -1,0 +1,209 @@
+{
+  "schemaVersion": 2,
+  "slug": "pointe-causiniere-cap-ferrat",
+  "title": "Pointe de la Causinière, Saint-Jean-Cap-Ferrat",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 1049014.0,
+    "south": 6295638.0,
+    "east": 1049347.0,
+    "north": 6295922.0
+  },
+  "physicalSizeM": {
+    "width": 333.0,
+    "depth": 284.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 333,
+    "height": 284,
+    "triangleCount": 187912,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -39.778526306152344,
+      "scaleMPerUnit": 0.001167715882749318,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -39.778526306152344,
+    "max": 36.74773406982422
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        126,
+        29
+      ],
+      "10": [
+        133,
+        222,
+        112
+      ],
+      "15": [
+        40,
+        129,
+        211
+      ],
+      "20": [
+        12,
+        41,
+        118
+      ],
+      "25": [
+        6,
+        26,
+        90
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        14,
+        60
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 1,
+        "points": 171
+      },
+      "10": {
+        "polylines": 1,
+        "points": 156
+      },
+      "15": {
+        "polylines": 1,
+        "points": 89
+      },
+      "20": {
+        "polylines": 1,
+        "points": 79
+      },
+      "25": {
+        "polylines": 1,
+        "points": 66
+      },
+      "30": {
+        "polylines": 1,
+        "points": 43
+      },
+      "35": {
+        "polylines": 1,
+        "points": 33
+      },
+      "40": {
+        "polylines": 0,
+        "points": 0
+      }
+    },
+    "totals": {
+      "levels": 8,
+      "polylines": 7,
+      "points": 637
+    },
+    "reprojectionResidualM": {
+      "samples": 637,
+      "mean": 8.240333982976126e-06,
+      "p95": 3.067412990276331e-12,
+      "max": 0.004650189441972152,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 110.0,
+    "gridLookBearingDeg": 110.0,
+    "cameraTilt": 0.6,
+    "alongViewProjectionScale": 1.1,
+    "visibleWidthM": 170.0,
+    "coastFrameFraction": 0.5
+  },
+  "textures": {
+    "width": 333,
+    "height": 284,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · dalle 1049_6296 · MNT 1 m · RGF93 / Lambert-93 EPSG:2154 · IGN69 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche au large reste hors du périmètre vérifié ; aucun fragment d’isobathe n’est interpolé en MNT · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-07-10",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · dalle 1049_6296 · MNT 1 m · RGF93 / Lambert-93 EPSG:2154 · IGN69 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche au large reste hors du périmètre vérifié ; aucun fragment d’isobathe n’est interpolé en MNT · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · dalle 1049_6296 · MNT 1 m · RGF93 / Lambert-93 EPSG:2154 · IGN69 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche au large reste hors du périmètre vérifié ; aucun fragment d’isobathe n’est interpolé en MNT · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      1049180.679,
+      6295780.0
+    ],
+    "widthM": 200.0,
+    "depthM": 280.0,
+    "lookBearingDeg": 110.0,
+    "cornersUtm40s": [
+      [
+        1049083.324,
+        6295921.852
+      ],
+      [
+        1049014.92,
+        6295733.914
+      ],
+      [
+        1049278.034,
+        6295638.148
+      ],
+      [
+        1049346.438,
+        6295826.086
+      ]
+    ]
+  }
+}

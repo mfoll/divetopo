@@ -13,15 +13,20 @@
       "width_rem": 7.6
     },
     "interactive_initial_view": {
-      "zoom": 0.9,
-      "camera_elevation_deg": 32,
-      "isobath_label_focus_x_ndc": 0.1
+      "zoom": 0.68,
+      "camera_elevation_deg": 30,
+      "isobath_label_focus_x_ndc": 0.25
     }
   },
-  "plate_relief_source": "interactive",
+  "plate_relief_source": "static",
   "paths": {
     "output_2d": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-2d.jpg",
-    "output_3d": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-3d.jpg"
+    "output_2d_ortho": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-2d-ortho.jpg",
+    "output_3d": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-3d.jpg",
+    "output_3d_ortho": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-3d-ortho.jpg",
+    "output_locator": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-locator-alpes-maritimes.jpg",
+    "output_plate": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-planche.jpg",
+    "output_plate_topography": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-planche-topographique.jpg"
   },
   "litto3d_archives": [
     {
@@ -33,9 +38,9 @@
   ],
   "focus_bbox_utm40s": [
     1049000.0,
-    6295560.0,
-    1049300.0,
-    6295782.0
+    6295624.0,
+    1049264.0,
+    6295819.0
   ],
   "context_bbox_utm40s": [
     1049000.0,
@@ -46,7 +51,7 @@
   "interactive_footprint_utm40s": {
     "center": [
       1049180.679,
-      6295820.0
+      6295780.0
     ],
     "width_m": 200.0,
     "depth_m": 280.0,
@@ -64,10 +69,13 @@
   "interactive_max_depth_m": 40.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Litto3D PACA 2015 · dalle 1049_6296 · MNT 1 m · EPSG:2154 / IGN69",
-  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, prépaquet 1045_6300, dalle 1049_6296, MNT maillé à 1 m, RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche documentée jusqu’à environ -65 m reste hors MNT vérifié ; aucun fragment d’isobathe n’est interpolé en MNT",
+  "bathymetry_source_text": "Litto3D PACA · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · dalle 1049_6296 · MNT 1 m · RGF93 / Lambert-93 EPSG:2154 · IGN69 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche au large reste hors du périmètre vérifié ; aucun fragment d’isobathe n’est interpolé en MNT",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
+  "relief_surface_draped_contours": true,
+  "relief_surface_contour_supersampling": 2,
+  "relief_suppressed_label_levels": [20, 25, 30, 35],
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
@@ -86,8 +94,13 @@
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
   "map_style_scale": 2.0,
-  "orthophoto_enabled": false,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-10",
+  "orthophoto_resolution_m": 0.5,
+  "orthophoto_3d_resolution_m": 0.5,
   "locator_map_enabled": false,
+  "locator_label": "Pointe de la Causinière",
   "site_location_utm40s": [
     1049180.679,
     6295761.403
