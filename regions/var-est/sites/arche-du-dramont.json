@@ -13,13 +13,13 @@
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.62,
+      "zoom": 0.65,
       "orbit_azimuth_deg": 132.0,
-      "camera_elevation_deg": 30.0,
+      "camera_elevation_deg": 45.0,
       "pan_right_m": 0.0,
       "pan_up_m": 0.0,
-      "center_offset_east_m": 0.0,
-      "center_offset_south_m": 0.0,
+      "center_offset_east_m": -28.128,
+      "center_offset_south_m": 60.0,
       "isobath_label_focus_x_ndc": 0.0
     }
   },
@@ -47,19 +47,19 @@
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      1011607.0,
-      6264325.0
+      1011585.0,
+      6264440.0
     ],
-    "width_m": 350.0,
-    "depth_m": 410.0,
+    "width_m": 520.0,
+    "depth_m": 620.0,
     "look_bearing_deg": 132.0
   },
   "view_bearing_deg": 132.0,
-  "view_visible_width_m": 340.0,
-  "interactive_view_visible_width_m": 300.0,
+  "view_visible_width_m": 420.0,
+  "interactive_view_visible_width_m": 420.0,
   "view_center_offset_east_m": 56.872,
   "view_center_offset_north_m": -89.465,
-  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_horizontal_center": false,
   "interactive_reselect_vector_labels_on_camera_end": true,
   "coast_mode": "mask",
   "coastline_visible": true,
@@ -88,8 +88,8 @@
   "view_crop_width_m": 380.0,
   "view_crop_depth_m": 260.0,
   "imagery_sea_full_depth_m": 0.0,
-  "imagery_sea_max_depth_m": 0.5,
-  "imagery_sea_smoothing_m": 5.0,
+  "imagery_sea_max_depth_m": 0.25,
+  "imagery_sea_smoothing_m": 3.0,
   "output_scale": 2.0,
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
@@ -116,6 +116,6 @@
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
-  "vertical_exaggeration": 2.5,
+  "vertical_exaggeration": 1.0,
   "clip_rotated_outside": true
 }

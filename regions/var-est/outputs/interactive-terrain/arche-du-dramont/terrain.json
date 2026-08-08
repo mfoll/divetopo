@@ -4,14 +4,14 @@
   "title": "Arche du Dramont",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 1011337.5,
-    "south": 6264057.5,
-    "east": 1011876.5,
-    "north": 6264592.5
+    "west": 1011180.5,
+    "south": 6264038.5,
+    "east": 1011989.5,
+    "north": 6264841.5
   },
   "physicalSizeM": {
-    "width": 539.0,
-    "depth": 535.0
+    "width": 809.0,
+    "depth": 803.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -25.0,
-      "scaleMPerUnit": 0.0006090814519585193,
+      "scaleMPerUnit": 0.0006089656897064859,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -25.0,
-    "max": 14.916152954101562
+    "max": 14.90856647491455
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -91,53 +91,52 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 2,
-        "points": 246
+        "polylines": 4,
+        "points": 460
       },
       "10": {
-        "polylines": 3,
-        "points": 494
+        "polylines": 4,
+        "points": 679
       },
       "15": {
-        "polylines": 7,
-        "points": 600
+        "polylines": 6,
+        "points": 730
       },
       "20": {
         "polylines": 2,
-        "points": 247
+        "points": 312
       },
       "25": {
         "polylines": 2,
-        "points": 234
+        "points": 287
       }
     },
     "totals": {
       "levels": 5,
-      "polylines": 16,
-      "points": 1821
+      "polylines": 18,
+      "points": 2468
     },
     "reprojectionResidualM": {
-      "samples": 1821,
-      "mean": 4.148229385243966e-06,
-      "p95": 1.0161489427673587e-09,
-      "max": 0.003947073095252662,
+      "samples": 2468,
+      "mean": 5.263733334232158e-06,
+      "p95": 4.157887634193081e-09,
+      "max": 0.007172700263258669,
       "withinTolerance": true
     }
   },
-  "verticalExaggeration": 2.5,
+  "verticalExaggeration": 1.0,
   "view": {
     "lookBearingDeg": 132.0,
     "gridLookBearingDeg": 132.0,
     "cameraTilt": 0.34,
     "alongViewProjectionScale": 1.8,
-    "visibleWidthM": 300.0,
+    "visibleWidthM": 420.0,
     "coastFrameFraction": 0.4947,
-    "reselectVectorLabelsOnCameraEnd": true,
-    "horizontalCenterOffsetM": -30.022714
+    "reselectVectorLabelsOnCameraEnd": true
   },
   "textures": {
-    "width": 539,
-    "height": 535,
+    "width": 809,
+    "height": 803,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT brut à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -156,28 +155,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      1011607.0,
-      6264325.0
+      1011585.0,
+      6264440.0
     ],
-    "widthM": 350.0,
-    "depthM": 410.0,
+    "widthM": 520.0,
+    "depthM": 620.0,
     "lookBearingDeg": 132.0,
     "cornersUtm40s": [
       [
-        1011571.753,
-        6264592.222
+        1011528.599,
+        6264840.648
       ],
       [
-        1011337.557,
-        6264332.121
+        1011180.651,
+        6264454.213
       ],
       [
-        1011642.247,
-        6264057.778
+        1011641.401,
+        6264039.352
       ],
       [
-        1011876.443,
-        6264317.879
+        1011989.349,
+        6264425.787
       ]
     ]
   }
