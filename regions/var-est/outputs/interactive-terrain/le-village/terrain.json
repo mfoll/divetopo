@@ -4,14 +4,14 @@
   "title": "Le Village, Cap Dramont",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 1012154.5,
-    "south": 6264331.5,
-    "east": 1012655.5,
-    "north": 6264752.5
+    "west": 1012114.5,
+    "south": 6264361.5,
+    "east": 1012535.5,
+    "north": 6264722.5
   },
   "physicalSizeM": {
-    "width": 501.0,
-    "depth": 421.0
+    "width": 421.0,
+    "depth": 361.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 501,
-    "height": 421,
-    "triangleCount": 420000,
+    "width": 421,
+    "height": 361,
+    "triangleCount": 302400,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -40.0,
-      "scaleMPerUnit": 0.0015259021896696422,
+      "scaleMPerUnit": 0.0008392462043183033,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -40.0,
-    "max": 60.0
+    "max": 15.0
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -106,64 +106,64 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 6,
-        "points": 861
+        "polylines": 7,
+        "points": 899
       },
       "10": {
         "polylines": 7,
-        "points": 934
+        "points": 950
       },
       "15": {
-        "polylines": 4,
-        "points": 424
+        "polylines": 3,
+        "points": 364
       },
       "20": {
-        "polylines": 1,
-        "points": 291
+        "polylines": 2,
+        "points": 287
       },
       "25": {
         "polylines": 1,
-        "points": 179
+        "points": 120
       },
       "30": {
         "polylines": 1,
-        "points": 135
+        "points": 71
       },
       "35": {
         "polylines": 1,
-        "points": 141
+        "points": 75
       },
       "40": {
         "polylines": 1,
-        "points": 218
+        "points": 56
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 22,
-      "points": 3183
+      "polylines": 23,
+      "points": 2822
     },
     "reprojectionResidualM": {
-      "samples": 3183,
-      "mean": 6.505608397959967e-07,
-      "p95": 3.151630068032313e-10,
-      "max": 0.00014453683283477403,
+      "samples": 2822,
+      "mean": 5.628302591307571e-07,
+      "p95": 4.771407269288368e-10,
+      "max": 0.00040722353811162293,
       "withinTolerance": true
     }
   },
-  "verticalExaggeration": 2.2,
+  "verticalExaggeration": 1.0,
   "view": {
     "lookBearingDeg": 270.0,
     "gridLookBearingDeg": 270.0,
-    "cameraTilt": 0.42,
+    "cameraTilt": 0.34,
     "alongViewProjectionScale": 1.6,
-    "visibleWidthM": 300.0,
+    "visibleWidthM": 275.0,
     "coastFrameFraction": 0.5,
     "horizontalCenterOffsetM": 8.0
   },
   "textures": {
-    "width": 501,
-    "height": 421,
+    "width": 421,
+    "height": 361,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -182,28 +182,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      1012405.0,
+      1012325.0,
       6264542.0
     ],
-    "widthM": 420.0,
-    "depthM": 500.0,
+    "widthM": 360.0,
+    "depthM": 420.0,
     "lookBearingDeg": 270.0,
     "cornersUtm40s": [
       [
-        1012655.0,
-        6264332.0
+        1012535.0,
+        6264362.0
       ],
       [
-        1012655.0,
-        6264752.0
+        1012535.0,
+        6264722.0
       ],
       [
-        1012155.0,
-        6264752.0
+        1012115.0,
+        6264722.0
       ],
       [
-        1012155.0,
-        6264332.0
+        1012115.0,
+        6264362.0
       ]
     ]
   }
