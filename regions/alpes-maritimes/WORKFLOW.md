@@ -45,11 +45,15 @@ configuration, so the repository never points to a missing file.
 
 The first wave is limited to exactly these five sites:
 
-1. Cap Gros
-2. La Fourmigue d’Antibes
-3. La Vaquette
-4. La Tradelière
-5. Grotte à Corail – Villefranche
+1. Grande Baie – Cap-Ferrat — pending its site-task SHA and MNT validation;
+2. Pointe de la Causinière – Cap-Ferrat — pending its site-task SHA and MNT
+   validation;
+3. La Vaquette — integrated as an unpublished draft;
+4. La Tradelière — integrated as an unpublished draft;
+5. Grotte à Corail – Villefranche — integrated as an unpublished draft.
+
+Cap Gros and La Fourmigue d’Antibes were removed from the first wave because no
+continuous MNT was validated. Do not cherry-pick or inventory them.
 
 The following sites are explicitly deferred. Do not cherry-pick or add them to
 the regional inventory during this wave:
@@ -68,7 +72,9 @@ the complete site and regional QA gates.
 
 1. Receive the exact site commit from the global coordinator.
 2. Confirm that the site belongs to the active five-site wave. Do not
-   cherry-pick a deferred site even if its commit is available.
+   cherry-pick a deferred or MNT-rejected site even if its commit is available.
+   For either Cap-Ferrat replacement, require both the exact SHA from the global
+   coordinator and the site task's explicit MNT validation.
 3. Inspect its parent, file list and diff before cherry-picking it.
 4. Reject or split any commit that touches another region, shared Web routing,
    release metadata, versions or deployment state.
@@ -98,8 +104,10 @@ or manifest check is not a substitute for visual inspection.
 Before the zone commit:
 
 1. All five first-wave configurations are present in the regional inventory and
-   validate against the live cartographic contract.
-2. No deferred site has been cherry-picked or added to the regional inventory.
+   validate against the live cartographic contract; the two Cap-Ferrat
+   replacements have explicit MNT-validation evidence.
+2. No deferred or MNT-rejected site has been cherry-picked or added to the
+   regional inventory.
 3. All new sites remain unpublished unless the user has explicitly approved
    publication after site QA.
 4. Canonical outputs and interactive packages are complete and their manifests

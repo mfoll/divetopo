@@ -45,5 +45,24 @@
       "url": "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid"
     }
   },
-  "sites": []
+  "sites": [
+    {
+      "slug": "la-vaquette",
+      "name": "La Vaquette",
+      "municipality": "Théoule-sur-Mer",
+      "config": "regions/alpes-maritimes/sites/la-vaquette.json"
+    },
+    {
+      "slug": "la-tradeliere",
+      "name": "La Tradelière",
+      "municipality": "Cannes",
+      "config": "regions/alpes-maritimes/sites/la-tradeliere.json"
+    },
+    {
+      "slug": "grotte-a-corail-villefranche",
+      "name": "Grotte à Corail – Villefranche",
+      "municipality": "Villefranche-sur-Mer",
+      "config": "regions/alpes-maritimes/sites/grotte-a-corail-villefranche.json"
+    }
+  ]
 }

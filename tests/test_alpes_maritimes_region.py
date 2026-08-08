@@ -4,10 +4,20 @@ import json
 import unittest
 from pathlib import Path
 
-from cartography.config import ROOT, region_manifest, region_output_directory
+from cartography.config import (
+    ROOT,
+    region_manifest,
+    region_output_directory,
+    validate_config,
+)
 
 
 REGION_ROOT = ROOT / "regions" / "alpes-maritimes"
+INTEGRATED_DRAFTS = {
+    "grotte-a-corail-villefranche",
+    "la-tradeliere",
+    "la-vaquette",
+}
 
 
 class AlpesMaritimesRegionTests(unittest.TestCase):
@@ -20,7 +30,10 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
             manifest["pipeline"]["module"],
             "cartography.regions.alpes_maritimes",
         )
-        self.assertEqual(manifest["sites"], [])
+        self.assertEqual(
+            {site["slug"] for site in manifest["sites"]},
+            INTEGRATED_DRAFTS,
+        )
         self.assertEqual(
             region_output_directory({"region": "alpes-maritimes"}),
             REGION_ROOT / "outputs",
@@ -39,6 +52,17 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
         ):
             self.assertTrue(pipeline[key].startswith("regions/alpes-maritimes/"))
             self.assertNotIn("regions/paca/", pipeline[key])
+
+    def test_integrated_sites_remain_unpublished(self) -> None:
+        manifest = region_manifest({"region": "alpes-maritimes"})
+
+        for site in manifest["sites"]:
+            config_path = ROOT / site["config"]
+            config = json.loads(config_path.read_text(encoding="utf-8"))
+            self.assertEqual(config["region"], "alpes-maritimes")
+            self.assertEqual(config["slug"], site["slug"])
+            self.assertFalse(config["web"]["published"])
+            validate_config(config)
 
 
 if __name__ == "__main__":

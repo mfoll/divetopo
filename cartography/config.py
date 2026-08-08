@@ -643,7 +643,14 @@ def validate_config(config: Mapping[str, Any]) -> None:
             _non_empty_string(config, "bathymetry_source_text")
         if "bathymetry_attribution" in config:
             _non_empty_string(config, "bathymetry_attribution")
-    elif region not in {"paca", "var-est"}:
+    elif region not in {
+        "paca",
+        "bouches-du-rhone",
+        "var-ouest",
+        "var-centre",
+        "var-est",
+        "alpes-maritimes",
+    }:
         raise ValueError(
             f"Region {region!r} has no configured source validation contract"
         )
