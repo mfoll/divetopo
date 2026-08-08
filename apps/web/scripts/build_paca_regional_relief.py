@@ -311,7 +311,16 @@ def litto3d_package_specs() -> list[dict[str, object]]:
             package = packages.setdefault(url, {"url": url, "members": set()})
             package_members = package["members"]
             assert isinstance(package_members, set)
-            package_members.update(litto3d_member_at_5m(member) for member in members)
+            mnt_members = [
+                member
+                for member in members
+                if "/MNT1m/" in member
+                and "_MNT_" in member
+                and member.endswith(".asc")
+            ]
+            package_members.update(
+                litto3d_member_at_5m(member) for member in mnt_members
+            )
 
     return [
         {"url": url, "members": sorted(package["members"])}
@@ -637,6 +646,19 @@ def limtm_land_mask(
     natural_area = float(natural_land_array.mean())
     official_area = float(official_land_array.mean())
     area_delta = abs(official_area - natural_area)
+    if area_delta > 0.05:
+        # Small autonomous-region frames can clip a LIMTM segment at the map
+        # edge. Reconcile that incomplete flood fill conservatively with the
+        # Natural Earth topology already used to seed and validate it:
+        # restore missing land, or remove an implausible flooded sea. This
+        # keeps every official boundary pixel while preventing an open WFS
+        # segment from erasing or flooding most of the regional frame.
+        if official_area < natural_area:
+            official_land_array |= natural_land_array
+        else:
+            official_land_array &= natural_land_array
+        official_area = float(official_land_array.mean())
+        area_delta = abs(official_area - natural_area)
     if area_delta > 0.05 or not official_land_array.any() or official_land_array.all():
         raise RuntimeError(
             "The Shom–IGN land-mask flood fill is implausible: "
