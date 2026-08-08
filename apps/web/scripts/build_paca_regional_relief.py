@@ -557,9 +557,8 @@ def limtm_land_mask(
     limits (SLCONS). Keeping both closes the small harbour/port gaps that made
     the old vector overlay discontinuous. Natural Earth is used only to tell
     the border flood which map-border pixels are ocean and as a sanity check.
-    Negative EMODnet and Litto3D cells seed enclosed marine basins so harbour
-    closures do not become land merely because SLCONS disconnects them from
-    the frame.
+    Negative EMODnet cells seed enclosed marine basins so harbour closures do
+    not become land merely because SLCONS disconnects them from the frame.
     """
     source_path = CACHE / "limtm-paca-ligne.geojson"
     download(limtm_url(), source_path, refresh=refresh)
@@ -900,16 +899,12 @@ def render(*, refresh: bool) -> None:
         raise ValueError(f"Unexpected GEBCO image dimensions: {base.size}")
 
     emodnet_surface, emodnet_valid = load_emodnet_crop(refresh=refresh)
-    shom_surface, shom_valid, package_count, tile_count = load_litto3d_crop(
-        refresh=refresh
-    )
     natural_land = natural_earth_land_mask(refresh=refresh)
     natural_land_array = np.asarray(natural_land, dtype=bool)
     land_mask, _, _ = limtm_land_mask(
         refresh=refresh,
         natural_land_array=natural_land_array,
-        marine_seed_array=(emodnet_valid & (emodnet_surface < -1.0))
-        | (shom_valid & (shom_surface < -0.5)),
+        marine_seed_array=emodnet_valid & (emodnet_surface < -1.0),
     )
     # EMODnet is the primary marine field. GEBCO remains available only for
     # cells where the official DTM has no valid value, so its coarse grid can
@@ -949,6 +944,9 @@ def render(*, refresh: bool) -> None:
         + gebco_rgb * fallback_alpha[:, :, None]
     )
 
+    shom_surface, shom_valid, package_count, tile_count = load_litto3d_crop(
+        refresh=refresh
+    )
     # Litto3D is authoritative for nearshore water depth. The interior guard
     # avoids drawing archive-edge seams; the same official land mask drives
     # both this transition and the land relief below.
