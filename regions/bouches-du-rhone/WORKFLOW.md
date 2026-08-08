@@ -95,15 +95,21 @@ deux copies canoniques sont identiques :
 - dimensions : `1864 × 1440 px` ;
 - bornes WGS84 : `5.10386667, 43.07038317, 5.51986667, 43.38238317` ;
 - SHA-256 :
-  `7604240d5e16d7a39aaf800a6e4b8b4a98a07f8f446a73d2080bc72785060f6d` ;
+  `af6808941b63026dbff0f4e87561b6d6961310fe0ffa440e935050f892d19057` ;
 - sortie régionale :
   `regions/bouches-du-rhone/outputs/bouches-du-rhone-regional-relief.png` ;
 - dérivé Web :
   `apps/web/public/maps/bouches-du-rhone/bouches-du-rhone-regional-relief.png`.
 
+Le masque terre-mer final rasterise les polygones terrestres officiels Shom–IGN
+Limite terre-mer, sans reconstruire la topologie depuis les entités linéaires.
 L'inspection pleine résolution confirme une emprise cohérente couvrant
 Marseille, Frioul, Planier, Maïre, Riou et les Calanques, un trait de côte
-continu et un relief terrestre lisible. Les positions projetées dans le cadre
+continu et un relief terrestre lisible. Les bassins portuaires et la rade
+restent ouverts ; les îles et îlots ne présentent ni fermeture anguleuse ni
+fragmentation en blocs. Par rapport au rendu précédemment validé, 52 470 pixels
+sur 2 684 160 diffèrent (`1,9548 %`), avec un delta absolu moyen de `0,831907`
+par canal et un delta maximal de `131`. Les positions projetées dans le cadre
 sont :
 
 | Site | Longitude | Latitude | Position dans la carte |
