@@ -11,6 +11,9 @@
     }
   },
   "plate_relief_source": "interactive",
+  "paths": {
+    "output_locator": "regions/var-centre/outputs/var-centre-regional-relief.png"
+  },
   "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0955_6220/file/0955_6220.7z",
   "litto3d_archive_members": [
     "0955_6220/LITTO3D_FRA_0957_6217_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0957_6217_MNT_20150529_LAMB93_RGF93_IGN69.asc"

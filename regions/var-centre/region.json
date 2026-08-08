@@ -57,5 +57,36 @@
       "attribution": "GEBCO Compilation Group (2024), GEBCO 2024 Grid, uniquement comme repli NoData"
     }
   },
-  "sites": []
+  "sites": [
+    {
+      "slug": "les-fourmigues",
+      "name": "Les Fourmigues",
+      "municipality": "Hyères",
+      "config": "regions/var-centre/sites/les-fourmigues.json"
+    },
+    {
+      "slug": "sec-de-la-jeaune-garde",
+      "name": "Sec de la Jeaune Garde",
+      "municipality": "Hyères",
+      "config": "regions/var-centre/sites/sec-de-la-jeaune-garde.json"
+    },
+    {
+      "slug": "sec-du-langoustier",
+      "name": "Sec du Langoustier",
+      "municipality": "Hyères",
+      "config": "regions/var-centre/sites/sec-du-langoustier.json"
+    },
+    {
+      "slug": "cap-des-medes",
+      "name": "Cap des Mèdes",
+      "municipality": "Hyères",
+      "config": "regions/var-centre/sites/cap-des-medes.json"
+    },
+    {
+      "slug": "la-gabiniere-port-cros",
+      "name": "La Gabinière, Port-Cros",
+      "municipality": "Hyères",
+      "config": "regions/var-centre/sites/la-gabiniere-port-cros.json"
+    }
+  ]
 }

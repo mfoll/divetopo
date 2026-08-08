@@ -2,44 +2,86 @@
   "schemaVersion": 2,
   "sites": [
     {
-      "slug": "sec-de-la-jeaune-garde",
-      "title": "Sec de la Jeaune Garde, Porquerolles",
-      "metadata": "sec-de-la-jeaune-garde/terrain.json",
+      "slug": "cap-des-medes",
+      "title": "Cap des Mèdes, Porquerolles",
+      "metadata": "cap-des-medes/terrain.json",
       "files": {
         "metadata": {
-          "path": "sec-de-la-jeaune-garde/terrain.json",
-          "bytes": 4976,
-          "sha256": "2efc99ae23e092718bf713d9ea488545a7455f0a239f6727995eff8c88fc7982"
+          "path": "cap-des-medes/terrain.json",
+          "bytes": 4999,
+          "sha256": "f1f2e88f2fd4930e0ed24aaff756431c676c91f8da948a3a77f3ca137360fac1"
         },
         "height": {
-          "path": "sec-de-la-jeaune-garde/height.bin",
-          "bytes": 526338,
-          "sha256": "080a219753a221ef649229a59a0508a09a5acb84e4301fbac88c48bbc748ba10"
+          "path": "cap-des-medes/height.bin",
+          "bytes": 510948,
+          "sha256": "8b9327edb66bf1ff4a4ed438a8ef1b31d40ead94d60c88afcf64343dc16235ff"
         },
         "validMask": {
-          "path": "sec-de-la-jeaune-garde/valid-mask.bin",
-          "bytes": 32897,
-          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+          "path": "cap-des-medes/valid-mask.bin",
+          "bytes": 31935,
+          "sha256": "1cc032851b73e77131fd47b671bccdf5c4863f35926eec7e1946b194fa2bd1d3"
         },
         "isobathMask": {
-          "path": "sec-de-la-jeaune-garde/isobath-mask.bin",
-          "bytes": 32897,
-          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+          "path": "cap-des-medes/isobath-mask.bin",
+          "bytes": 31935,
+          "sha256": "1cc032851b73e77131fd47b671bccdf5c4863f35926eec7e1946b194fa2bd1d3"
         },
         "vectorIsobaths": {
-          "path": "sec-de-la-jeaune-garde/isobaths-vector.json",
-          "bytes": 271158,
-          "sha256": "5cf5368a99b0d571ed2a64c7fc5e343ee5d2ca7d875dd982a44fa1923e5d1df1"
+          "path": "cap-des-medes/isobaths-vector.json",
+          "bytes": 210922,
+          "sha256": "ada8ba9c4b2afe21dd5ea4a5b07f60964b5022678006b044831abf6fb8c17a7f"
         },
         "topographicTexture": {
-          "path": "sec-de-la-jeaune-garde/topographic.webp",
-          "bytes": 53234,
-          "sha256": "7633b16f10064c40ade982b63836ce2ac18b9e45280b7ea88a9d89000d5cf1df"
+          "path": "cap-des-medes/topographic.webp",
+          "bytes": 97404,
+          "sha256": "c19e8597681251892a6f709ffb9868548b9a30bf81ab178f1e7a191358c0296d"
         },
         "orthophotoTexture": {
-          "path": "sec-de-la-jeaune-garde/orthophoto.webp",
-          "bytes": 47440,
-          "sha256": "6dc63bb127efac62e6d7d584434c1780576b090e915076ec9ec8cff39b192285"
+          "path": "cap-des-medes/orthophoto.webp",
+          "bytes": 119768,
+          "sha256": "c112712fbdb85b72e67a07022200c450378a17ab14e634ca5ab9dbad30fffa43"
+        }
+      }
+    },
+    {
+      "slug": "la-gabiniere-port-cros",
+      "title": "La Gabinière, Port-Cros",
+      "metadata": "la-gabiniere-port-cros/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "la-gabiniere-port-cros/terrain.json",
+          "bytes": 4918,
+          "sha256": "0a5d5fdab38dd8f95ff0603a689b34dd3d26c6ac52d76b3c208350794a550dda"
+        },
+        "height": {
+          "path": "la-gabiniere-port-cros/height.bin",
+          "bytes": 526338,
+          "sha256": "17032cb9566f32414aa94aad62e4fa041756d4b3196bf7c35aae61628b1a383c"
+        },
+        "validMask": {
+          "path": "la-gabiniere-port-cros/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "3a9104b8b07a4e44375bc5cbe659c36e09b0fae410ba83b2db2b56dd4f31c226"
+        },
+        "isobathMask": {
+          "path": "la-gabiniere-port-cros/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "3a9104b8b07a4e44375bc5cbe659c36e09b0fae410ba83b2db2b56dd4f31c226"
+        },
+        "vectorIsobaths": {
+          "path": "la-gabiniere-port-cros/isobaths-vector.json",
+          "bytes": 71437,
+          "sha256": "fa22192103415882e16fedef3bf5176dfb159a59d2a58f0a8e0ab82037bc4935"
+        },
+        "topographicTexture": {
+          "path": "la-gabiniere-port-cros/topographic.webp",
+          "bytes": 21752,
+          "sha256": "bc6595278af139b9bfd9003baac398848d79c3f7fc7027bea5d878ec3cd4406a"
+        },
+        "orthophotoTexture": {
+          "path": "la-gabiniere-port-cros/orthophoto.webp",
+          "bytes": 25234,
+          "sha256": "8deb8c6eda0383283fc65852cbdd5a085d160e8af4fdca66ffb71209d4234041"
         }
       }
     }

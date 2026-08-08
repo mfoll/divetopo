@@ -11,11 +11,12 @@ var-centre-regional-relief.png
 var-centre-regional-relief.json
 ```
 
-Le PNG sert de source à la fiche de la page d'accueil et à la future page
-régionale. Le JSON associé conserve au minimum les dimensions, l'emprise, les
-sources, les couches, les paramètres de rendu et les hashes des entrées. Les
-dérivés responsive seront produits par le builder Web partagé après sa
-généralisation par le coordinateur global.
+Ces deux fichiers sont réservés mais absents du commit régional intermédiaire.
+Ils seront produits par le builder régional partagé avec une emprise propre au
+Var Centre; le raster PACA et ses bornes ne doivent pas servir de substitut. Le
+PNG servira de source à la fiche de la page d'accueil et à la future page
+régionale. Le JSON associé conservera au minimum les dimensions, l'emprise, les
+sources, les couches, les paramètres de rendu et les hashes des entrées.
 
 ## Sorties par site
 

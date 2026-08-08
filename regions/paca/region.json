@@ -47,11 +47,6 @@
   },
   "sites": [
     {
-      "slug": "la-gabiniere-port-cros",
-      "name": "La Gabinière, Port-Cros",
-      "config": "regions/paca/sites/la-gabiniere-port-cros.json"
-    },
-    {
       "slug": "pointe-portissol",
       "name": "Pointe de Portissol",
       "municipality": "Sanary-sur-Mer",
@@ -64,34 +59,10 @@
       "config": "regions/paca/sites/deux-freres-cap-sicie.json"
     },
     {
-      "slug": "cap-des-medes",
-      "name": "Cap des Mèdes",
-      "municipality": "Hyères",
-      "config": "regions/paca/sites/cap-des-medes.json"
-    },
-    {
       "slug": "les-magnons",
       "name": "Les Magnons",
       "municipality": "Six-Fours-les-Plages",
       "config": "regions/paca/sites/les-magnons.json"
-    },
-    {
-      "slug": "les-fourmigues",
-      "name": "Les Fourmigues",
-      "municipality": "Hyères",
-      "config": "regions/paca/sites/les-fourmigues.json"
-    },
-    {
-      "slug": "sec-de-la-jeaune-garde",
-      "name": "Sec de la Jeaune Garde",
-      "municipality": "Hyères",
-      "config": "regions/paca/sites/sec-de-la-jeaune-garde.json"
-    },
-    {
-      "slug": "sec-du-langoustier",
-      "name": "Sec du Langoustier",
-      "municipality": "Hyères",
-      "config": "regions/paca/sites/sec-du-langoustier.json"
     },
     {
       "slug": "les-pyramides-cap-dramont",

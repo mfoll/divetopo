@@ -9,9 +9,9 @@ Web appartiennent à `var-centre`, et non à une sous-région de `paca`.
 - La route cible est `/var-centre`. Elle est conceptuelle tant que le
   coordinateur global n'a pas généralisé les types, routes, manifestes, copies
   et builders Web partagés.
-- `region.json` conserve volontairement un inventaire `sites` vide. Un site
-  n'y entre qu'avec sa configuration intégrée et vérifiée; ce fichier ne doit
-  pas anticiper des chemins absents.
+- `region.json` contient exactement les cinq configurations intégrées de la
+  première vague. Les deux sites déjà publiés conservent ce statut; les trois
+  nouveaux restent des brouillons non publiés.
 - Le module déclaré `cartography.regions.var_centre` est le point d'entrée
   contractuel futur. Sa création relève de la généralisation partagée et ne
   fait pas partie du présent socle local.
@@ -42,13 +42,12 @@ les ajouter à `region.json` et ne pas produire leurs sorties dans cette vague :
 - Anse au Blé (`anse-au-ble`);
 - Sec des Carrières (`sec-des-carrieres`).
 
-Un commit reçu pour l'un des cinq sites de la première vague est intégré par
-`git cherry-pick` après inspection de son périmètre. Tout commit d'un site
-différé est laissé de côté. Les conflits sont résolus dans la région, sans
-réécrire ni absorber des changements étrangers. La propriété de publication
-reste portée par `web.published` dans chaque configuration : `true` est réservé
-aux deux sites déjà publiés pendant leur migration; les trois nouveaux sites
-restent à `false` jusqu'à une décision explicite.
+Les cinq commits de la première vague ont été intégrés par `git cherry-pick`
+après inspection de leur périmètre. Tout commit d'un site différé reste laissé
+de côté. La propriété de publication est portée par `web.published` dans chaque
+configuration : `true` reste réservé aux deux sites déjà publiés pendant leur
+migration; les trois nouveaux sites restent à `false` jusqu'à une décision
+explicite.
 
 ## Sources et référentiels
 
@@ -77,15 +76,18 @@ explicites hérités de PACA doivent être remplacés par leurs équivalents
 `var-centre`, notamment la carte régionale. Une migration sans régénération
 compare les SHA-256 avant et après déplacement de chaque artefact.
 
-La carte régionale canonique est :
+Le chemin réservé à la future carte régionale canonique est :
 
 ```text
 regions/var-centre/outputs/var-centre-regional-relief.png
 ```
 
-Son emprise finale, ses positions de marqueurs et d'étiquettes et ses dérivés
-Web ne sont figés qu'après intégration de tous les sites. Les coordonnées
-déclarées dans les configurations sont la source de vérité des marqueurs.
+La carte n'est pas produite dans le commit régional intermédiaire. Son emprise,
+ses positions de marqueurs et d'étiquettes doivent être calculées à partir des
+cinq configurations par le builder régional partagé, sans recadrer le raster
+PACA ni reprendre ses bornes. Les coordonnées déclarées dans les configurations
+restent la source de vérité des marqueurs. Les dérivés Web ne sont produits
+qu'après la généralisation du builder partagé.
 
 ## Séquence d'intégration d'un site
 
@@ -120,3 +122,53 @@ déclarées dans les configurations sont la source de vérité des marqueurs.
 
 Un nouveau site ne devient publiable qu'après réussite de ces contrôles et
 décision explicite du coordinateur global.
+
+## Limites du commit régional intermédiaire
+
+La QA native vérifie l'inventaire, les statuts de publication, les fichiers
+attendus, les hashes, les dimensions et les contrats internes des paquets
+interactifs. Le manifeste interactif combiné n'indexe que La Gabinière et Cap
+des Mèdes; les trois brouillons restent physiquement régionaux mais absents du
+manifeste publiable.
+
+Les contrôles suivants restent explicitement en attente :
+
+- validation canonique des configurations, jusqu'à l'ajout du contrat de source
+  `var-centre` dans le validateur partagé;
+- production et inspection de la carte régionale, jusqu'au builder partagé et
+  à son emprise propre;
+- QA Web des marqueurs, cartouches, connecteurs, desktop, mobile, clavier et
+  toucher, jusqu'au câblage de la route `/var-centre`.
+
+Ces attentes interdisent de considérer les trois nouveaux sites comme
+publiables, même si leurs actifs natifs passent les contrôles locaux.
+
+### Résultats de la QA native intermédiaire du 8 août 2026
+
+- Les cinq configurations concordent avec l'inventaire et pointent vers le
+  chemin réservé de la carte Var Centre. Seuls La Gabinière et Cap des Mèdes
+  ont `web.published: true`.
+- Les cinq paquets interactifs sont complets : métadonnées, heightfield,
+  masques, isobathes vectorielles et deux textures concordent en dimensions et
+  en structure. Le manifeste combiné vérifie ses tailles et SHA-256 et ne
+  contient que les deux sites déjà publiés.
+- La migration conserve 20 des 22 blobs publiés contrôlés à l'identique depuis
+  le commit de fondation. Les deux exceptions sont les planches de Cap des
+  Mèdes, adaptées au libellé `VAR CENTRE`; leurs dimensions restent
+  `5400 × 3250 px`. Les planches de La Gabinière restent octet-identiques et
+  portent encore le libellé historique `CÔTE D’AZUR` en attendant la carte et
+  la composition régionales partagées.
+- Les trois brouillons ont des plans 2D natifs non canoniques : Les Fourmigues
+  `850 × 800 px`, Sec de la Jeaune Garde `1502 × 1402 px`, Sec du Langoustier
+  `1700 × 1700 px`. Les crédits sont coupés à droite sur Les Fourmigues et Sec
+  de la Jeaune Garde; Sec du Langoustier montre de larges zones NoData grises
+  sur les bords gauche et bas.
+- Les Fourmigues et Sec de la Jeaune Garde possèdent des vues 3D statiques mais
+  aucune planche. Sec du Langoustier ne possède encore ni vues 3D statiques ni
+  planches. Ces absences sont acceptées uniquement pour ce commit intermédiaire
+  non publiable.
+- La suite Python exécute 41 tests avec succès dans l'environnement disponible.
+  Quatre modules de tests restent non chargeables faute de Pillow dans le
+  Python GDAL local, sans installation autorisée. Un test de manifeste PACA
+  reste obsolète après le déplacement approuvé de La Gabinière et Cap des Mèdes
+  et doit être corrigé dans la généralisation partagée.
