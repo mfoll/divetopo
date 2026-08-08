@@ -236,11 +236,11 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -1.5,
-        "connectorAngleDeg": -18,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 3.6,
+        "connectorAngleDeg": 70,
+        "connectorWidthRem": 1.5,
+        "labelOffsetRem": 1.7,
         "lines": [
           "Grotte à Corail",
           "Maïre"
@@ -873,16 +873,17 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": 0,
         "connectorAngleDeg": 0,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 2.5,
+        "connectorWidthRem": 0.8,
+        "labelOffsetRem": 1.6,
         "lines": [
-          "Pierre à la Bague",
+          "Pierre à la",
+          "Bague",
           "plateau"
         ],
-        "widthRem": 7.2
+        "widthRem": 4.4
       },
       "interactiveInitialView": {
         "zoom": 1,
@@ -1111,11 +1112,11 @@
         "yPercent": 55.14418
       },
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -1.5,
-        "connectorAngleDeg": -18,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 3.6,
+        "connectorAngleDeg": 70,
+        "connectorWidthRem": 1.5,
+        "labelOffsetRem": 1.7,
         "lines": [
           "Grotte à Corail",
           "Maïre"
@@ -1189,16 +1190,17 @@
         "yPercent": 59.38029
       },
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": 0,
         "connectorAngleDeg": 0,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 2.5,
+        "connectorWidthRem": 0.8,
+        "labelOffsetRem": 1.6,
         "lines": [
-          "Pierre à la Bague",
+          "Pierre à la",
+          "Bague",
           "plateau"
         ],
-        "widthRem": 7.2
+        "widthRem": 4.4
       },
       "status": "published"
     },

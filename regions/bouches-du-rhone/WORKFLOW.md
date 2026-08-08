@@ -85,7 +85,9 @@ Les cinq positions sont dans les bornes et correspondent aux secteurs attendus.
   slugs publiés, sans entrée différée ni mention « en préparation ».
 - Le PNG régional a été inspecté à sa résolution native `1864 × 1440 px`.
 - Les cinq marqueurs et noms sont visibles. Les deux sites proches de Riou ont
-  des connecteurs divergents et des libellés déportés de part et d'autre.
+  des connecteurs divergents et des libellés déportés de part et d'autre. Les
+  points géographiques superposés restent neutres ; les cartouches, le clavier
+  et le sélecteur sont les cibles d'ouverture.
 - La page régionale a été contrôlée à `1280 × 720` et `390 × 844`, en thèmes
   clair et sombre, sans collision, coupure, débordement horizontal ou carte
   disproportionnée.
@@ -93,7 +95,8 @@ Les cinq positions sont dans les bornes et correspondent aux secteurs attendus.
   libellés non sélectionnés `rgb(8, 33, 42)` sur fond clair, sélection blanche
   sur `rgb(3, 21, 27)`.
 - Chaque libellé de carte ouvre le slug attendu et le sélecteur mobile contient
-  exactement les cinq options.
+  exactement les cinq options. Un clic réel sur les points superposés de Riou
+  laisse la route régionale inchangée.
 - Terrain interactif mobile vérifié à `390 × 844` : échelle visible, aucune
   collision avec la source ou le copyright, aucun débordement horizontal.
 - Les JSON, l'accord entre inventaire, configurations, actifs et manifestes,

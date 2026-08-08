@@ -5,11 +5,11 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "right",
+      "side": "left",
       "shift_y_rem": -1.5,
-      "connector_angle_deg": -18,
-      "connector_width_rem": 2.4,
-      "label_offset_rem": 3.6,
+      "connector_angle_deg": 70,
+      "connector_width_rem": 1.5,
+      "label_offset_rem": 1.7,
       "lines": ["Grotte à Corail", "Maïre"],
       "width_rem": 6.3
     },
