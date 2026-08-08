@@ -13,16 +13,22 @@
       "width_rem": 6.8
     },
     "interactive_initial_view": {
-      "zoom": 0.95,
+      "zoom": 0.75,
       "orbit_azimuth_deg": 90,
       "camera_elevation_deg": 28,
+      "center_offset_east_m": -20,
       "isobath_label_focus_x_ndc": 0.05
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "paths": {
     "output_2d": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-2d.jpg",
-    "output_3d": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-3d.jpg"
+    "output_2d_ortho": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-2d-ortho.jpg",
+    "output_3d": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-3d.jpg",
+    "output_3d_ortho": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-3d-ortho.jpg",
+    "output_locator": "regions/alpes-maritimes/outputs/alpes-maritimes-regional-relief.png",
+    "output_plate": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-planche.jpg",
+    "output_plate_topography": "regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-planche-topographique.jpg"
   },
   "litto3d_archives": [
     {
@@ -36,31 +42,31 @@
     }
   ],
   "focus_bbox_utm40s": [
-    1048300.0,
-    6296600.0,
-    1048900.0,
-    6297100.0
+    1048325.0,
+    6296800.0,
+    1048725.0,
+    6297150.0
   ],
   "context_bbox_utm40s": [
-    1048200.0,
-    6296500.0,
-    1049000.0,
+    1048325.0,
+    6296800.0,
+    1048800.0,
     6297200.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      1048500.0,
-      6296850.0
+      1048537.5,
+      6297000.0
     ],
-    "width_m": 450.0,
-    "depth_m": 600.0,
+    "width_m": 350.0,
+    "depth_m": 425.0,
     "look_bearing_deg": 90.0
   },
   "view_bearing_deg": 90.0,
-  "view_visible_width_m": 500.0,
-  "interactive_view_visible_width_m": 350.0,
+  "view_visible_width_m": 300.0,
+  "interactive_view_visible_width_m": 300.0,
   "interactive_match_static_horizontal_center": true,
-  "interactive_match_static_along_center": true,
+  "interactive_match_static_along_center": false,
   "coast_mode": "mask",
   "coastline_visible": true,
   "max_depth_m": 45.0,
@@ -81,23 +87,38 @@
   "camera_tilt": 0.55,
   "along_view_projection_scale": 1.15,
   "coast_frame_fraction": 0.48,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.0,
+  "final_output_size_px": [
+    1600,
+    1184
+  ],
   "output_scale": 2.0,
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
   "map_style_scale": 2.0,
-  "orthophoto_enabled": false,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-10",
+  "orthophoto_resolution_m": 1.0,
+  "orthophoto_3d_resolution_m": 1.0,
   "locator_map_enabled": false,
   "site_location_utm40s": [
+    1048337.102,
+    6296987.064
+  ],
+  "locator_marker_utm40s": [
     1048337.102,
     6296987.064
   ],
   "locator_label": "Grande Baie",
   "plate_site_name": "Grande Baie",
   "plate_city": "Saint-Jean-Cap-Ferrat",
-  "plate_city_detail": "Saint-Jean-Cap-Ferrat · côte ouest du Cap-Ferrat",
+  "plate_city_detail": "Saint-Jean-Cap-Ferrat",
   "plate_title": "Grande Baie, Saint-Jean-Cap-Ferrat",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,

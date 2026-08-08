@@ -1,48 +1,43 @@
 # QA — Grande Baie, Saint-Jean-Cap-Ferrat
 
-## Statut de livraison
+## Statut
 
-Le site est livré en relief statique uniquement. `web.published` reste `false` et `plate_relief_source` vaut `static`.
+Paquet v1.4 complet et non publié : `web.published=false`, `plate_relief_source=interactive`. Le site dispose des quatre JPEG canoniques 1600×1184, des deux planches 5400×3250, du terrain interactif complet et des dérivés Web propres au slug.
 
-Sorties produites :
+## Coordonnées et provenance
 
-- `regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-2d.jpg`
-- `regions/alpes-maritimes/outputs/grande-baie-cap-ferrat-topobathy-3d.jpg`
+La fiche locale FFESSM 06 recense `Grande Baie (x2)` à Saint-Jean-Cap-Ferrat. Le mouillage ouest retenu est `43°41′10″N, 7°19′17″E`, soit `43.686111111, 7.321388889` et Lambert-93 `1048337.102, 6296987.064`. Le pixel Litto3D correspondant est à `−34.33 m`. Le nom et le tombant sont recoupés par Côte d’Azur France, l’étude plongée de la Métropole Nice Côte d’Azur et Nausicaa Plongée.
 
-Le paquet interactif n'est pas livré. Le générateur interactif du dépôt exige une orthophoto valide et refuse honnêtement la génération sans les deux textures orthophoto. La réponse IGN WMS reçue pendant l'essai a été rejetée par le contrôle de contenu comme image constante ; aucun fichier de remplacement n'a été fabriqué ni conservé. Aucune nouvelle acquisition n'est engagée dans cette livraison.
+Source altimétrique : paquet officiel Shom–IGN Litto3D PACA 2015 `1045_6300.7z`, SHA-256 `2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633`, MNT 1 m, EPSG:2154, IGN69, MNT du 16/01/2015. Membres utilisés : `1048_6297`, `1048_6298`, `1049_6297`, `1049_6298`. Aucune interpolation hors cellules source.
 
-## Coordonnées et recoupement
+Orthophoto : réponse officielle IGN BD ORTHO, couche `HR.ORTHOIMAGERY.ORTHOPHOTOS`, prise de vue `2023-07-10`, cache source EPSG:2154 de 1 m, SHA-256 `5f9f186eb17f62248ae3adcb9358ea71e92e7f1e745ca7922bd279c26ab783a7`. La résolution déclarée reste 1 m ; aucune sur-résolution n’est revendiquée.
 
-La fiche locale du comité départemental FFESSM 06 recense `Grande Baie (x2)` à Saint-Jean-Cap-Ferrat et donne les deux positions WGS84 : [CD06.pdf](https://codep06.ffessm.fr/wp-content/uploads/CD06.pdf). La notation publiée mélange degrés, minutes et secondes ; elle a été normalisée comme suit, après contrôle géographique et MNT :
+Emprises finales, choisies dans la bande continue qui contient le mouillage et les profondeurs −20/−40 :
 
-- mouillage ouest retenu : `43°41′10″N, 7°19′17″E` → `43.686111111, 7.321388889` → Lambert-93 `1048337.102, 6296987.064` ; profondeur Litto3D au pixel : `−34.33 m` ;
-- second mouillage mentionné par la fiche : `43°41′01.797″N, 7°19′71.154″E`, normalisé pour les secondes excédentaires → `43.683832500, 7.336431667` → `1049562.348, 6296800.691`.
+- focus : `[1048325, 6296800, 1048725, 6297150]` ;
+- contexte : `[1048325, 6296800, 1048800, 6297200]` ;
+- terrain orienté : centre `[1048537.5, 6297000]`, largeur 350 m, profondeur 425 m, regard 90°.
 
-L'interprétation en degrés-minutes décimales placerait un des points à terre ; elle n'a donc pas été retenue. Le nom du site et son contexte sont recoupés par la [fiche officielle Côte d'Azur France](https://provence-alpes-cotedazur.com/decouvrir/espaces-naturels/patrimoine-naturel/site-de-plongee-de-la-grande-baie-saint-jean-cap-ferrat-fr-3410978/), l'étude officielle [Métropole Nice Côte d'Azur — étude plongée](https://www.dirm.mediterranee.developpement-durable.gouv.fr/IMG/pdf/mnca_2019_etudeplongee_version_finale.pdf), et la description locale [Nausicaa Plongée](https://www.nausicaa-plongee.com/sites-de-plongees). Ces sources confirment le site de plongée et le tombant, mais la coordonnée de travail vient de la fiche FFESSM.
+Les avertissements de rendu mesurent 5,4 % de NoData en 2D et 4,1 % dans le crop 3D. Ces cellules restent visibles comme NoData ou sont omises du maillage ; elles ne sont ni comblées ni présentées comme un MNT continu.
 
-## MNT Litto3D
+## Inventaire
 
-Source officielle auditée : [paquet Shom–IGN Litto3D PACA 2015, dalle 1045_6300](https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1045_6300/file/1045_6300.7z).
+- plans : `grande-baie-cap-ferrat-topobathy-2d.jpg`, `-2d-ortho.jpg` ;
+- perspectives statiques : `-3d.jpg`, `-3d-ortho.jpg` ;
+- planches : `grande-baie-cap-ferrat-planche-topographique.jpg`, `grande-baie-cap-ferrat-planche.jpg` ;
+- terrain canonique et Web : `height.bin`, `valid-mask.bin`, `isobath-mask.bin`, `isobaths-vector.json`, `topographic.webp`, `orthophoto.webp`, `terrain.json` ;
+- Web : deux plans JPEG, six variantes 3D desktop, deux variantes mobiles, deux téléchargements JPEG et deux aperçus de planche.
 
-- SHA-256 du paquet téléchargé : `2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633` ;
-- maillage : `1 m` ; système planimétrique : `RGF93 / Lambert-93`, EPSG:2154 ; référentiel vertical : `IGN69` ; date MNT des métadonnées : `16/01/2015` ;
-- membres utilisés pour l'emprise livrée : dalles `1048_6297`, `1048_6298`, `1049_6297`, `1049_6298`, toutes en `MNT1m` ;
-- emprise focus : `[1048300, 6296600, 1048900, 6297100]` ; emprise contexte : `[1048200, 6296500, 1049000, 6297200]` ;
-- le raster brut signé est conservé pour la topographie et la bathymétrie ; la profondeur positive est dérivée uniquement des altitudes négatives ; les NoData sont conservés ; aucune interpolation n'est appliquée.
+Le terrain final utilise une grille et des textures 426×351, avec 11 polylignes et 815 points d’isobathes vectorielles source-dérivées de −5 à −40 m (dont une polyligne −40). Le contrôle de reprojection des vecteurs est dans la tolérance déclarée par `terrain.json`.
 
-Contrôles sur le raster focus : `85.95 %` de cellules valides, `21.34 %` de cellules marines, `9.31 %` à au moins `20 m`, `1.43 %` à au moins `40 m`, minimum `−45.60 m`. Le mouillage retenu est dans le composant marin connecté contenant `99.99 %` des cellules marines du focus. La couverture utile est donc une bande côtière source-connectée, pas un MNT continu sur toute la baie ; les 14.1 % de NoData du plan et 21.2 % du crop 3D restent visibles ou sont exclus du maillage.
+## Contrôles exécutés
 
-## QA de rendu
-
-Commandes exécutées dans l'environnement de build temporaire :
-
-```text
-python -m cartography.regions.alpes_maritimes regions/alpes-maritimes/sites/grande-baie-cap-ferrat.json --check
-python -m cartography.regions.alpes_maritimes regions/alpes-maritimes/sites/grande-baie-cap-ferrat.json --render-only
-```
-
-Inspection plein format effectuée sur les deux JPEGs :
-
-- plan 2D : emprise source lisible, nord et échelle présents, NoData gris non masqué abusivement, labels `−5 m`, `−20 m` et `−40 m` séparés et lisibles, attribution et licence visibles ;
-- relief 3D : regard initial vers l'est (`90°`), côte et tombant cadrés, isobathes source-dérivées visibles, facettes hors couverture omises sans plateau artificiel, attribution et licence visibles ;
-- la QA confirme que les sorties sont des rendus statiques de la couverture Litto3D disponible et ne doivent pas être interprétées comme une interpolation au-delà des cellules source.
+- validation configuration et rasters avec `/Users/follm/home-projects/divetopo/.venv/bin/python -m cartography.regions.alpes_maritimes ... --check` : OK ;
+- rendu des quatre JPEG avec `--render-only` : OK ;
+- export et validation interne du paquet interactif schema v2 : OK ;
+- composition des deux planches et vérification des dérivés Web par les builders au commit `e9b38a036cdad5bb0d24e26009fdefb7be7501a9` : OK ;
+- 70 tests ciblés (`config`, `interactive`, `plate`, `regional_manifest`, `sync_interactive_terrain`, `vector_isobaths`) : OK ;
+- build Web vinext : OK, avertissement existant de taille de chunk uniquement ;
+- inspection plein format des quatre JPEG, deux planches et captures desktop/mobile : cadrage, échelle, nord, attributions, licence et textures lisibles ; NoData limité au bord source ;
+- QA interactive dans le navigateur local : canvas WebGL visible, bascule Orthophoto/Topographie effective, commandes terrain disponibles, aucune erreur ni alerte console ;
+- `web.published` contrôlé à `false`. Aucun manifeste agrégé, `region.json`, carte régionale, accueil, version ou release n’est inclus.

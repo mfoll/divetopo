@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 2,
+  "slug": "grande-baie-cap-ferrat",
+  "title": "Grande Baie, Saint-Jean-Cap-Ferrat",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 1048324.5,
+    "south": 6296824.5,
+    "east": 1048750.5,
+    "north": 6297175.5
+  },
+  "physicalSizeM": {
+    "width": 426.0,
+    "depth": 351.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 426,
+    "height": 351,
+    "triangleCount": 297500,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -43.16291046142578,
+      "scaleMPerUnit": 0.0018793455475917568,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -43.16291046142578,
+    "max": 80.0
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        125,
+        29
+      ],
+      "10": [
+        135,
+        223,
+        109
+      ],
+      "15": [
+        40,
+        131,
+        212
+      ],
+      "20": [
+        12,
+        42,
+        120
+      ],
+      "25": [
+        6,
+        26,
+        91
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        15,
+        61
+      ],
+      "40": [
+        1,
+        9,
+        42
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 1,
+        "points": 212
+      },
+      "10": {
+        "polylines": 1,
+        "points": 132
+      },
+      "15": {
+        "polylines": 1,
+        "points": 121
+      },
+      "20": {
+        "polylines": 1,
+        "points": 103
+      },
+      "25": {
+        "polylines": 2,
+        "points": 93
+      },
+      "30": {
+        "polylines": 2,
+        "points": 72
+      },
+      "35": {
+        "polylines": 2,
+        "points": 56
+      },
+      "40": {
+        "polylines": 1,
+        "points": 26
+      },
+      "45": {
+        "polylines": 0,
+        "points": 0
+      }
+    },
+    "totals": {
+      "levels": 9,
+      "polylines": 11,
+      "points": 815
+    },
+    "reprojectionResidualM": {
+      "samples": 815,
+      "mean": 1.1399203477148158e-05,
+      "p95": 3.6383696055963624e-11,
+      "max": 0.006899957094745446,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 90.0,
+    "gridLookBearingDeg": 90.0,
+    "cameraTilt": 0.55,
+    "alongViewProjectionScale": 1.15,
+    "visibleWidthM": 300.0,
+    "coastFrameFraction": 0.48,
+    "horizontalCenterOffsetM": 0.0
+  },
+  "textures": {
+    "width": 426,
+    "height": 351,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · EPSG:2154 RGF93/Lambert-93 · IGN69 · dalle MNT du 16/01/2015 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-07-10",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · EPSG:2154 RGF93/Lambert-93 · IGN69 · dalle MNT du 16/01/2015 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · EPSG:2154 RGF93/Lambert-93 · IGN69 · dalle MNT du 16/01/2015 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      1048537.5,
+      6297000.0
+    ],
+    "widthM": 350.0,
+    "depthM": 425.0,
+    "lookBearingDeg": 90.0,
+    "cornersUtm40s": [
+      [
+        1048325.0,
+        6297175.0
+      ],
+      [
+        1048325.0,
+        6296825.0
+      ],
+      [
+        1048750.0,
+        6296825.0
+      ],
+      [
+        1048750.0,
+        6297175.0
+      ]
+    ]
+  }
+}
