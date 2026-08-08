@@ -3,7 +3,7 @@
   "slug": "les-magnons",
   "title": "Les Magnons, Le Brusc",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
       "shift_y_rem": 0,
@@ -23,8 +23,8 @@
   ],
   "focus_bbox_utm40s": [
     924000.0,
-    6223000.0,
-    925000.0,
+    6223309.0,
+    924999.0,
     6224000.0
   ],
   "context_bbox_utm40s": [
@@ -55,7 +55,7 @@
   "interactive_max_depth_m": 25.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · IGN69",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
@@ -75,7 +75,14 @@
   "output_scale": 2.0,
   "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
+  "relief_compass_inset_px": 88.0,
+  "relief_footer_inset_px": 44.0,
+  "relief_label_edge_inset_px": 52.0,
   "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
   "orthophoto_capture_date": "2023-07-13",
