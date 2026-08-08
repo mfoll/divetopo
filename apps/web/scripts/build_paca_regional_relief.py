@@ -70,6 +70,7 @@ LIMTM_LINE_WIDTH_PX = 2.0
 LIMTM_CLOSE_RADIUS_PX = 2
 LIMTM_ISOLATED_COMPONENT_MAX_PX = 96
 LIMTM_REFINEMENT_RADIUS_PX = 4
+LIMTM_FALLBACK_REFINEMENT_RADIUS_PX = 4
 RGE_WMTS = "https://data.geopf.fr/wmts"
 RGE_LAYER = "ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES"
 RGE_TILE_MATRIX_SET = "WGS84G_6_14"
@@ -551,9 +552,11 @@ def limtm_land_mask(
     """Build one coherent land mask from the official Shom–IGN boundary.
 
     The WFS contains both natural coastline (COALNE) and constructed coastal
-    limits (SLCONS). Keeping both closes the small harbour/port gaps that made
-    the old vector overlay discontinuous. Natural Earth is used only to tell
-    the flood fill which map-border pixels are ocean and as a sanity check.
+    limits (SLCONS). Only COALNE defines the land-mask topology: SLCONS contains
+    harbour closures and other straight construction limits that can form
+    implausible wedges when flooded on a small regional frame. Natural Earth is
+    used only to tell the flood fill which map-border pixels are ocean and as a
+    sanity check.
     """
     source_path = CACHE / "limtm-paca-ligne.geojson"
     download(limtm_url(), source_path, refresh=refresh)
@@ -587,12 +590,11 @@ def limtm_land_mask(
     if drawn_features == 0:
         raise RuntimeError("The Shom–IGN Limite terre-mer response contained no coastline lines")
 
-    # Keep all boundary classes while closing the land/sea topology. Some
-    # SLCONS segments are required to bridge harbour gaps in COALNE; detached
-    # structures are removed later as isolated raster components.
+    # SLCONS remains counted for source diagnostics, but must not participate
+    # in the flood or the visible coast. Its straight harbour closures are not
+    # a shoreline and created false triangles across Toulon and nearby bays.
     coastline_array = np.asarray(coastline_mask, dtype=np.uint8)
-    constructed_array = np.asarray(constructed_mask, dtype=np.uint8)
-    boundary_source = (coastline_array > 0) | (constructed_array > 0)
+    boundary_source = coastline_array > 0
 
     # Close only one or two output pixels. This repairs clipped WFS segment
     # joins without changing the coastline at the map's scale.
@@ -667,7 +669,7 @@ def limtm_land_mask(
                 mode="L",
             ).filter(
                 ImageFilter.MaxFilter(
-                    LIMTM_REFINEMENT_RADIUS_PX * 2 + 1
+                    LIMTM_FALLBACK_REFINEMENT_RADIUS_PX * 2 + 1
                 )
             ),
             dtype=np.uint8,
@@ -1020,19 +1022,20 @@ def render(*, refresh: bool) -> None:
             "detailBathymetryArchiveCount": package_count,
             "detailBathymetryTileCount": tile_count,
             "coastlineSource": (
-                "Shom–IGN Limite terre-mer COALNE + SLCONS vector features, "
+                "Shom–IGN Limite terre-mer COALNE vector features, "
                 "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne; "
+                "SLCONS is excluded from shoreline topology; "
                 "Natural Earth 10m Admin 0 Countries v5.1.1 is used only for "
                 "border flood-fill seeding and sanity checking"
             ),
             "coastlineSourceUrl": LIMTM_WFS_ENDPOINT,
             "coastlineLayer": LIMTM_WFS_TYPENAME,
-            "coastlineFeatureTypes": "COALNE + SLCONS",
+            "coastlineFeatureTypes": "COALNE (SLCONS excluded)",
             "coastlineResolution": "1–7 m product resolution",
             "render": (
                 "EMODnet DTM 2024 offshore bathymetry resampled with cubic "
                 "interpolation; Shom–IGN Litto3D nearshore bathymetry; one "
-                "Shom–IGN land mask for fill and coastline edge; IGN RGE ALTI "
+                "Shom–IGN COALNE land mask for fill and coastline edge; IGN RGE ALTI "
                 "land hillshade; no cross-coast blur"
             ),
         }
