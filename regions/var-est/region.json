@@ -22,9 +22,16 @@
     "interactiveTerrainDirectory": "regions/var-est/outputs/interactive-terrain"
   },
   "regionalMap": {
-    "status": "awaiting-shared-builder",
+    "status": "generated",
     "output": "regions/var-est/outputs/var-est-regional-relief.png",
-    "webDerivative": "apps/web/public/maps/var-est/var-est-regional-relief.png"
+    "webDerivative": "apps/web/public/maps/var-est/var-est-regional-relief.png",
+    "boundsWgs84": [
+      6.678941382547089,
+      43.28603338833524,
+      7.0949413825470895,
+      43.59803338833524
+    ],
+    "sha256": "1e4958d46422829aedad794b413ba58b4a9770f1eb003b1247774c927ba8b522"
   },
   "sources": {
     "bathymetry": {

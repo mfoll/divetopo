@@ -1,11 +1,11 @@
 # Var Est regional QA
 
-## Intermediate integration checkpoint, 8 August 2026
+## Regional map and integration checkpoint, 8 August 2026
 
 Status: **not publishable**. This checkpoint integrates the five first-wave
-site commits and records the QA that is possible before the shared regional
-map builder and Var Est Web route exist. Every site retains
-`web.published: false`.
+site commits and the canonical Var Est regional relief. Every site retains
+`web.published: false`; the regional Web manifest consequently exposes no
+site marker.
 
 ## Automated checks
 
@@ -23,11 +23,17 @@ map builder and Var Est Web route exist. Every site retains
 - Only Les Pyramides includes completed plates. Arche du Dramont lacks
   orthophoto variants and an interactive package; the other three new sites
   lack plates. These missing deliverables are publication blockers.
-- The complete Python suite passes.
-- Git recognizes every moved Pyramides binary as a 100% rename. No map or
-  terrain asset was regenerated. Only the stale Pyramides inventory entry is
-  removed from `regions/paca/region.json`; no other PACA site or content is
-  changed by the regional correction.
+- The 31 configuration and Var Est interactive-manifest checks pass. The full
+  Python discovery run passes 114 of 120 tests; its single failure is the
+  intermediate inventory assertion that still expects the former
+  `awaiting-shared-builder` status, and its five errors require autonomous
+  region directories absent from this restored Var Est branch. Those tests
+  and unrelated regions are intentionally not changed by this map-only
+  integration.
+- Git recognizes every moved Pyramides binary as a 100% rename. No Pyramides
+  map or terrain asset was regenerated. Only the stale Pyramides inventory
+  entry is removed from `regions/paca/region.json`; no other PACA site or
+  content is changed by the regional correction.
 
 ## Full-resolution visual inspection
 
@@ -43,13 +49,42 @@ These observations are acceptance failures, not requests to regenerate inside
 this integration task. The source worktrees remain responsible for corrected
 site assets if the sites are to progress toward publication.
 
-## Deferred regional gates
+## Regional relief and marker QA
 
-- The canonical Var Est regional map and Web derivative are absent by design;
-  `regionalMap.status` is `awaiting-shared-builder`.
-- Marker/cartouche geometry, desktop/mobile route behavior, downloads, and
-  interactive controls cannot be tested until the globally coordinated shared
-  builder and Var Est Web route are integrated.
+- `build_regional_relief.py var-est` completed with the approved project
+  runtime and without `--refresh`, reusing the official-source caches.
+- The canonical and Web PNGs both decode at 1864 × 1440, contain 1,695,414
+  bytes, and match SHA-256
+  `1e4958d46422829aedad794b413ba58b4a9770f1eb003b1247774c927ba8b522`.
+  The same digest and bounds are recorded in `region.json` and the Web map
+  manifest.
+- The full-resolution image was inspected directly. The coastline is
+  continuous, the land/ocean classification is plausible, and no tile seam,
+  isolated flood component, or cross-coast relief bleed is visible. The
+  Shom–IGN LIMTM mask retained 2,418 segments and 249,181 vertices; its land
+  fraction was 0.444, within 0.008 of the Natural Earth topology guard.
+- The regional bounds are west 6.67894138, south 43.28603339, east
+  7.09494138, north 43.59803339. Every configured site coordinate lies inside
+  them:
+
+| Site | WGS84 latitude | WGS84 longitude | Locator x | Locator y | Position check |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Les Pyramides | 43.40906678 | 6.84388276 | 39.64937% | 60.56622% | Dramont cluster |
+| Sec de l’Île d’Or | 43.40986826 | 6.84479991 | 39.86984% | 60.30934% | Dramont cluster |
+| Arche du Dramont | 43.40916000 | 6.84610999 | 40.18476% | 60.53634% | Dramont cluster |
+| Cathédrale du Trayas | 43.47500000 | 6.93000001 | 60.35063% | 39.43378% | Distinct north-east position |
+| Le Village | 43.41131715 | 6.85673293 | 42.73835% | 59.84495% | East of the Dramont cluster |
+
+The relative positions match the intended coastline geography. They are QA
+coordinates only: `apps/web/content/var-est-map-manifest.json` keeps
+`sites: []` because none of the five configurations is published.
+
+## Deferred publication gates
+
+- `regionalMap.status` is now `generated`, but site-level marker/cartouche
+  geometry, desktop/mobile route behavior, downloads, and interactive controls
+  remain deferred until the globally coordinated Var Est Web route exists and
+  individual sites pass their asset QA.
 - `apps/web/node_modules` is absent in this restored worktree. No dependency
   installation was authorized, so Web lint, tests, and production build were
   not run. The existing shared PACA Web manifest still points at Pyramides and

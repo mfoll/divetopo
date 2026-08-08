@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "reunionOverview": {
+    "src": "/maps/paca/france-metropolitan-situation.png",
+    "width": 1000,
+    "height": 840
+  },
+  "westCoastLocator": {
+    "src": "/maps/var-est/var-est-regional-relief.png",
+    "width": 1864,
+    "height": 1440,
+    "boundsWgs84": {
+      "west": 6.678941382547089,
+      "south": 43.28603338833524,
+      "east": 7.0949413825470895,
+      "north": 43.59803338833524
+    },
+    "bytes": 1695414,
+    "sha256": "1e4958d46422829aedad794b413ba58b4a9770f1eb003b1247774c927ba8b522",
+    "source": "Shom–IGN Limite terre-mer for the visible var-est coastline; Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; EMODnet Bathymetry DTM 2024 for offshore bathymetry; GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024 only as no-data fallback; IGN RGE ALTI for land relief",
+    "sourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "layer": "emodnet:mean",
+    "marineSourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "marineLayer": "emodnet:mean",
+    "marineResolution": "1/16 arc minute native DTM grid (~115 m)",
+    "detailSourceUrl": "https://data.geopf.fr/wmts",
+    "detailLayer": "ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES",
+    "detailTileMatrixSet": "WGS84G_6_14",
+    "detailZoom": 11,
+    "detailBathymetrySourceUrl": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL",
+    "detailBathymetryLayer": "LITTO3D PACA 2015 MNT5m",
+    "detailBathymetryCrs": "EPSG:2154",
+    "detailBathymetryResolutionM": 5.0,
+    "detailBathymetryArchiveCount": 2,
+    "detailBathymetryTileCount": 27,
+    "coastlineSource": "Shom–IGN Limite terre-mer COALNE + SLCONS vector features, LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne; Natural Earth 10m Admin 0 Countries v5.1.1 is used only for border flood-fill seeding and sanity checking",
+    "coastlineSourceUrl": "https://services.data.shom.fr/INSPIRE/wfs",
+    "coastlineLayer": "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne",
+    "coastlineFeatureTypes": "COALNE + SLCONS",
+    "coastlineResolution": "1–7 m product resolution",
+    "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
+  },
+  "sites": []
+}
