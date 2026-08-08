@@ -1,0 +1,111 @@
+{
+  "region": "var-centre",
+  "slug": "les-fourmigues",
+  "title": "Les Fourmigues, Giens",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0
+    }
+  },
+  "plate_relief_source": "interactive",
+  "paths": {
+    "output_locator": "regions/var-centre/outputs/var-centre-regional-relief.png"
+  },
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0945_6225/file/0945_6225.7z",
+      "members": [
+        "0945_6225/LITTO3D_FRA_0949_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0949_6221_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0950_6225/file/0950_6225.7z",
+      "members": [
+        "0950_6225/LITTO3D_FRA_0950_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0950_6221_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    950050,
+    6220375,
+    950475,
+    6220775
+  ],
+  "context_bbox_utm40s": [
+    949950,
+    6220275,
+    950650,
+    6220875
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      950250,
+      6220575
+    ],
+    "width_m": 400,
+    "depth_m": 380,
+    "look_bearing_deg": 0
+  },
+  "view_bearing_deg": 0,
+  "view_visible_width_m": 400,
+  "interactive_view_visible_width_m": 320,
+  "view_center_offset_east_m": -25,
+  "view_center_offset_north_m": -75,
+  "view_crop_width_m": 450,
+  "view_crop_depth_m": 500,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 45,
+  "interactive_max_depth_m": 45,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · MNT 1 m · référentiel vertical IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "plan_suppressed_label_levels": [
+    40
+  ],
+  "relief_suppressed_label_levels": [
+    40
+  ],
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 25,
+  "camera_tilt": 0.65,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0,
+  "view_right_crop_fraction": 0,
+  "view_top_crop_fraction": 0,
+  "imagery_sea_full_depth_m": 0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5,
+  "output_scale": 2,
+  "plan_output_scale": 2,
+  "relief_output_scale": 1,
+  "map_style_scale": 2,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    950258.4,
+    6220489
+  ],
+  "plate_site_name": "Les Fourmigues",
+  "plate_city": "Hyères",
+  "plate_city_detail": "Hyères · Giens",
+  "plate_title": "Les Fourmigues, Giens",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.5,
+  "clip_rotated_outside": true
+}
