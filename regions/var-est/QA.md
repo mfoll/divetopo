@@ -52,17 +52,24 @@ site assets if the sites are to progress toward publication.
 ## Regional relief and marker QA
 
 - `build_regional_relief.py var-est` completed with the approved project
-  runtime and without `--refresh`, reusing the official-source caches.
-- The canonical and Web PNGs both decode at 1864 × 1440, contain 1,695,414
+  runtime and without `--refresh`. Existing official-source caches were reused;
+  the previously absent Shom–IGN polygon WFS response was fetched once and
+  cached.
+- The canonical and Web PNGs both decode at 1864 × 1440, contain 1,731,260
   bytes, and match SHA-256
-  `1e4958d46422829aedad794b413ba58b4a9770f1eb003b1247774c927ba8b522`.
+  `0f03a6ccac5581749ad92af1e00f2088028dc6b67880ba80247d4bb8ea3c8e57`.
   The same digest and bounds are recorded in `region.json` and the Web map
   manifest.
 - The full-resolution image was inspected directly. The coastline is
   continuous, the land/ocean classification is plausible, and no tile seam,
-  isolated flood component, or cross-coast relief bleed is visible. The
-  Shom–IGN LIMTM mask retained 2,418 segments and 249,181 vertices; its land
-  fraction was 0.444, within 0.008 of the Natural Earth topology guard.
+  isolated component, or cross-coast relief bleed is visible. The official
+  Shom–IGN LIMTM polygon mask contains 1,079 features and 844,310 vertices;
+  its land fraction is 0.437, within 0.001 of the Natural Earth sanity guard.
+- Compared with the previous line-flood mask, 48,678 pixels change, primarily
+  along the coastline. Direct before/after inspection confirms that the large
+  artificial closures at Trayas and in regional bays are removed, the detailed
+  Dramont coast remains continuous, and the Îles de Lérins and smaller islets
+  retain crisp, complete land and shoreline geometry without ghosting.
 - The regional bounds are west 6.67894138, south 43.28603339, east
   7.09494138, north 43.59803339. Every configured site coordinate lies inside
   them:
