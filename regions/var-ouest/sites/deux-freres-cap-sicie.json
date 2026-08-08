@@ -1,0 +1,128 @@
+{
+  "region": "var-ouest",
+  "slug": "deux-freres-cap-sicie",
+  "title": "Les Deux Frères, Cap Sicié",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right", "shift_y_rem": -2, "connector_angle_deg": -73.2,
+      "connector_width_rem": 2.17, "label_offset_rem": 2, "width_rem": 6.02
+    },
+    "interactive_initial_view": {
+      "zoom": 0.9, "center_offset_east_m": 310, "center_offset_south_m": 100
+    }
+  },
+  "plate_relief_source": "interactive",
+  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0930_6225/file/0930_6225.7z",
+  "litto3d_archive_members": [
+    "0930_6225/LITTO3D_FRA_0931_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0931_6221_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0930_6225/LITTO3D_FRA_0931_6222_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0931_6222_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0930_6225/LITTO3D_FRA_0932_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0932_6221_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0930_6225/LITTO3D_FRA_0932_6222_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0932_6222_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0930_6225/LITTO3D_FRA_0933_6221_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0933_6221_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+    "0930_6225/LITTO3D_FRA_0933_6222_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0933_6222_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+  ],
+  "focus_bbox_utm40s": [
+    933050.0,
+    6220630.0,
+    933950.0,
+    6221253.0
+  ],
+  "context_bbox_utm40s": [
+    932000.0,
+    6220300.0,
+    934000.0,
+    6222000.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      933474.5,
+      6221100.0
+    ],
+    "width_m": 1000.0,
+    "depth_m": 1049.0,
+    "look_bearing_deg": 270.0
+  },
+  "view_bearing_deg": 315.0,
+  "view_crop_width_m": 700.0,
+  "view_crop_depth_m": 600.0,
+  "view_visible_width_m": 650.0,
+  "interactive_view_visible_width_m": 600.0,
+  "view_center_offset_east_m": 600.0,
+  "view_center_offset_north_m": -200.0,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_view_along_center_offset_m": -250.0,
+  "coast_mode": "mask",
+  "max_depth_m": 45,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 40.0,
+  "camera_tilt": 0.5,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.45,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "relief_compass_inset_px": 88.0,
+  "relief_footer_inset_px": 44.0,
+  "relief_label_edge_inset_px": 52.0,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    933842.6,
+    6220838.3
+  ],
+  "site_location_utm40s": [
+    933842.6,
+    6220838.3
+  ],
+  "plate_site_name": "Les Deux Frères",
+  "plate_city": "La Seyne-sur-Mer",
+  "plate_city_detail": "La Seyne-sur-Mer · Cap Sicié",
+  "plate_title": "Les Deux Frères, Cap Sicié",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true,
+  "interactive_vector_label_vertical_inset_fraction": 0.08,
+  "interactive_vector_label_collision_padding_ndc": 0.08,
+  "interactive_reselect_vector_labels_on_camera_end": true,
+  "interactive_required_vector_label_levels_m": [
+    5,
+    10,
+    15,
+    20,
+    25,
+    30,
+    35,
+    40
+  ],
+  "interactive_featured_vector_label_levels_m": [
+    5,
+    10,
+    15
+  ]
+}
