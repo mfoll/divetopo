@@ -1,0 +1,129 @@
+{
+  "region": "bouches-du-rhone",
+  "slug": "pains-de-sucre-riou",
+  "title": "Pains de Sucre – Riou",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -0.5,
+      "connector_angle_deg": -12,
+      "connector_width_rem": 2.4,
+      "label_offset_rem": 2.5,
+      "lines": ["Pains de Sucre", "Riou"],
+      "width_rem": 5.8
+    },
+    "interactive_initial_view": {
+      "zoom": 0.95,
+      "orbit_azimuth_deg": 0,
+      "camera_elevation_deg": 18,
+      "isobath_label_focus_x_ndc": 0
+    }
+  },
+  "plate_relief_source": "interactive",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0890_6235/file/0890_6235.7z",
+      "members": [
+        "0890_6235/LITTO3D_FRA_0894_6233_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0894_6233_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0890_6235/LITTO3D_FRA_0894_6233_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0894_6233_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6233_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0894_6233_DST_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6234_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0894_6234_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0890_6235/LITTO3D_FRA_0894_6234_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0894_6234_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6234_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0894_6234_DST_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6235_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0894_6235_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0890_6235/LITTO3D_FRA_0894_6235_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0894_6235_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6235_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0894_6235_DST_20150128_LAMB93_RGF93_IGN69.tif"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0895_6235/file/0895_6235.7z",
+      "members": [
+        "0895_6235/LITTO3D_FRA_0895_6234_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0895_6234_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0895_6235/LITTO3D_FRA_0895_6234_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0895_6234_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0895_6235/LITTO3D_FRA_0895_6234_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0895_6234_DST_20150128_LAMB93_RGF93_IGN69.tif"
+      ]
+    }
+  ],
+  "site_location_utm40s": [
+    895015.2403,
+    6233666.0501
+  ],
+  "focus_bbox_utm40s": [
+    894750.0,
+    6233400.0,
+    895200.0,
+    6233900.0
+  ],
+  "context_bbox_utm40s": [
+    894700.0,
+    6233300.0,
+    895300.0,
+    6234000.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      894975.0,
+      6233650.0
+    ],
+    "width_m": 450.0,
+    "depth_m": 500.0,
+    "look_bearing_deg": 0.0
+  },
+  "view_bearing_deg": 0.0,
+  "view_visible_width_m": 280.0,
+  "interactive_view_visible_width_m": 280.0,
+  "view_canvas_width_px": 1455,
+  "view_canvas_height_px": 1007,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_along_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 40.0,
+  "plan_max_depth_m": 40.0,
+  "interactive_max_depth_m": 40.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 100.0,
+  "camera_tilt": 0.55,
+  "along_view_projection_scale": 1.2,
+  "view_crop_width_m": 450.0,
+  "view_crop_depth_m": 500.0,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-06-24",
+  "orthophoto_resolution_m": 0.2,
+  "orthophoto_3d_resolution_m": 0.4,
+  "orthophoto_coastline_visible": false,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    895015.2403,
+    6233666.0501
+  ],
+  "plate_site_name": "Pains de Sucre – Riou",
+  "plate_city": "Marseille",
+  "plate_city_detail": "Marseille · Riou",
+  "plate_title": "Pains de Sucre – Riou",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.5,
+  "clip_rotated_outside": true,
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69"
+}
