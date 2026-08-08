@@ -1164,6 +1164,21 @@ test("interactive terrain synchronizes its canvas box and backing store", async 
   );
 });
 
+test("mobile terrain scale clears the two-line attribution", async () => {
+  const styles = await readFile(
+    new URL("../app/globals.css", import.meta.url),
+    "utf8",
+  );
+  assert.match(
+    styles,
+    /@media \(max-width: 560px\)[\s\S]*\.terrain-scale\s*\{[^}]*bottom:\s*2\.65rem;[^}]*left:\s*0\.65rem;/s,
+  );
+  assert.match(
+    styles,
+    /\.terrain-host:fullscreen \.terrain-scale,[\s\S]*bottom:\s*calc\(2\.65rem \+ env\(safe-area-inset-bottom, 0px\)\)/s,
+  );
+});
+
 test("keeps the viewer and download card in ordinary block flow", async () => {
   const styles = await readFile(
     new URL("../app/globals.css", import.meta.url),

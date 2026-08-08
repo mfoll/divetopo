@@ -2400,6 +2400,17 @@ img {
     -webkit-text-stroke-width: 1px;
   }
 
+  .terrain-scale {
+    bottom: 2.65rem;
+    left: 0.65rem;
+  }
+
+  .terrain-host:fullscreen .terrain-scale,
+  .terrain-host.is-css-fullscreen .terrain-scale {
+    bottom: calc(2.65rem + env(safe-area-inset-bottom, 0px));
+    left: calc(0.65rem + env(safe-area-inset-left, 0px));
+  }
+
   .terrain-host:fullscreen .terrain-actions,
   .terrain-host.is-css-fullscreen .terrain-actions {
     bottom: calc(0.65rem + env(safe-area-inset-bottom, 0px));
