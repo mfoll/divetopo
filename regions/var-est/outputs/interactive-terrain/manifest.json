@@ -92,38 +92,38 @@
       "files": {
         "metadata": {
           "path": "cathedrale-du-trayas/terrain.json",
-          "bytes": 4461,
-          "sha256": "ca359f44490467dd6ec4798640adad133cdd806d15ea0293cb34324d81b22f3f"
+          "bytes": 4449,
+          "sha256": "1e6c8854d102269dc1f4bc5d020af2009e98d906119cfcdb7073a588ddae9035"
         },
         "height": {
           "path": "cathedrale-du-trayas/height.bin",
-          "bytes": 509922,
-          "sha256": "fd5c71013dc0a75d484a6051945fc2f663a2dfa8e8e634207069d4cad39ec872"
+          "bytes": 501714,
+          "sha256": "faa55743a378c46fbe965947973105cdc233b00295f4a97698d95b0c22598b8d"
         },
         "validMask": {
           "path": "cathedrale-du-trayas/valid-mask.bin",
-          "bytes": 31871,
-          "sha256": "a271032639c84edf585e8c56238af83fa6b834b7273ed31045b2a28630fafa07"
+          "bytes": 31358,
+          "sha256": "d5168627f4522171dfdfebda7590190236fc6a8e443361cbac9d19ce3ad41252"
         },
         "isobathMask": {
           "path": "cathedrale-du-trayas/isobath-mask.bin",
-          "bytes": 31871,
-          "sha256": "a271032639c84edf585e8c56238af83fa6b834b7273ed31045b2a28630fafa07"
+          "bytes": 31358,
+          "sha256": "d5168627f4522171dfdfebda7590190236fc6a8e443361cbac9d19ce3ad41252"
         },
         "vectorIsobaths": {
           "path": "cathedrale-du-trayas/isobaths-vector.json",
-          "bytes": 53235,
-          "sha256": "a8d1395cdf56c3cafb990e2875e1c9dfc63043aaa30de66462cbb36df6d61f26"
+          "bytes": 57181,
+          "sha256": "ce0b7d2db4b65f1b33f9c50ba9ddc9204f42ea5c38d8e4e17ba0dec980f0dacd"
         },
         "topographicTexture": {
           "path": "cathedrale-du-trayas/topographic.webp",
-          "bytes": 24220,
-          "sha256": "6eb233ab7559f6737fc4352f87a2ac8020da13d0a93c310253c27ba7b9e939bc"
+          "bytes": 34334,
+          "sha256": "d506cfb4ae35e8b95f4f5325b939763100daa1c8d4c1c365d96961b892a4df2f"
         },
         "orthophotoTexture": {
           "path": "cathedrale-du-trayas/orthophoto.webp",
-          "bytes": 24500,
-          "sha256": "e2ca8b79efcfe0a9b8f985b47f8e57e07669277ffb772f2c1e10359ec8f64da1"
+          "bytes": 40362,
+          "sha256": "a6e280a72478f2e9d0db089d286c3f868a26d6d3908c5c3d0ef89bbc7dc8988d"
         }
       }
     },
