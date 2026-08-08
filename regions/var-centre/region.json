@@ -16,6 +16,18 @@
   ],
   "route": "/var-centre",
   "routeStatus": "conceptual",
+  "regionalMap": {
+    "status": "generated",
+    "boundsWgs84": [
+      6.0,
+      42.86,
+      6.46,
+      43.1
+    ],
+    "output": "regions/var-centre/outputs/var-centre-regional-relief.png",
+    "webDerivative": "apps/web/public/maps/var-centre/var-centre-regional-relief.png",
+    "sha256": "0662dbd7174a037bec8415fe533ec91a28650b5234dadc962a2d4acecd61eba1"
+  },
   "pipeline": {
     "module": "cartography.regions.var_centre",
     "siteConfigDirectory": "regions/var-centre/sites",

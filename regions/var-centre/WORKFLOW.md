@@ -133,12 +133,9 @@ manifeste publiable.
 
 Les contrôles suivants restent explicitement en attente :
 
-- validation canonique des configurations, jusqu'à l'ajout du contrat de source
-  `var-centre` dans le validateur partagé;
-- production et inspection de la carte régionale, jusqu'au builder partagé et
-  à son emprise propre;
 - QA Web des marqueurs, cartouches, connecteurs, desktop, mobile, clavier et
-  toucher, jusqu'au câblage de la route `/var-centre`.
+  toucher, jusqu'au câblage de la route `/var-centre` et à la disponibilité de
+  toutes les captures dynamiques des deux sites déjà publiés.
 
 Ces attentes interdisent de considérer les trois nouveaux sites comme
 publiables, même si leurs actifs natifs passent les contrôles locaux.
@@ -172,3 +169,31 @@ publiables, même si leurs actifs natifs passent les contrôles locaux.
   Python GDAL local, sans installation autorisée. Un test de manifeste PACA
   reste obsolète après le déplacement approuvé de La Gabinière et Cap des Mèdes
   et doit être corrigé dans la généralisation partagée.
+
+### Carte régionale et QA du 8 août 2026
+
+- Le builder partagé produit la carte régionale en `1864 × 1440 px` sur
+  l'emprise WGS84 `[6.00, 42.86, 6.46, 43.10]`. Les copies régionale et Web sont
+  identiques, avec le SHA-256
+  `0662dbd7174a037bec8415fe533ec91a28650b5234dadc962a2d4acecd61eba1`.
+- L'inspection plein format confirme une emprise propre à Giens, Porquerolles
+  et Port-Cros, une côte continue et l'absence de grand polygone SLCONS en mer.
+  Le relief terrestre et la bathymétrie restent lisibles. Les fragments de
+  terre coupés aux bords nord et est montrent la résolution RGE de bord, sans
+  affecter les cinq secteurs de plongée.
+- Les cinq positions transformées depuis EPSG:2154 tombent dans le cadre. Les
+  positions relatives vont de `15.05659 %` à `85.45102 %` horizontalement et de
+  `25.02502 %` à `46.38333 %` verticalement. Cap des Mèdes et La Gabinière
+  conservent leurs réglages d'étiquette spécifiques; les trois brouillons
+  restent `web.published: false`.
+- Le manifeste de relief reste volontairement sans entrée de site tant que le
+  builder d'actifs Web ne peut pas reconstruire les deux fiches publiées. Il
+  s'arrête sur la capture manquante
+  `cap-des-medes/maps/3d-dynamic-topographic-960.webp`; aucun substitut n'a été
+  créé et aucun actif partiel n'est conservé. Les trois brouillons ne sont donc
+  exposés par aucun manifeste publiable.
+- Les 32 tests de configuration et de manifeste passent avec le runtime
+  canonique, ainsi que les contrôles directs des dimensions, hashes, bornes et
+  positions. Le test partagé du builder reste inapplicable dans ce worktree :
+  il exige les quatre autres régions non intégrées et une hauteur minimale de
+  `0,3°`, supérieure à l'emprise Var Centre validée de `0,24°`.
