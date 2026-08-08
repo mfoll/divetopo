@@ -70,6 +70,30 @@
       "config": "regions/paca/sites/cap-des-medes.json"
     },
     {
+      "slug": "les-magnons",
+      "name": "Les Magnons",
+      "municipality": "Six-Fours-les-Plages",
+      "config": "regions/paca/sites/les-magnons.json"
+    },
+    {
+      "slug": "les-fourmigues",
+      "name": "Les Fourmigues",
+      "municipality": "Hyères",
+      "config": "regions/paca/sites/les-fourmigues.json"
+    },
+    {
+      "slug": "sec-de-la-jeaune-garde",
+      "name": "Sec de la Jeaune Garde",
+      "municipality": "Hyères",
+      "config": "regions/paca/sites/sec-de-la-jeaune-garde.json"
+    },
+    {
+      "slug": "sec-du-langoustier",
+      "name": "Sec du Langoustier",
+      "municipality": "Hyères",
+      "config": "regions/paca/sites/sec-du-langoustier.json"
+    },
+    {
       "slug": "les-pyramides-cap-dramont",
       "name": "Les Pyramides",
       "municipality": "Saint-Raphaël",
