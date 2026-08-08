@@ -4,14 +4,14 @@
   "title": "Grotte à Corail – Maïre",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 889291.5,
-    "south": 6237069.5,
-    "east": 889891.5,
-    "north": 6237669.5
+    "west": 889391.5,
+    "south": 6237241.5,
+    "east": 889791.5,
+    "north": 6237641.5
   },
   "physicalSizeM": {
-    "width": 600.0,
-    "depth": 600.0
+    "width": 400.0,
+    "depth": 400.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 513,
-    "height": 513,
-    "triangleCount": 524288,
+    "width": 400,
+    "height": 400,
+    "triangleCount": 318402,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -44.00176239013672,
-      "scaleMPerUnit": 0.002790391298729031,
+      "offsetM": -39.152915954589844,
+      "scaleMPerUnit": 0.0025582153245805555,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -57,8 +57,8 @@
     }
   },
   "elevationRangeM": {
-    "min": -44.00176239013672,
-    "max": 138.8665313720703
+    "min": -39.152915954589844,
+    "max": 128.49972534179688
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -68,28 +68,28 @@
     "isobathColorsRgb": {
       "5": [
         249,
-        125,
+        126,
         29
       ],
       "10": [
-        135,
-        223,
-        109
+        133,
+        222,
+        112
       ],
       "15": [
         40,
-        131,
-        212
+        129,
+        211
       ],
       "20": [
         12,
-        42,
-        120
+        41,
+        118
       ],
       "25": [
         6,
         26,
-        91
+        90
       ],
       "30": [
         4,
@@ -98,13 +98,8 @@
       ],
       "35": [
         2,
-        15,
-        61
-      ],
-      "40": [
-        1,
-        9,
-        42
+        14,
+        60
       ]
     }
   },
@@ -112,68 +107,73 @@
     "levels": {
       "5": {
         "polylines": 2,
-        "points": 509
+        "points": 328
       },
       "10": {
-        "polylines": 1,
-        "points": 415
+        "polylines": 2,
+        "points": 307
       },
       "15": {
-        "polylines": 1,
-        "points": 411
+        "polylines": 2,
+        "points": 295
       },
       "20": {
-        "polylines": 3,
-        "points": 485
+        "polylines": 2,
+        "points": 318
       },
       "25": {
         "polylines": 1,
-        "points": 332
+        "points": 228
       },
       "30": {
         "polylines": 1,
-        "points": 199
+        "points": 142
       },
       "35": {
         "polylines": 1,
-        "points": 244
+        "points": 112
       },
       "40": {
-        "polylines": 14,
-        "points": 302
-      },
-      "45": {
         "polylines": 0,
         "points": 0
       }
     },
     "totals": {
-      "levels": 9,
-      "polylines": 24,
-      "points": 2897
+      "levels": 8,
+      "polylines": 11,
+      "points": 1730
     },
     "reprojectionResidualM": {
-      "samples": 2897,
-      "mean": 5.541099235048041e-05,
-      "p95": 1.9630177021667478e-07,
-      "max": 0.008701140772672034,
+      "samples": 1730,
+      "mean": 1.57016578924476e-08,
+      "p95": 1.1098215679794517e-10,
+      "max": 1.4501753582862875e-05,
       "withinTolerance": true
     }
   },
-  "verticalExaggeration": 1.5,
+  "verticalExaggeration": 1.0,
   "view": {
     "lookBearingDeg": 0.0,
     "gridLookBearingDeg": 0.0,
-    "cameraTilt": 0.55,
+    "cameraTilt": 0.9,
     "alongViewProjectionScale": 1.2,
     "visibleWidthM": 260.0,
     "coastFrameFraction": 0.52,
+    "vectorLabelVerticalInsetFraction": 0.08,
+    "vectorLabelCollisionPaddingNdc": 0.025,
+    "reselectVectorLabelsOnCameraEnd": true,
+    "requiredVectorLabelLevelsM": [
+      5,
+      15,
+      25,
+      35
+    ],
     "horizontalCenterOffsetM": 0.0,
-    "alongCenterOffsetM": 0.0
+    "alongCenterOffsetM": -72.0
   },
   "textures": {
-    "width": 600,
-    "height": 600,
+    "width": 400,
+    "height": 400,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -193,27 +193,27 @@
     "shape": "oriented-rectangle",
     "centerUtm40s": [
       889591.5,
-      6237369.5
+      6237441.5
     ],
-    "widthM": 600.0,
-    "depthM": 600.0,
+    "widthM": 400.0,
+    "depthM": 400.0,
     "lookBearingDeg": 0.0,
     "cornersUtm40s": [
       [
-        889291.5,
-        6237069.5
+        889391.5,
+        6237241.5
       ],
       [
-        889891.5,
-        6237069.5
+        889791.5,
+        6237241.5
       ],
       [
-        889891.5,
-        6237669.5
+        889791.5,
+        6237641.5
       ],
       [
-        889291.5,
-        6237669.5
+        889391.5,
+        6237641.5
       ]
     ]
   }

@@ -14,9 +14,9 @@
       "width_rem": 6.3
     },
     "interactive_initial_view": {
-      "zoom": 0.95,
+      "zoom": 1.05,
       "orbit_azimuth_deg": 0,
-      "camera_elevation_deg": 18,
+      "camera_elevation_deg": 30,
       "isobath_label_focus_x_ndc": 0
     }
   },
@@ -37,36 +37,37 @@
   ],
   "focus_bbox_utm40s": [
     889391.5,
-    6237169.5,
+    6237241.5,
     889791.5,
-    6237569.5
+    6237521.5
   ],
   "context_bbox_utm40s": [
-    889291.5,
-    6237069.5,
-    889891.5,
-    6237669.5
+    889391.5,
+    6237241.5,
+    889791.5,
+    6237641.5
   ],
   "interactive_footprint_utm40s": {
     "center": [
       889591.5,
-      6237369.5
+      6237441.5
     ],
-    "width_m": 600,
-    "depth_m": 600,
+    "width_m": 400,
+    "depth_m": 400,
     "look_bearing_deg": 0
   },
   "view_bearing_deg": 0,
   "view_visible_width_m": 260,
   "interactive_view_visible_width_m": 260,
-  "view_canvas_width_px": 1455,
-  "view_canvas_height_px": 1007,
+  "view_canvas_width_px": 2474,
+  "view_canvas_height_px": 1712,
+  "view_center_offset_north_m": -72,
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": true,
   "coast_mode": "mask",
-  "max_depth_m": 45,
-  "plan_max_depth_m": 45,
-  "interactive_max_depth_m": 45,
+  "max_depth_m": 40,
+  "plan_max_depth_m": 40,
+  "interactive_max_depth_m": 40,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
   "plan_sea_shading": "local_slope",
@@ -75,7 +76,7 @@
   "topography_resolution_m": 1,
   "context_topography_resolution_m": 1,
   "max_land_elevation_m": 140,
-  "camera_tilt": 0.55,
+  "camera_tilt": 0.9,
   "along_view_projection_scale": 1.2,
   "coast_frame_fraction": 0.52,
   "view_left_crop_fraction": 0,
@@ -85,9 +86,23 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5,
   "output_scale": 2,
-  "plan_output_scale": 2,
+  "plan_output_scale": 6.2,
   "relief_output_scale": 1,
-  "map_style_scale": 1.5,
+  "map_style_scale": 2,
+  "final_output_size_px": [2474, 1712],
+  "relief_compass_inset_px": 88,
+  "relief_footer_inset_px": 12,
+  "relief_label_edge_inset_px": 52,
+  "relief_surface_draped_contours": true,
+  "relief_surface_draped_zero_contour": true,
+  "relief_surface_contour_supersampling": 2,
+  "plan_suppressed_label_levels": [20, 25],
+  "relief_suppressed_label_levels": [10, 20, 30],
+  "interactive_featured_vector_label_levels_m": [5, 15, 25, 35],
+  "interactive_required_vector_label_levels_m": [5, 15, 25, 35],
+  "interactive_reselect_vector_labels_on_camera_end": true,
+  "interactive_vector_label_vertical_inset_fraction": 0.08,
+  "interactive_vector_label_collision_padding_ndc": 0.025,
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
   "orthophoto_capture_date": "2023-06-24",
@@ -106,8 +121,8 @@
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
-  "vertical_exaggeration": 1.5,
+  "vertical_exaggeration": 1,
   "clip_rotated_outside": true,
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
-  "bathymetry_source_text": "Litto3D"
+  "bathymetry_source_text": "Litto3D PACA 2015 · MNT 1 m"
 }
