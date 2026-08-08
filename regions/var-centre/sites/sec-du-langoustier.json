@@ -1,7 +1,7 @@
 {
   "region": "var-centre",
   "slug": "sec-du-langoustier",
-  "title": "Sec du Langoustier, Porquerolles",
+  "title": "Sec du Langoustier (sud-est), Porquerolles",
   "web": {
     "published": false,
     "site_label_layout": {
@@ -10,7 +10,7 @@
       "connector_angle_deg": 0
     }
   },
-  "plate_relief_source": "interactive",
+  "plate_relief_source": "static",
   "paths": {
     "output_locator": "regions/var-centre/outputs/var-centre-regional-relief.png"
   },
@@ -19,38 +19,38 @@
     "0955_6220/LITTO3D_FRA_0957_6217_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0957_6217_MNT_20150529_LAMB93_RGF93_IGN69.asc"
   ],
   "focus_bbox_utm40s": [
-    957050.0,
-    6216050.0,
+    957340.0,
+    6216121.0,
     957900.0,
-    6216900.0
+    6216500.0
   ],
   "context_bbox_utm40s": [
-    957000.0,
-    6216000.0,
-    958000.0,
-    6217000.0
+    957340.0,
+    6216121.0,
+    957900.0,
+    6216600.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      957500.0,
-      6216500.0
+      957620.0,
+      6216360.0
     ],
-    "width_m": 1000.0,
-    "depth_m": 1000.0,
+    "width_m": 460.0,
+    "depth_m": 540.0,
     "look_bearing_deg": 90.0
   },
   "view_bearing_deg": 90.0,
-  "view_visible_width_m": 450.0,
-  "interactive_view_visible_width_m": 450.0,
-  "view_center_offset_east_m": 150.0,
-  "view_center_offset_north_m": 60.0,
+  "view_visible_width_m": 360.0,
+  "interactive_view_visible_width_m": 360.0,
+  "view_center_offset_east_m": -180.0,
+  "view_center_offset_north_m": -120.0,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
-  "max_depth_m": 46.0,
-  "interactive_max_depth_m": 46.0,
+  "max_depth_m": 43.0,
+  "interactive_max_depth_m": 43.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Bathymétrie et topographie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69",
+  "bathymetry_source_text": "Shom–IGN Litto3D 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
@@ -58,9 +58,9 @@
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
   "max_land_elevation_m": 35.0,
-  "camera_tilt": 0.34,
+  "camera_tilt": 0.5,
   "along_view_projection_scale": 1.2,
-  "coast_frame_fraction": 0.52,
+  "coast_frame_fraction": 0.25,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.0,
@@ -68,8 +68,14 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5.0,
   "output_scale": 2.0,
-  "plan_output_scale": 2.0,
-  "relief_output_scale": 1.0,
+  "plan_output_scale": 3.0,
+  "relief_output_scale": 2.0,
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
   "map_style_scale": 2.0,
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
@@ -77,14 +83,18 @@
   "orthophoto_resolution_m": 0.4,
   "orthophoto_3d_resolution_m": 1.0,
   "locator_map_enabled": false,
-  "locator_marker_utm40s": [
-    957412.5,
-    6216252.5
+  "site_location_utm40s": [
+    957425.2581579791,
+    6216297.301967988
   ],
-  "plate_site_name": "Sec du Langoustier",
+  "locator_marker_utm40s": [
+    957425.2581579791,
+    6216297.301967988
+  ],
+  "plate_site_name": "Sec du Langoustier (sud-est)",
   "plate_city": "Hyères",
   "plate_city_detail": "Hyères · Porquerolles",
-  "plate_title": "Sec du Langoustier, Porquerolles",
+  "plate_title": "Sec du Langoustier (sud-est), Porquerolles",
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
