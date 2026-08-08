@@ -66,6 +66,9 @@ LIMTM_WFS_ENDPOINT = "https://services.data.shom.fr/INSPIRE/wfs"
 LIMTM_WFS_TYPENAME = (
     "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne"
 )
+LIMTM_WFS_POLYGON_TYPENAME = (
+    "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones"
+)
 LIMTM_LINE_WIDTH_PX = 2.0
 LIMTM_CLOSE_RADIUS_PX = 2
 LIMTM_ISOLATED_COMPONENT_MAX_PX = 96
@@ -168,6 +171,22 @@ def limtm_url() -> str:
             "VERSION": "2.0.0",
             "REQUEST": "GetFeature",
             "TYPENAMES": LIMTM_WFS_TYPENAME,
+            "SRSNAME": "EPSG:4326",
+            "BBOX": f"{west:.8f},{south:.8f},{east:.8f},{north:.8f},EPSG:4326",
+            "OUTPUTFORMAT": "application/json",
+        }
+    )
+    return f"{LIMTM_WFS_ENDPOINT}?{query}"
+
+
+def limtm_polygon_url() -> str:
+    west, south, east, north = MAP_BOUNDS
+    query = urllib.parse.urlencode(
+        {
+            "SERVICE": "WFS",
+            "VERSION": "2.0.0",
+            "REQUEST": "GetFeature",
+            "TYPENAMES": LIMTM_WFS_POLYGON_TYPENAME,
             "SRSNAME": "EPSG:4326",
             "BBOX": f"{west:.8f},{south:.8f},{east:.8f},{north:.8f},EPSG:4326",
             "OUTPUTFORMAT": "application/json",
@@ -545,6 +564,73 @@ def iter_geojson_lines(geometry: dict[str, object]):
             yield from iter_geojson_lines(child)
 
 
+def iter_geojson_polygons(geometry: dict[str, object]):
+    geometry_type = geometry.get("type")
+    coordinates = geometry.get("coordinates")
+    if geometry_type == "Polygon":
+        yield coordinates
+    elif geometry_type == "MultiPolygon":
+        yield from coordinates
+    elif geometry_type == "GeometryCollection":
+        for child in geometry.get("geometries", []):
+            yield from iter_geojson_polygons(child)
+
+
+def limtm_polygon_land_mask(
+    *, refresh: bool, natural_land_array: np.ndarray
+) -> tuple[np.ndarray, int, int]:
+    """Rasterize the official Shom–IGN land polygons without line flooding."""
+    source_path = CACHE / "limtm-paca-polygones.geojson"
+    download(limtm_polygon_url(), source_path, refresh=refresh)
+    payload = json.loads(source_path.read_text(encoding="utf-8"))
+    land_image = Image.new("L", (WIDTH, HEIGHT), 0)
+    draw = ImageDraw.Draw(land_image)
+    drawn_features = 0
+    drawn_vertices = 0
+    for feature in payload.get("features", []):
+        geometry = feature.get("geometry")
+        if not geometry:
+            continue
+        feature_drawn = False
+        for polygon in iter_geojson_polygons(geometry):
+            if not polygon:
+                continue
+            exterior = [map_point(*point[:2]) for point in polygon[0]]
+            if len(exterior) < 3:
+                continue
+            draw.polygon(exterior, fill=255)
+            drawn_vertices += len(exterior)
+            for interior in polygon[1:]:
+                hole = [map_point(*point[:2]) for point in interior]
+                if len(hole) >= 3:
+                    draw.polygon(hole, fill=0)
+                    drawn_vertices += len(hole)
+            feature_drawn = True
+        if feature_drawn:
+            drawn_features += 1
+
+    land_array = np.asarray(land_image, dtype=np.uint8) > 0
+    natural_area = float(natural_land_array.mean())
+    polygon_area = float(land_array.mean())
+    area_delta = abs(polygon_area - natural_area)
+    if (
+        drawn_features == 0
+        or area_delta > 0.10
+        or not land_array.any()
+        or land_array.all()
+    ):
+        raise RuntimeError(
+            "The Shom–IGN polygon land mask is implausible: "
+            f"Natural Earth area={natural_area:.3f}, polygon area={polygon_area:.3f}"
+        )
+    print(
+        "Built Shom–IGN Limite terre-mer polygon land mask: "
+        f"{drawn_features} features, {drawn_vertices} vertices, "
+        f"land area={polygon_area:.3f}, delta vs Natural Earth={area_delta:.3f}"
+    )
+    return land_array, drawn_features, drawn_vertices
+
+
 def limtm_land_mask(
     *, refresh: bool, natural_land_array: np.ndarray
 ) -> tuple[np.ndarray, int, int]:
@@ -884,7 +970,7 @@ def render(*, refresh: bool) -> None:
 
     natural_land = natural_earth_land_mask(refresh=refresh)
     natural_land_array = np.asarray(natural_land, dtype=bool)
-    land_mask, _, _ = limtm_land_mask(
+    land_mask, _, _ = limtm_polygon_land_mask(
         refresh=refresh, natural_land_array=natural_land_array
     )
 
@@ -1020,19 +1106,19 @@ def render(*, refresh: bool) -> None:
             "detailBathymetryArchiveCount": package_count,
             "detailBathymetryTileCount": tile_count,
             "coastlineSource": (
-                "Shom–IGN Limite terre-mer COALNE + SLCONS vector features, "
-                "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_ligne; "
+                "Shom–IGN Limite terre-mer official land polygons, "
+                "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones; "
                 "Natural Earth 10m Admin 0 Countries v5.1.1 is used only for "
-                "border flood-fill seeding and sanity checking"
+                "sanity checking"
             ),
             "coastlineSourceUrl": LIMTM_WFS_ENDPOINT,
-            "coastlineLayer": LIMTM_WFS_TYPENAME,
-            "coastlineFeatureTypes": "COALNE + SLCONS",
+            "coastlineLayer": LIMTM_WFS_POLYGON_TYPENAME,
+            "coastlineFeatureTypes": "official land polygons",
             "coastlineResolution": "1–7 m product resolution",
             "render": (
                 "EMODnet DTM 2024 offshore bathymetry resampled with cubic "
                 "interpolation; Shom–IGN Litto3D nearshore bathymetry; one "
-                "Shom–IGN land mask for fill and coastline edge; IGN RGE ALTI "
+                "Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI "
                 "land hillshade; no cross-coast blur"
             ),
         }
