@@ -3,7 +3,7 @@
   "slug": "tiboulen-du-frioul",
   "title": "Tiboulen du Frioul",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
       "shift_y_rem": -1.0,

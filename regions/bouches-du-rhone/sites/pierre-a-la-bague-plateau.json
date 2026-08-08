@@ -3,7 +3,7 @@
   "slug": "pierre-a-la-bague-plateau",
   "title": "Pierre à la Bague – plateau",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
       "shift_y_rem": 0,

@@ -655,8 +655,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 44);
-  assert.equal(imageLocations.length, 104);
+  assert.equal(locations.length, 54);
+  assert.equal(imageLocations.length, 134);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -666,6 +666,16 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.ok(locations.includes("https://divetopo.com/var-est/fr"));
   assert.ok(locations.includes("https://divetopo.com/alpes-maritimes/en"));
   assert.ok(locations.includes("https://divetopo.com/bouches-du-rhone/fr"));
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/bouches-du-rhone/fr/sites/grotte-a-corail-maire",
+    ),
+  );
+  assert.ok(
+    locations.includes(
+      "https://divetopo.com/bouches-du-rhone/en/sites/tiboulen-du-frioul",
+    ),
+  );
   assert.ok(!locations.includes("https://divetopo.com/paca/fr"));
   assert.ok(
     locations.includes(
@@ -723,7 +733,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    90,
+    120,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -880,9 +890,18 @@ test("map manifest supports adding future sites without component changes", asyn
 });
 
 test("interactive terrain manifest combines every published region", async () => {
-  const [manifest, varCentreManifest, varOuestManifest] = await Promise.all([
+  const [
+    manifest,
+    bouchesDuRhoneManifest,
+    varCentreManifest,
+    varOuestManifest,
+  ] = await Promise.all([
     readFile(
       new URL("../public/terrain/manifest.json", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL("../content/bouches-du-rhone-map-manifest.json", import.meta.url),
       "utf8",
     ),
     readFile(
@@ -896,12 +915,18 @@ test("interactive terrain manifest combines every published region", async () =>
   ]).then((values) => values.map(JSON.parse));
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.deepEqual(manifest.regions, ["reunion", "var-centre", "var-ouest"]);
-  assert.equal(manifest.sites.length, 15);
+  assert.deepEqual(manifest.regions, [
+    "bouches-du-rhone",
+    "reunion",
+    "var-centre",
+    "var-ouest",
+  ]);
+  assert.equal(manifest.sites.length, 20);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([
       ...publishedSiteSlugs,
+      ...bouchesDuRhoneManifest.sites.map((site) => site.slug),
       ...varCentreManifest.sites.map((site) => site.slug),
       ...varOuestManifest.sites.map((site) => site.slug),
     ]),

@@ -1,11 +1,222 @@
 {
   "schemaVersion": 2,
   "regions": [
+    "bouches-du-rhone",
     "reunion",
     "var-centre",
     "var-ouest"
   ],
   "sites": [
+    {
+      "slug": "grotte-a-corail-maire",
+      "title": "Grotte à Corail – Maïre",
+      "metadata": "grotte-a-corail-maire/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "grotte-a-corail-maire/terrain.json",
+          "bytes": 5217,
+          "sha256": "d18f7e84f167ee1bd28da6c3b819578d562ce253815d2d19e036cf229dd01c39"
+        },
+        "height": {
+          "path": "grotte-a-corail-maire/height.bin",
+          "bytes": 320000,
+          "sha256": "8c26de48962569bd335dd11d5a495361e915c15ba698d483ef46ba3fdbd5791e"
+        },
+        "validMask": {
+          "path": "grotte-a-corail-maire/valid-mask.bin",
+          "bytes": 20000,
+          "sha256": "435f6e92bf8e5479aecd8a9ba3563e033338b03cd6d88f75adb8f4bc0b7a5abd"
+        },
+        "isobathMask": {
+          "path": "grotte-a-corail-maire/isobath-mask.bin",
+          "bytes": 20000,
+          "sha256": "435f6e92bf8e5479aecd8a9ba3563e033338b03cd6d88f75adb8f4bc0b7a5abd"
+        },
+        "vectorIsobaths": {
+          "path": "grotte-a-corail-maire/isobaths-vector.json",
+          "bytes": 67515,
+          "sha256": "678befad2dfe7e01cc9cd5c163b2bbfd75318ebf950ca042a40fd44ea73b6200"
+        },
+        "topographicTexture": {
+          "path": "grotte-a-corail-maire/topographic.webp",
+          "bytes": 12476,
+          "sha256": "a069642d952418a56d4cdf595cd7181a510af6ce1dd1c6a1b1e0fc3ae00a7da6"
+        },
+        "orthophotoTexture": {
+          "path": "grotte-a-corail-maire/orthophoto.webp",
+          "bytes": 40076,
+          "sha256": "0d6b793e0b274d77b1ecfb6d7cc2e891ef4dfb4f58c3a073f742834fd57d1932"
+        }
+      }
+    },
+    {
+      "slug": "pains-de-sucre-riou",
+      "title": "Pains de Sucre – Riou",
+      "metadata": "pains-de-sucre-riou/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pains-de-sucre-riou/terrain.json",
+          "bytes": 4986,
+          "sha256": "1b57d7b1a7a726f63e4a1251cafa59d486203d19b741ed091489f0c2eaa6dcc1"
+        },
+        "height": {
+          "path": "pains-de-sucre-riou/height.bin",
+          "bytes": 294000,
+          "sha256": "ad1c72b342bef7058b295691eefda8723b0544f784d04a1506edbffa96ea82c5"
+        },
+        "validMask": {
+          "path": "pains-de-sucre-riou/valid-mask.bin",
+          "bytes": 18375,
+          "sha256": "665304478ffcf73bc270b4f6e728bcfee67fe5de7092a65ac022215deea1d6e9"
+        },
+        "isobathMask": {
+          "path": "pains-de-sucre-riou/isobath-mask.bin",
+          "bytes": 18375,
+          "sha256": "665304478ffcf73bc270b4f6e728bcfee67fe5de7092a65ac022215deea1d6e9"
+        },
+        "vectorIsobaths": {
+          "path": "pains-de-sucre-riou/isobaths-vector.json",
+          "bytes": 30889,
+          "sha256": "996b6ffef271848a67ab126ba1e979715c4acb6097819d2a513741a97fe7333c"
+        },
+        "topographicTexture": {
+          "path": "pains-de-sucre-riou/topographic.webp",
+          "bytes": 8068,
+          "sha256": "e151b605e25d3200af7a6d36dce1964592d743515ef3e4627d82d5e59c25d0c1"
+        },
+        "orthophotoTexture": {
+          "path": "pains-de-sucre-riou/orthophoto.webp",
+          "bytes": 38452,
+          "sha256": "ee045347868b6b179a8f7dc84ab262bc0d6510b8b0a193bab8f5bd38f17abb21"
+        }
+      }
+    },
+    {
+      "slug": "imperial-de-terre-riou",
+      "title": "Impérial de Terre, Riou",
+      "metadata": "imperial-de-terre-riou/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "imperial-de-terre-riou/terrain.json",
+          "bytes": 4605,
+          "sha256": "88bb0beb65be5b53f4ffd43a8cec6a4a486f50acc737c224588da9f1b77839db"
+        },
+        "height": {
+          "path": "imperial-de-terre-riou/height.bin",
+          "bytes": 489402,
+          "sha256": "24bef6f5d16489c8df4af2e08f4347eec1a12cc995331c099831b8aea31a7ef4"
+        },
+        "validMask": {
+          "path": "imperial-de-terre-riou/valid-mask.bin",
+          "bytes": 30588,
+          "sha256": "1a0386ca05f52eafc8d258a75cdc70f31d6c87ff83247da6dde220a9e4893f10"
+        },
+        "isobathMask": {
+          "path": "imperial-de-terre-riou/isobath-mask.bin",
+          "bytes": 30588,
+          "sha256": "1a0386ca05f52eafc8d258a75cdc70f31d6c87ff83247da6dde220a9e4893f10"
+        },
+        "vectorIsobaths": {
+          "path": "imperial-de-terre-riou/isobaths-vector.json",
+          "bytes": 66295,
+          "sha256": "fcc4ce1ebe03d9b30deeec356231b8f3f6ee645b2b6a45a9677af33aab9cc608"
+        },
+        "topographicTexture": {
+          "path": "imperial-de-terre-riou/topographic.webp",
+          "bytes": 11756,
+          "sha256": "faa1d8f9d5c5bb37e0fe1e7e489c90d2cea003694c6f082f709583947da0b6d8"
+        },
+        "orthophotoTexture": {
+          "path": "imperial-de-terre-riou/orthophoto.webp",
+          "bytes": 35260,
+          "sha256": "863c377caa3b8fa4035d62779b093be6979779c6d731f8f476206db29a3ac60f"
+        }
+      }
+    },
+    {
+      "slug": "pierre-a-la-bague-plateau",
+      "title": "Pierre à la Bague – plateau, Planier",
+      "metadata": "pierre-a-la-bague-plateau/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pierre-a-la-bague-plateau/terrain.json",
+          "bytes": 5273,
+          "sha256": "8bfd0083fab91f0e66e6ef48e4901b5dd55937bfd970f7eaad0fde0013603ee6"
+        },
+        "height": {
+          "path": "pierre-a-la-bague-plateau/height.bin",
+          "bytes": 281502,
+          "sha256": "e443796ed150d90d2e9834e30512e5dcaaaa06c40d1e80dbd351cf905a9276f5"
+        },
+        "validMask": {
+          "path": "pierre-a-la-bague-plateau/valid-mask.bin",
+          "bytes": 17594,
+          "sha256": "70dacf56db3b88a17afa0b3440e3a8aad86b0f8b08bcdf617ef87a7ccfa73c0b"
+        },
+        "isobathMask": {
+          "path": "pierre-a-la-bague-plateau/isobath-mask.bin",
+          "bytes": 17594,
+          "sha256": "70dacf56db3b88a17afa0b3440e3a8aad86b0f8b08bcdf617ef87a7ccfa73c0b"
+        },
+        "vectorIsobaths": {
+          "path": "pierre-a-la-bague-plateau/isobaths-vector.json",
+          "bytes": 79138,
+          "sha256": "c352d428a25234b4403d5a573ea03852b92352e00f0cfcf828fca0d7b2ec784f"
+        },
+        "topographicTexture": {
+          "path": "pierre-a-la-bague-plateau/topographic.webp",
+          "bytes": 15702,
+          "sha256": "fae7135692e80dd6e0df10f310119d857c838be117d54cbc25342202465d99c1"
+        },
+        "orthophotoTexture": {
+          "path": "pierre-a-la-bague-plateau/orthophoto.webp",
+          "bytes": 12230,
+          "sha256": "bbe5abbc895b6a985fe4e59f5774b8f55b864d095bcb8f4b930066121dccc74b"
+        }
+      }
+    },
+    {
+      "slug": "tiboulen-du-frioul",
+      "title": "Tiboulen du Frioul",
+      "metadata": "tiboulen-du-frioul/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "tiboulen-du-frioul/terrain.json",
+          "bytes": 5222,
+          "sha256": "55ea02b5152652185f5189dd29c7785b56a224e213c0985ba2e4089392e93796"
+        },
+        "height": {
+          "path": "tiboulen-du-frioul/height.bin",
+          "bytes": 374690,
+          "sha256": "5b3d85b794f4fb89b0ce10984a521ded895056d35894de4dae9d89fc8f89e6ba"
+        },
+        "validMask": {
+          "path": "tiboulen-du-frioul/valid-mask.bin",
+          "bytes": 23419,
+          "sha256": "a23665f891ce0a7d4209d9ec17d3a3c20f6a278f9ac12405cb1f81625af8d9ff"
+        },
+        "isobathMask": {
+          "path": "tiboulen-du-frioul/isobath-mask.bin",
+          "bytes": 23419,
+          "sha256": "a23665f891ce0a7d4209d9ec17d3a3c20f6a278f9ac12405cb1f81625af8d9ff"
+        },
+        "vectorIsobaths": {
+          "path": "tiboulen-du-frioul/isobaths-vector.json",
+          "bytes": 52267,
+          "sha256": "3aeccbeeb231e7e64ae84112d8735c77f2f06ecfab519d33aab6ea0d01e70bd5"
+        },
+        "topographicTexture": {
+          "path": "tiboulen-du-frioul/topographic.webp",
+          "bytes": 10958,
+          "sha256": "4b25bef239c93350d06f5564f06f9f04f69ea11cf1d8a47c31f568daf69311ec"
+        },
+        "orthophotoTexture": {
+          "path": "tiboulen-du-frioul/orthophoto.webp",
+          "bytes": 11270,
+          "sha256": "cad6ec35ecb940de3b3518c6178987d7785a409d78a1472e4fc19b0630cc9c08"
+        }
+      }
+    },
     {
       "slug": "boucan-canot",
       "title": "Boucan Canot, La Réunion",

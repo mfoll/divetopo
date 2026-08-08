@@ -39,7 +39,7 @@ test("retires the PACA aggregate through localized redirects", async () => {
   );
 });
 
-test("renders five regional sites while keeping drafts non-clickable", async () => {
+test("renders published regional sites while keeping drafts non-clickable", async () => {
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 2],
     ["/var-centre/en", "topo-var-centre-title", 2],
@@ -65,8 +65,30 @@ test("renders five regional sites while keeping drafts non-clickable", async () 
     assert.doesNotMatch(html, /noindex/i, path);
   }
 
+  const bouchesDuRhone = await render("/bouches-du-rhone/fr");
+  assert.equal(bouchesDuRhone.status, 200);
+  const bouchesDuRhoneHtml = await bouchesDuRhone.text();
+  assert.match(bouchesDuRhoneHtml, /id="topo-bouches-du-rhone-title"/);
+  assert.equal(
+    bouchesDuRhoneHtml.match(/class="site-map-marker label-/g)?.length,
+    5,
+  );
+  assert.doesNotMatch(bouchesDuRhoneHtml, /En préparation|en préparation/);
+  for (const slug of [
+    "grotte-a-corail-maire",
+    "pains-de-sucre-riou",
+    "imperial-de-terre-riou",
+    "pierre-a-la-bague-plateau",
+    "tiboulen-du-frioul",
+  ]) {
+    assert.match(
+      bouchesDuRhoneHtml,
+      new RegExp(`/bouches-du-rhone/fr/sites/${slug}`),
+      slug,
+    );
+  }
+
   for (const region of [
-    "bouches-du-rhone",
     "var-est",
     "alpes-maritimes",
   ]) {

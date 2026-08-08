@@ -3,11 +3,15 @@
   "slug": "imperial-de-terre-riou",
   "title": "Impérial de Terre – Riou",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0
+      "shift_y_rem": 2.6,
+      "connector_angle_deg": 35,
+      "connector_width_rem": 2.8,
+      "label_offset_rem": 2,
+      "lines": ["Impérial", "de Terre"],
+      "width_rem": 4.4
     },
     "interactive_initial_view": {
       "zoom": 1

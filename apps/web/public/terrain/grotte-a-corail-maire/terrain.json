@@ -1,0 +1,220 @@
+{
+  "schemaVersion": 2,
+  "slug": "grotte-a-corail-maire",
+  "title": "Grotte à Corail – Maïre",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 889391.5,
+    "south": 6237241.5,
+    "east": 889791.5,
+    "north": 6237641.5
+  },
+  "physicalSizeM": {
+    "width": 400.0,
+    "depth": 400.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 400,
+    "height": 400,
+    "triangleCount": 318402,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -39.152915954589844,
+      "scaleMPerUnit": 0.0025582153245805555,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -39.152915954589844,
+    "max": 128.49972534179688
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        126,
+        29
+      ],
+      "10": [
+        133,
+        222,
+        112
+      ],
+      "15": [
+        40,
+        129,
+        211
+      ],
+      "20": [
+        12,
+        41,
+        118
+      ],
+      "25": [
+        6,
+        26,
+        90
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        14,
+        60
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 2,
+        "points": 328
+      },
+      "10": {
+        "polylines": 2,
+        "points": 307
+      },
+      "15": {
+        "polylines": 2,
+        "points": 295
+      },
+      "20": {
+        "polylines": 2,
+        "points": 318
+      },
+      "25": {
+        "polylines": 1,
+        "points": 228
+      },
+      "30": {
+        "polylines": 1,
+        "points": 142
+      },
+      "35": {
+        "polylines": 1,
+        "points": 112
+      },
+      "40": {
+        "polylines": 0,
+        "points": 0
+      }
+    },
+    "totals": {
+      "levels": 8,
+      "polylines": 11,
+      "points": 1730
+    },
+    "reprojectionResidualM": {
+      "samples": 1730,
+      "mean": 1.57016578924476e-08,
+      "p95": 1.1098215679794517e-10,
+      "max": 1.4501753582862875e-05,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 1.0,
+  "view": {
+    "lookBearingDeg": 0.0,
+    "gridLookBearingDeg": 0.0,
+    "cameraTilt": 0.9,
+    "alongViewProjectionScale": 1.2,
+    "visibleWidthM": 260.0,
+    "coastFrameFraction": 0.52,
+    "vectorLabelVerticalInsetFraction": 0.08,
+    "vectorLabelCollisionPaddingNdc": 0.025,
+    "reselectVectorLabelsOnCameraEnd": true,
+    "requiredVectorLabelLevelsM": [
+      5,
+      15,
+      25,
+      35
+    ],
+    "horizontalCenterOffsetM": 0.0,
+    "alongCenterOffsetM": -72.0
+  },
+  "textures": {
+    "width": 400,
+    "height": 400,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-06-24",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 24-06-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 24-06-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      889591.5,
+      6237441.5
+    ],
+    "widthM": 400.0,
+    "depthM": 400.0,
+    "lookBearingDeg": 0.0,
+    "cornersUtm40s": [
+      [
+        889391.5,
+        6237241.5
+      ],
+      [
+        889791.5,
+        6237241.5
+      ],
+      [
+        889791.5,
+        6237641.5
+      ],
+      [
+        889391.5,
+        6237641.5
+      ]
+    ]
+  }
+}

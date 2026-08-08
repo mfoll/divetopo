@@ -91,7 +91,10 @@
     "qa": {
       "fullResolutionInspected": true,
       "markerPositionsVerified": true,
-      "draftMarkersExposed": false
+      "draftMarkersExposed": false,
+      "publishedSitesVerified": 5,
+      "desktopWebVerified": true,
+      "mobileWebVerified": true
     }
   }
 }
