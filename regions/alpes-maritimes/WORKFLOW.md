@@ -37,24 +37,28 @@ Do not infer access, authorization, current conditions or dive safety from the
 terrain. Do not combine depths in another vertical datum with Litto3D elevations
 without an explicit transformation.
 
-## Target inventory for v1.4
+## Target inventory for the v1.4 first wave
 
 The region starts with no published sites. Add an inventory entry to
 `region.json` only in the same integration change that adds its real site
 configuration, so the repository never points to a missing file.
 
-The target queue is:
+The first wave is limited to exactly these five sites:
 
 1. Cap Gros
-2. Rascouï
-3. Grand Boule
-4. La Lauve
-5. La Fourmigue d’Antibes
-6. La Vaquette
-7. La Tradelière
-8. La Fouillée
-9. Enfer de Dante
-10. Grotte à Corail – Villefranche
+2. La Fourmigue d’Antibes
+3. La Vaquette
+4. La Tradelière
+5. Grotte à Corail – Villefranche
+
+The following sites are explicitly deferred. Do not cherry-pick or add them to
+the regional inventory during this wave:
+
+- Rascouï
+- Grand Boule
+- La Lauve
+- La Fouillée
+- Enfer de Dante
 
 Every new configuration must declare `region: "alpes-maritimes"` and
 `web.published: false`. Publication remains an explicit later decision after
@@ -63,16 +67,18 @@ the complete site and regional QA gates.
 ## Integrating a site worktree
 
 1. Receive the exact site commit from the global coordinator.
-2. Inspect its parent, file list and diff before cherry-picking it.
-3. Reject or split any commit that touches another region, shared Web routing,
+2. Confirm that the site belongs to the active five-site wave. Do not
+   cherry-pick a deferred site even if its commit is available.
+3. Inspect its parent, file list and diff before cherry-picking it.
+4. Reject or split any commit that touches another region, shared Web routing,
    release metadata, versions or deployment state.
-4. Cherry-pick the site-local commit into this detached coordination worktree.
-5. Confirm that the configuration and outputs live under this region, then add
+5. Cherry-pick the site-local commit into this detached coordination worktree.
+6. Confirm that the configuration and outputs live under this region, then add
    its `region.json` inventory entry if the site commit did not already do so.
-6. Preserve existing generated artifacts byte-for-byte when migrating an
+7. Preserve existing generated artifacts byte-for-byte when migrating an
    already published site. Compare SHA-256 values before and after the move;
    do not regenerate it merely to change ownership.
-7. Keep `web.published` false for every new site until explicit approval.
+8. Keep `web.published` false for every new site until explicit approval.
 
 ## Regional map gate
 
@@ -91,18 +97,19 @@ or manifest check is not a substitute for visual inspection.
 
 Before the zone commit:
 
-1. All ten expected configurations are present in the regional inventory and
+1. All five first-wave configurations are present in the regional inventory and
    validate against the live cartographic contract.
-2. All new sites remain unpublished unless the user has explicitly approved
+2. No deferred site has been cherry-picked or added to the regional inventory.
+3. All new sites remain unpublished unless the user has explicitly approved
    publication after site QA.
-3. Canonical outputs and interactive packages are complete and their manifests
+4. Canonical outputs and interactive packages are complete and their manifests
    agree with the inventory.
-4. The regional map is inspected at full resolution and in its homepage-card
+5. The regional map is inspected at full resolution and in its homepage-card
    and regional-page renderings.
-5. Regional markers, labels and connectors pass the root workflow geometry gate
+6. Regional markers, labels and connectors pass the root workflow geometry gate
    at desktop and mobile sizes.
-6. The localized overview and site routes pass server-rendered, responsive,
+7. The localized overview and site routes pass server-rendered, responsive,
    keyboard and touch checks without exposing a draft.
-7. The complete diff is region-scoped apart from explicitly coordinated shared
+8. The complete diff is region-scoped apart from explicitly coordinated shared
    integration, and contains no version, release, homepage-global or deployment
    change.
