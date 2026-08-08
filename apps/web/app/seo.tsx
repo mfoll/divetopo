@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import type { Language } from "../content/preferences";
-import { pacaMapManifest } from "../content/regional";
+import { regionLabel } from "../content/region-catalog";
+import { regionalMapManifests } from "../content/regional";
 import {
   absoluteUrl,
   defaultSitePath,
   languagePath,
   localizedSitePath,
-  pacaPublishedSites,
   publishedSites,
+  publishedSitesForRegion,
   regionalSeoText,
   siteRepresentativeImages,
   siteSeoText,
@@ -29,9 +30,9 @@ function languageAlternates(
     : languagePath("en", region);
   const defaultPath = slug
     ? defaultSitePath(slug, region)
-    : region === "paca"
-      ? "/paca"
-      : "/reunion";
+    : region === "reunion"
+      ? "/reunion"
+      : `/${region}`;
 
   return {
     fr: absoluteUrl(frenchPath),
@@ -83,14 +84,15 @@ export function regionalMetadata(
 ): Metadata {
   const text = regionalSeoText(language, region);
   const canonicalUrl = absoluteUrl(languagePath(language, region));
+  const manifest = regionalMapManifests[region];
   const image =
-    region === "paca"
-      ? {
-          src: pacaMapManifest.westCoastLocator.src,
-          width: pacaMapManifest.westCoastLocator.width,
-          height: pacaMapManifest.westCoastLocator.height,
-        }
-      : { src: "/reunion-og.png", width: 1200, height: 630 };
+    region === "reunion"
+      ? { src: "/reunion-og.png", width: 1200, height: 630 }
+      : {
+          src: manifest.westCoastLocator.src,
+          width: manifest.westCoastLocator.width,
+          height: manifest.westCoastLocator.height,
+        };
 
   return {
     title: text.title,
@@ -159,7 +161,8 @@ export function RegionalStructuredData({
   region?: RegionSlug;
 }) {
   const text = regionalSeoText(language, region);
-  const sites = region === "paca" ? pacaPublishedSites : publishedSites;
+  const sites =
+    region === "reunion" ? publishedSites : publishedSitesForRegion(region);
   const pageUrl = absoluteUrl(languagePath(language, region));
 
   const data = {
@@ -215,12 +218,7 @@ export function SiteStructuredData({
   const pageUrl = absoluteUrl(
     localizedSitePath(language, site.slug, region),
   );
-  const regionName =
-    region === "paca"
-      ? "Côte d’Azur"
-      : language === "fr"
-        ? "La Réunion"
-        : "Réunion Island";
+  const regionName = regionLabel(region, language);
   const placeName =
     `${site.displayName}, ${site.location.city}, ${regionName}`;
   const imageObjects = siteRepresentativeImages(language, site).map(

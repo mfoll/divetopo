@@ -71,6 +71,22 @@ def load_manifest(source_root: Path) -> dict[str, Any]:
     return manifest
 
 
+def published_site_slugs(region_slug: str) -> set[str] | None:
+    if region_slug == "paca":
+        return set()
+    region_path = REGIONS_ROOT / region_slug / "region.json"
+    if not region_path.is_file():
+        return None
+    region = json.loads(region_path.read_text(encoding="utf-8"))
+    published: set[str] = set()
+    for site in region.get("sites", []):
+        config_path = REPOSITORY_ROOT / str(site["config"])
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        if config.get("web", {}).get("published") is True:
+            published.add(str(site["slug"]))
+    return published
+
+
 def swap_output(build_root: Path, output_root: Path) -> None:
     previous_root = build_root.parent / "previous"
     if output_root.exists():
@@ -123,10 +139,29 @@ def sync_packages(
             region_slug, source_root = f"package-{index + 1}", package
         normalized.append((region_slug, source_root.resolve()))
     output_root = output_root.resolve()
-    manifests = [
-        (region_slug, source_root, load_manifest(source_root))
-        for region_slug, source_root in normalized
-    ]
+    manifests = []
+    for region_slug, source_root in normalized:
+        manifest = load_manifest(source_root)
+        published = published_site_slugs(region_slug)
+        if published is not None:
+            indexed = {str(site.get("slug", "")) for site in manifest["sites"]}
+            missing = sorted(published - indexed)
+            if missing:
+                raise ValueError(
+                    f"{region_slug}: published terrain packages missing: {missing}"
+                )
+            manifest = {
+                **manifest,
+                "sites": [
+                    site
+                    for site in manifest["sites"]
+                    if str(site.get("slug", "")) in published
+                ],
+            }
+        if manifest["sites"]:
+            manifests.append((region_slug, source_root, manifest))
+    if not manifests:
+        raise RuntimeError("No published regional terrain packages found")
     combined_manifest: dict[str, Any] = {
         "schemaVersion": 2,
         "regions": [region_slug for region_slug, _, _ in manifests],

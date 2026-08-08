@@ -1,5 +1,10 @@
 import reunionMapManifestJson from "./map-manifest.json";
 import pacaMapManifestJson from "./paca-map-manifest.json";
+import alpesMaritimesMapManifestJson from "./alpes-maritimes-map-manifest.json";
+import bouchesDuRhoneMapManifestJson from "./bouches-du-rhone-map-manifest.json";
+import varCentreMapManifestJson from "./var-centre-map-manifest.json";
+import varEstMapManifestJson from "./var-est-map-manifest.json";
+import varOuestMapManifestJson from "./var-ouest-map-manifest.json";
 
 export type SurfaceStyle = "topographic" | "orthophoto";
 export type MapView = "2d" | "3d";
@@ -80,10 +85,45 @@ export type RegionalMapManifest = {
   sites: RegionalAssetSite[];
 };
 
-export type RegionSlug = "reunion" | "paca";
+export type RegionSlug =
+  | "reunion"
+  | "paca"
+  | "bouches-du-rhone"
+  | "var-ouest"
+  | "var-centre"
+  | "var-est"
+  | "alpes-maritimes";
+
+export type AutonomousMediterraneanRegionSlug = Exclude<
+  RegionSlug,
+  "reunion" | "paca"
+>;
 
 export const reunionMapManifest = reunionMapManifestJson as RegionalMapManifest;
 export const pacaMapManifest = pacaMapManifestJson as RegionalMapManifest;
+export const bouchesDuRhoneMapManifest =
+  bouchesDuRhoneMapManifestJson as RegionalMapManifest;
+export const varOuestMapManifest =
+  varOuestMapManifestJson as RegionalMapManifest;
+export const varCentreMapManifest =
+  varCentreMapManifestJson as RegionalMapManifest;
+export const varEstMapManifest =
+  varEstMapManifestJson as RegionalMapManifest;
+export const alpesMaritimesMapManifest =
+  alpesMaritimesMapManifestJson as RegionalMapManifest;
+
+export const regionalMapManifests: Record<
+  RegionSlug,
+  RegionalMapManifest
+> = {
+  reunion: reunionMapManifest,
+  paca: pacaMapManifest,
+  "bouches-du-rhone": bouchesDuRhoneMapManifest,
+  "var-ouest": varOuestMapManifest,
+  "var-centre": varCentreMapManifest,
+  "var-est": varEstMapManifest,
+  "alpes-maritimes": alpesMaritimesMapManifest,
+};
 
 export const REUNION_COMPACT_ATTRIBUTIONS: Record<SurfaceStyle, string> = {
   orthophoto:

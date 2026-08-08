@@ -40,5 +40,423 @@
     "coastlineResolution": "1–7 m product resolution",
     "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
   },
-  "sites": []
+  "sites": [
+    {
+      "slug": "cap-des-medes",
+      "displayName": "Cap des Mèdes",
+      "plateTitle": "Cap des Mèdes, Porquerolles",
+      "config": "regions/var-centre/sites/cap-des-medes.json",
+      "assetBasePath": "/maps/var-centre/cap-des-medes",
+      "location": {
+        "city": "Hyères · Porquerolles",
+        "latitude": 43.02828301,
+        "longitude": 6.24145058
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 52.48926,
+        "yPercent": 29.88208
+      },
+      "maxDepthM": 40.0,
+      "planMaxDepthM": 40.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 3102,
+            "height": 2152
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/2d-topographic.jpg?v=b396e054299a",
+              "width": 3102,
+              "height": 2152,
+              "bytes": 2476569,
+              "sha256": "b396e054299af7676d31b2969694e82347ad5d16098ade0536da38c56cdf6a41"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/cap-des-medes/maps/2d-topographic.jpg?v=b396e054299a",
+            "width": 3102,
+            "height": 2152,
+            "bytes": 2476569,
+            "sha256": "b396e054299af7676d31b2969694e82347ad5d16098ade0536da38c56cdf6a41",
+            "filename": "cap-des-medes-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 3102,
+            "height": 2152
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/2d-orthophoto.jpg?v=746b58f861b3",
+              "width": 3102,
+              "height": 2152,
+              "bytes": 2650388,
+              "sha256": "746b58f861b365f88faf4e89d44df5204ae92279b20dc00f933a852ea85d37d9"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/cap-des-medes/maps/2d-orthophoto.jpg?v=746b58f861b3",
+            "width": 3102,
+            "height": 2152,
+            "bytes": 2650388,
+            "sha256": "746b58f861b365f88faf4e89d44df5204ae92279b20dc00f933a852ea85d37d9",
+            "filename": "cap-des-medes-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 70680,
+              "sha256": "788fbd75d1358a7b3321dcbaaa68dec473fac53ca1cbf0c26f325f4583e185b6"
+            },
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 141654,
+              "sha256": "54636c70da7c4b6dbfe14f1dc5e903ca032f7891b9cba12597d934276cb6fb0e"
+            },
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 239884,
+              "sha256": "054b3c7d1bf32c68c252a43496fefb9062b4e922d6159408845c2ba9cd71cb6a"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/cap-des-medes/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 694143,
+            "sha256": "626a3acb1d4fb05eb54ab26c54ba74bd37880d44b12d46e79826fbc834943e2a",
+            "filename": "cap-des-medes-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 80222,
+              "sha256": "3b4613a5ba975ebdd9ad6cf374fe5ce207245efe38d37138cc6618107c439563"
+            },
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 162420,
+              "sha256": "913b18a747af6fae30c78ac6cda140279ce5a32be789e5302f208cbdb6b7214d"
+            },
+            {
+              "src": "/maps/var-centre/cap-des-medes/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 273176,
+              "sha256": "ad2b33c2d286aa142220ce44cc5d4168c18bc5c72ef1028d4a9dbd079f64e333"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/cap-des-medes/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 751227,
+            "sha256": "1b771c5bc545ec6e1f84be3fca2a2ac945d99ba7927308d2f78ec6c9d07b071b",
+            "filename": "cap-des-medes-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-centre/cap-des-medes/maps/planche-topographic-1800.webp?v=15c14f4429a9",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 167940,
+            "sha256": "15c14f4429a9b3b5cfbfd822fa817082ca2136cf984fa9c3d79df4019556312e"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/cap-des-medes-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4569062,
+            "sha256": "e1e4c35ce541605c861f800b1e954a4d7cea6bede7f89ffb45939c374395a78e",
+            "filename": "cap-des-medes-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-centre/cap-des-medes/maps/planche-orthophoto-1800.webp?v=ff53504b14a8",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 183072,
+            "sha256": "ff53504b14a83079387fcd7117618c9e399c80d93f7513b96bccc1622a471300"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/cap-des-medes-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4789023,
+            "sha256": "bd82b76182b40d52a36dbe47e730079e856dd55c38fdc776c029d3fa6e2aa827",
+            "filename": "cap-des-medes-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -1,
+        "connectorAngleDeg": -26.8,
+        "connectorWidthRem": 2.38,
+        "labelOffsetRem": 3.5,
+        "widthRem": 5.86
+      },
+      "interactiveInitialView": {
+        "zoom": 1
+      }
+    },
+    {
+      "slug": "la-gabiniere-port-cros",
+      "displayName": "La Gabinière",
+      "plateTitle": "La Gabinière, Port-Cros",
+      "config": "regions/var-centre/sites/la-gabiniere-port-cros.json",
+      "assetBasePath": "/maps/var-centre/la-gabiniere-port-cros",
+      "location": {
+        "city": "Hyères · Port-Cros",
+        "latitude": 42.98868,
+        "longitude": 6.3930747
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 85.45102,
+        "yPercent": 46.38333
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=46471ba99fbb",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1317527,
+              "sha256": "46471ba99fbbad285c030255614f4f54f78343f99dc8a7fc6b3f541dfd025f60"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=46471ba99fbb",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1317527,
+            "sha256": "46471ba99fbbad285c030255614f4f54f78343f99dc8a7fc6b3f541dfd025f60",
+            "filename": "la-gabiniere-port-cros-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=c972f67e5071",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1436848,
+              "sha256": "c972f67e5071c90fc45e4b32e0255dadc5959c7fc4a603ad29de3071cb0d8ea3"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=c972f67e5071",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1436848,
+            "sha256": "c972f67e5071c90fc45e4b32e0255dadc5959c7fc4a603ad29de3071cb0d8ea3",
+            "filename": "la-gabiniere-port-cros-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 60944,
+              "sha256": "804fe61bf08c78f1df630654e1df5b611f5ef008d9b4be4cf662d1e8f41fbbc2"
+            },
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 120326,
+              "sha256": "f19f078da0ff171b29034e6acf032d78956b98c52720c0df44abc6c81ad5b952"
+            },
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 212490,
+              "sha256": "a46ebc4a335a724b34ee41c9ed41faed2a817cd10620bcf197e5c2129cd63b76"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 585460,
+            "sha256": "720111deb2824dad4a11eb4c4cc36510186321b9cc3142dca1231b59441d5452",
+            "filename": "la-gabiniere-port-cros-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 68716,
+              "sha256": "bc497b002c37739439b95fda2b766e83ba2e0dc9e215163f65bf8887bdb7f85f"
+            },
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 137692,
+              "sha256": "5cd14711c43062163609bbb161cd87946c728daa115500f7232019b4da8769d2"
+            },
+            {
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 234256,
+              "sha256": "055f31ed682568d74183ff254ea541471f59b5229adfdf9dba4dfe05041f8e6c"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 633448,
+            "sha256": "00224f3ca1026a6dba34c2bb42fe15a379abd681eaf22d4997bbb08aeb285dbf",
+            "filename": "la-gabiniere-port-cros-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/planche-topographic-1800.webp?v=ce2d033e7c9b",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 161382,
+            "sha256": "ce2d033e7c9bdce6dd5821e969b16cea5ca7a41f01e501efa438501719a77cfd"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-gabiniere-port-cros-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3862041,
+            "sha256": "30739e3427e04a51f9a25be85c863b5ce071fa7d47699cfd570a7ad79f3f61ba",
+            "filename": "la-gabiniere-port-cros-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp?v=6ae9d90319f6",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 181724,
+            "sha256": "6ae9d90319f6e45a3192b9a273d32acb80dec0f701952d9eb93c4ba1a562ab9e"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-gabiniere-port-cros-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4058771,
+            "sha256": "ebb8b23d8a5b0a1d97f2c27a45520564f3e8fa54d2c9e5ed77d8d8c3e02e08fa",
+            "filename": "la-gabiniere-port-cros-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 1.5,
+        "connectorAngleDeg": 58.5,
+        "connectorWidthRem": 1.67,
+        "labelOffsetRem": 2.25,
+        "widthRem": 5.11
+      },
+      "interactiveInitialView": {
+        "zoom": 0.78,
+        "orbitAzimuthDeg": -60,
+        "cameraElevationDeg": 18,
+        "panRightM": 45,
+        "panUpM": 85,
+        "isobathLabelFocusXNdc": 0.12
+      }
+    }
+  ]
 }

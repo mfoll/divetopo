@@ -14,6 +14,7 @@ import {
 } from "react";
 import { pacaCopy, topoReunionCopy } from "../content/copy";
 import type { Language, Theme } from "../content/preferences";
+import { regionCopy } from "../content/region-catalog";
 import {
   languagePath,
   localizedSitePath,
@@ -25,6 +26,7 @@ import {
   PACA_COMPACT_ATTRIBUTIONS,
   REUNION_COMPACT_ATTRIBUTIONS,
   pacaMapManifest,
+  regionalMapManifests,
   reunionMapManifest,
   type AssetVariant,
   type MapAsset,
@@ -79,6 +81,24 @@ export const PACA_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   pickerScaleLabel: "20 km",
   pickerScaleWidthPercent: 18.2769,
 };
+
+export function regionalExperienceConfig(
+  region: RegionSlug,
+): RegionExperienceConfig {
+  if (region === "reunion") return REUNION_EXPERIENCE_CONFIG;
+  if (region === "paca") return PACA_EXPERIENCE_CONFIG;
+  return {
+    region,
+    manifest: regionalMapManifests[region],
+    copy: regionCopy(region) as RegionalCopy,
+    compactAttributions: PACA_COMPACT_ATTRIBUTIONS,
+    sectionId: `topo-${region}`,
+    titleId: `topo-${region}-title`,
+    viewerTestId: `topo-${region}-viewer`,
+    pickerScaleLabel: "10 km",
+    pickerScaleWidthPercent: 24,
+  };
+}
 
 function dynamicCaptureAsset(
   site: RegionalAssetSite,
@@ -281,7 +301,7 @@ function SitePicker({
   return (
     <aside
       className={
-        region === "paca" ? "site-picker is-paca" : "site-picker"
+        region !== "reunion" ? "site-picker is-paca" : "site-picker"
       }
       aria-label={text.chooseDiveSite}
     >
@@ -306,7 +326,7 @@ function SitePicker({
           <p>{text.instruction}</p>
         </header>
 
-        <div className={`site-picker-map${region === "paca" ? " is-paca" : ""}`}>
+        <div className={`site-picker-map${region !== "reunion" ? " is-paca" : ""}`}>
           <img
             src={manifest.westCoastLocator.src}
             width={manifest.westCoastLocator.width}
@@ -389,7 +409,7 @@ function SitePicker({
         </div>
 
         <div
-          className={`reunion-overview${region === "paca" ? " is-paca" : ""}`}
+          className={`reunion-overview${region !== "reunion" ? " is-paca" : ""}`}
           role="img"
           aria-label={text.overviewAlt}
         >
@@ -400,7 +420,7 @@ function SitePicker({
               height={manifest.reunionOverview.height}
               alt=""
             />
-            {region !== "paca" && (
+            {region === "reunion" && (
               <span className="reunion-overview-extent" aria-hidden="true" />
             )}
           </div>

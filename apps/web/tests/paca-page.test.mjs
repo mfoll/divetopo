@@ -2,26 +2,6 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-const pacaSites = [
-  ["la-gabiniere-port-cros", "La Gabinière", "Hyères · Port-Cros"],
-  ["pointe-portissol", "Pointe de Portissol", "Sanary-sur-Mer"],
-  [
-    "deux-freres-cap-sicie",
-    "Les Deux Frères",
-    "La Seyne-sur-Mer · Cap Sicié",
-  ],
-  [
-    "les-pyramides-cap-dramont",
-    "Les Pyramides",
-    "Saint-Raphaël · Cap Dramont",
-  ],
-  ["cap-des-medes", "Cap des Mèdes", "Hyères · Porquerolles"],
-];
-
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-}
-
 async function render(pathname) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set(
@@ -29,7 +9,6 @@ async function render(pathname) {
     `${process.pid}-${Date.now()}-${Math.random()}`,
   );
   const { default: worker } = await import(workerUrl.href);
-
   return worker.fetch(
     new Request(`http://localhost${pathname}`, {
       headers: { accept: "text/html" },
@@ -39,240 +18,100 @@ async function render(pathname) {
         fetch: async () => new Response("Not found", { status: 404 }),
       },
     },
-    {
-      waitUntil() {},
-      passThroughOnException() {},
-    },
+    { waitUntil() {}, passThroughOnException() {} },
   );
 }
 
-test("server-renders the complete public PACA region and five sites", async () => {
-  const regionalPages = [
-    ["/paca/fr", "fr", "Plans des sites de plongée de la Côte d’Azur"],
-    ["/paca/en", "en", "Dive site maps along the Côte d’Azur"],
-  ];
+test("retires the PACA aggregate through localized redirects", async () => {
+  for (const language of ["fr", "en"]) {
+    const overview = await render(`/paca/${language}`);
+    assert.equal(overview.status, 308);
+    assert.equal(
+      overview.headers.get("location"),
+      `http://localhost/${language}#regions`,
+    );
+  }
+  const site = await render("/paca/fr/sites/cap-des-medes");
+  assert.equal(site.status, 308);
+  assert.equal(
+    site.headers.get("location"),
+    "http://localhost/var-centre/fr/sites/cap-des-medes",
+  );
+});
 
-  for (const [path, language, heading] of regionalPages) {
+test("renders autonomous Mediterranean regions without exposing drafts", async () => {
+  const published = [
+    ["/var-ouest/fr", "topo-var-ouest-title", 2],
+    ["/var-centre/en", "topo-var-centre-title", 2],
+  ];
+  for (const [path, titleId, siteCount] of published) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
     const html = await response.text();
-
-    assert.match(html, new RegExp(`<html lang="${language}"`), path);
-    assert.match(html, new RegExp(`<h1 id="topo-paca-title">${heading}</h1>`), path);
-    assert.match(
-      html,
-      /\/maps\/paca\/france-metropolitan-situation\.png/,
-      path,
-    );
-    assert.match(
-      html,
-      language === "fr"
-        ? /Carte de situation de la France métropolitaine, sans annotations\./
-        : /Situation map of metropolitan France, without annotations\./,
-      `${path}: overview accessibility text must describe the clean map`,
-    );
-    assert.doesNotMatch(html, /rectangle indique|rectangle marks/, path);
-    assert.ok(
-      html.indexOf('class="site-picker-map is-paca"') <
-        html.indexOf('class="reunion-overview is-paca"'),
-      `${path}: local site map must precede the France situation map`,
-    );
+    assert.match(html, new RegExp(`id="${titleId}"`), path);
     assert.equal(
       html.match(/class="site-map-marker label-/g)?.length,
-      5,
-      `${path}: expected five PACA map markers`,
-    );
-    for (const [slug, displayName] of pacaSites) {
-      assert.match(html, new RegExp(displayName), `${path}: ${displayName}`);
-      assert.match(
-        html,
-        new RegExp(`href="/paca/${language}/sites/${slug}"`),
-        `${path}: link for ${slug}`,
-      );
-    }
-    const activeCity = pacaSites[0][2];
-    assert.match(
-      html,
-      new RegExp(
-        `<span>${escapeRegExp(activeCity)}<\/span><span aria-hidden="true">·<\/span>`,
-      ),
-      `${path}: expected the active city without a regional suffix`,
-    );
-    assert.doesNotMatch(
-      html,
-      new RegExp(`${escapeRegExp(activeCity)}<!-- -->, <!-- -->Côte d’Azur`),
-      `${path}: the regional suffix must not follow the active city`,
+      siteCount,
+      path,
     );
     assert.doesNotMatch(html, /noindex/i, path);
-    assert.doesNotMatch(html, /test-assets\/paca/, path);
-    assert.doesNotMatch(html, /Ouvrir .* en grand/, path);
-    assert.doesNotMatch(html, /class="map-dialog overview-dialog"/, path);
   }
 
-  for (const language of ["fr", "en"]) {
-    for (const [slug, displayName, city] of pacaSites) {
-      const path = `/paca/${language}/sites/${slug}`;
-      const response = await render(path);
-      assert.equal(response.status, 200, path);
-      const html = await response.text();
-
-      assert.match(html, new RegExp(`<html lang="${language}"`), path);
-      assert.match(html, new RegExp(`<h2[^>]*>${displayName}</h2>`), path);
-      const expectedTitle =
-        language === "fr"
-          ? `Plan de plongée ${displayName} à ${city} | DiveTopo`
-          : `${displayName} dive site map, ${city} | DiveTopo`;
-      assert.match(
-        html,
-        new RegExp(`<title>${escapeRegExp(expectedTitle)}</title>`),
-        `${path}: expected site-specific document title`,
-      );
-      assert.match(
-        html,
-        new RegExp(
-          `name="description" content="[^"]*${escapeRegExp(displayName)}[^"]*${escapeRegExp(city)}[^"]*"`,
-        ),
-        `${path}: expected site-specific metadata description`,
-      );
-      assert.match(
-        html,
-        new RegExp(`/maps/paca/${slug}/maps/3d-dynamic-orthophoto-2474\\.webp`),
-        `${path}: expected the consolidated 3D poster`,
-      );
-      assert.match(
-        html,
-        new RegExp(`/maps/paca/${slug}/maps/2d-orthophoto\\.jpg`),
-        `${path}: expected the consolidated 2D map`,
-      );
-      assert.match(
-        html,
-        new RegExp(
-          `/maps/paca/${slug}/maps/planche-orthophoto-1800\\.webp`,
-        ),
-        `${path}: expected the orthophoto printable planche`,
-      );
-      assert.match(
-        html,
-        new RegExp(
-          `https://github\\.com/mfoll/divetopo/releases/download/v1\\.3\\.0/${slug}-planche\\.jpg`,
-        ),
-        `${path}: expected the orthophoto printable download`,
-      );
-      assert.match(html, /data-testid="topo-paca-viewer"/, path);
-      assert.match(html, /"@type":"Map"/, path);
-      assert.match(html, /"@type":"GeoCoordinates"/, path);
-      assert.equal(
-        html.match(/"@type":"ImageObject"/g)?.length,
-        3,
-        `${path}: expected 2D, 3D and printable-planche images`,
-      );
-      assert.match(
-        html,
-        new RegExp(
-          `<span>${escapeRegExp(city)}<\/span><span aria-hidden="true">·<\/span>`,
-        ),
-        `${path}: expected the city without a regional suffix`,
-      );
-      assert.doesNotMatch(
-        html,
-        new RegExp(`${escapeRegExp(city)}<!-- -->, <!-- -->Côte d’Azur`),
-        `${path}: the regional suffix must not follow the city`,
-      );
-      assert.doesNotMatch(html, /noindex/i, path);
-      assert.doesNotMatch(html, /test-assets\/paca/, path);
-      assert.doesNotMatch(html, /Ouvrir .* en grand/, path);
-      assert.doesNotMatch(html, /class="map-dialog overview-dialog"/, path);
-    }
+  for (const region of [
+    "bouches-du-rhone",
+    "var-est",
+    "alpes-maritimes",
+  ]) {
+    const response = await render(`/${region}/fr`);
+    assert.equal(response.status, 200, region);
+    const html = await response.text();
+    assert.match(html, /cinq premières cartographies/, region);
+    assert.doesNotMatch(html, new RegExp(`/${region}/fr/sites/`), region);
   }
 });
 
-test("PACA asset paths resolve without regenerating or duplicating test maps", async () => {
-  const manifest = JSON.parse(
-    await readFile(
-      new URL("../content/paca-map-manifest.json", import.meta.url),
-      "utf8",
-    ),
-  );
-
-  assert.equal(manifest.schemaVersion, 2);
-  assert.equal(manifest.sites.length, 5);
-  assert.deepEqual(manifest.reunionOverview.boundsWgs84, {
-    west: -5.5,
-    south: 42.0,
-    east: 8.7,
-    north: 51.3,
-  });
-  assert.equal(manifest.reunionOverview.width, 1000);
-  assert.equal(manifest.reunionOverview.height, 840);
-  assert.equal(manifest.reunionOverview.sourceUrl, "https://wms.gebco.net/2024/mapserv");
-  assert.equal(manifest.reunionOverview.layer, "GEBCO_2024");
-  assert.deepEqual(manifest.reunionOverview.request.bbox, [-5.5, 42.0, 8.7, 51.3]);
-  assert.equal(manifest.reunionOverview.request.width, 1000);
-  assert.equal(manifest.reunionOverview.request.height, 840);
-  assert.match(manifest.reunionOverview.outlineSource, /Natural Earth 10m/);
-  assert.deepEqual(manifest.westCoastLocator.boundsWgs84, {
-    west: 5.65,
-    south: 42.82,
-    east: 7.0,
-    north: 43.58,
-  });
-  assert.equal(
-    manifest.westCoastLocator.sourceUrl,
-    "https://ows.emodnet-bathymetry.eu/wcs",
-  );
-  assert.equal(manifest.westCoastLocator.layer, "emodnet:mean");
-  assert.equal(
-    manifest.westCoastLocator.marineSourceUrl,
-    "https://ows.emodnet-bathymetry.eu/wcs",
-  );
-  assert.equal(manifest.westCoastLocator.marineLayer, "emodnet:mean");
-  assert.match(
-    manifest.westCoastLocator.marineResolution,
-    /1\/16 arc minute native DTM grid/,
-  );
-  await access(
-    new URL(
-      `../public${manifest.reunionOverview.src}`,
-      import.meta.url,
-    ),
-  );
-  for (const site of manifest.sites) {
-    assert.match(site.config, /^regions\/paca\/sites\/.+\.json$/);
-    assert.ok(["left", "right"].includes(site.siteLabelLayout.side));
-    assert.equal(typeof site.siteLabelLayout.shiftYRem, "number");
-    assert.equal(typeof site.siteLabelLayout.connectorAngleDeg, "number");
-    for (const map of site.maps) {
-      for (const variant of map.variants) {
-        await access(new URL(`../public${variant.src}`, import.meta.url));
-      }
-      await access(new URL(`../public${map.download.src}`, import.meta.url));
-      if (map.view === "3d") {
-        await access(
-          new URL(
-            `../public${site.assetBasePath}/maps/3d-dynamic-${map.style}-mobile-960.webp`,
-            import.meta.url,
-          ),
-        );
-      }
-    }
-    assert.equal(site.planches?.length, 2, `${site.slug}: two planches`);
-    for (const planche of site.planches) {
-      await access(new URL(`../public${planche.preview.src}`, import.meta.url));
-      assert.match(
-        planche.download.src,
-        new RegExp(
-          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.3\\.0/${planche.download.filename}$`,
-        ),
-      );
-    }
-    await access(
-      new URL(`../public/terrain/${site.slug}/terrain.json`, import.meta.url),
-    );
+test("published autonomous-region asset paths resolve", async () => {
+  for (const region of [
+    "bouches-du-rhone",
+    "var-ouest",
+    "var-centre",
+    "var-est",
+    "alpes-maritimes",
+  ]) {
     await access(
       new URL(
-        `../public/terrain/${site.slug}/isobaths-vector.json`,
+        `../public/maps/${region}/${region}-regional-relief.png`,
         import.meta.url,
       ),
     );
+  }
+
+  for (const region of ["var-ouest", "var-centre"]) {
+    const manifest = JSON.parse(
+      await readFile(
+        new URL(`../content/${region}-map-manifest.json`, import.meta.url),
+        "utf8",
+      ),
+    );
+    assert.equal(manifest.schemaVersion, 2);
+    assert.equal(manifest.sites.length, 2);
+    for (const site of manifest.sites) {
+      assert.match(
+        site.config,
+        new RegExp(`^regions/${region}/sites/.+\\.json$`),
+      );
+      assert.equal(site.assetBasePath, `/maps/${region}/${site.slug}`);
+      for (const map of site.maps) {
+        for (const variant of map.variants) {
+          await access(new URL(`../public${variant.src}`, import.meta.url));
+        }
+        await access(
+          new URL(`../public${map.download.src}`, import.meta.url),
+        );
+      }
+      await access(
+        new URL(`../public/terrain/${site.slug}/terrain.json`, import.meta.url),
+      );
+    }
   }
 });

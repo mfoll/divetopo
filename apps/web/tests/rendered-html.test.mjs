@@ -655,14 +655,18 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 38);
-  assert.equal(imageLocations.length, 102);
+  assert.equal(locations.length, 44);
+  assert.equal(imageLocations.length, 104);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
   assert.ok(locations.includes("https://divetopo.com/reunion/en"));
-  assert.ok(locations.includes("https://divetopo.com/paca/fr"));
-  assert.ok(locations.includes("https://divetopo.com/paca/en"));
+  assert.ok(locations.includes("https://divetopo.com/var-ouest/fr"));
+  assert.ok(locations.includes("https://divetopo.com/var-centre/en"));
+  assert.ok(locations.includes("https://divetopo.com/var-est/fr"));
+  assert.ok(locations.includes("https://divetopo.com/alpes-maritimes/en"));
+  assert.ok(locations.includes("https://divetopo.com/bouches-du-rhone/fr"));
+  assert.ok(!locations.includes("https://divetopo.com/paca/fr"));
   assert.ok(
     locations.includes(
       "https://divetopo.com/reunion/fr/sites/cap-la-houssaye",
@@ -695,12 +699,12 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.ok(
     locations.includes(
-      "https://divetopo.com/paca/fr/sites/la-gabiniere-port-cros",
+      "https://divetopo.com/var-centre/fr/sites/la-gabiniere-port-cros",
     ),
   );
   assert.ok(
     locations.includes(
-      "https://divetopo.com/paca/en/sites/cap-des-medes",
+      "https://divetopo.com/var-centre/en/sites/cap-des-medes",
     ),
   );
   assert.match(sitemap, /hreflang="x-default"/);
@@ -714,12 +718,12 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.match(
     sitemap,
-    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.3\.0\/cap-homard-planche\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.4\.0\/cap-homard-planche\.jpg/,
   );
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    96,
+    90,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -739,12 +743,10 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   );
   assert.equal(
     imageLocations.filter(
-      (location) =>
-        location ===
-        "https://divetopo.com/maps/paca/france-metropolitan-situation.png",
+      (location) => /\/(?:bouches-du-rhone|var-ouest|var-centre|var-est|alpes-maritimes)-regional-relief\.png$/.test(location),
     ).length,
-    2,
-    "expected each localized PACA entry to reference the regional relief",
+    10,
+    "expected each localized Mediterranean region to reference its own relief",
   );
 });
 
@@ -878,25 +880,30 @@ test("map manifest supports adding future sites without component changes", asyn
 });
 
 test("interactive terrain manifest combines every published region", async () => {
-  const [manifest, pacaManifest] = await Promise.all([
+  const [manifest, varCentreManifest, varOuestManifest] = await Promise.all([
     readFile(
       new URL("../public/terrain/manifest.json", import.meta.url),
       "utf8",
     ),
     readFile(
-      new URL("../content/paca-map-manifest.json", import.meta.url),
+      new URL("../content/var-centre-map-manifest.json", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL("../content/var-ouest-map-manifest.json", import.meta.url),
       "utf8",
     ),
   ]).then((values) => values.map(JSON.parse));
 
   assert.equal(manifest.schemaVersion, 2);
-  assert.deepEqual(manifest.regions, ["paca", "reunion"]);
-  assert.equal(manifest.sites.length, 16);
+  assert.deepEqual(manifest.regions, ["reunion", "var-centre", "var-ouest"]);
+  assert.equal(manifest.sites.length, 15);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([
       ...publishedSiteSlugs,
-      ...pacaManifest.sites.map((site) => site.slug),
+      ...varCentreManifest.sites.map((site) => site.slug),
+      ...varOuestManifest.sites.map((site) => site.slug),
     ]),
   );
 });

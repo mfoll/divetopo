@@ -1,17 +1,11 @@
-import { notFound, redirect } from "next/navigation";
-import { findPacaSite } from "../../../../content/routing";
-import { getPreferences } from "../../../preferences";
+import { notFound, permanentRedirect } from "next/navigation";
+import { legacyPacaSiteRegions } from "../../../../content/legacy-paca";
 
-export default async function DefaultPacaSitePage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+type Props = { params: Promise<{ slug: string }> };
+
+export default async function LegacyPacaSitePage({ params }: Props) {
   const { slug } = await params;
-  if (!findPacaSite(slug)) {
-    notFound();
-  }
-
-  const { language } = await getPreferences();
-  redirect(`/paca/${language}/sites/${slug}`);
+  const region = legacyPacaSiteRegions[slug];
+  if (!region) notFound();
+  permanentRedirect(`/${region}/fr/sites/${slug}`);
 }

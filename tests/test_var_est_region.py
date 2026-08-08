@@ -28,7 +28,11 @@ class VarEstRegionTests(unittest.TestCase):
         region = json.loads(REGION_PATH.read_text(encoding="utf-8"))
         self.assertEqual(region["slug"], "var-est")
         self.assertEqual(region["route"], "/var-est")
-        self.assertEqual(region["regionalMap"]["status"], "awaiting-shared-builder")
+        self.assertEqual(region["regionalMap"]["status"], "generated")
+        self.assertEqual(
+            region["regionalMap"]["sha256"],
+            "0f03a6ccac5581749ad92af1e00f2088028dc6b67880ba80247d4bb8ea3c8e57",
+        )
         self.assertEqual(
             [site["slug"] for site in region["sites"]],
             EXPECTED_SITES,

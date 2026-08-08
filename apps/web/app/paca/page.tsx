@@ -1,7 +1,5 @@
-import { redirect } from "next/navigation";
-import { getPreferences } from "../preferences";
+import { permanentRedirect } from "next/navigation";
 
-export default async function PacaHome() {
-  const { language } = await getPreferences();
-  redirect(`/paca/${language}`);
+export default function LegacyPacaPage() {
+  permanentRedirect("/fr#regions");
 }

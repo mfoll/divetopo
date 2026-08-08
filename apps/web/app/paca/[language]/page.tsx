@@ -1,48 +1,9 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import {
-  isLanguage,
-  SUPPORTED_LANGUAGES,
-} from "../../../content/routing";
-import { getPreferences } from "../../preferences";
-import {
-  RegionalStructuredData,
-  regionalMetadata,
-} from "../../seo";
-import PacaExperience from "../../PacaExperience";
+import { permanentRedirect } from "next/navigation";
+import { isLanguage } from "../../../content/routing";
 
-type LanguagePageProps = {
-  params: Promise<{ language: string }>;
-};
+type Props = { params: Promise<{ language: string }> };
 
-export function generateStaticParams() {
-  return SUPPORTED_LANGUAGES.map((language) => ({ language }));
-}
-
-export async function generateMetadata({
-  params,
-}: LanguagePageProps): Promise<Metadata> {
+export default async function LegacyPacaLanguagePage({ params }: Props) {
   const { language } = await params;
-  if (!isLanguage(language)) {
-    return {};
-  }
-  return regionalMetadata(language, "paca");
-}
-
-export default async function PacaLanguagePage({
-  params,
-}: LanguagePageProps) {
-  const { language } = await params;
-  if (!isLanguage(language)) {
-    notFound();
-  }
-
-  const { theme } = await getPreferences();
-
-  return (
-    <>
-      <RegionalStructuredData language={language} region="paca" />
-      <PacaExperience language={language} theme={theme} />
-    </>
-  );
+  permanentRedirect(isLanguage(language) ? `/${language}#regions` : "/fr#regions");
 }

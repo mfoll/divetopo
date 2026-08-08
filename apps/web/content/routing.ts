@@ -1,14 +1,15 @@
-import { pacaCopy, topoReunionCopy } from "./copy";
 import type { Language } from "./preferences";
+import { regionCopy, regionLabel } from "./region-catalog";
 import {
   pacaMapManifest,
+  regionalMapManifests,
   reunionMapManifest,
   type RegionalAssetSite,
   type RegionSlug,
 } from "./regional";
 
 export const DIVETOPO_ORIGIN = "https://divetopo.com";
-export const DIVETOPO_RELEASE_TAG = "v1.3.0";
+export const DIVETOPO_RELEASE_TAG = "v1.4.0";
 export const DIVETOPO_RELEASE_ASSET_BASE =
   `https://github.com/mfoll/divetopo/releases/download/${DIVETOPO_RELEASE_TAG}`;
 export const TOPO_REUNION_ORIGIN = DIVETOPO_ORIGIN;
@@ -60,7 +61,19 @@ export function findPacaSite(slug: string) {
 }
 
 function basePath(region: RegionSlug) {
-  return region === "paca" ? PACA_BASE_PATH : REUNION_BASE_PATH;
+  return region === "reunion"
+    ? REUNION_BASE_PATH
+    : region === "paca"
+      ? PACA_BASE_PATH
+      : `/${region}`;
+}
+
+export function publishedSitesForRegion(region: RegionSlug) {
+  return regionalMapManifests[region].sites;
+}
+
+export function findRegionalSite(region: RegionSlug, slug: string) {
+  return publishedSitesForRegion(region).find((site) => site.slug === slug);
 }
 
 export function languagePath(
@@ -130,7 +143,7 @@ export function regionalSeoText(
   language: Language,
   region: RegionSlug = "reunion",
 ) {
-  const copy = (region === "paca" ? pacaCopy : topoReunionCopy)[language];
+  const copy = regionCopy(region)[language];
   return {
     heading: copy.topoReunionTitle,
     title: copy.topoReunionTitle,
@@ -144,11 +157,11 @@ export function siteSeoText(
   site: PublishedSite,
   region: RegionSlug = "reunion",
 ) {
-  const regionLabel =
-    region === "paca" ? "Côte d’Azur" : "La Réunion";
+  const localizedRegionLabel = regionLabel(region, language);
 
   if (language === "fr") {
-    const heading = `Plan du site de plongée ${site.displayName} en ${regionLabel}`;
+    const heading =
+      `Plan du site de plongée ${site.displayName} en ${localizedRegionLabel}`;
     return {
       heading,
       title: `Plan de plongée ${site.displayName} à ${site.location.city} | DiveTopo`,
@@ -156,11 +169,13 @@ export function siteSeoText(
         `Cartes topo-bathymétriques 2D et vue 3D interactive du site de ` +
         `plongée ${site.displayName}, à ${site.location.city}, jusqu’à ` +
         `−${site.planMaxDepthM} m.`,
-      socialAlt: `Vue 3D du relief de ${site.displayName} en ${regionLabel}`,
+      socialAlt:
+        `Vue 3D du relief de ${site.displayName} en ${localizedRegionLabel}`,
     };
   }
 
-  const heading = `${site.displayName} dive site map, ${regionLabel}`;
+  const heading =
+    `${site.displayName} dive site map, ${localizedRegionLabel}`;
   return {
     heading,
     title: `${site.displayName} dive site map, ${site.location.city} | DiveTopo`,
@@ -168,7 +183,8 @@ export function siteSeoText(
       `Explore 2D topographic-bathymetric maps and an interactive 3D view ` +
       `of the ${site.displayName} dive site in ${site.location.city}, to ` +
       `−${site.planMaxDepthM} m.`,
-    socialAlt: `3D terrain view of ${site.displayName}, ${regionLabel}`,
+    socialAlt:
+      `3D terrain view of ${site.displayName}, ${localizedRegionLabel}`,
   };
 }
 
