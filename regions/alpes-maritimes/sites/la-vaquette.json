@@ -6,17 +6,33 @@
     "published": false,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0
+      "shift_y_rem": 0.35,
+      "connector_angle_deg": 10,
+      "connector_width_rem": 2.2,
+      "label_offset_rem": 3.0,
+      "width_rem": 6.4
     },
     "interactive_initial_view": {
-      "zoom": 0.9
+      "zoom": 0.9,
+      "camera_elevation_deg": 32,
+      "isobath_label_focus_x_ndc": 0.15
     }
   },
-  "plate_relief_source": "static",
-  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1015_6275/file/1015_6275.7z",
-  "litto3d_archive_members": [
-    "1015_6275/LITTO3D_FRA_1019_6273_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+  "plate_relief_source": "interactive",
+  "paths": {
+    "output_2d": "regions/alpes-maritimes/outputs/la-vaquette-topobathy-2d.jpg",
+    "output_2d_ortho": "regions/alpes-maritimes/outputs/la-vaquette-topobathy-2d-ortho.jpg",
+    "output_3d": "regions/alpes-maritimes/outputs/la-vaquette-topobathy-3d.jpg",
+    "output_3d_ortho": "regions/alpes-maritimes/outputs/la-vaquette-topobathy-3d-ortho.jpg",
+    "output_locator": "regions/alpes-maritimes/outputs/alpes-maritimes-regional-relief.png"
+  },
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1015_6275/file/1015_6275.7z",
+      "members": [
+        "1015_6275/LITTO3D_FRA_1019_6273_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
   ],
   "focus_bbox_utm40s": [
     1019200.0,
@@ -43,14 +59,16 @@
   "view_visible_width_m": 300.0,
   "interactive_view_visible_width_m": 300.0,
   "interactive_match_static_horizontal_center": true,
+  "interactive_view_horizontal_center_offset_m": 150.0,
   "coast_mode": "mask",
   "land_sieve_threshold_px": 100,
-  "max_depth_m": 45.0,
-  "interactive_max_depth_m": 45.0,
+  "max_depth_m": 42.0,
+  "plan_max_depth_m": 42.0,
+  "interactive_max_depth_m": 42.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, dalle 1019_6273 (MNT1m, 29-05-2015), RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69",
-  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, dalle 1019_6273, MNT maillé à 1 m, référentiel vertical IGN69",
+  "bathymetry_source_text": "Litto3D PACA 2015 · dalle 1019_6273 · MNT 1 m · EPSG:2154 / IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, prépaquet 1015_6275, dalle 1019_6273, fichier LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc, MNT maillé à 1 m, RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69 ; aucune interpolation d’isobathes",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
   "interactive_exposure": 1.55,
@@ -76,7 +94,11 @@
     2474,
     1712
   ],
-  "orthophoto_enabled": false,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-06-26",
+  "orthophoto_resolution_m": 0.4,
+  "orthophoto_3d_resolution_m": 0.8,
   "locator_map_enabled": false,
   "site_location_utm40s": [
     1019791.3,
