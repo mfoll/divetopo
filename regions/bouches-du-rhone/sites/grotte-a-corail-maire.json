@@ -1,0 +1,113 @@
+{
+  "region": "bouches-du-rhone",
+  "slug": "grotte-a-corail-maire",
+  "title": "Grotte à Corail – Maïre",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -1.5,
+      "connector_angle_deg": -18,
+      "connector_width_rem": 2.4,
+      "label_offset_rem": 3.6,
+      "lines": ["Grotte à Corail", "Maïre"],
+      "width_rem": 6.3
+    },
+    "interactive_initial_view": {
+      "zoom": 0.95,
+      "orbit_azimuth_deg": 0,
+      "camera_elevation_deg": 18,
+      "isobath_label_focus_x_ndc": 0
+    }
+  },
+  "plate_relief_source": "interactive",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0885_6240/file/0885_6240.7z",
+      "members": [
+        "0885_6240/LITTO3D_FRA_0889_6238_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0889_6238_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0885_6240/LITTO3D_FRA_0889_6238_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0889_6238_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0885_6240/LITTO3D_FRA_0889_6238_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0889_6238_DST_20150128_LAMB93_RGF93_IGN69.tif"
+      ]
+    }
+  ],
+  "site_location_utm40s": [
+    889591.6696,
+    6237368.6288
+  ],
+  "focus_bbox_utm40s": [
+    889391.5,
+    6237169.5,
+    889791.5,
+    6237569.5
+  ],
+  "context_bbox_utm40s": [
+    889291.5,
+    6237069.5,
+    889891.5,
+    6237669.5
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      889591.5,
+      6237369.5
+    ],
+    "width_m": 600,
+    "depth_m": 600,
+    "look_bearing_deg": 0
+  },
+  "view_bearing_deg": 0,
+  "view_visible_width_m": 260,
+  "interactive_view_visible_width_m": 260,
+  "view_canvas_width_px": 1455,
+  "view_canvas_height_px": 1007,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_along_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 45,
+  "plan_max_depth_m": 45,
+  "interactive_max_depth_m": 45,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 140,
+  "camera_tilt": 0.55,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0,
+  "view_right_crop_fraction": 0,
+  "view_top_crop_fraction": 0,
+  "imagery_sea_full_depth_m": 0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5,
+  "output_scale": 2,
+  "plan_output_scale": 2,
+  "relief_output_scale": 1,
+  "map_style_scale": 1.5,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-06-24",
+  "orthophoto_resolution_m": 0.2,
+  "orthophoto_3d_resolution_m": 0.4,
+  "orthophoto_coastline_visible": false,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    889591.6696,
+    6237368.6288
+  ],
+  "plate_site_name": "Grotte à Corail – Maïre",
+  "plate_city": "Marseille",
+  "plate_city_detail": "Marseille · île Maïre",
+  "plate_title": "Grotte à Corail – Maïre",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.5,
+  "clip_rotated_outside": true,
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "bathymetry_source_text": "Litto3D"
+}
