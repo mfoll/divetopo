@@ -7,9 +7,10 @@
     "site_label_layout": {
       "side": "right",
       "shift_y_rem": -1.4,
-      "connector_angle_deg": -55,
-      "connector_width_rem": 1.1,
-      "label_offset_rem": 2.0,
+      "connector_angle_deg": -40,
+      "connector_width_rem": 1.5,
+      "label_offset_rem": 2.5,
+      "lines": ["Arche du", "Dramont"],
       "width_rem": 5.8
     },
     "interactive_initial_view": {

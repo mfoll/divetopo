@@ -6,10 +6,11 @@
     "published": true,
     "site_label_layout": {
       "side": "left",
-      "shift_y_rem": -3.7,
-      "connector_angle_deg": 72.0,
-      "connector_width_rem": 2.8,
+      "shift_y_rem": -4.2,
+      "connector_angle_deg": 74.0,
+      "connector_width_rem": 3.2,
       "label_offset_rem": 2.25,
+      "lines": ["Sec de l’Île", "d’Or"],
       "width_rem": 5.8
     },
     "interactive_initial_view": {

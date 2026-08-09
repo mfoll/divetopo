@@ -443,10 +443,14 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -3.7,
-        "connectorAngleDeg": 72.0,
-        "connectorWidthRem": 2.8,
+        "shiftYRem": -4.2,
+        "connectorAngleDeg": 74.0,
+        "connectorWidthRem": 3.2,
         "labelOffsetRem": 2.25,
+        "lines": [
+          "Sec de l’Île",
+          "d’Or"
+        ],
         "widthRem": 5.8
       },
       "interactiveInitialView": {
@@ -657,9 +661,13 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": -1.4,
-        "connectorAngleDeg": -55,
-        "connectorWidthRem": 1.1,
-        "labelOffsetRem": 2.0,
+        "connectorAngleDeg": -40,
+        "connectorWidthRem": 1.5,
+        "labelOffsetRem": 2.5,
+        "lines": [
+          "Arche du",
+          "Dramont"
+        ],
         "widthRem": 5.8
       },
       "interactiveInitialView": {
@@ -873,6 +881,10 @@
         "connectorAngleDeg": -87.0,
         "connectorWidthRem": 2.6,
         "labelOffsetRem": 1.5,
+        "lines": [
+          "Cathédrale",
+          "du Trayas"
+        ],
         "widthRem": 5.8
       },
       "interactiveInitialView": {
@@ -1079,9 +1091,9 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 3.6,
-        "connectorAngleDeg": 54.0,
-        "connectorWidthRem": 3.0,
+        "shiftYRem": 4.2,
+        "connectorAngleDeg": 60.0,
+        "connectorWidthRem": 3.45,
         "labelOffsetRem": 3.1,
         "widthRem": 5.4
       },
@@ -1129,10 +1141,14 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -3.7,
-        "connectorAngleDeg": 72.0,
-        "connectorWidthRem": 2.8,
+        "shiftYRem": -4.2,
+        "connectorAngleDeg": 74.0,
+        "connectorWidthRem": 3.2,
         "labelOffsetRem": 2.25,
+        "lines": [
+          "Sec de l’Île",
+          "d’Or"
+        ],
         "widthRem": 5.8
       },
       "status": "published"
@@ -1152,9 +1168,13 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": -1.4,
-        "connectorAngleDeg": -55,
-        "connectorWidthRem": 1.1,
-        "labelOffsetRem": 2.0,
+        "connectorAngleDeg": -40,
+        "connectorWidthRem": 1.5,
+        "labelOffsetRem": 2.5,
+        "lines": [
+          "Arche du",
+          "Dramont"
+        ],
         "widthRem": 5.8
       },
       "status": "published"
@@ -1177,6 +1197,10 @@
         "connectorAngleDeg": -87.0,
         "connectorWidthRem": 2.6,
         "labelOffsetRem": 1.5,
+        "lines": [
+          "Cathédrale",
+          "du Trayas"
+        ],
         "widthRem": 5.8
       },
       "status": "published"
@@ -1195,9 +1219,9 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 3.6,
-        "connectorAngleDeg": 54.0,
-        "connectorWidthRem": 3.0,
+        "shiftYRem": 4.2,
+        "connectorAngleDeg": 60.0,
+        "connectorWidthRem": 3.45,
         "labelOffsetRem": 3.1,
         "widthRem": 5.4
       },

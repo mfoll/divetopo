@@ -10,6 +10,7 @@
       "connector_angle_deg": -87.0,
       "connector_width_rem": 2.6,
       "label_offset_rem": 1.5,
+      "lines": ["Cathédrale", "du Trayas"],
       "width_rem": 5.8
     },
     "interactive_initial_view": {

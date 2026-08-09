@@ -860,7 +860,7 @@
         "shiftYRem": 0,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 1.3,
-        "labelOffsetRem": 2.65,
+        "labelOffsetRem": 2.3,
         "widthRem": 5.2
       },
       "interactiveInitialView": {
@@ -1159,7 +1159,7 @@
         "shiftYRem": 0,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 1.3,
-        "labelOffsetRem": 2.65,
+        "labelOffsetRem": 2.3,
         "widthRem": 5.2
       },
       "status": "published"

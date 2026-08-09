@@ -6,9 +6,9 @@
     "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 3.6,
-      "connector_angle_deg": 54.0,
-      "connector_width_rem": 3.0,
+      "shift_y_rem": 4.2,
+      "connector_angle_deg": 60.0,
+      "connector_width_rem": 3.45,
       "label_offset_rem": 3.1,
       "width_rem": 5.4
     },
