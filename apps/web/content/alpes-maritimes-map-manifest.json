@@ -237,9 +237,9 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 1.8,
-        "connectorAngleDeg": -16,
-        "connectorWidthRem": 3.0,
+        "shiftYRem": 2.05,
+        "connectorAngleDeg": -24,
+        "connectorWidthRem": 1.9,
         "labelOffsetRem": 3.1,
         "widthRem": 6.8
       },
@@ -448,9 +448,9 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 4.4,
-        "connectorAngleDeg": -62,
-        "connectorWidthRem": 3.7,
-        "labelOffsetRem": 3.1,
+        "connectorAngleDeg": -68,
+        "connectorWidthRem": 3.45,
+        "labelOffsetRem": 2.65,
         "lines": [
           "Pointe de la",
           "Causinière"
@@ -659,7 +659,7 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.35,
+        "shiftYRem": 0.7,
         "connectorAngleDeg": 10,
         "connectorWidthRem": 4.4,
         "labelOffsetRem": 5.2,
@@ -867,9 +867,9 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -0.6,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.2,
+        "shiftYRem": -1.825,
+        "connectorAngleDeg": 58,
+        "connectorWidthRem": 0.9,
         "labelOffsetRem": 1.85,
         "widthRem": 5.6
       },
@@ -1104,9 +1104,9 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 1.8,
-        "connectorAngleDeg": -16,
-        "connectorWidthRem": 3.0,
+        "shiftYRem": 2.05,
+        "connectorAngleDeg": -24,
+        "connectorWidthRem": 1.9,
         "labelOffsetRem": 3.1,
         "widthRem": 6.8
       },
@@ -1127,9 +1127,9 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 4.4,
-        "connectorAngleDeg": -62,
-        "connectorWidthRem": 3.7,
-        "labelOffsetRem": 3.1,
+        "connectorAngleDeg": -68,
+        "connectorWidthRem": 3.45,
+        "labelOffsetRem": 2.65,
         "lines": [
           "Pointe de la",
           "Causinière"
@@ -1152,7 +1152,7 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.35,
+        "shiftYRem": 0.7,
         "connectorAngleDeg": 10,
         "connectorWidthRem": 4.4,
         "labelOffsetRem": 5.2,
@@ -1174,9 +1174,9 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -0.6,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.2,
+        "shiftYRem": -1.825,
+        "connectorAngleDeg": 58,
+        "connectorWidthRem": 0.9,
         "labelOffsetRem": 1.85,
         "widthRem": 5.6
       },

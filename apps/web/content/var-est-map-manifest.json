@@ -443,7 +443,7 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -4.2,
+        "shiftYRem": -4.3,
         "connectorAngleDeg": 74.0,
         "connectorWidthRem": 3.2,
         "labelOffsetRem": 2.25,
@@ -660,10 +660,10 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -1.4,
-        "connectorAngleDeg": -40,
-        "connectorWidthRem": 1.5,
-        "labelOffsetRem": 2.5,
+        "shiftYRem": -0.75,
+        "connectorAngleDeg": -41,
+        "connectorWidthRem": 3.0,
+        "labelOffsetRem": 3.65,
         "lines": [
           "Arche du",
           "Dramont"
@@ -1141,7 +1141,7 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -4.2,
+        "shiftYRem": -4.3,
         "connectorAngleDeg": 74.0,
         "connectorWidthRem": 3.2,
         "labelOffsetRem": 2.25,
@@ -1167,10 +1167,10 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -1.4,
-        "connectorAngleDeg": -40,
-        "connectorWidthRem": 1.5,
-        "labelOffsetRem": 2.5,
+        "shiftYRem": -0.75,
+        "connectorAngleDeg": -41,
+        "connectorWidthRem": 3.0,
+        "labelOffsetRem": 3.65,
         "lines": [
           "Arche du",
           "Dramont"

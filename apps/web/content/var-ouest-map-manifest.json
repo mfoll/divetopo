@@ -651,9 +651,9 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -1.3,
+        "shiftYRem": -2.4,
         "connectorAngleDeg": 90,
-        "connectorWidthRem": 0.4,
+        "connectorWidthRem": 1.35,
         "labelOffsetRem": 1.4,
         "widthRem": 6.5
       },
@@ -857,10 +857,10 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 0,
+        "shiftYRem": -1.25,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 1.3,
-        "labelOffsetRem": 2.3,
+        "labelOffsetRem": 2.6,
         "widthRem": 5.2
       },
       "interactiveInitialView": {
@@ -1063,10 +1063,10 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -0.2,
+        "shiftYRem": -0.75,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 2.7,
-        "labelOffsetRem": 4.0,
+        "labelOffsetRem": 4.1,
         "widthRem": 6.0
       },
       "interactiveInitialView": {
@@ -1134,9 +1134,9 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -1.3,
+        "shiftYRem": -2.4,
         "connectorAngleDeg": 90,
-        "connectorWidthRem": 0.4,
+        "connectorWidthRem": 1.35,
         "labelOffsetRem": 1.4,
         "widthRem": 6.5
       },
@@ -1156,10 +1156,10 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 0,
+        "shiftYRem": -1.25,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 1.3,
-        "labelOffsetRem": 2.3,
+        "labelOffsetRem": 2.6,
         "widthRem": 5.2
       },
       "status": "published"
@@ -1178,10 +1178,10 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -0.2,
+        "shiftYRem": -0.75,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 2.7,
-        "labelOffsetRem": 4.0,
+        "labelOffsetRem": 4.1,
         "widthRem": 6.0
       },
       "status": "published"

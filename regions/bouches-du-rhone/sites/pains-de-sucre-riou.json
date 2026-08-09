@@ -6,10 +6,10 @@
     "published": true,
     "site_label_layout": {
       "side": "left",
-      "shift_y_rem": 2.6,
-      "connector_angle_deg": -72,
-      "connector_width_rem": 1.6,
-      "label_offset_rem": 1.8,
+      "shift_y_rem": 1.1,
+      "connector_angle_deg": 0,
+      "connector_width_rem": 1.35,
+      "label_offset_rem": 2.72,
       "lines": ["Pains de Sucre", "Riou"],
       "width_rem": 5.8
     },

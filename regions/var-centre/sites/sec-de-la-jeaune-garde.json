@@ -6,7 +6,7 @@
     "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0.6,
+      "shift_y_rem": 0.45,
       "connector_angle_deg": -34,
       "connector_width_rem": 1.2,
       "label_offset_rem": 2.3,

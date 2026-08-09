@@ -6,10 +6,10 @@
     "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": -1.0,
-      "connector_angle_deg": 0,
-      "connector_width_rem": 1.0,
-      "label_offset_rem": 1.8,
+      "shift_y_rem": -1.55,
+      "connector_angle_deg": -30,
+      "connector_width_rem": 0.95,
+      "label_offset_rem": 2.2,
       "width_rem": 6.2
     },
     "interactive_initial_view": {

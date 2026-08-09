@@ -236,11 +236,11 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": -1.5,
-        "connectorAngleDeg": 70,
-        "connectorWidthRem": 1.5,
-        "labelOffsetRem": 1.7,
+        "side": "right",
+        "shiftYRem": -1.65,
+        "connectorAngleDeg": -12,
+        "connectorWidthRem": 0.8,
+        "labelOffsetRem": 2.15,
         "lines": [
           "Grotte à Corail",
           "Maïre"
@@ -450,10 +450,10 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 2.6,
-        "connectorAngleDeg": -72,
-        "connectorWidthRem": 1.6,
-        "labelOffsetRem": 1.8,
+        "shiftYRem": 1.1,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.35,
+        "labelOffsetRem": 2.72,
         "lines": [
           "Pains de Sucre",
           "Riou"
@@ -664,15 +664,15 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0,
-        "connectorAngleDeg": -64,
-        "connectorWidthRem": 1.4,
-        "labelOffsetRem": 2,
+        "shiftYRem": 1.5,
+        "connectorAngleDeg": 13,
+        "connectorWidthRem": 1.25,
+        "labelOffsetRem": 2.6,
         "lines": [
           "Impérial",
           "de Terre"
         ],
-        "widthRem": 4.4
+        "widthRem": 3.8
       },
       "interactiveInitialView": {
         "zoom": 1
@@ -874,10 +874,10 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 0.7,
-        "connectorAngleDeg": -35,
-        "connectorWidthRem": 2.0,
-        "labelOffsetRem": 1.6,
+        "shiftYRem": 1.7,
+        "connectorAngleDeg": -37,
+        "connectorWidthRem": 0.8,
+        "labelOffsetRem": 2.0,
         "lines": [
           "Pierre à la",
           "Bague",
@@ -1087,10 +1087,10 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -1.0,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.0,
-        "labelOffsetRem": 1.8,
+        "shiftYRem": -1.55,
+        "connectorAngleDeg": -30,
+        "connectorWidthRem": 0.95,
+        "labelOffsetRem": 2.2,
         "widthRem": 6.2
       },
       "interactiveInitialView": {
@@ -1112,11 +1112,11 @@
         "yPercent": 55.14418
       },
       "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": -1.5,
-        "connectorAngleDeg": 70,
-        "connectorWidthRem": 1.5,
-        "labelOffsetRem": 1.7,
+        "side": "right",
+        "shiftYRem": -1.65,
+        "connectorAngleDeg": -12,
+        "connectorWidthRem": 0.8,
+        "labelOffsetRem": 2.15,
         "lines": [
           "Grotte à Corail",
           "Maïre"
@@ -1139,10 +1139,10 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 2.6,
-        "connectorAngleDeg": -72,
-        "connectorWidthRem": 1.6,
-        "labelOffsetRem": 1.8,
+        "shiftYRem": 1.1,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.35,
+        "labelOffsetRem": 2.72,
         "lines": [
           "Pains de Sucre",
           "Riou"
@@ -1165,15 +1165,15 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0,
-        "connectorAngleDeg": -64,
-        "connectorWidthRem": 1.4,
-        "labelOffsetRem": 2,
+        "shiftYRem": 1.5,
+        "connectorAngleDeg": 13,
+        "connectorWidthRem": 1.25,
+        "labelOffsetRem": 2.6,
         "lines": [
           "Impérial",
           "de Terre"
         ],
-        "widthRem": 4.4
+        "widthRem": 3.8
       },
       "status": "published"
     },
@@ -1191,10 +1191,10 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 0.7,
-        "connectorAngleDeg": -35,
-        "connectorWidthRem": 2.0,
-        "labelOffsetRem": 1.6,
+        "shiftYRem": 1.7,
+        "connectorAngleDeg": -37,
+        "connectorWidthRem": 0.8,
+        "labelOffsetRem": 2.0,
         "lines": [
           "Pierre à la",
           "Bague",
@@ -1218,10 +1218,10 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -1.0,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.0,
-        "labelOffsetRem": 1.8,
+        "shiftYRem": -1.55,
+        "connectorAngleDeg": -30,
+        "connectorWidthRem": 0.95,
+        "labelOffsetRem": 2.2,
         "widthRem": 6.2
       },
       "status": "published"

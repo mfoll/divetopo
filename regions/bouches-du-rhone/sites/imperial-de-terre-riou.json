@@ -6,12 +6,12 @@
     "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0,
-      "connector_angle_deg": -64,
-      "connector_width_rem": 1.4,
-      "label_offset_rem": 2,
+      "shift_y_rem": 1.5,
+      "connector_angle_deg": 13,
+      "connector_width_rem": 1.25,
+      "label_offset_rem": 2.6,
       "lines": ["Impérial", "de Terre"],
-      "width_rem": 4.4
+      "width_rem": 3.8
     },
     "interactive_initial_view": {
       "zoom": 1

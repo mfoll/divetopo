@@ -440,7 +440,7 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.6,
+        "shiftYRem": 0.45,
         "connectorAngleDeg": -34,
         "connectorWidthRem": 1.2,
         "labelOffsetRem": 2.3,
@@ -647,9 +647,9 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 3.3,
-        "connectorAngleDeg": 67,
-        "connectorWidthRem": 2.3,
+        "shiftYRem": 3.45,
+        "connectorAngleDeg": 69,
+        "connectorWidthRem": 2.55,
         "labelOffsetRem": 2.3,
         "lines": [
           "Sec du",
@@ -1060,9 +1060,9 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 5.5,
-        "connectorAngleDeg": -82,
-        "connectorWidthRem": 4.25,
+        "shiftYRem": 5.95,
+        "connectorAngleDeg": -83,
+        "connectorWidthRem": 4.95,
         "labelOffsetRem": 2.0,
         "widthRem": 5.8
       },
@@ -1113,7 +1113,7 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.6,
+        "shiftYRem": 0.45,
         "connectorAngleDeg": -34,
         "connectorWidthRem": 1.2,
         "labelOffsetRem": 2.3,
@@ -1139,9 +1139,9 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 3.3,
-        "connectorAngleDeg": 67,
-        "connectorWidthRem": 2.3,
+        "shiftYRem": 3.45,
+        "connectorAngleDeg": 69,
+        "connectorWidthRem": 2.55,
         "labelOffsetRem": 2.3,
         "lines": [
           "Sec du",
@@ -1187,9 +1187,9 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 5.5,
-        "connectorAngleDeg": -82,
-        "connectorWidthRem": 4.25,
+        "shiftYRem": 5.95,
+        "connectorAngleDeg": -83,
+        "connectorWidthRem": 4.95,
         "labelOffsetRem": 2.0,
         "widthRem": 5.8
       },
