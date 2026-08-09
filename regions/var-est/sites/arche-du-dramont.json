@@ -3,12 +3,12 @@
   "slug": "arche-du-dramont",
   "title": "Arche du Dramont",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0.0,
-      "connector_angle_deg": 0.0,
-      "connector_width_rem": 1.4,
+      "shift_y_rem": 1.0,
+      "connector_angle_deg": 45.0,
+      "connector_width_rem": 2.2,
       "label_offset_rem": 2.0,
       "width_rem": 5.8
     },

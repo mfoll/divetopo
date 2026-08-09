@@ -3,13 +3,13 @@
   "slug": "sec-de-l-ile-d-or",
   "title": "Sec de l’Île d’Or, Cap Dramont",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": -0.8,
-      "connector_angle_deg": 32.0,
-      "connector_width_rem": 1.5,
-      "label_offset_rem": 2.0,
+      "shift_y_rem": -3.7,
+      "connector_angle_deg": -45.0,
+      "connector_width_rem": 5.0,
+      "label_offset_rem": 4.0,
       "width_rem": 5.8
     },
     "interactive_initial_view": {

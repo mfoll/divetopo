@@ -8,38 +8,38 @@
       "files": {
         "metadata": {
           "path": "les-pyramides-cap-dramont/terrain.json",
-          "bytes": 5044,
-          "sha256": "a55d4a063a3a3c0f0783c8f9b9b24fd7e805bade04aa4c6699c3e2b0df3b0118"
+          "bytes": 5033,
+          "sha256": "224ce8320a6f39c0250b4d8b7605488fc41b2fbcf64e56f54198ada19cce4cc7"
         },
         "height": {
           "path": "les-pyramides-cap-dramont/height.bin",
-          "bytes": 523260,
-          "sha256": "d3daacd6b77c5e01aebadefa2dbc25b4543f4fb3dc6dac722d49affc0d8cff00"
+          "bytes": 304192,
+          "sha256": "670c7e45f52cfb88f14262186c7c7d40c270e7f42ef822c912b9293d6f10ebaa"
         },
         "validMask": {
           "path": "les-pyramides-cap-dramont/valid-mask.bin",
-          "bytes": 32704,
-          "sha256": "38dcfa5869d76247101e7337479e370ac582110679343afbef62ed3137dcf809"
+          "bytes": 19012,
+          "sha256": "e8b2afc37c8e5cecfa56c67bd70d16994015abe1e72e21de2986444aa6fe4b58"
         },
         "isobathMask": {
           "path": "les-pyramides-cap-dramont/isobath-mask.bin",
-          "bytes": 32704,
-          "sha256": "38dcfa5869d76247101e7337479e370ac582110679343afbef62ed3137dcf809"
+          "bytes": 19012,
+          "sha256": "e8b2afc37c8e5cecfa56c67bd70d16994015abe1e72e21de2986444aa6fe4b58"
         },
         "vectorIsobaths": {
           "path": "les-pyramides-cap-dramont/isobaths-vector.json",
-          "bytes": 146826,
-          "sha256": "197b6b12931d6f0be9d5cfe3f5f9e2749c420dcc5b734ec52e6c540239abf0ff"
+          "bytes": 95605,
+          "sha256": "b73bac042f4226ed5e9789591f99b19d3bec8e31805426fbf56d59e937635e6e"
         },
         "topographicTexture": {
           "path": "les-pyramides-cap-dramont/topographic.webp",
-          "bytes": 33252,
-          "sha256": "0df0aafd0d76fd9f30ba2656cbb747d14b82a23c366baa25272326f156acf361"
+          "bytes": 7942,
+          "sha256": "6b680ef6e419bc37a7e43c92af9f8ec8394c57b42f8c8e1a0c63f8941006c54f"
         },
         "orthophotoTexture": {
           "path": "les-pyramides-cap-dramont/orthophoto.webp",
-          "bytes": 26370,
-          "sha256": "dd8a9d9b15b0a3a1528abb2e911d7c6219bcb18cf766c670c466029716bc10f0"
+          "bytes": 5930,
+          "sha256": "5a0fce7ba0b1f6d4908640332383c071085a866e13b78ba48b16a566aac24242"
         }
       }
     },
@@ -86,6 +86,48 @@
       }
     },
     {
+      "slug": "arche-du-dramont",
+      "title": "Arche du Dramont",
+      "metadata": "arche-du-dramont/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "arche-du-dramont/terrain.json",
+          "bytes": 4575,
+          "sha256": "c0ca1d71b6faf3c81cde2f12b2dbb1348c6da755c301d61d0fd547472d342238"
+        },
+        "height": {
+          "path": "arche-du-dramont/height.bin",
+          "bytes": 522234,
+          "sha256": "ca3e1122d7ad0a8c26b7cc49bdc2ffd5d55c562b2d104f1a0d21cb9452f69e1b"
+        },
+        "validMask": {
+          "path": "arche-du-dramont/valid-mask.bin",
+          "bytes": 32640,
+          "sha256": "4c43d524f8ebdd705aa5956b66fb55472235921488daa6e33efe28685d4825a9"
+        },
+        "isobathMask": {
+          "path": "arche-du-dramont/isobath-mask.bin",
+          "bytes": 32640,
+          "sha256": "30e18314232dfc67613e14a12632b6bd98cb511bd877cfed126f5ce065d77ef3"
+        },
+        "vectorIsobaths": {
+          "path": "arche-du-dramont/isobaths-vector.json",
+          "bytes": 96338,
+          "sha256": "521f975a99aecee2b4256547c547b09b9e1da591e2d3e34b195933543b3bb72d"
+        },
+        "topographicTexture": {
+          "path": "arche-du-dramont/topographic.webp",
+          "bytes": 27706,
+          "sha256": "fb5efaa7e69c5f867ab53c727eb0e7a4d4ac901d535c73a8363f37228f3c5d8f"
+        },
+        "orthophotoTexture": {
+          "path": "arche-du-dramont/orthophoto.webp",
+          "bytes": 22366,
+          "sha256": "1e14214ad03d1f27348eed1eb2bbcd884279e38a3054fb11833c57b62c360338"
+        }
+      }
+    },
+    {
       "slug": "cathedrale-du-trayas",
       "title": "Cathédrale du Trayas",
       "metadata": "cathedrale-du-trayas/terrain.json",
@@ -93,7 +135,7 @@
         "metadata": {
           "path": "cathedrale-du-trayas/terrain.json",
           "bytes": 4449,
-          "sha256": "1e6c8854d102269dc1f4bc5d020af2009e98d906119cfcdb7073a588ddae9035"
+          "sha256": "f625cd241ae20cd444e63580e50927b754035a95889810261fd62e6d4f063b62"
         },
         "height": {
           "path": "cathedrale-du-trayas/height.bin",

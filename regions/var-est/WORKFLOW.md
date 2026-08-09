@@ -1,143 +1,54 @@
-# Var Est topo-bathymetric workflow
+# Workflow topo-bathymétrique du Var Est
 
-This region is an autonomous DiveTopo region for the Estérel coast around
-Saint-Raphaël, Le Dramont, Anthéor and Le Trayas. It is not a PACA subregion.
-Its canonical route is `/var-est`; its site routes will be
-`/var-est/<language>/sites/<slug>`.
+Var Est couvre l’Estérel, Saint-Raphaël, Le Dramont, Anthéor et Le Trayas.
+Cette région est autonome : ses configurations, sorties, manifestes et sa route
+`/var-est` n’appartiennent pas à PACA.
 
-## Regional boundary
+## Périmètre v1.4
 
-The first-wave inventory is limited to exactly five sites:
+La première vague contient exactement cinq sites publiés : Les Pyramides, Sec
+de l’Île d’Or, Arche du Dramont, Cathédrale du Trayas et Le Village. Leurs
+configurations portent `region: var-est` et `web.published: true`; les
+manifestes régional et interactif contiennent ces cinq sites, sans entrée « en
+préparation ».
 
-- Les Pyramides;
-- Sec de l’Île d’Or;
-- Arche du Dramont;
-- Cathédrale du Trayas;
-- Le Village;
+Sec des Suisses / Cigales, La Vitrine, Péniches d’Anthéor et Lion de Mer restent
+différés et sont absents de cette livraison.
 
-The following sites are explicitly deferred and their commits must not be
-cherry-picked into the first wave:
+## Sources, sorties et construction
 
-- Sec des Suisses / Cigales;
-- La Vitrine;
-- Péniches d’Anthéor;
-- Lion de Mer.
+- CRS : RGF93 v1 / Lambert-93 (`EPSG:2154`).
+- Bathymétrie et élévation : Shom–IGN Litto3D PACA 2015, MNT 1 m, IGN69.
+- Imagerie : IGN BD ORTHO, date déclarée dans chaque configuration.
+- Carte régionale : EMODnet Bathymetry DTM 2024, Litto3D près du littoral,
+  GEBCO 2024 en repli NoData, RGE ALTI à terre et masque terre-mer officiel.
 
-Only a site listed in `region.json` and carrying `web.published: true` is part
-of the generated public inventory. A new site remains a draft with
-`web.published: false` until full-resolution map QA, interactive QA, regional
-marker QA and an explicit publication decision have all passed.
+Les configurations vivent dans `regions/var-est/sites/`, les sorties
+canoniques dans `regions/var-est/outputs/`, les paquets interactifs dans
+`regions/var-est/outputs/interactive-terrain/` et les dérivés publiables dans
+`apps/web/public/maps/var-est/`.
 
-## Repository paths
+Chaque site fournit les six actifs natifs attendus : deux plans 2D, deux vues
+3D statiques et deux planches 5400 × 3250, ainsi qu’un paquet interactif de
+sept fichiers et ses dérivés Web. Les vues dynamiques sont capturées depuis la
+fiche réelle, puis indexées avec tailles et SHA-256.
+
+Commandes reproductibles, avec le runtime local approuvé :
 
 ```text
-regions/var-est/region.json
-regions/var-est/sites/<slug>.json
-regions/var-est/outputs/<slug>-topobathy-2d.jpg
-regions/var-est/outputs/<slug>-topobathy-2d-ortho.jpg
-regions/var-est/outputs/<slug>-topobathy-3d.jpg
-regions/var-est/outputs/<slug>-topobathy-3d-ortho.jpg
-regions/var-est/outputs/<slug>-locator-var-est.jpg
-regions/var-est/outputs/<slug>-planche.jpg
-regions/var-est/outputs/<slug>-planche-topographique.jpg
-regions/var-est/outputs/interactive-terrain/<slug>/
-regions/var-est/outputs/var-est-regional-relief.png
-apps/web/public/maps/var-est/<slug>/
-apps/web/public/maps/var-est/var-est-regional-relief.png
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/build_interactive_terrain_manifest.py var-est
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/build_regional_map_assets.py var-est
+/Users/follm/home-projects/divetopo/.venv/bin/python apps/web/scripts/sync_interactive_terrain.py
 ```
 
-The canonical generated maps and interactive packages live under
-`regions/var-est/outputs/`. The Web tree contains publication derivatives,
-not canonical render products.
+Les points géographiques proches restent non interactifs. Les cartouches
+nominatifs, le clavier et le sélecteur sont les cibles d’ouverture afin de ne
+jamais associer silencieusement un clic au mauvais site.
 
-## Detailed-map sources and projection
+## Gate de livraison
 
-- Common CRS: RGF93 v1 / Lambert-93, `EPSG:2154`.
-- Detailed bathymetry and land elevation: Shom–IGN Litto3D PACA 2015,
-  one-metre gridded DTM, with the vertical reference and archive members pinned
-  in each site configuration.
-- Land imagery: IGN BD ORTHO. The capture date is checked for each site and
-  recorded in its configuration; it is never inferred from another site.
-- Regional map: EMODnet Bathymetry DTM 2024 offshore, Shom–IGN Litto3D PACA
-  2015 nearshore, GEBCO 2024 only as a no-data fallback, IGN RGE ALTI on land,
-  and the official Shom–IGN land-sea limit for the coastline mask.
-
-The regional map receives its own Var Est extent and marker layout after every
-target site's canonical marker has been integrated. It must not reuse the PACA
-image or present itself as a crop of the PACA page. Its canonical image is used
-both for the homepage card and the regional site picker; the Web copy is a
-derived asset whose hash is recorded in the regional manifest.
-
-For the first regional integration commit, `regionalMap.status` is
-`awaiting-shared-builder`: the canonical and Web paths are reserved but no map
-is fabricated, cropped from PACA, or published. The global coordinator owns
-the shared regional builder. Map generation and its visual QA therefore belong
-to a second, targeted commit after that builder is integrated.
-
-Do not download source data or dependencies without explicit authorization.
-Rendering may reuse a valid local cache only after its projection, extent,
-resolution, signal and provenance have passed the pipeline checks.
-
-`cartography.regions.var_est` owns the Var Est region identity and output
-contract. It reuses the existing Lambert-93 Litto3D cache validation functions
-and the shared renderer; this source-adapter reuse does not make Var Est part of
-the PACA inventory or route.
-
-## Migrating Les Pyramides
-
-Les Pyramides is already published from
-`regions/paca/sites/les-pyramides-cap-dramont.json`. Migrate it into Var Est
-without canonical regeneration unless QA finds a concrete defect requiring a
-separate decision:
-
-1. record SHA-256 hashes for every canonical output, interactive-terrain file
-   and Web derivative before the move;
-2. move the configuration and canonical outputs to the Var Est paths, changing
-   the region identity and publication paths only, and remove only the
-   now-stale Les Pyramides entry from `regions/paca/region.json` as the narrowly
-   approved cross-region exception;
-3. move the Web derivatives from `/maps/paca/` to `/maps/var-est/`;
-4. rebuild manifests without rendering the site;
-5. compare all content hashes with the recorded pre-migration hashes;
-6. verify the real Var Est routes, downloads and interactive initial view on
-   desktop and mobile.
-
-A moved artifact is inherited, not freshly rendered. The migration must not be
-described as new cartographic validation.
-
-## Integrating site commits
-
-Site work arrives as task-scoped commits from separate worktrees. Before each
-cherry-pick:
-
-1. inspect the commit and confirm that it touches only the announced site and
-   its allowed outputs;
-2. reject or split changes to another region, the homepage, versions, releases
-   or deployment files;
-3. cherry-pick the commit, resolve only region-local conflicts, and rerun the
-   site configuration checks;
-4. keep a new site's `web.published` value false;
-5. inspect the resulting diff before accepting the next site.
-
-Do not silently generalize shared code while integrating a site. Discuss a
-required shared structural change with the global coordinator first.
-
-## Regional acceptance gate
-
-Before proposing publication or the final zone commit:
-
-1. ensure `region.json`, every site configuration, canonical output and Web
-   manifest agree on region, slug, route and publication state;
-2. verify that drafts are absent from every generated public inventory;
-3. inspect the regional image at full resolution and verify coastline, relief,
-   attribution, extent, marker positions and marker-to-site correspondence;
-4. run the repository's browser geometry gate at `1280 × 720` DPR 2 and
-   `390 × 844` DPR 1, retaining the measurements and screenshots;
-5. inspect each published site route and interactive terrain on desktop and
-   mobile, including labels, controls, initial view and downloads;
-6. run the affected regional checks, the complete Python suite, and the Web
-   lint, tests and production build without installing dependencies;
-7. review the complete task-scoped diff and confirm that no other region,
-   homepage, version, release or deployment file changed.
-
-The final zone commit remains local. It is not pushed, released or deployed.
+Avant commit, inspecter les six actifs de chaque site et la carte régionale en
+pleine définition, mesurer les cartouches à 1280 × 720 et 390 × 844, vérifier
+les thèmes clair/sombre, les routes, le sélecteur et les terrains, puis lancer
+le build, les suites Python/Web et le lint. Le commit reste local : aucun push,
+release ou déploiement n’est autorisé par ce workflow.

@@ -5,6 +5,7 @@
     "bouches-du-rhone",
     "reunion",
     "var-centre",
+    "var-est",
     "var-ouest"
   ],
   "sites": [
@@ -1097,6 +1098,216 @@
           "path": "la-gabiniere-port-cros/orthophoto.webp",
           "bytes": 25234,
           "sha256": "8deb8c6eda0383283fc65852cbdd5a085d160e8af4fdca66ffb71209d4234041"
+        }
+      }
+    },
+    {
+      "slug": "les-pyramides-cap-dramont",
+      "title": "Les Pyramides, Cap Dramont–Île d’Or",
+      "metadata": "les-pyramides-cap-dramont/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "les-pyramides-cap-dramont/terrain.json",
+          "bytes": 5033,
+          "sha256": "224ce8320a6f39c0250b4d8b7605488fc41b2fbcf64e56f54198ada19cce4cc7"
+        },
+        "height": {
+          "path": "les-pyramides-cap-dramont/height.bin",
+          "bytes": 304192,
+          "sha256": "670c7e45f52cfb88f14262186c7c7d40c270e7f42ef822c912b9293d6f10ebaa"
+        },
+        "validMask": {
+          "path": "les-pyramides-cap-dramont/valid-mask.bin",
+          "bytes": 19012,
+          "sha256": "e8b2afc37c8e5cecfa56c67bd70d16994015abe1e72e21de2986444aa6fe4b58"
+        },
+        "isobathMask": {
+          "path": "les-pyramides-cap-dramont/isobath-mask.bin",
+          "bytes": 19012,
+          "sha256": "e8b2afc37c8e5cecfa56c67bd70d16994015abe1e72e21de2986444aa6fe4b58"
+        },
+        "vectorIsobaths": {
+          "path": "les-pyramides-cap-dramont/isobaths-vector.json",
+          "bytes": 95605,
+          "sha256": "b73bac042f4226ed5e9789591f99b19d3bec8e31805426fbf56d59e937635e6e"
+        },
+        "topographicTexture": {
+          "path": "les-pyramides-cap-dramont/topographic.webp",
+          "bytes": 7942,
+          "sha256": "6b680ef6e419bc37a7e43c92af9f8ec8394c57b42f8c8e1a0c63f8941006c54f"
+        },
+        "orthophotoTexture": {
+          "path": "les-pyramides-cap-dramont/orthophoto.webp",
+          "bytes": 5930,
+          "sha256": "5a0fce7ba0b1f6d4908640332383c071085a866e13b78ba48b16a566aac24242"
+        }
+      }
+    },
+    {
+      "slug": "sec-de-l-ile-d-or",
+      "title": "Sec de l’Île d’Or, Cap Dramont",
+      "metadata": "sec-de-l-ile-d-or/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-de-l-ile-d-or/terrain.json",
+          "bytes": 5028,
+          "sha256": "1418db638083c65f05bcd8110902c56fe7f38eb4cfc39c9fbf64bd2d83b2d65c"
+        },
+        "height": {
+          "path": "sec-de-l-ile-d-or/height.bin",
+          "bytes": 522234,
+          "sha256": "3e3e0a66cdeb3a4e739b561c5e3a30d3420d26ee2f3b3719eb1bfe07530a5ebd"
+        },
+        "validMask": {
+          "path": "sec-de-l-ile-d-or/valid-mask.bin",
+          "bytes": 32640,
+          "sha256": "8d0ac85192db6243ef0bc3c969b215a84cee67b8eb9edaf8f469c8fcc71904ed"
+        },
+        "isobathMask": {
+          "path": "sec-de-l-ile-d-or/isobath-mask.bin",
+          "bytes": 32640,
+          "sha256": "8d0ac85192db6243ef0bc3c969b215a84cee67b8eb9edaf8f469c8fcc71904ed"
+        },
+        "vectorIsobaths": {
+          "path": "sec-de-l-ile-d-or/isobaths-vector.json",
+          "bytes": 147787,
+          "sha256": "50ac1113d2ec71fffc67135cd3a0c2f7ca5a7e8460e4dadd0ffd77d4cac0bd73"
+        },
+        "topographicTexture": {
+          "path": "sec-de-l-ile-d-or/topographic.webp",
+          "bytes": 24828,
+          "sha256": "5f88918b2f06dcd1f41e32f9de06c0aaf4b439a6008354011cb833b15e5bb7a4"
+        },
+        "orthophotoTexture": {
+          "path": "sec-de-l-ile-d-or/orthophoto.webp",
+          "bytes": 20322,
+          "sha256": "71253a7522e88ad0e7ee73c6b6f4f154bf21f3969546c30af8309b33aa746697"
+        }
+      }
+    },
+    {
+      "slug": "arche-du-dramont",
+      "title": "Arche du Dramont",
+      "metadata": "arche-du-dramont/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "arche-du-dramont/terrain.json",
+          "bytes": 4575,
+          "sha256": "c0ca1d71b6faf3c81cde2f12b2dbb1348c6da755c301d61d0fd547472d342238"
+        },
+        "height": {
+          "path": "arche-du-dramont/height.bin",
+          "bytes": 522234,
+          "sha256": "ca3e1122d7ad0a8c26b7cc49bdc2ffd5d55c562b2d104f1a0d21cb9452f69e1b"
+        },
+        "validMask": {
+          "path": "arche-du-dramont/valid-mask.bin",
+          "bytes": 32640,
+          "sha256": "4c43d524f8ebdd705aa5956b66fb55472235921488daa6e33efe28685d4825a9"
+        },
+        "isobathMask": {
+          "path": "arche-du-dramont/isobath-mask.bin",
+          "bytes": 32640,
+          "sha256": "30e18314232dfc67613e14a12632b6bd98cb511bd877cfed126f5ce065d77ef3"
+        },
+        "vectorIsobaths": {
+          "path": "arche-du-dramont/isobaths-vector.json",
+          "bytes": 96338,
+          "sha256": "521f975a99aecee2b4256547c547b09b9e1da591e2d3e34b195933543b3bb72d"
+        },
+        "topographicTexture": {
+          "path": "arche-du-dramont/topographic.webp",
+          "bytes": 27706,
+          "sha256": "fb5efaa7e69c5f867ab53c727eb0e7a4d4ac901d535c73a8363f37228f3c5d8f"
+        },
+        "orthophotoTexture": {
+          "path": "arche-du-dramont/orthophoto.webp",
+          "bytes": 22366,
+          "sha256": "1e14214ad03d1f27348eed1eb2bbcd884279e38a3054fb11833c57b62c360338"
+        }
+      }
+    },
+    {
+      "slug": "cathedrale-du-trayas",
+      "title": "Cathédrale du Trayas",
+      "metadata": "cathedrale-du-trayas/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "cathedrale-du-trayas/terrain.json",
+          "bytes": 4449,
+          "sha256": "f625cd241ae20cd444e63580e50927b754035a95889810261fd62e6d4f063b62"
+        },
+        "height": {
+          "path": "cathedrale-du-trayas/height.bin",
+          "bytes": 501714,
+          "sha256": "faa55743a378c46fbe965947973105cdc233b00295f4a97698d95b0c22598b8d"
+        },
+        "validMask": {
+          "path": "cathedrale-du-trayas/valid-mask.bin",
+          "bytes": 31358,
+          "sha256": "d5168627f4522171dfdfebda7590190236fc6a8e443361cbac9d19ce3ad41252"
+        },
+        "isobathMask": {
+          "path": "cathedrale-du-trayas/isobath-mask.bin",
+          "bytes": 31358,
+          "sha256": "d5168627f4522171dfdfebda7590190236fc6a8e443361cbac9d19ce3ad41252"
+        },
+        "vectorIsobaths": {
+          "path": "cathedrale-du-trayas/isobaths-vector.json",
+          "bytes": 57181,
+          "sha256": "ce0b7d2db4b65f1b33f9c50ba9ddc9204f42ea5c38d8e4e17ba0dec980f0dacd"
+        },
+        "topographicTexture": {
+          "path": "cathedrale-du-trayas/topographic.webp",
+          "bytes": 34334,
+          "sha256": "d506cfb4ae35e8b95f4f5325b939763100daa1c8d4c1c365d96961b892a4df2f"
+        },
+        "orthophotoTexture": {
+          "path": "cathedrale-du-trayas/orthophoto.webp",
+          "bytes": 40362,
+          "sha256": "a6e280a72478f2e9d0db089d286c3f868a26d6d3908c5c3d0ef89bbc7dc8988d"
+        }
+      }
+    },
+    {
+      "slug": "le-village",
+      "title": "Le Village, Cap Dramont",
+      "metadata": "le-village/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "le-village/terrain.json",
+          "bytes": 4922,
+          "sha256": "7a8f9dd09ddc411f37e563c055f0d2e6bac8a3b1d9abe0a47467394937001a95"
+        },
+        "height": {
+          "path": "le-village/height.bin",
+          "bytes": 303962,
+          "sha256": "2683e59dbdbacf7c18b7ed446118bad555a9a8d0be38ba7c3ccad8f8c1b7f887"
+        },
+        "validMask": {
+          "path": "le-village/valid-mask.bin",
+          "bytes": 18998,
+          "sha256": "407d9c573d34ad8d79e2c81b44b7e2e8f509bedb853d111ae7aab4d784ecc592"
+        },
+        "isobathMask": {
+          "path": "le-village/isobath-mask.bin",
+          "bytes": 18998,
+          "sha256": "407d9c573d34ad8d79e2c81b44b7e2e8f509bedb853d111ae7aab4d784ecc592"
+        },
+        "vectorIsobaths": {
+          "path": "le-village/isobaths-vector.json",
+          "bytes": 110196,
+          "sha256": "63afee2bf9455a5fdf448c498bd09531b9732f60781aeb1f4f33445de0287dfd"
+        },
+        "topographicTexture": {
+          "path": "le-village/topographic.webp",
+          "bytes": 14312,
+          "sha256": "8a9385b1afce3fc019d46d63f83a1e5d9f257598efa3b7deb396a7bede9f9868"
+        },
+        "orthophotoTexture": {
+          "path": "le-village/orthophoto.webp",
+          "bytes": 14534,
+          "sha256": "2be958400b60fe3bc72090f5f41e96be339b6a64d01ef2e075333c094d559fa9"
         }
       }
     },

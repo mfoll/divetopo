@@ -1,0 +1,174 @@
+{
+  "schemaVersion": 2,
+  "slug": "cathedrale-du-trayas",
+  "title": "Cathédrale du Trayas",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 1017290.5,
+    "south": 6271053.5,
+    "east": 1018189.5,
+    "north": 6271996.5
+  },
+  "physicalSizeM": {
+    "width": 899.0,
+    "depth": 943.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 489,
+    "height": 513,
+    "triangleCount": 499712,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -20.0,
+      "scaleMPerUnit": 0.0003356984817273213,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -20.0,
+    "max": 2.0
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        250,
+        132,
+        30
+      ],
+      "10": [
+        113,
+        219,
+        137
+      ],
+      "15": [
+        36,
+        113,
+        202
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 3,
+        "points": 478
+      },
+      "10": {
+        "polylines": 4,
+        "points": 646
+      },
+      "15": {
+        "polylines": 1,
+        "points": 173
+      },
+      "20": {
+        "polylines": 1,
+        "points": 164
+      }
+    },
+    "totals": {
+      "levels": 4,
+      "polylines": 9,
+      "points": 1461
+    },
+    "reprojectionResidualM": {
+      "samples": 1461,
+      "mean": 5.5265306504650985e-06,
+      "p95": 7.974838567292863e-09,
+      "max": 0.003245741167377858,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 2.6,
+  "view": {
+    "lookBearingDeg": 325.0,
+    "gridLookBearingDeg": 325.0,
+    "cameraTilt": 0.34,
+    "alongViewProjectionScale": 1.6,
+    "visibleWidthM": 490.0,
+    "coastFrameFraction": 0.34,
+    "horizontalCenterOffsetM": -114.681286
+  },
+  "textures": {
+    "width": 899,
+    "height": 943,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-07-10",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      1017740.0,
+      6271525.0
+    ],
+    "widthM": 570.0,
+    "depthM": 750.0,
+    "lookBearingDeg": 325.0,
+    "cornersUtm40s": [
+      [
+        1017721.633,
+        6271054.349
+      ],
+      [
+        1018188.549,
+        6271381.287
+      ],
+      [
+        1017758.367,
+        6271995.651
+      ],
+      [
+        1017291.451,
+        6271668.713
+      ]
+    ]
+  }
+}

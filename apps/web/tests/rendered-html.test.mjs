@@ -21,6 +21,11 @@ const publishedSiteSlugs = new Set([
   "roches-noires",
   "souris-chaude",
   "trois-bassins",
+  "les-pyramides-cap-dramont",
+  "sec-de-l-ile-d-or",
+  "arche-du-dramont",
+  "cathedrale-du-trayas",
+  "le-village",
 ]);
 async function render(pathOrHeaders = "/reunion/fr", additionalHeaders = {}) {
   const path =
@@ -655,8 +660,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 76);
-  assert.equal(imageLocations.length, 200);
+  assert.equal(locations.length, 86);
+  assert.equal(imageLocations.length, 230);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -733,7 +738,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    186,
+    216,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -895,6 +900,7 @@ test("interactive terrain manifest combines every published region", async () =>
     bouchesDuRhoneManifest,
     varCentreManifest,
     varOuestManifest,
+    varEstManifest,
     alpesMaritimesManifest,
   ] = await Promise.all([
     readFile(
@@ -914,6 +920,10 @@ test("interactive terrain manifest combines every published region", async () =>
       "utf8",
     ),
     readFile(
+      new URL("../content/var-est-map-manifest.json", import.meta.url),
+      "utf8",
+    ),
+    readFile(
       new URL("../content/alpes-maritimes-map-manifest.json", import.meta.url),
       "utf8",
     ),
@@ -925,9 +935,10 @@ test("interactive terrain manifest combines every published region", async () =>
     "bouches-du-rhone",
     "reunion",
     "var-centre",
+    "var-est",
     "var-ouest",
   ]);
-  assert.equal(manifest.sites.length, 31);
+  assert.equal(manifest.sites.length, 36);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([
@@ -935,6 +946,7 @@ test("interactive terrain manifest combines every published region", async () =>
       ...bouchesDuRhoneManifest.sites.map((site) => site.slug),
       ...varCentreManifest.sites.map((site) => site.slug),
       ...varOuestManifest.sites.map((site) => site.slug),
+      ...varEstManifest.sites.map((site) => site.slug),
       ...alpesMaritimesManifest.sites.map((site) => site.slug),
     ]),
   );

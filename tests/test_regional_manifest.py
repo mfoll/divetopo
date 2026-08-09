@@ -17,6 +17,7 @@ class RegionalManifestTests(unittest.TestCase):
     def test_region_inventory_filters_unpublished_site_drafts(self) -> None:
         var_ouest = REGIONAL.load_published_configs(ROOT, "var-ouest")
         var_centre = REGIONAL.load_published_configs(ROOT, "var-centre")
+        var_est = REGIONAL.load_published_configs(ROOT, "var-est")
         self.assertEqual(
             [config["slug"] for config in var_ouest],
             [
@@ -35,6 +36,16 @@ class RegionalManifestTests(unittest.TestCase):
                 "sec-du-langoustier",
                 "cap-des-medes",
                 "la-gabiniere-port-cros",
+            ],
+        )
+        self.assertEqual(
+            [config["slug"] for config in var_est],
+            [
+                "les-pyramides-cap-dramont",
+                "sec-de-l-ile-d-or",
+                "arche-du-dramont",
+                "cathedrale-du-trayas",
+                "le-village",
             ],
         )
 

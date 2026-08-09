@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "slug": "var-est",
   "route": "/var-est",
+  "routeStatus": "implemented",
   "names": {
     "fr": "Var Est : Estérel, Saint-Raphaël et Anthéor",
     "en": "Eastern Var: Estérel, Saint-Raphaël and Anthéor"

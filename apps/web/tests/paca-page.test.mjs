@@ -43,6 +43,7 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 5],
     ["/var-centre/en", "topo-var-centre-title", 5],
+    ["/var-est/fr", "topo-var-est-title", 5],
     ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5],
   ];
   for (const [path, titleId, siteCount] of published) {
@@ -58,7 +59,7 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
     );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
     assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < 5 ? 1 : 0, path);
-    const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/")
+    const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/") || path.startsWith("/var-est/")
       ? []
       : path.endsWith("/en")
         ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
@@ -104,22 +105,6 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
     );
   }
 
-  for (const region of [
-    "var-est",
-  ]) {
-    const response = await render(`/${region}/fr`);
-    assert.equal(response.status, 200, region);
-    const html = await response.text();
-    assert.match(html, /cinq premières cartographies/, region);
-    assert.equal(
-      html.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length,
-      5,
-      region,
-    );
-    assert.equal(html.match(/<li>/g)?.length, 5, region);
-    assert.equal(html.match(/<em>En préparation<\/em>/g)?.length, 5, region);
-    assert.doesNotMatch(html, new RegExp(`/${region}/fr/sites/`), region);
-  }
 });
 
 test("regional planning inventories contain exactly five classified sites", async () => {
@@ -164,6 +149,7 @@ test("published autonomous-region asset paths resolve", async () => {
   for (const [region, expectedSiteCount] of [
     ["var-ouest", 5],
     ["var-centre", 5],
+    ["var-est", 5],
     ["alpes-maritimes", 5],
   ]) {
     const manifest = JSON.parse(

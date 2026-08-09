@@ -3,13 +3,13 @@
   "slug": "le-village",
   "title": "Le Village, Cap Dramont",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": -1.0,
-      "connector_angle_deg": 50.0,
-      "connector_width_rem": 1.4,
-      "label_offset_rem": 2.25,
+      "shift_y_rem": 3.6,
+      "connector_angle_deg": 60.0,
+      "connector_width_rem": 4.5,
+      "label_offset_rem": 3.1,
       "width_rem": 5.4
     },
     "interactive_initial_view": {
