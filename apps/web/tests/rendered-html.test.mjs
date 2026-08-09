@@ -21,11 +21,6 @@ const publishedSiteSlugs = new Set([
   "roches-noires",
   "souris-chaude",
   "trois-bassins",
-  "les-pyramides-cap-dramont",
-  "sec-de-l-ile-d-or",
-  "arche-du-dramont",
-  "cathedrale-du-trayas",
-  "le-village",
 ]);
 async function render(pathOrHeaders = "/reunion/fr", additionalHeaders = {}) {
   const path =

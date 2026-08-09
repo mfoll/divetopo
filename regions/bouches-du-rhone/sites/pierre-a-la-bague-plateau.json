@@ -6,9 +6,9 @@
     "published": true,
     "site_label_layout": {
       "side": "left",
-      "shift_y_rem": 0,
-      "connector_angle_deg": 0,
-      "connector_width_rem": 0.8,
+      "shift_y_rem": 0.7,
+      "connector_angle_deg": -35,
+      "connector_width_rem": 2.0,
       "label_offset_rem": 1.6,
       "lines": ["Pierre à la", "Bague", "plateau"],
       "width_rem": 4.4

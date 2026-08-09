@@ -874,9 +874,9 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 0.8,
+        "shiftYRem": 0.7,
+        "connectorAngleDeg": -35,
+        "connectorWidthRem": 2.0,
         "labelOffsetRem": 1.6,
         "lines": [
           "Pierre à la",
@@ -1191,9 +1191,9 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 0.8,
+        "shiftYRem": 0.7,
+        "connectorAngleDeg": -35,
+        "connectorWidthRem": 2.0,
         "labelOffsetRem": 1.6,
         "lines": [
           "Pierre à la",

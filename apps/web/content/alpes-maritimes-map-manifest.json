@@ -862,12 +862,12 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -0.6,
-        "connectorAngleDeg": -9,
-        "connectorWidthRem": 2.2,
-        "labelOffsetRem": 3.0,
-        "widthRem": 6.2
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.2,
+        "labelOffsetRem": 1.85,
+        "widthRem": 5.6
       },
       "interactiveInitialView": {
         "zoom": 1,
@@ -1165,12 +1165,12 @@
         "yPercent": 73.49271
       },
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -0.6,
-        "connectorAngleDeg": -9,
-        "connectorWidthRem": 2.2,
-        "labelOffsetRem": 3.0,
-        "widthRem": 6.2
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.2,
+        "labelOffsetRem": 1.85,
+        "widthRem": 5.6
       },
       "status": "published"
     },

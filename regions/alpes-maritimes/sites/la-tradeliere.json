@@ -5,12 +5,12 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "right",
+      "side": "left",
       "shift_y_rem": -0.6,
-      "connector_angle_deg": -9,
-      "connector_width_rem": 2.2,
-      "label_offset_rem": 3.0,
-      "width_rem": 6.2
+      "connector_angle_deg": 0,
+      "connector_width_rem": 1.2,
+      "label_offset_rem": 1.85,
+      "width_rem": 5.6
     },
     "interactive_initial_view": {
       "zoom": 1,
