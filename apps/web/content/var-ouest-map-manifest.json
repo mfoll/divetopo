@@ -857,10 +857,10 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 2.4,
+        "shiftYRem": 2.6,
         "connectorAngleDeg": 30,
         "connectorWidthRem": 2.2,
-        "labelOffsetRem": 0.75,
+        "labelOffsetRem": 2.1,
         "widthRem": 5.2
       },
       "interactiveInitialView": {
@@ -1156,10 +1156,10 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 2.4,
+        "shiftYRem": 2.6,
         "connectorAngleDeg": 30,
         "connectorWidthRem": 2.2,
-        "labelOffsetRem": 0.75,
+        "labelOffsetRem": 2.1,
         "widthRem": 5.2
       },
       "status": "published"
