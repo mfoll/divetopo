@@ -8,7 +8,7 @@
       "side": "left", "shift_y_rem": -1.0, "connector_angle_deg": 50.8,
       "connector_width_rem": 1.39, "label_offset_rem": 2.25, "width_rem": 5.63
     },
-    "interactive_initial_view": {"zoom": 0.65}
+    "interactive_initial_view": {"zoom": 1.1}
   },
   "plate_relief_source": "static",
   "paths": {
@@ -17,37 +17,36 @@
   "cache_dir": ".tmp/var-est-sources",
   "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1010_6265/file/1010_6265.7z",
   "litto3d_archive_members": [
-    "1010_6265/LITTO3D_FRA_1010_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1010_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc",
-    "1010_6265/LITTO3D_FRA_1011_6264_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1011_6264_MNT_20150128_LAMB93_RGF93_IGN69.asc",
     "1010_6265/LITTO3D_FRA_1011_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1011_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc"
   ],
   "focus_bbox_utm40s": [
-    1011100.0,
-    6264000.0,
-    1011900.0,
-    6264900.0
+    1011235.0,
+    6264145.0,
+    1011635.0,
+    6264422.0
   ],
   "context_bbox_utm40s": [
-    1010000.0,
-    6263000.0,
-    1011950.0,
-    6264950.0
+    1011150.0,
+    6264075.0,
+    1011650.0,
+    6264525.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      1011420.0,
-      6264420.0
+      1011400.0,
+      6264300.0
     ],
-    "width_m": 680.0,
-    "depth_m": 760.0,
+    "width_m": 250.0,
+    "depth_m": 300.0,
     "look_bearing_deg": 132.0
   },
   "view_bearing_deg": 132.0,
-  "view_visible_width_m": 400.0,
-  "interactive_view_visible_width_m": 500.0,
-  "view_center_offset_east_m": 445.0,
-  "view_center_offset_north_m": 445.0,
+  "view_visible_width_m": 200.0,
+  "interactive_view_visible_width_m": 200.0,
+  "view_center_offset_east_m": 0.0,
+  "view_center_offset_north_m": 0.0,
   "interactive_match_static_horizontal_center": true,
+  "interactive_view_horizontal_center_offset_m": 20.0,
   "interactive_reselect_vector_labels_on_camera_end": true,
   "coast_mode": "mask",
   "max_depth_m": 40,
@@ -68,8 +67,8 @@
   "max_land_elevation_m": 35.0,
   "camera_tilt": 0.34,
   "along_view_projection_scale": 1.8,
-  "view_crop_width_m": 500.0,
-  "view_crop_depth_m": 180.0,
+  "view_crop_width_m": 250.0,
+  "view_crop_depth_m": 300.0,
   "coast_frame_fraction": 0.52,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
@@ -102,6 +101,6 @@
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
-  "vertical_exaggeration": 2.2,
+  "vertical_exaggeration": 1.6,
   "clip_rotated_outside": true
 }
