@@ -13,13 +13,13 @@
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.65,
-      "orbit_azimuth_deg": 155.0,
+      "zoom": 1.45,
+      "orbit_azimuth_deg": 132.0,
       "camera_elevation_deg": 75.0,
-      "pan_right_m": 0.0,
-      "pan_up_m": 0.0,
-      "center_offset_east_m": -10.0,
-      "center_offset_south_m": -79.0,
+      "pan_right_m": 90.0,
+      "pan_up_m": 95.0,
+      "center_offset_east_m": -26.0,
+      "center_offset_south_m": -24.0,
       "isobath_label_focus_x_ndc": 0.0
     }
   },
