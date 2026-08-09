@@ -1060,10 +1060,10 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 5.4,
-        "connectorAngleDeg": -76,
-        "connectorWidthRem": 4.2,
-        "labelOffsetRem": 2.3,
+        "shiftYRem": 5.5,
+        "connectorAngleDeg": -82,
+        "connectorWidthRem": 4.25,
+        "labelOffsetRem": 2.0,
         "widthRem": 5.8
       },
       "interactiveInitialView": {
@@ -1187,10 +1187,10 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 5.4,
-        "connectorAngleDeg": -76,
-        "connectorWidthRem": 4.2,
-        "labelOffsetRem": 2.3,
+        "shiftYRem": 5.5,
+        "connectorAngleDeg": -82,
+        "connectorWidthRem": 4.25,
+        "labelOffsetRem": 2.0,
         "widthRem": 5.8
       },
       "status": "published"

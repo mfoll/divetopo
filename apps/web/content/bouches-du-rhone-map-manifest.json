@@ -451,8 +451,8 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 2.6,
-        "connectorAngleDeg": -35,
-        "connectorWidthRem": 2.8,
+        "connectorAngleDeg": -72,
+        "connectorWidthRem": 1.6,
         "labelOffsetRem": 1.8,
         "lines": [
           "Pains de Sucre",
@@ -664,9 +664,9 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 2.6,
-        "connectorAngleDeg": 35,
-        "connectorWidthRem": 2.8,
+        "shiftYRem": 0,
+        "connectorAngleDeg": -64,
+        "connectorWidthRem": 1.4,
         "labelOffsetRem": 2,
         "lines": [
           "Impérial",
@@ -1088,8 +1088,8 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": -1.0,
-        "connectorAngleDeg": 18.0,
-        "connectorWidthRem": 2.8,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.0,
         "labelOffsetRem": 1.8,
         "widthRem": 6.2
       },
@@ -1140,8 +1140,8 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 2.6,
-        "connectorAngleDeg": -35,
-        "connectorWidthRem": 2.8,
+        "connectorAngleDeg": -72,
+        "connectorWidthRem": 1.6,
         "labelOffsetRem": 1.8,
         "lines": [
           "Pains de Sucre",
@@ -1165,9 +1165,9 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 2.6,
-        "connectorAngleDeg": 35,
-        "connectorWidthRem": 2.8,
+        "shiftYRem": 0,
+        "connectorAngleDeg": -64,
+        "connectorWidthRem": 1.4,
         "labelOffsetRem": 2,
         "lines": [
           "Impérial",
@@ -1219,8 +1219,8 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": -1.0,
-        "connectorAngleDeg": 18.0,
-        "connectorWidthRem": 2.8,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.0,
         "labelOffsetRem": 1.8,
         "widthRem": 6.2
       },

@@ -442,11 +442,11 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -3.7,
-        "connectorAngleDeg": -45.0,
-        "connectorWidthRem": 5.0,
-        "labelOffsetRem": 4.0,
+        "connectorAngleDeg": 72.0,
+        "connectorWidthRem": 2.8,
+        "labelOffsetRem": 2.25,
         "widthRem": 5.8
       },
       "interactiveInitialView": {
@@ -656,9 +656,9 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 1.0,
-        "connectorAngleDeg": 45.0,
-        "connectorWidthRem": 2.2,
+        "shiftYRem": -1.4,
+        "connectorAngleDeg": -55,
+        "connectorWidthRem": 1.1,
         "labelOffsetRem": 2.0,
         "widthRem": 5.8
       },
@@ -870,8 +870,8 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": -3.6,
-        "connectorAngleDeg": -88.0,
-        "connectorWidthRem": 3.1,
+        "connectorAngleDeg": -87.0,
+        "connectorWidthRem": 2.6,
         "labelOffsetRem": 1.5,
         "widthRem": 5.8
       },
@@ -1080,8 +1080,8 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": 3.6,
-        "connectorAngleDeg": 60.0,
-        "connectorWidthRem": 4.5,
+        "connectorAngleDeg": 54.0,
+        "connectorWidthRem": 3.0,
         "labelOffsetRem": 3.1,
         "widthRem": 5.4
       },
@@ -1128,11 +1128,11 @@
         "yPercent": 60.30934
       },
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -3.7,
-        "connectorAngleDeg": -45.0,
-        "connectorWidthRem": 5.0,
-        "labelOffsetRem": 4.0,
+        "connectorAngleDeg": 72.0,
+        "connectorWidthRem": 2.8,
+        "labelOffsetRem": 2.25,
         "widthRem": 5.8
       },
       "status": "published"
@@ -1151,9 +1151,9 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 1.0,
-        "connectorAngleDeg": 45.0,
-        "connectorWidthRem": 2.2,
+        "shiftYRem": -1.4,
+        "connectorAngleDeg": -55,
+        "connectorWidthRem": 1.1,
         "labelOffsetRem": 2.0,
         "widthRem": 5.8
       },
@@ -1174,8 +1174,8 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": -3.6,
-        "connectorAngleDeg": -88.0,
-        "connectorWidthRem": 3.1,
+        "connectorAngleDeg": -87.0,
+        "connectorWidthRem": 2.6,
         "labelOffsetRem": 1.5,
         "widthRem": 5.8
       },
@@ -1196,8 +1196,8 @@
       "siteLabelLayout": {
         "side": "right",
         "shiftYRem": 3.6,
-        "connectorAngleDeg": 60.0,
-        "connectorWidthRem": 4.5,
+        "connectorAngleDeg": 54.0,
+        "connectorWidthRem": 3.0,
         "labelOffsetRem": 3.1,
         "widthRem": 5.4
       },

@@ -7,8 +7,8 @@
     "site_label_layout": {
       "side": "left",
       "shift_y_rem": 2.6,
-      "connector_angle_deg": -35,
-      "connector_width_rem": 2.8,
+      "connector_angle_deg": -72,
+      "connector_width_rem": 1.6,
       "label_offset_rem": 1.8,
       "lines": ["Pains de Sucre", "Riou"],
       "width_rem": 5.8

@@ -239,7 +239,7 @@
         "side": "right",
         "shiftYRem": -4.0,
         "connectorAngleDeg": -72,
-        "connectorWidthRem": 4.4,
+        "connectorWidthRem": 3.1,
         "labelOffsetRem": 2.25,
         "widthRem": 6.92
       },
@@ -444,8 +444,8 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 3.4,
-        "connectorAngleDeg": 25,
-        "connectorWidthRem": 2.4,
+        "connectorAngleDeg": -90,
+        "connectorWidthRem": 2.2,
         "labelOffsetRem": 0.75,
         "widthRem": 6.02
       },
@@ -650,11 +650,11 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -1.3,
-        "connectorAngleDeg": -55,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 2.1,
+        "connectorAngleDeg": 90,
+        "connectorWidthRem": 0.4,
+        "labelOffsetRem": 1.4,
         "widthRem": 6.5
       },
       "interactiveInitialView": {
@@ -857,9 +857,9 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 2.6,
-        "connectorAngleDeg": 30,
-        "connectorWidthRem": 2.2,
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.3,
         "labelOffsetRem": 2.65,
         "widthRem": 5.2
       },
@@ -1062,11 +1062,11 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 0,
+        "side": "right",
+        "shiftYRem": -0.2,
         "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.4,
-        "labelOffsetRem": 0.75,
+        "connectorWidthRem": 2.7,
+        "labelOffsetRem": 4.0,
         "widthRem": 6.0
       },
       "interactiveInitialView": {
@@ -1092,7 +1092,7 @@
         "side": "right",
         "shiftYRem": -4.0,
         "connectorAngleDeg": -72,
-        "connectorWidthRem": 4.4,
+        "connectorWidthRem": 3.1,
         "labelOffsetRem": 2.25,
         "widthRem": 6.92
       },
@@ -1113,8 +1113,8 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 3.4,
-        "connectorAngleDeg": 25,
-        "connectorWidthRem": 2.4,
+        "connectorAngleDeg": -90,
+        "connectorWidthRem": 2.2,
         "labelOffsetRem": 0.75,
         "widthRem": 6.02
       },
@@ -1133,11 +1133,11 @@
         "yPercent": 39.30851
       },
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": -1.3,
-        "connectorAngleDeg": -55,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 2.1,
+        "connectorAngleDeg": 90,
+        "connectorWidthRem": 0.4,
+        "labelOffsetRem": 1.4,
         "widthRem": 6.5
       },
       "status": "published"
@@ -1156,9 +1156,9 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 2.6,
-        "connectorAngleDeg": 30,
-        "connectorWidthRem": 2.2,
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.3,
         "labelOffsetRem": 2.65,
         "widthRem": 5.2
       },
@@ -1177,11 +1177,11 @@
         "yPercent": 52.42615
       },
       "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 0,
+        "side": "right",
+        "shiftYRem": -0.2,
         "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.4,
-        "labelOffsetRem": 0.75,
+        "connectorWidthRem": 2.7,
+        "labelOffsetRem": 4.0,
         "widthRem": 6.0
       },
       "status": "published"

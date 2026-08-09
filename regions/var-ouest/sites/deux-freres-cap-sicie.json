@@ -5,8 +5,8 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "left", "shift_y_rem": 3.4, "connector_angle_deg": 25,
-      "connector_width_rem": 2.4, "label_offset_rem": 0.75, "width_rem": 6.02
+      "side": "left", "shift_y_rem": 3.4, "connector_angle_deg": -90,
+      "connector_width_rem": 2.2, "label_offset_rem": 0.75, "width_rem": 6.02
     },
     "interactive_initial_view": {
       "zoom": 0.9, "center_offset_east_m": 310, "center_offset_south_m": 100

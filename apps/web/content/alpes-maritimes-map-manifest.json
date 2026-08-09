@@ -448,8 +448,8 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 4.4,
-        "connectorAngleDeg": -32,
-        "connectorWidthRem": 4.2,
+        "connectorAngleDeg": -62,
+        "connectorWidthRem": 3.7,
         "labelOffsetRem": 3.1,
         "widthRem": 7.6
       },
@@ -1123,8 +1123,8 @@
       "siteLabelLayout": {
         "side": "left",
         "shiftYRem": 4.4,
-        "connectorAngleDeg": -32,
-        "connectorWidthRem": 4.2,
+        "connectorAngleDeg": -62,
+        "connectorWidthRem": 3.7,
         "labelOffsetRem": 3.1,
         "widthRem": 7.6
       },

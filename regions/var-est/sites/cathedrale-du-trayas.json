@@ -7,8 +7,8 @@
     "site_label_layout": {
       "side": "right",
       "shift_y_rem": -3.6,
-      "connector_angle_deg": -88.0,
-      "connector_width_rem": 3.1,
+      "connector_angle_deg": -87.0,
+      "connector_width_rem": 2.6,
       "label_offset_rem": 1.5,
       "width_rem": 5.8
     },
