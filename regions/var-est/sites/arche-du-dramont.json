@@ -13,13 +13,13 @@
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.65,
+      "zoom": 1.0,
       "orbit_azimuth_deg": 132.0,
       "camera_elevation_deg": 45.0,
       "pan_right_m": 0.0,
       "pan_up_m": 0.0,
-      "center_offset_east_m": -28.128,
-      "center_offset_south_m": 60.0,
+      "center_offset_east_m": 0.0,
+      "center_offset_south_m": 0.0,
       "isobath_label_focus_x_ndc": 0.0
     }
   },
@@ -30,10 +30,10 @@
     "1010_6265/LITTO3D_FRA_1011_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1011_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc"
   ],
   "focus_bbox_utm40s": [
-    1011200.0,
-    6264000.0,
-    1011800.0,
-    6264700.0
+    1011206.872,
+    6264120.0,
+    1011906.872,
+    6264604.397736459
   ],
   "context_bbox_utm40s": [
     1011000.0,
@@ -57,6 +57,8 @@
   "view_bearing_deg": 132.0,
   "view_visible_width_m": 420.0,
   "interactive_view_visible_width_m": 420.0,
+  "view_canvas_width_px": 1267,
+  "view_canvas_height_px": 1069,
   "view_center_offset_east_m": 56.872,
   "view_center_offset_north_m": -89.465,
   "interactive_match_static_horizontal_center": false,
@@ -84,9 +86,7 @@
   "coast_frame_fraction": 0.52,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
-  "view_top_crop_fraction": 0.05,
-  "view_crop_width_m": 380.0,
-  "view_crop_depth_m": 260.0,
+  "view_top_crop_fraction": 0.18,
   "imagery_sea_full_depth_m": 0.0,
   "imagery_sea_max_depth_m": 0.25,
   "imagery_sea_smoothing_m": 3.0,
