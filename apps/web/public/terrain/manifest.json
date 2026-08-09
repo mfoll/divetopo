@@ -1183,6 +1183,132 @@
           "sha256": "aea384a6285bbfe7cf7c3b834e906864797c0771da51864a71f6625b294e2f13"
         }
       }
+    },
+    {
+      "slug": "pointe-de-la-cride",
+      "title": "Pointe de la Cride, Sanary-sur-Mer",
+      "metadata": "pointe-de-la-cride/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-de-la-cride/terrain.json",
+          "bytes": 4441,
+          "sha256": "13768e6195ff0bc8399446097d8a3395fd8970d9e0f8a8dad13375b8d472dd6a"
+        },
+        "height": {
+          "path": "pointe-de-la-cride/height.bin",
+          "bytes": 415530,
+          "sha256": "5a1cb9140a38ab16ae879e3ab652f5f22025fae954163f4beba0ba0883bb7d87"
+        },
+        "validMask": {
+          "path": "pointe-de-la-cride/valid-mask.bin",
+          "bytes": 25971,
+          "sha256": "785772d0d9b7f947ebe4467b96adfa205893e7f70902467531cb956b4f9a42df"
+        },
+        "isobathMask": {
+          "path": "pointe-de-la-cride/isobath-mask.bin",
+          "bytes": 25971,
+          "sha256": "785772d0d9b7f947ebe4467b96adfa205893e7f70902467531cb956b4f9a42df"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-de-la-cride/isobaths-vector.json",
+          "bytes": 107413,
+          "sha256": "cef0eaeb48a0c1637defc45fa508ee030c5bbbde8ebc59d14323161fe6ba099f"
+        },
+        "topographicTexture": {
+          "path": "pointe-de-la-cride/topographic.webp",
+          "bytes": 44262,
+          "sha256": "27d37b816226b92fb3b326f915f2db490e71bdbbe699f5f872f44175a79de5ed"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-de-la-cride/orthophoto.webp",
+          "bytes": 68836,
+          "sha256": "96300ed7492f2fb1443085df854af9f49e3d4ed8bc7cbd27dfde64bc696ff344"
+        }
+      }
+    },
+    {
+      "slug": "les-magnons",
+      "title": "Les Magnons, Le Brusc",
+      "metadata": "les-magnons/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "les-magnons/terrain.json",
+          "bytes": 4562,
+          "sha256": "5b40100eaa689c0d5d4f4d2b7c8842e4af3afae4387df1d4985c472297b91a5a"
+        },
+        "height": {
+          "path": "les-magnons/height.bin",
+          "bytes": 526338,
+          "sha256": "e7320574eee407d5cee84a639fd257f6bc3cbfd1f3efad8ba69127e7500c0902"
+        },
+        "validMask": {
+          "path": "les-magnons/valid-mask.bin",
+          "bytes": 32897,
+          "sha256": "ac7c11b6861ef6f675a8ec0822f3f3a70ce01e890628507faf51f6af1d34052f"
+        },
+        "isobathMask": {
+          "path": "les-magnons/isobath-mask.bin",
+          "bytes": 32897,
+          "sha256": "ac7c11b6861ef6f675a8ec0822f3f3a70ce01e890628507faf51f6af1d34052f"
+        },
+        "vectorIsobaths": {
+          "path": "les-magnons/isobaths-vector.json",
+          "bytes": 228146,
+          "sha256": "fd83fde2c3d950edf6562d47bf1c48b6477e0e433597e6d606f9b0f616bb4b6d"
+        },
+        "topographicTexture": {
+          "path": "les-magnons/topographic.webp",
+          "bytes": 26580,
+          "sha256": "3ff544e3bd244f3dac2ecb076759ab81c8b24da6dc0bd1a02cb740c37dc61694"
+        },
+        "orthophotoTexture": {
+          "path": "les-magnons/orthophoto.webp",
+          "bytes": 18988,
+          "sha256": "59c1bf53a780c35b6a286273d32c3e20009e62cb395ea5123f397cca2a51451d"
+        }
+      }
+    },
+    {
+      "slug": "la-merveilleuse",
+      "title": "La Merveilleuse, Six-Fours-les-Plages",
+      "metadata": "la-merveilleuse/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "la-merveilleuse/terrain.json",
+          "bytes": 4715,
+          "sha256": "7fe032a0a70e881b4376d27cafa8bab774a137450f3b3954c4f27fa9a8d29efd"
+        },
+        "height": {
+          "path": "la-merveilleuse/height.bin",
+          "bytes": 350892,
+          "sha256": "0a32e0abbc9e7558c9f21e28665fad2d4674b0a336ea2b70e06ef7717f8d4f8a"
+        },
+        "validMask": {
+          "path": "la-merveilleuse/valid-mask.bin",
+          "bytes": 21931,
+          "sha256": "8d41c855aa5144c96dfbe1f38a8e4c1b9f51ae01398f3e94e8911a6e5ecdfffa"
+        },
+        "isobathMask": {
+          "path": "la-merveilleuse/isobath-mask.bin",
+          "bytes": 21931,
+          "sha256": "8d41c855aa5144c96dfbe1f38a8e4c1b9f51ae01398f3e94e8911a6e5ecdfffa"
+        },
+        "vectorIsobaths": {
+          "path": "la-merveilleuse/isobaths-vector.json",
+          "bytes": 249190,
+          "sha256": "77b1222e1cafa68cf5da11f92837a03732c8515291f9fec9ea32bfe1ccb13a40"
+        },
+        "topographicTexture": {
+          "path": "la-merveilleuse/topographic.webp",
+          "bytes": 30832,
+          "sha256": "f25c9372427be4950de138f802355440c73f0208e124b22da49196df5e70aa41"
+        },
+        "orthophotoTexture": {
+          "path": "la-merveilleuse/orthophoto.webp",
+          "bytes": 21528,
+          "sha256": "7941cb771bd2ae3c52c97f7fb83c970d5d5cd26109675fa28bb835bf7c38e438"
+        }
+      }
     }
   ]
 }

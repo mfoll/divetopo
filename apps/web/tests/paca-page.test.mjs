@@ -41,7 +41,7 @@ test("retires the PACA aggregate through localized redirects", async () => {
 
 test("renders five-site regional inventories and keeps remaining drafts non-clickable", async () => {
   const published = [
-    ["/var-ouest/fr", "topo-var-ouest-title", 2],
+    ["/var-ouest/fr", "topo-var-ouest-title", 5],
     ["/var-centre/en", "topo-var-centre-title", 5],
     ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5],
   ];
@@ -58,7 +58,7 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
     );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
     assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < 5 ? 1 : 0, path);
-    const preparingNames = path.startsWith("/alpes-maritimes/")
+    const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/")
       ? []
       : path.endsWith("/en")
         ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
@@ -162,7 +162,7 @@ test("published autonomous-region asset paths resolve", async () => {
   }
 
   for (const [region, expectedSiteCount] of [
-    ["var-ouest", 2],
+    ["var-ouest", 5],
     ["var-centre", 5],
     ["alpes-maritimes", 5],
   ]) {

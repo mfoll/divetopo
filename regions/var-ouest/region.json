@@ -91,13 +91,13 @@
       "slug": "pointe-de-la-cride",
       "name": "Pointe de la Cride",
       "municipality": "Sanary-sur-Mer",
-      "publication": "draft",
+      "publication": "published",
       "artifacts": {
-        "status": "config-only",
-        "staticMaps": false,
-        "planches": false,
-        "interactiveTerrain": false,
-        "webDerivatives": false
+        "status": "complete",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
       },
       "config": "regions/var-ouest/sites/pointe-de-la-cride.json"
     },
@@ -105,13 +105,13 @@
       "slug": "les-magnons",
       "name": "Les Magnons",
       "municipality": "Six-Fours-les-Plages",
-      "publication": "draft",
+      "publication": "published",
       "artifacts": {
-        "status": "partial",
+        "status": "complete",
         "staticMaps": true,
-        "planches": false,
+        "planches": true,
         "interactiveTerrain": true,
-        "webDerivatives": false
+        "webDerivatives": true
       },
       "config": "regions/var-ouest/sites/les-magnons.json"
     },
@@ -119,13 +119,13 @@
       "slug": "la-merveilleuse",
       "name": "La Merveilleuse",
       "municipality": "Six-Fours-les-Plages",
-      "publication": "draft",
+      "publication": "published",
       "artifacts": {
-        "status": "partial",
+        "status": "complete",
         "staticMaps": true,
-        "planches": false,
+        "planches": true,
         "interactiveTerrain": true,
-        "webDerivatives": false
+        "webDerivatives": true
       },
       "config": "regions/var-ouest/sites/la-merveilleuse.json"
     }
@@ -142,7 +142,7 @@
     ],
     "sha256": "da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460",
     "qa": {
-      "status": "passed-with-web-qa-delegated",
+      "status": "passed",
       "validatedOn": "2026-08-08",
       "fullResolutionInspection": "passed",
       "officialLandPolygons": {
@@ -154,19 +154,36 @@
       "manifest": {
         "publishedSites": [
           "pointe-portissol",
-          "deux-freres-cap-sicie"
-        ],
-        "draftSitesExcluded": [
+          "deux-freres-cap-sicie",
           "pointe-de-la-cride",
           "les-magnons",
           "la-merveilleuse"
         ],
-        "localAssetsChecked": 28
+        "localAssetsChecked": 70,
+        "interactiveTerrainPackages": 5,
+        "cumulativeTerrainPackages": 26
       },
       "web": {
-        "localDesktopMobile": "not-run-node-modules-absent",
-        "globalDesktop": "reported-passed-by-global-coordinator",
-        "mobile": "not-reproduced-in-this-worktree"
+        "desktop": {
+          "viewport": "1280x720",
+          "light": "passed",
+          "dark": "passed"
+        },
+        "mobile": {
+          "viewport": "390x844",
+          "light": "passed",
+          "dark": "passed",
+          "documentScrollWidth": 390,
+          "horizontalOverflow": false,
+          "terrainScaleAttributionOverlap": false
+        },
+        "mapLabels": "five-visible-no-collisions",
+        "labelClicks": "five-correct-routes",
+        "keyboardLinks": "five-correct-routes",
+        "siteSelector": "five-correct-routes",
+        "overlappingDots": "inert-no-wrong-route",
+        "interactiveTerrains": "five-loaded",
+        "provisionalStatusMentions": 0
       }
     }
   }

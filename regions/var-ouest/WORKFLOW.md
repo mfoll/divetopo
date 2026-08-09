@@ -46,37 +46,30 @@ de sélection sur `/var-ouest`, sans dépendre d'un fichier PACA.
 le champ explicite `web.published` de chaque configuration et par la présence
 du jeu d'artefacts complet dans le manifeste Web généré.
 
-- Pointe de Portissol et Les Deux Frères sont les deux sites publiés à migrer.
+- Pointe de Portissol et Les Deux Frères sont les deux sites publiés migrés sans
+  régénération.
 - Pointe de la Cride, Les Magnons et La Merveilleuse complètent la première
-  vague de cinq sites et restent des brouillons.
+  vague. Leurs paquets complets ont passé la QA native et Web ; ils sont publiés.
 - Plate aux Mérous, Pierre du Jas, Basses Moulinières et Sèche Guenaud sont
   différés. Ils restent hors de l'inventaire actif et aucun de leurs commits ne
   doit être cherry-pické pendant cette vague.
-- Un cherry-pick, une configuration valide ou la présence d'images ne suffit
-  jamais à publier un brouillon.
-- Le passage de `web.published: false` à `true` exige la QA puis une décision
-  explicite. Il ne fait pas partie de l'intégration technique initiale.
+- Les cinq configurations actives ont `web.published: true`. Toute extension
+  ultérieure reste soumise au même contrat d'actifs complets et de QA.
 
 ## État intégré de la vague 1
 
 | Site | Publication | Actifs reçus | Verdict de QA native |
 |---|---|---|---|
-| Pointe de Portissol | Publié avant migration | Plans 2D, planches, paquet interactif et dérivés Web complets | Migration bit à bit validée. Les 11 actifs canoniques/interactifs et les 14 dérivés Web ont les mêmes SHA-256 que leurs sources PACA. Les planches historiques conservent la mention « Côte d’Azur » afin de ne pas régénérer un site déjà publié. |
-| Les Deux Frères | Publié avant migration | Plans 2D, planches, paquet interactif et dérivés Web complets | Migration bit à bit validée. Les 11 actifs canoniques/interactifs et les 14 dérivés Web ont les mêmes SHA-256 que leurs sources PACA. Les planches historiques conservent la mention « Côte d’Azur ». |
-| Pointe de la Cride | Brouillon | Configuration uniquement | Incomplet : aucun plan, aucune planche, aucun paquet interactif et aucun dérivé Web. Exclu du manifeste interactif. |
-| Les Magnons | Brouillon | Plans 2D, vues 3D et paquet interactif | Incomplet : aucune planche et aucun dérivé Web. Les plans 2D reçus font `2000 × 2000 px` et les vues 3D `1455 × 1069 px`, hors dimensions canoniques `2474 × 1712 px`. Le paquet interactif passe le contrat de structure et de hash, mais ne vaut pas validation Web. |
-| La Merveilleuse | Brouillon | Plans 2D et paquet interactif | Incomplet : aucune vue 3D, aucune planche et aucun dérivé Web. Les crédits sont visiblement rognés à gauche et à droite sur les deux plans 2D. Le paquet interactif passe le contrat de structure et de hash ; ses coins extérieurs masqués restent à vérifier dans le viewer. |
+| Pointe de Portissol | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
+| Les Deux Frères | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
+| Pointe de la Cride | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Actifs natifs inspectés à pleine résolution ; fiche et terrain chargés en QA Web. |
+| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Crédits orthophoto corrigés puis réinspectés à pleine résolution ; fiche et terrain chargés. |
+| La Merveilleuse | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Crédits, masques, vues statiques et terrain inspectés ; fiche et terrain chargés. |
 
-Le manifeste `outputs/interactive-terrain/manifest.json` indexe les quatre
-paquets techniquement complets : Portissol, Deux Frères, Magnons et La
-Merveilleuse. Il décrit la disponibilité d'un paquet, pas son état de
-publication. Cride en est absent. Les trois nouveaux sites conservent
-`web.published: false`.
-
-Le builder régional partagé produit la carte et son manifeste Web. Le manifeste
-final de la vague 1 contient uniquement Pointe de Portissol et Les Deux Frères,
-les deux sites publiés et complets. Pointe de la Cride, Les Magnons et La
-Merveilleuse en restent exclus avec `web.published: false`. Aucun générateur
+Le manifeste `outputs/interactive-terrain/manifest.json` indexe exactement les
+cinq paquets. Le builder régional partagé produit cinq entrées Web complètes et
+le synchroniseur cumulatif conserve `26` paquets canoniques provenant de six
+régions, sans écraser ceux de Bouches-du-Rhône ou Var Centre. Aucun générateur
 propre à Var Ouest n'a été créé.
 
 ## Intégration des commits de sites
@@ -88,7 +81,8 @@ propre à Var Ouest n'a été créé.
 3. Cherry-picker un site à la fois et résoudre les chemins vers
    `regions/var-ouest/`. Ne pas absorber une modification de PACA, Réunion, de
    l'accueil global, des versions ou du déploiement.
-4. Vérifier que tout nouveau site conserve `web.published: false`.
+4. Vérifier que l'état `web.published` correspond à la décision régionale et
+   qu'aucun site incomplet n'entre dans les manifestes.
 5. Exécuter les contrôles de configuration disponibles sans téléchargement,
    puis inspecter les sorties à pleine résolution.
 
@@ -110,10 +104,10 @@ Pointe de Portissol et Les Deux Frères doivent être migrés, pas régénérés
 
 La carte doit couvrir uniquement l'emprise utile Sanary, Le Brusc, les Embiez
 et cap Sicié, tout en laissant assez de contexte marin pour lire les positions.
-Elle comporte les marqueurs de l'inventaire intégré et des cartouches lisibles
-sur desktop et mobile. Les brouillons peuvent apparaître sur la carte régionale
-de QA locale, mais ils ne doivent pas être exposés sur une route publique avant
-la décision de publication.
+Elle comporte les cinq marqueurs de l'inventaire publié et des cartouches
+lisibles sur desktop et mobile. Les coordonnées réelles ne sont jamais déplacées :
+les points superposés restent des repères inertes, tandis que les cartouches,
+le clavier et le sélecteur ouvrent les fiches sans ambiguïté.
 
 Avant validation, contrôler à pleine résolution :
 
@@ -135,20 +129,23 @@ et blocs côtiers trompeurs ne sont plus présents. Le SHA-256 du PNG canonique 
 de son dérivé Web est
 `da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460`.
 
-Le manifeste Web contient exactement deux marqueurs : Pointe de Portissol à
-`44.85903 %, 40.06602 %` et Les Deux Frères à `64.15702 %, 60.69149 %`. Les
-positions concordent avec leurs coordonnées WGS84, les deux étiquettes sont
-lisibles à droite de marqueurs nettement séparés et leurs connecteurs ne se
-chevauchent pas. Les `28` actifs Web locaux référencés par leurs cartes et
-aperçus de planches ont été vérifiés par chemin, taille et SHA-256, sans écart.
-Les téléchargements de planches historiques restent les actifs de release v1.3
-déjà validés lors de la migration bit à bit.
+Le manifeste Web contient exactement cinq marqueurs projetés depuis les
+coordonnées WGS84 : Portissol `44.85903 %, 40.06602 %`, Deux Frères
+`64.15702 %, 60.69149 %`, Cride `39.55658 %, 39.30851 %`, Magnons
+`38.174 %, 51.07256 %` et Merveilleuse `35.84298 %, 52.42615 %`. Les déports
+verticaux et latéraux ont été réglés après capture réelle ; les cinq cartouches
+et connecteurs sont lisibles, contenus dans la carte et non ambigus sur desktop
+et mobile. Les `70` actifs Web locaux ont été vérifiés par les builders et les
+tests ; les cinq paquets interactifs régionaux sont indexés.
 
-La QA Web n'a pas pu être reproduite localement : ce worktree ne contient aucun
-`node_modules` et aucune dépendance n'a été téléchargée. Le coordinateur global
-a rapporté la validation des routes desktop sur la branche principale. La vue
-mobile n'a pas été reproduite dans ce worktree ; cette limite est conservée dans
-`region.json` au lieu d'être déclarée comme un succès local.
+La QA Web locale a été exécutée dans Chrome sur `1280 × 720` et dans un viewport
+réel `390 × 844`, en clair et sombre. Les cinq cartouches ouvrent les bons slugs,
+les cinq liens répondent à Entrée, le sélecteur ouvre les cinq fiches et les
+points superposés testés restent inertes. Les cinq terrains chargent leurs
+crédits complets. Sur le terrain réel de Pointe de la Cride à largeur mobile,
+l'échelle est visuellement séparée des crédits source et copyright ; le contrôle
+exact `390 px` confirme `scrollWidth = 390` et aucun débordement horizontal.
+Aucune route ni fiche n'expose d'état provisoire.
 
 ## Gate de QA régionale
 
@@ -157,7 +154,8 @@ La zone n'est prête pour son commit final que si :
 1. l'inventaire, les configurations, les sorties et les manifestes concordent ;
 2. les deux migrations publiées ont des hashes identiques aux artefacts
    antérieurs ;
-3. chaque nouveau site reste non publié ;
+3. les cinq sites publiés possèdent chacun leurs actifs statiques, planches,
+   dérivés Web et paquet interactif complets ;
 4. toutes les images sont inspectées à pleine résolution ;
 5. `/var-ouest` est inspectée en desktop `1280 × 720` DPR 2 et mobile
    `390 × 844` DPR 1, en français et en anglais ;

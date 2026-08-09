@@ -237,9 +237,9 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -3.5,
-        "connectorAngleDeg": -76.2,
-        "connectorWidthRem": 3.68,
+        "shiftYRem": -4.5,
+        "connectorAngleDeg": -72,
+        "connectorWidthRem": 4.4,
         "labelOffsetRem": 2.25,
         "widthRem": 6.92
       },
@@ -442,17 +442,636 @@
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -2,
-        "connectorAngleDeg": -73.2,
-        "connectorWidthRem": 2.17,
-        "labelOffsetRem": 2,
+        "side": "left",
+        "shiftYRem": 3.4,
+        "connectorAngleDeg": 25,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 0.75,
         "widthRem": 6.02
       },
       "interactiveInitialView": {
         "zoom": 0.9,
         "centerOffsetEastM": 310,
         "centerOffsetSouthM": 100
+      }
+    },
+    {
+      "slug": "pointe-de-la-cride",
+      "displayName": "Pointe de la Cride",
+      "plateTitle": "Pointe de la Cride, Sanary-sur-Mer",
+      "config": "regions/var-ouest/sites/pointe-de-la-cride.json",
+      "assetBasePath": "/maps/var-ouest/pointe-de-la-cride",
+      "location": {
+        "city": "Sanary-sur-Mer · La Cride",
+        "latitude": 43.1153437,
+        "longitude": 5.7659319
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 39.55658,
+        "yPercent": 39.30851
+      },
+      "maxDepthM": 20.0,
+      "planMaxDepthM": 20.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-topographic.jpg?v=21de9ac41dde",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1542461,
+              "sha256": "21de9ac41dde7d88f4bdc82bffe78363bdae35a392dcc488d07adb18d80396d1"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-topographic.jpg?v=21de9ac41dde",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1542461,
+            "sha256": "21de9ac41dde7d88f4bdc82bffe78363bdae35a392dcc488d07adb18d80396d1",
+            "filename": "pointe-de-la-cride-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-orthophoto.jpg?v=92597e52a14d",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1881849,
+              "sha256": "92597e52a14d08d877f8cd45801342250497699b7a0b385320fb055a752ba8dd"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-orthophoto.jpg?v=92597e52a14d",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1881849,
+            "sha256": "92597e52a14d08d877f8cd45801342250497699b7a0b385320fb055a752ba8dd",
+            "filename": "pointe-de-la-cride-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 63666,
+              "sha256": "920ee2bf062ae3853b62686b070ca9223fd382b30d4f65682c2171f6885a43ca"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 121710,
+              "sha256": "7ab1af8eeed3f3b88635d2e047994aca7c0cbe31ec767299de80c81d66903559"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 211718,
+              "sha256": "3ff69566c0f9ce38ed1923ec986e6b338de63fda8262243314d3546a1b741bfd"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 666622,
+            "sha256": "7cc45683933529b3d399a8736f697e9c12cef98658e70fdefa8aa1032c705e0c",
+            "filename": "pointe-de-la-cride-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 84034,
+              "sha256": "5c51a2f3bd401330eb9abaeb437aa4097ac86ad2dc65781d6d553aa562b4d567"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 158188,
+              "sha256": "736d413cf80218e20dc1eb7ad6a7f86d6f3d37abeca020f3c6fa5796f4bd3ca1"
+            },
+            {
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 264690,
+              "sha256": "ff1aeb1405c2838dbc8294968636293017359c273913b7fead228eca36f0b1bd"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 777545,
+            "sha256": "abebff54d5bae9d8ebb765985e6a16ea8f065762031c6cd5b252acd5fc788746",
+            "filename": "pointe-de-la-cride-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/planche-topographic-1800.webp?v=dc5edc1c0297",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 155808,
+            "sha256": "dc5edc1c0297e042bba06bd906aa45ab294f9fa073b88571a6a2d1271fed3c1a"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-de-la-cride-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4047736,
+            "sha256": "9e1799b920a84731edb58b7d68d96454aab008aee45fd38ab2e55f97a40aff95",
+            "filename": "pointe-de-la-cride-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/planche-orthophoto-1800.webp?v=3ffc37c747cf",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 204510,
+            "sha256": "3ffc37c747cfe32029a3c5cb0be7e3daea34496dc899b42928c2202baba20c1d"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-de-la-cride-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4597081,
+            "sha256": "f0b6795e109afebaf67f546a62ab92af228b3df88749d931dc135d925504abd6",
+            "filename": "pointe-de-la-cride-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -2,
+        "connectorAngleDeg": -55,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 2.1,
+        "widthRem": 6.5
+      },
+      "interactiveInitialView": {
+        "zoom": 1
+      }
+    },
+    {
+      "slug": "les-magnons",
+      "displayName": "Les Magnons",
+      "plateTitle": "Les Magnons, Le Brusc",
+      "config": "regions/var-ouest/sites/les-magnons.json",
+      "assetBasePath": "/maps/var-ouest/les-magnons",
+      "location": {
+        "city": "Six-Fours-les-Plages · Le Brusc",
+        "latitude": 43.07863989,
+        "longitude": 5.76018039
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 38.174,
+        "yPercent": 51.07256
+      },
+      "maxDepthM": 25.0,
+      "planMaxDepthM": 25.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=d5b01b6d8a1c",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1166766,
+              "sha256": "d5b01b6d8a1cf5c5dfd65e490627c3c78c26f5224d49ce1068c2807859faff43"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=d5b01b6d8a1c",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1166766,
+            "sha256": "d5b01b6d8a1cf5c5dfd65e490627c3c78c26f5224d49ce1068c2807859faff43",
+            "filename": "les-magnons-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=9f3f86e4ec0c",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1181361,
+              "sha256": "9f3f86e4ec0cf53d0f6cb059856bfd37b311268baee38dc6a1e3159651050523"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=9f3f86e4ec0c",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1181361,
+            "sha256": "9f3f86e4ec0cf53d0f6cb059856bfd37b311268baee38dc6a1e3159651050523",
+            "filename": "les-magnons-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 43102,
+              "sha256": "8152cf5a7334fcb4c1834e79ec61f9a16d273838f103a342c184c065fe608919"
+            },
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 85008,
+              "sha256": "d7e593852e409b003f1f9820415de30581da558fc684c6f04486f6dc418076cb"
+            },
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 148754,
+              "sha256": "f207459ecf9d0b72f76d894c4857c939d52acacbb4223a952d179af11dd1a9f9"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/les-magnons/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 424156,
+            "sha256": "32960f34c7ef87f24713379e761b5807b178d7021cb9605ef1bf67c5c7493f50",
+            "filename": "les-magnons-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 45134,
+              "sha256": "9c5fe45b7352d1ae059e725cce16bd651ca1c94d31f1a064a973f66bba7937f3"
+            },
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 87462,
+              "sha256": "66c3c6994e16ab471ea033e8f82fa2b05cbb54dbe53b4b69a7647c0e424fbb57"
+            },
+            {
+              "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 153324,
+              "sha256": "75903f2be65c3fd983548fd34fdbb4e2b89f1d02687b5a1a461b6a357872083b"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/les-magnons/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 433870,
+            "sha256": "3ef3b63cb0c347f24ef792fcf6127806377906ac53fcf5625c09eebba05b93cd",
+            "filename": "les-magnons-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-ouest/les-magnons/maps/planche-topographic-1800.webp?v=64f99a72053c",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 126468,
+            "sha256": "64f99a72053c6d477188747b2eccef2cf8201f175592ae1fe7278376b6bbd151"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/les-magnons-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3238774,
+            "sha256": "b1316101ef2d952c745044eb3f72638507e4999ca0ea91c3c78758df6c897e0d",
+            "filename": "les-magnons-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-ouest/les-magnons/maps/planche-orthophoto-1800.webp?v=c7c285389cdf",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 128806,
+            "sha256": "c7c285389cdf04c9ddad44f7e4c2ea8b4ac50f4ad0b8927ad6fd42ca1a23698a"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/les-magnons-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3266663,
+            "sha256": "91e251a4f7b7acab52cbe9cfd395d4e450be805174096802024df9ecc5e9087b",
+            "filename": "les-magnons-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 2.4,
+        "connectorAngleDeg": 30,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 0.75,
+        "widthRem": 5.2
+      },
+      "interactiveInitialView": {
+        "zoom": 1
+      }
+    },
+    {
+      "slug": "la-merveilleuse",
+      "displayName": "La Merveilleuse",
+      "plateTitle": "La Merveilleuse, Six-Fours-les-Plages",
+      "config": "regions/var-ouest/sites/la-merveilleuse.json",
+      "assetBasePath": "/maps/var-ouest/la-merveilleuse",
+      "location": {
+        "city": "Six-Fours-les-Plages · Les Embiez",
+        "latitude": 43.07441666,
+        "longitude": 5.75048334
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 35.84298,
+        "yPercent": 52.42615
+      },
+      "maxDepthM": 30.0,
+      "planMaxDepthM": 30.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/2d-topographic.jpg?v=76bc2c6632d2",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1334373,
+              "sha256": "76bc2c6632d2f111271fbadbf57cec24177bb4724a236a2528ae657f83056487"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/la-merveilleuse/maps/2d-topographic.jpg?v=76bc2c6632d2",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1334373,
+            "sha256": "76bc2c6632d2f111271fbadbf57cec24177bb4724a236a2528ae657f83056487",
+            "filename": "la-merveilleuse-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/2d-orthophoto.jpg?v=d40896019747",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1343364,
+              "sha256": "d408960197474a4571a82c0e42a07e23d81e1c3d14651cd0bf8c013650ccb0d5"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/la-merveilleuse/maps/2d-orthophoto.jpg?v=d40896019747",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1343364,
+            "sha256": "d408960197474a4571a82c0e42a07e23d81e1c3d14651cd0bf8c013650ccb0d5",
+            "filename": "la-merveilleuse-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 69746,
+              "sha256": "bd6240108e4b593c8dbc5aa43b9b6111c52602461654e829e086444474416986"
+            },
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 136990,
+              "sha256": "89aa2b563a0b8869cef707b9314cf50bbf61fb91441060b8d9337aad15915644"
+            },
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 235236,
+              "sha256": "08292cfc655d7dc242c3719ca28c3e39a58755b6add2e2489fbe91d1d83323d4"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/la-merveilleuse/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 663686,
+            "sha256": "92f086cc7c5b8f0b5d86850b631568ec2c5e31a4c4149fc53c679928a7f8db8a",
+            "filename": "la-merveilleuse-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 71608,
+              "sha256": "3f44bd5de82084e6af16f321fbc455629790d0ed630903ef899bd8f0d2b01076"
+            },
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 141328,
+              "sha256": "dab89aa453db85c3a5eae1fe548e5cf1bdf3378480b86ada10af51898c03ae5f"
+            },
+            {
+              "src": "/maps/var-ouest/la-merveilleuse/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 242408,
+              "sha256": "e0a4b9ac42894412ab434ec5ed15072c415977e23214a1aab54fbd07e373aa0e"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-ouest/la-merveilleuse/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 677308,
+            "sha256": "28ab370bc80a18b76c9f4d34869e2ddfd1cf573760f813eb3d693261d672abfb",
+            "filename": "la-merveilleuse-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-ouest/la-merveilleuse/maps/planche-topographic-1800.webp?v=5c791ae986f1",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 134542,
+            "sha256": "5c791ae986f10519609eab14ba6062bfceae3e5cd8dbcdf2276355cc5346f5b7"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-merveilleuse-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3612018,
+            "sha256": "293f8944b15ab901d104ba0109184aad832d50e74bdffa5c0a4f9cba1553d59f",
+            "filename": "la-merveilleuse-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-ouest/la-merveilleuse/maps/planche-orthophoto-1800.webp?v=17259a370c30",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 137232,
+            "sha256": "17259a370c30b044bc3ed2c2aadf1c6261eaed384ff97e962e2700e6ce60ef59"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-merveilleuse-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3588807,
+            "sha256": "d37187aab1ad9074c1438da3aa942472bfcec452052167ff389a0304aa458696",
+            "filename": "la-merveilleuse-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.4,
+        "labelOffsetRem": 0.75,
+        "widthRem": 6.0
+      },
+      "interactiveInitialView": {
+        "zoom": 1,
+        "panUpM": 40
       }
     }
   ],
@@ -471,9 +1090,9 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -3.5,
-        "connectorAngleDeg": -76.2,
-        "connectorWidthRem": 3.68,
+        "shiftYRem": -4.5,
+        "connectorAngleDeg": -72,
+        "connectorWidthRem": 4.4,
         "labelOffsetRem": 2.25,
         "widthRem": 6.92
       },
@@ -492,11 +1111,11 @@
         "yPercent": 60.69149
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -2,
-        "connectorAngleDeg": -73.2,
-        "connectorWidthRem": 2.17,
-        "labelOffsetRem": 2,
+        "side": "left",
+        "shiftYRem": 3.4,
+        "connectorAngleDeg": 25,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 0.75,
         "widthRem": 6.02
       },
       "status": "published"
@@ -515,10 +1134,13 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0
+        "shiftYRem": -2,
+        "connectorAngleDeg": -55,
+        "connectorWidthRem": 2.4,
+        "labelOffsetRem": 2.1,
+        "widthRem": 6.5
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "les-magnons",
@@ -533,14 +1155,14 @@
         "yPercent": 51.07256
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 2.6,
-        "labelOffsetRem": 2.3,
-        "widthRem": 5.8
+        "side": "left",
+        "shiftYRem": 2.4,
+        "connectorAngleDeg": 30,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 0.75,
+        "widthRem": 5.2
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "la-merveilleuse",
@@ -555,14 +1177,14 @@
         "yPercent": 52.42615
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -1.5,
-        "connectorAngleDeg": -38.0,
-        "connectorWidthRem": 2.4,
-        "labelOffsetRem": 2.25,
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.4,
+        "labelOffsetRem": 0.75,
         "widthRem": 6.0
       },
-      "status": "preparing"
+      "status": "published"
     }
   ]
 }

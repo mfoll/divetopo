@@ -22,6 +22,9 @@ class RegionalManifestTests(unittest.TestCase):
             [
                 "pointe-portissol",
                 "deux-freres-cap-sicie",
+                "pointe-de-la-cride",
+                "les-magnons",
+                "la-merveilleuse",
             ],
         )
         self.assertEqual(

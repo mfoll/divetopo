@@ -86,6 +86,48 @@
       }
     },
     {
+      "slug": "pointe-de-la-cride",
+      "title": "Pointe de la Cride, Sanary-sur-Mer",
+      "metadata": "pointe-de-la-cride/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-de-la-cride/terrain.json",
+          "bytes": 4441,
+          "sha256": "13768e6195ff0bc8399446097d8a3395fd8970d9e0f8a8dad13375b8d472dd6a"
+        },
+        "height": {
+          "path": "pointe-de-la-cride/height.bin",
+          "bytes": 415530,
+          "sha256": "5a1cb9140a38ab16ae879e3ab652f5f22025fae954163f4beba0ba0883bb7d87"
+        },
+        "validMask": {
+          "path": "pointe-de-la-cride/valid-mask.bin",
+          "bytes": 25971,
+          "sha256": "785772d0d9b7f947ebe4467b96adfa205893e7f70902467531cb956b4f9a42df"
+        },
+        "isobathMask": {
+          "path": "pointe-de-la-cride/isobath-mask.bin",
+          "bytes": 25971,
+          "sha256": "785772d0d9b7f947ebe4467b96adfa205893e7f70902467531cb956b4f9a42df"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-de-la-cride/isobaths-vector.json",
+          "bytes": 107413,
+          "sha256": "cef0eaeb48a0c1637defc45fa508ee030c5bbbde8ebc59d14323161fe6ba099f"
+        },
+        "topographicTexture": {
+          "path": "pointe-de-la-cride/topographic.webp",
+          "bytes": 44262,
+          "sha256": "27d37b816226b92fb3b326f915f2db490e71bdbbe699f5f872f44175a79de5ed"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-de-la-cride/orthophoto.webp",
+          "bytes": 68836,
+          "sha256": "96300ed7492f2fb1443085df854af9f49e3d4ed8bc7cbd27dfde64bc696ff344"
+        }
+      }
+    },
+    {
       "slug": "les-magnons",
       "title": "Les Magnons, Le Brusc",
       "metadata": "les-magnons/terrain.json",
@@ -134,38 +176,38 @@
       "files": {
         "metadata": {
           "path": "la-merveilleuse/terrain.json",
-          "bytes": 4737,
-          "sha256": "bd0d69960d4710c373f9b35282ee33154bf4ad8fe145fb60021b9ffe269fe677"
+          "bytes": 4715,
+          "sha256": "7fe032a0a70e881b4376d27cafa8bab774a137450f3b3954c4f27fa9a8d29efd"
         },
         "height": {
           "path": "la-merveilleuse/height.bin",
-          "bytes": 423738,
-          "sha256": "0df8ecdc8a0f3519fe692034cde5ba84f2726a5a76592c1307ee74113bcecbc0"
+          "bytes": 350892,
+          "sha256": "0a32e0abbc9e7558c9f21e28665fad2d4674b0a336ea2b70e06ef7717f8d4f8a"
         },
         "validMask": {
           "path": "la-merveilleuse/valid-mask.bin",
-          "bytes": 26484,
-          "sha256": "bfe6c5c34ecd6398c94d45d7ab352a03a6c030a9f4ef2f77dbf0f3f3cae14f49"
+          "bytes": 21931,
+          "sha256": "8d41c855aa5144c96dfbe1f38a8e4c1b9f51ae01398f3e94e8911a6e5ecdfffa"
         },
         "isobathMask": {
           "path": "la-merveilleuse/isobath-mask.bin",
-          "bytes": 26484,
-          "sha256": "bfe6c5c34ecd6398c94d45d7ab352a03a6c030a9f4ef2f77dbf0f3f3cae14f49"
+          "bytes": 21931,
+          "sha256": "8d41c855aa5144c96dfbe1f38a8e4c1b9f51ae01398f3e94e8911a6e5ecdfffa"
         },
         "vectorIsobaths": {
           "path": "la-merveilleuse/isobaths-vector.json",
-          "bytes": 193049,
-          "sha256": "9ed9eb82b2a1a46b665cc8f4762998bfffea0c548ec7f5546ae347788d576e78"
+          "bytes": 249190,
+          "sha256": "77b1222e1cafa68cf5da11f92837a03732c8515291f9fec9ea32bfe1ccb13a40"
         },
         "topographicTexture": {
           "path": "la-merveilleuse/topographic.webp",
-          "bytes": 35670,
-          "sha256": "1b9d7678ec6229cd596951ebfcfe255439e15de96e4e975f93d9e879c7bfddef"
+          "bytes": 30832,
+          "sha256": "f25c9372427be4950de138f802355440c73f0208e124b22da49196df5e70aa41"
         },
         "orthophotoTexture": {
           "path": "la-merveilleuse/orthophoto.webp",
-          "bytes": 25474,
-          "sha256": "e078e2e132df3c0fbd5ef07f9d9fa714d9d49d6073d59fa8098e852cb1e24483"
+          "bytes": 21528,
+          "sha256": "7941cb771bd2ae3c52c97f7fb83c970d5d5cd26109675fa28bb835bf7c38e438"
         }
       }
     }
