@@ -1,12 +1,223 @@
 {
   "schemaVersion": 2,
   "regions": [
+    "alpes-maritimes",
     "bouches-du-rhone",
     "reunion",
     "var-centre",
     "var-ouest"
   ],
   "sites": [
+    {
+      "slug": "grande-baie-cap-ferrat",
+      "title": "Grande Baie, Saint-Jean-Cap-Ferrat",
+      "metadata": "grande-baie-cap-ferrat/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "grande-baie-cap-ferrat/terrain.json",
+          "bytes": 5597,
+          "sha256": "c2688ccf54e0c9d7fa8e6ca8de0baeba58f42e54db2c79c91d0ac0ff01b5222a"
+        },
+        "height": {
+          "path": "grande-baie-cap-ferrat/height.bin",
+          "bytes": 299052,
+          "sha256": "4850bdb9b664df361cfa58c04b596c9e14133a8d52d2162b625a03c20cb286fe"
+        },
+        "validMask": {
+          "path": "grande-baie-cap-ferrat/valid-mask.bin",
+          "bytes": 18691,
+          "sha256": "ab95a58530c1ad5c01ec14b7b9614cfbf1eeb76da284ccf2a60ecf5f10fe5673"
+        },
+        "isobathMask": {
+          "path": "grande-baie-cap-ferrat/isobath-mask.bin",
+          "bytes": 18691,
+          "sha256": "ab95a58530c1ad5c01ec14b7b9614cfbf1eeb76da284ccf2a60ecf5f10fe5673"
+        },
+        "vectorIsobaths": {
+          "path": "grande-baie-cap-ferrat/isobaths-vector.json",
+          "bytes": 31764,
+          "sha256": "b3ca36695c2d3ce9846ad26b94c6967b2d7aa405baf9c8c683ba70c207b05631"
+        },
+        "topographicTexture": {
+          "path": "grande-baie-cap-ferrat/topographic.webp",
+          "bytes": 8376,
+          "sha256": "12e46dce0e2edd48b1006db25d6c7e7ab320cfe3addfc4a7f133e9a7ada6e879"
+        },
+        "orthophotoTexture": {
+          "path": "grande-baie-cap-ferrat/orthophoto.webp",
+          "bytes": 25968,
+          "sha256": "ad20f7a8d0cc3472a519f718172ac0a01a4ac8351da38798c2644d74c3797344"
+        }
+      }
+    },
+    {
+      "slug": "pointe-causiniere-cap-ferrat",
+      "title": "Pointe de la Causinière, Saint-Jean-Cap-Ferrat",
+      "metadata": "pointe-causiniere-cap-ferrat/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-causiniere-cap-ferrat/terrain.json",
+          "bytes": 6187,
+          "sha256": "00fd70d90db98500e92d635703c9bff31b153d03e359b7639a47be1b8b233bd8"
+        },
+        "height": {
+          "path": "pointe-causiniere-cap-ferrat/height.bin",
+          "bytes": 189144,
+          "sha256": "7d210b162aa1d84f7c879bccb765f579d1a661e99f378ff5af2bb3bc27f5e0f5"
+        },
+        "validMask": {
+          "path": "pointe-causiniere-cap-ferrat/valid-mask.bin",
+          "bytes": 11822,
+          "sha256": "b6b54e7e1e25a7cb9ee843b5bd75f7691dff4218ce373154094ac454a6e90e83"
+        },
+        "isobathMask": {
+          "path": "pointe-causiniere-cap-ferrat/isobath-mask.bin",
+          "bytes": 11822,
+          "sha256": "b6b54e7e1e25a7cb9ee843b5bd75f7691dff4218ce373154094ac454a6e90e83"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-causiniere-cap-ferrat/isobaths-vector.json",
+          "bytes": 25064,
+          "sha256": "459ee19c05b5ffd3528401f1c42708625765cfa01866c843185d1bec8ae16f76"
+        },
+        "topographicTexture": {
+          "path": "pointe-causiniere-cap-ferrat/topographic.webp",
+          "bytes": 8246,
+          "sha256": "18dc3ff72b118641cacb58b58a3ba92e10513ff5be038dffaefe88ddd911816f"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-causiniere-cap-ferrat/orthophoto.webp",
+          "bytes": 12688,
+          "sha256": "fa5312c4692d7f6d7e3ff58e9b0fbca069e5dcb50921592d0f1724b6dfed8986"
+        }
+      }
+    },
+    {
+      "slug": "la-vaquette",
+      "title": "La Vaquette, Théoule-sur-Mer",
+      "metadata": "la-vaquette/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "la-vaquette/terrain.json",
+          "bytes": 5617,
+          "sha256": "a08e99b9fa220b908852d7c1fda8ec766909c00be012559b808a6524602c91cd"
+        },
+        "height": {
+          "path": "la-vaquette/height.bin",
+          "bytes": 480168,
+          "sha256": "6bf521763a902692947e83ef36d064e1725a06f00624f61eccee7200d083163f"
+        },
+        "validMask": {
+          "path": "la-vaquette/valid-mask.bin",
+          "bytes": 30011,
+          "sha256": "f36e8c55641c75825b8b54b67ff95d54d9b4a7f64923ccb15413abdd3b7f8312"
+        },
+        "isobathMask": {
+          "path": "la-vaquette/isobath-mask.bin",
+          "bytes": 30011,
+          "sha256": "f36e8c55641c75825b8b54b67ff95d54d9b4a7f64923ccb15413abdd3b7f8312"
+        },
+        "vectorIsobaths": {
+          "path": "la-vaquette/isobaths-vector.json",
+          "bytes": 112109,
+          "sha256": "8260a9ce7c7e54e061d92ae3222114a0c90a639281c8c36aee7a67736df6d2e2"
+        },
+        "topographicTexture": {
+          "path": "la-vaquette/topographic.webp",
+          "bytes": 21690,
+          "sha256": "2abef81abcdbf708501793b4943b2b0c807e92e69329608a92700cf8a9bc612b"
+        },
+        "orthophotoTexture": {
+          "path": "la-vaquette/orthophoto.webp",
+          "bytes": 15904,
+          "sha256": "7b2b1b52bba8dcf9a905fac57a004329a78ebfec930c2dba3110a008371c7e54"
+        }
+      }
+    },
+    {
+      "slug": "la-tradeliere",
+      "title": "La Tradelière, Cannes",
+      "metadata": "la-tradeliere/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "la-tradeliere/terrain.json",
+          "bytes": 5669,
+          "sha256": "1a2ad29457892399aa0ee61492aafb0e7379bbdc1db819854d2e134c6fb72648"
+        },
+        "height": {
+          "path": "la-tradeliere/height.bin",
+          "bytes": 329346,
+          "sha256": "e3a070b8dfe1ca6ffdf6a5f52af82cb17d5b6626d8a7e55d2e689acdf48cff16"
+        },
+        "validMask": {
+          "path": "la-tradeliere/valid-mask.bin",
+          "bytes": 20585,
+          "sha256": "b8a476ce2c90d50c8daf17860be92594365ea1b02f4e78931a75eb9c64196415"
+        },
+        "isobathMask": {
+          "path": "la-tradeliere/isobath-mask.bin",
+          "bytes": 20585,
+          "sha256": "b8a476ce2c90d50c8daf17860be92594365ea1b02f4e78931a75eb9c64196415"
+        },
+        "vectorIsobaths": {
+          "path": "la-tradeliere/isobaths-vector.json",
+          "bytes": 80458,
+          "sha256": "828649da6dbf0e5283b191384a22e38180f7ac6efadffe8102f30cd1a4f14905"
+        },
+        "topographicTexture": {
+          "path": "la-tradeliere/topographic.webp",
+          "bytes": 25814,
+          "sha256": "c4c8311193873afc48cfb896dc9cf90bcf262e9b2618ca3c8fa9aa0a52daab4a"
+        },
+        "orthophotoTexture": {
+          "path": "la-tradeliere/orthophoto.webp",
+          "bytes": 29848,
+          "sha256": "b1afbbc858aaca010d21837009a0960ee73383d4aa415d33f531d3ccae9b0ddb"
+        }
+      }
+    },
+    {
+      "slug": "grotte-a-corail-villefranche",
+      "title": "Grotte à Corail, Villefranche-sur-Mer",
+      "metadata": "grotte-a-corail-villefranche/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "grotte-a-corail-villefranche/terrain.json",
+          "bytes": 5531,
+          "sha256": "e873c9bc84b091ca5804a6da0938cbb51cc32db4f08b3ba4a1ca3fcb3d64c2c2"
+        },
+        "height": {
+          "path": "grotte-a-corail-villefranche/height.bin",
+          "bytes": 192400,
+          "sha256": "73e7b2ff9fd298e56ed8ff11f4ac141e13b97fa425980aa709926976f87b523f"
+        },
+        "validMask": {
+          "path": "grotte-a-corail-villefranche/valid-mask.bin",
+          "bytes": 12025,
+          "sha256": "69a880a76a23738bdbf7694f24b1dad216702c781a41a65d6021be0e047eadf1"
+        },
+        "isobathMask": {
+          "path": "grotte-a-corail-villefranche/isobath-mask.bin",
+          "bytes": 12025,
+          "sha256": "69a880a76a23738bdbf7694f24b1dad216702c781a41a65d6021be0e047eadf1"
+        },
+        "vectorIsobaths": {
+          "path": "grotte-a-corail-villefranche/isobaths-vector.json",
+          "bytes": 24655,
+          "sha256": "46b0b07e45b5b561318e30349d1bc1b7d6e763100c590c9776f261fed2f93c9e"
+        },
+        "topographicTexture": {
+          "path": "grotte-a-corail-villefranche/topographic.webp",
+          "bytes": 5822,
+          "sha256": "f0fc2b52fd6b8797a02cc78bb3d53ffab6e2b693186ff54147af3e6711caa871"
+        },
+        "orthophotoTexture": {
+          "path": "grotte-a-corail-villefranche/orthophoto.webp",
+          "bytes": 15428,
+          "sha256": "4dc1b9b70c6aacfd4f2f6dc1de2cfb89849e0b9336902aba620bfdc432ca459f"
+        }
+      }
+    },
     {
       "slug": "grotte-a-corail-maire",
       "title": "Grotte à Corail – Maïre",

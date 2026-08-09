@@ -3,11 +3,11 @@
   "slug": "la-tradeliere",
   "title": "La Tradelière, Cannes",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0.5,
-      "connector_angle_deg": -8,
+      "shift_y_rem": -0.6,
+      "connector_angle_deg": -9,
       "connector_width_rem": 2.2,
       "label_offset_rem": 3.0,
       "width_rem": 6.2

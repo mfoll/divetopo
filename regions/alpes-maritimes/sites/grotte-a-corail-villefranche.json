@@ -3,13 +3,13 @@
   "slug": "grotte-a-corail-villefranche",
   "title": "Grotte à Corail, Villefranche-sur-Mer",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
-      "side": "right",
-      "shift_y_rem": -1,
-      "connector_angle_deg": -18,
-      "connector_width_rem": 2.2,
-      "label_offset_rem": 3.0,
+      "side": "left",
+      "shift_y_rem": -0.6,
+      "connector_angle_deg": 6,
+      "connector_width_rem": 2.8,
+      "label_offset_rem": 3.1,
       "width_rem": 6.2
     },
     "interactive_initial_view": {

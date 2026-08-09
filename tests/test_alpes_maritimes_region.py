@@ -13,7 +13,7 @@ from cartography.config import (
 
 
 REGION_ROOT = ROOT / "regions" / "alpes-maritimes"
-INTEGRATED_DRAFTS = {
+WAVE_ONE_SITES = {
     "grande-baie-cap-ferrat",
     "grotte-a-corail-villefranche",
     "la-tradeliere",
@@ -38,7 +38,7 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
         )
         self.assertEqual(
             {site["slug"] for site in manifest["sites"]},
-            INTEGRATED_DRAFTS,
+            WAVE_ONE_SITES,
         )
         self.assertTrue(
             EXCLUDED_FROM_FIRST_WAVE.isdisjoint(
@@ -64,7 +64,7 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
             self.assertTrue(pipeline[key].startswith("regions/alpes-maritimes/"))
             self.assertNotIn("regions/paca/", pipeline[key])
 
-    def test_integrated_sites_remain_unpublished(self) -> None:
+    def test_wave_one_sites_are_complete_and_published(self) -> None:
         manifest = region_manifest({"region": "alpes-maritimes"})
 
         for site in manifest["sites"]:
@@ -72,7 +72,20 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
             config = json.loads(config_path.read_text(encoding="utf-8"))
             self.assertEqual(config["region"], "alpes-maritimes")
             self.assertEqual(config["slug"], site["slug"])
-            self.assertFalse(config["web"]["published"])
+            self.assertTrue(config["web"]["published"])
+            self.assertEqual(site["publication"], "published")
+            self.assertEqual(site["artifacts"]["status"], "complete")
+            self.assertTrue(
+                all(
+                    site["artifacts"][key]
+                    for key in (
+                        "staticMaps",
+                        "planches",
+                        "interactiveTerrain",
+                        "webDerivatives",
+                    )
+                )
+            )
             validate_config(config)
 
 

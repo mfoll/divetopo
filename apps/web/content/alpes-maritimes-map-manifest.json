@@ -40,13 +40,1057 @@
     "coastlineResolution": "1–7 m product resolution",
     "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
   },
-  "sites": [],
+  "sites": [
+    {
+      "slug": "grande-baie-cap-ferrat",
+      "displayName": "Grande Baie",
+      "plateTitle": "Grande Baie, Saint-Jean-Cap-Ferrat",
+      "config": "regions/alpes-maritimes/sites/grande-baie-cap-ferrat.json",
+      "assetBasePath": "/maps/alpes-maritimes/grande-baie-cap-ferrat",
+      "location": {
+        "city": "Saint-Jean-Cap-Ferrat",
+        "latitude": 43.68611111,
+        "longitude": 7.32138888
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 86.50613,
+        "yPercent": 18.13659
+      },
+      "maxDepthM": 45.0,
+      "planMaxDepthM": 45.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-10",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/2d-topographic.jpg?v=bcf3369da3ae",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 522464,
+              "sha256": "bcf3369da3ae67c58f670bfa73bfd045b5ba74af734d6ba8f23b2ce0163e52b3"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/2d-topographic.jpg?v=bcf3369da3ae",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 522464,
+            "sha256": "bcf3369da3ae67c58f670bfa73bfd045b5ba74af734d6ba8f23b2ce0163e52b3",
+            "filename": "grande-baie-cap-ferrat-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/2d-orthophoto.jpg?v=7f93a82a442a",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 748955,
+              "sha256": "7f93a82a442a0f6e861e946d53ebf1b0ade87dc0843f888121a00aceef53452d"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/2d-orthophoto.jpg?v=7f93a82a442a",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 748955,
+            "sha256": "7f93a82a442a0f6e861e946d53ebf1b0ade87dc0843f888121a00aceef53452d",
+            "filename": "grande-baie-cap-ferrat-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 45804,
+              "sha256": "adfc8e544a1dfebb3ad89bc0e2e6cb61d4e7582480c6f98e761a8c27e9bf47c0"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 88526,
+              "sha256": "3b49b079b4c7284158be011e0ead457e39259c6cde00f8da591a48e889ff787f"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 153752,
+              "sha256": "2c7f3fa093f15296d9084ffc3b46a0ccdf48b3e18331e2969813cd81c4b3ddbe"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 482855,
+            "sha256": "d7772693955e5478c6e387e60ce1b13da2053c94c8a538565b74b0596b87645f",
+            "filename": "grande-baie-cap-ferrat-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 55474,
+              "sha256": "e7d0238133d756f69543dbe27d8ed0ca6ad03df6c9c05ead588e1226a1d75dbb"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 104304,
+              "sha256": "73b8642b01cd0ffcdb53d927d02922bcd630dcf3a7044d8e610bd7e3e14a78d9"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 177958,
+              "sha256": "a3afe40bb8287cfde584e6e471e09d694f9cfd8e1449135dec43a11f970a7488"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 537516,
+            "sha256": "95ece6c6b4d90a02c2f952e6eeb0653638248d16eb37bdfb24943e943d81dd49",
+            "filename": "grande-baie-cap-ferrat-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/planche-topographic-1800.webp?v=43aa124434a1",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 115176,
+            "sha256": "43aa124434a1ab4905cf7b8ac906fd71db4808978de93a91d2eb30f22c17d588"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grande-baie-cap-ferrat-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3117400,
+            "sha256": "4f30942bb201da3253b7f79ec0aeb41c5bf03557cbd7c626d74a2c8ee5b0c31a",
+            "filename": "grande-baie-cap-ferrat-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/planche-orthophoto-1800.webp?v=3254be6403ce",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 155534,
+            "sha256": "3254be6403ce1e1a5ac44c8dabfa32f9cd3cd8f482b112a507b3b95b2a01f747"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grande-baie-cap-ferrat-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3777332,
+            "sha256": "ed320505f8d25c1fc7509b3f7fdcaa9bbd861236662dd27ba4efcb5ca4fe8a5d",
+            "filename": "grande-baie-cap-ferrat-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 1.8,
+        "connectorAngleDeg": -16,
+        "connectorWidthRem": 3.0,
+        "labelOffsetRem": 3.1,
+        "widthRem": 6.8
+      },
+      "interactiveInitialView": {
+        "zoom": 0.75,
+        "orbitAzimuthDeg": 90,
+        "cameraElevationDeg": 28,
+        "centerOffsetEastM": -20,
+        "isobathLabelFocusXNdc": 0.05
+      }
+    },
+    {
+      "slug": "pointe-causiniere-cap-ferrat",
+      "displayName": "Pointe de la Causinière",
+      "plateTitle": "Pointe de la Causinière, Saint-Jean-Cap-Ferrat",
+      "config": "regions/alpes-maritimes/sites/pointe-causiniere-cap-ferrat.json",
+      "assetBasePath": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat",
+      "location": {
+        "city": "Saint-Jean-Cap-Ferrat · Cap-Ferrat",
+        "latitude": 43.67468334,
+        "longitude": 7.33099999
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 88.46154,
+        "yPercent": 21.79933
+      },
+      "maxDepthM": 40.0,
+      "planMaxDepthM": 40.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-10",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/2d-topographic.jpg?v=967f742be007",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 635070,
+              "sha256": "967f742be007b32396d13f5259296a9cc182ba0cb061548a35aeb76f31603e22"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/2d-topographic.jpg?v=967f742be007",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 635070,
+            "sha256": "967f742be007b32396d13f5259296a9cc182ba0cb061548a35aeb76f31603e22",
+            "filename": "pointe-causiniere-cap-ferrat-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/2d-orthophoto.jpg?v=2c415531a034",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 697879,
+              "sha256": "2c415531a034d15fc4efd2abf2ad4421ead5bda5e17192bbc1bc2af3cf1dc86a"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/2d-orthophoto.jpg?v=2c415531a034",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 697879,
+            "sha256": "2c415531a034d15fc4efd2abf2ad4421ead5bda5e17192bbc1bc2af3cf1dc86a",
+            "filename": "pointe-causiniere-cap-ferrat-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 37192,
+              "sha256": "16f30fb3314cfbcc8d680542208fdaf996d37c8b5b35989377af7eb8070aa6ad"
+            },
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 72840,
+              "sha256": "08b1fea5fb34a8c0a947c2679ced54369503c563e9b7a7a84f80f486fa88835d"
+            },
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 125984,
+              "sha256": "7efd831056b8bbce0b68617a537604c3e4920db311961c48df1424194e9766ce"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 383610,
+            "sha256": "07bc6f1e57554cf747d9903df77ce77aa85081ec6ce46824bfed0196d90e4474",
+            "filename": "pointe-causiniere-cap-ferrat-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 48628,
+              "sha256": "a41512d685318f736fe656f1af40eaf1706169573d2308030f8d787d56623e9f"
+            },
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 91710,
+              "sha256": "9162ff18cf0684d862cfec94eb1c02112726510581b416f16cbbb20ec0e5d905"
+            },
+            {
+              "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 155650,
+              "sha256": "722d1d15b1557c86cc3e52ae0999fefdb98c06d2d0e29c50837c341d774a2f30"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 448187,
+            "sha256": "396becd904aecaf336d40941c3f33590b3730749ca34be75b8734aadc6310008",
+            "filename": "pointe-causiniere-cap-ferrat-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/planche-topographic-1800.webp?v=236dd916bf36",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 142714,
+            "sha256": "236dd916bf362470aa5cee0e80ef7bda2848c92b0b368d3e3f46ac7d1f55ede7"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-causiniere-cap-ferrat-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3693827,
+            "sha256": "6c7f1f35955e8c6a7702b17f99e2a37b0d464973c6e04a5ceb7cd805c6918bed",
+            "filename": "pointe-causiniere-cap-ferrat-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/planche-orthophoto-1800.webp?v=16ab410c834b",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 172008,
+            "sha256": "16ab410c834bd04bcd5b5a2deee7b3faac81620eb496f85e1cb2f0de567a766b"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-causiniere-cap-ferrat-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3996060,
+            "sha256": "e244a9599f5e7668b43f42092da2c42cc3c16129cb1a3479f00c53d73234d8a6",
+            "filename": "pointe-causiniere-cap-ferrat-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 4.4,
+        "connectorAngleDeg": -32,
+        "connectorWidthRem": 4.2,
+        "labelOffsetRem": 3.1,
+        "widthRem": 7.6
+      },
+      "interactiveInitialView": {
+        "zoom": 0.68,
+        "cameraElevationDeg": 30,
+        "isobathLabelFocusXNdc": 0.25
+      }
+    },
+    {
+      "slug": "la-vaquette",
+      "displayName": "La Vaquette",
+      "plateTitle": "La Vaquette, Théoule-sur-Mer",
+      "config": "regions/alpes-maritimes/sites/la-vaquette.json",
+      "assetBasePath": "/maps/alpes-maritimes/la-vaquette",
+      "location": {
+        "city": "Théoule-sur-Mer · Pointe de l’Esquillon",
+        "latitude": 43.48286951,
+        "longitude": 6.95291152
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 11.53846,
+        "yPercent": 83.27812
+      },
+      "maxDepthM": 42.0,
+      "planMaxDepthM": 42.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-06-26",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/2d-topographic.jpg?v=b78bb74db08d",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 965230,
+              "sha256": "b78bb74db08dff79e2cce53e34b3d96b909e7ba97b3fafaa55e4969e36dec367"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/2d-topographic.jpg?v=b78bb74db08d",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 965230,
+            "sha256": "b78bb74db08dff79e2cce53e34b3d96b909e7ba97b3fafaa55e4969e36dec367",
+            "filename": "la-vaquette-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/2d-orthophoto.jpg?v=b78bb74db08d",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 965230,
+              "sha256": "b78bb74db08dff79e2cce53e34b3d96b909e7ba97b3fafaa55e4969e36dec367"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/2d-orthophoto.jpg?v=b78bb74db08d",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 965230,
+            "sha256": "b78bb74db08dff79e2cce53e34b3d96b909e7ba97b3fafaa55e4969e36dec367",
+            "filename": "la-vaquette-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 44122,
+              "sha256": "473e81e0f90e152848dbc951e6e16ad3748552b1232fb7221ebbe209501175c3"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 88394,
+              "sha256": "6524a5107058bbfee97cf19ba7d9cc4576d6cf4f7e786c41bbbe08a61766adcc"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 155558,
+              "sha256": "d28a5a83c0a4e7b7abf2abeaf947b6d0af2ed128b3fddbddd4b527ec93476b69"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 456710,
+            "sha256": "8963ca796a4b1cb7ceb732b4dbb1cca065f263bdb7ed129d1c63042387e88385",
+            "filename": "la-vaquette-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 45446,
+              "sha256": "14dafad8cb3b0a11ff9ad3628ce2c0561c413568dfdf123414673ff9b737279f"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 90764,
+              "sha256": "2fbbc82fa72de83b96b3547f854a148c6fa9a8487cb53f69364b0a621486275e"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 160040,
+              "sha256": "e9600735d704280a2e1db26ab21d24df82dd6445c2c5d9b67195e73c3075129a"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 467363,
+            "sha256": "368e958cd1f01c5b59bb50a3618888b7b4aefc0c1f57f05779c84775cc75f917",
+            "filename": "la-vaquette-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/planche-topographic-1800.webp?v=c1c8d6b0ccfa",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 115846,
+            "sha256": "c1c8d6b0ccfafa9b5d3b78208fb7ed1c2ec68971b2f02db8f9f121dc6af4888b"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-vaquette-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3124456,
+            "sha256": "f3fe8f9784609e82330ef38b9c696b519e7744b94aa7dbe711335d70c4826ab6",
+            "filename": "la-vaquette-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/planche-orthophoto-1800.webp?v=171798722943",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 117126,
+            "sha256": "1717987229436f7c5786a1693b78f85aca29a3d3bd47980c8cb9145553113d3f"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-vaquette-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3141318,
+            "sha256": "891a9099b3466f15cd78c4f335d1e178027da69dd2e41aadf785289c3eca575c",
+            "filename": "la-vaquette-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0.35,
+        "connectorAngleDeg": 10,
+        "connectorWidthRem": 4.4,
+        "labelOffsetRem": 5.2,
+        "widthRem": 6.4
+      },
+      "interactiveInitialView": {
+        "zoom": 0.9,
+        "cameraElevationDeg": 32,
+        "isobathLabelFocusXNdc": 0.15
+      }
+    },
+    {
+      "slug": "la-tradeliere",
+      "displayName": "La Tradelière",
+      "plateTitle": "La Tradelière, Cannes",
+      "config": "regions/alpes-maritimes/sites/la-tradeliere.json",
+      "assetBasePath": "/maps/alpes-maritimes/la-tradeliere",
+      "location": {
+        "city": "Cannes · Îles de Lérins",
+        "latitude": 43.5134,
+        "longitude": 7.07158333
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 35.68255,
+        "yPercent": 73.49271
+      },
+      "maxDepthM": 42,
+      "planMaxDepthM": 42,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-06-26",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/2d-topographic.jpg?v=61c38536b25e",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1450134,
+              "sha256": "61c38536b25ede93ec79f1cd2ac6764a15521e8bb752064d2e1af40cbc6f5a6f"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/2d-topographic.jpg?v=61c38536b25e",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1450134,
+            "sha256": "61c38536b25ede93ec79f1cd2ac6764a15521e8bb752064d2e1af40cbc6f5a6f",
+            "filename": "la-tradeliere-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/2d-orthophoto.jpg?v=19c5cd281a43",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1629413,
+              "sha256": "19c5cd281a43bb11101296fb7f8e837d77133dc936235544eb0576d1a0dfd355"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/2d-orthophoto.jpg?v=19c5cd281a43",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1629413,
+            "sha256": "19c5cd281a43bb11101296fb7f8e837d77133dc936235544eb0576d1a0dfd355",
+            "filename": "la-tradeliere-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 46000,
+              "sha256": "423fe023d01bee19a6f9028657ed76499ae748029c7790c2cb7f78e1efdadb06"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 92532,
+              "sha256": "52698b446c8b9a4ef30f72412292f4f1a64713e595f0df8e230cbdba9e37ee83"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 168360,
+              "sha256": "6b5675f8f5f6ae6d82fcd2abe214e99a8d907dba7e188463bfe275e672122bb5"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 415130,
+            "sha256": "8aa13b26718efd46cb700c4647521c2c9ae18dfd468522853423ae1670c7f214",
+            "filename": "la-tradeliere-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 55590,
+              "sha256": "8ef2bfeaeacd07121348df4a30cfd9a40016a983e572aa950358fe74d7d3d70e"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 110292,
+              "sha256": "6bf99d2611e5a10d0432324182c09dc836ce63e0304cba787cfb037b527496a3"
+            },
+            {
+              "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 196850,
+              "sha256": "eab98b1b900e8d362b808c98226746d2cf5bdd544e3836ab9217961aa4d8ab9b"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 456994,
+            "sha256": "2ac661fd96660a8f03b2fcc47d226359a7944e47d16d9bb256449a51ef710776",
+            "filename": "la-tradeliere-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/planche-topographic-1800.webp?v=6e84f1b276da",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 139018,
+            "sha256": "6e84f1b276da94017fe93041c022a7823568be8feae4295bb248ec5fac95f6a1"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-tradeliere-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3859383,
+            "sha256": "8b24836c59728f08f7a195a0b62a6b97b553401a70201368851bf91e1b187bd6",
+            "filename": "la-tradeliere-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/planche-orthophoto-1800.webp?v=6a7b9aa57522",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 165480,
+            "sha256": "6a7b9aa575229d333b2763663c7ba8e13799dbd5ab51639e36b097ba009997ab"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-tradeliere-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4141492,
+            "sha256": "d5e96a808f8a6493cacbee5b5dd211bbaa27f63917dd17a99f80e8e143a64b9e",
+            "filename": "la-tradeliere-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -0.6,
+        "connectorAngleDeg": -9,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 6.2
+      },
+      "interactiveInitialView": {
+        "zoom": 1,
+        "orbitAzimuthDeg": 90,
+        "cameraElevationDeg": 24,
+        "isobathLabelFocusXNdc": 0
+      }
+    },
+    {
+      "slug": "grotte-a-corail-villefranche",
+      "displayName": "Grotte à Corail",
+      "plateTitle": "Grotte à Corail, Villefranche-sur-Mer",
+      "config": "regions/alpes-maritimes/sites/grotte-a-corail-villefranche.json",
+      "assetBasePath": "/maps/alpes-maritimes/grotte-a-corail-villefranche",
+      "location": {
+        "city": "Villefranche-sur-Mer · rade de Villefranche",
+        "latitude": 43.690525,
+        "longitude": 7.30885556
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 83.9562,
+        "yPercent": 16.72188
+      },
+      "maxDepthM": 42.0,
+      "planMaxDepthM": 42.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
+        "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/2d-topographic.jpg?v=7e1af7b9b215",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 560769,
+              "sha256": "7e1af7b9b215845331a409dbab46656923e864c2815aa0df59aa794fd80429a4"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/2d-topographic.jpg?v=7e1af7b9b215",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 560769,
+            "sha256": "7e1af7b9b215845331a409dbab46656923e864c2815aa0df59aa794fd80429a4",
+            "filename": "grotte-a-corail-villefranche-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/2d-orthophoto.jpg?v=7bf25f2d85fc",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 803198,
+              "sha256": "7bf25f2d85fc32c52bb6f0e5c858b9720c521afc735ad967bb795cc2cf745b16"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/2d-orthophoto.jpg?v=7bf25f2d85fc",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 803198,
+            "sha256": "7bf25f2d85fc32c52bb6f0e5c858b9720c521afc735ad967bb795cc2cf745b16",
+            "filename": "grotte-a-corail-villefranche-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 49494,
+              "sha256": "33b4c8f818e62488825dade9df5a7a5055892c4642d2836061181036433547f8"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 98482,
+              "sha256": "a043d251b8a6dc8ae82c6fc68572c5ebd04090a2fab74fbdbd4f2bca88b4e911"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 176490,
+              "sha256": "027c1df3dc53351657de84573a7fa1b44ab6f17c9db5b5d30a8269f31dcaac23"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 429695,
+            "sha256": "b8bc7199b3cc5afc1bdcc8517b794fcdb11ece63f4b523f8e1980a54b76f882f",
+            "filename": "grotte-a-corail-villefranche-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 51750,
+              "sha256": "40969ca9b7e48765afa7e58795adf923471a07c5086f5f9aad7ac7e1099b3cf9"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 103558,
+              "sha256": "01be69ab47c3c472566abe04c8f9530bb3052e8decb9fd654e02e0daabd3cdc9"
+            },
+            {
+              "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 184926,
+              "sha256": "6faf92976ca61078af92bc18fa1a9cea06ad2f7df23e2aac60c7840d7ff9416d"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 447538,
+            "sha256": "428b8d40c8bc6db4b1a0c150b16937e79407e5e497d5afa1e6912bef134050d4",
+            "filename": "grotte-a-corail-villefranche-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/planche-topographic-1800.webp?v=8396bb8cb59b",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 139026,
+            "sha256": "8396bb8cb59ba6dd499c0efb86b6ba4e5d6d4f30d5f1ef84cc719813ae906d63"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-villefranche-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3193670,
+            "sha256": "62397d3097d5e5d51c090045544cad524c4e50e7457982321bc106fcf2f45130",
+            "filename": "grotte-a-corail-villefranche-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/planche-orthophoto-1800.webp?v=8c9188b34960",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 181680,
+            "sha256": "8c9188b34960c958211f5703cf8624009110caff9eda59d246c9e767dbb343f6"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-villefranche-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3711967,
+            "sha256": "b89c2c9c53394e6b38fe6abe683aab91bc8368ce36e2d8ea9a611fda402f4031",
+            "filename": "grotte-a-corail-villefranche-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -0.6,
+        "connectorAngleDeg": 6,
+        "connectorWidthRem": 2.8,
+        "labelOffsetRem": 3.1,
+        "widthRem": 6.2
+      },
+      "interactiveInitialView": {
+        "zoom": 0.9,
+        "cameraElevationDeg": 32,
+        "isobathLabelFocusXNdc": 0.15
+      }
+    }
+  ],
   "plannedSites": [
     {
       "slug": "grande-baie-cap-ferrat",
       "displayName": "Grande Baie",
       "location": {
-        "city": "Saint-Jean-Cap-Ferrat · côte ouest du Cap-Ferrat",
+        "city": "Saint-Jean-Cap-Ferrat",
         "latitude": 43.68611111,
         "longitude": 7.32138888
       },
@@ -55,14 +1099,14 @@
         "yPercent": 18.13659
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -1,
+        "side": "left",
+        "shiftYRem": 1.8,
         "connectorAngleDeg": -16,
-        "connectorWidthRem": 2.2,
-        "labelOffsetRem": 3.0,
+        "connectorWidthRem": 3.0,
+        "labelOffsetRem": 3.1,
         "widthRem": 6.8
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "pointe-causiniere-cap-ferrat",
@@ -77,14 +1121,14 @@
         "yPercent": 21.79933
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -0.5,
-        "connectorAngleDeg": -18,
-        "connectorWidthRem": 2.2,
-        "labelOffsetRem": 3.0,
+        "side": "left",
+        "shiftYRem": 4.4,
+        "connectorAngleDeg": -32,
+        "connectorWidthRem": 4.2,
+        "labelOffsetRem": 3.1,
         "widthRem": 7.6
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "la-vaquette",
@@ -100,10 +1144,13 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0
+        "shiftYRem": 0.35,
+        "connectorAngleDeg": 10,
+        "connectorWidthRem": 4.4,
+        "labelOffsetRem": 5.2,
+        "widthRem": 6.4
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "la-tradeliere",
@@ -119,10 +1166,13 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0
+        "shiftYRem": -0.6,
+        "connectorAngleDeg": -9,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 6.2
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "grotte-a-corail-villefranche",
@@ -137,14 +1187,14 @@
         "yPercent": 16.72188
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -1,
-        "connectorAngleDeg": -18,
-        "connectorWidthRem": 2.2,
-        "labelOffsetRem": 3.0,
+        "side": "left",
+        "shiftYRem": -0.6,
+        "connectorAngleDeg": 6,
+        "connectorWidthRem": 2.8,
+        "labelOffsetRem": 3.1,
         "widthRem": 6.2
       },
-      "status": "preparing"
+      "status": "published"
     }
   ]
 }

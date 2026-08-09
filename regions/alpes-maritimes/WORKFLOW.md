@@ -3,15 +3,15 @@
 This directory owns the autonomous DiveTopo region covering Théoule-sur-Mer,
 Cannes, the Lérins Islands, Antibes, Nice and Villefranche-sur-Mer. It is not a
 sub-region of `regions/paca/`: its inventory, outputs, interactive packages,
-regional map and future Web route are independent.
+regional map and Web route are independent.
 
 Read the root [WORKFLOW.md](../../WORKFLOW.md) before using this workflow.
 
 ## Regional contract
 
 - Region slug: `alpes-maritimes`.
-- Conceptual localized routes: `/alpes-maritimes/fr` and
-  `/alpes-maritimes/en`; site routes will live below
+- Localized routes: `/alpes-maritimes/fr` and `/alpes-maritimes/en`; site
+  routes live below
   `/alpes-maritimes/<language>/sites/<slug>`.
 - Site configurations: `regions/alpes-maritimes/sites/`.
 - Canonical maps and printable sheets: `regions/alpes-maritimes/outputs/`.
@@ -20,9 +20,9 @@ Read the root [WORKFLOW.md](../../WORKFLOW.md) before using this workflow.
 - Regional locator map:
   `regions/alpes-maritimes/outputs/alpes-maritimes-regional-relief.png`.
 
-The route is a regional ownership contract only. Adding it to the shared Web
-router, homepage, sitemap or production build belongs to the global integration
-task and must not be done from a site worktree.
+The route and sitemap integration are supplied by the shared autonomous-region
+Web contract. Homepage promotion remains a global integration task and must not
+be changed from a site or regional worktree.
 
 ## Sources and projection
 
@@ -39,18 +39,17 @@ without an explicit transformation.
 
 ## Target inventory for the v1.4 first wave
 
-The region starts with no published sites. Add an inventory entry to
-`region.json` only in the same integration change that adds its real site
-configuration, so the repository never points to a missing file.
+Add an inventory entry to `region.json` only in the same integration change
+that adds its real site configuration, so the repository never points to a
+missing file.
 
-The first wave is limited to exactly these five sites:
+The first wave is finalized with exactly these five published sites:
 
-1. Grande Baie – Cap-Ferrat — integrated as an unpublished static draft;
-2. Pointe de la Causinière – Cap-Ferrat — integrated as an unpublished static
-   draft;
-3. La Vaquette — integrated as an unpublished draft;
-4. La Tradelière — integrated as an unpublished draft;
-5. Grotte à Corail – Villefranche — integrated as an unpublished draft.
+1. Grande Baie – Cap-Ferrat;
+2. Pointe de la Causinière – Cap-Ferrat;
+3. La Vaquette;
+4. La Tradelière;
+5. Grotte à Corail – Villefranche.
 
 Cap Gros and La Fourmigue d’Antibes were removed from the first wave because no
 continuous MNT was validated. Do not cherry-pick or inventory them.
@@ -64,9 +63,11 @@ the regional inventory during this wave:
 - La Fouillée
 - Enfer de Dante
 
-Every new configuration must declare `region: "alpes-maritimes"` and
-`web.published: false`. Publication remains an explicit later decision after
-the complete site and regional QA gates.
+Each configuration declares `region: "alpes-maritimes"`. The five active sites
+have complete 2D, 3D, planche, interactive and Web packages and were switched
+to `web.published: true` together only after their site and regional QA gates
+passed. Any later site starts with `web.published: false` until a new explicit
+publication decision.
 
 ## Integrating a site worktree
 
@@ -84,7 +85,8 @@ the complete site and regional QA gates.
 7. Preserve existing generated artifacts byte-for-byte when migrating an
    already published site. Compare SHA-256 values before and after the move;
    do not regenerate it merely to change ownership.
-8. Keep `web.published` false for every new site until explicit approval.
+8. Keep `web.published` false for every later site until explicit approval and
+   complete site plus regional QA.
 
 ## Regional map gate
 
@@ -108,8 +110,8 @@ Before a publication-ready zone commit:
    replacements have explicit MNT-validation evidence.
 2. No deferred or MNT-rejected site has been cherry-picked or added to the
    regional inventory.
-3. All new sites remain unpublished unless the user has explicitly approved
-   publication after site QA.
+3. Exactly the five approved first-wave sites are published; no deferred or
+   MNT-rejected site is exposed.
 4. Canonical outputs and interactive packages are complete and their manifests
    agree with the inventory.
 5. The regional map is inspected at full resolution and in its homepage-card
@@ -121,3 +123,7 @@ Before a publication-ready zone commit:
 8. The complete diff is region-scoped apart from explicitly coordinated shared
    integration, and contains no version, release, homepage-global or deployment
    change.
+
+The completed measurements and visual findings are recorded in
+[`QA.md`](QA.md). The regional commit is local only; it does not push, deploy,
+or modify the global homepage.

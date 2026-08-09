@@ -43,6 +43,7 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 2],
     ["/var-centre/en", "topo-var-centre-title", 5],
+    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5],
   ];
   for (const [path, titleId, siteCount] of published) {
     const response = await render(path);
@@ -57,10 +58,25 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
     );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
     assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < 5 ? 1 : 0, path);
-    for (const name of path.endsWith("/en")
-      ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
-      : ["Pointe de la Cride", "Les Magnons", "La Merveilleuse"]) {
+    const preparingNames = path.startsWith("/alpes-maritimes/")
+      ? []
+      : path.endsWith("/en")
+        ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
+        : ["Pointe de la Cride", "Les Magnons", "La Merveilleuse"];
+    for (const name of preparingNames) {
       assert.match(html, new RegExp(name), path);
+    }
+    if (path.startsWith("/alpes-maritimes/")) {
+      assert.doesNotMatch(html, /préparation|preparation/i, path);
+      for (const slug of [
+        "grande-baie-cap-ferrat",
+        "pointe-causiniere-cap-ferrat",
+        "la-vaquette",
+        "la-tradeliere",
+        "grotte-a-corail-villefranche",
+      ]) {
+        assert.match(html, new RegExp(`/alpes-maritimes/fr/sites/${slug}`), path);
+      }
     }
     assert.doesNotMatch(html, /noindex/i, path);
   }
@@ -90,7 +106,6 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
 
   for (const region of [
     "var-est",
-    "alpes-maritimes",
   ]) {
     const response = await render(`/${region}/fr`);
     assert.equal(response.status, 200, region);
@@ -146,7 +161,11 @@ test("published autonomous-region asset paths resolve", async () => {
     );
   }
 
-  for (const [region, expectedSiteCount] of [["var-ouest", 2], ["var-centre", 5]]) {
+  for (const [region, expectedSiteCount] of [
+    ["var-ouest", 2],
+    ["var-centre", 5],
+    ["alpes-maritimes", 5],
+  ]) {
     const manifest = JSON.parse(
       await readFile(
         new URL(`../content/${region}-map-manifest.json`, import.meta.url),

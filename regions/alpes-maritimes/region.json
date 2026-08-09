@@ -6,6 +6,10 @@
     "fr": "Alpes-Maritimes",
     "en": "Alpes-Maritimes"
   },
+  "description": {
+    "fr": "Théoule-sur-Mer, Cannes, les îles de Lérins, Cap-Ferrat et Villefranche-sur-Mer",
+    "en": "Théoule-sur-Mer, Cannes, the Lérins Islands, Cap-Ferrat and Villefranche-sur-Mer"
+  },
   "defaultLanguage": "fr",
   "languages": [
     "fr",
@@ -20,6 +24,11 @@
     "siteConfigDirectory": "regions/alpes-maritimes/sites",
     "outputDirectory": "regions/alpes-maritimes/outputs",
     "interactiveTerrainDirectory": "regions/alpes-maritimes/outputs/interactive-terrain"
+  },
+  "web": {
+    "regionalMap": "apps/web/public/maps/alpes-maritimes/alpes-maritimes-regional-relief.png",
+    "mapManifest": "apps/web/content/alpes-maritimes-map-manifest.json",
+    "terrainManifest": "apps/web/public/terrain/manifest.json"
   },
   "sources": {
     "bathymetry": {
@@ -40,9 +49,24 @@
       "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO"
     },
     "regionalRelief": {
+      "id": "emodnet-bathymetry-2024",
+      "name": "EMODnet Bathymetry DTM 2024",
+      "url": "https://emodnet.ec.europa.eu/en/bathymetry"
+    },
+    "regionalReliefFallback": {
       "id": "gebco-2024",
       "name": "GEBCO 2024",
       "url": "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid"
+    },
+    "regionalCoastline": {
+      "id": "shom-ign-limite-terre-mer-polygones",
+      "name": "Shom–IGN Limite terre-mer, polygones officiels",
+      "url": "https://services.data.shom.fr/INSPIRE/wfs"
+    },
+    "regionalLandElevation": {
+      "id": "ign-rge-alti",
+      "name": "IGN RGE ALTI",
+      "url": "https://geoservices.ign.fr/rgealti"
     }
   },
   "sites": [
@@ -50,30 +74,70 @@
       "slug": "grande-baie-cap-ferrat",
       "name": "Grande Baie – Cap-Ferrat",
       "municipality": "Saint-Jean-Cap-Ferrat",
+      "publication": "published",
+      "artifacts": {
+        "status": "complete",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/alpes-maritimes/sites/grande-baie-cap-ferrat.json"
     },
     {
       "slug": "pointe-causiniere-cap-ferrat",
       "name": "Pointe de la Causinière – Cap-Ferrat",
       "municipality": "Saint-Jean-Cap-Ferrat",
+      "publication": "published",
+      "artifacts": {
+        "status": "complete",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/alpes-maritimes/sites/pointe-causiniere-cap-ferrat.json"
     },
     {
       "slug": "la-vaquette",
       "name": "La Vaquette",
       "municipality": "Théoule-sur-Mer",
+      "publication": "published",
+      "artifacts": {
+        "status": "complete",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/alpes-maritimes/sites/la-vaquette.json"
     },
     {
       "slug": "la-tradeliere",
       "name": "La Tradelière",
       "municipality": "Cannes",
+      "publication": "published",
+      "artifacts": {
+        "status": "complete",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/alpes-maritimes/sites/la-tradeliere.json"
     },
     {
       "slug": "grotte-a-corail-villefranche",
       "name": "Grotte à Corail – Villefranche",
       "municipality": "Villefranche-sur-Mer",
+      "publication": "published",
+      "artifacts": {
+        "status": "complete",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": true
+      },
       "config": "regions/alpes-maritimes/sites/grotte-a-corail-villefranche.json"
     }
   ],
@@ -87,6 +151,39 @@
       7.387713264808246,
       43.74269725776767
     ],
-    "sha256": "637d730966fc0b4e2bbb27a7a1e26aa29a94715a569720cee49151dbeea79759"
+    "sha256": "637d730966fc0b4e2bbb27a7a1e26aa29a94715a569720cee49151dbeea79759",
+    "qa": {
+      "status": "passed",
+      "validatedOn": "2026-08-08",
+      "fullResolutionInspection": "passed",
+      "responsiveViewports": [
+        "1440x1000",
+        "390x844"
+      ],
+      "themes": [
+        "light",
+        "dark"
+      ],
+      "manifest": {
+        "publishedSites": 5,
+        "terrainPackages": 5
+      },
+      "labels": {
+        "desktopCollisions": 0,
+        "mobileCollisions": 0,
+        "controlCollisions": 0,
+        "outsideMap": 0
+      },
+      "routes": {
+        "localizedLanguages": 2,
+        "siteRoutesChecked": 5,
+        "preparationMentions": 0
+      },
+      "mobileTerrain": {
+        "sourceScaleOverlap": false,
+        "copyrightScaleOverlap": false,
+        "horizontalOverflow": false
+      }
+    }
   }
 }

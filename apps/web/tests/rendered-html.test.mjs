@@ -655,8 +655,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 60);
-  assert.equal(imageLocations.length, 152);
+  assert.equal(locations.length, 70);
+  assert.equal(imageLocations.length, 182);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -733,7 +733,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    138,
+    168,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -895,6 +895,7 @@ test("interactive terrain manifest combines every published region", async () =>
     bouchesDuRhoneManifest,
     varCentreManifest,
     varOuestManifest,
+    alpesMaritimesManifest,
   ] = await Promise.all([
     readFile(
       new URL("../public/terrain/manifest.json", import.meta.url),
@@ -912,16 +913,21 @@ test("interactive terrain manifest combines every published region", async () =>
       new URL("../content/var-ouest-map-manifest.json", import.meta.url),
       "utf8",
     ),
+    readFile(
+      new URL("../content/alpes-maritimes-map-manifest.json", import.meta.url),
+      "utf8",
+    ),
   ]).then((values) => values.map(JSON.parse));
 
   assert.equal(manifest.schemaVersion, 2);
   assert.deepEqual(manifest.regions, [
+    "alpes-maritimes",
     "bouches-du-rhone",
     "reunion",
     "var-centre",
     "var-ouest",
   ]);
-  assert.equal(manifest.sites.length, 23);
+  assert.equal(manifest.sites.length, 28);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([
@@ -929,6 +935,7 @@ test("interactive terrain manifest combines every published region", async () =>
       ...bouchesDuRhoneManifest.sites.map((site) => site.slug),
       ...varCentreManifest.sites.map((site) => site.slug),
       ...varOuestManifest.sites.map((site) => site.slug),
+      ...alpesMaritimesManifest.sites.map((site) => site.slug),
     ]),
   );
 });
