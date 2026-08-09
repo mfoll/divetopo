@@ -361,6 +361,14 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   );
   assert.match(
     stylesheet,
+    /@media \(max-width:\s*560px\)[\s\S]*\.masthead\s*\{[^}]*max-inline-size:\s*100vw;[^}]*overflow-x:\s*clip;/s,
+  );
+  assert.match(
+    stylesheet,
+    /@media \(max-width:\s*560px\)[\s\S]*\.masthead-inner\s*\{[^}]*inline-size:\s*100vw;[^}]*max-inline-size:\s*100vw;/s,
+  );
+  assert.match(
+    stylesheet,
     /\.site-footer\s*\{[^}]*min-height:\s*7rem;[^}]*padding:\s*1\.5rem var\(--page-gutter\);/s,
   );
   assert.doesNotMatch(stylesheet, /\.hero-lead\s*\{/);

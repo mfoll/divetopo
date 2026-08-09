@@ -2271,10 +2271,17 @@ img {
 }
 
 @media (max-width: 560px) {
+  .masthead {
+    max-inline-size: 100vw;
+    overflow-x: clip;
+  }
+
   .masthead-inner {
     align-items: center;
     flex-direction: row;
     gap: 0.25rem;
+    inline-size: 100vw;
+    max-inline-size: 100vw;
     min-height: 4.75rem;
     padding: 0.55rem 0.75rem;
   }
