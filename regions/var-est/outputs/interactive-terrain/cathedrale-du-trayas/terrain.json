@@ -115,14 +115,14 @@
       "withinTolerance": true
     }
   },
-  "verticalExaggeration": 1.4,
+  "verticalExaggeration": 2.6,
   "view": {
     "lookBearingDeg": 325.0,
     "gridLookBearingDeg": 325.0,
     "cameraTilt": 0.34,
     "alongViewProjectionScale": 1.6,
     "visibleWidthM": 490.0,
-    "coastFrameFraction": 0.36,
+    "coastFrameFraction": 0.34,
     "horizontalCenterOffsetM": -114.681286
   },
   "textures": {

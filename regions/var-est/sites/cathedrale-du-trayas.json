@@ -13,7 +13,7 @@
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.65,
+      "zoom": 0.75,
       "orbit_azimuth_deg": 0,
       "camera_elevation_deg": 15,
       "pan_right_m": -140,
@@ -67,7 +67,7 @@
     "look_bearing_deg": 325
   },
   "view_bearing_deg": 325,
-  "view_visible_width_m": 340,
+  "view_visible_width_m": 450,
   "interactive_view_visible_width_m": 490,
   "interactive_view_horizontal_center_offset_m": -114.681286,
   "interactive_match_static_horizontal_center": true,
@@ -90,7 +90,8 @@
   "view_crop_width_m": 500,
   "view_crop_depth_m": 650,
   "view_center_offset_north_m": 25,
-  "coast_frame_fraction": 0.36,
+  "coast_frame_fraction": 0.34,
+  "horizon_cleanup_fraction": 0.085,
   "view_canvas_width_px": 1455,
   "view_canvas_height_px": 1007,
   "view_left_crop_fraction": 0,
@@ -124,6 +125,6 @@
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
-  "vertical_exaggeration": 1.4,
+  "vertical_exaggeration": 2.6,
   "clip_rotated_outside": true
 }
