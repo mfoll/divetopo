@@ -1346,6 +1346,21 @@ test("interactive terrain provides an iOS-safe fullscreen fallback", async () =>
   assert.match(styles, /safe-area-inset-bottom/);
 });
 
+test("interactive terrain exposes camera calibration only by explicit local opt-in", async () => {
+  const [terrainViewer, styles] = await Promise.all([
+    readFile(new URL("../app/TerrainViewer.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(terrainViewer, /window\.location\.hostname === "localhost"/);
+  assert.match(terrainViewer, /search\.has\("camera-calibration"\)/);
+  assert.match(terrainViewer, /divetopo-camera-calibration:\$\{slug\}/);
+  assert.match(terrainViewer, /\$\{slug\}-camera-calibration\.json/);
+  assert.match(terrainViewer, /interactiveInitialView:/);
+  assert.match(terrainViewer, /panResidualForwardM/);
+  assert.match(styles, /\.terrain-camera-calibration\s*\{/);
+});
+
 test("advertises the standalone DiveTopo app identity in server-rendered metadata", async () => {
   const response = await render();
   const html = await response.text();

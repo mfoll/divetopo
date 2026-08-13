@@ -29,6 +29,41 @@ const LABEL_HEIGHT_CSS_PX = 28;
 
 type NumberUniform = { value: number };
 
+type CameraCalibrationOrigin = {
+  horizontalOffset: THREE.Vector3;
+  panOriginTarget: THREE.Vector3;
+};
+
+type CameraCalibrationSnapshot = {
+  schema: "divetopo-camera-calibration-v1";
+  slug: string;
+  siteName: string;
+  capturedAt: string;
+  interactiveInitialView: {
+    zoom: number;
+    orbitAzimuthDeg: number;
+    cameraElevationDeg: number;
+    panRightM: number;
+    panUpM: number;
+    centerOffsetEastM: number;
+    centerOffsetSouthM: number;
+    isobathLabelFocusXNdc?: number;
+  };
+  diagnostic: {
+    cameraPosition: { x: number; y: number; z: number };
+    target: { x: number; y: number; z: number };
+    panResidualForwardM: number;
+  };
+};
+
+function rounded(value: number, digits = 4) {
+  return Number(value.toFixed(digits));
+}
+
+function normalisedAngleDeg(value: number) {
+  return ((value + 180) % 360 + 360) % 360 - 180;
+}
+
 type TerrainMetadata = {
   physicalSizeM: { width: number; depth: number };
   elevationRangeM: { min: number; max: number };
@@ -435,6 +470,8 @@ export default function TerrainViewer({
     target: THREE.Vector3;
     zoom: number;
   } | null>(null);
+  const cameraCalibrationOriginRef =
+    useRef<CameraCalibrationOrigin | null>(null);
   const compassDialRef = useRef<HTMLDivElement>(null);
   const scaleBarRef = useRef<HTMLDivElement>(null);
   const scaleLabelRef = useRef<HTMLSpanElement>(null);
@@ -454,6 +491,33 @@ export default function TerrainViewer({
   const [status, setStatus] = useState<"loading" | "ready" | "error">(
     "loading",
   );
+  const [cameraCalibrationEnabled, setCameraCalibrationEnabled] =
+    useState(false);
+  const [cameraCalibrationMessage, setCameraCalibrationMessage] =
+    useState("");
+
+  useEffect(() => {
+    const isLocal =
+      window.location.hostname === "localhost" ||
+      window.location.hostname === "127.0.0.1";
+    if (!isLocal) return;
+    const search = new URLSearchParams(window.location.search);
+    if (search.has("camera-calibration")) {
+      window.sessionStorage.setItem(
+        "divetopo-camera-calibration-enabled",
+        "true",
+      );
+    }
+    const enableCalibration =
+      search.has("camera-calibration") ||
+      window.sessionStorage.getItem(
+        "divetopo-camera-calibration-enabled",
+      ) === "true";
+    const frame = window.requestAnimationFrame(() => {
+      setCameraCalibrationEnabled(enableCalibration);
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   useEffect(() => {
     const syncFullscreenState = () => {
@@ -1316,6 +1380,10 @@ export default function TerrainViewer({
       controls.maxPolarAngle = Math.PI * 0.42;
       controls.update();
       controlsRef.current = controls;
+      cameraCalibrationOriginRef.current = {
+        horizontalOffset: camera.position.clone().sub(controls.target),
+        panOriginTarget: controls.target.clone(),
+      };
       if (initialOrbitAzimuthDeg !== 0) {
         camera.position
           .sub(controls.target)
@@ -1525,6 +1593,7 @@ export default function TerrainViewer({
       cameraRef.current = null;
       materialRef.current = null;
       metadataRef.current = null;
+      cameraCalibrationOriginRef.current = null;
       mesh = null;
       scene = null;
     };
@@ -1621,6 +1690,97 @@ export default function TerrainViewer({
     camera.updateProjectionMatrix();
     controls.target.copy(initial.target);
     controls.update();
+  }
+
+  function currentCameraCalibration(): CameraCalibrationSnapshot | null {
+    const camera = cameraRef.current;
+    const controls = controlsRef.current;
+    const origin = cameraCalibrationOriginRef.current;
+    if (!camera || !controls || !origin) return null;
+
+    const offset = camera.position.clone().sub(controls.target);
+    const baseAzimuth = Math.atan2(
+      origin.horizontalOffset.x,
+      origin.horizontalOffset.z,
+    );
+    const currentAzimuth = Math.atan2(offset.x, offset.z);
+    const orbitAzimuthDeg = normalisedAngleDeg(
+      THREE.MathUtils.radToDeg(currentAzimuth - baseAzimuth),
+    );
+    const cameraElevationDeg = THREE.MathUtils.radToDeg(
+      Math.atan2(offset.y, Math.hypot(offset.x, offset.z)),
+    );
+
+    const screenRight = new THREE.Vector3(1, 0, 0).applyQuaternion(
+      camera.quaternion,
+    );
+    const screenUp = new THREE.Vector3(0, 1, 0).applyQuaternion(
+      camera.quaternion,
+    );
+    const screenForward = new THREE.Vector3(0, 0, -1).applyQuaternion(
+      camera.quaternion,
+    );
+    const targetDelta = controls.target
+      .clone()
+      .sub(origin.panOriginTarget);
+
+    return {
+      schema: "divetopo-camera-calibration-v1",
+      slug,
+      siteName,
+      capturedAt: new Date().toISOString(),
+      interactiveInitialView: {
+        zoom: rounded(camera.zoom),
+        orbitAzimuthDeg: rounded(orbitAzimuthDeg, 2),
+        cameraElevationDeg: rounded(cameraElevationDeg, 2),
+        panRightM: rounded(-targetDelta.dot(screenRight), 2),
+        panUpM: rounded(-targetDelta.dot(screenUp), 2),
+        centerOffsetEastM: initialCenterOffsetEastM,
+        centerOffsetSouthM: initialCenterOffsetSouthM,
+        ...(isobathLabelFocusXNdc === undefined
+          ? {}
+          : { isobathLabelFocusXNdc }),
+      },
+      diagnostic: {
+        cameraPosition: {
+          x: rounded(camera.position.x),
+          y: rounded(camera.position.y),
+          z: rounded(camera.position.z),
+        },
+        target: {
+          x: rounded(controls.target.x),
+          y: rounded(controls.target.y),
+          z: rounded(controls.target.z),
+        },
+        panResidualForwardM: rounded(targetDelta.dot(screenForward), 3),
+      },
+    };
+  }
+
+  async function saveCameraCalibration() {
+    const calibration = currentCameraCalibration();
+    if (!calibration) return;
+    const serialized = `${JSON.stringify(calibration, null, 2)}\n`;
+    window.localStorage.setItem(
+      `divetopo-camera-calibration:${slug}`,
+      serialized,
+    );
+
+    const href = URL.createObjectURL(
+      new Blob([serialized], { type: "application/json" }),
+    );
+    const anchor = document.createElement("a");
+    anchor.href = href;
+    anchor.download = `${slug}-camera-calibration.json`;
+    anchor.click();
+    URL.revokeObjectURL(href);
+
+    try {
+      await navigator.clipboard.writeText(serialized);
+      setCameraCalibrationMessage("JSON téléchargé et copié.");
+    } catch {
+      setCameraCalibrationMessage("JSON téléchargé.");
+    }
   }
 
   async function toggleFullscreen() {
@@ -1831,6 +1991,24 @@ export default function TerrainViewer({
           </a>
         ) : null}
       </div>
+      {cameraCalibrationEnabled ? (
+        <aside
+          className="terrain-camera-calibration"
+          data-testid="terrain-camera-calibration"
+          aria-label="Calibration temporaire de la caméra"
+        >
+          <strong>Calibration caméra · {siteName}</strong>
+          <span>
+            Déplacez la vue, puis enregistrez le cadrage retenu.
+          </span>
+          <button type="button" onClick={saveCameraCalibration}>
+            Enregistrer ce cadrage
+          </button>
+          {cameraCalibrationMessage ? (
+            <output>{cameraCalibrationMessage}</output>
+          ) : null}
+        </aside>
+      ) : null}
     </div>
   );
 }
