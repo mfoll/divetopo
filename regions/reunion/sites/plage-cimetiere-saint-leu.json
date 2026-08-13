@@ -1,5 +1,6 @@
 {
   "region": "reunion",
+  "plan_isobath_geometry": "depth_locked",
   "slug": "plage-cimetiere-saint-leu",
   "title": "Plage du Cimetière de Saint-Leu",
   "web": {

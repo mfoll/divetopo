@@ -53,7 +53,7 @@ def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None
 
 
 class CacheContractTests(unittest.TestCase):
-    def test_reunion_keeps_legacy_static_isobaths(self) -> None:
+    def test_reunion_keeps_legacy_static_isobaths_by_default(self) -> None:
         self.assertEqual(
             plan_isobath_geometry({"region": "reunion"}),
             "legacy",
@@ -62,6 +62,28 @@ class CacheContractTests(unittest.TestCase):
             plan_isobath_geometry({"region": "bouches-du-rhone"}),
             "depth_locked",
         )
+        self.assertEqual(
+            plan_isobath_geometry(
+                {
+                    "region": "reunion",
+                    "plan_isobath_geometry": "legacy",
+                }
+            ),
+            "legacy",
+        )
+        self.assertEqual(
+            plan_isobath_geometry(
+                {
+                    "region": "reunion",
+                    "plan_isobath_geometry": "depth_locked",
+                }
+            ),
+            "depth_locked",
+        )
+        with self.assertRaisesRegex(ValueError, "plan_isobath_geometry"):
+            plan_isobath_geometry(
+                {"region": "reunion", "plan_isobath_geometry": "smooth"}
+            )
 
     def test_false_edge_reconciliation_is_local_and_feathered(self) -> None:
         depth = np.full((80, 80), 20.0, dtype=np.float64)

@@ -128,6 +128,7 @@ _ALLOWED_KEYS = frozenset(
         "output_scale",
         "paths",
         "plan_open_label_offsets_px",
+        "plan_isobath_geometry",
         "plan_sea_shading_suppression",
         "plan_suppressed_label_levels",
         "plan_land_shading",

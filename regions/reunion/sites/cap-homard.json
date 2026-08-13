@@ -1,5 +1,6 @@
 {
   "region": "reunion",
+  "plan_isobath_geometry": "depth_locked",
   "slug": "cap-homard",
   "title": "Cap Homard / Cap de Tonton",
   "web": {

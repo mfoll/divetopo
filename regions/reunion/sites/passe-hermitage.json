@@ -1,5 +1,6 @@
 {
   "region": "reunion",
+  "plan_isobath_geometry": "depth_locked",
   "slug": "passe-hermitage",
   "title": "Passe de l'Hermitage",
   "web": {

@@ -51,7 +51,15 @@ WMS_MAX_TILE_PIXELS = 4096
 
 
 def plan_isobath_geometry(config: dict[str, Any]) -> str:
-    """Keep canonical Reunion plans unchanged; depth-lock Mediterranean ones."""
+    """Choose static-plan geometry, with a site-level legacy escape hatch."""
+    configured = config.get("plan_isobath_geometry")
+    if configured is not None:
+        geometry = str(configured)
+        if geometry not in ("legacy", "depth_locked"):
+            raise ValueError(
+                "plan_isobath_geometry must be 'legacy' or 'depth_locked'"
+            )
+        return geometry
     return "legacy" if config.get("region") == "reunion" else "depth_locked"
 
 
