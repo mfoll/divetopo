@@ -13,6 +13,7 @@ from PIL import Image
 from cartography.bathymetry_style import VALIDATED_BATHYMETRY_PALETTE
 from cartography.relief import (
     analytic_isobath_coverages,
+    bbox_contains_class,
     bboxes_intersect,
     blend_texture,
     clip_polyline_to_bbox,
@@ -623,6 +624,15 @@ class IsobathLabelPlacementTests(unittest.TestCase):
             )
         )
 
+    def test_label_bbox_class_detection_rejects_land_pixels(self) -> None:
+        surface_classes = np.array(
+            [[2, 2, 2], [2, 1, 2], [2, 2, 2]],
+            dtype=np.uint8,
+        )
+
+        self.assertTrue(bbox_contains_class(surface_classes, (0, 0, 2, 2), 1))
+        self.assertFalse(bbox_contains_class(surface_classes, (0, 0, 1, 1), 1))
+        self.assertFalse(bbox_contains_class(surface_classes, (4, 4, 7, 7), 1))
 
 class ReliefLightingTests(unittest.TestCase):
     def test_default_exposure_brightens_radiance_before_srgb_conversion(self) -> None:

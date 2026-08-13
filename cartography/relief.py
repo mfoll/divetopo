@@ -1813,6 +1813,24 @@ def bboxes_intersect(
     )
 
 
+def bbox_contains_class(
+    surface_classes: np.ndarray,
+    bbox: tuple[int, int, int, int],
+    class_value: int,
+) -> bool:
+    """Return whether a clipped pixel rectangle contains a surface class."""
+    height, width = surface_classes.shape
+    x0 = max(0, int(bbox[0]))
+    y0 = max(0, int(bbox[1]))
+    x1 = min(width, int(bbox[2]))
+    y1 = min(height, int(bbox[3]))
+    return bool(
+        x0 < x1
+        and y0 < y1
+        and np.any(surface_classes[y0:y1, x0:x1] == class_value)
+    )
+
+
 def segment_intersects_bbox(
     start: tuple[float, float],
     end: tuple[float, float],
@@ -2373,6 +2391,29 @@ def make_clean_plan(
         coast_y_scaled = np.zeros(img.width, dtype=np.float32)
 
     label_font = load_font(int(np.floor(18 * style + 0.5)), True)
+    displayed_land_mask = np.asarray(
+        Image.fromarray(np.uint8(land_mask) * 255, "L").resize(
+            img.size,
+            Image.Resampling.NEAREST,
+        ),
+        dtype=np.uint8,
+    )
+
+    def plan_label_overlaps_land(
+        position: tuple[float, float],
+        level: int,
+    ) -> bool:
+        bbox = tuple(
+            int(value)
+            for value in draw.textbbox(
+                position,
+                f"-{level} m",
+                font=label_font,
+                stroke_width=max(1, int(np.floor(2 * style + 0.5))),
+            )
+        )
+        return bbox_contains_class(displayed_land_mask, bbox, 255)
+
     label_draws: list[tuple[float, float, int]] = []
     occupied_labels: list[tuple[float, float]] = []
     open_label_offsets_px = open_label_offsets_px or {}
@@ -2404,9 +2445,11 @@ def make_clean_plan(
             if is_closed:
                 if center and all(np.hypot(center[0] - x, center[1] - y) > 70 * style for x, y in occupied_labels):
                     x, y = center
-                    occupied_labels.append(center)
-                    label_draws.append((x - 24 * style, y - 11 * style, level))
-                continue
+                    position = (x - 24 * style, y - 11 * style)
+                    if not plan_label_overlaps_land(position, level):
+                        occupied_labels.append(center)
+                        label_draws.append((*position, level))
+                        continue
             open_lines.append(line)
 
         label_point = choose_plan_label(open_lines, coast_y_scaled, img.width, img.height, occupied_labels, ui_scale=style)
@@ -2415,8 +2458,10 @@ def make_clean_plan(
             offset = open_label_offsets_px.get(str(level), (0.0, 0.0))
             x += float(offset[0]) * style
             y += float(offset[1]) * style
-            occupied_labels.append((x, y))
-            label_draws.append((x + 5 * style, y - 11 * style, level))
+            position = (x + 5 * style, y - 11 * style)
+            if not plan_label_overlaps_land(position, level):
+                occupied_labels.append((x, y))
+                label_draws.append((*position, level))
 
     for x, y, level in label_draws:
         draw.text(

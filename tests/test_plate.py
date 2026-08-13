@@ -49,6 +49,28 @@ class PlateConfigurationTests(unittest.TestCase):
             / "3d-dynamic-orthophoto-full.jpg",
         )
 
+    def test_autonomous_region_interactive_relief_uses_regional_namespace(self) -> None:
+        config = {
+            "slug": "new-site",
+            "region": "var-ouest",
+            "orthophoto_enabled": True,
+            "plate_relief_source": "interactive",
+        }
+        _, relief, _, _ = _plate_paths(config, "orthophoto")
+        self.assertEqual(
+            relief,
+            ROOT
+            / "apps"
+            / "web"
+            / "public"
+            / "maps"
+            / "var-ouest"
+            / "new-site"
+            / "maps"
+            / "downloads"
+            / "3d-dynamic-orthophoto-full.jpg",
+        )
+
     def test_nonstandard_canvas_width_is_rejected_before_inputs_are_opened(self) -> None:
         config = {"plate_canvas_width_px": 4000}
         with patch("cartography.plate.validate_config") as validate:

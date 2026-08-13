@@ -111,23 +111,16 @@ def _plate_paths(
     relief_path = paths[relief_key]
     if config.get("plate_relief_source", "static") == "interactive":
         style = "orthophoto" if use_orthophoto else "topographic"
-        web_maps_root = (
-            ROOT
-            / "apps"
-            / "web"
-            / "public"
-            / "maps"
-            / region_slug(config)
-            / str(config["slug"])
-            / "maps"
-            if region_slug(config) == "paca"
-            else ROOT
-            / "apps"
-            / "web"
-            / "public"
-            / "maps"
-            / str(config["slug"])
-        )
+        web_maps_root = ROOT / "apps" / "web" / "public" / "maps"
+        if region_slug(config) == "reunion":
+            web_maps_root = web_maps_root / str(config["slug"])
+        else:
+            web_maps_root = (
+                web_maps_root
+                / region_slug(config)
+                / str(config["slug"])
+                / "maps"
+            )
         relief_path = (
             web_maps_root
             / "downloads"
@@ -149,11 +142,35 @@ def _load_input(path: Path, description: str) -> Image.Image:
         raise RuntimeError(f"Unable to read {description} image: {path}") from error
 
 
+def _load_locator(config: Mapping[str, object], path: Path) -> Image.Image:
+    if path.is_file() or region_slug(config) == "reunion":
+        return _load_input(path, "locator")
+    regional = (
+        ROOT
+        / "regions"
+        / region_slug(config)
+        / "outputs"
+        / f"{region_slug(config)}-regional-relief.png"
+    )
+    return _load_input(regional, "regional locator")
+
+
+def _regional_manifest_path(config: Mapping[str, object]) -> Path:
+    return (
+        ROOT
+        / "apps"
+        / "web"
+        / "content"
+        / f"{region_slug(config)}-map-manifest.json"
+    )
+
+
 def _marked_locator(config: Mapping[str, object], locator: Image.Image) -> Image.Image:
-    """Add the current PACA site as a red point on the shared regional map."""
-    if region_slug(config) != "paca":
+    """Add the current site as a red point on its shared regional map."""
+    manifest_path = _regional_manifest_path(config)
+    if not manifest_path.is_file():
         return locator
-    manifest = json.loads(PACA_MANIFEST_PATH.read_text(encoding="utf-8"))
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
     bounds = manifest["westCoastLocator"]["boundsWgs84"]
     region = region_manifest(config)
     latitude, longitude = marker_wgs84(
@@ -167,7 +184,7 @@ def _marked_locator(config: Mapping[str, object], locator: Image.Image) -> Image
         float(bounds["north"]) - float(bounds["south"])
     ) * (locator.height - 1)
     if not (0.0 <= x < locator.width and 0.0 <= y < locator.height):
-        raise ValueError("PACA site marker falls outside the regional locator map")
+        raise ValueError("Site marker falls outside the regional locator map")
     marked = locator.copy()
     draw = ImageDraw.Draw(marked, "RGBA")
     radius = max(14, round(min(locator.size) * 0.013))
@@ -187,7 +204,7 @@ def _marked_locator(config: Mapping[str, object], locator: Image.Image) -> Image
     )
     draw.text(
         (locator.width - 18, locator.height - 14),
-        "Relief : Shom–IGN Litto3D PACA · EMODnet 2024 · IGN RGE ALTI",
+        "Relief : Shom–IGN Litto3D · EMODnet 2024 · IGN RGE ALTI",
         anchor="rb",
         font=source_face,
         fill=(245, 239, 218, 235),
@@ -210,7 +227,7 @@ def compose(config: dict, land_style: str) -> Path:
     plan_path, relief_path, locator_path, output = _plate_paths(config, land_style)
     plan = _load_input(plan_path, "2D detail")
     relief = _load_input(relief_path, "3D relief")
-    locator = _marked_locator(config, _load_input(locator_path, "locator"))
+    locator = _marked_locator(config, _load_locator(config, locator_path))
 
     canvas = Image.new("RGBA", (canvas_width, canvas_height), (255, 255, 255, 255))
     draw = ImageDraw.Draw(canvas, "RGBA")
