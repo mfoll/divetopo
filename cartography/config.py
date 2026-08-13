@@ -1220,6 +1220,8 @@ def validate_config(config: Mapping[str, Any]) -> None:
             "center_offset_east_m",
             "center_offset_south_m",
             "isobath_label_focus_x_ndc",
+            "camera_position_m",
+            "camera_target_m",
         }
         unknown_initial_view_keys = sorted(
             set(initial_view) - allowed_initial_view_keys
@@ -1229,7 +1231,33 @@ def validate_config(config: Mapping[str, Any]) -> None:
                 "Unknown web.interactive_initial_view key(s): "
                 + ", ".join(unknown_initial_view_keys)
             )
+        vector_keys = {"camera_position_m", "camera_target_m"}
+        for key in vector_keys:
+            value = initial_view.get(key)
+            if value is None:
+                continue
+            if (
+                not isinstance(value, list)
+                or len(value) != 3
+                or any(
+                    isinstance(component, bool)
+                    or not isinstance(component, (int, float))
+                    or not math.isfinite(float(component))
+                    for component in value
+                )
+            ):
+                raise ValueError(
+                    f"web.interactive_initial_view.{key} must contain three finite numbers"
+                )
+        if ("camera_position_m" in initial_view) != (
+            "camera_target_m" in initial_view
+        ):
+            raise ValueError(
+                "web.interactive_initial_view camera_position_m and camera_target_m must be provided together"
+            )
         for key, value in initial_view.items():
+            if key in vector_keys:
+                continue
             if (
                 isinstance(value, bool)
                 or not isinstance(value, (int, float))

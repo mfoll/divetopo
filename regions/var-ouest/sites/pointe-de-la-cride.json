@@ -13,7 +13,23 @@
       "width_rem": 6.5
     },
     "interactive_initial_view": {
-      "zoom": 1
+      "zoom": 1,
+      "orbit_azimuth_deg": 49.01,
+      "camera_elevation_deg": 14.67,
+      "pan_right_m": 121.93,
+      "pan_up_m": 78.5,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -1580.8452,
+        524.2596,
+        1599.2777
+      ],
+      "camera_target_m": [
+        -88.1709,
+        -71.4381,
+        -118.3964
+      ]
     }
   },
   "plate_relief_source": "interactive",

@@ -10,16 +10,34 @@
       "connector_angle_deg": -68,
       "connector_width_rem": 3.45,
       "label_offset_rem": 1.2,
-      "lines": ["Pointe de la", "Causinière"],
+      "lines": [
+        "Pointe de la",
+        "Causinière"
+      ],
       "width_rem": 7.6
     },
     "interactive_initial_view": {
-      "zoom": 0.68,
-      "camera_elevation_deg": 30,
-      "isobath_label_focus_x_ndc": 0.25
+      "zoom": 0.65,
+      "orbit_azimuth_deg": 160.33,
+      "camera_elevation_deg": 19.32,
+      "pan_right_m": 18.79,
+      "pan_up_m": 52.9,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "isobath_label_focus_x_ndc": 0.25,
+      "camera_position_m": [
+        658.6885,
+        248.9942,
+        547.3139
+      ],
+      "camera_target_m": [
+        44.2374,
+        -30.8965,
+        37.6918
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "paths": {
     "output_2d": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-2d.jpg",
     "output_2d_ortho": "regions/alpes-maritimes/outputs/pointe-causiniere-cap-ferrat-topobathy-2d-ortho.jpg",
@@ -76,7 +94,12 @@
   "plan_land_shading": "local_slope",
   "relief_surface_draped_contours": true,
   "relief_surface_contour_supersampling": 2,
-  "relief_suppressed_label_levels": [20, 25, 30, 35],
+  "relief_suppressed_label_levels": [
+    20,
+    25,
+    30,
+    35
+  ],
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,

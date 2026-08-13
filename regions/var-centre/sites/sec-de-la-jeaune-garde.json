@@ -15,6 +15,25 @@
         "Jeaune Garde"
       ],
       "width_rem": 6.8
+    },
+    "interactive_initial_view": {
+      "zoom": 0.65,
+      "orbit_azimuth_deg": 12.38,
+      "camera_elevation_deg": 14.4,
+      "pan_right_m": -5.72,
+      "pan_up_m": 174.8,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -1864.1784,
+        428.2183,
+        429.2118
+      ],
+      "camera_target_m": [
+        383.7636,
+        -162.6851,
+        -64.018
+      ]
     }
   },
   "plate_relief_source": "interactive",

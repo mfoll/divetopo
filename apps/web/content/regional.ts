@@ -74,6 +74,8 @@ export type RegionalAssetSite = {
     centerOffsetEastM?: number;
     centerOffsetSouthM?: number;
     isobathLabelFocusXNdc?: number;
+    cameraPositionM?: [number, number, number];
+    cameraTargetM?: [number, number, number];
   };
   maps: MapAsset[];
   planches?: PlancheAsset[];

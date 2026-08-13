@@ -5,12 +5,34 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "left", "shift_y_rem": -1.0, "connector_angle_deg": 50.8,
-      "connector_width_rem": 1.39, "label_offset_rem": 2.25, "width_rem": 5.63
+      "side": "left",
+      "shift_y_rem": -1.0,
+      "connector_angle_deg": 50.8,
+      "connector_width_rem": 1.39,
+      "label_offset_rem": 2.25,
+      "width_rem": 5.63
     },
-    "interactive_initial_view": {"zoom": 1.1}
+    "interactive_initial_view": {
+      "zoom": 0.7378,
+      "orbit_azimuth_deg": 27.65,
+      "camera_elevation_deg": 20.89,
+      "pan_right_m": 3.98,
+      "pan_up_m": 7.99,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -935.5662,
+        346.5158,
+        -225.3869
+      ],
+      "camera_target_m": [
+        -20.4307,
+        -14.0112,
+        8.7971
+      ]
+    }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "paths": {
     "output_locator": "regions/var-est/outputs/les-pyramides-cap-dramont-locator-var-est.jpg"
   },

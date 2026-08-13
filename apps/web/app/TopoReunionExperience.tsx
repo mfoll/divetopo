@@ -1094,6 +1094,13 @@ export function TopoRegionExperience({
                             ? 12
                             : 0)
                         }
+                        initialCameraPositionM={
+                          activeSite.interactiveInitialView
+                            ?.cameraPositionM
+                        }
+                        initialCameraTargetM={
+                          activeSite.interactiveInitialView?.cameraTargetM
+                        }
                         isobathLabelFocusXNdc={
                           activeSite.interactiveInitialView
                             ?.isobathLabelFocusXNdc

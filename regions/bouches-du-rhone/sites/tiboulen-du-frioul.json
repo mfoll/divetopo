@@ -13,10 +13,26 @@
       "width_rem": 6.2
     },
     "interactive_initial_view": {
-      "zoom": 0.65
+      "zoom": 0.65,
+      "orbit_azimuth_deg": 0,
+      "camera_elevation_deg": 31.47,
+      "pan_right_m": 7.78,
+      "pan_up_m": 44.52,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -771.5144,
+        561.7498,
+        -549.7133
+      ],
+      "camera_target_m": [
+        30.4355,
+        -37.3982,
+        11.818
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "cache_dir": ".tmp/bouches-du-rhone-sources",
   "litto3d_archives": [
     {

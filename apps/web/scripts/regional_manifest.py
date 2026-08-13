@@ -30,6 +30,8 @@ INITIAL_VIEW_KEYS = {
     "center_offset_east_m": "centerOffsetEastM",
     "center_offset_south_m": "centerOffsetSouthM",
     "isobath_label_focus_x_ndc": "isobathLabelFocusXNdc",
+    "camera_position_m": "cameraPositionM",
+    "camera_target_m": "cameraTargetM",
 }
 
 

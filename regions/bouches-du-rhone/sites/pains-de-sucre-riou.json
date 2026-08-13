@@ -10,18 +10,34 @@
       "connector_angle_deg": 0,
       "connector_width_rem": 1.35,
       "label_offset_rem": -4.2,
-      "lines": ["Pains de Sucre", "Riou"],
+      "lines": [
+        "Pains de Sucre",
+        "Riou"
+      ],
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 1.08,
-      "orbit_azimuth_deg": 135,
-      "camera_elevation_deg": 28,
-      "pan_up_m": 85,
-      "isobath_label_focus_x_ndc": 0
+      "zoom": 0.679,
+      "orbit_azimuth_deg": 90.78,
+      "camera_elevation_deg": 16.61,
+      "pan_right_m": -117.9,
+      "pan_up_m": 33.49,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "isobath_label_focus_x_ndc": 0,
+      "camera_position_m": [
+        1072.7277,
+        288.8279,
+        -134.6924
+      ],
+      "camera_target_m": [
+        -1.6328,
+        -31.678,
+        -120.0462
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "plate_canvas_height_px": 4600,
   "litto3d_archives": [
     {
@@ -89,8 +105,16 @@
   "bathymetry_depth_scale": "legacy_linear",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
-  "plan_suppressed_label_levels": [15, 20],
-  "relief_suppressed_label_levels": [5, 10, 15, 20],
+  "plan_suppressed_label_levels": [
+    15,
+    20
+  ],
+  "relief_suppressed_label_levels": [
+    5,
+    10,
+    15,
+    20
+  ],
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,

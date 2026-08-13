@@ -15,9 +15,28 @@
         "Langoustier"
       ],
       "width_rem": 6.0
+    },
+    "interactive_initial_view": {
+      "zoom": 0.6679,
+      "orbit_azimuth_deg": 35.79,
+      "camera_elevation_deg": 14.4,
+      "pan_right_m": 98.19,
+      "pan_up_m": 34.37,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -961.7227,
+        263.242,
+        834.5821
+      ],
+      "camera_target_m": [
+        146.9836,
+        -87.6819,
+        35.3333
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "paths": {
     "output_locator": "regions/var-centre/outputs/var-centre-regional-relief.png"
   },

@@ -120,6 +120,21 @@ class SiteConfigTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "zoom must be positive"):
             validate_config(config)
 
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["interactive_initial_view"] = {
+            "camera_position_m": [1, 2, 3]
+        }
+        with self.assertRaisesRegex(ValueError, "must be provided together"):
+            validate_config(config)
+
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["interactive_initial_view"] = {
+            "camera_position_m": [1, 2, 3],
+            "camera_target_m": [1, 2],
+        }
+        with self.assertRaisesRegex(ValueError, "three finite numbers"):
+            validate_config(config)
+
     def test_region_manifest_owns_the_published_site_inventory(self) -> None:
         manifest = region_manifest({"region": "reunion"})
         self.assertEqual(

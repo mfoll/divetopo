@@ -10,15 +10,30 @@
       "connector_angle_deg": -87.0,
       "connector_width_rem": 2.6,
       "label_offset_rem": 1.5,
-      "lines": ["Cathédrale", "du Trayas"],
+      "lines": [
+        "Cathédrale",
+        "du Trayas"
+      ],
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.75,
-      "orbit_azimuth_deg": 0,
-      "camera_elevation_deg": 15,
-      "pan_right_m": -140,
-      "pan_up_m": 0
+      "zoom": 0.7818,
+      "orbit_azimuth_deg": 0.18,
+      "camera_elevation_deg": 19.86,
+      "pan_right_m": -118.59,
+      "pan_up_m": 69.62,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        1049.0339,
+        622.409,
+        1480.4704
+      ],
+      "camera_target_m": [
+        -114.686,
+        -107.1521,
+        -170.733
+      ]
     }
   },
   "plate_relief_source": "interactive",

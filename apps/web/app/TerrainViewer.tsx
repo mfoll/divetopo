@@ -426,6 +426,8 @@ export default function TerrainViewer({
   initialPanUpM = 0,
   initialCenterOffsetEastM = 0,
   initialCenterOffsetSouthM = 0,
+  initialCameraPositionM,
+  initialCameraTargetM,
   isobathLabelFocusXNdc,
   onReady,
   onError,
@@ -447,6 +449,8 @@ export default function TerrainViewer({
   initialPanUpM?: number;
   initialCenterOffsetEastM?: number;
   initialCenterOffsetSouthM?: number;
+  initialCameraPositionM?: [number, number, number];
+  initialCameraTargetM?: [number, number, number];
   isobathLabelFocusXNdc?: number;
   onReady?: () => void;
   onError?: () => void;
@@ -1453,6 +1457,13 @@ export default function TerrainViewer({
         camera.lookAt(controls.target);
         controls.update();
       }
+      if (initialCameraPositionM && initialCameraTargetM) {
+        camera.position.fromArray(initialCameraPositionM);
+        controls.target.fromArray(initialCameraTargetM);
+        controls.cursor.copy(controls.target);
+        camera.lookAt(controls.target);
+        controls.update();
+      }
       initialViewRef.current = {
         position: camera.position.clone(),
         target: controls.target.clone(),
@@ -1629,6 +1640,8 @@ export default function TerrainViewer({
     initialCameraElevationDeg,
     initialCenterOffsetEastM,
     initialCenterOffsetSouthM,
+    initialCameraPositionM,
+    initialCameraTargetM,
     initialOrbitAzimuthDeg,
     initialPanRightM,
     initialPanUpM,

@@ -10,21 +10,34 @@
       "connector_angle_deg": -41,
       "connector_width_rem": 3.0,
       "label_offset_rem": 3.65,
-      "lines": ["Arche du", "Dramont"],
+      "lines": [
+        "Arche du",
+        "Dramont"
+      ],
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 1.0,
-      "orbit_azimuth_deg": 132.0,
-      "camera_elevation_deg": 45.0,
-      "pan_right_m": 0.0,
-      "pan_up_m": 0.0,
-      "center_offset_east_m": 0.0,
-      "center_offset_south_m": 0.0,
-      "isobath_label_focus_x_ndc": 0.0
+      "zoom": 0.9618,
+      "orbit_azimuth_deg": 44.32,
+      "camera_elevation_deg": 22.08,
+      "pan_right_m": -22.79,
+      "pan_up_m": 12.49,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "isobath_label_focus_x_ndc": 0,
+      "camera_position_m": [
+        -2315.6454,
+        925.7052,
+        127.3631
+      ],
+      "camera_target_m": [
+        14.8311,
+        -20.5036,
+        32.7889
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "cache_dir": ".tmp/var-est-sources",
   "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1010_6265/file/1010_6265.7z",
   "litto3d_archive_members": [

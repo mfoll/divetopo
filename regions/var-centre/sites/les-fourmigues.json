@@ -11,6 +11,25 @@
       "connector_width_rem": 3.2,
       "label_offset_rem": 2.3,
       "width_rem": 6.1
+    },
+    "interactive_initial_view": {
+      "zoom": 1,
+      "orbit_azimuth_deg": 43.17,
+      "camera_elevation_deg": 15.57,
+      "pan_right_m": 22.7,
+      "pan_up_m": 28.76,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        675.4674,
+        313.5161,
+        1102.519
+      ],
+      "camera_target_m": [
+        -12.9679,
+        -27.9771,
+        88.542
+      ]
     }
   },
   "plate_relief_source": "interactive",

@@ -10,11 +10,30 @@
       "connector_angle_deg": 13,
       "connector_width_rem": 1.25,
       "label_offset_rem": 2.6,
-      "lines": ["Impérial", "de Terre"],
+      "lines": [
+        "Impérial",
+        "de Terre"
+      ],
       "width_rem": 3.8
     },
     "interactive_initial_view": {
-      "zoom": 1
+      "zoom": 0.8833,
+      "orbit_azimuth_deg": -109.57,
+      "camera_elevation_deg": 14.4,
+      "pan_right_m": -52.36,
+      "pan_up_m": 6.75,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -889.508,
+        368.0908,
+        1178.3752
+      ],
+      "camera_target_m": [
+        56.4368,
+        -13.1944,
+        33.6326
+      ]
     }
   },
   "plate_relief_source": "interactive",

@@ -10,14 +10,31 @@
       "connector_angle_deg": -12,
       "connector_width_rem": 0.8,
       "label_offset_rem": 2.15,
-      "lines": ["Grotte à Corail", "Maïre"],
+      "lines": [
+        "Grotte à Corail",
+        "Maïre"
+      ],
       "width_rem": 6.3
     },
     "interactive_initial_view": {
-      "zoom": 1.05,
-      "orbit_azimuth_deg": 0,
-      "camera_elevation_deg": 30,
-      "isobath_label_focus_x_ndc": 0
+      "zoom": 0.8619,
+      "orbit_azimuth_deg": -63.71,
+      "camera_elevation_deg": 16.63,
+      "pan_right_m": -13.63,
+      "pan_up_m": -3.08,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "isobath_label_focus_x_ndc": 0,
+      "camera_position_m": [
+        -833.2164,
+        284.8527,
+        496.6077
+      ],
+      "camera_target_m": [
+        39.7105,
+        -5.9563,
+        65.3745
+      ]
     }
   },
   "plate_relief_source": "interactive",
@@ -89,17 +106,37 @@
   "plan_output_scale": 6.2,
   "relief_output_scale": 1,
   "map_style_scale": 2,
-  "final_output_size_px": [2474, 1712],
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
   "relief_compass_inset_px": 88,
   "relief_footer_inset_px": 12,
   "relief_label_edge_inset_px": 52,
   "relief_surface_draped_contours": true,
   "relief_surface_draped_zero_contour": true,
   "relief_surface_contour_supersampling": 2,
-  "plan_suppressed_label_levels": [20, 25],
-  "relief_suppressed_label_levels": [10, 20, 30],
-  "interactive_featured_vector_label_levels_m": [5, 15, 25, 35],
-  "interactive_required_vector_label_levels_m": [5, 15, 25, 35],
+  "plan_suppressed_label_levels": [
+    20,
+    25
+  ],
+  "relief_suppressed_label_levels": [
+    10,
+    20,
+    30
+  ],
+  "interactive_featured_vector_label_levels_m": [
+    5,
+    15,
+    25,
+    35
+  ],
+  "interactive_required_vector_label_levels_m": [
+    5,
+    15,
+    25,
+    35
+  ],
   "interactive_reselect_vector_labels_on_camera_end": true,
   "interactive_vector_label_vertical_inset_fraction": 0.08,
   "interactive_vector_label_collision_padding_ndc": 0.025,

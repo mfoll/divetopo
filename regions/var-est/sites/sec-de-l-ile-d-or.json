@@ -10,18 +10,31 @@
       "connector_angle_deg": 74.0,
       "connector_width_rem": 3.2,
       "label_offset_rem": 0.2,
-      "lines": ["Sec de l’Île", "d’Or"],
+      "lines": [
+        "Sec de l’Île",
+        "d’Or"
+      ],
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 1.45,
-      "orbit_azimuth_deg": 132.0,
-      "camera_elevation_deg": 75.0,
-      "pan_right_m": 90.0,
-      "pan_up_m": 95.0,
-      "center_offset_east_m": -26.0,
-      "center_offset_south_m": -24.0,
-      "isobath_label_focus_x_ndc": 0.0
+      "zoom": 0.7258,
+      "orbit_azimuth_deg": 54.99,
+      "camera_elevation_deg": 14.4,
+      "pan_right_m": -28.35,
+      "pan_up_m": 47.38,
+      "center_offset_east_m": -26,
+      "center_offset_south_m": -24,
+      "isobath_label_focus_x_ndc": 0,
+      "camera_position_m": [
+        -6338.5016,
+        1621.9942,
+        1557.134
+      ],
+      "camera_target_m": [
+        -73.1221,
+        -28.9622,
+        111.253
+      ]
     }
   },
   "plate_relief_source": "interactive",

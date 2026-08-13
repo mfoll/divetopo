@@ -5,10 +5,32 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "right", "shift_y_rem": -1, "connector_angle_deg": -26.8,
-      "connector_width_rem": 1.8, "label_offset_rem": 2.7, "width_rem": 5.86
+      "side": "right",
+      "shift_y_rem": -1,
+      "connector_angle_deg": -26.8,
+      "connector_width_rem": 1.8,
+      "label_offset_rem": 2.7,
+      "width_rem": 5.86
     },
-    "interactive_initial_view": {"zoom": 1}
+    "interactive_initial_view": {
+      "zoom": 1.5592,
+      "orbit_azimuth_deg": -107.02,
+      "camera_elevation_deg": 14.4,
+      "pan_right_m": 45.48,
+      "pan_up_m": 85.13,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        1440.8018,
+        969.1144,
+        -3930.7279
+      ],
+      "camera_target_m": [
+        262.2435,
+        -64.9666,
+        -79.5477
+      ]
+    }
   },
   "plate_relief_source": "interactive",
   "paths": {

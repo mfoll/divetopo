@@ -13,10 +13,26 @@
       "width_rem": 5.2
     },
     "interactive_initial_view": {
-      "zoom": 1
+      "zoom": 0.8263,
+      "orbit_azimuth_deg": 55.42,
+      "camera_elevation_deg": 19.01,
+      "pan_right_m": 203.37,
+      "pan_up_m": 107.58,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -1004.716,
+        645.5807,
+        1679.1962
+      ],
+      "camera_target_m": [
+        266.8856,
+        -126.2547,
+        -165.2674
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "litto3d_archives": [
     {
       "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0920_6225/file/0920_6225.7z",

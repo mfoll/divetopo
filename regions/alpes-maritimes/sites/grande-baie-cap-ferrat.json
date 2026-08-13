@@ -13,11 +13,24 @@
       "width_rem": 6.8
     },
     "interactive_initial_view": {
-      "zoom": 0.75,
-      "orbit_azimuth_deg": 90,
-      "camera_elevation_deg": 28,
+      "zoom": 0.65,
+      "orbit_azimuth_deg": 34.9,
+      "camera_elevation_deg": 19.77,
+      "pan_right_m": -23.82,
+      "pan_up_m": 44.09,
       "center_offset_east_m": -20,
-      "isobath_label_focus_x_ndc": 0.05
+      "center_offset_south_m": 0,
+      "isobath_label_focus_x_ndc": 0.05,
+      "camera_position_m": [
+        -903.2988,
+        314.6462,
+        599.6212
+      ],
+      "camera_target_m": [
+        -84.1281,
+        -44.4541,
+        28.0696
+      ]
     }
   },
   "plate_relief_source": "interactive",
@@ -78,8 +91,20 @@
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · EPSG:2154 RGF93/Lambert-93 · IGN69 · dalle MNT du 16/01/2015 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
-  "plan_suppressed_label_levels": [10, 15, 25, 30, 35],
-  "relief_suppressed_label_levels": [10, 15, 25, 30, 35],
+  "plan_suppressed_label_levels": [
+    10,
+    15,
+    25,
+    30,
+    35
+  ],
+  "relief_suppressed_label_levels": [
+    10,
+    15,
+    25,
+    30,
+    35
+  ],
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,

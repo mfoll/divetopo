@@ -13,12 +13,26 @@
       "width_rem": 5.4
     },
     "interactive_initial_view": {
-      "zoom": 0.80,
-      "camera_elevation_deg": 36.0,
-      "pan_up_m": 20.0
+      "zoom": 0.7005,
+      "orbit_azimuth_deg": -28.62,
+      "camera_elevation_deg": 20.68,
+      "pan_right_m": -31.95,
+      "pan_up_m": 11.32,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        942.7378,
+        396.8317,
+        482.9072
+      ],
+      "camera_target_m": [
+        2.5342,
+        -7.4571,
+        -30.1625
+      ]
     }
   },
-  "plate_relief_source": "static",
+  "plate_relief_source": "interactive",
   "paths": {
     "output_2d": "regions/var-est/outputs/le-village-topobathy-2d.jpg",
     "output_2d_ortho": "regions/var-est/outputs/le-village-topobathy-2d-ortho.jpg",
@@ -74,9 +88,18 @@
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
   "plan_open_label_offsets_px": {
-    "5": [-34.0, 8.0],
-    "10": [0.0, -26.0],
-    "15": [34.0, 10.0]
+    "5": [
+      -34.0,
+      8.0
+    ],
+    "10": [
+      0.0,
+      -26.0
+    ],
+    "15": [
+      34.0,
+      10.0
+    ]
   },
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,
@@ -84,7 +107,7 @@
   "max_land_elevation_m": 15.0,
   "camera_tilt": 0.34,
   "along_view_projection_scale": 1.6,
-  "coast_frame_fraction": 0.50,
+  "coast_frame_fraction": 0.5,
   "view_crop_width_m": 400.0,
   "view_crop_depth_m": 400.0,
   "view_left_crop_fraction": 0.0,
@@ -103,7 +126,10 @@
   "relief_surface_draped_zero_contour": true,
   "relief_surface_contour_supersampling": 3,
   "relief_texture_triangle_min_area_px": 12.0,
-  "relief_suppressed_label_levels": [35, 40],
+  "relief_suppressed_label_levels": [
+    35,
+    40
+  ],
   "map_style_scale": 2.0,
   "final_output_size_px": [
     2474,

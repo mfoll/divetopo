@@ -10,13 +10,31 @@
       "connector_angle_deg": -37,
       "connector_width_rem": 0.8,
       "label_offset_rem": -0.3,
-      "lines": ["Pierre à la", "Bague", "plateau"],
+      "lines": [
+        "Pierre à la",
+        "Bague",
+        "plateau"
+      ],
       "width_rem": 4.4
     },
     "interactive_initial_view": {
-      "zoom": 1,
+      "zoom": 0.65,
+      "orbit_azimuth_deg": -30.15,
+      "camera_elevation_deg": 19.56,
+      "pan_right_m": -36.92,
+      "pan_up_m": 45.52,
       "center_offset_east_m": 0,
-      "center_offset_south_m": 0
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -957.4015,
+        351.8284,
+        -554.1514
+      ],
+      "camera_target_m": [
+        -10.1889,
+        -37.3088,
+        -3.9938
+      ]
     }
   },
   "plate_relief_source": "interactive",

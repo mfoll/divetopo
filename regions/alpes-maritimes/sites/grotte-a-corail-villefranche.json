@@ -13,9 +13,24 @@
       "width_rem": 6.2
     },
     "interactive_initial_view": {
-      "zoom": 0.9,
-      "camera_elevation_deg": 32,
-      "isobath_label_focus_x_ndc": 0.15
+      "zoom": 0.65,
+      "orbit_azimuth_deg": 139.1,
+      "camera_elevation_deg": 14.75,
+      "pan_right_m": -34.55,
+      "pan_up_m": 65.92,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "isobath_label_focus_x_ndc": 0.15,
+      "camera_position_m": [
+        708.4269,
+        183.2274,
+        596.1464
+      ],
+      "camera_target_m": [
+        6.7873,
+        -61.1234,
+        -11.5616
+      ]
     }
   },
   "plate_relief_source": "interactive",
@@ -96,11 +111,11 @@
   "orthophoto_3d_resolution_m": 0.8,
   "locator_map_enabled": false,
   "site_location_utm40s": [
-    1047301.070,
+    1047301.07,
     6297421.656
   ],
   "locator_marker_utm40s": [
-    1047301.070,
+    1047301.07,
     6297421.656
   ],
   "plate_site_name": "Grotte à Corail",
