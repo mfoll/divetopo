@@ -82,12 +82,12 @@
     "output": "regions/bouches-du-rhone/outputs/bouches-du-rhone-regional-relief.png",
     "webDerivative": "apps/web/public/maps/bouches-du-rhone/bouches-du-rhone-regional-relief.png",
     "boundsWgs84": [
-      5.10386666850576,
-      43.07038316631086,
-      5.5198666685057605,
-      43.38238316631086
+      5.12886666850576,
+      43.09038316631086,
+      5.54486666850576,
+      43.40238316631086
     ],
-    "sha256": "af6808941b63026dbff0f4e87561b6d6961310fe0ffa440e935050f892d19057",
+    "sha256": "bf202dc47849a69ac2650dcbd0eca157ea005774e35f00a6bc236d15db2a379b",
     "qa": {
       "fullResolutionInspected": true,
       "markerPositionsVerified": true,

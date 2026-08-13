@@ -9,7 +9,7 @@
         "metadata": {
           "path": "grotte-a-corail-maire/terrain.json",
           "bytes": 5217,
-          "sha256": "d18f7e84f167ee1bd28da6c3b819578d562ce253815d2d19e036cf229dd01c39"
+          "sha256": "b0caccc5025e32e69b986cc8be1a3cb901c29f98c83e4d7f6db1cceb6e1302f0"
         },
         "height": {
           "path": "grotte-a-corail-maire/height.bin",
@@ -51,37 +51,37 @@
         "metadata": {
           "path": "pains-de-sucre-riou/terrain.json",
           "bytes": 4986,
-          "sha256": "1b57d7b1a7a726f63e4a1251cafa59d486203d19b741ed091489f0c2eaa6dcc1"
+          "sha256": "6eaf40983a9656b9359a7e9d25190981292b965bd60f654b42067463f3533bda"
         },
         "height": {
           "path": "pains-de-sucre-riou/height.bin",
-          "bytes": 294000,
-          "sha256": "ad1c72b342bef7058b295691eefda8723b0544f784d04a1506edbffa96ea82c5"
+          "bytes": 360000,
+          "sha256": "e21beb77aa53fd7eda353bbcf87ba700ab6ac3b65cd195c1b85d3c871af2e7c1"
         },
         "validMask": {
           "path": "pains-de-sucre-riou/valid-mask.bin",
-          "bytes": 18375,
-          "sha256": "665304478ffcf73bc270b4f6e728bcfee67fe5de7092a65ac022215deea1d6e9"
+          "bytes": 22500,
+          "sha256": "c6cfbfbe497f9d3d94a345706274c12068b03e50960248a573a81706ce9e9332"
         },
         "isobathMask": {
           "path": "pains-de-sucre-riou/isobath-mask.bin",
-          "bytes": 18375,
-          "sha256": "665304478ffcf73bc270b4f6e728bcfee67fe5de7092a65ac022215deea1d6e9"
+          "bytes": 22500,
+          "sha256": "c6cfbfbe497f9d3d94a345706274c12068b03e50960248a573a81706ce9e9332"
         },
         "vectorIsobaths": {
           "path": "pains-de-sucre-riou/isobaths-vector.json",
-          "bytes": 30889,
-          "sha256": "996b6ffef271848a67ab126ba1e979715c4acb6097819d2a513741a97fe7333c"
+          "bytes": 47148,
+          "sha256": "4ee2c7b00792c2e76bf5872ef1b83b266a5366bebf4db2818e77385c5fd0b54c"
         },
         "topographicTexture": {
           "path": "pains-de-sucre-riou/topographic.webp",
-          "bytes": 8068,
-          "sha256": "e151b605e25d3200af7a6d36dce1964592d743515ef3e4627d82d5e59c25d0c1"
+          "bytes": 10466,
+          "sha256": "2ccf90652b6c1261e3d9e3967afa08ffe80228496d0c642f83fb35ab66369957"
         },
         "orthophotoTexture": {
           "path": "pains-de-sucre-riou/orthophoto.webp",
-          "bytes": 38452,
-          "sha256": "ee045347868b6b179a8f7dc84ab262bc0d6510b8b0a193bab8f5bd38f17abb21"
+          "bytes": 44962,
+          "sha256": "2df057d83ea0be97765050650f5fd61391c2905609a43f9dceb2aa073af3291f"
         }
       }
     },
@@ -134,38 +134,38 @@
       "files": {
         "metadata": {
           "path": "pierre-a-la-bague-plateau/terrain.json",
-          "bytes": 5273,
-          "sha256": "8bfd0083fab91f0e66e6ef48e4901b5dd55937bfd970f7eaad0fde0013603ee6"
+          "bytes": 5245,
+          "sha256": "bccf72af8d646d418ccbeaeb7d6097a6dfbbe6b9bdb9cded1de2dac50cfbdbb7"
         },
         "height": {
           "path": "pierre-a-la-bague-plateau/height.bin",
-          "bytes": 281502,
-          "sha256": "e443796ed150d90d2e9834e30512e5dcaaaa06c40d1e80dbd351cf905a9276f5"
+          "bytes": 353682,
+          "sha256": "a29c7f4eae899fc2c6aa4ce93c4d37fe89dc3fbad498c78d86835bf79a4130dc"
         },
         "validMask": {
           "path": "pierre-a-la-bague-plateau/valid-mask.bin",
-          "bytes": 17594,
-          "sha256": "70dacf56db3b88a17afa0b3440e3a8aad86b0f8b08bcdf617ef87a7ccfa73c0b"
+          "bytes": 22106,
+          "sha256": "28f998cfe65916a00bbb899af415bf7301ce775a63cc215345f83729f9c9edde"
         },
         "isobathMask": {
           "path": "pierre-a-la-bague-plateau/isobath-mask.bin",
-          "bytes": 17594,
-          "sha256": "70dacf56db3b88a17afa0b3440e3a8aad86b0f8b08bcdf617ef87a7ccfa73c0b"
+          "bytes": 22106,
+          "sha256": "28f998cfe65916a00bbb899af415bf7301ce775a63cc215345f83729f9c9edde"
         },
         "vectorIsobaths": {
           "path": "pierre-a-la-bague-plateau/isobaths-vector.json",
-          "bytes": 79138,
-          "sha256": "c352d428a25234b4403d5a573ea03852b92352e00f0cfcf828fca0d7b2ec784f"
+          "bytes": 98681,
+          "sha256": "2ae86f807ccdcfe033bf9da021ee31f00dbac2434c497a3c0aa0b9f3fbcece30"
         },
         "topographicTexture": {
           "path": "pierre-a-la-bague-plateau/topographic.webp",
-          "bytes": 15702,
-          "sha256": "fae7135692e80dd6e0df10f310119d857c838be117d54cbc25342202465d99c1"
+          "bytes": 18882,
+          "sha256": "9110ab2a35a10037c779475a1652a90a8358caf21b07d6f79b7666671a016389"
         },
         "orthophotoTexture": {
           "path": "pierre-a-la-bague-plateau/orthophoto.webp",
-          "bytes": 12230,
-          "sha256": "bbe5abbc895b6a985fe4e59f5774b8f55b864d095bcb8f4b930066121dccc74b"
+          "bytes": 14752,
+          "sha256": "966419bb82f823601db6b827dc9ced4fd22cd90dfb0b10c20707f2dc03c1c0ee"
         }
       }
     },

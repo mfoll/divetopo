@@ -6,10 +6,10 @@
     "published": true,
     "site_label_layout": {
       "side": "left",
-      "shift_y_rem": 1.7,
+      "shift_y_rem": -3.9,
       "connector_angle_deg": -37,
       "connector_width_rem": 0.8,
-      "label_offset_rem": 2.0,
+      "label_offset_rem": -0.3,
       "lines": ["Pierre à la", "Bague", "plateau"],
       "width_rem": 4.4
     },
@@ -42,15 +42,15 @@
       881125.0,
       6235575.0
     ],
-    "width_m": 350.0,
-    "depth_m": 400.0,
+    "width_m": 400.0,
+    "depth_m": 440.0,
     "look_bearing_deg": 90.0
   },
   "view_bearing_deg": 90.0,
   "view_crop_width_m": 450.0,
   "view_crop_depth_m": 450.0,
   "view_visible_width_m": 380.0,
-  "interactive_view_visible_width_m": 280.0,
+  "interactive_view_visible_width_m": 340.0,
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": true,
   "coast_mode": "mask",

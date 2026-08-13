@@ -4,14 +4,14 @@
   "title": "Pains de Sucre – Riou",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 894750.0,
-    "south": 6233415.0,
-    "east": 895100.0,
-    "north": 6233835.0
+    "west": 894725.0,
+    "south": 6233400.0,
+    "east": 895125.0,
+    "north": 6233850.0
   },
   "physicalSizeM": {
-    "width": 350.0,
-    "depth": 420.0
+    "width": 400.0,
+    "depth": 450.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 350,
-    "height": 420,
-    "triangleCount": 292462,
+    "width": 400,
+    "height": 450,
+    "triangleCount": 358302,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -37.105567932128906,
-      "scaleMPerUnit": 0.0019246995535469476,
+      "offsetM": -38.18877410888672,
+      "scaleMPerUnit": 0.001941228220316732,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -57,7 +57,7 @@
     }
   },
   "elevationRangeM": {
-    "min": -37.105567932128906,
+    "min": -38.18877410888672,
     "max": 89.02961730957031
   },
   "heightValues": "physical metres before vertical exaggeration",
@@ -106,32 +106,32 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 1,
-        "points": 128
+        "polylines": 2,
+        "points": 191
       },
       "10": {
-        "polylines": 1,
-        "points": 136
+        "polylines": 2,
+        "points": 181
       },
       "15": {
-        "polylines": 1,
-        "points": 176
+        "polylines": 2,
+        "points": 215
       },
       "20": {
-        "polylines": 1,
-        "points": 114
+        "polylines": 2,
+        "points": 254
       },
       "25": {
         "polylines": 1,
-        "points": 99
+        "points": 124
       },
       "30": {
-        "polylines": 1,
-        "points": 84
+        "polylines": 2,
+        "points": 148
       },
       "35": {
-        "polylines": 1,
-        "points": 55
+        "polylines": 2,
+        "points": 99
       },
       "40": {
         "polylines": 0,
@@ -140,14 +140,14 @@
     },
     "totals": {
       "levels": 8,
-      "polylines": 7,
-      "points": 792
+      "polylines": 13,
+      "points": 1212
     },
     "reprojectionResidualM": {
-      "samples": 792,
-      "mean": 8.097991301094922e-11,
-      "p95": 7.421618875014242e-13,
-      "max": 5.6389966474057474e-08,
+      "samples": 1212,
+      "mean": 7.825559885267768e-06,
+      "p95": 5.428724136891107e-12,
+      "max": 0.009171812113555333,
       "withinTolerance": true
     }
   },
@@ -157,14 +157,14 @@
     "gridLookBearingDeg": 0.0,
     "cameraTilt": 0.55,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 280.0,
+    "visibleWidthM": 340.0,
     "coastFrameFraction": 0.52,
     "horizontalCenterOffsetM": 0.0,
     "alongCenterOffsetM": 0.0
   },
   "textures": {
-    "width": 350,
-    "height": 420,
+    "width": 400,
+    "height": 450,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -186,25 +186,25 @@
       894925.0,
       6233625.0
     ],
-    "widthM": 350.0,
-    "depthM": 420.0,
+    "widthM": 400.0,
+    "depthM": 450.0,
     "lookBearingDeg": 0.0,
     "cornersUtm40s": [
       [
-        894750.0,
-        6233415.0
+        894725.0,
+        6233400.0
       ],
       [
-        895100.0,
-        6233415.0
+        895125.0,
+        6233400.0
       ],
       [
-        895100.0,
-        6233835.0
+        895125.0,
+        6233850.0
       ],
       [
-        894750.0,
-        6233835.0
+        894725.0,
+        6233850.0
       ]
     ]
   }

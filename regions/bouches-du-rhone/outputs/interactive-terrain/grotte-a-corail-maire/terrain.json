@@ -157,7 +157,7 @@
     "gridLookBearingDeg": 0.0,
     "cameraTilt": 0.9,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 260.0,
+    "visibleWidthM": 320.0,
     "coastFrameFraction": 0.52,
     "vectorLabelVerticalInsetFraction": 0.08,
     "vectorLabelCollisionPaddingNdc": 0.025,

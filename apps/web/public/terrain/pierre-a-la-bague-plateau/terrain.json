@@ -4,14 +4,14 @@
   "title": "Pierre à la Bague – plateau, Planier",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 880924.5,
-    "south": 6235399.5,
-    "east": 881325.5,
-    "north": 6235750.5
+    "west": 880904.5,
+    "south": 6235374.5,
+    "east": 881345.5,
+    "north": 6235775.5
   },
   "physicalSizeM": {
-    "width": 401.0,
-    "depth": 351.0
+    "width": 441.0,
+    "depth": 401.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 401,
-    "height": 351,
-    "triangleCount": 280000,
+    "width": 441,
+    "height": 401,
+    "triangleCount": 352000,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -37.75529861450195,
-      "scaleMPerUnit": 0.0005774637472623181,
+      "offsetM": -40.0,
+      "scaleMPerUnit": 0.0006251346722087189,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -57,8 +57,8 @@
     }
   },
   "elevationRangeM": {
-    "min": -37.75529861450195,
-    "max": 0.08878806233406067
+    "min": -40.0,
+    "max": 0.9682007431983948
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -106,32 +106,32 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 8,
-        "points": 1130
+        "polylines": 9,
+        "points": 1222
       },
       "10": {
         "polylines": 3,
-        "points": 412
+        "points": 500
       },
       "15": {
-        "polylines": 2,
-        "points": 258
+        "polylines": 3,
+        "points": 348
       },
       "20": {
-        "polylines": 2,
-        "points": 144
+        "polylines": 3,
+        "points": 226
       },
       "25": {
         "polylines": 1,
-        "points": 62
+        "points": 116
       },
       "30": {
-        "polylines": 1,
-        "points": 24
+        "polylines": 2,
+        "points": 72
       },
       "35": {
-        "polylines": 0,
-        "points": 0
+        "polylines": 2,
+        "points": 47
       },
       "40": {
         "polylines": 0,
@@ -140,14 +140,14 @@
     },
     "totals": {
       "levels": 8,
-      "polylines": 17,
-      "points": 2030
+      "polylines": 23,
+      "points": 2531
     },
     "reprojectionResidualM": {
-      "samples": 2030,
-      "mean": 1.3044252628894911e-08,
-      "p95": 1.1198650895494202e-10,
-      "max": 8.145497137235225e-06,
+      "samples": 2531,
+      "mean": 1.638330942605617e-06,
+      "p95": 7.885958552833472e-11,
+      "max": 0.003700808173622505,
       "withinTolerance": true
     }
   },
@@ -157,7 +157,7 @@
     "gridLookBearingDeg": 90.0,
     "cameraTilt": 0.55,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 280.0,
+    "visibleWidthM": 340.0,
     "coastFrameFraction": 0.52,
     "vectorLabelVerticalInsetFraction": 0.08,
     "vectorLabelCollisionPaddingNdc": 0.08,
@@ -175,8 +175,8 @@
     "alongCenterOffsetM": 25.0
   },
   "textures": {
-    "width": 401,
-    "height": 351,
+    "width": 441,
+    "height": 401,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -198,25 +198,25 @@
       881125.0,
       6235575.0
     ],
-    "widthM": 350.0,
-    "depthM": 400.0,
+    "widthM": 400.0,
+    "depthM": 440.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
       [
-        880925.0,
-        6235750.0
+        880905.0,
+        6235775.0
       ],
       [
-        880925.0,
-        6235400.0
+        880905.0,
+        6235375.0
       ],
       [
-        881325.0,
-        6235400.0
+        881345.0,
+        6235375.0
       ],
       [
-        881325.0,
-        6235750.0
+        881345.0,
+        6235775.0
       ]
     ]
   }

@@ -5,11 +5,11 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "left",
-      "shift_y_rem": 1.1,
+      "side": "right",
+      "shift_y_rem": 2.35,
       "connector_angle_deg": 0,
       "connector_width_rem": 1.35,
-      "label_offset_rem": 2.72,
+      "label_offset_rem": -4.2,
       "lines": ["Pains de Sucre", "Riou"],
       "width_rem": 5.8
     },
@@ -68,13 +68,13 @@
       894925.0,
       6233625.0
     ],
-    "width_m": 350.0,
-    "depth_m": 420.0,
+    "width_m": 400.0,
+    "depth_m": 450.0,
     "look_bearing_deg": 0.0
   },
   "view_bearing_deg": 0.0,
-  "view_visible_width_m": 280.0,
-  "interactive_view_visible_width_m": 280.0,
+  "view_visible_width_m": 340.0,
+  "interactive_view_visible_width_m": 340.0,
   "view_canvas_width_px": 1455,
   "view_canvas_height_px": 1007,
   "interactive_match_static_horizontal_center": true,
