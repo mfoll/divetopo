@@ -9,7 +9,7 @@
       "shift_y_rem": 0.7,
       "connector_angle_deg": 10,
       "connector_width_rem": 4.4,
-      "label_offset_rem": 5.2,
+      "label_offset_rem": 5.85,
       "width_rem": 6.4
     },
     "interactive_initial_view": {
@@ -49,15 +49,15 @@
   "interactive_footprint_utm40s": {
     "center": [
       1019540.0,
-      6272680.0
+      6272570.0
     ],
     "width_m": 680.0,
-    "depth_m": 620.0,
+    "depth_m": 820.0,
     "look_bearing_deg": 0.0
   },
   "view_bearing_deg": 0.0,
-  "view_visible_width_m": 300.0,
-  "interactive_view_visible_width_m": 300.0,
+  "view_visible_width_m": 450.0,
+  "interactive_view_visible_width_m": 400.0,
   "interactive_match_static_horizontal_center": true,
   "interactive_view_horizontal_center_offset_m": 150.0,
   "coast_mode": "mask",

@@ -9,7 +9,7 @@
       "shift_y_rem": 4.4,
       "connector_angle_deg": -68,
       "connector_width_rem": 3.45,
-      "label_offset_rem": 2.65,
+      "label_offset_rem": 1.2,
       "lines": ["Pointe de la", "Causinière"],
       "width_rem": 7.6
     },
@@ -59,9 +59,9 @@
     "look_bearing_deg": 110.0
   },
   "view_bearing_deg": 110.0,
-  "view_crop_width_m": 200.0,
+  "view_crop_width_m": 240.0,
   "view_crop_depth_m": 260.0,
-  "view_visible_width_m": 170.0,
+  "view_visible_width_m": 210.0,
   "interactive_view_visible_width_m": 170.0,
   "coast_mode": "mask",
   "coastline_visible": true,

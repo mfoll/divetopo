@@ -162,7 +162,7 @@
     "gridLookBearingDeg": 90.0,
     "cameraTilt": 0.45,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 400.0,
+    "visibleWidthM": 430.0,
     "coastFrameFraction": 0.45,
     "horizontalCenterOffsetM": -50.0,
     "alongCenterOffsetM": -200.0

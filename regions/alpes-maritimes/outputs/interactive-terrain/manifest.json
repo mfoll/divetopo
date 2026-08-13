@@ -93,37 +93,37 @@
         "metadata": {
           "path": "la-vaquette/terrain.json",
           "bytes": 5617,
-          "sha256": "a08e99b9fa220b908852d7c1fda8ec766909c00be012559b808a6524602c91cd"
+          "sha256": "dbf005f1cc849af0c207c8647c4f73e076633ca5ee913bbd2a9dbd81b5500cb7"
         },
         "height": {
           "path": "la-vaquette/height.bin",
-          "bytes": 480168,
-          "sha256": "6bf521763a902692947e83ef36d064e1725a06f00624f61eccee7200d083163f"
+          "bytes": 436050,
+          "sha256": "fc75baa11c02377b63bab00ed5a4c6e61d857253b85b9a0b7864eeeec94d75d6"
         },
         "validMask": {
           "path": "la-vaquette/valid-mask.bin",
-          "bytes": 30011,
-          "sha256": "f36e8c55641c75825b8b54b67ff95d54d9b4a7f64923ccb15413abdd3b7f8312"
+          "bytes": 27254,
+          "sha256": "91f9cd6ffed2e384e423d2b9a881111aa204510a86bd3f0efd95ba7aec1881af"
         },
         "isobathMask": {
           "path": "la-vaquette/isobath-mask.bin",
-          "bytes": 30011,
-          "sha256": "f36e8c55641c75825b8b54b67ff95d54d9b4a7f64923ccb15413abdd3b7f8312"
+          "bytes": 27254,
+          "sha256": "91f9cd6ffed2e384e423d2b9a881111aa204510a86bd3f0efd95ba7aec1881af"
         },
         "vectorIsobaths": {
           "path": "la-vaquette/isobaths-vector.json",
-          "bytes": 112109,
-          "sha256": "8260a9ce7c7e54e061d92ae3222114a0c90a639281c8c36aee7a67736df6d2e2"
+          "bytes": 116817,
+          "sha256": "1696e760958a2037b852d12d2c55daa351ffef9ccc3d09b78c96fdb9c0f354a6"
         },
         "topographicTexture": {
           "path": "la-vaquette/topographic.webp",
-          "bytes": 21690,
-          "sha256": "2abef81abcdbf708501793b4943b2b0c807e92e69329608a92700cf8a9bc612b"
+          "bytes": 24202,
+          "sha256": "ae666db63d571120ded766bcb66275b67fa3861840de40163d818506d786ff3b"
         },
         "orthophotoTexture": {
           "path": "la-vaquette/orthophoto.webp",
-          "bytes": 15904,
-          "sha256": "7b2b1b52bba8dcf9a905fac57a004329a78ebfec930c2dba3110a008371c7e54"
+          "bytes": 17336,
+          "sha256": "462046d9698759960e519d1d928dc2ba4588b82ef2080be407eace3e31013a1c"
         }
       }
     },
@@ -135,7 +135,7 @@
         "metadata": {
           "path": "la-tradeliere/terrain.json",
           "bytes": 5669,
-          "sha256": "1a2ad29457892399aa0ee61492aafb0e7379bbdc1db819854d2e134c6fb72648"
+          "sha256": "019eab36d068dd08a93842b30cea3d188a508d338f0d075777afd6aa1e99b69a"
         },
         "height": {
           "path": "la-tradeliere/height.bin",

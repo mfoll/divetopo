@@ -62,7 +62,7 @@
   },
   "view_bearing_deg": 90,
   "view_visible_width_m": 500,
-  "interactive_view_visible_width_m": 400,
+  "interactive_view_visible_width_m": 430,
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": true,
   "coast_mode": "mask",
