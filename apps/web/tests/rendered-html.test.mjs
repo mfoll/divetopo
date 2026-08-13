@@ -1346,28 +1346,18 @@ test("interactive terrain provides an iOS-safe fullscreen fallback", async () =>
   assert.match(styles, /safe-area-inset-bottom/);
 });
 
-test("interactive terrain exposes camera calibration only by explicit local opt-in", async () => {
+test("keeps the temporary camera calibration tool out of the published viewer", async () => {
   const [terrainViewer, styles] = await Promise.all([
     readFile(new URL("../app/TerrainViewer.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
 
-  assert.match(terrainViewer, /window\.location\.hostname === "localhost"/);
-  assert.match(terrainViewer, /search\.has\("camera-calibration"\)/);
-  assert.match(terrainViewer, /CAMERA_CALIBRATION_STORAGE_PREFIX/);
-  assert.match(
-    terrainViewer,
-    /`\$\{CAMERA_CALIBRATION_STORAGE_PREFIX\}\$\{slug\}`/,
-  );
-  assert.match(terrainViewer, /divetopo-camera-calibrations\.json/);
-  assert.match(
-    terrainViewer,
-    /divetopo-camera-calibration-collection-v1/,
-  );
-  assert.match(terrainViewer, /Télécharger toutes les calibrations/);
-  assert.match(terrainViewer, /interactiveInitialView:/);
-  assert.match(terrainViewer, /panResidualForwardM/);
-  assert.match(styles, /\.terrain-camera-calibration\s*\{/);
+  assert.doesNotMatch(terrainViewer, /camera-calibration/i);
+  assert.doesNotMatch(terrainViewer, /localStorage/);
+  assert.doesNotMatch(terrainViewer, /Télécharger toutes les calibrations/);
+  assert.doesNotMatch(styles, /\.terrain-camera-calibration\s*\{/);
+  assert.match(terrainViewer, /initialCameraPositionM/);
+  assert.match(terrainViewer, /initialCameraTargetM/);
 });
 
 test("advertises the standalone DiveTopo app identity in server-rendered metadata", async () => {
