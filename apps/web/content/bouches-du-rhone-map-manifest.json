@@ -714,19 +714,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=fc2932d87200",
+              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=419e1894ea32",
               "width": 2474,
               "height": 1712,
-              "bytes": 1624452,
-              "sha256": "fc2932d87200aa81320a9b61f620aee129b64af0b9933adca64f3d4cd90ce4a1"
+              "bytes": 1717197,
+              "sha256": "419e1894ea3279efa0cc0674dfbb39e9e41573a6535c6df579f99e01a394e475"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=fc2932d87200",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=419e1894ea32",
             "width": 2474,
             "height": 1712,
-            "bytes": 1624452,
-            "sha256": "fc2932d87200aa81320a9b61f620aee129b64af0b9933adca64f3d4cd90ce4a1",
+            "bytes": 1717197,
+            "sha256": "419e1894ea3279efa0cc0674dfbb39e9e41573a6535c6df579f99e01a394e475",
             "filename": "pierre-a-la-bague-plateau-topobathy-2d.jpg"
           }
         },
@@ -739,19 +739,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=190d075e8c75",
+              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=a762a09fac2f",
               "width": 2474,
               "height": 1712,
-              "bytes": 1643508,
-              "sha256": "190d075e8c75b323cd9d54a9d06d5f1d6a3572353ffd52f8b36f4e5647cd8cab"
+              "bytes": 1735503,
+              "sha256": "a762a09fac2ff06a0ed294cb39e0b549d479a37197d3e2c65eaaaff38c0befb3"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=190d075e8c75",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=a762a09fac2f",
             "width": 2474,
             "height": 1712,
-            "bytes": 1643508,
-            "sha256": "190d075e8c75b323cd9d54a9d06d5f1d6a3572353ffd52f8b36f4e5647cd8cab",
+            "bytes": 1735503,
+            "sha256": "a762a09fac2ff06a0ed294cb39e0b549d479a37197d3e2c65eaaaff38c0befb3",
             "filename": "pierre-a-la-bague-plateau-topobathy-2d-ortho.jpg"
           }
         },
@@ -838,36 +838,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=9b5f4c6c2a70",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=af66f1ecf82c",
             "width": 1800,
             "height": 1083,
-            "bytes": 177694,
-            "sha256": "9b5f4c6c2a70c0a8ba8f906f61073666c11aa1806013f6d73865c7301e46f002"
+            "bytes": 178870,
+            "sha256": "af66f1ecf82cda928573a6310466e838987166de4d49bafe68f90399401eef76"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4426057,
-            "sha256": "d7aafdf9f529ffc5c8896fa35e2ed9fa6d908b9954b63b4a823b7e87c4007bca",
+            "bytes": 4513246,
+            "sha256": "1fc1e8111cc71a52c73325bdd5295a508d155c7b0fb9126e39692b05664b41a1",
             "filename": "pierre-a-la-bague-plateau-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=d446685d911b",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=f26ba389faaa",
             "width": 1800,
             "height": 1083,
-            "bytes": 181860,
-            "sha256": "d446685d911ba44f4217d416b84965098c507b1a31290f974a3c1af6515c6171"
+            "bytes": 182700,
+            "sha256": "f26ba389faaa1746197d7cf27049632eb29218f1fdf47b3439d46f550d6cb61f"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4474489,
-            "sha256": "8f042c0a2d459f2e796ae1bb4791176192e3a73081f25d548ceaec2dfc60f5af",
+            "bytes": 4561726,
+            "sha256": "9a9094f4e1cc2f6352d49233a7cebf50325af63cce250493b2e502d75a488a80",
             "filename": "pierre-a-la-bague-plateau-planche.jpg"
           }
         }
@@ -927,19 +927,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=355cd4085020",
+              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=b587f2d6ac51",
               "width": 2474,
               "height": 1712,
-              "bytes": 1326106,
-              "sha256": "355cd40850208f91838f08d5eca07cdcb38e3412fad98d0c1b0fbec04962b512"
+              "bytes": 1464309,
+              "sha256": "b587f2d6ac512eb76d3f3411b1b7da67a773cf484fdfaba2c89b6799bb3cf586"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=355cd4085020",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=b587f2d6ac51",
             "width": 2474,
             "height": 1712,
-            "bytes": 1326106,
-            "sha256": "355cd40850208f91838f08d5eca07cdcb38e3412fad98d0c1b0fbec04962b512",
+            "bytes": 1464309,
+            "sha256": "b587f2d6ac512eb76d3f3411b1b7da67a773cf484fdfaba2c89b6799bb3cf586",
             "filename": "tiboulen-du-frioul-topobathy-2d.jpg"
           }
         },
@@ -952,19 +952,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=95ec6e5a5bf1",
+              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=a8967d76cd8a",
               "width": 2474,
               "height": 1712,
-              "bytes": 1406389,
-              "sha256": "95ec6e5a5bf10ecfe08611b77608adb2e5090637f14aff05997dc96783c92057"
+              "bytes": 1541404,
+              "sha256": "a8967d76cd8a656f232149c84e2327915eb4e9903f61a11f70b10df29ab388d8"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=95ec6e5a5bf1",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=a8967d76cd8a",
             "width": 2474,
             "height": 1712,
-            "bytes": 1406389,
-            "sha256": "95ec6e5a5bf10ecfe08611b77608adb2e5090637f14aff05997dc96783c92057",
+            "bytes": 1541404,
+            "sha256": "a8967d76cd8a656f232149c84e2327915eb4e9903f61a11f70b10df29ab388d8",
             "filename": "tiboulen-du-frioul-topobathy-2d-ortho.jpg"
           }
         },
@@ -1051,36 +1051,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-topographic-1800.webp?v=62534c7e9ae4",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-topographic-1800.webp?v=8d10f44a1a9c",
             "width": 1800,
             "height": 1083,
-            "bytes": 165342,
-            "sha256": "62534c7e9ae4a94eb205b9d1c128759bd8eb9cd02c73610a4c851c70a28802f5"
+            "bytes": 158798,
+            "sha256": "8d10f44a1a9c348eafc0ebea438181761c7758d6ac0366590c4814921bd43d5c"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/tiboulen-du-frioul-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3955760,
-            "sha256": "01b7c322b3ab0d0c4e41e68beb96487ec88b25864dfd62f7d2edde62fd7e1206",
+            "bytes": 4112611,
+            "sha256": "d3a7beae79ffb652c27ea47df60cc8dca03012b079dc26d878f79bbe0ec86653",
             "filename": "tiboulen-du-frioul-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-orthophoto-1800.webp?v=94c3c2ad5de5",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-orthophoto-1800.webp?v=d62c4affa53b",
             "width": 1800,
             "height": 1083,
-            "bytes": 179484,
-            "sha256": "94c3c2ad5de5f54c645e00a5d708633e9a882854da206a5bb7f88c1f1bd06fd9"
+            "bytes": 172972,
+            "sha256": "d62c4affa53bb5d3c5f8ed6676ef2dc94af4e60b5167628f0df9914636de48da"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/tiboulen-du-frioul-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3980620,
-            "sha256": "37d3f10d54f1a47f4d1ff12334f12fdeea656b3f3e834919c34b764eb8cf52b2",
+            "bytes": 4129701,
+            "sha256": "7e44215b030ab523ffd481de0e922074dfab1ac0db4b487977ad8c14bafb6fd5",
             "filename": "tiboulen-du-frioul-planche.jpg"
           }
         }

@@ -26,10 +26,10 @@
     "0880_6240/LITTO3D_FRA_0881_6236_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0881_6236_MNT_20150128_LAMB93_RGF93_IGN69.asc"
   ],
   "focus_bbox_utm40s": [
-    880950.0,
-    6235350.0,
+    880900.0,
+    6235300.0,
     881600.0,
-    6235800.0
+    6235785.0
   ],
   "context_bbox_utm40s": [
     880900.0,
@@ -76,7 +76,7 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5.0,
   "output_scale": 2.0,
-  "plan_output_scale": 2.0,
+  "plan_output_scale": 6.0,
   "relief_output_scale": 1.0,
   "relief_compass_inset_px": 130.0,
   "relief_footer_inset_px": 52.0,

@@ -91,7 +91,12 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5.0,
   "output_scale": 2.0,
-  "plan_output_scale": 2.0,
+  "plan_output_scale": 6.0,
+  "plan_suppressed_label_levels": [
+    30,
+    35,
+    40
+  ],
   "relief_output_scale": 1.0,
   "map_style_scale": 1.7,
   "final_output_size_px": [
