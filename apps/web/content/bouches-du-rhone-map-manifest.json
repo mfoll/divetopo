@@ -77,19 +77,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=2b7e9c7a74c2",
+              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=68705802d5bf",
               "width": 2474,
               "height": 1712,
-              "bytes": 1225402,
-              "sha256": "2b7e9c7a74c24d87ca11194fa0d014ad83148588de5a42167fccfb0f1788c704"
+              "bytes": 1335441,
+              "sha256": "68705802d5bf050a57f2213b13a8e3e78d56dedbecf7e46e7e6eacffa71b5ee5"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=2b7e9c7a74c2",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=68705802d5bf",
             "width": 2474,
             "height": 1712,
-            "bytes": 1225402,
-            "sha256": "2b7e9c7a74c24d87ca11194fa0d014ad83148588de5a42167fccfb0f1788c704",
+            "bytes": 1335441,
+            "sha256": "68705802d5bf050a57f2213b13a8e3e78d56dedbecf7e46e7e6eacffa71b5ee5",
             "filename": "grotte-a-corail-maire-topobathy-2d.jpg"
           }
         },
@@ -102,19 +102,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=b3093dd69f22",
+              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=79dce6415bdc",
               "width": 2474,
               "height": 1712,
-              "bytes": 1902220,
-              "sha256": "b3093dd69f22869a86711bd250865085e25d96edd55407b3c41c31406f0fd931"
+              "bytes": 2008818,
+              "sha256": "79dce6415bdcd9f7b37794e8834ebeafbeb0531a55c1a6cef86062fdc31f62a1"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=b3093dd69f22",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=79dce6415bdc",
             "width": 2474,
             "height": 1712,
-            "bytes": 1902220,
-            "sha256": "b3093dd69f22869a86711bd250865085e25d96edd55407b3c41c31406f0fd931",
+            "bytes": 2008818,
+            "sha256": "79dce6415bdcd9f7b37794e8834ebeafbeb0531a55c1a6cef86062fdc31f62a1",
             "filename": "grotte-a-corail-maire-topobathy-2d-ortho.jpg"
           }
         },
@@ -201,36 +201,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-topographic-1800.webp?v=7873adf3b547",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-topographic-1800.webp?v=00f8e7705fb9",
             "width": 1800,
             "height": 1083,
-            "bytes": 144002,
-            "sha256": "7873adf3b54764fadf2e9e792ae8a5960f22fe867dc5af425680b2ebfb4fd79f"
+            "bytes": 151380,
+            "sha256": "00f8e7705fb9efec1c7ba435c2f1b4e7b5d47053637d082a05127eaca077198b"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-maire-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3628957,
-            "sha256": "70709836dc0c6557e7a5f49fdf4cdbe65db2cb365180ee47a25008935c397843",
+            "bytes": 3783220,
+            "sha256": "6e59057a367b65f6f7c63181f187d739621ca32be0ef1bb1ccfdf38c1c6555f4",
             "filename": "grotte-a-corail-maire-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-orthophoto-1800.webp?v=574c033d4aa0",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-orthophoto-1800.webp?v=77723437639e",
             "width": 1800,
             "height": 1083,
-            "bytes": 224572,
-            "sha256": "574c033d4aa021ed5cba82d09ebd9c5793ccc1bd993f626c252031f736e09601"
+            "bytes": 234624,
+            "sha256": "77723437639e3868d9da63f4a12098d3a5fe02a5aaf30655f0da3f697b801354"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-maire-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4535901,
-            "sha256": "8a6c8ab551fb7bb6e2150b51a1d50b002031fcc510c5bd1a45c55d5a7a8c57b4",
+            "bytes": 4684102,
+            "sha256": "e764630857a61ba057310241c734c38c408bfe56c102f46b00ee35b7cf58a2a7",
             "filename": "grotte-a-corail-maire-planche.jpg"
           }
         }
@@ -290,19 +290,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-topographic.jpg?v=276aae8fb15b",
+              "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-topographic.jpg?v=b45e01bff228",
               "width": 1400,
               "height": 1680,
-              "bytes": 674411,
-              "sha256": "276aae8fb15bf739a4a27aeb33d8016b276427617999729a76bf954e28637248"
+              "bytes": 702204,
+              "sha256": "b45e01bff2281a007e863a95cf364279046390ed5e55271827bc2ee0ea6ee24a"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-topographic.jpg?v=276aae8fb15b",
+            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-topographic.jpg?v=b45e01bff228",
             "width": 1400,
             "height": 1680,
-            "bytes": 674411,
-            "sha256": "276aae8fb15bf739a4a27aeb33d8016b276427617999729a76bf954e28637248",
+            "bytes": 702204,
+            "sha256": "b45e01bff2281a007e863a95cf364279046390ed5e55271827bc2ee0ea6ee24a",
             "filename": "pains-de-sucre-riou-topobathy-2d.jpg"
           }
         },
@@ -315,19 +315,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-orthophoto.jpg?v=e2a042a3f625",
+              "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-orthophoto.jpg?v=a95e0dbf6a64",
               "width": 1400,
               "height": 1680,
-              "bytes": 1544928,
-              "sha256": "e2a042a3f625c1139f4c66403ff4264160045ee7eaddfa940313f3da173c716a"
+              "bytes": 1579460,
+              "sha256": "a95e0dbf6a647cef1c0727f06f31eab6c475f31602d2cd1b3b64fa9f8657424d"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-orthophoto.jpg?v=e2a042a3f625",
+            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/2d-orthophoto.jpg?v=a95e0dbf6a64",
             "width": 1400,
             "height": 1680,
-            "bytes": 1544928,
-            "sha256": "e2a042a3f625c1139f4c66403ff4264160045ee7eaddfa940313f3da173c716a",
+            "bytes": 1579460,
+            "sha256": "a95e0dbf6a647cef1c0727f06f31eab6c475f31602d2cd1b3b64fa9f8657424d",
             "filename": "pains-de-sucre-riou-topobathy-2d-ortho.jpg"
           }
         },
@@ -414,36 +414,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-topographic-1800.webp?v=3018df6f67b1",
+            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-topographic-1800.webp?v=78ea7d8f5c13",
             "width": 1800,
             "height": 1533,
-            "bytes": 138426,
-            "sha256": "3018df6f67b167cb13336e12764b01208ea3a6c31f1a2e741b13cd3b13434c39"
+            "bytes": 144200,
+            "sha256": "78ea7d8f5c13d51427d7569170e548cf4906d7974b61d75bb08e02d6c7362f35"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pains-de-sucre-riou-planche-topographique.jpg",
             "width": 5400,
             "height": 4600,
-            "bytes": 3934197,
-            "sha256": "483dbc332f15ab5ef0f328e344b0d58e75aa454dcdce77625d393194bc746dab",
+            "bytes": 4034614,
+            "sha256": "cd46233de87f0ad0e004bd6f864d89addfc3566f18e80c1d8a144eb1d742a168",
             "filename": "pains-de-sucre-riou-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-orthophoto-1800.webp?v=562cb3ded932",
+            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-orthophoto-1800.webp?v=e3d012bceee9",
             "width": 1800,
             "height": 1533,
-            "bytes": 372824,
-            "sha256": "562cb3ded9327537fd867d4255558a0542c45afeb484aaacc4dadb8be78e10dc"
+            "bytes": 380626,
+            "sha256": "e3d012bceee96eace93b140db98cd5981e5b78c5bd0d10851d43c8dc8b39e8e0"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pains-de-sucre-riou-planche.jpg",
             "width": 5400,
             "height": 4600,
-            "bytes": 6741843,
-            "sha256": "23142032ea09de89ac446d911295f43e258cd0cf951907e5b2d90b6ee910239a",
+            "bytes": 6859367,
+            "sha256": "d10f537a81dbc913d5af7e1ff555034cb3d332b20241cfe65f194530ad0abce9",
             "filename": "pains-de-sucre-riou-planche.jpg"
           }
         }
@@ -504,19 +504,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-topographic.jpg?v=69587491f8ef",
+              "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-topographic.jpg?v=4e67444854b5",
               "width": 1250,
               "height": 1250,
-              "bytes": 319165,
-              "sha256": "69587491f8eff2c437aef62cae77e5a6204cdda7823a33876871ff83beb07925"
+              "bytes": 341256,
+              "sha256": "4e67444854b5c5c58de38fb08dad48f975d41f3a2d49794007e2ada366fcb484"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-topographic.jpg?v=69587491f8ef",
+            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-topographic.jpg?v=4e67444854b5",
             "width": 1250,
             "height": 1250,
-            "bytes": 319165,
-            "sha256": "69587491f8eff2c437aef62cae77e5a6204cdda7823a33876871ff83beb07925",
+            "bytes": 341256,
+            "sha256": "4e67444854b5c5c58de38fb08dad48f975d41f3a2d49794007e2ada366fcb484",
             "filename": "imperial-de-terre-riou-topobathy-2d.jpg"
           }
         },
@@ -529,19 +529,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-orthophoto.jpg?v=9262baa679c3",
+              "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-orthophoto.jpg?v=f60b26074d21",
               "width": 1250,
               "height": 1250,
-              "bytes": 834416,
-              "sha256": "9262baa679c3a16101b02eb9ad50714652f4075756d684066da6c701b2158c4e"
+              "bytes": 865680,
+              "sha256": "f60b26074d211e5531ec1d5711434d7d5a4bd0130eb841de0728c652f164d007"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-orthophoto.jpg?v=9262baa679c3",
+            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/2d-orthophoto.jpg?v=f60b26074d21",
             "width": 1250,
             "height": 1250,
-            "bytes": 834416,
-            "sha256": "9262baa679c3a16101b02eb9ad50714652f4075756d684066da6c701b2158c4e",
+            "bytes": 865680,
+            "sha256": "f60b26074d211e5531ec1d5711434d7d5a4bd0130eb841de0728c652f164d007",
             "filename": "imperial-de-terre-riou-topobathy-2d-ortho.jpg"
           }
         },
@@ -628,36 +628,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/planche-topographic-1800.webp?v=35beb93805b6",
+            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/planche-topographic-1800.webp?v=705d283e22d9",
             "width": 1800,
             "height": 1333,
-            "bytes": 114014,
-            "sha256": "35beb93805b6d6be8b3ceb5620c966061406939d0ea6a0c681f7bc2ad27e8f74"
+            "bytes": 121532,
+            "sha256": "705d283e22d91bbbb778e9548e4a1bea5f82f9e4b5b4bfd25a392d875bf1a505"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/imperial-de-terre-riou-planche-topographique.jpg",
             "width": 5400,
             "height": 4000,
-            "bytes": 2714404,
-            "sha256": "c0c607a80402820add679ba58fcbcef5366f25130ebaae1f4fad02ad709bb0a5",
+            "bytes": 2835589,
+            "sha256": "2b38030e7e69b301744406d23163c7fd753c0a78d6a9acfa175f7087492e178a",
             "filename": "imperial-de-terre-riou-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/planche-orthophoto-1800.webp?v=8762ec08660e",
+            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/planche-orthophoto-1800.webp?v=3681068035f1",
             "width": 1800,
             "height": 1333,
-            "bytes": 262900,
-            "sha256": "8762ec08660ede4600b3ecfaafb5f35187145373a582674083e4f801fc9ee849"
+            "bytes": 272178,
+            "sha256": "3681068035f149fea1982c85e78acfa4aa8a69e78b463a5070a4cbebce5540f5"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/imperial-de-terre-riou-planche.jpg",
             "width": 5400,
             "height": 4000,
-            "bytes": 4773886,
-            "sha256": "67df7a0712ea3e019b01b852945fc33a6ded187cbbd4b9034c6768bbad7147d5",
+            "bytes": 4914397,
+            "sha256": "c0904e6b38b61a415138b148b6ffefa6ab37c084f9fe0ebd548f7ea89f7dd78c",
             "filename": "imperial-de-terre-riou-planche.jpg"
           }
         }
@@ -714,19 +714,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=1c535362dba0",
+              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=fc2932d87200",
               "width": 2474,
               "height": 1712,
-              "bytes": 1515860,
-              "sha256": "1c535362dba0c67df321dba4db187ace63cb3851467ec51eb298b522860e5371"
+              "bytes": 1624452,
+              "sha256": "fc2932d87200aa81320a9b61f620aee129b64af0b9933adca64f3d4cd90ce4a1"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=1c535362dba0",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=fc2932d87200",
             "width": 2474,
             "height": 1712,
-            "bytes": 1515860,
-            "sha256": "1c535362dba0c67df321dba4db187ace63cb3851467ec51eb298b522860e5371",
+            "bytes": 1624452,
+            "sha256": "fc2932d87200aa81320a9b61f620aee129b64af0b9933adca64f3d4cd90ce4a1",
             "filename": "pierre-a-la-bague-plateau-topobathy-2d.jpg"
           }
         },
@@ -739,19 +739,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=b1c6425040ff",
+              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=190d075e8c75",
               "width": 2474,
               "height": 1712,
-              "bytes": 1535025,
-              "sha256": "b1c6425040ffdd65bd00b234b2f50479f5249314c261794c68dbb2814fd64791"
+              "bytes": 1643508,
+              "sha256": "190d075e8c75b323cd9d54a9d06d5f1d6a3572353ffd52f8b36f4e5647cd8cab"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=b1c6425040ff",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=190d075e8c75",
             "width": 2474,
             "height": 1712,
-            "bytes": 1535025,
-            "sha256": "b1c6425040ffdd65bd00b234b2f50479f5249314c261794c68dbb2814fd64791",
+            "bytes": 1643508,
+            "sha256": "190d075e8c75b323cd9d54a9d06d5f1d6a3572353ffd52f8b36f4e5647cd8cab",
             "filename": "pierre-a-la-bague-plateau-topobathy-2d-ortho.jpg"
           }
         },
@@ -838,36 +838,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=f43b29af2dbf",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=9b5f4c6c2a70",
             "width": 1800,
             "height": 1083,
-            "bytes": 163878,
-            "sha256": "f43b29af2dbfae2174c9421699efd323819e33aa2ad93c2663a53ebc4bad359a"
+            "bytes": 177694,
+            "sha256": "9b5f4c6c2a70c0a8ba8f906f61073666c11aa1806013f6d73865c7301e46f002"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4197657,
-            "sha256": "15908686ecce28e9a59c128efc623972a58f015dda35e991f87e6718f3938311",
+            "bytes": 4426057,
+            "sha256": "d7aafdf9f529ffc5c8896fa35e2ed9fa6d908b9954b63b4a823b7e87c4007bca",
             "filename": "pierre-a-la-bague-plateau-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=7d4235dc3f27",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=d446685d911b",
             "width": 1800,
             "height": 1083,
-            "bytes": 168276,
-            "sha256": "7d4235dc3f27f4ef34b7aef02799515c0b35f0ca8024ffd1041a5c3a709f20bd"
+            "bytes": 181860,
+            "sha256": "d446685d911ba44f4217d416b84965098c507b1a31290f974a3c1af6515c6171"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4246537,
-            "sha256": "b9f4f58af1b1a7d211682e0f6f9906d52400240c348504351d22ce4dc7ae1b69",
+            "bytes": 4474489,
+            "sha256": "8f042c0a2d459f2e796ae1bb4791176192e3a73081f25d548ceaec2dfc60f5af",
             "filename": "pierre-a-la-bague-plateau-planche.jpg"
           }
         }
@@ -927,19 +927,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=43bea74000be",
+              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=355cd4085020",
               "width": 2474,
               "height": 1712,
-              "bytes": 1080526,
-              "sha256": "43bea74000bea7791bdc3447530b59510dee073db69078da46e77398a550ecaa"
+              "bytes": 1326106,
+              "sha256": "355cd40850208f91838f08d5eca07cdcb38e3412fad98d0c1b0fbec04962b512"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=43bea74000be",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-topographic.jpg?v=355cd4085020",
             "width": 2474,
             "height": 1712,
-            "bytes": 1080526,
-            "sha256": "43bea74000bea7791bdc3447530b59510dee073db69078da46e77398a550ecaa",
+            "bytes": 1326106,
+            "sha256": "355cd40850208f91838f08d5eca07cdcb38e3412fad98d0c1b0fbec04962b512",
             "filename": "tiboulen-du-frioul-topobathy-2d.jpg"
           }
         },
@@ -952,19 +952,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=ab986dd3476d",
+              "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=95ec6e5a5bf1",
               "width": 2474,
               "height": 1712,
-              "bytes": 1144102,
-              "sha256": "ab986dd3476dcd078db6935fb460933d578a815cce494be7aa9f4189521e0ba1"
+              "bytes": 1406389,
+              "sha256": "95ec6e5a5bf10ecfe08611b77608adb2e5090637f14aff05997dc96783c92057"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=ab986dd3476d",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/2d-orthophoto.jpg?v=95ec6e5a5bf1",
             "width": 2474,
             "height": 1712,
-            "bytes": 1144102,
-            "sha256": "ab986dd3476dcd078db6935fb460933d578a815cce494be7aa9f4189521e0ba1",
+            "bytes": 1406389,
+            "sha256": "95ec6e5a5bf10ecfe08611b77608adb2e5090637f14aff05997dc96783c92057",
             "filename": "tiboulen-du-frioul-topobathy-2d-ortho.jpg"
           }
         },
@@ -1051,36 +1051,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-topographic-1800.webp?v=859f42efcb3f",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-topographic-1800.webp?v=62534c7e9ae4",
             "width": 1800,
             "height": 1083,
-            "bytes": 149678,
-            "sha256": "859f42efcb3fc846a75c27af25c8d48f6a194eb12eca0ee8a741dca919ea67aa"
+            "bytes": 165342,
+            "sha256": "62534c7e9ae4a94eb205b9d1c128759bd8eb9cd02c73610a4c851c70a28802f5"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/tiboulen-du-frioul-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3689142,
-            "sha256": "d4e32fb675c7dca425ce59d5854e347c42a9525b154c6bb3c743d7feda492ccf",
+            "bytes": 3955760,
+            "sha256": "01b7c322b3ab0d0c4e41e68beb96487ec88b25864dfd62f7d2edde62fd7e1206",
             "filename": "tiboulen-du-frioul-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-orthophoto-1800.webp?v=8f6e92cf61e1",
+            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/planche-orthophoto-1800.webp?v=94c3c2ad5de5",
             "width": 1800,
             "height": 1083,
-            "bytes": 161844,
-            "sha256": "8f6e92cf61e125496f970103aa4fa743750585c94073680fc77e6ec7aa0e9753"
+            "bytes": 179484,
+            "sha256": "94c3c2ad5de5f54c645e00a5d708633e9a882854da206a5bb7f88c1f1bd06fd9"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/tiboulen-du-frioul-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3691932,
-            "sha256": "bd47ead26b20d42e1b7bd1032805cea4dc43648a990af8d469f1b5e43c49a22d",
+            "bytes": 3980620,
+            "sha256": "37d3f10d54f1a47f4d1ff12334f12fdeea656b3f3e834919c34b764eb8cf52b2",
             "filename": "tiboulen-du-frioul-planche.jpg"
           }
         }
