@@ -48,13 +48,17 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 
 - Pointe de Portissol et Les Deux Frères sont les deux sites publiés migrés sans
   régénération.
-- Pointe de la Cride, Les Magnons et La Merveilleuse complètent la première
-  vague. Leurs paquets complets ont passé la QA native et Web ; ils sont publiés.
+- Pointe de la Cride et Les Magnons complètent la première vague. Le secteur
+  auparavant publié séparément comme La Merveilleuse est inclus dans l'emprise
+  élargie des Magnons ; il n'apparaît plus comme une fiche autonome.
 - Plate aux Mérous, Pierre du Jas, Basses Moulinières et Sèche Guenaud sont
   différés. Ils restent hors de l'inventaire actif et aucun de leurs commits ne
   doit être cherry-pické pendant cette vague.
-- Les cinq configurations actives ont `web.published: true`. Toute extension
-  ultérieure reste soumise au même contrat d'actifs complets et de QA.
+- Les quatre configurations actives ont `web.published: true`. La configuration
+  historique de La Merveilleuse est conservée hors inventaire avec
+  `web.published: false` afin de préserver la provenance des anciens rendus.
+  Toute extension ultérieure reste soumise au même contrat d'actifs complets et
+  de QA.
 
 ## État intégré de la vague 1
 
@@ -63,12 +67,11 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 | Pointe de Portissol | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
 | Les Deux Frères | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
 | Pointe de la Cride | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Actifs natifs inspectés à pleine résolution ; fiche et terrain chargés en QA Web. |
-| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Crédits orthophoto corrigés puis réinspectés à pleine résolution ; fiche et terrain chargés. |
-| La Merveilleuse | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Crédits, masques, vues statiques et terrain inspectés ; fiche et terrain chargés. |
+| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Emprise élargie pour inclure le relief auparavant présenté comme La Merveilleuse ; crédits, cadrages et terrain réinspectés. |
 
 Le manifeste `outputs/interactive-terrain/manifest.json` indexe exactement les
-cinq paquets. Le builder régional partagé produit cinq entrées Web complètes et
-le synchroniseur cumulatif conserve `26` paquets canoniques provenant de six
+quatre paquets. Le builder régional partagé produit quatre entrées Web complètes et
+le synchroniseur cumulatif conserve `35` paquets canoniques provenant de sept
 régions, sans écraser ceux de Bouches-du-Rhône ou Var Centre. Aucun générateur
 propre à Var Ouest n'a été créé.
 
@@ -104,7 +107,7 @@ Pointe de Portissol et Les Deux Frères doivent être migrés, pas régénérés
 
 La carte doit couvrir uniquement l'emprise utile Sanary, Le Brusc, les Embiez
 et cap Sicié, tout en laissant assez de contexte marin pour lire les positions.
-Elle comporte les cinq marqueurs de l'inventaire publié et des cartouches
+Elle comporte les quatre marqueurs de l'inventaire publié et des cartouches
 lisibles sur desktop et mobile. Les coordonnées réelles ne sont jamais déplacées :
 les points superposés restent des repères inertes, tandis que les cartouches,
 le clavier et le sélecteur ouvrent les fiches sans ambiguïté.
@@ -129,19 +132,19 @@ et blocs côtiers trompeurs ne sont plus présents. Le SHA-256 du PNG canonique 
 de son dérivé Web est
 `da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460`.
 
-Le manifeste Web contient exactement cinq marqueurs projetés depuis les
+Le manifeste Web contient exactement quatre marqueurs projetés depuis les
 coordonnées WGS84 : Portissol `44.85903 %, 40.06602 %`, Deux Frères
 `64.15702 %, 60.69149 %`, Cride `39.55658 %, 39.30851 %`, Magnons
-`38.174 %, 51.07256 %` et Merveilleuse `35.84298 %, 52.42615 %`. Les déports
-verticaux et latéraux ont été réglés après capture réelle ; les cinq cartouches
+`38.174 %, 51.07256 %`. Les déports verticaux et latéraux ont été réglés après
+capture réelle ; les quatre cartouches
 et connecteurs sont lisibles, contenus dans la carte et non ambigus sur desktop
-et mobile. Les `70` actifs Web locaux ont été vérifiés par les builders et les
-tests ; les cinq paquets interactifs régionaux sont indexés.
+et mobile. Les `56` actifs Web locaux ont été vérifiés par les builders et les
+tests ; les quatre paquets interactifs régionaux sont indexés.
 
 La QA Web locale a été exécutée dans Chrome sur `1280 × 720` et dans un viewport
-réel `390 × 844`, en clair et sombre. Les cinq cartouches ouvrent les bons slugs,
-les cinq liens répondent à Entrée, le sélecteur ouvre les cinq fiches et les
-points superposés testés restent inertes. Les cinq terrains chargent leurs
+réel `390 × 844`, en clair et sombre. Les quatre cartouches ouvrent les bons slugs,
+les quatre liens répondent à Entrée, le sélecteur ouvre les quatre fiches et les
+points superposés testés restent inertes. Les quatre terrains chargent leurs
 crédits complets. Sur le terrain réel de Pointe de la Cride à largeur mobile,
 l'échelle est visuellement séparée des crédits source et copyright ; le contrôle
 exact `390 px` confirme `scrollWidth = 390` et aucun débordement horizontal.
@@ -154,7 +157,7 @@ La zone n'est prête pour son commit final que si :
 1. l'inventaire, les configurations, les sorties et les manifestes concordent ;
 2. les deux migrations publiées ont des hashes identiques aux artefacts
    antérieurs ;
-3. les cinq sites publiés possèdent chacun leurs actifs statiques, planches,
+3. les quatre sites publiés possèdent chacun leurs actifs statiques, planches,
    dérivés Web et paquet interactif complets ;
 4. toutes les images sont inspectées à pleine résolution ;
 5. `/var-ouest` est inspectée en desktop `1280 × 720` DPR 2 et mobile

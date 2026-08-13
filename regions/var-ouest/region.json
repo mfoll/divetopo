@@ -114,20 +114,6 @@
         "webDerivatives": true
       },
       "config": "regions/var-ouest/sites/les-magnons.json"
-    },
-    {
-      "slug": "la-merveilleuse",
-      "name": "La Merveilleuse",
-      "municipality": "Six-Fours-les-Plages",
-      "publication": "published",
-      "artifacts": {
-        "status": "complete",
-        "staticMaps": true,
-        "planches": true,
-        "interactiveTerrain": true,
-        "webDerivatives": true
-      },
-      "config": "regions/var-ouest/sites/la-merveilleuse.json"
     }
   ],
   "regionalMap": {
@@ -156,12 +142,11 @@
           "pointe-portissol",
           "deux-freres-cap-sicie",
           "pointe-de-la-cride",
-          "les-magnons",
-          "la-merveilleuse"
+          "les-magnons"
         ],
-        "localAssetsChecked": 70,
-        "interactiveTerrainPackages": 5,
-        "cumulativeTerrainPackages": 26
+        "localAssetsChecked": 56,
+        "interactiveTerrainPackages": 4,
+        "cumulativeTerrainPackages": 35
       },
       "web": {
         "desktop": {
@@ -177,12 +162,12 @@
           "horizontalOverflow": false,
           "terrainScaleAttributionOverlap": false
         },
-        "mapLabels": "five-visible-no-collisions",
-        "labelClicks": "five-correct-routes",
-        "keyboardLinks": "five-correct-routes",
-        "siteSelector": "five-correct-routes",
+        "mapLabels": "four-visible-no-collisions",
+        "labelClicks": "four-correct-routes",
+        "keyboardLinks": "four-correct-routes",
+        "siteSelector": "four-correct-routes",
         "overlappingDots": "inert-no-wrong-route",
-        "interactiveTerrains": "five-loaded",
+        "interactiveTerrains": "four-loaded",
         "provisionalStatusMentions": 0
       }
     }

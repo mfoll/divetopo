@@ -16,43 +16,54 @@
       "zoom": 1
     }
   },
-  "plate_relief_source": "interactive",
-  "litto3d_archive_url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0920_6225/file/0920_6225.7z",
-  "litto3d_archive_members": [
-    "0920_6225/LITTO3D_FRA_0924_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+  "plate_relief_source": "static",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0920_6225/file/0920_6225.7z",
+      "members": [
+        "0920_6225/LITTO3D_FRA_0923_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0923_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0920_6225/LITTO3D_FRA_0924_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0925_6225/file/0925_6225.7z",
+      "members": [
+        "0925_6225/LITTO3D_FRA_0925_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0925_6224_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
   ],
   "focus_bbox_utm40s": [
-    924000.0,
-    6223309.0,
-    924999.0,
+    924100.0,
+    6223320.0,
+    925083.0,
     6224000.0
   ],
   "context_bbox_utm40s": [
-    924000.0,
-    6223000.0,
-    925000.0,
+    924100.0,
+    6223320.0,
+    925083.0,
     6224000.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      924650.0,
-      6223650.0
+      924598.0,
+      6223655.0
     ],
-    "width_m": 700.0,
-    "depth_m": 700.0,
+    "width_m": 670.0,
+    "depth_m": 970.0,
     "look_bearing_deg": 90.0
   },
   "view_bearing_deg": 90.0,
-  "view_crop_width_m": 700.0,
-  "view_crop_depth_m": 700.0,
-  "view_visible_width_m": 300.0,
-  "interactive_view_visible_width_m": 300.0,
-  "view_center_offset_east_m": 150.0,
-  "view_center_offset_north_m": 100.0,
+  "view_crop_width_m": 600.0,
+  "view_crop_depth_m": 900.0,
+  "view_visible_width_m": 560.0,
+  "interactive_view_visible_width_m": 560.0,
+  "view_center_offset_east_m": 0.0,
+  "view_center_offset_north_m": 0.0,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
-  "max_depth_m": 25.0,
-  "interactive_max_depth_m": 25.0,
+  "max_depth_m": 30.0,
+  "interactive_max_depth_m": 30.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
   "bathymetry_source_text": "Bathy. + topo. : Shom–IGN Litto3D PACA 2015, MNT 1 m · IGN69",
@@ -63,9 +74,9 @@
   "topography_resolution_m": 1.0,
   "context_topography_resolution_m": 1.0,
   "max_land_elevation_m": 20.0,
-  "camera_tilt": 0.34,
+  "camera_tilt": 0.4,
   "along_view_projection_scale": 1.2,
-  "coast_frame_fraction": 0.30,
+  "coast_frame_fraction": 0.52,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.0,
@@ -78,6 +89,8 @@
   "relief_compass_inset_px": 88.0,
   "relief_footer_inset_px": 44.0,
   "relief_label_edge_inset_px": 52.0,
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
   "map_style_scale": 2.0,
   "final_output_size_px": [
     2474,

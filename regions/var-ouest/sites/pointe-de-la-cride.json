@@ -39,11 +39,11 @@
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      925475.0,
+      925500.0,
       6227950.0
     ],
-    "width_m": 750.0,
-    "depth_m": 950.0,
+    "width_m": 800.0,
+    "depth_m": 990.0,
     "look_bearing_deg": 90.0
   },
   "site_location_utm40s": [
@@ -55,8 +55,8 @@
     6227953.731
   ],
   "view_bearing_deg": 90.0,
-  "view_visible_width_m": 450.0,
-  "interactive_view_visible_width_m": 450.0,
+  "view_visible_width_m": 600.0,
+  "interactive_view_visible_width_m": 480.0,
   "view_center_offset_east_m": 0.0,
   "view_center_offset_north_m": 0.0,
   "interactive_match_static_horizontal_center": true,

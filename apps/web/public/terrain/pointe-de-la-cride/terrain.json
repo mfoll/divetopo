@@ -4,14 +4,14 @@
   "title": "Pointe de la Cride, Sanary-sur-Mer",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 925000.0,
-    "south": 6227575.0,
-    "east": 925950.0,
-    "north": 6228325.0
+    "west": 925005.0,
+    "south": 6227550.0,
+    "east": 925995.0,
+    "north": 6228350.0
   },
   "physicalSizeM": {
-    "width": 950.0,
-    "depth": 750.0
+    "width": 990.0,
+    "depth": 800.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 405,
-    "triangleCount": 413696,
+    "height": 415,
+    "triangleCount": 423936,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -87,31 +87,31 @@
     "levels": {
       "5": {
         "polylines": 4,
-        "points": 837
+        "points": 788
       },
       "10": {
         "polylines": 6,
-        "points": 1011
+        "points": 1021
       },
       "15": {
         "polylines": 2,
-        "points": 510
+        "points": 528
       },
       "20": {
         "polylines": 2,
-        "points": 400
+        "points": 386
       }
     },
     "totals": {
       "levels": 4,
       "polylines": 14,
-      "points": 2758
+      "points": 2723
     },
     "reprojectionResidualM": {
-      "samples": 2758,
-      "mean": 3.235191299323886e-06,
-      "p95": 1.6650214940128244e-07,
-      "max": 0.0004855016400178158,
+      "samples": 2723,
+      "mean": 2.773620350841353e-06,
+      "p95": 2.0440572363611453e-07,
+      "max": 0.0005233888164006828,
       "withinTolerance": true
     }
   },
@@ -121,13 +121,13 @@
     "gridLookBearingDeg": 90.0,
     "cameraTilt": 0.34,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 450.0,
+    "visibleWidthM": 480.0,
     "coastFrameFraction": 0.52,
     "horizontalCenterOffsetM": -50.0
   },
   "textures": {
-    "width": 950,
-    "height": 750,
+    "width": 990,
+    "height": 800,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -146,28 +146,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      925475.0,
+      925500.0,
       6227950.0
     ],
-    "widthM": 750.0,
-    "depthM": 950.0,
+    "widthM": 800.0,
+    "depthM": 990.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
       [
-        925000.0,
-        6228325.0
+        925005.0,
+        6228350.0
       ],
       [
-        925000.0,
-        6227575.0
+        925005.0,
+        6227550.0
       ],
       [
-        925950.0,
-        6227575.0
+        925995.0,
+        6227550.0
       ],
       [
-        925950.0,
-        6228325.0
+        925995.0,
+        6228350.0
       ]
     ]
   }
