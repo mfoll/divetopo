@@ -77,19 +77,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-topographic.jpg?v=227f9d69ec8a",
+              "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-topographic.jpg?v=496d6dda629e",
               "width": 2474,
               "height": 1712,
-              "bytes": 1214295,
-              "sha256": "227f9d69ec8a6f677100a718dbf047136a935c55e9073aaa3a9063701b953f0d"
+              "bytes": 1397234,
+              "sha256": "496d6dda629eead27941cd57209748d80b062a75e0fbc983c147e67cbd8291f8"
             }
           ],
           "download": {
-            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-topographic.jpg?v=227f9d69ec8a",
+            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-topographic.jpg?v=496d6dda629e",
             "width": 2474,
             "height": 1712,
-            "bytes": 1214295,
-            "sha256": "227f9d69ec8a6f677100a718dbf047136a935c55e9073aaa3a9063701b953f0d",
+            "bytes": 1397234,
+            "sha256": "496d6dda629eead27941cd57209748d80b062a75e0fbc983c147e67cbd8291f8",
             "filename": "les-pyramides-cap-dramont-topobathy-2d.jpg"
           }
         },
@@ -102,19 +102,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg?v=88e3043d41f7",
+              "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg?v=e3a4a4326cbb",
               "width": 2474,
               "height": 1712,
-              "bytes": 815777,
-              "sha256": "88e3043d41f7f4943c9e4332df4c5274196f353863afc81adc75476764f92ca5"
+              "bytes": 1425685,
+              "sha256": "e3a4a4326cbb67693b29841c307903d91e800e9e1b582cfa47f591e0e19a6051"
             }
           ],
           "download": {
-            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg?v=88e3043d41f7",
+            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/2d-orthophoto.jpg?v=e3a4a4326cbb",
             "width": 2474,
             "height": 1712,
-            "bytes": 815777,
-            "sha256": "88e3043d41f7f4943c9e4332df4c5274196f353863afc81adc75476764f92ca5",
+            "bytes": 1425685,
+            "sha256": "e3a4a4326cbb67693b29841c307903d91e800e9e1b582cfa47f591e0e19a6051",
             "filename": "les-pyramides-cap-dramont-topobathy-2d-ortho.jpg"
           }
         },
@@ -201,36 +201,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/planche-topographic-1800.webp?v=05d9504712bf",
+            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/planche-topographic-1800.webp?v=785475c6fb44",
             "width": 1800,
             "height": 1083,
-            "bytes": 161446,
-            "sha256": "05d9504712bf26b740970f394a546a15e57b97de2e00ade4091454aef2fa17aa"
+            "bytes": 175880,
+            "sha256": "785475c6fb447ddb84d15d58cd3b09e69c8b89e07c3dabb705ef2a7a295cd778"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/les-pyramides-cap-dramont-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3784272,
-            "sha256": "c43d99f36302ce4e407669c2795690eeb2a00cccba2f08691796cb22fb81e81d",
+            "bytes": 3982772,
+            "sha256": "6b1b79cf0243e61184a59b9743b9f03259ed324e02db6c9139c24f1d49b9e58e",
             "filename": "les-pyramides-cap-dramont-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/planche-orthophoto-1800.webp?v=ed89edefcfaf",
+            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/planche-orthophoto-1800.webp?v=3bd2e49ae845",
             "width": 1800,
             "height": 1083,
-            "bytes": 165274,
-            "sha256": "ed89edefcfafe405d8b9526892a1c88294a7b383be649ef3c9867cfe407688e2"
+            "bytes": 179840,
+            "sha256": "3bd2e49ae8454705e8778bef849c20b40565e0444a68f49aab0762116cd2c40d"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/les-pyramides-cap-dramont-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3839861,
-            "sha256": "b1685d75dcd3855b68f222ad4bb9cf4b6cf9de9642c7044835a8ead1f9aff0cb",
+            "bytes": 4012979,
+            "sha256": "babb1c9270ba8ef7f9c4490240d7b1214b036fc6ac8f3dab502a022d8fc0b524",
             "filename": "les-pyramides-cap-dramont-planche.jpg"
           }
         }
@@ -283,19 +283,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-topographic.jpg?v=625e21321dda",
+              "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-topographic.jpg?v=000a59760b02",
               "width": 2474,
               "height": 1712,
-              "bytes": 1340817,
-              "sha256": "625e21321dda51a27a12aac30a0886b2a01a4190fa2a52852faed28d3a4d3140"
+              "bytes": 1541847,
+              "sha256": "000a59760b023758acab11ffd2cc5233d39f4e8b4c2aa41044a132f39f3eb294"
             }
           ],
           "download": {
-            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-topographic.jpg?v=625e21321dda",
+            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-topographic.jpg?v=000a59760b02",
             "width": 2474,
             "height": 1712,
-            "bytes": 1340817,
-            "sha256": "625e21321dda51a27a12aac30a0886b2a01a4190fa2a52852faed28d3a4d3140",
+            "bytes": 1541847,
+            "sha256": "000a59760b023758acab11ffd2cc5233d39f4e8b4c2aa41044a132f39f3eb294",
             "filename": "sec-de-l-ile-d-or-topobathy-2d.jpg"
           }
         },
@@ -308,19 +308,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-orthophoto.jpg?v=1eb1688d3b7a",
+              "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-orthophoto.jpg?v=ef2a5df24483",
               "width": 2474,
               "height": 1712,
-              "bytes": 1367966,
-              "sha256": "1eb1688d3b7ab9547983fd8bd8799fda559455a7ac8a296ad9a0c6e9cd825d19"
+              "bytes": 1570135,
+              "sha256": "ef2a5df24483f97862422d551f416c89c9dcf63cb351edb29d92dd4f50b5aea5"
             }
           ],
           "download": {
-            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-orthophoto.jpg?v=1eb1688d3b7a",
+            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/2d-orthophoto.jpg?v=ef2a5df24483",
             "width": 2474,
             "height": 1712,
-            "bytes": 1367966,
-            "sha256": "1eb1688d3b7ab9547983fd8bd8799fda559455a7ac8a296ad9a0c6e9cd825d19",
+            "bytes": 1570135,
+            "sha256": "ef2a5df24483f97862422d551f416c89c9dcf63cb351edb29d92dd4f50b5aea5",
             "filename": "sec-de-l-ile-d-or-topobathy-2d-ortho.jpg"
           }
         },
@@ -407,36 +407,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/planche-topographic-1800.webp?v=f94b5cb97c06",
+            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/planche-topographic-1800.webp?v=2517ec14285a",
             "width": 1800,
             "height": 1083,
-            "bytes": 147686,
-            "sha256": "f94b5cb97c066b92f2b1215719331211f1b0cf7ebcdaa1d2f4bac30604d4e761"
+            "bytes": 172368,
+            "sha256": "2517ec14285a9690c8a4458802b497d190475503c78ecb12ad67427dd102f5a1"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-de-l-ile-d-or-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3685457,
-            "sha256": "b8db054d2756f7f17368e91fc6d4b4b461cf242bd351878fa5aff8abaf0043ec",
+            "bytes": 3919498,
+            "sha256": "ca1f8b62669e8bbfe013530617c921944032a14d7c5ced6c86757d47749e32a1",
             "filename": "sec-de-l-ile-d-or-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/planche-orthophoto-1800.webp?v=65a6859cd199",
+            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/planche-orthophoto-1800.webp?v=f364276d23a0",
             "width": 1800,
             "height": 1083,
-            "bytes": 151738,
-            "sha256": "65a6859cd1993d4f1db2bf23b3d7595041dafb1eedb77688cb65e0908287908f"
+            "bytes": 176924,
+            "sha256": "f364276d23a0ec9b8446723bc02a8238add44d7a1a4ea204eb92817d7232eb9b"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-de-l-ile-d-or-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3719647,
-            "sha256": "3c591032a95d6ed28b01a8086d719bc2991b8ffb04c505e8de7dbea138846d4b",
+            "bytes": 3963066,
+            "sha256": "bbc4d3233416ed6ed851e8a69935c65ffeb328c2a2733e1a85a15e217e283b04",
             "filename": "sec-de-l-ile-d-or-planche.jpg"
           }
         }
@@ -500,19 +500,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/arche-du-dramont/maps/2d-topographic.jpg?v=82c8f9ea031d",
+              "src": "/maps/var-est/arche-du-dramont/maps/2d-topographic.jpg?v=a69872883205",
               "width": 2474,
               "height": 1712,
-              "bytes": 1378681,
-              "sha256": "82c8f9ea031d1603fd41f1e4777f6fa69325af1a62c4b0679b506cbf3ba72df6"
+              "bytes": 1547127,
+              "sha256": "a69872883205582193e968782b6f008f33a2cef9e91f269a3d880760f5ee7a3a"
             }
           ],
           "download": {
-            "src": "/maps/var-est/arche-du-dramont/maps/2d-topographic.jpg?v=82c8f9ea031d",
+            "src": "/maps/var-est/arche-du-dramont/maps/2d-topographic.jpg?v=a69872883205",
             "width": 2474,
             "height": 1712,
-            "bytes": 1378681,
-            "sha256": "82c8f9ea031d1603fd41f1e4777f6fa69325af1a62c4b0679b506cbf3ba72df6",
+            "bytes": 1547127,
+            "sha256": "a69872883205582193e968782b6f008f33a2cef9e91f269a3d880760f5ee7a3a",
             "filename": "arche-du-dramont-topobathy-2d.jpg"
           }
         },
@@ -525,19 +525,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/arche-du-dramont/maps/2d-orthophoto.jpg?v=26bf39b5bfe0",
+              "src": "/maps/var-est/arche-du-dramont/maps/2d-orthophoto.jpg?v=3cd28724c888",
               "width": 2474,
               "height": 1712,
-              "bytes": 1412218,
-              "sha256": "26bf39b5bfe07b93a49448a127bea8716a41ea05c0c443c9e60f191b0158a025"
+              "bytes": 1582674,
+              "sha256": "3cd28724c888608e5a03012e62d1fb9b41a68c8ef26c7b6835972bbae343e6a5"
             }
           ],
           "download": {
-            "src": "/maps/var-est/arche-du-dramont/maps/2d-orthophoto.jpg?v=26bf39b5bfe0",
+            "src": "/maps/var-est/arche-du-dramont/maps/2d-orthophoto.jpg?v=3cd28724c888",
             "width": 2474,
             "height": 1712,
-            "bytes": 1412218,
-            "sha256": "26bf39b5bfe07b93a49448a127bea8716a41ea05c0c443c9e60f191b0158a025",
+            "bytes": 1582674,
+            "sha256": "3cd28724c888608e5a03012e62d1fb9b41a68c8ef26c7b6835972bbae343e6a5",
             "filename": "arche-du-dramont-topobathy-2d-ortho.jpg"
           }
         },
@@ -624,36 +624,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-est/arche-du-dramont/maps/planche-topographic-1800.webp?v=2b68438c0bb4",
+            "src": "/maps/var-est/arche-du-dramont/maps/planche-topographic-1800.webp?v=b6fa736b8ab1",
             "width": 1800,
             "height": 1083,
-            "bytes": 181106,
-            "sha256": "2b68438c0bb49a39f03c49400e4658544a2f0777bfe71f8dc2c799644a53f37f"
+            "bytes": 194390,
+            "sha256": "b6fa736b8ab16e61fe9d2d4278c527a6d0c981c06b797d3c53e26c534ea31a4a"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/arche-du-dramont-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4394371,
-            "sha256": "c0529acb3e3e8e5e58a4beb819f3e031e92870bcf72f01d3a305d55e706b28c6",
+            "bytes": 4616727,
+            "sha256": "b08552dd43c8ea248a68d0c237b8d548816cc460b3a9929879a2a4b69982fce9",
             "filename": "arche-du-dramont-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-est/arche-du-dramont/maps/planche-orthophoto-1800.webp?v=0d5a41799741",
+            "src": "/maps/var-est/arche-du-dramont/maps/planche-orthophoto-1800.webp?v=b595516c491e",
             "width": 1800,
             "height": 1083,
-            "bytes": 188212,
-            "sha256": "0d5a417997419ebd1212640dc14f4e40fc13a76e1c8d3da64c09694a90927944"
+            "bytes": 202312,
+            "sha256": "b595516c491e932161bc3b0fcf350885ecf8fb7bd73ed837180ddb1be729cbef"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/arche-du-dramont-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4456506,
-            "sha256": "fd1cc02bad5392ed75349e8d7c24a234703eaf969b48456193e380991105de2f",
+            "bytes": 4677756,
+            "sha256": "599a0a76c517b42fa2ac865a38d96423ea2cfa7834895278ba80583b5503791d",
             "filename": "arche-du-dramont-planche.jpg"
           }
         }
@@ -717,19 +717,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-topographic.jpg?v=822a6bb1caa8",
+              "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-topographic.jpg?v=1007aae4d0f2",
               "width": 2474,
               "height": 1712,
-              "bytes": 1085511,
-              "sha256": "822a6bb1caa828e574e71d20d04151f4b5b7f5c9ce9a47b11760a8f7bbbb516b"
+              "bytes": 1120216,
+              "sha256": "1007aae4d0f2336022bd0ddfb55c1c8161dcf9a17a01ea08518215c1cf0dac89"
             }
           ],
           "download": {
-            "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-topographic.jpg?v=822a6bb1caa8",
+            "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-topographic.jpg?v=1007aae4d0f2",
             "width": 2474,
             "height": 1712,
-            "bytes": 1085511,
-            "sha256": "822a6bb1caa828e574e71d20d04151f4b5b7f5c9ce9a47b11760a8f7bbbb516b",
+            "bytes": 1120216,
+            "sha256": "1007aae4d0f2336022bd0ddfb55c1c8161dcf9a17a01ea08518215c1cf0dac89",
             "filename": "cathedrale-du-trayas-topobathy-2d.jpg"
           }
         },
@@ -742,19 +742,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-orthophoto.jpg?v=0d179c2e3573",
+              "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-orthophoto.jpg?v=c027b4d22d11",
               "width": 2474,
               "height": 1712,
-              "bytes": 1720627,
-              "sha256": "0d179c2e35733700edda7f7ad3419c858a6547adca42bcaf471aad36f7e28693"
+              "bytes": 1781943,
+              "sha256": "c027b4d22d11e96bfd62927d332b4a2a1585b04e737d4861fdfe9946fe23f15d"
             }
           ],
           "download": {
-            "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-orthophoto.jpg?v=0d179c2e3573",
+            "src": "/maps/var-est/cathedrale-du-trayas/maps/2d-orthophoto.jpg?v=c027b4d22d11",
             "width": 2474,
             "height": 1712,
-            "bytes": 1720627,
-            "sha256": "0d179c2e35733700edda7f7ad3419c858a6547adca42bcaf471aad36f7e28693",
+            "bytes": 1781943,
+            "sha256": "c027b4d22d11e96bfd62927d332b4a2a1585b04e737d4861fdfe9946fe23f15d",
             "filename": "cathedrale-du-trayas-topobathy-2d-ortho.jpg"
           }
         },
@@ -841,36 +841,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-est/cathedrale-du-trayas/maps/planche-topographic-1800.webp?v=40c06ea90e41",
+            "src": "/maps/var-est/cathedrale-du-trayas/maps/planche-topographic-1800.webp?v=f4c582537356",
             "width": 1800,
             "height": 1083,
-            "bytes": 139924,
-            "sha256": "40c06ea90e412b9a22313d3bf13b73d6ea99785f8734ace5f4bcd3d3465294c0"
+            "bytes": 138636,
+            "sha256": "f4c582537356fe92c455c532361ff61657ab577755449e270f585e225411d214"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/cathedrale-du-trayas-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3579542,
-            "sha256": "718b411381af647a165eea1dc031a6411e1af06038415299bd644154b9af6290",
+            "bytes": 3477591,
+            "sha256": "8217cd8e1ea9bd99e039bb8ecafbb505f86972bc8fe723d17d0a6598c2af5a1a",
             "filename": "cathedrale-du-trayas-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-est/cathedrale-du-trayas/maps/planche-orthophoto-1800.webp?v=fbb4238c7ded",
+            "src": "/maps/var-est/cathedrale-du-trayas/maps/planche-orthophoto-1800.webp?v=b36e417eee3f",
             "width": 1800,
             "height": 1083,
-            "bytes": 202850,
-            "sha256": "fbb4238c7ded65d90ffc819c5dacbbd9f1d8fecf4cd29d73fb7ea1da5776728d"
+            "bytes": 199134,
+            "sha256": "b36e417eee3f8f4555a869e5616bf680aeebb750870736c175869659f8139a40"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/cathedrale-du-trayas-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4488328,
-            "sha256": "3b61cc4f4d19bcffee2dc12913409c30984ee77e2fb46dfae3444a237bbc8a44",
+            "bytes": 4369423,
+            "sha256": "2729915eeb559f773ecf2d1cd84941b312bbb590eced4d770ee0a7d3e7353c09",
             "filename": "cathedrale-du-trayas-planche.jpg"
           }
         }
@@ -931,19 +931,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/le-village/maps/2d-topographic.jpg?v=04f26f0b808f",
+              "src": "/maps/var-est/le-village/maps/2d-topographic.jpg?v=0371313172a3",
               "width": 2474,
               "height": 1712,
-              "bytes": 1218182,
-              "sha256": "04f26f0b808fd6c2541677377a8c7a05a3d5377f31a5a9c77e63b3d94406a5e2"
+              "bytes": 1425627,
+              "sha256": "0371313172a3779b35427a2f093fbd6580a649e2d12abdd4427d70927aed2764"
             }
           ],
           "download": {
-            "src": "/maps/var-est/le-village/maps/2d-topographic.jpg?v=04f26f0b808f",
+            "src": "/maps/var-est/le-village/maps/2d-topographic.jpg?v=0371313172a3",
             "width": 2474,
             "height": 1712,
-            "bytes": 1218182,
-            "sha256": "04f26f0b808fd6c2541677377a8c7a05a3d5377f31a5a9c77e63b3d94406a5e2",
+            "bytes": 1425627,
+            "sha256": "0371313172a3779b35427a2f093fbd6580a649e2d12abdd4427d70927aed2764",
             "filename": "le-village-topobathy-2d.jpg"
           }
         },
@@ -956,19 +956,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-est/le-village/maps/2d-orthophoto.jpg?v=97bb8785c3d5",
+              "src": "/maps/var-est/le-village/maps/2d-orthophoto.jpg?v=3a85c0a8f1a7",
               "width": 2474,
               "height": 1712,
-              "bytes": 1379886,
-              "sha256": "97bb8785c3d5fb3d8d0a5482d8c148d8bd85ef9336ab894ccf9c0776bda9b676"
+              "bytes": 1589957,
+              "sha256": "3a85c0a8f1a7e0776f14827b48a7280376a249ef814d7762f9a1f2a5322492a6"
             }
           ],
           "download": {
-            "src": "/maps/var-est/le-village/maps/2d-orthophoto.jpg?v=97bb8785c3d5",
+            "src": "/maps/var-est/le-village/maps/2d-orthophoto.jpg?v=3a85c0a8f1a7",
             "width": 2474,
             "height": 1712,
-            "bytes": 1379886,
-            "sha256": "97bb8785c3d5fb3d8d0a5482d8c148d8bd85ef9336ab894ccf9c0776bda9b676",
+            "bytes": 1589957,
+            "sha256": "3a85c0a8f1a7e0776f14827b48a7280376a249ef814d7762f9a1f2a5322492a6",
             "filename": "le-village-topobathy-2d-ortho.jpg"
           }
         },
@@ -1055,36 +1055,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-est/le-village/maps/planche-topographic-1800.webp?v=db81d59d60b4",
+            "src": "/maps/var-est/le-village/maps/planche-topographic-1800.webp?v=d19ec2ae19bc",
             "width": 1800,
             "height": 1083,
-            "bytes": 161332,
-            "sha256": "db81d59d60b4df593cd7f1a2ff00191453ad66d195438cf4ca760d9346e8a4ac"
+            "bytes": 181336,
+            "sha256": "d19ec2ae19bc8c219694b3ca25b1542b5185cafe9c3718d61411fc0a750d13a0"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/le-village-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3918096,
-            "sha256": "990393910ad77783d33caed8e348e699a4a30526224b6724e877077bc66a7d5d",
+            "bytes": 4171670,
+            "sha256": "1b41213f2857bc0e8319e35fdbcd9abd13a7cd5a4e3960392aa9f22c693da79f",
             "filename": "le-village-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-est/le-village/maps/planche-orthophoto-1800.webp?v=eeed9b539aea",
+            "src": "/maps/var-est/le-village/maps/planche-orthophoto-1800.webp?v=58eaee154b9d",
             "width": 1800,
             "height": 1083,
-            "bytes": 200398,
-            "sha256": "eeed9b539aea1e44a3e21649d078c3ddfc0e2f92dbee3f719ccba2c638c0d626"
+            "bytes": 220666,
+            "sha256": "58eaee154b9d1fa5a56d8b35ad44e0f22c831e93ed9908177cbce3609fbae4a7"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/le-village-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4430574,
-            "sha256": "ec7a56705bc0fda80ad7a113e0a89517cfe1c898276abdcfa1b8e54b8032f74b",
+            "bytes": 4687305,
+            "sha256": "68c7c822e5a9b7e780d502d5f6416e1366e726b6a6d89cf8bdfd07e8015cbc93",
             "filename": "le-village-planche.jpg"
           }
         }
