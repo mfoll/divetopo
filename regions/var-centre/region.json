@@ -20,13 +20,13 @@
     "status": "generated",
     "boundsWgs84": [
       6.0,
-      42.86,
+      42.885,
       6.46,
-      43.1
+      43.125
     ],
     "output": "regions/var-centre/outputs/var-centre-regional-relief.png",
     "webDerivative": "apps/web/public/maps/var-centre/var-centre-regional-relief.png",
-    "sha256": "044aa08d3b0715ae690003f3c37b74707e241d73a90de233bf73c218172d2a96"
+    "sha256": "1c07f7646681960aff423a2d50ac2f43afa6c29f0ef0f150ab4a0ae6aadb06fc"
   },
   "pipeline": {
     "module": "cartography.regions.var_centre",

@@ -5,16 +5,16 @@
   "web": {
     "published": true,
     "site_label_layout": {
-      "side": "right",
+      "side": "left",
       "shift_y_rem": 3.45,
       "connector_angle_deg": 69,
       "connector_width_rem": 2.55,
-      "label_offset_rem": 2.3,
+      "label_offset_rem": 0.75,
       "lines": [
         "Sec du",
         "Langoustier"
       ],
-      "width_rem": 6.8
+      "width_rem": 6.0
     }
   },
   "plate_relief_source": "static",
@@ -42,13 +42,13 @@
       957620.0,
       6216360.0
     ],
-    "width_m": 460.0,
-    "depth_m": 540.0,
+    "width_m": 470.0,
+    "depth_m": 550.0,
     "look_bearing_deg": 90.0
   },
   "view_bearing_deg": 90.0,
-  "view_visible_width_m": 360.0,
-  "interactive_view_visible_width_m": 360.0,
+  "view_visible_width_m": 430.0,
+  "interactive_view_visible_width_m": 395.0,
   "view_center_offset_east_m": -180.0,
   "view_center_offset_north_m": -120.0,
   "interactive_match_static_horizontal_center": true,

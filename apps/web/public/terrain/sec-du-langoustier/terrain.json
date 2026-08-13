@@ -4,14 +4,14 @@
   "title": "Sec du Langoustier (sud-est), Porquerolles",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 957350.0,
-    "south": 6216130.0,
-    "east": 957890.0,
-    "north": 6216590.0
+    "west": 957345.0,
+    "south": 6216125.0,
+    "east": 957895.0,
+    "north": 6216595.0
   },
   "physicalSizeM": {
-    "width": 540.0,
-    "depth": 460.0
+    "width": 550.0,
+    "depth": 470.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 437,
-    "triangleCount": 446464,
+    "height": 438,
+    "triangleCount": 447488,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -42.84595489501953,
-      "scaleMPerUnit": 0.0008402711841073637,
+      "offsetM": -42.84739303588867,
+      "scaleMPerUnit": 0.000840045887918051,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -57,8 +57,8 @@
     }
   },
   "elevationRangeM": {
-    "min": -42.84595489501953,
-    "max": 12.221217155456543
+    "min": -42.84739303588867,
+    "max": 12.2050142288208
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -112,47 +112,47 @@
     "levels": {
       "5": {
         "polylines": 4,
-        "points": 322
+        "points": 340
       },
       "10": {
         "polylines": 4,
-        "points": 402
+        "points": 396
       },
       "15": {
         "polylines": 5,
-        "points": 757
+        "points": 748
       },
       "20": {
         "polylines": 4,
-        "points": 691
+        "points": 696
       },
       "25": {
         "polylines": 8,
-        "points": 1084
+        "points": 1086
       },
       "30": {
         "polylines": 3,
-        "points": 462
+        "points": 461
       },
       "35": {
         "polylines": 1,
-        "points": 149
+        "points": 171
       },
       "40": {
         "polylines": 1,
-        "points": 87
+        "points": 92
       }
     },
     "totals": {
       "levels": 8,
       "polylines": 30,
-      "points": 3954
+      "points": 3990
     },
     "reprojectionResidualM": {
-      "samples": 3954,
-      "mean": 2.716441330740406e-09,
-      "p95": 3.3693154932734564e-10,
-      "max": 2.198875350245544e-06,
+      "samples": 3990,
+      "mean": 7.588634799913864e-09,
+      "p95": 5.302887906566409e-10,
+      "max": 7.284166809284898e-06,
       "withinTolerance": true
     }
   },
@@ -162,13 +162,13 @@
     "gridLookBearingDeg": 90.0,
     "cameraTilt": 0.5,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 360.0,
+    "visibleWidthM": 395.0,
     "coastFrameFraction": 0.25,
     "horizontalCenterOffsetM": 119.5
   },
   "textures": {
-    "width": 540,
-    "height": 460,
+    "width": 550,
+    "height": 470,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -190,25 +190,25 @@
       957620.0,
       6216360.0
     ],
-    "widthM": 460.0,
-    "depthM": 540.0,
+    "widthM": 470.0,
+    "depthM": 550.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
       [
-        957350.0,
-        6216590.0
+        957345.0,
+        6216595.0
       ],
       [
-        957350.0,
-        6216130.0
+        957345.0,
+        6216125.0
       ],
       [
-        957890.0,
-        6216130.0
+        957895.0,
+        6216125.0
       ],
       [
-        957890.0,
-        6216590.0
+        957895.0,
+        6216595.0
       ]
     ]
   }

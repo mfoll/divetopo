@@ -92,38 +92,38 @@
       "files": {
         "metadata": {
           "path": "sec-du-langoustier/terrain.json",
-          "bytes": 5049,
-          "sha256": "1d4d3ca2a4f929018c76a7f558c520ea2b78b2381cd444a2f92d069b03240692"
+          "bytes": 5045,
+          "sha256": "72f2fb2d7a40a407a11532cbe61ce41366809eab91410eac5ae165483ac23b96"
         },
         "height": {
           "path": "sec-du-langoustier/height.bin",
-          "bytes": 448362,
-          "sha256": "1b24d1cf548c1b9e621f9e6f534906124e252d2216c5d5d474791ac65dc6504d"
+          "bytes": 449388,
+          "sha256": "731f8b8000e7c402caf4081ff7e820e3d8e6b4c3e6d154ff9146b3f159e3abb8"
         },
         "validMask": {
           "path": "sec-du-langoustier/valid-mask.bin",
-          "bytes": 28023,
-          "sha256": "98a6af0826a0e9d01540cd1812642887c485fb0cfb87d76ae054fea025c87f03"
+          "bytes": 28087,
+          "sha256": "bd321c7105902bc4916391abd89e6b14c58e7f3cd304660bc97a1d1b98b615f7"
         },
         "isobathMask": {
           "path": "sec-du-langoustier/isobath-mask.bin",
-          "bytes": 28023,
-          "sha256": "98a6af0826a0e9d01540cd1812642887c485fb0cfb87d76ae054fea025c87f03"
+          "bytes": 28087,
+          "sha256": "bd321c7105902bc4916391abd89e6b14c58e7f3cd304660bc97a1d1b98b615f7"
         },
         "vectorIsobaths": {
           "path": "sec-du-langoustier/isobaths-vector.json",
-          "bytes": 153755,
-          "sha256": "074cfe2cf6bca2c1b004d9db06eba173316c40ad1d5483301c8e2bf19612c86d"
+          "bytes": 155269,
+          "sha256": "47951bd03160818c12aedb5bcf2c0c05e1a0659193228f39b4c6da02014b3b7a"
         },
         "topographicTexture": {
           "path": "sec-du-langoustier/topographic.webp",
-          "bytes": 16290,
-          "sha256": "f5db1f74795a2534aea4d47eeb4c52708a3f69e4c5d61a4536a6dd2ecbbf910a"
+          "bytes": 17402,
+          "sha256": "73f40bd5b147a4ee2c0e9da6c5d183aa22133a56523f32a0ce73715c9c958ad8"
         },
         "orthophotoTexture": {
           "path": "sec-du-langoustier/orthophoto.webp",
-          "bytes": 12836,
-          "sha256": "bb7ceae367e12ea712f3bace3ffbfb654f214e956001262c26b5aaa42d5ae2b2"
+          "bytes": 13792,
+          "sha256": "9118401ce5d416cea008c38f8ef480cbf7a3762d721b81cf905f9968c8223223"
         }
       }
     },
