@@ -76,7 +76,7 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5.0,
   "output_scale": 2.0,
-  "plan_output_scale": 6.0,
+  "plan_output_scale": 2.0,
   "relief_output_scale": 1.0,
   "relief_compass_inset_px": 130.0,
   "relief_footer_inset_px": 52.0,

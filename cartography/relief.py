@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import math
 import warnings
 from collections import deque
 from functools import lru_cache
@@ -2082,6 +2083,28 @@ def extract_depth_locked_plan_isobaths(
     return contours
 
 
+def depth_locked_plan_render_scale(
+    requested_scale: float,
+    source_size_px: tuple[int, int],
+    final_output_size_px: tuple[int, int] | list[int] | None,
+) -> float:
+    """Keep depth-locked line rasterization at or above delivery resolution."""
+    if requested_scale <= 0.0:
+        raise ValueError("requested_scale must be positive")
+    if final_output_size_px is None:
+        return requested_scale
+    source_width, source_height = source_size_px
+    final_width, final_height = map(int, final_output_size_px)
+    if min(source_width, source_height, final_width, final_height) <= 0:
+        raise ValueError("Source and final plan dimensions must be positive")
+    minimum_integer_scale = max(
+        1,
+        math.ceil(final_width / source_width),
+        math.ceil(final_height / source_height),
+    )
+    return max(requested_scale, float(minimum_integer_scale))
+
+
 @lru_cache(maxsize=2)
 def build_fused_surface(
     depth_path: Path,
@@ -2186,9 +2209,17 @@ def make_clean_plan(
         raise ValueError(
             "isobath_geometry must be 'legacy' or 'depth_locked'"
         )
-    ui = output_scale
     elev, coast_y, land_mask, land_weight, surface_valid, fused_depth, contours, coastlines = build_fused_surface(
         depth_path, elevation_path, max_depth, rotation_k, coast_mode, land_sieve_threshold_px
+    )
+    ui = (
+        depth_locked_plan_render_scale(
+            output_scale,
+            (fused_depth.shape[1], fused_depth.shape[0]),
+            final_output_size_px,
+        )
+        if isobath_geometry == "depth_locked"
+        else output_scale
     )
     d = np.clip(fused_depth, 0.0, max_depth)
     sea_mask = surface_valid & ~land_mask

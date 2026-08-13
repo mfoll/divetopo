@@ -19,6 +19,7 @@ from cartography.relief import (
     clip_polyline_to_bbox,
     compass_point,
     deep_edge_nodata_display_mask,
+    depth_locked_plan_render_scale,
     draw_interpolated_triangle,
     edge_preserving_bathy,
     extract_depth_locked_plan_isobaths,
@@ -71,6 +72,20 @@ def write_raster(
 
 
 class RasterAlignmentTests(unittest.TestCase):
+    def test_depth_locked_plan_render_scale_avoids_final_upscaling(self) -> None:
+        self.assertEqual(
+            depth_locked_plan_render_scale(2.0, (450, 312), (2474, 1712)),
+            6.0,
+        )
+        self.assertEqual(
+            depth_locked_plan_render_scale(4.0, (800, 554), (2474, 1712)),
+            4.0,
+        )
+        self.assertEqual(
+            depth_locked_plan_render_scale(2.0, (450, 312), None),
+            2.0,
+        )
+
     def test_depth_locked_isobaths_do_not_contract_into_an_island(self) -> None:
         yy, xx = np.mgrid[:120, :120]
         radius = np.hypot(xx - 60.0, yy - 60.0)
