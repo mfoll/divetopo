@@ -280,19 +280,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=27e71ada151b",
+              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=75b19158fa29",
               "width": 2474,
               "height": 1712,
-              "bytes": 1649601,
-              "sha256": "27e71ada151bf243089673774bfc8f72b9278a31eeacf251b2e46f1eb12fda31"
+              "bytes": 1737322,
+              "sha256": "75b19158fa298c785e4942be69ceda5c428b5b33677cbf2e5f996e86348fe45f"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=27e71ada151b",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=75b19158fa29",
             "width": 2474,
             "height": 1712,
-            "bytes": 1649601,
-            "sha256": "27e71ada151bf243089673774bfc8f72b9278a31eeacf251b2e46f1eb12fda31",
+            "bytes": 1737322,
+            "sha256": "75b19158fa298c785e4942be69ceda5c428b5b33677cbf2e5f996e86348fe45f",
             "filename": "sec-de-la-jeaune-garde-topobathy-2d.jpg"
           }
         },
@@ -305,19 +305,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=f9927363e588",
+              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=e7efbd60e97d",
               "width": 2474,
               "height": 1712,
-              "bytes": 1677166,
-              "sha256": "f9927363e588f3a40e97a2817cfbb88d84b10d57dcd71fe62f0b29777de8ecbf"
+              "bytes": 1766861,
+              "sha256": "e7efbd60e97dc6d86a5ea2b4c79541523d82ba41c278694ededb8d2d667ed224"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=f9927363e588",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=e7efbd60e97d",
             "width": 2474,
             "height": 1712,
-            "bytes": 1677166,
-            "sha256": "f9927363e588f3a40e97a2817cfbb88d84b10d57dcd71fe62f0b29777de8ecbf",
+            "bytes": 1766861,
+            "sha256": "e7efbd60e97dc6d86a5ea2b4c79541523d82ba41c278694ededb8d2d667ed224",
             "filename": "sec-de-la-jeaune-garde-topobathy-2d-ortho.jpg"
           }
         },
@@ -404,36 +404,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-topographic-1800.webp?v=7da045c1e761",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-topographic-1800.webp?v=4918309e4428",
             "width": 1800,
             "height": 1083,
-            "bytes": 163704,
-            "sha256": "7da045c1e76114adcca81c0ec17a9dffa5db8614a74717eeca67ceece24c05fd"
+            "bytes": 169000,
+            "sha256": "4918309e44285ce5cd62102070b8215bda72c38e56cc1a8004b76a1f3eebecbc"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-de-la-jeaune-garde-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4307541,
-            "sha256": "b9bce541b62d8860587816393ac64cfb80d3f2184457e87469b8bc7329ad436b",
+            "bytes": 4389739,
+            "sha256": "33df5e802bfaec74812c5a3202bde7b3fad5c11b87d411fa096a502dcd14f7a5",
             "filename": "sec-de-la-jeaune-garde-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-orthophoto-1800.webp?v=17afb671b104",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-orthophoto-1800.webp?v=cedfe2f86ca7",
             "width": 1800,
             "height": 1083,
-            "bytes": 173048,
-            "sha256": "17afb671b10458d8c87b0036b958e1e3d186daebeba605eb6ac6d4c0cb85fb3d"
+            "bytes": 178416,
+            "sha256": "cedfe2f86ca71967ed45633ae9b3281f4c4af318ecfd3f481c91afcfafc22587"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-de-la-jeaune-garde-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4303825,
-            "sha256": "7f9b4d59fbacdece14ddd128a834b16cf2562186c86f9711bc40e7f87c48a933",
+            "bytes": 4383176,
+            "sha256": "c9d3225fcdd40bddc25ca268b4ef9bdaba8fc882a96a86be9d452727222ad76a",
             "filename": "sec-de-la-jeaune-garde-planche.jpg"
           }
         }
@@ -487,19 +487,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/2d-topographic.jpg?v=9a2b39ba6859",
+              "src": "/maps/var-centre/sec-du-langoustier/maps/2d-topographic.jpg?v=055a31d3f58a",
               "width": 2474,
               "height": 1712,
-              "bytes": 1324313,
-              "sha256": "9a2b39ba68597927e9cc20a2ac38218416548d46ccd71363f2555a76ce4a638d"
+              "bytes": 1428589,
+              "sha256": "055a31d3f58a39f0f8e0f484faacf4abc38dfe7311c48d0b4eed535619615eef"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/2d-topographic.jpg?v=9a2b39ba6859",
+            "src": "/maps/var-centre/sec-du-langoustier/maps/2d-topographic.jpg?v=055a31d3f58a",
             "width": 2474,
             "height": 1712,
-            "bytes": 1324313,
-            "sha256": "9a2b39ba68597927e9cc20a2ac38218416548d46ccd71363f2555a76ce4a638d",
+            "bytes": 1428589,
+            "sha256": "055a31d3f58a39f0f8e0f484faacf4abc38dfe7311c48d0b4eed535619615eef",
             "filename": "sec-du-langoustier-topobathy-2d.jpg"
           }
         },
@@ -512,19 +512,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/2d-orthophoto.jpg?v=b0e9054e9a26",
+              "src": "/maps/var-centre/sec-du-langoustier/maps/2d-orthophoto.jpg?v=56529db19833",
               "width": 2474,
               "height": 1712,
-              "bytes": 1331857,
-              "sha256": "b0e9054e9a2678602f1509c04dc5e9b941fec913e13e1bb950455530b207275b"
+              "bytes": 1438869,
+              "sha256": "56529db1983366b86b283aef39292d38d3d022d33e5636c132017c35d43ce596"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/2d-orthophoto.jpg?v=b0e9054e9a26",
+            "src": "/maps/var-centre/sec-du-langoustier/maps/2d-orthophoto.jpg?v=56529db19833",
             "width": 2474,
             "height": 1712,
-            "bytes": 1331857,
-            "sha256": "b0e9054e9a2678602f1509c04dc5e9b941fec913e13e1bb950455530b207275b",
+            "bytes": 1438869,
+            "sha256": "56529db1983366b86b283aef39292d38d3d022d33e5636c132017c35d43ce596",
             "filename": "sec-du-langoustier-topobathy-2d-ortho.jpg"
           }
         },
@@ -611,36 +611,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-topographic-1800.webp?v=d6d988c579ac",
+            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-topographic-1800.webp?v=7b6a72e180e9",
             "width": 1800,
             "height": 1083,
-            "bytes": 146640,
-            "sha256": "d6d988c579acf5788653c87ee96b4dcee0517ea93d68ac2e6ca1383573374a1c"
+            "bytes": 151816,
+            "sha256": "7b6a72e180e9762723cb0c35aafe6d4f2eff54ec8ef3de55003050fb100ed907"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-du-langoustier-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4112768,
-            "sha256": "a0adcb2b70d8e3adc210ea40dbdfa000253876d8d87af2716858eff7d6e48f97",
+            "bytes": 4218565,
+            "sha256": "c797a7731da3f758ff0152d60a686cceec01d1e78be3a7a10de340b4addb456f",
             "filename": "sec-du-langoustier-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-orthophoto-1800.webp?v=02dd0334504b",
+            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-orthophoto-1800.webp?v=571a6ad73e8b",
             "width": 1800,
             "height": 1083,
-            "bytes": 149720,
-            "sha256": "02dd0334504b7500b9fa2bef565fa83cb5d0f450e4144908e1bae69498808182"
+            "bytes": 155266,
+            "sha256": "571a6ad73e8bacabfee6d2fe5875e1cf663d1541fcadc10e7b260ae3664fa3eb"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-du-langoustier-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3925217,
-            "sha256": "60389b79c49e7e13560ec022adc570b8adecc5abd21ddbba286c2f35ecf25488",
+            "bytes": 4031532,
+            "sha256": "c40d49cc5eb4199e6c45d0b190e49134868794b388fabb6b57cedf79d13412ab",
             "filename": "sec-du-langoustier-planche.jpg"
           }
         }
@@ -900,19 +900,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=ef766d46a8e6",
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=bab8c8fc84aa",
               "width": 2474,
               "height": 1712,
-              "bytes": 1471102,
-              "sha256": "ef766d46a8e65e0e9f92044ffb1ad16dd9db224e566a1f12bff4c4254927ce33"
+              "bytes": 1558756,
+              "sha256": "bab8c8fc84aa30c9c36ed7810c27208a33b1f54cb69b07f93cb22939dca1b28f"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=ef766d46a8e6",
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-topographic.jpg?v=bab8c8fc84aa",
             "width": 2474,
             "height": 1712,
-            "bytes": 1471102,
-            "sha256": "ef766d46a8e65e0e9f92044ffb1ad16dd9db224e566a1f12bff4c4254927ce33",
+            "bytes": 1558756,
+            "sha256": "bab8c8fc84aa30c9c36ed7810c27208a33b1f54cb69b07f93cb22939dca1b28f",
             "filename": "la-gabiniere-port-cros-topobathy-2d.jpg"
           }
         },
@@ -925,19 +925,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=d59afee9f163",
+              "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=d4b29d510796",
               "width": 2474,
               "height": 1712,
-              "bytes": 1616985,
-              "sha256": "d59afee9f163bf188c4e23bd667662052eb99e32ecf1f64c125ea9babea84d62"
+              "bytes": 1716222,
+              "sha256": "d4b29d5107962c3ae732daf201d9cfccee874113dd03a81bcfccbab2eaa0c68a"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=d59afee9f163",
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/2d-orthophoto.jpg?v=d4b29d510796",
             "width": 2474,
             "height": 1712,
-            "bytes": 1616985,
-            "sha256": "d59afee9f163bf188c4e23bd667662052eb99e32ecf1f64c125ea9babea84d62",
+            "bytes": 1716222,
+            "sha256": "d4b29d5107962c3ae732daf201d9cfccee874113dd03a81bcfccbab2eaa0c68a",
             "filename": "la-gabiniere-port-cros-topobathy-2d-ortho.jpg"
           }
         },
@@ -1024,36 +1024,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/planche-topographic-1800.webp?v=519cccb995f4",
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/planche-topographic-1800.webp?v=f775a81430cc",
             "width": 1800,
             "height": 1083,
-            "bytes": 158230,
-            "sha256": "519cccb995f410e447648a3e66eb3f2f942b8a05298b8f5b549ee2313172fe9e"
+            "bytes": 156928,
+            "sha256": "f775a81430cc53b61bc1c18e2c953c3a20dc1149cac9f73114185df4028c69bc"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-gabiniere-port-cros-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3657362,
-            "sha256": "48c3cf51eb36da330a596271a8118f5ea810c9d5cb891eb23c66f5051f4b391c",
+            "bytes": 3749958,
+            "sha256": "5758a8ae613f390eb49a429bac6229c7040e7adc399dbb43601afb7022b758d9",
             "filename": "la-gabiniere-port-cros-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp?v=5e8207b14d5a",
+            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp?v=f6f3d3f65228",
             "width": 1800,
             "height": 1083,
-            "bytes": 180140,
-            "sha256": "5e8207b14d5a9d575728acb6692f69656923fc16038c75a4f84af28185cf3ad0"
+            "bytes": 178710,
+            "sha256": "f6f3d3f652281f1ff38c882b5ee56bcf889b21d9b66f6763610869ba7c4d14a2"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-gabiniere-port-cros-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3891376,
-            "sha256": "59f6ce8a178c3d4a76e410424ebc194380b672f01e2853f995cf9078f6c7cde9",
+            "bytes": 3989896,
+            "sha256": "29bb4e6497e3082ba9ad188463179bb17dc18db8d6a98c18c4b296d6198314f1",
             "filename": "la-gabiniere-port-cros-planche.jpg"
           }
         }

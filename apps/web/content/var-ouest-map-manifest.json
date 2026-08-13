@@ -77,19 +77,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/pointe-portissol/maps/2d-topographic.jpg?v=7c4f2d32162d",
+              "src": "/maps/var-ouest/pointe-portissol/maps/2d-topographic.jpg?v=9f08343d2e7a",
               "width": 2474,
               "height": 1712,
-              "bytes": 1707893,
-              "sha256": "7c4f2d32162d4556a04645a955065e2853e41a1d1f96aa96998b58619b677c8d"
+              "bytes": 1672310,
+              "sha256": "9f08343d2e7ae6ecd655c263d1201bf4f667ee13734af8ad068e03f5c27883ed"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-portissol/maps/2d-topographic.jpg?v=7c4f2d32162d",
+            "src": "/maps/var-ouest/pointe-portissol/maps/2d-topographic.jpg?v=9f08343d2e7a",
             "width": 2474,
             "height": 1712,
-            "bytes": 1707893,
-            "sha256": "7c4f2d32162d4556a04645a955065e2853e41a1d1f96aa96998b58619b677c8d",
+            "bytes": 1672310,
+            "sha256": "9f08343d2e7ae6ecd655c263d1201bf4f667ee13734af8ad068e03f5c27883ed",
             "filename": "pointe-portissol-topobathy-2d.jpg"
           }
         },
@@ -102,19 +102,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/pointe-portissol/maps/2d-orthophoto.jpg?v=ef943ec48e15",
+              "src": "/maps/var-ouest/pointe-portissol/maps/2d-orthophoto.jpg?v=fedfc16f98d2",
               "width": 2474,
               "height": 1712,
-              "bytes": 2398269,
-              "sha256": "ef943ec48e157c0cef95d31f09d6462e0848986db65d713a47abab69382ad51c"
+              "bytes": 2368312,
+              "sha256": "fedfc16f98d2272c29dfcc7e8c472ff3169e2fd55509b953f866310c536dcec1"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-portissol/maps/2d-orthophoto.jpg?v=ef943ec48e15",
+            "src": "/maps/var-ouest/pointe-portissol/maps/2d-orthophoto.jpg?v=fedfc16f98d2",
             "width": 2474,
             "height": 1712,
-            "bytes": 2398269,
-            "sha256": "ef943ec48e157c0cef95d31f09d6462e0848986db65d713a47abab69382ad51c",
+            "bytes": 2368312,
+            "sha256": "fedfc16f98d2272c29dfcc7e8c472ff3169e2fd55509b953f866310c536dcec1",
             "filename": "pointe-portissol-topobathy-2d-ortho.jpg"
           }
         },
@@ -201,36 +201,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-ouest/pointe-portissol/maps/planche-topographic-1800.webp?v=f654756cdb9c",
+            "src": "/maps/var-ouest/pointe-portissol/maps/planche-topographic-1800.webp?v=0ee846dc34e6",
             "width": 1800,
             "height": 1083,
-            "bytes": 162296,
-            "sha256": "f654756cdb9c637a330e0f5c5cc48b23802aa468e69db8a2596df02c9346e6db"
+            "bytes": 162630,
+            "sha256": "0ee846dc34e6a5b5050f809ebca2111b8a83f03e3fa8edb66e06d059ec68fe11"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-portissol-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4431930,
-            "sha256": "f6f5603feefbd3c14bd8bcc4111684e4879cb3255e06d28f59c66de55222ab04",
+            "bytes": 4398418,
+            "sha256": "4b9fac4775d7690d419ef89a46ac803343b5556e2360165871d90eca8f06102e",
             "filename": "pointe-portissol-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-ouest/pointe-portissol/maps/planche-orthophoto-1800.webp?v=a70b1924726c",
+            "src": "/maps/var-ouest/pointe-portissol/maps/planche-orthophoto-1800.webp?v=83c3fe5139fb",
             "width": 1800,
             "height": 1083,
-            "bytes": 243572,
-            "sha256": "a70b1924726c11b5f93baadff74ef8ddb032593d4911e396caceabf3219831af"
+            "bytes": 244188,
+            "sha256": "83c3fe5139fb0892ce406032ec6c4b310ce938cd188437a88c611edc98228f5a"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-portissol-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5432189,
-            "sha256": "3b483d07ec329dabf52c8eaf6812c1ff00701ad67219e1d630058c1da6797392",
+            "bytes": 5403906,
+            "sha256": "c4451d9f0fdf611462047ac5c0ddda731caad6d97b4aa2ad0a2e8768439b67d5",
             "filename": "pointe-portissol-planche.jpg"
           }
         }
@@ -283,19 +283,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=052b553a8b4f",
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=618ac98dc1ee",
               "width": 2474,
               "height": 1712,
-              "bytes": 1837738,
-              "sha256": "052b553a8b4f6f70302e951f6323e5a7aa21cde3a2f3a1a863f306e9d6815718"
+              "bytes": 1874237,
+              "sha256": "618ac98dc1ee5ecaa54f1e69b4b7363a1c37fc599e2ad42f4798b77d00c43a7d"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=052b553a8b4f",
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-topographic.jpg?v=618ac98dc1ee",
             "width": 2474,
             "height": 1712,
-            "bytes": 1837738,
-            "sha256": "052b553a8b4f6f70302e951f6323e5a7aa21cde3a2f3a1a863f306e9d6815718",
+            "bytes": 1874237,
+            "sha256": "618ac98dc1ee5ecaa54f1e69b4b7363a1c37fc599e2ad42f4798b77d00c43a7d",
             "filename": "deux-freres-cap-sicie-topobathy-2d.jpg"
           }
         },
@@ -308,19 +308,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=9424da37ce7a",
+              "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=2bd670b96cd3",
               "width": 2474,
               "height": 1712,
-              "bytes": 2241076,
-              "sha256": "9424da37ce7ac6f564cd70af5f21e326062e5d34d3b3d3d62c45cfce3fa22703"
+              "bytes": 2288209,
+              "sha256": "2bd670b96cd3ef5e4b6730890c7602e27db985b4cf4769fcf7fa82c749893be5"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=9424da37ce7a",
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/2d-orthophoto.jpg?v=2bd670b96cd3",
             "width": 2474,
             "height": 1712,
-            "bytes": 2241076,
-            "sha256": "9424da37ce7ac6f564cd70af5f21e326062e5d34d3b3d3d62c45cfce3fa22703",
+            "bytes": 2288209,
+            "sha256": "2bd670b96cd3ef5e4b6730890c7602e27db985b4cf4769fcf7fa82c749893be5",
             "filename": "deux-freres-cap-sicie-topobathy-2d-ortho.jpg"
           }
         },
@@ -407,36 +407,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/planche-topographic-1800.webp?v=4a9814fe3043",
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/planche-topographic-1800.webp?v=13dcfa448ea2",
             "width": 1800,
             "height": 1083,
-            "bytes": 185132,
-            "sha256": "4a9814fe3043d6f2aabf4cf4e8c31ae16460d7032af0772b5c5fa4f403c06382"
+            "bytes": 187130,
+            "sha256": "13dcfa448ea262f37b4ff22cd330e98c0f3a8e59e3b7500c03ac8b6b55e9dd9a"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/deux-freres-cap-sicie-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4620464,
-            "sha256": "df8483e8b3602eab022a7a57aad6872a251958c6a74b753ebd937d83110936c5",
+            "bytes": 4649061,
+            "sha256": "ad8f3453e2eed091f5050ad3850e9510f264ee46e7bd839560bc9bccb8c2f7cd",
             "filename": "deux-freres-cap-sicie-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp?v=0088a249e43a",
+            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp?v=0cd001ff95c3",
             "width": 1800,
             "height": 1083,
-            "bytes": 219908,
-            "sha256": "0088a249e43a5e879df224f3c46d297d944c5623648736a5f5d3d4fb4ddd97d4"
+            "bytes": 221856,
+            "sha256": "0cd001ff95c3045169a14d9c55b79dcb63ed2649b8421d787d48bdd307fa04db"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/deux-freres-cap-sicie-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 5079539,
-            "sha256": "4175d0bac261092ab19744e574b2d4489069e8bb6a7db05a20a7822ef7795895",
+            "bytes": 5120675,
+            "sha256": "ace01633adb8df185a86fc577d41d0a9ff9853b6cfcfefb7665c6fca854e6aac",
             "filename": "deux-freres-cap-sicie-planche.jpg"
           }
         }
@@ -491,19 +491,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-topographic.jpg?v=078000d10f0f",
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-topographic.jpg?v=978febb7c3b1",
               "width": 2474,
               "height": 1712,
-              "bytes": 1613769,
-              "sha256": "078000d10f0ff4cba3599fd090f5dde5d44daec383e9dfa41eebb1c72e43d499"
+              "bytes": 1617119,
+              "sha256": "978febb7c3b14ce28fc647d7653c8e83963ff8033fdb60e774278fcbbcabacef"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-topographic.jpg?v=078000d10f0f",
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-topographic.jpg?v=978febb7c3b1",
             "width": 2474,
             "height": 1712,
-            "bytes": 1613769,
-            "sha256": "078000d10f0ff4cba3599fd090f5dde5d44daec383e9dfa41eebb1c72e43d499",
+            "bytes": 1617119,
+            "sha256": "978febb7c3b14ce28fc647d7653c8e83963ff8033fdb60e774278fcbbcabacef",
             "filename": "pointe-de-la-cride-topobathy-2d.jpg"
           }
         },
@@ -516,19 +516,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-orthophoto.jpg?v=58c6d6d722cb",
+              "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-orthophoto.jpg?v=4e9d3491dcd5",
               "width": 2474,
               "height": 1712,
-              "bytes": 1951641,
-              "sha256": "58c6d6d722cbe81a8805ba6df327a72258f6c75751bd733d91a9a505e0fa496c"
+              "bytes": 1962380,
+              "sha256": "4e9d3491dcd5185990da143114c5b1b0564aab47af0f18af8d2332a6535e1a78"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-orthophoto.jpg?v=58c6d6d722cb",
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/2d-orthophoto.jpg?v=4e9d3491dcd5",
             "width": 2474,
             "height": 1712,
-            "bytes": 1951641,
-            "sha256": "58c6d6d722cbe81a8805ba6df327a72258f6c75751bd733d91a9a505e0fa496c",
+            "bytes": 1962380,
+            "sha256": "4e9d3491dcd5185990da143114c5b1b0564aab47af0f18af8d2332a6535e1a78",
             "filename": "pointe-de-la-cride-topobathy-2d-ortho.jpg"
           }
         },
@@ -615,36 +615,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-ouest/pointe-de-la-cride/maps/planche-topographic-1800.webp?v=0d57f04c12ee",
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/planche-topographic-1800.webp?v=efb550a40663",
             "width": 1800,
             "height": 1083,
-            "bytes": 163930,
-            "sha256": "0d57f04c12ee1f949429c937ef788a9d25474c4533ea1efa9437127ab6bb060b"
+            "bytes": 165030,
+            "sha256": "efb550a406635531ecc929f9f19d3e0a54e008f29f7379541e660545db2a7d61"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-de-la-cride-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4179020,
-            "sha256": "803959635f134d2c636cc146618649536f9d88fe761aad0771e606cc0a081784",
+            "bytes": 4182208,
+            "sha256": "81d8d5af812968dba2f9c0e3dfa2f04ad1f729b7c810001513b43b8d4fd5a91d",
             "filename": "pointe-de-la-cride-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-ouest/pointe-de-la-cride/maps/planche-orthophoto-1800.webp?v=561bf80ca66d",
+            "src": "/maps/var-ouest/pointe-de-la-cride/maps/planche-orthophoto-1800.webp?v=fd25a61591bc",
             "width": 1800,
             "height": 1083,
-            "bytes": 214780,
-            "sha256": "561bf80ca66d24ac5c6252221fab39ffcdef41a1c18f6166cf89be56405620a8"
+            "bytes": 213952,
+            "sha256": "fd25a61591bcd12a6ba76edc4dcde48a8aea8b83f778f5d9c880267cf01b218a"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-de-la-cride-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4725898,
-            "sha256": "6be097c847a0d02421124d4e02b498c3eb03645ceb80c7f38fefc48f61ba571c",
+            "bytes": 4740606,
+            "sha256": "cb25310c7bb2cb8ee9c471bfb31f4cc189be471083e2a5ea65658cb10ab4d1bc",
             "filename": "pointe-de-la-cride-planche.jpg"
           }
         }
@@ -697,19 +697,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=7dfefc62fa24",
+              "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=9cdd8c356785",
               "width": 2474,
               "height": 1712,
-              "bytes": 1548263,
-              "sha256": "7dfefc62fa2467dc9c5f91fe883a00815155379c4f6c25159261a8f5aaa7729a"
+              "bytes": 1589896,
+              "sha256": "9cdd8c3567856bcc79e71497688084c96c99625c27b14684fbd53a799e879950"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=7dfefc62fa24",
+            "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=9cdd8c356785",
             "width": 2474,
             "height": 1712,
-            "bytes": 1548263,
-            "sha256": "7dfefc62fa2467dc9c5f91fe883a00815155379c4f6c25159261a8f5aaa7729a",
+            "bytes": 1589896,
+            "sha256": "9cdd8c3567856bcc79e71497688084c96c99625c27b14684fbd53a799e879950",
             "filename": "les-magnons-topobathy-2d.jpg"
           }
         },
@@ -722,19 +722,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=ffa4e65ae6de",
+              "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=9af3382fb60c",
               "width": 2474,
               "height": 1712,
-              "bytes": 1560190,
-              "sha256": "ffa4e65ae6de2d793424e7238739269be0692ff33e3eab958724823000ba5323"
+              "bytes": 1602053,
+              "sha256": "9af3382fb60c2fdda89b2b6ea6f8aa5aa4a052fa4f3947e1dde506763444bda0"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=ffa4e65ae6de",
+            "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=9af3382fb60c",
             "width": 2474,
             "height": 1712,
-            "bytes": 1560190,
-            "sha256": "ffa4e65ae6de2d793424e7238739269be0692ff33e3eab958724823000ba5323",
+            "bytes": 1602053,
+            "sha256": "9af3382fb60c2fdda89b2b6ea6f8aa5aa4a052fa4f3947e1dde506763444bda0",
             "filename": "les-magnons-topobathy-2d-ortho.jpg"
           }
         },
@@ -821,36 +821,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-ouest/les-magnons/maps/planche-topographic-1800.webp?v=52dc4214db7a",
+            "src": "/maps/var-ouest/les-magnons/maps/planche-topographic-1800.webp?v=c6e265b09d04",
             "width": 1800,
             "height": 1083,
-            "bytes": 150784,
-            "sha256": "52dc4214db7abd8f92f50c091aabaf8d6338a572186027057840dbbc8766a88f"
+            "bytes": 155286,
+            "sha256": "c6e265b09d047ee06d9932ed78d36f66de2ea2168831b493968f2219d1c8aa88"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/les-magnons-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3894603,
-            "sha256": "8ccab030bd9eb0b2d491bf62c42528cb74afa430f7020787b4e8e35fed2fc06f",
+            "bytes": 3938380,
+            "sha256": "d66ccfd23f85105ec6b55f2de2ec3a8af3afb4f6c21d626276a0b053a6423df9",
             "filename": "les-magnons-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-ouest/les-magnons/maps/planche-orthophoto-1800.webp?v=a0b4ca3d778f",
+            "src": "/maps/var-ouest/les-magnons/maps/planche-orthophoto-1800.webp?v=917bee356615",
             "width": 1800,
             "height": 1083,
-            "bytes": 153354,
-            "sha256": "a0b4ca3d778f83fe780b0da1435007de00ad39a0411a62c32dad4ac2ccb4c085"
+            "bytes": 156204,
+            "sha256": "917bee3566155bff47174d023f41f954e7a64d5a8cf8cb98659cce05b98ddcd6"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/les-magnons-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3885307,
-            "sha256": "10891f433dadcb6f7b67569766022d29de5eff22a7a47e322b0833bab35a1815",
+            "bytes": 3929409,
+            "sha256": "8ce3863241007cfebbe0d258cc5f6142d071f1f95b48d862dbdcac4b59ea9dd3",
             "filename": "les-magnons-planche.jpg"
           }
         }

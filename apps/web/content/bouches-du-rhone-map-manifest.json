@@ -77,19 +77,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=68705802d5bf",
+              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=51c1d9cc1bc0",
               "width": 2474,
               "height": 1712,
-              "bytes": 1335441,
-              "sha256": "68705802d5bf050a57f2213b13a8e3e78d56dedbecf7e46e7e6eacffa71b5ee5"
+              "bytes": 1327728,
+              "sha256": "51c1d9cc1bc02624b872858b1d20d1766ace10f99440c8ad06ea9cbf0fd92cff"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=68705802d5bf",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-topographic.jpg?v=51c1d9cc1bc0",
             "width": 2474,
             "height": 1712,
-            "bytes": 1335441,
-            "sha256": "68705802d5bf050a57f2213b13a8e3e78d56dedbecf7e46e7e6eacffa71b5ee5",
+            "bytes": 1327728,
+            "sha256": "51c1d9cc1bc02624b872858b1d20d1766ace10f99440c8ad06ea9cbf0fd92cff",
             "filename": "grotte-a-corail-maire-topobathy-2d.jpg"
           }
         },
@@ -102,19 +102,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=79dce6415bdc",
+              "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=d8ec70788bca",
               "width": 2474,
               "height": 1712,
-              "bytes": 2008818,
-              "sha256": "79dce6415bdcd9f7b37794e8834ebeafbeb0531a55c1a6cef86062fdc31f62a1"
+              "bytes": 1998138,
+              "sha256": "d8ec70788bca972f4dc962b1130885f69f8a49a47bd838f3bf7e8f6f745624c2"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=79dce6415bdc",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/2d-orthophoto.jpg?v=d8ec70788bca",
             "width": 2474,
             "height": 1712,
-            "bytes": 2008818,
-            "sha256": "79dce6415bdcd9f7b37794e8834ebeafbeb0531a55c1a6cef86062fdc31f62a1",
+            "bytes": 1998138,
+            "sha256": "d8ec70788bca972f4dc962b1130885f69f8a49a47bd838f3bf7e8f6f745624c2",
             "filename": "grotte-a-corail-maire-topobathy-2d-ortho.jpg"
           }
         },
@@ -201,36 +201,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-topographic-1800.webp?v=00f8e7705fb9",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-topographic-1800.webp?v=c2953924dedc",
             "width": 1800,
             "height": 1083,
-            "bytes": 151380,
-            "sha256": "00f8e7705fb9efec1c7ba435c2f1b4e7b5d47053637d082a05127eaca077198b"
+            "bytes": 151040,
+            "sha256": "c2953924dedcbb37383742b7736159f544991da45997f821bf1e209286e16318"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-maire-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3783220,
-            "sha256": "6e59057a367b65f6f7c63181f187d739621ca32be0ef1bb1ccfdf38c1c6555f4",
+            "bytes": 3780316,
+            "sha256": "308702a757cabef43814e509a98247e8e21a7a19b5202ba285a2432871cb1029",
             "filename": "grotte-a-corail-maire-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-orthophoto-1800.webp?v=77723437639e",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-orthophoto-1800.webp?v=d3113564b0a0",
             "width": 1800,
             "height": 1083,
-            "bytes": 234624,
-            "sha256": "77723437639e3868d9da63f4a12098d3a5fe02a5aaf30655f0da3f697b801354"
+            "bytes": 232028,
+            "sha256": "d3113564b0a0bc0c149caef9a7c1e1180a186f2fe4dc7509c9053dcfff186599"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-maire-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4684102,
-            "sha256": "e764630857a61ba057310241c734c38c408bfe56c102f46b00ee35b7cf58a2a7",
+            "bytes": 4676593,
+            "sha256": "26680a70195a5a1aa0670311370e2a78fff76960af57abe865fc8b82202e48e5",
             "filename": "grotte-a-corail-maire-planche.jpg"
           }
         }
@@ -714,19 +714,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=419e1894ea32",
+              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=1ece267da847",
               "width": 2474,
               "height": 1712,
-              "bytes": 1717197,
-              "sha256": "419e1894ea3279efa0cc0674dfbb39e9e41573a6535c6df579f99e01a394e475"
+              "bytes": 1771839,
+              "sha256": "1ece267da847e122141b542c55cb1d05d6f93e28edb415947c4e70c65a88eea8"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=419e1894ea32",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-topographic.jpg?v=1ece267da847",
             "width": 2474,
             "height": 1712,
-            "bytes": 1717197,
-            "sha256": "419e1894ea3279efa0cc0674dfbb39e9e41573a6535c6df579f99e01a394e475",
+            "bytes": 1771839,
+            "sha256": "1ece267da847e122141b542c55cb1d05d6f93e28edb415947c4e70c65a88eea8",
             "filename": "pierre-a-la-bague-plateau-topobathy-2d.jpg"
           }
         },
@@ -739,19 +739,19 @@
           },
           "variants": [
             {
-              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=a762a09fac2f",
+              "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=6117ed0de5f0",
               "width": 2474,
               "height": 1712,
-              "bytes": 1735503,
-              "sha256": "a762a09fac2ff06a0ed294cb39e0b549d479a37197d3e2c65eaaaff38c0befb3"
+              "bytes": 1789401,
+              "sha256": "6117ed0de5f020d8c69a6cc0cd99f64eebc80cced3486c2c6774cf47a2ce6357"
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=a762a09fac2f",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/2d-orthophoto.jpg?v=6117ed0de5f0",
             "width": 2474,
             "height": 1712,
-            "bytes": 1735503,
-            "sha256": "a762a09fac2ff06a0ed294cb39e0b549d479a37197d3e2c65eaaaff38c0befb3",
+            "bytes": 1789401,
+            "sha256": "6117ed0de5f020d8c69a6cc0cd99f64eebc80cced3486c2c6774cf47a2ce6357",
             "filename": "pierre-a-la-bague-plateau-topobathy-2d-ortho.jpg"
           }
         },
@@ -838,36 +838,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=af66f1ecf82c",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=dadc57c91c2d",
             "width": 1800,
             "height": 1083,
-            "bytes": 178870,
-            "sha256": "af66f1ecf82cda928573a6310466e838987166de4d49bafe68f90399401eef76"
+            "bytes": 178670,
+            "sha256": "dadc57c91c2d3ffd61355a74bb80194bf530d00b4a5cca0b9cc2b5590888eb03"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4513246,
-            "sha256": "1fc1e8111cc71a52c73325bdd5295a508d155c7b0fb9126e39692b05664b41a1",
+            "bytes": 4565192,
+            "sha256": "128fd4b316080c4814c5d91baec081f63e9f267a57778ab9a13dda14035f7846",
             "filename": "pierre-a-la-bague-plateau-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=f26ba389faaa",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=db9e9c451fd4",
             "width": 1800,
             "height": 1083,
-            "bytes": 182700,
-            "sha256": "f26ba389faaa1746197d7cf27049632eb29218f1fdf47b3439d46f550d6cb61f"
+            "bytes": 182444,
+            "sha256": "db9e9c451fd4753f78cbf3721932ff290d751f80b1d5e37b8674ffaeb1791ae9"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4561726,
-            "sha256": "9a9094f4e1cc2f6352d49233a7cebf50325af63cce250493b2e502d75a488a80",
+            "bytes": 4611848,
+            "sha256": "b36e929a04ab5eab44ce422e47b58318562d72a78ad7e7285e1fc75e2a3a52cd",
             "filename": "pierre-a-la-bague-plateau-planche.jpg"
           }
         }
