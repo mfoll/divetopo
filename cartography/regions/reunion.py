@@ -50,6 +50,11 @@ osr.UseExceptions()
 WMS_MAX_TILE_PIXELS = 4096
 
 
+def plan_isobath_geometry(config: dict[str, Any]) -> str:
+    """Keep canonical Reunion plans unchanged; depth-lock Mediterranean ones."""
+    return "legacy" if config.get("region") == "reunion" else "depth_locked"
+
+
 def run(command: list[str]) -> None:
     print("+", " ".join(command))
     subprocess.run(command, check=True)
@@ -923,6 +928,7 @@ def render(
             "plan_suppressed_label_levels",
             [],
         ),
+        "isobath_geometry": plan_isobath_geometry(config),
     }
     if not relief_only:
         make_clean_plan(

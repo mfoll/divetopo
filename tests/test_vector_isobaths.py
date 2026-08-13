@@ -5,7 +5,9 @@ import unittest
 import numpy as np
 
 from cartography.vector_isobaths import (
+    densify_reprojected_isobath,
     extract_vector_isobaths,
+    sample_bilinear,
     validate_vector_isobath_payload,
 )
 
@@ -68,6 +70,28 @@ class VectorIsobathTests(unittest.TestCase):
         )
 
         self.assertEqual(elevation_payload, depth_payload)
+
+    def test_static_densification_keeps_chords_on_the_isobath(self) -> None:
+        depth = self.planar_depth()
+        payload, _ = extract_vector_isobaths(
+            depth,
+            np.ones_like(depth, dtype=bool),
+            (40,),
+        )
+        source = payload["levels"]["40"][0]
+
+        locked = densify_reprojected_isobath(
+            source,
+            depth,
+            40.0,
+            maximum_segment_length_px=0.5,
+        )
+        residuals = np.abs(
+            sample_bilinear(depth, np.asarray(locked)) - 40.0
+        )
+
+        self.assertGreater(len(locked), len(source))
+        self.assertLessEqual(float(residuals.max()), 0.05)
 
     def test_mask_excludes_contours_outside_the_sea(self) -> None:
         depth = self.planar_depth()

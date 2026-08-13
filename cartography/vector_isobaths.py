@@ -255,6 +255,55 @@ def _reproject_to_isobath(
     return projected
 
 
+def densify_reprojected_isobath(
+    points: Sequence[Sequence[float]],
+    depth: np.ndarray,
+    level: float,
+    *,
+    maximum_segment_length_px: float = 0.5,
+) -> list[tuple[float, float]]:
+    """Densify a polyline and lock every new vertex to its depth level.
+
+    Interactive terrain lines already reproject their smoothed vertices. A
+    static renderer also needs short chords between those vertices: on steep
+    compact relief, a visually straight chord can otherwise leave the
+    isoline even though both endpoints are exact.
+    """
+    arr = np.asarray(points, dtype=np.float64)
+    grid = np.asarray(depth, dtype=np.float64)
+    if arr.ndim != 2 or arr.shape[1:] != (2,) or len(arr) < 2:
+        raise ValueError("points must contain at least two [x, y] pairs")
+    if grid.ndim != 2 or min(grid.shape) < 2:
+        raise ValueError("depth must be a two-dimensional grid")
+    if not np.all(np.isfinite(arr)):
+        raise ValueError("point coordinates must be finite")
+    if not np.isfinite(level) or level < 0:
+        raise ValueError("level must be finite and non-negative")
+    if (
+        not np.isfinite(maximum_segment_length_px)
+        or maximum_segment_length_px <= 0
+    ):
+        raise ValueError("maximum_segment_length_px must be positive")
+
+    closed = np.linalg.norm(arr[0] - arr[-1]) < 2.0
+    segments: list[np.ndarray] = []
+    for index, (start, end) in enumerate(zip(arr[:-1], arr[1:])):
+        length = float(np.linalg.norm(end - start))
+        count = max(
+            2,
+            int(np.ceil(length / maximum_segment_length_px)) + 1,
+        )
+        segment = start + np.linspace(0.0, 1.0, count)[:, None] * (
+            end - start
+        )
+        segments.append(segment if index == 0 else segment[1:])
+    dense = np.concatenate(segments)
+    projected = _reproject_to_isobath(dense, grid, float(level))
+    if closed:
+        projected[-1] = projected[0]
+    return [(float(x), float(y)) for x, y in projected]
+
+
 def _adaptive_smooth_polyline(
     points: list[tuple[float, float]],
     depth: np.ndarray,

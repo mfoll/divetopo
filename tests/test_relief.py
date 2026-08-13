@@ -20,6 +20,8 @@ from cartography.relief import (
     deep_edge_nodata_display_mask,
     draw_interpolated_triangle,
     edge_preserving_bathy,
+    extract_depth_locked_plan_isobaths,
+    extract_isobaths,
     expanded_bbox,
     fill_deep_edge_nodata_at_maximum,
     fuse_bathymetry,
@@ -68,6 +70,25 @@ def write_raster(
 
 
 class RasterAlignmentTests(unittest.TestCase):
+    def test_depth_locked_isobaths_do_not_contract_into_an_island(self) -> None:
+        yy, xx = np.mgrid[:120, :120]
+        radius = np.hypot(xx - 60.0, yy - 60.0)
+        land = radius < 20.0
+        sea = ~land
+        depth = np.clip((radius - 20.0) * 0.8, 0.0, 40.0)
+
+        legacy = extract_isobaths(depth, sea, (5,))[5]
+        locked = extract_depth_locked_plan_isobaths(depth, sea, (5,))[5]
+
+        def land_fraction(lines: list[list[tuple[float, float]]]) -> float:
+            points = np.asarray([point for line in lines for point in line])
+            x = np.clip(np.rint(points[:, 0]).astype(int), 0, 119)
+            y = np.clip(np.rint(points[:, 1]).astype(int), 0, 119)
+            return float(land[y, x].mean())
+
+        self.assertGreater(land_fraction(legacy), 0.0)
+        self.assertEqual(land_fraction(locked), 0.0)
+
     def test_coral_blue_scale_uses_the_validated_physical_anchors(self) -> None:
         from cartography.bathymetry_style import remap_bathymetric_depth
 

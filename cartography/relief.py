@@ -23,6 +23,11 @@ from cartography.config import (
     DEFAULT_RELIEF_EXPOSURE,
     DEFAULT_VERTICAL_EXAGGERATION,
 )
+from cartography.vector_isobaths import (
+    densify_reprojected_isobath,
+    extract_vector_isobaths,
+    sample_bilinear,
+)
 
 
 gdal.UseExceptions()
@@ -1977,6 +1982,88 @@ def extract_isobaths(depth: np.ndarray, sea_mask: np.ndarray, levels: tuple[int,
     return contours
 
 
+def extract_depth_locked_plan_isobaths(
+    depth: np.ndarray,
+    sea_mask: np.ndarray,
+    levels: tuple[int, ...],
+) -> dict[int, list[list[tuple[float, float]]]]:
+    """Extract smooth static isobaths without moving them off-level."""
+    payload, diagnostics = extract_vector_isobaths(
+        depth,
+        sea_mask,
+        levels,
+        source_kind="depth",
+        residual_tolerance_m=0.05,
+    )
+    if not diagnostics["reprojectionResidualM"]["withinTolerance"]:
+        raise RuntimeError("Depth-locked isobath reprojection exceeded 0.05 m")
+
+    def is_meaningful_static_line(
+        line: list[list[float]],
+    ) -> bool:
+        geometry = ogr.Geometry(ogr.wkbLineString)
+        for x, y in line:
+            geometry.AddPoint_2D(float(x), float(y))
+        simplified = geometry.Simplify(2.2)
+        return (
+            simplified is not None
+            and simplified.GetPointCount() >= 7
+            and simplified.Length() >= 45.0
+        )
+
+    contours: dict[int, list[list[tuple[float, float]]]] = {}
+    for level in levels:
+        lines = [
+            line
+            for line in payload["levels"][str(level)]
+            if is_meaningful_static_line(line)
+        ]
+        contours[level] = []
+        for line in lines:
+            locked = densify_reprojected_isobath(
+                line,
+                depth,
+                level,
+                maximum_segment_length_px=0.5,
+            )
+            # A final local pass removes metre-cell stair steps from the
+            # static stroke. Prefer a visually smooth line, but reduce the
+            # passes for a sharp feature rather than exceeding half a metre
+            # at the 95th percentile or entering the land mask.
+            for smoothing_passes in (12, 8, 5, 3, 2, 1, 0):
+                candidate = (
+                    smooth_polyline(locked, passes=smoothing_passes)
+                    if smoothing_passes
+                    else locked
+                )
+                points = np.asarray(candidate, dtype=np.float64)
+                residuals = np.abs(
+                    sample_bilinear(depth, points) - level
+                )
+                x = np.clip(
+                    np.rint(points[:, 0]).astype(int),
+                    0,
+                    depth.shape[1] - 1,
+                )
+                y = np.clip(
+                    np.rint(points[:, 1]).astype(int),
+                    0,
+                    depth.shape[0] - 1,
+                )
+                if (
+                    float(np.percentile(residuals, 95)) <= 0.5
+                    and np.all(sea_mask[y, x])
+                ):
+                    contours[level].append(candidate)
+                    break
+            else:
+                raise RuntimeError(
+                    f"Static {level:g} m isobath cannot satisfy the "
+                    "depth and land-mask tolerances"
+                )
+    return contours
+
+
 @lru_cache(maxsize=2)
 def build_fused_surface(
     depth_path: Path,
@@ -2063,6 +2150,7 @@ def make_clean_plan(
     sea_depth_scale: str = "legacy_linear",
     deep_edge_nodata_min_depth_m: float | None = None,
     suppressed_label_levels: list[int] | tuple[int, ...] = (),
+    isobath_geometry: str = "legacy",
 ) -> None:
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
@@ -2076,12 +2164,25 @@ def make_clean_plan(
         )
     if land_shading not in ("local_slope", "none"):
         raise ValueError("land_shading must be 'local_slope' or 'none'")
+    if isobath_geometry not in ("legacy", "depth_locked"):
+        raise ValueError(
+            "isobath_geometry must be 'legacy' or 'depth_locked'"
+        )
     ui = output_scale
     elev, coast_y, land_mask, land_weight, surface_valid, fused_depth, contours, coastlines = build_fused_surface(
         depth_path, elevation_path, max_depth, rotation_k, coast_mode, land_sieve_threshold_px
     )
     d = np.clip(fused_depth, 0.0, max_depth)
     sea_mask = surface_valid & ~land_mask
+    if isobath_geometry == "depth_locked":
+        contour_levels = tuple(
+            range(5, int(max_depth // 5) * 5 + 1, 5)
+        )
+        contours = extract_depth_locked_plan_isobaths(
+            fused_depth,
+            sea_mask,
+            contour_levels,
+        )
     valid = surface_valid
     land_blend = np.where(land_mask, land_weight, 0.0)
     deep_edge_nodata = deep_edge_nodata_display_mask(

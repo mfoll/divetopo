@@ -25,6 +25,7 @@ from cartography.regions.reunion import (
     crop_raster,
     download_gebco_relief,
     download_orthophoto,
+    plan_isobath_geometry,
     render,
     resolve_hyscores_tiff,
     validate_raster,
@@ -52,6 +53,16 @@ def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None
 
 
 class CacheContractTests(unittest.TestCase):
+    def test_reunion_keeps_legacy_static_isobaths(self) -> None:
+        self.assertEqual(
+            plan_isobath_geometry({"region": "reunion"}),
+            "legacy",
+        )
+        self.assertEqual(
+            plan_isobath_geometry({"region": "bouches-du-rhone"}),
+            "depth_locked",
+        )
+
     def test_false_edge_reconciliation_is_local_and_feathered(self) -> None:
         depth = np.full((80, 80), 20.0, dtype=np.float64)
         depth[:, 40:] = 34.0
