@@ -1181,7 +1181,7 @@ def validate_config(config: Mapping[str, Any]) -> None:
             or not math.isfinite(float(value))
         ):
             raise ValueError(f"web.site_label_layout.{key} must be finite")
-    for key in ("connector_width_rem", "label_offset_rem", "width_rem"):
+    for key in ("connector_width_rem", "width_rem"):
         if key in layout and (
             isinstance(layout[key], bool)
             or not isinstance(layout[key], (int, float))
@@ -1189,6 +1189,14 @@ def validate_config(config: Mapping[str, Any]) -> None:
             or float(layout[key]) <= 0.0
         ):
             raise ValueError(f"web.site_label_layout.{key} must be positive")
+    if "label_offset_rem" in layout and (
+        isinstance(layout["label_offset_rem"], bool)
+        or not isinstance(layout["label_offset_rem"], (int, float))
+        or not math.isfinite(float(layout["label_offset_rem"]))
+    ):
+        raise ValueError(
+            "web.site_label_layout.label_offset_rem must be finite"
+        )
     if "lines" in layout and (
         not isinstance(layout["lines"], list)
         or not layout["lines"]
@@ -1299,14 +1307,6 @@ def validate_config(config: Mapping[str, Any]) -> None:
             "view_bearing_deg",
             float(config.get("rotation_k", 0)) * 90.0 + 180.0,
         ) % 360.0
-        bearing_delta = abs(
-            (footprint_bearing - view_bearing + 180.0) % 360.0 - 180.0
-        )
-        if bearing_delta > 1e-6 and region != "paca":
-            raise ValueError(
-                "interactive_footprint_utm40s.look_bearing_deg must match "
-                "view_bearing_deg"
-            )
         final_size = config.get("final_output_size_px", [2474, 1712])
         canvas_width, canvas_height = _pair(
             final_size,

@@ -65,6 +65,18 @@ class SiteConfigTests(unittest.TestCase):
             with self.subTest(slug=config["slug"]):
                 validate_config(config)
 
+    def test_regional_label_offsets_can_be_signed(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["web"]["site_label_layout"]["label_offset_rem"] = -2.0
+        validate_config(config)
+
+    def test_interactive_footprint_can_use_a_distinct_bearing(self) -> None:
+        config = copy.deepcopy(self.configs[0])
+        config["interactive_footprint_utm40s"]["look_bearing_deg"] = (
+            float(config.get("view_bearing_deg", 180.0)) + 45.0
+        ) % 360.0
+        validate_config(config)
+
     def test_published_sites_own_their_web_layout(self) -> None:
         for config in self.configs:
             with self.subTest(slug=config["slug"]):
@@ -324,7 +336,7 @@ class SiteConfigTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "must contain interactive"):
             validate_config(config)
 
-    def test_interactive_footprint_rejects_short_or_misaligned_extents(
+    def test_interactive_footprint_rejects_short_extents(
         self,
     ) -> None:
         config = copy.deepcopy(self.configs[0])
@@ -335,17 +347,6 @@ class SiteConfigTests(unittest.TestCase):
         config = copy.deepcopy(self.configs[0])
         config["interactive_footprint_utm40s"]["depth_m"] = 1.0
         with self.assertRaisesRegex(ValueError, "too short"):
-            validate_config(config)
-
-        config = copy.deepcopy(self.configs[0])
-        config["context_bbox_utm40s"] = [
-            config["context_bbox_utm40s"][0] - 100.0,
-            config["context_bbox_utm40s"][1] - 100.0,
-            config["context_bbox_utm40s"][2] + 100.0,
-            config["context_bbox_utm40s"][3] + 100.0,
-        ]
-        config["interactive_footprint_utm40s"]["look_bearing_deg"] += 1.0
-        with self.assertRaisesRegex(ValueError, "must match"):
             validate_config(config)
 
     def test_plan_depth_must_not_exceed_relief_depth(self) -> None:
