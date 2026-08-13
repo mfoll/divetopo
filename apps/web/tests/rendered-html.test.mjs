@@ -1354,8 +1354,17 @@ test("interactive terrain exposes camera calibration only by explicit local opt-
 
   assert.match(terrainViewer, /window\.location\.hostname === "localhost"/);
   assert.match(terrainViewer, /search\.has\("camera-calibration"\)/);
-  assert.match(terrainViewer, /divetopo-camera-calibration:\$\{slug\}/);
-  assert.match(terrainViewer, /\$\{slug\}-camera-calibration\.json/);
+  assert.match(terrainViewer, /CAMERA_CALIBRATION_STORAGE_PREFIX/);
+  assert.match(
+    terrainViewer,
+    /`\$\{CAMERA_CALIBRATION_STORAGE_PREFIX\}\$\{slug\}`/,
+  );
+  assert.match(terrainViewer, /divetopo-camera-calibrations\.json/);
+  assert.match(
+    terrainViewer,
+    /divetopo-camera-calibration-collection-v1/,
+  );
+  assert.match(terrainViewer, /Télécharger toutes les calibrations/);
   assert.match(terrainViewer, /interactiveInitialView:/);
   assert.match(terrainViewer, /panResidualForwardM/);
   assert.match(styles, /\.terrain-camera-calibration\s*\{/);

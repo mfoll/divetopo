@@ -26,6 +26,8 @@ const VECTOR_ISOBATH_CENTER = 0x05070a;
 const VECTOR_ISOBATH_DEPTH_BIAS = 0.0002;
 const LABEL_WIDTH_CSS_PX = 68;
 const LABEL_HEIGHT_CSS_PX = 28;
+const CAMERA_CALIBRATION_STORAGE_PREFIX =
+  "divetopo-camera-calibration:";
 
 type NumberUniform = { value: number };
 
@@ -495,6 +497,31 @@ export default function TerrainViewer({
     useState(false);
   const [cameraCalibrationMessage, setCameraCalibrationMessage] =
     useState("");
+  const [savedCameraCalibrationCount, setSavedCameraCalibrationCount] =
+    useState(0);
+
+  function storedCameraCalibrations() {
+    const calibrations: CameraCalibrationSnapshot[] = [];
+    for (let index = 0; index < window.localStorage.length; index += 1) {
+      const key = window.localStorage.key(index);
+      if (!key?.startsWith(CAMERA_CALIBRATION_STORAGE_PREFIX)) continue;
+      const serialized = window.localStorage.getItem(key);
+      if (!serialized) continue;
+      try {
+        const calibration = JSON.parse(
+          serialized,
+        ) as CameraCalibrationSnapshot;
+        if (calibration.schema === "divetopo-camera-calibration-v1") {
+          calibrations.push(calibration);
+        }
+      } catch {
+        // Ignore obsolete or manually damaged local development entries.
+      }
+    }
+    return calibrations.sort((first, second) =>
+      first.slug.localeCompare(second.slug),
+    );
+  }
 
   useEffect(() => {
     const isLocal =
@@ -515,6 +542,7 @@ export default function TerrainViewer({
       ) === "true";
     const frame = window.requestAnimationFrame(() => {
       setCameraCalibrationEnabled(enableCalibration);
+      setSavedCameraCalibrationCount(storedCameraCalibrations().length);
     });
     return () => window.cancelAnimationFrame(frame);
   }, []);
@@ -1757,30 +1785,44 @@ export default function TerrainViewer({
     };
   }
 
-  async function saveCameraCalibration() {
+  function saveCameraCalibration() {
     const calibration = currentCameraCalibration();
     if (!calibration) return;
     const serialized = `${JSON.stringify(calibration, null, 2)}\n`;
     window.localStorage.setItem(
-      `divetopo-camera-calibration:${slug}`,
+      `${CAMERA_CALIBRATION_STORAGE_PREFIX}${slug}`,
       serialized,
     );
+    const count = storedCameraCalibrations().length;
+    setSavedCameraCalibrationCount(count);
+    setCameraCalibrationMessage(
+      `Cadrage enregistré · ${count} site${count > 1 ? "s" : ""}.`,
+    );
+  }
 
+  function downloadCameraCalibrations() {
+    const calibrations = storedCameraCalibrations();
+    if (!calibrations.length) return;
+    const serialized = `${JSON.stringify(
+      {
+        schema: "divetopo-camera-calibration-collection-v1",
+        exportedAt: new Date().toISOString(),
+        calibrations,
+      },
+      null,
+      2,
+    )}\n`;
     const href = URL.createObjectURL(
       new Blob([serialized], { type: "application/json" }),
     );
     const anchor = document.createElement("a");
     anchor.href = href;
-    anchor.download = `${slug}-camera-calibration.json`;
+    anchor.download = "divetopo-camera-calibrations.json";
     anchor.click();
     URL.revokeObjectURL(href);
-
-    try {
-      await navigator.clipboard.writeText(serialized);
-      setCameraCalibrationMessage("JSON téléchargé et copié.");
-    } catch {
-      setCameraCalibrationMessage("JSON téléchargé.");
-    }
+    setCameraCalibrationMessage(
+      `JSON téléchargé · ${calibrations.length} site${calibrations.length > 1 ? "s" : ""}.`,
+    );
   }
 
   async function toggleFullscreen() {
@@ -2003,6 +2045,17 @@ export default function TerrainViewer({
           </span>
           <button type="button" onClick={saveCameraCalibration}>
             Enregistrer ce cadrage
+          </button>
+          <button
+            type="button"
+            className="is-secondary"
+            disabled={savedCameraCalibrationCount === 0}
+            onClick={downloadCameraCalibrations}
+          >
+            Télécharger toutes les calibrations
+            {savedCameraCalibrationCount > 0
+              ? ` (${savedCameraCalibrationCount})`
+              : ""}
           </button>
           {cameraCalibrationMessage ? (
             <output>{cameraCalibrationMessage}</output>

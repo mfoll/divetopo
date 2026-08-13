@@ -1515,6 +1515,22 @@ img {
   background: #ff8975;
 }
 
+.terrain-camera-calibration button.is-secondary {
+  background: transparent;
+  border: 1px solid rgba(205, 244, 239, 0.68);
+  color: white;
+}
+
+.terrain-camera-calibration button.is-secondary:not(:disabled):hover,
+.terrain-camera-calibration button.is-secondary:not(:disabled):focus-visible {
+  background: rgba(0, 116, 122, 0.92);
+}
+
+.terrain-camera-calibration button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
 .terrain-camera-calibration output {
   color: #b9eee9;
   font-weight: 700;
