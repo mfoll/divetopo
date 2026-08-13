@@ -411,36 +411,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/planche-topographic-1800.webp?v=236dd916bf36",
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/planche-topographic-1800.webp?v=bed84c5f3ce8",
             "width": 1800,
             "height": 1083,
-            "bytes": 142714,
-            "sha256": "236dd916bf362470aa5cee0e80ef7bda2848c92b0b368d3e3f46ac7d1f55ede7"
+            "bytes": 142136,
+            "sha256": "bed84c5f3ce8e59e8f15e93eca02aac1c9951fbecd8f91f6381b082f83b2b161"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-causiniere-cap-ferrat-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3693827,
-            "sha256": "6c7f1f35955e8c6a7702b17f99e2a37b0d464973c6e04a5ceb7cd805c6918bed",
+            "bytes": 3675637,
+            "sha256": "e5a9adf3b38359be9e9fa726c26033262a66609cd8215572ed112098577f5b62",
             "filename": "pointe-causiniere-cap-ferrat-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/planche-orthophoto-1800.webp?v=16ab410c834b",
+            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/planche-orthophoto-1800.webp?v=535bb10a1360",
             "width": 1800,
             "height": 1083,
-            "bytes": 172008,
-            "sha256": "16ab410c834bd04bcd5b5a2deee7b3faac81620eb496f85e1cb2f0de567a766b"
+            "bytes": 169880,
+            "sha256": "535bb10a136019a8c1a103041db76261184ae5efaae22360c43bd4c0d94873e1"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pointe-causiniere-cap-ferrat-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3996060,
-            "sha256": "e244a9599f5e7668b43f42092da2c42cc3c16129cb1a3479f00c53d73234d8a6",
+            "bytes": 3937183,
+            "sha256": "0f08119dec88088238e5e08e896120f1b1a56308b35746abaa75db9555ffa1fc",
             "filename": "pointe-causiniere-cap-ferrat-planche.jpg"
           }
         }
@@ -450,7 +450,7 @@
         "shiftYRem": 4.4,
         "connectorAngleDeg": -68,
         "connectorWidthRem": 3.45,
-        "labelOffsetRem": 2.65,
+        "labelOffsetRem": 1.2,
         "lines": [
           "Pointe de la",
           "Causinière"
@@ -552,30 +552,30 @@
               "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 44122,
-              "sha256": "473e81e0f90e152848dbc951e6e16ad3748552b1232fb7221ebbe209501175c3"
+              "bytes": 44750,
+              "sha256": "a72567be0b1bb8dc325d62dce3b77f637f9ddb61e3601083cd716c2e491fa66f"
             },
             {
               "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 88394,
-              "sha256": "6524a5107058bbfee97cf19ba7d9cc4576d6cf4f7e786c41bbbe08a61766adcc"
+              "bytes": 89602,
+              "sha256": "a00c0f51ed7749f02c921cf3bf8e92d81f12871bf5ba80824f608cad9a8b7a88"
             },
             {
               "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 155558,
-              "sha256": "d28a5a83c0a4e7b7abf2abeaf947b6d0af2ed128b3fddbddd4b527ec93476b69"
+              "bytes": 158224,
+              "sha256": "f47f11395addc967dc2f229f63f6e95079d63ee624ba74124f4b6b26e974af2b"
             }
           ],
           "download": {
             "src": "/maps/alpes-maritimes/la-vaquette/maps/downloads/3d-dynamic-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 456710,
-            "sha256": "8963ca796a4b1cb7ceb732b4dbb1cca065f263bdb7ed129d1c63042387e88385",
+            "bytes": 458454,
+            "sha256": "e0bfb201358e96b6b6fe5272317d04bb18ef657886049042df430d76273bd7c6",
             "filename": "la-vaquette-3d-dynamique-topographic.jpg"
           }
         },
@@ -591,30 +591,30 @@
               "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 45446,
-              "sha256": "14dafad8cb3b0a11ff9ad3628ce2c0561c413568dfdf123414673ff9b737279f"
+              "bytes": 45488,
+              "sha256": "63e4436f5334a658101977b16b35e842e52530fed4d91323b9184ccf3a9b71a6"
             },
             {
               "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 90764,
-              "sha256": "2fbbc82fa72de83b96b3547f854a148c6fa9a8487cb53f69364b0a621486275e"
+              "bytes": 91060,
+              "sha256": "8b63d16af47c5fb993ad22203767080cf37ade7a886f357684a1ca7175233812"
             },
             {
               "src": "/maps/alpes-maritimes/la-vaquette/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 160040,
-              "sha256": "e9600735d704280a2e1db26ab21d24df82dd6445c2c5d9b67195e73c3075129a"
+              "bytes": 161354,
+              "sha256": "c5044c60b52b9b20713b629f5dc5d6b7d4f996a9968460beff73b2fdf78c7af9"
             }
           ],
           "download": {
             "src": "/maps/alpes-maritimes/la-vaquette/maps/downloads/3d-dynamic-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 467363,
-            "sha256": "368e958cd1f01c5b59bb50a3618888b7b4aefc0c1f57f05779c84775cc75f917",
+            "bytes": 459576,
+            "sha256": "74aa54f072c9cfc2ddaf3604654580f16af9ac2660632d981935b12d31cb1038",
             "filename": "la-vaquette-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -623,36 +623,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/alpes-maritimes/la-vaquette/maps/planche-topographic-1800.webp?v=c1c8d6b0ccfa",
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/planche-topographic-1800.webp?v=fe959d8152d1",
             "width": 1800,
             "height": 1083,
-            "bytes": 115846,
-            "sha256": "c1c8d6b0ccfafa9b5d3b78208fb7ed1c2ec68971b2f02db8f9f121dc6af4888b"
+            "bytes": 116156,
+            "sha256": "fe959d8152d10497825eff289cd259411cd1c47affc1650e87d8ef6a1c598001"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-vaquette-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3124456,
-            "sha256": "f3fe8f9784609e82330ef38b9c696b519e7744b94aa7dbe711335d70c4826ab6",
+            "bytes": 3120281,
+            "sha256": "4c028408484efda3c4884aea8709c4cc1fde7e2a80a5ff85df963cbdadb8f25b",
             "filename": "la-vaquette-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/alpes-maritimes/la-vaquette/maps/planche-orthophoto-1800.webp?v=171798722943",
+            "src": "/maps/alpes-maritimes/la-vaquette/maps/planche-orthophoto-1800.webp?v=e04e139cb89e",
             "width": 1800,
             "height": 1083,
-            "bytes": 117126,
-            "sha256": "1717987229436f7c5786a1693b78f85aca29a3d3bd47980c8cb9145553113d3f"
+            "bytes": 117108,
+            "sha256": "e04e139cb89ebb202cf627a440f4b020867392456e37966f3c1930b35db18063"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-vaquette-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3141318,
-            "sha256": "891a9099b3466f15cd78c4f335d1e178027da69dd2e41aadf785289c3eca575c",
+            "bytes": 3126496,
+            "sha256": "e37bc1674a2fafec5de5a69675839e08e2de47a93703f6c2350bafea22ed85c5",
             "filename": "la-vaquette-planche.jpg"
           }
         }
@@ -662,7 +662,7 @@
         "shiftYRem": 0.7,
         "connectorAngleDeg": 10,
         "connectorWidthRem": 4.4,
-        "labelOffsetRem": 5.2,
+        "labelOffsetRem": 5.85,
         "widthRem": 6.4
       },
       "interactiveInitialView": {
@@ -760,30 +760,30 @@
               "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 46000,
-              "sha256": "423fe023d01bee19a6f9028657ed76499ae748029c7790c2cb7f78e1efdadb06"
+              "bytes": 55748,
+              "sha256": "0cc6f5bf24ece3cc0ccad8c286319c9b96198ef447f151c1e089b1f9223e5cca"
             },
             {
               "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 92532,
-              "sha256": "52698b446c8b9a4ef30f72412292f4f1a64713e595f0df8e230cbdba9e37ee83"
+              "bytes": 107970,
+              "sha256": "bd1d61856f9e2779f8be57fba1ca48dc134b0bcd0f33e2158d9cfc9cac0bfdfb"
             },
             {
               "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 168360,
-              "sha256": "6b5675f8f5f6ae6d82fcd2abe214e99a8d907dba7e188463bfe275e672122bb5"
+              "bytes": 188982,
+              "sha256": "576a7262fd2f8832307da0c2c0950e0b5acb22fea6870343aadcb7a64277d25c"
             }
           ],
           "download": {
             "src": "/maps/alpes-maritimes/la-tradeliere/maps/downloads/3d-dynamic-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 415130,
-            "sha256": "8aa13b26718efd46cb700c4647521c2c9ae18dfd468522853423ae1670c7f214",
+            "bytes": 605053,
+            "sha256": "8461f0be9adc205a2d1ac6cc9ba12665225eb70793c6b4ebf364d048ccf4f55e",
             "filename": "la-tradeliere-3d-dynamique-topographic.jpg"
           }
         },
@@ -799,30 +799,30 @@
               "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 55590,
-              "sha256": "8ef2bfeaeacd07121348df4a30cfd9a40016a983e572aa950358fe74d7d3d70e"
+              "bytes": 68118,
+              "sha256": "9b779578ab023200894df454f123fff4b73c048be54f01a5d6a3cbf5fe8b49de"
             },
             {
               "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 110292,
-              "sha256": "6bf99d2611e5a10d0432324182c09dc836ce63e0304cba787cfb037b527496a3"
+              "bytes": 129084,
+              "sha256": "917d4feab21b1808df6bc844532559b84921562d29fe1554f1f69d378230470b"
             },
             {
               "src": "/maps/alpes-maritimes/la-tradeliere/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 196850,
-              "sha256": "eab98b1b900e8d362b808c98226746d2cf5bdd544e3836ab9217961aa4d8ab9b"
+              "bytes": 220486,
+              "sha256": "75733153ddafc5db47ceddc8562625827edadf04a1cadbc24241cbda563c693f"
             }
           ],
           "download": {
             "src": "/maps/alpes-maritimes/la-tradeliere/maps/downloads/3d-dynamic-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 456994,
-            "sha256": "2ac661fd96660a8f03b2fcc47d226359a7944e47d16d9bb256449a51ef710776",
+            "bytes": 660082,
+            "sha256": "114eb3521ce8eb2c73991dd1b4a1394def17e76227d390780d21fd461c4c5027",
             "filename": "la-tradeliere-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -831,36 +831,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/alpes-maritimes/la-tradeliere/maps/planche-topographic-1800.webp?v=6e84f1b276da",
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/planche-topographic-1800.webp?v=1399e35c7703",
             "width": 1800,
             "height": 1083,
-            "bytes": 139018,
-            "sha256": "6e84f1b276da94017fe93041c022a7823568be8feae4295bb248ec5fac95f6a1"
+            "bytes": 149206,
+            "sha256": "1399e35c770335229f8b1bc1c6c395e55de262d5ae527763d416c23513eafff4"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-tradeliere-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3859383,
-            "sha256": "8b24836c59728f08f7a195a0b62a6b97b553401a70201368851bf91e1b187bd6",
+            "bytes": 3967761,
+            "sha256": "6bb33a072c03f6652f5aa87a0d99bffc07456093db3d86d8d8e06e1f641cf384",
             "filename": "la-tradeliere-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/alpes-maritimes/la-tradeliere/maps/planche-orthophoto-1800.webp?v=6a7b9aa57522",
+            "src": "/maps/alpes-maritimes/la-tradeliere/maps/planche-orthophoto-1800.webp?v=f0cb6c297ab9",
             "width": 1800,
             "height": 1083,
-            "bytes": 165480,
-            "sha256": "6a7b9aa575229d333b2763663c7ba8e13799dbd5ab51639e36b097ba009997ab"
+            "bytes": 175626,
+            "sha256": "f0cb6c297ab9e9ed7287680fe44c4aa4c66c433cef570bc4c4abc84bab0415f0"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/la-tradeliere-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4141492,
-            "sha256": "d5e96a808f8a6493cacbee5b5dd211bbaa27f63917dd17a99f80e8e143a64b9e",
+            "bytes": 4258043,
+            "sha256": "3578055751dfd251d802d16b33b9149aecc96b5b0504f7058957fa47186043db",
             "filename": "la-tradeliere-planche.jpg"
           }
         }
@@ -1129,7 +1129,7 @@
         "shiftYRem": 4.4,
         "connectorAngleDeg": -68,
         "connectorWidthRem": 3.45,
-        "labelOffsetRem": 2.65,
+        "labelOffsetRem": 1.2,
         "lines": [
           "Pointe de la",
           "Causinière"
@@ -1155,7 +1155,7 @@
         "shiftYRem": 0.7,
         "connectorAngleDeg": 10,
         "connectorWidthRem": 4.4,
-        "labelOffsetRem": 5.2,
+        "labelOffsetRem": 5.85,
         "widthRem": 6.4
       },
       "status": "published"

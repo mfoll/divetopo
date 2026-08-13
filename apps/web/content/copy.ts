@@ -474,7 +474,7 @@ export const pacaCopy = {
         {
           title: "Relief régional",
           description:
-            "La carte de sélection reprend le relief régional validé GEBCO 2024 ; les cinq repères sont dérivés des coordonnées déclarées.",
+            "La carte de sélection reprend le relief régional validé GEBCO 2024 ; les repères sont dérivés des coordonnées déclarées.",
           links: pacaSourceLinks.regional,
         },
       ],
@@ -552,7 +552,7 @@ export const pacaCopy = {
         {
           title: "Regional relief",
           description:
-            "The selection map uses the validated GEBCO 2024 regional relief; all five markers come from declared coordinates.",
+            "The selection map uses the validated GEBCO 2024 regional relief; all markers come from declared coordinates.",
           links: pacaSourceLinks.regional,
         },
       ],

@@ -655,8 +655,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 86);
-  assert.equal(imageLocations.length, 230);
+  assert.equal(locations.length, 84);
+  assert.equal(imageLocations.length, 224);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -733,7 +733,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    216,
+    210,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -933,7 +933,7 @@ test("interactive terrain manifest combines every published region", async () =>
     "var-est",
     "var-ouest",
   ]);
-  assert.equal(manifest.sites.length, 36);
+  assert.equal(manifest.sites.length, 35);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([
@@ -991,19 +991,36 @@ test("keeps overlapping geographic dots non-interactive", async () => {
   );
   assert.match(
     styles,
+    /\.site-map-marker-dot\s*\{[^}]*background:\s*rgba\(249, 253, 251, 0\.18\);[^}]*0 0 0 2px var\(--navy\),/s,
+  );
+  assert.match(
+    styles,
+    /\.site-map-marker\[data-selected="true"\] \.site-map-marker-dot\s*\{[^}]*background:\s*rgba\(255, 113, 84, 0\.18\);[^}]*0 0 0 3px var\(--coral\),/s,
+  );
+  assert.match(
+    styles,
     /\.site-map-marker-label\s*\{[^}]*pointer-events:\s*auto;/s,
   );
 });
 
 test("keeps regional map label text inside its cartouche", async () => {
-  const styles = await readFile(
-    new URL("../app/globals.css", import.meta.url),
-    "utf8",
-  );
+  const [styles, experience] = await Promise.all([
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+    readFile(
+      new URL("../app/TopoReunionExperience.tsx", import.meta.url),
+      "utf8",
+    ),
+  ]);
   assert.match(
     styles,
     /\.site-map-marker-label\s*\{[^}]*min-width:\s*max-content;/s,
   );
+  assert.match(
+    styles,
+    /\.site-map-marker-line path\s*\{[^}]*stroke-linecap:\s*round;[^}]*stroke-linejoin:\s*round;/s,
+  );
+  assert.match(experience, /label\.getBoundingClientRect\(\)/);
+  assert.match(experience, /connector\.dataset\.connectorReady = "true"/);
 });
 
 test("interactive terrain matches the static linear-light exposure", async () => {
@@ -1265,6 +1282,25 @@ test("keeps the viewer and download card in ordinary block flow", async () => {
   assert.match(
     styles,
     /\.planche-download\s*\{[^}]*margin-top:\s*var\(--topo-row-gap\)/s,
+  );
+});
+
+test("places only the local site locator below the mobile viewer", async () => {
+  const [experienceSource, styles] = await Promise.all([
+    readFile(
+      new URL("../app/TopoReunionExperience.tsx", import.meta.url),
+      "utf8",
+    ),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
+  ]);
+
+  assert.match(
+    experienceSource,
+    /<article[\s\S]*?className="topo-reunion-main"[\s\S]*?<\/article>[\s\S]*?<SitePickerMaps[\s\S]*?\{planche \? \(/,
+  );
+  assert.match(
+    styles,
+    /@media \(max-width: 1120px\)[\s\S]*?\.topo-reunion-main\s*\{[^}]*grid-row:\s*2;[\s\S]*?\.site-picker-maps\s*\{[^}]*grid-row:\s*3;[\s\S]*?\.site-picker-heading,[\s\S]*?\.reunion-overview\s*\{[^}]*display:\s*none;[\s\S]*?\.topo-reunion-workspace > \.planche-download\s*\{[^}]*grid-row:\s*4;/s,
   );
 });
 

@@ -6,6 +6,52 @@ import { regions } from "../content/regions";
 import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
 
+type HomepageSitePosition = {
+  slug: string;
+  position: { xPercent: number; yPercent: number };
+};
+
+function spreadNearbyPoints(sites: HomepageSitePosition[]) {
+  const visited = new Set<number>();
+  const offsets = sites.map(() => ({ x: 0, y: 0 }));
+
+  sites.forEach((_, index) => {
+    if (visited.has(index)) return;
+    const group: number[] = [];
+    const pending = [index];
+    visited.add(index);
+    while (pending.length) {
+      const currentIndex = pending.pop()!;
+      group.push(currentIndex);
+      sites.forEach((candidate, candidateIndex) => {
+        if (visited.has(candidateIndex)) return;
+        const current = sites[currentIndex];
+        if (
+          Math.hypot(
+            candidate.position.xPercent - current.position.xPercent,
+            candidate.position.yPercent - current.position.yPercent,
+          ) < 1.5
+        ) {
+          visited.add(candidateIndex);
+          pending.push(candidateIndex);
+        }
+      });
+    }
+    if (group.length < 2) return;
+
+    const radius = group.length > 2 ? 2.75 : 2.25;
+    group.forEach((candidateIndex, groupIndex) => {
+      const angle = (Math.PI * 2 * groupIndex) / group.length - Math.PI / 2;
+      offsets[candidateIndex] = {
+        x: Math.cos(angle) * radius,
+        y: Math.sin(angle) * radius,
+      };
+    });
+  });
+
+  return sites.map((site, index) => ({ ...site, offset: offsets[index] }));
+}
+
 export default function HomepageExperience({
   language,
   theme,
@@ -60,7 +106,12 @@ export default function HomepageExperience({
                   href={`${region.href}/${language}`}
                   key={region.slug}
                 >
-                  <div className="region-visual">
+                  <div
+                    className="region-visual"
+                    style={{
+                      aspectRatio: `${region.image.width} / ${region.image.height}`,
+                    }}
+                  >
                     <img
                       src={region.image.src}
                       width={region.image.width}
@@ -71,6 +122,22 @@ export default function HomepageExperience({
                       alt={region.image.alt[language]}
                       fetchPriority="high"
                     />
+                    <span className="region-site-points" aria-hidden="true">
+                      {spreadNearbyPoints(region.sitePositions).map((site) => (
+                        <span
+                          className="region-site-point"
+                          data-source-x={site.position.xPercent}
+                          data-source-y={site.position.yPercent}
+                          data-site-slug={site.slug}
+                          key={site.slug}
+                          style={{
+                            left: `${site.position.xPercent}%`,
+                            top: `${site.position.yPercent}%`,
+                            translate: `${site.offset.x}px ${site.offset.y}px`,
+                          }}
+                        />
+                      ))}
+                    </span>
                   </div>
                   <div className="region-copy">
                     <div className="region-title-row">

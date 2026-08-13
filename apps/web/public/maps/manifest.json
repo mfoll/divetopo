@@ -48,6 +48,10 @@
         "xPercent": 46.0,
         "yPercent": 11.8462
       },
+      "reunionOverviewPosition": {
+        "xPercent": 14.5926,
+        "yPercent": 31.0
+      },
       "maxDepthM": 20,
       "planMaxDepthM": 20,
       "verticalExaggeration": 3.9935327405,
@@ -277,6 +281,10 @@
         "xPercent": 38.9433,
         "yPercent": 15.9462
       },
+      "reunionOverviewPosition": {
+        "xPercent": 13.1116,
+        "yPercent": 32.5677
+      },
       "maxDepthM": 30,
       "planMaxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
@@ -505,6 +513,10 @@
       "westCoastLocatorPosition": {
         "xPercent": 36.1087,
         "yPercent": 18.4765
+      },
+      "reunionOverviewPosition": {
+        "xPercent": 12.5166,
+        "yPercent": 33.5351
       },
       "maxDepthM": 30,
       "planMaxDepthM": 30,
@@ -736,6 +748,10 @@
         "xPercent": 32.7059,
         "yPercent": 19.5385
       },
+      "reunionOverviewPosition": {
+        "xPercent": 11.8025,
+        "yPercent": 33.9412
+      },
       "maxDepthM": 30,
       "planMaxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
@@ -965,6 +981,10 @@
       "westCoastLocatorPosition": {
         "xPercent": 35.8824,
         "yPercent": 26.5385
+      },
+      "reunionOverviewPosition": {
+        "xPercent": 12.4691,
+        "yPercent": 36.6176
       },
       "maxDepthM": 30,
       "planMaxDepthM": 30,
@@ -1199,6 +1219,10 @@
         "xPercent": 38.3047,
         "yPercent": 40.7864
       },
+      "reunionOverviewPosition": {
+        "xPercent": 12.9775,
+        "yPercent": 42.0654
+      },
       "maxDepthM": 30,
       "planMaxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
@@ -1427,6 +1451,10 @@
         "xPercent": 53.6629,
         "yPercent": 51.9835
       },
+      "reunionOverviewPosition": {
+        "xPercent": 16.2009,
+        "yPercent": 46.3466
+      },
       "maxDepthM": 40,
       "planMaxDepthM": 40,
       "verticalExaggeration": 3.9935327405,
@@ -1654,6 +1682,10 @@
       "westCoastLocatorPosition": {
         "xPercent": 59.9018,
         "yPercent": 55.9423
+      },
+      "reunionOverviewPosition": {
+        "xPercent": 17.5103,
+        "yPercent": 47.8603
       },
       "maxDepthM": 40,
       "planMaxDepthM": 40,
@@ -1888,6 +1920,10 @@
         "xPercent": 77.8398,
         "yPercent": 73.7332
       },
+      "reunionOverviewPosition": {
+        "xPercent": 21.275,
+        "yPercent": 54.6627
+      },
       "maxDepthM": 20,
       "planMaxDepthM": 20,
       "verticalExaggeration": 3.9935327405,
@@ -2116,6 +2152,10 @@
         "xPercent": 76.8235,
         "yPercent": 84.5192
       },
+      "reunionOverviewPosition": {
+        "xPercent": 21.0617,
+        "yPercent": 58.7868
+      },
       "maxDepthM": 30,
       "planMaxDepthM": 30,
       "verticalExaggeration": 3.9935327405,
@@ -2343,6 +2383,10 @@
       "westCoastLocatorPosition": {
         "xPercent": 73.2845,
         "yPercent": 91.9212
+      },
+      "reunionOverviewPosition": {
+        "xPercent": 20.319,
+        "yPercent": 61.6169
       },
       "maxDepthM": 40,
       "planMaxDepthM": 30,

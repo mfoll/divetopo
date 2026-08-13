@@ -101,37 +101,37 @@
         "metadata": {
           "path": "la-vaquette/terrain.json",
           "bytes": 5617,
-          "sha256": "a08e99b9fa220b908852d7c1fda8ec766909c00be012559b808a6524602c91cd"
+          "sha256": "dbf005f1cc849af0c207c8647c4f73e076633ca5ee913bbd2a9dbd81b5500cb7"
         },
         "height": {
           "path": "la-vaquette/height.bin",
-          "bytes": 480168,
-          "sha256": "6bf521763a902692947e83ef36d064e1725a06f00624f61eccee7200d083163f"
+          "bytes": 436050,
+          "sha256": "fc75baa11c02377b63bab00ed5a4c6e61d857253b85b9a0b7864eeeec94d75d6"
         },
         "validMask": {
           "path": "la-vaquette/valid-mask.bin",
-          "bytes": 30011,
-          "sha256": "f36e8c55641c75825b8b54b67ff95d54d9b4a7f64923ccb15413abdd3b7f8312"
+          "bytes": 27254,
+          "sha256": "91f9cd6ffed2e384e423d2b9a881111aa204510a86bd3f0efd95ba7aec1881af"
         },
         "isobathMask": {
           "path": "la-vaquette/isobath-mask.bin",
-          "bytes": 30011,
-          "sha256": "f36e8c55641c75825b8b54b67ff95d54d9b4a7f64923ccb15413abdd3b7f8312"
+          "bytes": 27254,
+          "sha256": "91f9cd6ffed2e384e423d2b9a881111aa204510a86bd3f0efd95ba7aec1881af"
         },
         "vectorIsobaths": {
           "path": "la-vaquette/isobaths-vector.json",
-          "bytes": 112109,
-          "sha256": "8260a9ce7c7e54e061d92ae3222114a0c90a639281c8c36aee7a67736df6d2e2"
+          "bytes": 116817,
+          "sha256": "1696e760958a2037b852d12d2c55daa351ffef9ccc3d09b78c96fdb9c0f354a6"
         },
         "topographicTexture": {
           "path": "la-vaquette/topographic.webp",
-          "bytes": 21690,
-          "sha256": "2abef81abcdbf708501793b4943b2b0c807e92e69329608a92700cf8a9bc612b"
+          "bytes": 24202,
+          "sha256": "ae666db63d571120ded766bcb66275b67fa3861840de40163d818506d786ff3b"
         },
         "orthophotoTexture": {
           "path": "la-vaquette/orthophoto.webp",
-          "bytes": 15904,
-          "sha256": "7b2b1b52bba8dcf9a905fac57a004329a78ebfec930c2dba3110a008371c7e54"
+          "bytes": 17336,
+          "sha256": "462046d9698759960e519d1d928dc2ba4588b82ef2080be407eace3e31013a1c"
         }
       }
     },
@@ -143,7 +143,7 @@
         "metadata": {
           "path": "la-tradeliere/terrain.json",
           "bytes": 5669,
-          "sha256": "1a2ad29457892399aa0ee61492aafb0e7379bbdc1db819854d2e134c6fb72648"
+          "sha256": "019eab36d068dd08a93842b30cea3d188a508d338f0d075777afd6aa1e99b69a"
         },
         "height": {
           "path": "la-tradeliere/height.bin",
@@ -227,7 +227,7 @@
         "metadata": {
           "path": "grotte-a-corail-maire/terrain.json",
           "bytes": 5217,
-          "sha256": "d18f7e84f167ee1bd28da6c3b819578d562ce253815d2d19e036cf229dd01c39"
+          "sha256": "b0caccc5025e32e69b986cc8be1a3cb901c29f98c83e4d7f6db1cceb6e1302f0"
         },
         "height": {
           "path": "grotte-a-corail-maire/height.bin",
@@ -269,37 +269,37 @@
         "metadata": {
           "path": "pains-de-sucre-riou/terrain.json",
           "bytes": 4986,
-          "sha256": "1b57d7b1a7a726f63e4a1251cafa59d486203d19b741ed091489f0c2eaa6dcc1"
+          "sha256": "6eaf40983a9656b9359a7e9d25190981292b965bd60f654b42067463f3533bda"
         },
         "height": {
           "path": "pains-de-sucre-riou/height.bin",
-          "bytes": 294000,
-          "sha256": "ad1c72b342bef7058b295691eefda8723b0544f784d04a1506edbffa96ea82c5"
+          "bytes": 360000,
+          "sha256": "e21beb77aa53fd7eda353bbcf87ba700ab6ac3b65cd195c1b85d3c871af2e7c1"
         },
         "validMask": {
           "path": "pains-de-sucre-riou/valid-mask.bin",
-          "bytes": 18375,
-          "sha256": "665304478ffcf73bc270b4f6e728bcfee67fe5de7092a65ac022215deea1d6e9"
+          "bytes": 22500,
+          "sha256": "c6cfbfbe497f9d3d94a345706274c12068b03e50960248a573a81706ce9e9332"
         },
         "isobathMask": {
           "path": "pains-de-sucre-riou/isobath-mask.bin",
-          "bytes": 18375,
-          "sha256": "665304478ffcf73bc270b4f6e728bcfee67fe5de7092a65ac022215deea1d6e9"
+          "bytes": 22500,
+          "sha256": "c6cfbfbe497f9d3d94a345706274c12068b03e50960248a573a81706ce9e9332"
         },
         "vectorIsobaths": {
           "path": "pains-de-sucre-riou/isobaths-vector.json",
-          "bytes": 30889,
-          "sha256": "996b6ffef271848a67ab126ba1e979715c4acb6097819d2a513741a97fe7333c"
+          "bytes": 47148,
+          "sha256": "4ee2c7b00792c2e76bf5872ef1b83b266a5366bebf4db2818e77385c5fd0b54c"
         },
         "topographicTexture": {
           "path": "pains-de-sucre-riou/topographic.webp",
-          "bytes": 8068,
-          "sha256": "e151b605e25d3200af7a6d36dce1964592d743515ef3e4627d82d5e59c25d0c1"
+          "bytes": 10466,
+          "sha256": "2ccf90652b6c1261e3d9e3967afa08ffe80228496d0c642f83fb35ab66369957"
         },
         "orthophotoTexture": {
           "path": "pains-de-sucre-riou/orthophoto.webp",
-          "bytes": 38452,
-          "sha256": "ee045347868b6b179a8f7dc84ab262bc0d6510b8b0a193bab8f5bd38f17abb21"
+          "bytes": 44962,
+          "sha256": "2df057d83ea0be97765050650f5fd61391c2905609a43f9dceb2aa073af3291f"
         }
       }
     },
@@ -352,38 +352,38 @@
       "files": {
         "metadata": {
           "path": "pierre-a-la-bague-plateau/terrain.json",
-          "bytes": 5273,
-          "sha256": "8bfd0083fab91f0e66e6ef48e4901b5dd55937bfd970f7eaad0fde0013603ee6"
+          "bytes": 5245,
+          "sha256": "bccf72af8d646d418ccbeaeb7d6097a6dfbbe6b9bdb9cded1de2dac50cfbdbb7"
         },
         "height": {
           "path": "pierre-a-la-bague-plateau/height.bin",
-          "bytes": 281502,
-          "sha256": "e443796ed150d90d2e9834e30512e5dcaaaa06c40d1e80dbd351cf905a9276f5"
+          "bytes": 353682,
+          "sha256": "a29c7f4eae899fc2c6aa4ce93c4d37fe89dc3fbad498c78d86835bf79a4130dc"
         },
         "validMask": {
           "path": "pierre-a-la-bague-plateau/valid-mask.bin",
-          "bytes": 17594,
-          "sha256": "70dacf56db3b88a17afa0b3440e3a8aad86b0f8b08bcdf617ef87a7ccfa73c0b"
+          "bytes": 22106,
+          "sha256": "28f998cfe65916a00bbb899af415bf7301ce775a63cc215345f83729f9c9edde"
         },
         "isobathMask": {
           "path": "pierre-a-la-bague-plateau/isobath-mask.bin",
-          "bytes": 17594,
-          "sha256": "70dacf56db3b88a17afa0b3440e3a8aad86b0f8b08bcdf617ef87a7ccfa73c0b"
+          "bytes": 22106,
+          "sha256": "28f998cfe65916a00bbb899af415bf7301ce775a63cc215345f83729f9c9edde"
         },
         "vectorIsobaths": {
           "path": "pierre-a-la-bague-plateau/isobaths-vector.json",
-          "bytes": 79138,
-          "sha256": "c352d428a25234b4403d5a573ea03852b92352e00f0cfcf828fca0d7b2ec784f"
+          "bytes": 98681,
+          "sha256": "2ae86f807ccdcfe033bf9da021ee31f00dbac2434c497a3c0aa0b9f3fbcece30"
         },
         "topographicTexture": {
           "path": "pierre-a-la-bague-plateau/topographic.webp",
-          "bytes": 15702,
-          "sha256": "fae7135692e80dd6e0df10f310119d857c838be117d54cbc25342202465d99c1"
+          "bytes": 18882,
+          "sha256": "9110ab2a35a10037c779475a1652a90a8358caf21b07d6f79b7666671a016389"
         },
         "orthophotoTexture": {
           "path": "pierre-a-la-bague-plateau/orthophoto.webp",
-          "bytes": 12230,
-          "sha256": "bbe5abbc895b6a985fe4e59f5774b8f55b864d095bcb8f4b930066121dccc74b"
+          "bytes": 14752,
+          "sha256": "966419bb82f823601db6b827dc9ced4fd22cd90dfb0b10c20707f2dc03c1c0ee"
         }
       }
     },
@@ -982,38 +982,38 @@
       "files": {
         "metadata": {
           "path": "sec-du-langoustier/terrain.json",
-          "bytes": 5049,
-          "sha256": "1d4d3ca2a4f929018c76a7f558c520ea2b78b2381cd444a2f92d069b03240692"
+          "bytes": 5045,
+          "sha256": "72f2fb2d7a40a407a11532cbe61ce41366809eab91410eac5ae165483ac23b96"
         },
         "height": {
           "path": "sec-du-langoustier/height.bin",
-          "bytes": 448362,
-          "sha256": "1b24d1cf548c1b9e621f9e6f534906124e252d2216c5d5d474791ac65dc6504d"
+          "bytes": 449388,
+          "sha256": "731f8b8000e7c402caf4081ff7e820e3d8e6b4c3e6d154ff9146b3f159e3abb8"
         },
         "validMask": {
           "path": "sec-du-langoustier/valid-mask.bin",
-          "bytes": 28023,
-          "sha256": "98a6af0826a0e9d01540cd1812642887c485fb0cfb87d76ae054fea025c87f03"
+          "bytes": 28087,
+          "sha256": "bd321c7105902bc4916391abd89e6b14c58e7f3cd304660bc97a1d1b98b615f7"
         },
         "isobathMask": {
           "path": "sec-du-langoustier/isobath-mask.bin",
-          "bytes": 28023,
-          "sha256": "98a6af0826a0e9d01540cd1812642887c485fb0cfb87d76ae054fea025c87f03"
+          "bytes": 28087,
+          "sha256": "bd321c7105902bc4916391abd89e6b14c58e7f3cd304660bc97a1d1b98b615f7"
         },
         "vectorIsobaths": {
           "path": "sec-du-langoustier/isobaths-vector.json",
-          "bytes": 153755,
-          "sha256": "074cfe2cf6bca2c1b004d9db06eba173316c40ad1d5483301c8e2bf19612c86d"
+          "bytes": 155269,
+          "sha256": "47951bd03160818c12aedb5bcf2c0c05e1a0659193228f39b4c6da02014b3b7a"
         },
         "topographicTexture": {
           "path": "sec-du-langoustier/topographic.webp",
-          "bytes": 16290,
-          "sha256": "f5db1f74795a2534aea4d47eeb4c52708a3f69e4c5d61a4536a6dd2ecbbf910a"
+          "bytes": 17402,
+          "sha256": "73f40bd5b147a4ee2c0e9da6c5d183aa22133a56523f32a0ce73715c9c958ad8"
         },
         "orthophotoTexture": {
           "path": "sec-du-langoustier/orthophoto.webp",
-          "bytes": 12836,
-          "sha256": "bb7ceae367e12ea712f3bace3ffbfb654f214e956001262c26b5aaa42d5ae2b2"
+          "bytes": 13792,
+          "sha256": "9118401ce5d416cea008c38f8ef480cbf7a3762d721b81cf905f9968c8223223"
         }
       }
     },
@@ -1403,37 +1403,37 @@
         "metadata": {
           "path": "pointe-de-la-cride/terrain.json",
           "bytes": 4441,
-          "sha256": "13768e6195ff0bc8399446097d8a3395fd8970d9e0f8a8dad13375b8d472dd6a"
+          "sha256": "d48d890c5a952c0d6c7237785b218ce8dcb39748f6567bc5e2113075e48ff195"
         },
         "height": {
           "path": "pointe-de-la-cride/height.bin",
-          "bytes": 415530,
-          "sha256": "5a1cb9140a38ab16ae879e3ab652f5f22025fae954163f4beba0ba0883bb7d87"
+          "bytes": 425790,
+          "sha256": "033a5cd2b68322e6492dc3a1f247d900d538ebd7d7d0b204d905e2f051d98a26"
         },
         "validMask": {
           "path": "pointe-de-la-cride/valid-mask.bin",
-          "bytes": 25971,
-          "sha256": "785772d0d9b7f947ebe4467b96adfa205893e7f70902467531cb956b4f9a42df"
+          "bytes": 26612,
+          "sha256": "b8b409d5b8419342c5b9341d227fb1978bb164182df6531527c0ede011bef625"
         },
         "isobathMask": {
           "path": "pointe-de-la-cride/isobath-mask.bin",
-          "bytes": 25971,
-          "sha256": "785772d0d9b7f947ebe4467b96adfa205893e7f70902467531cb956b4f9a42df"
+          "bytes": 26612,
+          "sha256": "b8b409d5b8419342c5b9341d227fb1978bb164182df6531527c0ede011bef625"
         },
         "vectorIsobaths": {
           "path": "pointe-de-la-cride/isobaths-vector.json",
-          "bytes": 107413,
-          "sha256": "cef0eaeb48a0c1637defc45fa508ee030c5bbbde8ebc59d14323161fe6ba099f"
+          "bytes": 106026,
+          "sha256": "5d489c400ecab8e2df4c3f86ccaa4d58df48e3b05071e2a3533966bf089d3769"
         },
         "topographicTexture": {
           "path": "pointe-de-la-cride/topographic.webp",
-          "bytes": 44262,
-          "sha256": "27d37b816226b92fb3b326f915f2db490e71bdbbe699f5f872f44175a79de5ed"
+          "bytes": 46862,
+          "sha256": "6f8d5b083cd3ee3e4cbd279c3e7712e7fc510195147216092113464fd2d3a26e"
         },
         "orthophotoTexture": {
           "path": "pointe-de-la-cride/orthophoto.webp",
-          "bytes": 68836,
-          "sha256": "96300ed7492f2fb1443085df854af9f49e3d4ed8bc7cbd27dfde64bc696ff344"
+          "bytes": 74612,
+          "sha256": "166de381a92dc5e201ec22798c2ffc60f5761f9b1aa59ced8c0f7e8f50646550"
         }
       }
     },
@@ -1444,80 +1444,38 @@
       "files": {
         "metadata": {
           "path": "les-magnons/terrain.json",
-          "bytes": 4562,
-          "sha256": "5b40100eaa689c0d5d4f4d2b7c8842e4af3afae4387df1d4985c472297b91a5a"
+          "bytes": 4697,
+          "sha256": "091466c38184f2ae4cc2fc4fe7454564805fdb35cb7751115fb3bbc45487a02c"
         },
         "height": {
           "path": "les-magnons/height.bin",
-          "bytes": 526338,
-          "sha256": "e7320574eee407d5cee84a639fd257f6bc3cbfd1f3efad8ba69127e7500c0902"
+          "bytes": 364230,
+          "sha256": "d954061151311a4ee6b9ab6a73bd3e553e609cbf64cf2226ff6860605459fba6"
         },
         "validMask": {
           "path": "les-magnons/valid-mask.bin",
-          "bytes": 32897,
-          "sha256": "ac7c11b6861ef6f675a8ec0822f3f3a70ce01e890628507faf51f6af1d34052f"
+          "bytes": 22765,
+          "sha256": "c028f3e0ae9f904ea290c70e69613d23919f62d5cc215a2c2a464f7babf77bbb"
         },
         "isobathMask": {
           "path": "les-magnons/isobath-mask.bin",
-          "bytes": 32897,
-          "sha256": "ac7c11b6861ef6f675a8ec0822f3f3a70ce01e890628507faf51f6af1d34052f"
+          "bytes": 22765,
+          "sha256": "c028f3e0ae9f904ea290c70e69613d23919f62d5cc215a2c2a464f7babf77bbb"
         },
         "vectorIsobaths": {
           "path": "les-magnons/isobaths-vector.json",
-          "bytes": 228146,
-          "sha256": "fd83fde2c3d950edf6562d47bf1c48b6477e0e433597e6d606f9b0f616bb4b6d"
+          "bytes": 263650,
+          "sha256": "362ee18321157190e95d44a99c042ddf212cb54d26a41d3e0e72c56f39039bf1"
         },
         "topographicTexture": {
           "path": "les-magnons/topographic.webp",
-          "bytes": 26580,
-          "sha256": "3ff544e3bd244f3dac2ecb076759ab81c8b24da6dc0bd1a02cb740c37dc61694"
+          "bytes": 33294,
+          "sha256": "30b40214684636a29771893725df5d2437e1e98d42676350a9793b59e2f2c6a6"
         },
         "orthophotoTexture": {
           "path": "les-magnons/orthophoto.webp",
-          "bytes": 18988,
-          "sha256": "59c1bf53a780c35b6a286273d32c3e20009e62cb395ea5123f397cca2a51451d"
-        }
-      }
-    },
-    {
-      "slug": "la-merveilleuse",
-      "title": "La Merveilleuse, Six-Fours-les-Plages",
-      "metadata": "la-merveilleuse/terrain.json",
-      "files": {
-        "metadata": {
-          "path": "la-merveilleuse/terrain.json",
-          "bytes": 4715,
-          "sha256": "7fe032a0a70e881b4376d27cafa8bab774a137450f3b3954c4f27fa9a8d29efd"
-        },
-        "height": {
-          "path": "la-merveilleuse/height.bin",
-          "bytes": 350892,
-          "sha256": "0a32e0abbc9e7558c9f21e28665fad2d4674b0a336ea2b70e06ef7717f8d4f8a"
-        },
-        "validMask": {
-          "path": "la-merveilleuse/valid-mask.bin",
-          "bytes": 21931,
-          "sha256": "8d41c855aa5144c96dfbe1f38a8e4c1b9f51ae01398f3e94e8911a6e5ecdfffa"
-        },
-        "isobathMask": {
-          "path": "la-merveilleuse/isobath-mask.bin",
-          "bytes": 21931,
-          "sha256": "8d41c855aa5144c96dfbe1f38a8e4c1b9f51ae01398f3e94e8911a6e5ecdfffa"
-        },
-        "vectorIsobaths": {
-          "path": "la-merveilleuse/isobaths-vector.json",
-          "bytes": 249190,
-          "sha256": "77b1222e1cafa68cf5da11f92837a03732c8515291f9fec9ea32bfe1ccb13a40"
-        },
-        "topographicTexture": {
-          "path": "la-merveilleuse/topographic.webp",
-          "bytes": 30832,
-          "sha256": "f25c9372427be4950de138f802355440c73f0208e124b22da49196df5e70aa41"
-        },
-        "orthophotoTexture": {
-          "path": "la-merveilleuse/orthophoto.webp",
-          "bytes": 21528,
-          "sha256": "7941cb771bd2ae3c52c97f7fb83c970d5d5cd26109675fa28bb835bf7c38e438"
+          "bytes": 24090,
+          "sha256": "e5ef632fb4917505b30710bf6b6c9b3bf5170900e614c61c8a1d68a1845681e5"
         }
       }
     }

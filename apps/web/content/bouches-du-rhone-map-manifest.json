@@ -10,13 +10,13 @@
     "width": 1864,
     "height": 1440,
     "boundsWgs84": {
-      "west": 5.10386666850576,
-      "south": 43.07038316631086,
-      "east": 5.5198666685057605,
-      "north": 43.38238316631086
+      "west": 5.12886666850576,
+      "south": 43.09038316631086,
+      "east": 5.54486666850576,
+      "north": 43.40238316631086
     },
-    "bytes": 1253793,
-    "sha256": "af6808941b63026dbff0f4e87561b6d6961310fe0ffa440e935050f892d19057",
+    "bytes": 1478905,
+    "sha256": "bf202dc47849a69ac2650dcbd0eca157ea005774e35f00a6bc236d15db2a379b",
     "source": "Shom–IGN Limite terre-mer for the visible bouches-du-rhone coastline; Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; EMODnet Bathymetry DTM 2024 for offshore bathymetry; GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024 only as no-data fallback; IGN RGE ALTI for land relief",
     "sourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
     "layer": "emodnet:mean",
@@ -53,8 +53,8 @@
         "longitude": 5.33183333
       },
       "westCoastLocatorPosition": {
-        "xPercent": 54.79968,
-        "yPercent": 55.14418
+        "xPercent": 48.79006,
+        "yPercent": 61.55443
       },
       "maxDepthM": 40,
       "planMaxDepthM": 40,
@@ -130,30 +130,30 @@
               "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 62344,
-              "sha256": "03dffb0bfb48fa55df38179cc606e99e048752bfc9ededeb29dc55c7b5481d60"
+              "bytes": 64548,
+              "sha256": "e6b418bbefe1983505f5f651462bde53c16fee9ab6b6e6b04c38279b060fdb40"
             },
             {
               "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 119330,
-              "sha256": "953377528489124dfdea781e97cf11fc45040f2c135679e1a8ef2b60ef753871"
+              "bytes": 127254,
+              "sha256": "c2b8eab29d05d8621a29558ccfc05504c7584b9196167312eb04c74cf93d1ecd"
             },
             {
               "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 211022,
-              "sha256": "489a513e90390cbaa485b79bde6e1b7be8fb9fe9d250d656634109dc81475055"
+              "bytes": 224468,
+              "sha256": "8fe25bd9a373c0364827cd90a064b2711c237cec276bb08d380880f21673c271"
             }
           ],
           "download": {
             "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/downloads/3d-dynamic-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 682206,
-            "sha256": "63e52f199f83682264ece4f53402da4c165b0dff33f2facf7318f4f775bb5fe4",
+            "bytes": 652841,
+            "sha256": "c8fcb84bffe461de6c93d0a658e8be166c2bd68be66c3ab543679f5fb7ef43be",
             "filename": "grotte-a-corail-maire-3d-dynamique-topographic.jpg"
           }
         },
@@ -169,30 +169,30 @@
               "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 74474,
-              "sha256": "469f0a6aee8e08d7af36c1a89f3464bb2500050781e04f409588b20d7135d31d"
+              "bytes": 80442,
+              "sha256": "6471f878c274665e877884a282ea6aa474bf93c53edf13c2418f84a9e73459d4"
             },
             {
               "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 142690,
-              "sha256": "c7ec6673e153277fc6f79154ff3afad946ae4165ac2997af765f1138d8547d86"
+              "bytes": 157448,
+              "sha256": "343ded942703024335879676c93285a78cc686897c11d884b096df3ee36469eb"
             },
             {
               "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 241846,
-              "sha256": "853fe7bb29430b2998ef63f96221222377665794019e80f741ec2eeb3bea604a"
+              "bytes": 263962,
+              "sha256": "b13345a92bab6b46de890b9753a0868b278bc672bef19abbbe251acbd24753b2"
             }
           ],
           "download": {
             "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/downloads/3d-dynamic-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 762725,
-            "sha256": "7528ff4d5533c07fd1cb12a8acafd4059913fcb4c0f0a4fb2c1d4eb548c1e9d0",
+            "bytes": 761374,
+            "sha256": "52984e8f7961d2d9e183c52b9a25c3a80dc7532369fc66897ac8ebc92a380876",
             "filename": "grotte-a-corail-maire-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -201,36 +201,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-topographic-1800.webp?v=88a0f40606ca",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-topographic-1800.webp?v=7873adf3b547",
             "width": 1800,
             "height": 1083,
-            "bytes": 143594,
-            "sha256": "88a0f40606cab258b7029de894379359ab7a20042d21291a7d9f1580dd3e500c"
+            "bytes": 144002,
+            "sha256": "7873adf3b54764fadf2e9e792ae8a5960f22fe867dc5af425680b2ebfb4fd79f"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-maire-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3642846,
-            "sha256": "5a43e8f63ed17728e4519c6b4a212321db1af0d887bed44b4777965024253a4d",
+            "bytes": 3628957,
+            "sha256": "70709836dc0c6557e7a5f49fdf4cdbe65db2cb365180ee47a25008935c397843",
             "filename": "grotte-a-corail-maire-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-orthophoto-1800.webp?v=4a00f53225bf",
+            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/planche-orthophoto-1800.webp?v=574c033d4aa0",
             "width": 1800,
             "height": 1083,
-            "bytes": 221074,
-            "sha256": "4a00f53225bf984f760bf3f610ea4418eea1314c34f3bb3d139a8a7f1d9fb367"
+            "bytes": 224572,
+            "sha256": "574c033d4aa021ed5cba82d09ebd9c5793ccc1bd993f626c252031f736e09601"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/grotte-a-corail-maire-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4519157,
-            "sha256": "01b4a822cf7bc3907a53cbfce1a15faae4da31df3d7567fe9675796f46c18ecf",
+            "bytes": 4535901,
+            "sha256": "8a6c8ab551fb7bb6e2150b51a1d50b002031fcc510c5bd1a45c55d5a7a8c57b4",
             "filename": "grotte-a-corail-maire-planche.jpg"
           }
         }
@@ -266,8 +266,8 @@
         "longitude": 5.39711667
       },
       "westCoastLocatorPosition": {
-        "xPercent": 70.49279,
-        "yPercent": 66.282
+        "xPercent": 64.48317,
+        "yPercent": 72.69225
       },
       "maxDepthM": 40.0,
       "planMaxDepthM": 40.0,
@@ -343,30 +343,30 @@
               "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 50130,
-              "sha256": "42fcc8f145da8a55ac0de727a45ab60a45392e6874726be98eb3eea222747605"
+              "bytes": 57874,
+              "sha256": "0f55cfdb536d7eb14471975c1fb6432c8f73798971a07fb24076314f9a6dcacf"
             },
             {
               "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 99234,
-              "sha256": "cd552306906884a46e8fd1893f9aea3e9b2d2506eba0b223f59c7d25abc1fbb7"
+              "bytes": 114838,
+              "sha256": "c99cb83cd1894a01c1744625a92bddd87ce17ab8108246cf797eb837ab6c1d1c"
             },
             {
               "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 176710,
-              "sha256": "10579379498b23b2307721d90f1307c4556f71879344d43b42b522929fb4cc37"
+              "bytes": 205582,
+              "sha256": "611a4eb821ce214a0e1c1fe0a1d585cf5e1be88f71b5c8ba2273115a0cb5ef38"
             }
           ],
           "download": {
             "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/downloads/3d-dynamic-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 505939,
-            "sha256": "f8d3645c018616fa682dbd6a31b767e0ba40884a44ec826a8d88570490e4a3a1",
+            "bytes": 568005,
+            "sha256": "4f678d7284e741525665dfa5b6362f82cfe7358c9a80b174f20b7c76f2ffd510",
             "filename": "pains-de-sucre-riou-3d-dynamique-topographic.jpg"
           }
         },
@@ -382,30 +382,30 @@
               "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 55492,
-              "sha256": "00871b8f76dd504ea6d7b4d0ce4ca27fab01f30e7ab46dc29792f15a0a366793"
+              "bytes": 64042,
+              "sha256": "55a2f7af4286b10e5df59799c260f9313838fb23292b44b26b29353356db4aef"
             },
             {
               "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 105648,
-              "sha256": "9bb87bd0f28b551f5f4dd50be2a39216952c1e4ba7f196e4355ecdaf170cdc0b"
+              "bytes": 125316,
+              "sha256": "1ab89cbe4dc965cdcd3a0cb8b8853690b194331f5e3a46bcbd8a0ba7e156ca11"
             },
             {
               "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 186946,
-              "sha256": "05091621f8734749c8e2659373ed7b22693e4b93727845a55f15356091cacd13"
+              "bytes": 222030,
+              "sha256": "29480c8eac0285558f07e1fb4e3292afc83d5740706d109cd11fed0a30117ac3"
             }
           ],
           "download": {
             "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/downloads/3d-dynamic-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 534182,
-            "sha256": "88856f0b02554619e1b55b3664831331023fed3cb2f21f13f04a371c32dac69a",
+            "bytes": 616137,
+            "sha256": "f9a270ed9de63b5970e2e23ad55f1d2f5afd78e99ff077e02b4fc54e183ddead",
             "filename": "pains-de-sucre-riou-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -414,46 +414,46 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-topographic-1800.webp?v=9531155cc2ee",
+            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-topographic-1800.webp?v=3018df6f67b1",
             "width": 1800,
             "height": 1533,
-            "bytes": 138060,
-            "sha256": "9531155cc2eebd955c362d81b97e2ed94138d9e180e36e42a90fdb30cd69c3a6"
+            "bytes": 138426,
+            "sha256": "3018df6f67b167cb13336e12764b01208ea3a6c31f1a2e741b13cd3b13434c39"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pains-de-sucre-riou-planche-topographique.jpg",
             "width": 5400,
             "height": 4600,
-            "bytes": 3895690,
-            "sha256": "57f6704be60943ede190e5e812bd0a9d813398c3d0305ab0c5cb69bc40b9b9f5",
+            "bytes": 3934197,
+            "sha256": "483dbc332f15ab5ef0f328e344b0d58e75aa454dcdce77625d393194bc746dab",
             "filename": "pains-de-sucre-riou-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-orthophoto-1800.webp?v=b01a252eb6d6",
+            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/planche-orthophoto-1800.webp?v=562cb3ded932",
             "width": 1800,
             "height": 1533,
-            "bytes": 373342,
-            "sha256": "b01a252eb6d66117d9a31e25badc0393488cbe5c0f0e78e9145926b9efac082c"
+            "bytes": 372824,
+            "sha256": "562cb3ded9327537fd867d4255558a0542c45afeb484aaacc4dadb8be78e10dc"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pains-de-sucre-riou-planche.jpg",
             "width": 5400,
             "height": 4600,
-            "bytes": 6770879,
-            "sha256": "516529b7d8b34ef25787b9c52bc81c7053f1ed4399449b69f8c0d070e2ce8450",
+            "bytes": 6741843,
+            "sha256": "23142032ea09de89ac446d911295f43e258cd0cf951907e5b2d90b6ee910239a",
             "filename": "pains-de-sucre-riou-planche.jpg"
           }
         }
       ],
       "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 1.1,
+        "side": "right",
+        "shiftYRem": 2.35,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 1.35,
-        "labelOffsetRem": 2.72,
+        "labelOffsetRem": -4.2,
         "lines": [
           "Pains de Sucre",
           "Riou"
@@ -480,8 +480,8 @@
         "longitude": 5.393
       },
       "westCoastLocatorPosition": {
-        "xPercent": 69.5032,
-        "yPercent": 67.16351
+        "xPercent": 63.49359,
+        "yPercent": 73.57377
       },
       "maxDepthM": 25.0,
       "planMaxDepthM": 25.0,
@@ -664,7 +664,7 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 1.5,
+        "shiftYRem": 0.0,
         "connectorAngleDeg": 13,
         "connectorWidthRem": 1.25,
         "labelOffsetRem": 2.6,
@@ -690,8 +690,8 @@
         "longitude": 5.22661667
       },
       "westCoastLocatorPosition": {
-        "xPercent": 29.50721,
-        "yPercent": 59.38029
+        "xPercent": 23.4976,
+        "yPercent": 65.79054
       },
       "maxDepthM": 40.0,
       "planMaxDepthM": 40.0,
@@ -767,30 +767,30 @@
               "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 61746,
-              "sha256": "62261cbb6a4788a73e2ac0d551fbced2f0ebae7b4efd86f8d9084c943cdefe30"
+              "bytes": 71456,
+              "sha256": "0a2be6f4d20e42367dcdc766f4887f5365ef16ee195ac7cccdf69a74dfd53802"
             },
             {
               "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 115742,
-              "sha256": "83203762e4a9087eec1b5c355ead901f500f2cd3358eec9e5a66a13b7c576413"
+              "bytes": 135982,
+              "sha256": "dfd85d17952359e3905264381ba368732ea3e4b6413d0cea6747dd70e18117d7"
             },
             {
               "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 197366,
-              "sha256": "e7688f9256aeaaf6d5e14c781c763137e6c202fb6c0bbe5468568f9fe57ff8f9"
+              "bytes": 234026,
+              "sha256": "08a1e59419fa1ee344ddaf976f2ad0e2e49dd87e9e2145162cf4ecce5302c730"
             }
           ],
           "download": {
             "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/downloads/3d-dynamic-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 639245,
-            "sha256": "edd2aba8745ee6e21422e979b80915ed2234e9fea504d5be3049dd39cd988b92",
+            "bytes": 721347,
+            "sha256": "645a35c64c8ca3541ed767b5958947e366a26d3a646f7e0ad2ebe7e0b5a79d00",
             "filename": "pierre-a-la-bague-plateau-3d-dynamique-topographic.jpg"
           }
         },
@@ -806,30 +806,30 @@
               "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 63164,
-              "sha256": "45799f48ab4c390bd66057809bcf17c9e49e0cdd8896890f721300e2582716a8"
+              "bytes": 74052,
+              "sha256": "aee19a27387e445fa978696c66ff251ae593418007ab6a66a61cf21fff26b48e"
             },
             {
               "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 118160,
-              "sha256": "4848a24dc312aca718becdc9e44604809f859c0b670f4ca640f471bc7067080e"
+              "bytes": 141132,
+              "sha256": "826e97d924e288ad690ae5af939e56d242482b0448659bfaa70c0b61fc8e66be"
             },
             {
               "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 201412,
-              "sha256": "9675fe3e3c8a6f61b1f0ca76295059bfdbdad87a535fac50b3e36c3a8f898288"
+              "bytes": 242466,
+              "sha256": "cd6b2932676734d0621a970c001fafb47f9b5b26efc5aa93bb8f6dfde0edba8a"
             }
           ],
           "download": {
             "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/downloads/3d-dynamic-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 649481,
-            "sha256": "ec1e3d9f75831433433c67ae4809b36a77dc325107aa78becf0f8f6bc6344160",
+            "bytes": 740985,
+            "sha256": "1c971f22f0c740ab29d4e98094f4a775279035d59f57c60ab44bc21dacbb951f",
             "filename": "pierre-a-la-bague-plateau-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -838,46 +838,46 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=22550d315f10",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-topographic-1800.webp?v=f43b29af2dbf",
             "width": 1800,
             "height": 1083,
-            "bytes": 157084,
-            "sha256": "22550d315f1086e4097b696d0bc0f52b6f5dc85ce597fb1196259effd7367c28"
+            "bytes": 163878,
+            "sha256": "f43b29af2dbfae2174c9421699efd323819e33aa2ad93c2663a53ebc4bad359a"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4088632,
-            "sha256": "37e8ee473c54e80ea632e092c0eed1a0fbe1ad108347c0bf47c984003a24c510",
+            "bytes": 4197657,
+            "sha256": "15908686ecce28e9a59c128efc623972a58f015dda35e991f87e6718f3938311",
             "filename": "pierre-a-la-bague-plateau-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=85e31a34a863",
+            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/planche-orthophoto-1800.webp?v=7d4235dc3f27",
             "width": 1800,
             "height": 1083,
-            "bytes": 160174,
-            "sha256": "85e31a34a863ba82cb18ba5888636e63b16bfc0fedade1d1786a444c822d4300"
+            "bytes": 168276,
+            "sha256": "7d4235dc3f27f4ef34b7aef02799515c0b35f0ca8024ffd1041a5c3a709f20bd"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/pierre-a-la-bague-plateau-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4124600,
-            "sha256": "aff80afe5003f7790e368d2c0aaa9f350edd8aab2557d406d5d6f7633df3531a",
+            "bytes": 4246537,
+            "sha256": "b9f4f58af1b1a7d211682e0f6f9906d52400240c348504351d22ce4dc7ae1b69",
             "filename": "pierre-a-la-bague-plateau-planche.jpg"
           }
         }
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 1.7,
+        "shiftYRem": -3.9,
         "connectorAngleDeg": -37,
         "connectorWidthRem": 0.8,
-        "labelOffsetRem": 2.0,
+        "labelOffsetRem": -0.3,
         "lines": [
           "Pierre à la",
           "Bague",
@@ -903,8 +903,8 @@
         "longitude": 5.285
       },
       "westCoastLocatorPosition": {
-        "xPercent": 43.54167,
-        "yPercent": 32.83649
+        "xPercent": 37.53205,
+        "yPercent": 39.24674
       },
       "maxDepthM": 40.0,
       "planMaxDepthM": 40.0,
@@ -1108,8 +1108,8 @@
         "longitude": 5.33183333
       },
       "westCoastLocatorPosition": {
-        "xPercent": 54.79968,
-        "yPercent": 55.14418
+        "xPercent": 48.79006,
+        "yPercent": 61.55443
       },
       "siteLabelLayout": {
         "side": "right",
@@ -1134,15 +1134,15 @@
         "longitude": 5.39711667
       },
       "westCoastLocatorPosition": {
-        "xPercent": 70.49279,
-        "yPercent": 66.282
+        "xPercent": 64.48317,
+        "yPercent": 72.69225
       },
       "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 1.1,
+        "side": "right",
+        "shiftYRem": 2.35,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 1.35,
-        "labelOffsetRem": 2.72,
+        "labelOffsetRem": -4.2,
         "lines": [
           "Pains de Sucre",
           "Riou"
@@ -1160,12 +1160,12 @@
         "longitude": 5.393
       },
       "westCoastLocatorPosition": {
-        "xPercent": 69.5032,
-        "yPercent": 67.16351
+        "xPercent": 63.49359,
+        "yPercent": 73.57377
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 1.5,
+        "shiftYRem": 0.0,
         "connectorAngleDeg": 13,
         "connectorWidthRem": 1.25,
         "labelOffsetRem": 2.6,
@@ -1186,15 +1186,15 @@
         "longitude": 5.22661667
       },
       "westCoastLocatorPosition": {
-        "xPercent": 29.50721,
-        "yPercent": 59.38029
+        "xPercent": 23.4976,
+        "yPercent": 65.79054
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 1.7,
+        "shiftYRem": -3.9,
         "connectorAngleDeg": -37,
         "connectorWidthRem": 0.8,
-        "labelOffsetRem": 2.0,
+        "labelOffsetRem": -0.3,
         "lines": [
           "Pierre à la",
           "Bague",
@@ -1213,8 +1213,8 @@
         "longitude": 5.285
       },
       "westCoastLocatorPosition": {
-        "xPercent": 43.54167,
-        "yPercent": 32.83649
+        "xPercent": 37.53205,
+        "yPercent": 39.24674
       },
       "siteLabelLayout": {
         "side": "right",

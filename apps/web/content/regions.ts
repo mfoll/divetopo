@@ -30,6 +30,10 @@ export const regions = publicRegions.map((region) => {
           en: "Land and underwater terrain around Réunion Island.",
         },
       },
+      sitePositions: manifest.sites.map((site) => ({
+        slug: site.slug,
+        position: site.reunionOverviewPosition,
+      })),
     };
   }
 
@@ -66,5 +70,9 @@ export const regions = publicRegions.map((region) => {
         en: `Regional relief of ${catalog.names.en}.`,
       },
     },
+    sitePositions: manifest.sites.map((site) => ({
+      slug: site.slug,
+      position: site.westCoastLocatorPosition,
+    })),
   };
 });

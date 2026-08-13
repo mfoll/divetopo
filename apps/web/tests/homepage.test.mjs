@@ -292,6 +292,7 @@ test("saved cookies override system language and theme", async () => {
 test("keeps regions data-driven and bundles the exact island relief", async () => {
   const [
     regionsSource,
+    homepageSource,
     packageJson,
     stylesheet,
     controlsSource,
@@ -299,6 +300,7 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
     regionalManifestSource,
   ] = await Promise.all([
     readFile(new URL("../content/regions.ts", import.meta.url), "utf8"),
+    readFile(new URL("../app/HomepageExperience.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../app/PreferenceControls.tsx", import.meta.url), "utf8"),
@@ -316,6 +318,10 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(regionsSource, /manifest\.westCoastLocator\.src/);
   assert.match(regionsSource, /manifest\.westCoastLocator\.width/);
   assert.match(regionsSource, /manifest\.westCoastLocator\.height/);
+  assert.match(regionsSource, /sitePositions:\s*manifest\.sites\.map/);
+  assert.match(regionsSource, /site\.reunionOverviewPosition/);
+  assert.match(homepageSource, /className="region-site-points"/);
+  assert.match(homepageSource, /spreadNearbyPoints\(region\.sitePositions\)/);
   assert.match(regionalManifestSource, /"detailBathymetryLayer":\s*"LITTO3D PACA 2015 MNT5m"/);
   assert.match(regionalManifestSource, /"detailBathymetryCrs":\s*"EPSG:2154"/);
   assert.match(regionalManifestSource, /"detailBathymetryResolutionM":\s*5/);
@@ -378,7 +384,15 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
     stylesheet,
     /\.contact-inner p\s*\{[^}]*max-width:/s,
   );
-  assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*30rem;/s);
+  assert.match(stylesheet, /\.region-card\s*\{[^}]*max-width:\s*20rem;/s);
+  assert.match(
+    stylesheet,
+    /\.homepage-main \.region-site-point\s*\{[^}]*height:\s*0\.34rem;[^}]*width:\s*0\.34rem;/s,
+  );
+  assert.match(
+    stylesheet,
+    /\.homepage-main \.region-grid\s*\{[^}]*grid-template-columns:\s*repeat\(4, minmax\(0, 20rem\)\);/s,
+  );
   assert.match(
     stylesheet,
     /\.homepage-main \.region-visual img\s*\{[^}]*aspect-ratio:\s*auto;/s,

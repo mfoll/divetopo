@@ -39,14 +39,23 @@ test("retires the PACA aggregate through localized redirects", async () => {
   );
 });
 
-test("renders five-site regional inventories and keeps remaining drafts non-clickable", async () => {
+test("redirects the merged La Merveilleuse route to Les Magnons", async () => {
+  const response = await render("/var-ouest/fr/sites/la-merveilleuse");
+  assert.equal(response.status, 308);
+  assert.equal(
+    response.headers.get("location"),
+    "http://localhost/var-ouest/fr/sites/les-magnons",
+  );
+});
+
+test("renders regional inventories and keeps remaining drafts non-clickable", async () => {
   const published = [
-    ["/var-ouest/fr", "topo-var-ouest-title", 5],
-    ["/var-centre/en", "topo-var-centre-title", 5],
-    ["/var-est/fr", "topo-var-est-title", 5],
-    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5],
+    ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
+    ["/var-centre/en", "topo-var-centre-title", 5, 5],
+    ["/var-est/fr", "topo-var-est-title", 5, 5],
+    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5, 5],
   ];
-  for (const [path, titleId, siteCount] of published) {
+  for (const [path, titleId, siteCount, inventoryCount] of published) {
     const response = await render(path);
     assert.equal(response.status, 200, path);
     const html = await response.text();
@@ -54,16 +63,16 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
     assert.equal(html.match(/class="site-map-marker label-/g)?.length, siteCount, path);
     assert.equal(
       html.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length ?? 0,
-      5 - siteCount,
+      inventoryCount - siteCount,
       path,
     );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
-    assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < 5 ? 1 : 0, path);
+    assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < inventoryCount ? 1 : 0, path);
     const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/") || path.startsWith("/var-est/")
       ? []
       : path.endsWith("/en")
         ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
-        : ["Pointe de la Cride", "Les Magnons", "La Merveilleuse"];
+        : ["Pointe de la Cride", "Les Magnons"];
     for (const name of preparingNames) {
       assert.match(html, new RegExp(name), path);
     }
@@ -107,13 +116,13 @@ test("renders five-site regional inventories and keeps remaining drafts non-clic
 
 });
 
-test("regional planning inventories contain exactly five classified sites", async () => {
-  for (const region of [
-    "bouches-du-rhone",
-    "var-ouest",
-    "var-centre",
-    "var-est",
-    "alpes-maritimes",
+test("regional planning inventories contain the classified sites", async () => {
+  for (const [region, expectedCount] of [
+    ["bouches-du-rhone", 5],
+    ["var-ouest", 4],
+    ["var-centre", 5],
+    ["var-est", 5],
+    ["alpes-maritimes", 5],
   ]) {
     const manifest = JSON.parse(
       await readFile(
@@ -121,7 +130,7 @@ test("regional planning inventories contain exactly five classified sites", asyn
         "utf8",
       ),
     );
-    assert.equal(manifest.plannedSites.length, 5, region);
+    assert.equal(manifest.plannedSites.length, expectedCount, region);
     assert.deepEqual(
       manifest.plannedSites.filter((site) => site.status === "published").map((site) => site.slug),
       manifest.sites.map((site) => site.slug),
@@ -147,7 +156,7 @@ test("published autonomous-region asset paths resolve", async () => {
   }
 
   for (const [region, expectedSiteCount] of [
-    ["var-ouest", 5],
+    ["var-ouest", 4],
     ["var-centre", 5],
     ["var-est", 5],
     ["alpes-maritimes", 5],

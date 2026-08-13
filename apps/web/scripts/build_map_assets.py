@@ -138,10 +138,13 @@ def configured_source(config: dict[str, Any], key: str) -> Path:
     return source
 
 
-def west_coast_locator_position(marker: list[float]) -> dict[str, float]:
+def locator_position(
+    marker: list[float],
+    bounds: dict[str, float],
+    label: str,
+) -> dict[str, float]:
     easting = float(marker[0])
     northing = float(marker[1])
-    bounds = WEST_COAST_LOCATOR_BOUNDS_UTM40S
     x_percent = (
         (easting - bounds["minEasting"])
         / (bounds["maxEasting"] - bounds["minEasting"])
@@ -154,13 +157,29 @@ def west_coast_locator_position(marker: list[float]) -> dict[str, float]:
     )
     if not (0.0 <= x_percent <= 100.0 and 0.0 <= y_percent <= 100.0):
         raise ValueError(
-            "Site marker falls outside the shared west-coast locator bounds: "
+            f"Site marker falls outside the shared {label} bounds: "
             f"{marker}"
         )
     return {
         "xPercent": round(x_percent, 4),
         "yPercent": round(y_percent, 4),
     }
+
+
+def west_coast_locator_position(marker: list[float]) -> dict[str, float]:
+    return locator_position(
+        marker,
+        WEST_COAST_LOCATOR_BOUNDS_UTM40S,
+        "west-coast locator",
+    )
+
+
+def reunion_overview_position(marker: list[float]) -> dict[str, float]:
+    return locator_position(
+        marker,
+        REUNION_OVERVIEW_BOUNDS_UTM40S,
+        "Réunion overview",
+    )
 
 
 def west_coast_locator_record() -> dict[str, Any]:
@@ -324,6 +343,7 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
         "westCoastLocatorPosition": west_coast_locator_position(
             site_location
         ),
+        "reunionOverviewPosition": reunion_overview_position(site_location),
         "maxDepthM": config["max_depth_m"],
         "planMaxDepthM": config.get("plan_max_depth_m", config["max_depth_m"]),
         "verticalExaggeration": config["vertical_exaggeration"],

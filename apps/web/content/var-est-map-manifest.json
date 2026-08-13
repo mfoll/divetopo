@@ -446,7 +446,7 @@
         "shiftYRem": -4.3,
         "connectorAngleDeg": 74.0,
         "connectorWidthRem": 3.2,
-        "labelOffsetRem": 2.25,
+        "labelOffsetRem": 0.2,
         "lines": [
           "Sec de l’Île",
           "d’Or"
@@ -1144,7 +1144,7 @@
         "shiftYRem": -4.3,
         "connectorAngleDeg": 74.0,
         "connectorWidthRem": 3.2,
-        "labelOffsetRem": 2.25,
+        "labelOffsetRem": 0.2,
         "lines": [
           "Sec de l’Île",
           "d’Or"

@@ -7,6 +7,7 @@ import {
   Suspense,
   useCallback,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
   type CSSProperties,
@@ -33,6 +34,7 @@ import {
   type MapView,
   type RegionalAssetSite,
   type RegionalMapManifest,
+  type RegionalPlannedSite,
   type RegionSlug,
   type SiteLocation,
   type SurfaceStyle,
@@ -195,6 +197,216 @@ function googleMapsUrl(location: SiteLocation) {
   return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
 }
 
+function RegionalSiteMarker({
+  plannedSite,
+  site,
+  region,
+  selected,
+  hasSiteRoute,
+  language,
+  showSiteLabel,
+  onSelect,
+}: {
+  plannedSite: RegionalPlannedSite;
+  site: RegionalAssetSite;
+  region: RegionSlug;
+  selected: boolean;
+  hasSiteRoute: boolean;
+  language: Language;
+  showSiteLabel: string;
+  onSelect: (slug: string) => void;
+}) {
+  const markerRef = useRef<HTMLAnchorElement>(null);
+  const labelRef = useRef<HTMLSpanElement>(null);
+  const connectorRef = useRef<SVGSVGElement>(null);
+  const layout = plannedSite.siteLabelLayout;
+
+  useLayoutEffect(() => {
+    const marker = markerRef.current;
+    const label = labelRef.current;
+    const connector = connectorRef.current;
+    if (!marker || !label || !connector) return;
+
+    const segmentIntersectsRect = (
+      start: { x: number; y: number },
+      end: { x: number; y: number },
+      rect: DOMRect,
+    ) => {
+      let near = 0;
+      let far = 1;
+      const dx = end.x - start.x;
+      const dy = end.y - start.y;
+      for (const [direction, distance] of [
+        [-dx, start.x - rect.left],
+        [dx, rect.right - start.x],
+        [-dy, start.y - rect.top],
+        [dy, rect.bottom - start.y],
+      ] as const) {
+        if (direction === 0 && distance < 0) return false;
+        if (direction !== 0) {
+          const position = distance / direction;
+          if (direction < 0) {
+            if (position > far) return false;
+            near = Math.max(near, position);
+          } else {
+            if (position < near) return false;
+            far = Math.min(far, position);
+          }
+        }
+      }
+      return true;
+    };
+
+    const updateConnector = () => {
+      const markerRect = marker.getBoundingClientRect();
+      const labelRect = label.getBoundingClientRect();
+      const point = {
+        x: markerRect.left + markerRect.width / 2,
+        y: markerRect.top + markerRect.height / 2,
+      };
+      const labelCenter = {
+        x: labelRect.left + labelRect.width / 2,
+        y: labelRect.top + labelRect.height / 2,
+      };
+      const dx = labelCenter.x - point.x;
+      const dy = labelCenter.y - point.y;
+      const halfWidth = Math.max(1, labelRect.width / 2);
+      const halfHeight = Math.max(1, labelRect.height / 2);
+      const edgeScale = 1 / Math.max(Math.abs(dx) / halfWidth, Math.abs(dy) / halfHeight);
+      const overlap = 1.5;
+      const edge = {
+        x: labelCenter.x - dx * edgeScale,
+        y: labelCenter.y - dy * edgeScale,
+      };
+      const edgeDistance = Math.hypot(edge.x - point.x, edge.y - point.y) || 1;
+      const end = {
+        x: edge.x + ((edge.x - point.x) / edgeDistance) * overlap,
+        y: edge.y + ((edge.y - point.y) / edgeDistance) * overlap,
+      };
+      const map = marker.closest(".site-picker-map");
+      const otherMarkers = map
+        ? Array.from(map.querySelectorAll<HTMLElement>(".site-map-marker")).filter(
+            (candidate) => candidate !== marker,
+          )
+        : [];
+      const obstacleLabels = otherMarkers
+        .map((candidate) => candidate.querySelector<HTMLElement>(".site-map-marker-label"))
+        .filter((candidate): candidate is HTMLElement => Boolean(candidate))
+        .map((candidate) => candidate.getBoundingClientRect());
+      const directDx = end.x - point.x;
+      const directDy = end.y - point.y;
+      const directLength = Math.hypot(directDx, directDy) || 1;
+      const perpendicular = { x: -directDy / directLength, y: directDx / directLength };
+      const midpoint = { x: (point.x + end.x) / 2, y: (point.y + end.y) / 2 };
+      const candidates = [
+        [point, end],
+        [point, { x: end.x, y: point.y }, end],
+        [point, { x: point.x, y: end.y }, end],
+        ...[14, 24, 36].flatMap((offset) =>
+          [-1, 1].map((direction) => [
+            point,
+            {
+              x: midpoint.x + perpendicular.x * offset * direction,
+              y: midpoint.y + perpendicular.y * offset * direction,
+            },
+            end,
+          ]),
+        ),
+      ];
+      const score = (route: { x: number; y: number }[]) => {
+        let labelCollisions = 0;
+        let length = 0;
+        for (let index = 1; index < route.length; index += 1) {
+          const start = route[index - 1];
+          const finish = route[index];
+          length += Math.hypot(finish.x - start.x, finish.y - start.y);
+          labelCollisions += obstacleLabels.filter((rect) =>
+            segmentIntersectsRect(start, finish, rect),
+          ).length;
+        }
+        return labelCollisions * 10000 + length + route.length * 2;
+      };
+      const route = candidates.reduce((best, candidate) =>
+        score(candidate) < score(best) ? candidate : best,
+      );
+      const routePath = route
+        .map(
+          (routePoint, index) =>
+            `${index === 0 ? "M" : "L"} ${routePoint.x - point.x} ${routePoint.y - point.y}`,
+        )
+        .join(" ");
+
+      connector.style.left = `${markerRect.width / 2}px`;
+      connector.style.top = `${markerRect.height / 2}px`;
+      connector.querySelector("path")?.setAttribute("d", routePath);
+      connector.dataset.connectorReady = "true";
+      connector.dataset.connectorRoute = route.length === 2 ? "straight" : "detour";
+    };
+
+    updateConnector();
+    const observer = new ResizeObserver(updateConnector);
+    observer.observe(marker);
+    observer.observe(label);
+    window.addEventListener("resize", updateConnector);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", updateConnector);
+    };
+  }, [layout.labelOffsetRem, layout.shiftYRem, layout.widthRem]);
+
+  const style = {
+    "--site-x": `${plannedSite.westCoastLocatorPosition.xPercent}%`,
+    "--site-y": `${plannedSite.westCoastLocatorPosition.yPercent}%`,
+    "--label-shift-y": `${layout.shiftYRem}rem`,
+    "--label-width": layout.widthRem ? `${layout.widthRem}rem` : undefined,
+    "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
+  } as CSSProperties;
+
+  return (
+    <a
+      ref={markerRef}
+      className={`site-map-marker label-${layout.side}`}
+      style={style}
+      aria-current={hasSiteRoute && selected ? "page" : undefined}
+      data-selected={selected}
+      aria-label={`${showSiteLabel} ${site.displayName}`}
+      href={localizedSitePath(language, site.slug, region)}
+      onClick={(event) => {
+        if (
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        event.preventDefault();
+        onSelect(site.slug);
+      }}
+    >
+      <span className="site-map-marker-dot" aria-hidden="true" />
+      <svg
+        ref={connectorRef}
+        className="site-map-marker-line"
+        aria-hidden="true"
+        width="1"
+        height="1"
+      >
+        <path />
+      </svg>
+      <span
+        ref={labelRef}
+        className={`site-map-marker-label${layout.lines ? " is-multiline" : ""}`}
+      >
+        {layout.lines
+          ? layout.lines.map((line) => <span key={line}>{line}</span>)
+          : plannedSite.displayName}
+      </span>
+    </a>
+  );
+}
+
 function SurfaceToggle({
   value,
   onChange,
@@ -276,7 +488,7 @@ function ViewToggle({
   );
 }
 
-function SitePicker({
+function SiteLocatorMap({
   config,
   activeSlug,
   hasSiteRoute,
@@ -299,167 +511,170 @@ function SitePicker({
   const text = copy[language].picker;
 
   return (
-    <aside
-      className={
-        region !== "reunion" ? "site-picker is-paca" : "site-picker"
-      }
-      aria-label={text.chooseDiveSite}
-    >
-      <label className="site-picker-select">
-        <span>{text.sites}</span>
-        <select
-          aria-label={text.chooseSite}
-          value={activeSlug}
-          onChange={(event) => onSelect(event.target.value)}
-        >
-          {manifest.sites.map((site) => (
-            <option key={site.slug} value={site.slug}>
-              {site.displayName}
-            </option>
-          ))}
-        </select>
-      </label>
-
-      <div className="site-picker-maps">
-        <header className="site-picker-heading">
-          <h2>{text.sites}</h2>
-          <p>{text.instruction}</p>
-        </header>
-
-        <div className={`site-picker-map${region !== "reunion" ? " is-paca" : ""}`}>
-          <img
-            src={manifest.westCoastLocator.src}
-            width={manifest.westCoastLocator.width}
-            height={manifest.westCoastLocator.height}
-            alt={text.westCoastAlt}
-          />
-          <div
-            className="site-picker-north"
-            role="img"
-            aria-label={text.north}
-          >
-            <span aria-hidden="true">↑</span>
-            <strong>N</strong>
-          </div>
-
-          {(manifest.plannedSites ?? manifest.sites).map((plannedSite) => {
-            const site = manifest.sites.find(
-              (candidate) => candidate.slug === plannedSite.slug,
-            );
-            const selected = activeSlug === plannedSite.slug;
-            const preparing = !site;
-            const layout = plannedSite.siteLabelLayout;
-            const style = {
-              "--site-x": `${plannedSite.westCoastLocatorPosition.xPercent}%`,
-              "--site-y": `${plannedSite.westCoastLocatorPosition.yPercent}%`,
-              "--label-shift-y": `${layout.shiftYRem}rem`,
-              "--label-width": layout.widthRem
-                ? `${layout.widthRem}rem`
-                : undefined,
-              "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
-              "--connector-angle": `${layout.connectorAngleDeg}deg`,
-              "--connector-width": `${layout.connectorWidthRem ?? 1}rem`,
-            } as CSSProperties;
-
-            const markerContent = preparing ? (
-              <span className="site-map-marker-dot" aria-hidden="true" />
-            ) : (
-              <>
-                <span className="site-map-marker-dot" aria-hidden="true" />
-                <span className="site-map-marker-line" aria-hidden="true" />
-                <span
-                  className={`site-map-marker-label${layout.lines ? " is-multiline" : ""}`}
-                >
-                  {layout.lines
-                    ? layout.lines.map((line) => (
-                        <span key={line}>{line}</span>
-                      ))
-                    : plannedSite.displayName}
-                </span>
-              </>
-            );
-
-            return site ? (
-              <a
-                key={site.slug}
-                className={`site-map-marker label-${layout.side}`}
-                style={style}
-                aria-current={hasSiteRoute && selected ? "page" : undefined}
-                data-selected={selected}
-                aria-label={`${text.showSite} ${site.displayName}`}
-                href={localizedSitePath(language, site.slug, region)}
-                onClick={(event) => {
-                  if (
-                    event.button !== 0 ||
-                    event.metaKey ||
-                    event.ctrlKey ||
-                    event.shiftKey ||
-                    event.altKey
-                  ) {
-                    return;
-                  }
-                  event.preventDefault();
-                  onSelect(site.slug);
-                }}
-              >
-                {markerContent}
-              </a>
-            ) : (
-              <span
-                key={plannedSite.slug}
-                className={`site-map-marker site-map-marker-preparing label-${layout.side}`}
-                style={style}
-                aria-label={`${plannedSite.displayName}, ${language === "fr" ? "en préparation" : "in preparation"}`}
-              >
-                {markerContent}
-              </span>
-            );
-          })}
-
-          <div
-            className="site-picker-scale"
-            role="img"
-            aria-label={text.mapScale}
-            style={{
-              "--site-picker-scale-width": `${pickerScaleWidthPercent}%`,
-            } as CSSProperties}
-          >
-            <span aria-hidden="true" />
-            <strong>{pickerScaleLabel}</strong>
-          </div>
-        </div>
-
-        <div
-          className={`reunion-overview${region !== "reunion" ? " is-paca" : ""}`}
-          role="img"
-          aria-label={text.overviewAlt}
-        >
-          <div className="reunion-overview-map">
-            <img
-              src={manifest.reunionOverview.src}
-              width={manifest.reunionOverview.width}
-              height={manifest.reunionOverview.height}
-              alt=""
-            />
-            {region === "reunion" && (
-              <span className="reunion-overview-extent" aria-hidden="true" />
-            )}
-          </div>
-        </div>
-
-        {manifest.plannedSites?.some((site) => site.status === "preparing") ? (
-          <div className="site-picker-planned-list">
-            <h3>{language === "fr" ? "Sites en préparation" : "Sites in preparation"}</h3>
-            <ul>
-              {manifest.plannedSites
-                .filter((site) => site.status === "preparing")
-                .map((site) => (
-                  <li key={site.slug}>{site.displayName}</li>
-                ))}
-            </ul>
-          </div>
-        ) : null}
+    <div className={`site-picker-map${region !== "reunion" ? " is-paca" : ""}`}>
+      <img
+        src={manifest.westCoastLocator.src}
+        width={manifest.westCoastLocator.width}
+        height={manifest.westCoastLocator.height}
+        alt={text.westCoastAlt}
+      />
+      <div
+        className="site-picker-north"
+        role="img"
+        aria-label={text.north}
+      >
+        <span aria-hidden="true">↑</span>
+        <strong>N</strong>
       </div>
+
+      {(manifest.plannedSites ?? manifest.sites).map((plannedSite) => {
+        const site = manifest.sites.find(
+          (candidate) => candidate.slug === plannedSite.slug,
+        );
+        const selected = activeSlug === plannedSite.slug;
+        const layout = plannedSite.siteLabelLayout;
+        const style = {
+          "--site-x": `${plannedSite.westCoastLocatorPosition.xPercent}%`,
+          "--site-y": `${plannedSite.westCoastLocatorPosition.yPercent}%`,
+          "--label-shift-y": `${layout.shiftYRem}rem`,
+          "--label-width": layout.widthRem
+            ? `${layout.widthRem}rem`
+            : undefined,
+          "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
+        } as CSSProperties;
+
+        return site ? (
+          <RegionalSiteMarker
+            key={site.slug}
+            plannedSite={plannedSite}
+            site={site}
+            region={region}
+            selected={selected}
+            hasSiteRoute={hasSiteRoute}
+            language={language}
+            showSiteLabel={text.showSite}
+            onSelect={onSelect}
+          />
+        ) : (
+          <span
+            key={plannedSite.slug}
+            className={`site-map-marker site-map-marker-preparing label-${layout.side}`}
+            style={style}
+            aria-label={`${plannedSite.displayName}, ${language === "fr" ? "en préparation" : "in preparation"}`}
+          >
+            <span className="site-map-marker-dot" aria-hidden="true" />
+          </span>
+        );
+      })}
+
+      <div
+        className="site-picker-scale"
+        role="img"
+        aria-label={text.mapScale}
+        style={{
+          "--site-picker-scale-width": `${pickerScaleWidthPercent}%`,
+        } as CSSProperties}
+      >
+        <span aria-hidden="true" />
+        <strong>{pickerScaleLabel}</strong>
+      </div>
+    </div>
+  );
+}
+
+function SitePickerSelect({
+  config,
+  activeSlug,
+  onSelect,
+  language,
+}: {
+  config: RegionExperienceConfig;
+  activeSlug: string;
+  onSelect: (slug: string) => void;
+  language: Language;
+}) {
+  const { manifest, copy } = config;
+  const text = copy[language].picker;
+
+  return (
+    <label className="site-picker-select">
+      <span>{text.sites}</span>
+      <select
+        aria-label={text.chooseSite}
+        value={activeSlug}
+        onChange={(event) => onSelect(event.target.value)}
+      >
+        {manifest.sites.map((site) => (
+          <option key={site.slug} value={site.slug}>
+            {site.displayName}
+          </option>
+        ))}
+      </select>
+    </label>
+  );
+}
+
+function SitePickerMaps({
+  config,
+  activeSlug,
+  hasSiteRoute,
+  onSelect,
+  language,
+}: {
+  config: RegionExperienceConfig;
+  activeSlug: string;
+  hasSiteRoute: boolean;
+  onSelect: (slug: string) => void;
+  language: Language;
+}) {
+  const { manifest, copy, region } = config;
+  const text = copy[language].picker;
+
+  return (
+    <aside className="site-picker-maps" aria-label={text.chooseDiveSite}>
+      <header className="site-picker-heading">
+        <h2>{text.sites}</h2>
+        <p>{text.instruction}</p>
+      </header>
+
+      <SiteLocatorMap
+        config={config}
+        activeSlug={activeSlug}
+        hasSiteRoute={hasSiteRoute}
+        onSelect={onSelect}
+        language={language}
+      />
+
+      <div
+        className={`reunion-overview${region !== "reunion" ? " is-paca" : ""}`}
+        role="img"
+        aria-label={text.overviewAlt}
+      >
+        <div className="reunion-overview-map">
+          <img
+            src={manifest.reunionOverview.src}
+            width={manifest.reunionOverview.width}
+            height={manifest.reunionOverview.height}
+            alt=""
+          />
+          {region === "reunion" && (
+            <span className="reunion-overview-extent" aria-hidden="true" />
+          )}
+        </div>
+      </div>
+
+      {manifest.plannedSites?.some((site) => site.status === "preparing") ? (
+        <div className="site-picker-planned-list">
+          <h3>{language === "fr" ? "Sites en préparation" : "Sites in preparation"}</h3>
+          <ul>
+            {manifest.plannedSites
+              .filter((site) => site.status === "preparing")
+              .map((site) => (
+                <li key={site.slug}>{site.displayName}</li>
+              ))}
+          </ul>
+        </div>
+      ) : null}
     </aside>
   );
 }
@@ -714,10 +929,9 @@ export function TopoRegionExperience({
           </div>
 
           <div className="topo-reunion-workspace">
-            <SitePicker
+            <SitePickerSelect
               config={config}
               activeSlug={activeSlug}
-              hasSiteRoute={hasSiteRoute}
               onSelect={selectSite}
               language={language}
             />
@@ -907,31 +1121,40 @@ export function TopoRegionExperience({
                 <span>{text.map.interactionHelp}</span>
               </div>
 
-              {planche ? (
-                <div className="planche-download">
-                  <img
-                    key={`${activeSite.slug}-planche-${surfaceStyle}`}
-                    src={planche.preview.src}
-                    width={planche.preview.width}
-                    height={planche.preview.height}
-                    loading="lazy"
-                    alt={platePreviewAlt}
-                  />
-                  <div>
-                    <strong>{text.plate.printable}</strong>
-                    <span>
-                      {activeSite.displayName} · {surfaceText.label}
-                    </span>
-                  </div>
-                  <a
-                    href={planche.download.src}
-                    download={planche.download.filename}
-                  >
-                    {text.plate.download}
-                  </a>
-                </div>
-              ) : null}
             </article>
+
+            <SitePickerMaps
+              config={config}
+              activeSlug={activeSlug}
+              hasSiteRoute={hasSiteRoute}
+              onSelect={selectSite}
+              language={language}
+            />
+
+            {planche ? (
+              <div className="planche-download">
+                <img
+                  key={`${activeSite.slug}-planche-${surfaceStyle}`}
+                  src={planche.preview.src}
+                  width={planche.preview.width}
+                  height={planche.preview.height}
+                  loading="lazy"
+                  alt={platePreviewAlt}
+                />
+                <div>
+                  <strong>{text.plate.printable}</strong>
+                  <span>
+                    {activeSite.displayName} · {surfaceText.label}
+                  </span>
+                </div>
+                <a
+                  href={planche.download.src}
+                  download={planche.download.filename}
+                >
+                  {text.plate.download}
+                </a>
+              </div>
+            ) : null}
           </div>
         </section>
 

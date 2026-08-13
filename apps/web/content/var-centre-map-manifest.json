@@ -11,12 +11,12 @@
     "height": 1440,
     "boundsWgs84": {
       "west": 6.0,
-      "south": 42.86,
+      "south": 42.885,
       "east": 6.46,
-      "north": 43.1
+      "north": 43.125
     },
-    "bytes": 681741,
-    "sha256": "044aa08d3b0715ae690003f3c37b74707e241d73a90de233bf73c218172d2a96",
+    "bytes": 835021,
+    "sha256": "1c07f7646681960aff423a2d50ac2f43afa6c29f0ef0f150ab4a0ae6aadb06fc",
     "source": "Shom–IGN Limite terre-mer for the visible var-centre coastline; Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; EMODnet Bathymetry DTM 2024 for offshore bathymetry; GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024 only as no-data fallback; IGN RGE ALTI for land relief",
     "sourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
     "layer": "emodnet:mean",
@@ -54,7 +54,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 15.05659,
-        "yPercent": 25.02502
+        "yPercent": 35.44169
       },
       "maxDepthM": 45,
       "planMaxDepthM": 45,
@@ -257,7 +257,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 34.2751,
-        "yPercent": 40.5935
+        "yPercent": 51.01017
       },
       "maxDepthM": 40.0,
       "planMaxDepthM": 40.0,
@@ -440,7 +440,7 @@
       ],
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.45,
+        "shiftYRem": 3.45,
         "connectorAngleDeg": -34,
         "connectorWidthRem": 1.2,
         "labelOffsetRem": 2.3,
@@ -464,7 +464,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 33.69826,
-        "yPercent": 41.77875
+        "yPercent": 52.19542
       },
       "maxDepthM": 43.0,
       "planMaxDepthM": 43.0,
@@ -540,30 +540,30 @@
               "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 59982,
-              "sha256": "ecaddffa88375322a200e882c9ec8e7a89d3496a3787e25c7816952439629843"
+              "bytes": 55262,
+              "sha256": "1e4c762c188edcf701ed7a594895512a1f6d70f1c5c55d7262e24703103cee96"
             },
             {
               "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 120462,
-              "sha256": "704b77d8321ed9cafba50c903ce7216ec1acfb0b1abe056f94e2dd5be3401833"
+              "bytes": 107376,
+              "sha256": "b41804527115868d7944c8eba64c55129f51eb79dee58e733d00f28aaee9fccd"
             },
             {
               "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 232432,
-              "sha256": "6dab03b300e3cc7d310db4c3cec96da7fafea8dc4699be381bc34330b0777972"
+              "bytes": 187844,
+              "sha256": "bcb2625d5b848cfeaa7fd084a842108208b10d6c6e891596ad0e40da26a25913"
             }
           ],
           "download": {
             "src": "/maps/var-centre/sec-du-langoustier/maps/downloads/3d-dynamic-topographic-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1013654,
-            "sha256": "02ff03e47081083ce3d032a53ac2642e8b388b513c97d4616168bb9343e9790a",
+            "bytes": 539740,
+            "sha256": "db183a1e39730005c909c2e6f01538eed52bcf56f386589cc12ed2323123ee86",
             "filename": "sec-du-langoustier-3d-dynamique-topographic.jpg"
           }
         },
@@ -579,30 +579,30 @@
               "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 61654,
-              "sha256": "c9101de64d3424a183cb4350e25a7ab06d53fce4e62e91e2d3c22622f16ee022"
+              "bytes": 56154,
+              "sha256": "7916c968df2085d21c8a94e92e7ef9b81e1ea94d7fd382892f77872f1fd19a83"
             },
             {
               "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 116688,
-              "sha256": "3bd5ea03144596628958ad1559fbf3e5c3a42c49abb1b626ef9617f33572cb30"
+              "bytes": 109332,
+              "sha256": "1553cf524fa310acef635cdbebed0265236683081e62dcaccc0a267e3ee4b868"
             },
             {
               "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 211686,
-              "sha256": "69c8f1fa8470d803402fc0c64bb188d7c17a1e577a2d8afa1a11677fd7cd539d"
+              "bytes": 191536,
+              "sha256": "8ca35ca20040a0761c48a5be02c3438c0c8ab653c6d8bce0363423b8a0410499"
             }
           ],
           "download": {
             "src": "/maps/var-centre/sec-du-langoustier/maps/downloads/3d-dynamic-orthophoto-full.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 895298,
-            "sha256": "03074069e08df1da615a9a58122b428abd3c553da92b6e5ed174bea7b3c672d6",
+            "bytes": 546478,
+            "sha256": "13780f674c0f9a6938c0d5d200577ff16a5f7a442d1eab8a4ef255a64b7a2351",
             "filename": "sec-du-langoustier-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -611,51 +611,51 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-topographic-1800.webp?v=10c89878ffb7",
+            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-topographic-1800.webp?v=0d91f50c1e12",
             "width": 1800,
             "height": 1083,
-            "bytes": 129742,
-            "sha256": "10c89878ffb7610525ba39b9fb593f9544df199fc63ca610dbbd461933636936"
+            "bytes": 132806,
+            "sha256": "0d91f50c1e12960b6919029dc91ecb80a511adbfd7da404c36aef2911d76e390"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-du-langoustier-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3884603,
-            "sha256": "275d54aacd5110cbea41372a5b811c19233a516fcd3c8741e70f29053371b168",
+            "bytes": 3868431,
+            "sha256": "bb3cb6824126f9f8f73a3b8cce7576c9e4560294be35914fd11115042dcec7e7",
             "filename": "sec-du-langoustier-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-orthophoto-1800.webp?v=f41a123b3430",
+            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-orthophoto-1800.webp?v=70395af9c76f",
             "width": 1800,
             "height": 1083,
-            "bytes": 132196,
-            "sha256": "f41a123b343022ea59216e889252682463c5901713dda82a9c3601705889cb0d"
+            "bytes": 135864,
+            "sha256": "70395af9c76fd3775872748a8da902080bf426726e2754a9cd9b908d7d6cf131"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.3.0/sec-du-langoustier-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3653517,
-            "sha256": "3099637ffe540785fafec81e8478894a66ebcd36de11648e9537d6c97d467ff5",
+            "bytes": 3678272,
+            "sha256": "b8d7a2769e553e868ae633aea738376ecb6492dde97218c013cd70d87b11b414",
             "filename": "sec-du-langoustier-planche.jpg"
           }
         }
       ],
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": 3.45,
         "connectorAngleDeg": 69,
         "connectorWidthRem": 2.55,
-        "labelOffsetRem": 2.3,
+        "labelOffsetRem": 0.75,
         "lines": [
           "Sec du",
           "Langoustier"
         ],
-        "widthRem": 6.8
+        "widthRem": 6.0
       }
     },
     {
@@ -671,7 +671,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 52.48926,
-        "yPercent": 29.88208
+        "yPercent": 40.29875
       },
       "maxDepthM": 40.0,
       "planMaxDepthM": 40.0,
@@ -877,7 +877,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 85.45102,
-        "yPercent": 46.38333
+        "yPercent": 56.8
       },
       "maxDepthM": 40,
       "planMaxDepthM": 40,
@@ -1060,11 +1060,11 @@
       ],
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 5.95,
+        "shiftYRem": -0.1,
         "connectorAngleDeg": -83,
         "connectorWidthRem": 4.95,
-        "labelOffsetRem": 2.0,
-        "widthRem": 5.8
+        "labelOffsetRem": 3.0,
+        "widthRem": 5.2
       },
       "interactiveInitialView": {
         "zoom": 0.78,
@@ -1087,7 +1087,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 15.05659,
-        "yPercent": 25.02502
+        "yPercent": 35.44169
       },
       "siteLabelLayout": {
         "side": "right",
@@ -1109,11 +1109,11 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 34.2751,
-        "yPercent": 40.5935
+        "yPercent": 51.01017
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.45,
+        "shiftYRem": 3.45,
         "connectorAngleDeg": -34,
         "connectorWidthRem": 1.2,
         "labelOffsetRem": 2.3,
@@ -1135,19 +1135,19 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 33.69826,
-        "yPercent": 41.77875
+        "yPercent": 52.19542
       },
       "siteLabelLayout": {
-        "side": "right",
+        "side": "left",
         "shiftYRem": 3.45,
         "connectorAngleDeg": 69,
         "connectorWidthRem": 2.55,
-        "labelOffsetRem": 2.3,
+        "labelOffsetRem": 0.75,
         "lines": [
           "Sec du",
           "Langoustier"
         ],
-        "widthRem": 6.8
+        "widthRem": 6.0
       },
       "status": "published"
     },
@@ -1161,7 +1161,7 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 52.48926,
-        "yPercent": 29.88208
+        "yPercent": 40.29875
       },
       "siteLabelLayout": {
         "side": "right",
@@ -1183,15 +1183,15 @@
       },
       "westCoastLocatorPosition": {
         "xPercent": 85.45102,
-        "yPercent": 46.38333
+        "yPercent": 56.8
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": 5.95,
+        "shiftYRem": -0.1,
         "connectorAngleDeg": -83,
         "connectorWidthRem": 4.95,
-        "labelOffsetRem": 2.0,
-        "widthRem": 5.8
+        "labelOffsetRem": 3.0,
+        "widthRem": 5.2
       },
       "status": "published"
     }
