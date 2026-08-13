@@ -9,7 +9,7 @@
       "shift_y_rem": -4.3,
       "connector_angle_deg": 74.0,
       "connector_width_rem": 3.2,
-      "label_offset_rem": 2.25,
+      "label_offset_rem": 0.2,
       "lines": ["Sec de l’Île", "d’Or"],
       "width_rem": 5.8
     },
