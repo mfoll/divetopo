@@ -9,6 +9,8 @@ import sys
 from pathlib import Path
 from typing import Optional
 
+from pending_preview import PendingPreview
+
 
 REPOSITORY_ROOT = Path(__file__).resolve().parents[2]
 WEB_ROOT = REPOSITORY_ROOT / "apps" / "web"
@@ -107,6 +109,10 @@ def disable(patch: bytes) -> None:
 
 
 def run_server(patch: bytes, arguments: list[str]) -> int:
+    pending_preview = "--pending-sites" in arguments
+    server_arguments = [
+        argument for argument in arguments if argument != "--pending-sites"
+    ]
     current = state(patch)
     if current != "disabled":
         raise CalibrationToolError(
@@ -115,15 +121,22 @@ def run_server(patch: bytes, arguments: list[str]) -> int:
         )
     enable(patch)
     print("Camera calibration enabled for this development server.")
+    preview = PendingPreview() if pending_preview else None
     command = ["npm", "run", "dev"]
-    if arguments:
-        command.extend(("--", *arguments))
+    if server_arguments:
+        command.extend(("--", *server_arguments))
     try:
+        if preview is not None:
+            preview.enable()
+            print("Pending site preview enabled for this development server.")
         try:
             return subprocess.run(command, cwd=WEB_ROOT, check=False).returncode
         except KeyboardInterrupt:
             return 130
     finally:
+        if preview is not None:
+            preview.disable()
+            print("Pending site preview removed from the working tree.")
         disable(patch)
         print("Camera calibration removed from the working tree.")
 

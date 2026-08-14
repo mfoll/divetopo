@@ -19,6 +19,19 @@ stockage local du navigateur. Le bouton `Télécharger toutes les calibrations`
 produit un seul fichier `divetopo-camera-calibrations.json` pour l'ensemble des
 sites enregistrés.
 
+Pour vérifier aussi les sites encore en préparation, sans les publier, ajouter
+`--pending-sites` à la commande. Le gestionnaire expose alors temporairement
+les paquets pending locaux et restaure les manifestes, assets et statuts à
+`Ctrl-C` :
+
+```sh
+npm run camera-calibration -- --pending-sites --host localhost --port 3010
+```
+
+Les six paquets pending de la v1.5 deviennent ainsi accessibles dans leur
+route locale de vérification. Ils restent `web.published: false`, absents du
+terrain public, du sitemap et du build de release.
+
 À l'arrêt du serveur avec `Ctrl-C`, le gestionnaire retire automatiquement
 l'interface du working tree. Vérifier avant une release :
 
