@@ -13,17 +13,15 @@ from cartography.config import (
 
 
 REGION_ROOT = ROOT / "regions" / "alpes-maritimes"
-WAVE_ONE_SITES = {
+PUBLISHED_WAVE_ONE_SITES = {
     "grande-baie-cap-ferrat",
     "grotte-a-corail-villefranche",
     "la-tradeliere",
     "la-vaquette",
     "pointe-causiniere-cap-ferrat",
 }
-EXCLUDED_FROM_FIRST_WAVE = {
-    "cap-gros",
-    "la-fourmigue-antibes",
-}
+PENDING_WAVE_ONE_SITES = {"cap-gros"}
+EXCLUDED_FROM_FIRST_WAVE = {"la-fourmigue-antibes"}
 
 
 class AlpesMaritimesRegionTests(unittest.TestCase):
@@ -38,7 +36,7 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
         )
         self.assertEqual(
             {site["slug"] for site in manifest["sites"]},
-            WAVE_ONE_SITES,
+            PUBLISHED_WAVE_ONE_SITES | PENDING_WAVE_ONE_SITES,
         )
         self.assertTrue(
             EXCLUDED_FROM_FIRST_WAVE.isdisjoint(
@@ -64,7 +62,7 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
             self.assertTrue(pipeline[key].startswith("regions/alpes-maritimes/"))
             self.assertNotIn("regions/paca/", pipeline[key])
 
-    def test_wave_one_sites_are_complete_and_published(self) -> None:
+    def test_wave_one_sites_are_complete_and_pending_stays_unpublished(self) -> None:
         manifest = region_manifest({"region": "alpes-maritimes"})
 
         for site in manifest["sites"]:
@@ -72,9 +70,14 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
             config = json.loads(config_path.read_text(encoding="utf-8"))
             self.assertEqual(config["region"], "alpes-maritimes")
             self.assertEqual(config["slug"], site["slug"])
-            self.assertTrue(config["web"]["published"])
-            self.assertEqual(site["publication"], "published")
-            self.assertEqual(site["artifacts"]["status"], "complete")
+            is_published = site["slug"] in PUBLISHED_WAVE_ONE_SITES
+            self.assertIs(config["web"]["published"], is_published)
+            self.assertEqual(
+                site["publication"], "published" if is_published else "preparing"
+            )
+            self.assertEqual(
+                site["artifacts"]["status"], "complete" if is_published else "preparing"
+            )
             self.assertTrue(
                 all(
                     site["artifacts"][key]
@@ -82,10 +85,10 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
                         "staticMaps",
                         "planches",
                         "interactiveTerrain",
-                        "webDerivatives",
                     )
                 )
             )
+            self.assertEqual(site["artifacts"]["webDerivatives"], is_published)
             validate_config(config)
 
 

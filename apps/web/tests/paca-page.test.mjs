@@ -50,10 +50,10 @@ test("redirects the merged La Merveilleuse route to Les Magnons", async () => {
 
 test("renders regional inventories and keeps remaining drafts non-clickable", async () => {
   const published = [
-    ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
-    ["/var-centre/en", "topo-var-centre-title", 5, 5],
-    ["/var-est/fr", "topo-var-est-title", 5, 5],
-    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5, 5],
+    ["/var-ouest/fr", "topo-var-ouest-title", 4, 6],
+    ["/var-centre/en", "topo-var-centre-title", 5, 6],
+    ["/var-est/fr", "topo-var-est-title", 5, 6],
+    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5, 6],
   ];
   for (const [path, titleId, siteCount, inventoryCount] of published) {
     const response = await render(path);
@@ -77,7 +77,8 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
       assert.match(html, new RegExp(name), path);
     }
     if (path.startsWith("/alpes-maritimes/")) {
-      assert.doesNotMatch(html, /préparation|preparation/i, path);
+      assert.match(html, /Sites en préparation/);
+      assert.match(html, /Cap Gros/);
       for (const slug of [
         "grande-baie-cap-ferrat",
         "pointe-causiniere-cap-ferrat",
@@ -112,7 +113,12 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
     bouchesDuRhoneHtml.match(/class="site-map-marker label-/g)?.length,
     5,
   );
-  assert.doesNotMatch(bouchesDuRhoneHtml, /En préparation|en préparation/);
+  assert.equal(
+    bouchesDuRhoneHtml.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length ?? 0,
+    1,
+  );
+  assert.match(bouchesDuRhoneHtml, /Sites en préparation/);
+  assert.match(bouchesDuRhoneHtml, /Impérial du Milieu/);
   for (const slug of [
     "grotte-a-corail-maire",
     "pains-de-sucre-riou",
@@ -131,11 +137,11 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
 
 test("regional planning inventories contain the classified sites", async () => {
   for (const [region, expectedCount] of [
-    ["bouches-du-rhone", 5],
-    ["var-ouest", 4],
-    ["var-centre", 5],
-    ["var-est", 5],
-    ["alpes-maritimes", 5],
+    ["bouches-du-rhone", 6],
+    ["var-ouest", 6],
+    ["var-centre", 6],
+    ["var-est", 6],
+    ["alpes-maritimes", 6],
   ]) {
     const manifest = JSON.parse(
       await readFile(

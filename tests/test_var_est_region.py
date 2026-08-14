@@ -14,9 +14,13 @@ EXPECTED_SITES = [
     "arche-du-dramont",
     "cathedrale-du-trayas",
     "le-village",
+    "sec-des-suisses-cigales",
 ]
+EXPECTED_PUBLISHED_SITES = EXPECTED_SITES[:-1]
+
+
 class VarEstRegionTests(unittest.TestCase):
-    def test_first_wave_inventory_is_exact_and_published(self) -> None:
+    def test_inventory_is_exact_and_pending_site_stays_unpublished(self) -> None:
         region = json.loads(REGION_PATH.read_text(encoding="utf-8"))
         self.assertEqual(region["slug"], "var-est")
         self.assertEqual(region["route"], "/var-est")
@@ -36,7 +40,10 @@ class VarEstRegionTests(unittest.TestCase):
             with self.subTest(slug=site["slug"]):
                 self.assertEqual(config["region"], "var-est")
                 self.assertEqual(config["slug"], site["slug"])
-                self.assertIs(config["web"]["published"], True)
+                self.assertIs(
+                    config["web"]["published"],
+                    site["slug"] in EXPECTED_PUBLISHED_SITES,
+                )
                 self.assertTrue(
                     config.get("locator_marker_utm40s")
                     or config.get("site_location_utm40s")
@@ -56,7 +63,7 @@ class VarEstRegionTests(unittest.TestCase):
         self.assertEqual(manifest["schemaVersion"], 2)
         self.assertEqual(
             [site["slug"] for site in manifest["sites"]],
-            EXPECTED_SITES,
+            EXPECTED_PUBLISHED_SITES,
         )
 
 
