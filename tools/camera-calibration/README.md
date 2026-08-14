@@ -17,7 +17,8 @@ Ouvrir ensuite une fiche avec `?camera-calibration`, déplacer la caméra et
 cliquer sur `Enregistrer ce cadrage`. Les cadrages sont conservés dans le
 stockage local du navigateur. Le bouton `Télécharger toutes les calibrations`
 produit un seul fichier `divetopo-camera-calibrations.json` pour l'ensemble des
-sites enregistrés.
+sites enregistrés. Le panneau de contrôle temporaire reste visible en haut à
+droite de la fenêtre pour éviter qu'il soit masqué sous le viewer.
 
 Pour vérifier aussi les sites encore en préparation, sans les publier, ajouter
 `--pending-sites` à la commande. Le gestionnaire expose alors temporairement

@@ -19,6 +19,20 @@ PATCH_TARGETS = (
     "apps/web/app/TerrainViewer.tsx",
     "apps/web/app/globals.css",
 )
+CALIBRATION_STYLES_PATH = WEB_ROOT / "app" / "globals.css"
+CALIBRATION_PANEL_SELECTOR = ".terrain-camera-calibration {"
+CALIBRATION_PANEL_DEFAULT_RULE = (
+    "  position: absolute;\n"
+    "  transform: translateX(-50%);\n"
+)
+CALIBRATION_PANEL_DEV_RULE = (
+    "  position: fixed;\n"
+    "  top: 0.75rem;\n"
+    "  right: 0.75rem;\n"
+    "  bottom: auto;\n"
+    "  left: auto;\n"
+    "  transform: none;\n"
+)
 
 
 class CalibrationToolError(RuntimeError):
@@ -66,6 +80,8 @@ def patch_applies(patch: bytes, *, reverse: bool) -> bool:
 
 
 def state(patch: bytes) -> str:
+    if calibration_panel_is_promoted():
+        return "enabled"
     can_enable = patch_applies(patch, reverse=True)
     can_disable = patch_applies(patch, reverse=False)
     if can_enable and not can_disable:
@@ -86,18 +102,83 @@ def apply_patch(patch: bytes, *, reverse: bool) -> None:
         )
 
 
+def _calibration_panel_block() -> tuple[str, str, str]:
+    styles = CALIBRATION_STYLES_PATH.read_text(encoding="utf-8")
+    start = styles.find(CALIBRATION_PANEL_SELECTOR)
+    if start < 0:
+        raise CalibrationToolError(
+            "The temporary calibration panel CSS is missing."
+        )
+    end = styles.find("}", start)
+    if end < 0:
+        raise CalibrationToolError(
+            "The temporary calibration panel CSS is malformed."
+        )
+    end += 1
+    return styles[:start], styles[start:end], styles[end:]
+
+
+def calibration_panel_is_promoted() -> bool:
+    try:
+        _, block, _ = _calibration_panel_block()
+    except CalibrationToolError:
+        return False
+    return CALIBRATION_PANEL_DEV_RULE in block
+
+
+def promote_calibration_panel() -> None:
+    prefix, block, suffix = _calibration_panel_block()
+    if CALIBRATION_PANEL_DEV_RULE in block:
+        return
+    if CALIBRATION_PANEL_DEFAULT_RULE not in block:
+        raise CalibrationToolError(
+            "The temporary calibration panel contains other edits; refusing "
+            "to reposition it."
+        )
+    CALIBRATION_STYLES_PATH.write_text(
+        prefix
+        + block.replace(
+            CALIBRATION_PANEL_DEFAULT_RULE,
+            CALIBRATION_PANEL_DEV_RULE,
+            1,
+        )
+        + suffix,
+        encoding="utf-8",
+    )
+
+
+def demote_calibration_panel() -> None:
+    prefix, block, suffix = _calibration_panel_block()
+    if CALIBRATION_PANEL_DEV_RULE not in block:
+        return
+    CALIBRATION_STYLES_PATH.write_text(
+        prefix
+        + block.replace(
+            CALIBRATION_PANEL_DEV_RULE,
+            CALIBRATION_PANEL_DEFAULT_RULE,
+            1,
+        )
+        + suffix,
+        encoding="utf-8",
+    )
+
+
 def enable(patch: bytes) -> None:
     current = state(patch)
     if current == "enabled":
+        promote_calibration_panel()
         return
     if current != "disabled":
         raise CalibrationToolError(
             "Calibration files contain other edits; refusing to overwrite them."
         )
     apply_patch(patch, reverse=True)
+    promote_calibration_panel()
 
 
 def disable(patch: bytes) -> None:
+    if calibration_panel_is_promoted():
+        demote_calibration_panel()
     current = state(patch)
     if current == "disabled":
         return
