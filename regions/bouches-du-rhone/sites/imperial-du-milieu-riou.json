@@ -1,0 +1,166 @@
+{
+  "region": "bouches-du-rhone",
+  "slug": "imperial-du-milieu-riou",
+  "title": "Impérial du Milieu – Riou",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": 0.0,
+      "connector_angle_deg": 0,
+      "connector_width_rem": 1.25,
+      "label_offset_rem": 2.6,
+      "lines": [
+        "Impérial du Milieu",
+        "Riou"
+      ],
+      "width_rem": 5.8
+    },
+    "interactive_initial_view": {
+      "zoom": 0.65,
+      "orbit_azimuth_deg": 0.0,
+      "camera_elevation_deg": 33.42,
+      "pan_right_m": 3.56,
+      "pan_up_m": 10.36,
+      "center_offset_east_m": 0.0,
+      "center_offset_south_m": 0.0,
+      "camera_position_m": [
+        -3.5627,
+        575.0452,
+        893.7982
+      ],
+      "camera_target_m": [
+        -3.5627,
+        -5.7548,
+        13.7982
+      ]
+    }
+  },
+  "plate_relief_source": "interactive",
+  "plate_canvas_height_px": 4600,
+  "cache_dir": ".tmp/imperial-du-milieu-riou-cache",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0890_6235/file/0890_6235.7z",
+      "members": [
+        "0890_6235/LITTO3D_FRA_0894_6233_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0894_6233_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0890_6235/LITTO3D_FRA_0894_6233_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0894_6233_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6233_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0894_6233_DST_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6234_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0894_6234_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0890_6235/LITTO3D_FRA_0894_6234_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0894_6234_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6234_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0894_6234_DST_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6235_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0894_6235_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0890_6235/LITTO3D_FRA_0894_6235_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0894_6235_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0890_6235/LITTO3D_FRA_0894_6235_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0894_6235_DST_20150128_LAMB93_RGF93_IGN69.tif"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0895_6235/file/0895_6235.7z",
+      "members": [
+        "0895_6235/LITTO3D_FRA_0895_6234_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0895_6234_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0895_6235/LITTO3D_FRA_0895_6234_20150529_LAMB93_RGF93_IGN69/Masque_Source/LITTO3D_FRA_0895_6234_SRC_20150128_LAMB93_RGF93_IGN69.tif",
+        "0895_6235/LITTO3D_FRA_0895_6234_20150529_LAMB93_RGF93_IGN69/Masque_Distance/LITTO3D_FRA_0895_6234_DST_20150128_LAMB93_RGF93_IGN69.tif"
+      ]
+    }
+  ],
+  "site_location_utm40s": [
+    894738.371,
+    6233266.500
+  ],
+  "focus_bbox_utm40s": [
+    894450.0,
+    6233200.0,
+    894950.0,
+    6233700.0
+  ],
+  "context_bbox_utm40s": [
+    894400.0,
+    6233200.0,
+    895000.0,
+    6233800.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      894700.0,
+      6233460.0
+    ],
+    "width_m": 360.0,
+    "depth_m": 400.0,
+    "look_bearing_deg": 0.0
+  },
+  "view_bearing_deg": 0.0,
+  "view_crop_width_m": 360.0,
+  "view_crop_depth_m": 400.0,
+  "view_visible_width_m": 300.0,
+  "interactive_view_visible_width_m": 300.0,
+  "interactive_match_static_horizontal_center": true,
+  "interactive_match_static_along_center": true,
+  "view_center_offset_east_m": 0.0,
+  "view_center_offset_north_m": -50.0,
+  "coast_mode": "mask",
+  "max_depth_m": 45.0,
+  "plan_max_depth_m": 45.0,
+  "interactive_max_depth_m": 45.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "plan_suppressed_label_levels": [
+    15,
+    20
+  ],
+  "relief_suppressed_label_levels": [
+    10,
+    15,
+    20,
+    25,
+    30
+  ],
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 190.0,
+  "camera_tilt": 0.55,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 4.0,
+  "relief_output_scale": 2.0,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "view_canvas_width_px": 1455,
+  "view_canvas_height_px": 1007,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-06-24",
+  "orthophoto_resolution_m": 0.2,
+  "orthophoto_3d_resolution_m": 0.4,
+  "orthophoto_coastline_visible": false,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    894738.371,
+    6233266.500
+  ],
+  "plate_site_name": "Impérial du Milieu",
+  "plate_city": "Marseille",
+  "plate_city_detail": "Marseille · Riou",
+  "plate_title": "Impérial du Milieu, Riou",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.0,
+  "clip_rotated_outside": true,
+  "relief_footer_inset_px": 20.0,
+  "relief_label_edge_inset_px": 50.0
+}
