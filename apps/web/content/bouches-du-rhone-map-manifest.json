@@ -1251,6 +1251,32 @@
       "status": "published"
     },
     {
+      "slug": "imperial-du-milieu-riou",
+      "displayName": "Impérial du Milieu",
+      "location": {
+        "city": "Marseille · Riou",
+        "latitude": 43.17206666,
+        "longitude": 5.39356666
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 63.62981,
+        "yPercent": 73.81939
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0.0,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 1.25,
+        "labelOffsetRem": 2.6,
+        "lines": [
+          "Impérial du Milieu",
+          "Riou"
+        ],
+        "widthRem": 5.8
+      },
+      "status": "preparing"
+    },
+    {
       "slug": "pierre-a-la-bague-plateau",
       "displayName": "Pierre à la Bague – plateau",
       "location": {

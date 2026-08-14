@@ -65,6 +65,12 @@
       "config": "regions/bouches-du-rhone/sites/imperial-de-terre-riou.json"
     },
     {
+      "slug": "imperial-du-milieu-riou",
+      "name": "Impérial du Milieu – Riou",
+      "municipality": "Marseille",
+      "config": "regions/bouches-du-rhone/sites/imperial-du-milieu-riou.json"
+    },
+    {
       "slug": "pierre-a-la-bague-plateau",
       "name": "Pierre à la Bague – plateau",
       "municipality": "Marseille",
