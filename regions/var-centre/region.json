@@ -99,6 +99,20 @@
       "name": "La Gabinière, Port-Cros",
       "municipality": "Hyères",
       "config": "regions/var-centre/sites/la-gabiniere-port-cros.json"
+    },
+    {
+      "slug": "pointe-escampobariou",
+      "name": "Pointe Escampobariou",
+      "municipality": "Hyères",
+      "publication": "pending",
+      "artifacts": {
+        "status": "pending",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": false
+      },
+      "config": "regions/var-centre/sites/pointe-escampobariou.json"
     }
   ]
 }
