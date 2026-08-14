@@ -1275,6 +1275,28 @@
         "widthRem": 6.2
       },
       "status": "published"
+    },
+    {
+      "slug": "cap-gros",
+      "displayName": "Cap Gros",
+      "location": {
+        "city": "Antibes · Cap d’Antibes",
+        "latitude": 43.55194444,
+        "longitude": 7.145
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 50.61936,
+        "yPercent": 61.13872
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": -0.5,
+        "connectorAngleDeg": -18,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 7.6
+      },
+      "status": "preparing"
     }
   ]
 }

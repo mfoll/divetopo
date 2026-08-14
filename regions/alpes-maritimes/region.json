@@ -139,6 +139,20 @@
         "webDerivatives": true
       },
       "config": "regions/alpes-maritimes/sites/grotte-a-corail-villefranche.json"
+    },
+    {
+      "slug": "cap-gros",
+      "name": "Cap Gros",
+      "municipality": "Antibes",
+      "publication": "preparing",
+      "artifacts": {
+        "status": "preparing",
+        "staticMaps": true,
+        "planches": true,
+        "interactiveTerrain": true,
+        "webDerivatives": false
+      },
+      "config": "regions/alpes-maritimes/sites/cap-gros.json"
     }
   ],
   "regionalMap": {
@@ -177,7 +191,7 @@
       "routes": {
         "localizedLanguages": 2,
         "siteRoutesChecked": 5,
-        "preparationMentions": 0
+        "preparationMentions": 1
       },
       "mobileTerrain": {
         "sourceScaleOverlap": false,
