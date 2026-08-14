@@ -116,7 +116,8 @@
   "plate_author": "Matthieu Foll",
   "copyright_year": 2026,
   "map_license": "CC BY-NC-SA 4.0",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "vertical_exaggeration": 3.9935327405,
   "clip_rotated_outside": true
 }

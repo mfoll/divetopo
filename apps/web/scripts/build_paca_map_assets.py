@@ -27,13 +27,13 @@ OUTPUT_ROOT = REPOSITORY_ROOT / "regions" / "paca" / "outputs"
 MANIFEST_PATH = WEB_ROOT / "content" / "paca-map-manifest.json"
 REGION_SLUG = "paca"
 PREVIEW_WIDTH = 1800
-RELEASE_TAG = "v1.3.0"
+RELEASE_TAG = "v1.4.0"
 RELEASE_ASSET_BASE = (
     f"https://github.com/mfoll/divetopo/releases/download/{RELEASE_TAG}"
 )
 MEDITERRANEAN_COMPACT_ATTRIBUTIONS = {
-    "topographic": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Référentiel vertical IGN69",
-    "orthophoto": "Bathymétrie : Shom–IGN Litto3D PACA 2015 · Topographie : Shom–IGN Litto3D PACA 2015 · Orthophoto : IGN BD ORTHO · Référentiel vertical IGN69",
+    "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+    "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO",
 }
 
 

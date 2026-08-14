@@ -25,6 +25,7 @@ from cartography.relief import (
     extract_depth_locked_plan_isobaths,
     extract_isobaths,
     expanded_bbox,
+    final_frame_layout,
     fill_deep_edge_nodata_at_maximum,
     fuse_bathymetry,
     imagery_alpha_across_shore,
@@ -72,6 +73,16 @@ def write_raster(
 
 
 class RasterAlignmentTests(unittest.TestCase):
+    def test_final_frame_layout_reports_center_crop_for_fixed_decorations(self) -> None:
+        scale, crop_x, crop_y, width, height = final_frame_layout(
+            (1250, 1250),
+            (2474, 1712),
+        )
+        self.assertAlmostEqual(scale, 2474 / 1250)
+        self.assertEqual(crop_x, 0.0)
+        self.assertAlmostEqual(crop_y, (1250 * scale - 1712) / 2.0)
+        self.assertEqual((width, height), (2474, 1712))
+
     def test_depth_locked_plan_render_scale_avoids_final_upscaling(self) -> None:
         self.assertEqual(
             depth_locked_plan_render_scale(2.0, (450, 312), (2474, 1712)),

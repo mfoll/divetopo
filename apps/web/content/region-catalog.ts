@@ -69,6 +69,33 @@ export function regionLabel(region: RegionSlug, language: Language) {
   return regionCatalog[region].names[language];
 }
 
+function mediterraneanSourceCards(
+  region: AutonomousMediterraneanRegionSlug,
+  language: Language,
+) {
+  const cards = pacaCopy[language].sources.cards;
+  if (region !== "alpes-maritimes") return cards;
+  return cards.map((card, index) =>
+    index === 0
+      ? {
+          ...card,
+          description:
+            card.description +
+            (language === "fr"
+              ? " Sur certains sites, les isobathes 2007 de la Métropole Nice Côte d’Azur servent uniquement de contrôle de cohérence et ne sont pas interpolées dans le MNT."
+              : " At selected sites, 2007 Métropole Nice Côte d’Azur isobaths are used only as a consistency check and are not interpolated into the DTM."),
+          links: [
+            ...card.links,
+            {
+              label: "Métropole Nice Côte d’Azur — Bathymétrie",
+              href: "https://www.data.gouv.fr/datasets/bathymetrie",
+            },
+          ],
+        }
+      : card,
+  );
+}
+
 export function regionCopy(region: RegionSlug) {
   if (region === "reunion") return topoReunionCopy;
   if (region === "paca") return pacaCopy;
@@ -96,6 +123,7 @@ export function regionCopy(region: RegionSlug) {
         lead:
           "Les sites publiés en " + names.fr + " utilisent les sources " +
           "déclarées dans leur configuration régionale.",
+        cards: mediterraneanSourceCards(region, "fr"),
       },
       contact: {
         ...pacaCopy.fr.contact,
@@ -122,6 +150,7 @@ export function regionCopy(region: RegionSlug) {
         lead:
           "Published sites in " + names.en + " use the sources declared " +
           "in their regional configuration.",
+        cards: mediterraneanSourceCards(region, "en"),
       },
       contact: {
         ...pacaCopy.en.contact,

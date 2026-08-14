@@ -78,7 +78,7 @@
   "bathymetry_depth_scale": "legacy_linear",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
-  "bathymetry_source_text": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1.0,

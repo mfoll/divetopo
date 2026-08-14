@@ -87,7 +87,7 @@
   "plan_max_depth_m": 45.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · EPSG:2154 RGF93/Lambert-93 · IGN69 · dalle MNT du 16/01/2015 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
@@ -119,8 +119,8 @@
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.0,
   "final_output_size_px": [
-    1600,
-    1184
+    2474,
+    1712
   ],
   "output_scale": 2.0,
   "plan_output_scale": 2.0,

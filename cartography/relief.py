@@ -70,6 +70,26 @@ def resize_exact_without_distortion(image: Image.Image, size: tuple[int, int] | 
     )
 
 
+def final_frame_layout(
+    image_size: tuple[int, int],
+    final_size: tuple[int, int] | list[int] | None,
+) -> tuple[float, float, float, int, int]:
+    """Describe the uniform scale and center crop used by ImageOps.fit.
+
+    Decorations are drawn before the final fit. Mapping their intended final
+    positions back into the source frame keeps the visible margins constant
+    and prevents the crop from removing the compass, scale or credits.
+    """
+    image_width, image_height = image_size
+    if final_size is None:
+        return 1.0, 0.0, 0.0, image_width, image_height
+    final_width, final_height = map(int, final_size)
+    scale = max(final_width / image_width, final_height / image_height)
+    crop_x = (image_width * scale - final_width) / 2.0
+    crop_y = (image_height * scale - final_height) / 2.0
+    return scale, crop_x, crop_y, final_width, final_height
+
+
 def palette(
     depth: np.ndarray,
     max_depth: float = 40,
@@ -2398,12 +2418,17 @@ def make_clean_plan(
             strict_land = Image.fromarray(np.uint8(strict_land_mask) * 255, "L").resize(img.size, Image.Resampling.NEAREST)
             alpha = Image.fromarray(np.minimum(np.asarray(alpha), np.asarray(strict_land)).astype(np.uint8), "L")
         img = Image.composite(orthophoto.convert("RGBA"), img, alpha)
-    if final_output_size_px is None:
-        final_resize_scale = 1.0
-    else:
-        final_width, final_height = map(int, final_output_size_px)
-        final_resize_scale = np.sqrt((final_width / img.width) * (final_height / img.height))
-    style = final_style_scale / final_resize_scale
+    fit_scale, fit_crop_x, fit_crop_y, final_width, final_height = (
+        final_frame_layout(img.size, final_output_size_px)
+    )
+    style = final_style_scale / fit_scale
+
+    def frame_point(x: float, y: float) -> tuple[float, float]:
+        return (
+            (x + fit_crop_x) / fit_scale,
+            (y + fit_crop_y) / fit_scale,
+        )
+
     draw = ImageDraw.Draw(img, "RGBA")
 
     scaled_contours = {
@@ -2508,7 +2533,10 @@ def make_clean_plan(
     annotation_font = load_font(int(np.floor(19 * style + 0.5)), True)
     pixel_m = abs(gdal.Open(str(depth_path)).GetGeoTransform()[1])
     bar_px = 50.0 / pixel_m * ui
-    sx, sy = 48 * style, img.height - 48 * style
+    sx, sy = frame_point(
+        48 * final_style_scale,
+        final_height - 48 * final_style_scale,
+    )
     draw.line((sx, sy, sx + bar_px, sy), fill=(244, 241, 218, 240), width=max(1, int(np.floor(7 * style + 0.5))))
     draw.line((sx, sy, sx + bar_px, sy), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * style + 0.5))))
     draw.line((sx, sy - 8 * style, sx, sy + 8 * style), fill=(8, 10, 12, 250), width=max(1, int(np.floor(3 * style + 0.5))))
@@ -2517,15 +2545,22 @@ def make_clean_plan(
 
     draw_compass_rose(
         draw,
-        (76.0 * style, 76.0 * style),
+        frame_point(
+            76.0 * final_style_scale,
+            76.0 * final_style_scale,
+        ),
         90.0 * (rotation_k % 4),
         annotation_font,
         style,
     )
     if copyright_text:
         copyright_font = load_font(int(np.floor(13 * style + 0.5)), True)
+        copyright_position = frame_point(
+            final_width - 16 * final_style_scale,
+            final_height - 12 * final_style_scale,
+        )
         draw.text(
-            (img.width - 16 * style, img.height - 12 * style),
+            copyright_position,
             copyright_text,
             anchor="rb",
             font=copyright_font,
@@ -2535,8 +2570,12 @@ def make_clean_plan(
         )
     if source_text:
         source_font = load_font(int(np.floor(13 * style + 0.5)), True)
+        source_position = frame_point(
+            16 * final_style_scale,
+            final_height - 12 * final_style_scale,
+        )
         draw.text(
-            (16 * style, img.height - 12 * style),
+            source_position,
             source_text,
             anchor="lb",
             font=source_font,

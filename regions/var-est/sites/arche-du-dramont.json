@@ -87,7 +87,7 @@
   "relief_mesh_gap_fill_max_area_m2": 20.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Relief terre-mer : Shom–IGN Litto3D PACA 2015 · MNT brut 1 m · IGN69",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT brut à 1 m",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",

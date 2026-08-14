@@ -82,7 +82,7 @@
   "interactive_max_depth_m": 42.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Litto3D PACA 2015 · dalle 1019_6273 · MNT 1 m · EPSG:2154 / IGN69",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, prépaquet 1015_6275, dalle 1019_6273, fichier LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc, MNT maillé à 1 m, RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69 ; aucune interpolation d’isobathes",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",

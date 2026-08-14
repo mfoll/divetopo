@@ -88,7 +88,7 @@
   "interactive_max_depth_m": 40.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Litto3D PACA · MNT 1 m · IGN69",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015 · paquet officiel 1045_6300.7z · dalle 1049_6296 · MNT 1 m · RGF93 / Lambert-93 EPSG:2154 · IGN69 · SHA-256 du paquet : 2fae20c908db4f0b224e26c18ec28d3665d1e2f9924aff32941ff31f9b717633 · contrôle : Métropole Nice Côte d’Azur, isobathes métriques ; la Pointe est couverte jusqu’à environ -40 m, l’Arche au large reste hors du périmètre vérifié ; aucun fragment d’isobathe n’est interpolé en MNT",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",
@@ -111,8 +111,8 @@
   "imagery_sea_max_depth_m": 0.5,
   "imagery_sea_smoothing_m": 5.0,
   "final_output_size_px": [
-    1600,
-    1184
+    2474,
+    1712
   ],
   "output_scale": 2.0,
   "plan_output_scale": 2.0,

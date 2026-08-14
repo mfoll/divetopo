@@ -134,6 +134,7 @@
   "plan_output_scale": 4.0,
   "relief_output_scale": 2.0,
   "map_style_scale": 2.0,
+  "final_output_size_px": [2474, 1712],
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
   "orthophoto_capture_date": "2023-06-24",
@@ -157,5 +158,5 @@
   "relief_footer_inset_px": 20.0,
   "relief_label_edge_inset_px": 50.0,
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
-  "bathymetry_source_text": "Litto3D PACA 2015 · IGN69"
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69"
 }

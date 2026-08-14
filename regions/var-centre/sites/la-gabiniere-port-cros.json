@@ -104,6 +104,8 @@
   "orthophoto_enabled": true,
   "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
   "orthophoto_capture_date": "2023-07-13",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
   "orthophoto_resolution_m": 0.4,
   "orthophoto_3d_resolution_m": 1.0,
   "locator_map_enabled": false,

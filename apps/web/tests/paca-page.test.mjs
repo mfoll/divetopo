@@ -89,6 +89,19 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
       }
     }
     assert.doesNotMatch(html, /noindex/i, path);
+    assert.match(html, /Shom–IGN Litto3D PACA 2015/, path);
+    if (path.endsWith("/en")) {
+      assert.match(html, /EMODnet 2024 offshore/, path);
+      assert.match(html, /GEBCO 2024 is used only as a NoData fallback/, path);
+    } else {
+      assert.match(html, /EMODnet 2024 au large/, path);
+      assert.match(html, /GEBCO 2024 sert uniquement de repli NoData/, path);
+    }
+    assert.match(html, /RGF93 \/ Lambert-93 \(EPSG:2154\)/, path);
+    if (path.startsWith("/alpes-maritimes/")) {
+      assert.match(html, /isobathes 2007 de la Métropole Nice Côte d’Azur/, path);
+      assert.match(html, /ne sont pas interpolées dans le MNT/, path);
+    }
   }
 
   const bouchesDuRhone = await render("/bouches-du-rhone/fr");
@@ -136,6 +149,14 @@ test("regional planning inventories contain the classified sites", async () => {
       manifest.sites.map((site) => site.slug),
       region,
     );
+    for (const site of manifest.sites) {
+      assert.deepEqual(site.compactAttributions, {
+        topographic:
+          "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        orthophoto:
+          "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO",
+      });
+    }
   }
 });
 

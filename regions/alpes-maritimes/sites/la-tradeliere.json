@@ -85,7 +85,7 @@
   "plan_max_depth_m": 42,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
-  "bathymetry_source_text": "Litto3D",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
   "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · contrôle : Métropole Nice Côte d’Azur, isobathes tous les mètres (2007) ; les fragments d’isobathes ne sont pas interpolés en MNT et les NoData du levé sont conservés",
   "plan_sea_shading": "local_slope",
   "plan_land_shading": "local_slope",

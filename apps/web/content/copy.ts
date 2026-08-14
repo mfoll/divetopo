@@ -426,8 +426,20 @@ const pacaSourceLinks = {
   ],
   regional: [
     {
-      label: "GEBCO 2024 Grid",
+      label: "EMODnet Bathymetry DTM 2024",
+      href: "https://emodnet.ec.europa.eu/en/bathymetry",
+    },
+    {
+      label: "GEBCO 2024 Grid (repli NoData)",
       href: "https://www.gebco.net/data-products-gridded-bathymetry-data/gebco2024-grid",
+    },
+    {
+      label: "IGN RGE ALTI",
+      href: "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_RGE-ALTI",
+    },
+    {
+      label: "Shom–IGN Limite terre-mer",
+      href: "https://services.data.shom.fr/INSPIRE/wfs",
     },
   ],
 } as const;
@@ -462,7 +474,7 @@ export const pacaCopy = {
         {
           title: "Topographie",
           description:
-            "Les surfaces terrestres conservent la source et la référence verticale IGN69 déclarées par les configurations.",
+            "Le même MNT Litto3D fournit la topographie côtière des plans de site, dans le référentiel vertical IGN69.",
           links: pacaSourceLinks.bathymetry,
         },
         {
@@ -474,7 +486,7 @@ export const pacaCopy = {
         {
           title: "Relief régional",
           description:
-            "La carte de sélection reprend le relief régional validé GEBCO 2024 ; les repères sont dérivés des coordonnées déclarées.",
+            "Les cartes de zone combinent EMODnet 2024 au large, Litto3D près des côtes, RGE ALTI à terre et les polygones officiels Shom–IGN pour le trait de côte. GEBCO 2024 sert uniquement de repli NoData.",
           links: pacaSourceLinks.regional,
         },
       ],
@@ -482,7 +494,7 @@ export const pacaCopy = {
         {
           title: "Sources et contrôle du cache",
           description:
-            "Chaque configuration déclare les prépaquets SHOM et leurs membres exacts. Le pipeline contrôle les emprises, la résolution, le contenu et les empreintes avant rendu.",
+            "Chaque configuration déclare les prépaquets Shom–IGN et leurs membres exacts. Le pipeline contrôle les emprises, la résolution, le contenu et les empreintes avant rendu en RGF93 / Lambert-93 (EPSG:2154), référentiel vertical IGN69.",
         },
         {
           title: "Surface terre-mer continue",
@@ -492,7 +504,7 @@ export const pacaCopy = {
         {
           title: "Plans et perspectives",
           description:
-            "Les plans 2D, les posters 3D, les cadrages et l’exagération verticale sont déterminés par chaque configuration ; les rendus intégrés restent inchangés.",
+            "Les plans 2D sont nord en haut et portent des isobathes tous les 5 m, extraites d’un champ lissé puis verrouillées sur leur profondeur. Les cadrages 3D et l’exagération verticale sont déterminés par chaque configuration.",
         },
         {
           title: "Relief interactif et formats Web",
@@ -540,7 +552,7 @@ export const pacaCopy = {
         {
           title: "Topography",
           description:
-            "Land surfaces retain the source and IGN69 vertical reference declared by each configuration.",
+            "The same Litto3D DTM supplies coastal land topography for the site maps, using the IGN69 vertical reference.",
           links: pacaSourceLinks.bathymetry,
         },
         {
@@ -552,7 +564,7 @@ export const pacaCopy = {
         {
           title: "Regional relief",
           description:
-            "The selection map uses the validated GEBCO 2024 regional relief; all markers come from declared coordinates.",
+            "Regional maps combine EMODnet 2024 offshore, Litto3D nearshore, RGE ALTI on land and official Shom–IGN land polygons for the coastline. GEBCO 2024 is used only as a NoData fallback.",
           links: pacaSourceLinks.regional,
         },
       ],
@@ -560,7 +572,7 @@ export const pacaCopy = {
         {
           title: "Sources and cache validation",
           description:
-            "Each configuration declares the SHOM prepackages and their exact members. The pipeline checks extents, resolution, content and fingerprints before rendering.",
+            "Each configuration declares the exact Shom–IGN prepackages and members. The pipeline checks extents, resolution, content and fingerprints before rendering in RGF93 / Lambert-93 (EPSG:2154), with the IGN69 vertical reference.",
         },
         {
           title: "Continuous land-sea surface",
@@ -570,7 +582,7 @@ export const pacaCopy = {
         {
           title: "Maps and perspectives",
           description:
-            "The 2D maps, 3D posters, framing and vertical exaggeration are defined by each site configuration; integrated renders remain unchanged.",
+            "The north-up 2D maps use 5 m isobaths extracted from a smoothed field and locked to their exact depth. Each site configuration defines the 3D framing and vertical exaggeration.",
         },
         {
           title: "Interactive terrain and Web formats",

@@ -860,7 +860,7 @@ test("map manifest supports adding future sites without component changes", asyn
       assert.match(
         planche.download.src,
         new RegExp(
-          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.3\\.0/${planche.download.filename}$`,
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.4\\.0/${planche.download.filename}$`,
         ),
       );
       assert.match(planche.download.filename, /\.jpg$/);
