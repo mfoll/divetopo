@@ -1294,11 +1294,11 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -1.4,
-        "connectorAngleDeg": -66,
-        "connectorWidthRem": 2.8,
-        "labelOffsetRem": 2.2,
-        "widthRem": 6.4
+        "shiftYRem": -3.5,
+        "connectorAngleDeg": -19,
+        "connectorWidthRem": 3.2,
+        "labelOffsetRem": 7.5,
+        "widthRem": 8.7
       },
       "status": "preparing"
     }
