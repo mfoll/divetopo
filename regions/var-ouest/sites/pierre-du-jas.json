@@ -1,0 +1,134 @@
+{
+  "region": "var-ouest",
+  "slug": "pierre-du-jas",
+  "title": "Pierre du Jas, Six-Fours-les-Plages",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -0.75,
+      "connector_angle_deg": 0,
+      "connector_width_rem": 2.7,
+      "label_offset_rem": 4.1,
+      "width_rem": 6.0
+    },
+    "interactive_initial_view": {
+      "zoom": 1,
+      "orbit_azimuth_deg": 0,
+      "camera_elevation_deg": 25.64,
+      "pan_right_m": 0,
+      "pan_up_m": 0,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [-2329.2214, 1270.1243, 30],
+      "camera_target_m": [310.7786, 2.9243, 30]
+    }
+  },
+  "plate_relief_source": "static",
+  "paths": {
+    "output_locator": "apps/web/public/maps/var-ouest/var-ouest-regional-relief.png"
+  },
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0920_6225/file/0920_6225.7z",
+      "members": [
+        "0920_6225/LITTO3D_FRA_0923_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0923_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0920_6225/LITTO3D_FRA_0924_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0920_6225/LITTO3D_FRA_0924_6225_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6225_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0925_6225/file/0925_6225.7z",
+      "members": [
+        "0925_6225/LITTO3D_FRA_0925_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0925_6224_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "0925_6225/LITTO3D_FRA_0925_6225_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0925_6225_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "site_location_utm40s": [
+    924225.776,
+    6224132.648
+  ],
+  "focus_bbox_utm40s": [
+    924100.0,
+    6223980.0,
+    925300.0,
+    6224280.0
+  ],
+  "context_bbox_utm40s": [
+    923900.0,
+    6223700.0,
+    925500.0,
+    6224500.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      924700.0,
+      6224130.0
+    ],
+    "width_m": 300.0,
+    "depth_m": 1200.0,
+    "look_bearing_deg": 90.0
+  },
+  "view_bearing_deg": 90.0,
+  "view_visible_width_m": 260.0,
+  "view_crop_width_m": 300.0,
+  "view_crop_depth_m": 1200.0,
+  "interactive_view_visible_width_m": 260.0,
+  "interactive_match_static_horizontal_center": true,
+  "coast_mode": "mask",
+  "max_depth_m": 40.0,
+  "plan_max_depth_m": 40.0,
+  "interactive_max_depth_m": 40.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Shom–IGN Litto3D PACA 2015 · MNT maillé à 1 m · référentiel vertical IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 20.0,
+  "camera_tilt": 0.4,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "view_left_crop_fraction": 0.0,
+  "view_right_crop_fraction": 0.0,
+  "view_top_crop_fraction": 0.0,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "relief_compass_inset_px": 88.0,
+  "relief_footer_inset_px": 44.0,
+  "relief_label_edge_inset_px": 52.0,
+  "view_canvas_width_px": 1545,
+  "view_canvas_height_px": 1069,
+  "map_style_scale": 2.0,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-13",
+  "orthophoto_resolution_m": 1.0,
+  "orthophoto_3d_resolution_m": 1.0,
+  "locator_map_enabled": false,
+  "locator_marker_utm40s": [
+    924225.776,
+    6224132.648
+  ],
+  "plate_site_name": "Pierre du Jas",
+  "plate_city": "Six-Fours-les-Plages",
+  "plate_city_detail": "Six-Fours-les-Plages · Le Brusc",
+  "plate_title": "Pierre du Jas, Six-Fours-les-Plages",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "clip_rotated_outside": true
+}
