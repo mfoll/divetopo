@@ -89,6 +89,12 @@
       "name": "Le Village",
       "municipality": "Saint-Raphaël",
       "config": "regions/var-est/sites/le-village.json"
+    },
+    {
+      "slug": "sec-des-suisses-cigales",
+      "name": "Sec des Suisses",
+      "municipality": "Saint-Raphaël",
+      "config": "regions/var-est/sites/sec-des-suisses-cigales.json"
     }
   ]
 }

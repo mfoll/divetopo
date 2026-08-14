@@ -4,7 +4,7 @@ Status: **site package complete; regional publication deliberately disabled** (`
 
 ## Regional integration boundary
 
-This regional commit retains only the canonical package under `regions/var-est/`: the site configuration, QA record, six static outputs and seven interactive-terrain files. The autonomous site SHA also contained fourteen map derivatives under `apps/web/public/maps/var-est/sec-des-suisses-cigales/` and seven terrain derivatives under `apps/web/public/terrain/sec-des-suisses-cigales/`; they were audited but are deliberately excluded here. This commit changes no `region.json`, manifest, route, sitemap, shared Web asset, release file or publication surface. With `web.published=false`, the package remains QA-able region-locally and is not exposed publicly.
+The site-only commit retains only the canonical package under `regions/var-est/`: the site configuration, QA record, six static outputs and seven interactive-terrain files. The autonomous site SHA also contained fourteen map derivatives under `apps/web/public/maps/var-est/sec-des-suisses-cigales/` and seven terrain derivatives under `apps/web/public/terrain/sec-des-suisses-cigales/`; they were audited but are deliberately excluded here. The site-only commit changes no `region.json`, manifest, route, sitemap, shared Web asset, release file or publication surface. With `web.published=false`, the package remains QA-able region-locally and is not exposed publicly.
 
 ## Identity and naming
 
@@ -56,4 +56,4 @@ This regional commit retains only the canonical package under `regions/var-est/`
 - `/Users/follm/home-projects/divetopo/.venv/bin/python -m cartography.plate regions/var-est/sites/sec-des-suisses-cigales.json --land-style both`: pass.
 - The autonomous SHA's `/opt/homebrew/bin/node /tmp/divetopo-web-capture/scripts/verify_unified_terrain_capture.mjs` capture check passed; its `apps/web/public/` capture output is intentionally absent from this regional commit.
 - `python3 tools/camera-calibration/manage.py check-release`: pass; the published working tree has calibration disabled.
-- No `region.json`, regional/global manifest, sitemap, shared Web component, release file, push or deployment was changed. The local FR/EN page overlay was temporary and isolated; it is not a publication manifest.
+- No terrain manifest, sitemap, shared Web component, release file, push or deployment was changed. The follow-up planning commit adds only the canonical pending inventory entry and the regional planning record (`sites=5`, `plannedSites=6`, pending status `preparing`); it does not publish assets or add routes. The local FR/EN page overlay was temporary and isolated; it is not a publication manifest.

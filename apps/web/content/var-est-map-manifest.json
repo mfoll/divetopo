@@ -1288,6 +1288,28 @@
         "widthRem": 5.4
       },
       "status": "published"
+    },
+    {
+      "slug": "sec-des-suisses-cigales",
+      "displayName": "Sec des Suisses",
+      "location": {
+        "city": "Saint-Raphaël · Cap Dramont",
+        "latitude": 43.41021569,
+        "longitude": 6.85048164
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 41.23564,
+        "yPercent": 60.19798
+      },
+      "siteLabelLayout": {
+        "side": "right",
+        "shiftYRem": 0.0,
+        "connectorAngleDeg": 309.0,
+        "connectorWidthRem": 1.4,
+        "labelOffsetRem": 2.3,
+        "widthRem": 5.8
+      },
+      "status": "preparing"
     }
   ]
 }
