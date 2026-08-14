@@ -29,9 +29,11 @@ les paquets pending locaux et restaure les manifestes, assets et statuts à
 npm run camera-calibration -- --pending-sites --host localhost --port 3010
 ```
 
-Les six paquets pending de la v1.5 deviennent ainsi accessibles dans leur
-route locale de vérification. Ils restent `web.published: false`, absents du
-terrain public, du sitemap et du build de release.
+Les cinq paquets pending de la v1.5 deviennent ainsi accessibles dans leur
+route locale de vérification. Plate aux Mérous n'est pas exposé séparément :
+il a été regroupé dans l'emprise de Les Magnons. Les paquets pending restent
+`web.published: false`, absents du terrain public, du sitemap et du build de
+release.
 
 À l'arrêt du serveur avec `Ctrl-C`, le gestionnaire retire automatiquement
 l'interface du working tree. Vérifier avant une release :

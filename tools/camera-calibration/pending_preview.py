@@ -71,11 +71,6 @@ PENDING_PACKAGES = (
     ),
     PendingPackage(
         "var-ouest",
-        "plate-aux-merous",
-        "59b824b3ce7183b997c6b629d44095cf7d21ab10",
-    ),
-    PendingPackage(
-        "var-ouest",
         "pierre-du-jas",
         "b17046ef3a00d0edee022bf496742fee05240543",
     ),
