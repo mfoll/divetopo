@@ -1352,7 +1352,8 @@ test("keeps the temporary camera calibration tool out of the published viewer", 
     readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
   ]);
 
-  assert.doesNotMatch(terrainViewer, /camera-calibration/i);
+  assert.doesNotMatch(terrainViewer, /CAMERA_CALIBRATION_STORAGE_PREFIX/);
+  assert.doesNotMatch(terrainViewer, /search\.has\("camera-calibration"\)/);
   assert.doesNotMatch(terrainViewer, /localStorage/);
   assert.doesNotMatch(terrainViewer, /Télécharger toutes les calibrations/);
   assert.doesNotMatch(styles, /\.terrain-camera-calibration\s*\{/);

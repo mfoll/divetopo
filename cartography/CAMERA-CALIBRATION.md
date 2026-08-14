@@ -27,7 +27,11 @@ après les réglages sémantiques et avant d'enregistrer la vue de réinitialisa
 
 ## Méthode utilisée en v1.4
 
-L'outil temporaire n'était activable qu'en local. Pour chaque site publié des
+L'outil temporaire n'était activable qu'en local. Il est conservé dans ce même
+dépôt sous `tools/camera-calibration/` et se lance depuis `apps/web` avec
+`npm run camera-calibration -- --host localhost --port 3010`. Le gestionnaire
+restaure l'interface depuis l'historique Git uniquement pour la durée du
+serveur, puis la retire automatiquement. Pour chaque site publié des
 régions Bouches-du-Rhône, Var Ouest, Var Centre, Var Est et Alpes-Maritimes :
 
 1. ouvrir le terrain 3D et régler rotation, élévation, zoom et translation ;
@@ -45,10 +49,10 @@ régions Bouches-du-Rhône, Var Ouest, Var Centre, Var Est et Alpes-Maritimes :
 
 Les fichiers de configuration sont désormais la source reproductible. Le JSON
 brut exporté et l'interface de collecte ne sont pas nécessaires au bundle
-publié. Si une nouvelle campagne est requise, recréer un outil de développement
-isolé qui exporte au minimum le slug, la position caméra, la cible, le zoom et
-les paramètres sémantiques, sans introduire de stockage ou de commandes de
-calibration dans l'interface de production.
+publié. Les commits `3eff486`, `6967082` et `76a561a` conservent respectivement
+l'interface initiale, son export global et son retrait réversible. Avant une
+release, `npm run camera-calibration:check-release` doit confirmer que l'outil
+est désactivé.
 
 ## Ordre de régénération
 
