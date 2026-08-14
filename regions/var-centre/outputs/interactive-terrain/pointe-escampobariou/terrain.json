@@ -106,24 +106,24 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 15,
-        "points": 1144
+        "polylines": 8,
+        "points": 1116
       },
       "10": {
-        "polylines": 20,
-        "points": 1828
+        "polylines": 19,
+        "points": 1839
       },
       "15": {
-        "polylines": 15,
-        "points": 1272
+        "polylines": 14,
+        "points": 1333
       },
       "20": {
-        "polylines": 5,
-        "points": 386
+        "polylines": 7,
+        "points": 528
       },
       "25": {
-        "polylines": 1,
-        "points": 105
+        "polylines": 2,
+        "points": 178
       },
       "30": {
         "polylines": 1,
@@ -140,14 +140,14 @@
     },
     "totals": {
       "levels": 8,
-      "polylines": 59,
-      "points": 4945
+      "polylines": 53,
+      "points": 5204
     },
     "reprojectionResidualM": {
-      "samples": 4945,
-      "mean": 1.3222783529073848e-05,
-      "p95": 6.53984434606516e-07,
-      "max": 0.00877675967850422,
+      "samples": 5204,
+      "mean": 5.211237633221295e-06,
+      "p95": 2.3110538016624105e-07,
+      "max": 0.0024239916232211556,
       "withinTolerance": true
     }
   },
