@@ -4,14 +4,14 @@
   "title": "Les Magnons, Le Brusc",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 924112.5,
-    "south": 6223319.5,
-    "east": 925083.5,
-    "north": 6223990.5
+    "west": 924000.0,
+    "south": 6223320.0,
+    "east": 925200.0,
+    "north": 6224300.0
   },
   "physicalSizeM": {
-    "width": 971.0,
-    "depth": 671.0
+    "width": 1200.0,
+    "depth": 980.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 355,
-    "triangleCount": 362496,
+    "height": 419,
+    "triangleCount": 428032,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -30.0,
-      "scaleMPerUnit": 0.0004578953012289722,
+      "scaleMPerUnit": 0.0004579266653339132,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -30.0,
-    "max": 0.008168566040694714
+    "max": 0.010224012657999992
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -96,40 +96,40 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 16,
-        "points": 1356
+        "polylines": 19,
+        "points": 1773
       },
       "10": {
         "polylines": 11,
-        "points": 1003
+        "points": 1056
       },
       "15": {
-        "polylines": 7,
-        "points": 1066
+        "polylines": 10,
+        "points": 1188
       },
       "20": {
-        "polylines": 14,
-        "points": 1861
+        "polylines": 16,
+        "points": 2032
       },
       "25": {
         "polylines": 12,
-        "points": 1205
+        "points": 1426
       },
       "30": {
-        "polylines": 3,
-        "points": 273
+        "polylines": 7,
+        "points": 625
       }
     },
     "totals": {
       "levels": 6,
-      "polylines": 63,
-      "points": 6764
+      "polylines": 75,
+      "points": 8100
     },
     "reprojectionResidualM": {
-      "samples": 6764,
-      "mean": 2.0301237347150264e-06,
-      "p95": 6.919347512734871e-08,
-      "max": 0.0007635541153234726,
+      "samples": 8100,
+      "mean": 3.7763782030844595e-06,
+      "p95": 2.493884558418711e-07,
+      "max": 0.002690697381179774,
       "withinTolerance": true
     }
   },
@@ -141,11 +141,11 @@
     "alongViewProjectionScale": 1.2,
     "visibleWidthM": 560.0,
     "coastFrameFraction": 0.52,
-    "horizontalCenterOffsetM": -5.0
+    "horizontalCenterOffsetM": 0.0
   },
   "textures": {
-    "width": 971,
-    "height": 671,
+    "width": 1200,
+    "height": 980,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -164,28 +164,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      924598.0,
-      6223655.0
+      924600.0,
+      6223810.0
     ],
-    "widthM": 670.0,
-    "depthM": 970.0,
+    "widthM": 980.0,
+    "depthM": 1200.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
       [
-        924113.0,
-        6223990.0
+        924000.0,
+        6224300.0
       ],
       [
-        924113.0,
+        924000.0,
         6223320.0
       ],
       [
-        925083.0,
+        925200.0,
         6223320.0
       ],
       [
-        925083.0,
-        6223990.0
+        925200.0,
+        6224300.0
       ]
     ]
   }

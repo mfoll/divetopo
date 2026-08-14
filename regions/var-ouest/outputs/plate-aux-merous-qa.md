@@ -2,6 +2,10 @@
 
 Date de contrôle : 2026-08-14. Périmètre strict : `var-ouest / plate-aux-merous` uniquement. La configuration conserve `web.published=false`.
 
+## Décision corrective de regroupement
+
+L’audit régional du 14-08-2026 confirme que le point Plate aux Mérous (`924162.654, 6224032.917`) appartient au même secteur de relief que Les Magnons. Il est couvert par la nouvelle emprise de Magnons (`focus/context/terrain` et footprint interactif) ; aucun second marqueur ni fiche Web n’est conservé. Le paquet Plate reste archivé ici pour provenance et QA, avec `web.published=false`, mais il a été retiré de `regions/var-ouest/region.json` et du manifeste de planification.
+
 ## Identité et sources
 
 - Identité retenue : **Plate aux Mérous**, Ouest des Embiez, Six-Fours-les-Plages, site reconnu dans la zone de la Basse de la Moulinière.
@@ -79,4 +83,4 @@ Parcours local inspecté sur le serveur de vérification isolé :
 - Tests Web ciblés de viewer/calibration/layout dans le worktree de vérification : `10` tests, tous OK.
 - La suite Web SSR complète n’est pas déclarée verte dans la copie temporaire : 9 tests nécessitent `apps/web/dist/server/index.js`, absent de ce worktree, et l’assertion d’inventaire global rejette logiquement un site ajouté seulement à la route locale alors que `web.published=false`. Cette suite n’a donc pas été utilisée comme preuve de publication.
 - `python3 tools/camera-calibration/manage.py check-release` : passe, calibration désactivée.
-- Aucun manifeste terrain, sitemap, composant Web partagé, route, release, push ou déploiement n’a été modifié. Le commit régional de planification ajoute uniquement les deux entrées pending à `region.json` et les deux entrées `preparing` au manifeste de carte (`sites=4`, `plannedSites=6`) ; il n’expose aucun actif Web ni route. Les modifications temporaires du worktree de calibration n’ont pas été recopiées dans le dépôt.
+- Le paquet Plate reste uniquement sous `regions/var-ouest/` pour audit ; il n’est présent ni dans l’inventaire régional ni dans le manifeste de carte et n’est exposé par aucune route, sitemap, manifeste terrain global ou actif Web. Les dérivés régénérés et publiés concernent exclusivement Les Magnons, dont l’emprise couvre désormais le secteur Plate. Aucun autre site, autre région, composant Web partagé, release, push ou déploiement n’a été modifié. Les modifications temporaires du worktree de calibration n’ont pas été recopiées dans le dépôt.

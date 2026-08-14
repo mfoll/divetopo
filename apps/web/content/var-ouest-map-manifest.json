@@ -743,19 +743,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=ed86776b4369",
+              "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=928cf7d624a0",
               "width": 2474,
               "height": 1712,
-              "bytes": 1596632,
-              "sha256": "ed86776b4369f19ee9e5f9b0a6b8d58d6a29d3daacfc9b710e3049b0696d72fb"
+              "bytes": 1765827,
+              "sha256": "928cf7d624a00bb646d1fcbe7bce8ce9e5ba8bdec4cbebefc5968ad91f136638"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=ed86776b4369",
+            "src": "/maps/var-ouest/les-magnons/maps/2d-topographic.jpg?v=928cf7d624a0",
             "width": 2474,
             "height": 1712,
-            "bytes": 1596632,
-            "sha256": "ed86776b4369f19ee9e5f9b0a6b8d58d6a29d3daacfc9b710e3049b0696d72fb",
+            "bytes": 1765827,
+            "sha256": "928cf7d624a00bb646d1fcbe7bce8ce9e5ba8bdec4cbebefc5968ad91f136638",
             "filename": "les-magnons-topobathy-2d.jpg"
           }
         },
@@ -768,19 +768,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=88a327e85627",
+              "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=672b02bf7d6b",
               "width": 2474,
               "height": 1712,
-              "bytes": 1608920,
-              "sha256": "88a327e85627b13180a9057d5a4b56d9cfa563b8c470dfbf1d52accd4c51cd2f"
+              "bytes": 1782004,
+              "sha256": "672b02bf7d6b078a17e6d24a60ddb310618b35e07a5a61683abb5a8328bcba31"
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=88a327e85627",
+            "src": "/maps/var-ouest/les-magnons/maps/2d-orthophoto.jpg?v=672b02bf7d6b",
             "width": 2474,
             "height": 1712,
-            "bytes": 1608920,
-            "sha256": "88a327e85627b13180a9057d5a4b56d9cfa563b8c470dfbf1d52accd4c51cd2f",
+            "bytes": 1782004,
+            "sha256": "672b02bf7d6b078a17e6d24a60ddb310618b35e07a5a61683abb5a8328bcba31",
             "filename": "les-magnons-topobathy-2d-ortho.jpg"
           }
         },
@@ -796,30 +796,30 @@
               "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 78542,
-              "sha256": "34019a798fe61ec9715fedca7a3978cfef043833bb3f765f93da85c3b11cadaf"
+              "bytes": 77184,
+              "sha256": "50d2a7df0b871b0939e1cb8c799c51810825022bd428b52df962c1cb6747a3f3"
             },
             {
               "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 157710,
-              "sha256": "14f212c07d4a10376f85ff568a13bf21637b9d0dde2a310283f93d59687521fb"
+              "bytes": 157202,
+              "sha256": "065a8f952c88981d301ce01aa4c2f1843d38357058477e5e8f384decb1f82509"
             },
             {
               "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 266396,
-              "sha256": "d5fbd1fcbe8cca76c16b4e4f967ebad38ab198f7abd8d555cf4387f7839f104d"
+              "bytes": 273458,
+              "sha256": "5df027e0029d26f1b117f1c7ac5ff61aabc85c06e6ddcbddf1eb0573c8e6c7e0"
             }
           ],
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 736164,
-            "sha256": "a0f83968d5c6fd2a109475ac5dbacb3c65ff0800f5191a967b9675c12f9b67bf",
+            "bytes": 886026,
+            "sha256": "eb3fb163fb96780a2506c31580cb33a65da5d2406a4edc0a38e23b7d5e6a36bd",
             "filename": "les-magnons-3d-dynamique-topographic.jpg"
           }
         },
@@ -835,30 +835,30 @@
               "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 80622,
-              "sha256": "23882f1b7f4c875dec7349d1fc8f722af38be1fb2dd855a8bc608266c9a8fe06"
+              "bytes": 79962,
+              "sha256": "95aadd0a887b0e327187d5d075708c3c080f96862f6166fadd9cfe66bb0eb386"
             },
             {
               "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 161612,
-              "sha256": "d1d2bd0a06a1d7e1da9b195311490d4bac3939be921157a460cbb009c2cf5ae0"
+              "bytes": 157246,
+              "sha256": "75c07a82587593cc01a3bd37b844673f5cc37f0ccc96e8f1d2481fe11a6dbe62"
             },
             {
               "src": "/maps/var-ouest/les-magnons/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 274220,
-              "sha256": "28d56f3c55190ad373f89cb084e125939b3447d459b53d3903c34ea932906e3b"
+              "bytes": 267300,
+              "sha256": "86ef541ad02fee86f19c02e88a51b41669d2321f5cfd51d99e166b33a442169a"
             }
           ],
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 748437,
-            "sha256": "7e8d0a932c09f76bd49bbc8d969569e01a2e4dcd2cc15429a81eb323dbb59be5",
+            "bytes": 845682,
+            "sha256": "b6f02048b103ed0ec20ceb62013c755b9f5f937564c3257eaefcc5b89a249ec2",
             "filename": "les-magnons-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -867,36 +867,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-ouest/les-magnons/maps/planche-topographic-1800.webp?v=eb412f25c249",
+            "src": "/maps/var-ouest/les-magnons/maps/planche-topographic-1800.webp?v=9c4a1e56c854",
             "width": 1800,
             "height": 1083,
-            "bytes": 175722,
-            "sha256": "eb412f25c249397f51247d6f41cebc95e4ee6466474f74beb6d84bd12db4ff27"
+            "bytes": 185634,
+            "sha256": "9c4a1e56c8546adf0e6dc7d9f31ae767fcba85d83a7fde4104e53f3479638051"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4237629,
-            "sha256": "a4a6c35f2dff6b1eea1a15a9a9819e15181913fc36793dce12393c4b0501376f",
+            "bytes": 4426669,
+            "sha256": "90d8b006bf05677b442688a4f477d99952fa8122a58b462b3ccf9b081ce469df",
             "filename": "les-magnons-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-ouest/les-magnons/maps/planche-orthophoto-1800.webp?v=66584e8c1353",
+            "src": "/maps/var-ouest/les-magnons/maps/planche-orthophoto-1800.webp?v=0a47da2ea595",
             "width": 1800,
             "height": 1083,
-            "bytes": 178848,
-            "sha256": "66584e8c1353c15b5ce2c9a0f35355724da99b5b04204e5c843d36fd73cecbdc"
+            "bytes": 188944,
+            "sha256": "0a47da2ea5951f3b0252484afbf3065f515361744c19054a5641ccde132057f2"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4268122,
-            "sha256": "082f13cf69d876e73f2545efcb855467c44fb2375710c5c02d729666f2d15203",
+            "bytes": 4462890,
+            "sha256": "0aca8c53bd0e8a9b30942603092f84cecbff383547f77351d346393d1676d22d",
             "filename": "les-magnons-planche.jpg"
           }
         }
@@ -1018,28 +1018,6 @@
         "widthRem": 5.2
       },
       "status": "published"
-    },
-    {
-      "slug": "plate-aux-merous",
-      "displayName": "Plate aux Mérous",
-      "location": {
-        "city": "Six-Fours-les-Plages · Ouest des Embiez",
-        "latitude": 43.08044,
-        "longitude": 5.751
-      },
-      "westCoastLocatorPosition": {
-        "xPercent": 35.96718,
-        "yPercent": 50.4956
-      },
-      "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 0,
-        "connectorAngleDeg": 0,
-        "connectorWidthRem": 1.4,
-        "labelOffsetRem": 1.3,
-        "widthRem": 6.3
-      },
-      "status": "preparing"
     },
     {
       "slug": "pierre-du-jas",

@@ -51,9 +51,10 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 - Pointe de la Cride et Les Magnons complètent la première vague. Le secteur
   auparavant publié séparément comme La Merveilleuse est inclus dans l'emprise
   élargie des Magnons ; il n'apparaît plus comme une fiche autonome.
-- Plate aux Mérous, Pierre du Jas, Basses Moulinières et Sèche Guenaud sont
-  différés. Ils restent hors de l'inventaire actif et aucun de leurs commits ne
-  doit être cherry-pické pendant cette vague.
+- Plate aux Mérous est regroupé dans l'emprise élargie des Magnons : son paquet
+  v1.5 reste archivé sous `regions/var-ouest/` avec `web.published: false`, mais
+  il est absent de l'inventaire et du planning visibles. Pierre du Jas, Basses
+  Moulinières et Sèche Guenaud restent différés et hors de l'inventaire actif.
 - Les quatre configurations actives ont `web.published: true`. La configuration
   historique de La Merveilleuse est conservée hors inventaire avec
   `web.published: false` afin de préserver la provenance des anciens rendus.
@@ -67,13 +68,39 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 | Pointe de Portissol | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
 | Les Deux Frères | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
 | Pointe de la Cride | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Actifs natifs inspectés à pleine résolution ; fiche et terrain chargés en QA Web. |
-| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Emprise élargie pour inclure le relief auparavant présenté comme La Merveilleuse ; crédits, cadrages et terrain réinspectés. |
+| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Emprise élargie pour inclure le relief auparavant présenté comme La Merveilleuse et Plate aux Mérous ; crédits, cadrages et terrain réinspectés. |
 
 Le manifeste `outputs/interactive-terrain/manifest.json` indexe exactement les
 quatre paquets. Le builder régional partagé produit quatre entrées Web complètes et
 le synchroniseur cumulatif conserve `35` paquets canoniques provenant de sept
 régions, sans écraser ceux de Bouches-du-Rhône ou Var Centre. Aucun générateur
 propre à Var Ouest n'a été créé.
+
+### Correctif de regroupement Plate aux Mérous — 2026-08-14
+
+Le point Plate aux Mérous (`924162.654, 6224032.917`) est maintenant couvert
+par l’emprise unique de Les Magnons, sans second marqueur ni fiche : focus
+`[924000, 6223320, 925200, 6224150]` (`1200 × 830 m`), contexte et terrain
+`[924000, 6223320, 925200, 6224300]` (`1200 × 980 m`), footprint interactif
+`980 × 1200 m` orienté à `90°`. Les sources Litto3D comprennent les cellules
+`0924_6224`, `0924_6225`, `0925_6224` et `0925_6225` nécessaires à cette
+emprise. Le MNT brut présente `95,8565 %` de cellules finies dans le contexte
+(`95,4133 %` après masque bathymétrique positif) ; autour du point Plate, la
+couverture marine finie ≤ 40 m est `100,0 / 93,605 / 70,497 %` à `50 / 150 /
+300 m`. Le point reste dans les quatre marges de l’emprise et du paquet
+terrain.
+
+Les quatre cartes canoniques `2474 × 1712`, les deux planches `5400 × 3250`,
+les deux textures et le paquet interactif de Magnons ont été régénérés et
+inspectés à pleine résolution. Le paquet contient `513 × 419` sommets, `75`
+polylignes vectorielles d’isobathes et un résidu maximal de reprojection de
+`0,002691 m`, dans la tolérance. La carte régionale raster reste inchangée
+(SHA-256 `da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460`) :
+le regroupement est porté par l’inventaire et le manifeste, qui comptent
+désormais `sites=4` et `plannedSites=5` avec Pierre du Jas comme seul pending.
+Le build/lint Web post-correction n’a pas pu être relancé dans ce worktree,
+car `apps/web/node_modules` et `apps/web/dist/server/index.js` sont absents ;
+aucune dépendance n’a été installée.
 
 ## Intégration des commits de sites
 

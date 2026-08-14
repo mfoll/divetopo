@@ -116,12 +116,6 @@
       "config": "regions/var-ouest/sites/les-magnons.json"
     },
     {
-      "slug": "plate-aux-merous",
-      "name": "Plate aux Mérous",
-      "municipality": "Six-Fours-les-Plages",
-      "config": "regions/var-ouest/sites/plate-aux-merous.json"
-    },
-    {
       "slug": "pierre-du-jas",
       "name": "Pierre du Jas",
       "municipality": "Six-Fours-les-Plages",

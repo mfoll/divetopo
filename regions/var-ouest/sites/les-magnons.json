@@ -38,40 +38,42 @@
       "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0920_6225/file/0920_6225.7z",
       "members": [
         "0920_6225/LITTO3D_FRA_0923_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0923_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc",
-        "0920_6225/LITTO3D_FRA_0924_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+        "0920_6225/LITTO3D_FRA_0924_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6224_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0920_6225/LITTO3D_FRA_0924_6225_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0924_6225_MNT_20150529_LAMB93_RGF93_IGN69.asc"
       ]
     },
     {
       "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0925_6225/file/0925_6225.7z",
       "members": [
-        "0925_6225/LITTO3D_FRA_0925_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0925_6224_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+        "0925_6225/LITTO3D_FRA_0925_6224_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0925_6224_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "0925_6225/LITTO3D_FRA_0925_6225_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0925_6225_MNT_20150529_LAMB93_RGF93_IGN69.asc"
       ]
     }
   ],
   "focus_bbox_utm40s": [
-    924100.0,
+    924000.0,
     6223320.0,
-    925083.0,
-    6224000.0
+    925200.0,
+    6224150.0
   ],
   "context_bbox_utm40s": [
-    924100.0,
+    924000.0,
     6223320.0,
-    925083.0,
-    6224000.0
+    925200.0,
+    6224300.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      924598.0,
-      6223655.0
+      924600.0,
+      6223810.0
     ],
-    "width_m": 670.0,
-    "depth_m": 970.0,
+    "width_m": 980.0,
+    "depth_m": 1200.0,
     "look_bearing_deg": 90.0
   },
   "view_bearing_deg": 90.0,
-  "view_crop_width_m": 600.0,
-  "view_crop_depth_m": 900.0,
+  "view_crop_width_m": 980.0,
+  "view_crop_depth_m": 1200.0,
   "view_visible_width_m": 560.0,
   "interactive_view_visible_width_m": 560.0,
   "view_center_offset_east_m": 0.0,
