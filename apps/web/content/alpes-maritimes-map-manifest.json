@@ -1285,12 +1285,12 @@
         "longitude": 7.145
       },
       "westCoastLocatorPosition": {
-        "xPercent": 50.61936,
+        "xPercent": 46.0,
         "yPercent": 61.13872
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -0.5,
+        "side": "left",
+        "shiftYRem": -2.3,
         "connectorAngleDeg": -18,
         "connectorWidthRem": 2.2,
         "labelOffsetRem": 3.0,
