@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/les-fourmigues/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-fourmigues-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 567542,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/les-fourmigues/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-fourmigues-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 590449,
@@ -371,7 +371,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 996272,
@@ -410,7 +410,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1032697,
@@ -597,7 +597,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-du-langoustier-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 642311,
@@ -636,7 +636,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-du-langoustier-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 656898,
@@ -823,7 +823,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/cap-des-medes/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-des-medes-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 811700,
@@ -862,7 +862,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/cap-des-medes/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-des-medes-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 850990,
@@ -1045,7 +1045,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-gabiniere-port-cros-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 614980,
@@ -1084,7 +1084,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-centre/la-gabiniere-port-cros/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-gabiniere-port-cros-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 644111,

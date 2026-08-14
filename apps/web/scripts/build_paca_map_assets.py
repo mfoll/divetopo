@@ -185,7 +185,13 @@ def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
         },
         "variants": variants,
         "download": {
-            **bundled_image_record(download, source_width, source_height),
+            "src": (
+                f"{RELEASE_ASSET_BASE}/{slug}-3d-dynamique-{style}.jpg"
+            ),
+            "width": source_width,
+            "height": source_height,
+            "bytes": download.stat().st_size,
+            "sha256": sha256(download),
             "filename": f"{slug}-3d-dynamique-{style}.jpg",
         },
     }

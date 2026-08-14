@@ -720,11 +720,11 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.match(sitemap, /hreflang="x-default"/);
   assert.match(
     sitemap,
-    /https:\/\/divetopo\.com\/maps\/cap-homard\/downloads\/2d-orthophoto-full\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.4\.0\/cap-homard-topobathy-2d-ortho\.jpg/,
   );
   assert.match(
     sitemap,
-    /https:\/\/divetopo\.com\/maps\/cap-homard\/downloads\/3d-orthophoto-full\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.4\.0\/cap-homard-topobathy-3d-ortho\.jpg/,
   );
   assert.match(
     sitemap,
@@ -830,20 +830,18 @@ test("map manifest supports adding future sites without component changes", asyn
     for (const map of site.maps) {
       assert.equal(map.download.width, map.sourceDimensions.width);
       assert.equal(map.download.height, map.sourceDimensions.height);
-      assert.match(map.download.src, /\/downloads\/(?:2d|3d)-.+-full\.jpg$/);
-      assert.match(map.download.filename, /\.jpg$/);
-      const [published, canonical] = await Promise.all([
-        readFile(new URL(`../public${map.download.src}`, import.meta.url)),
-        readFile(
-          new URL(
-            `../../../regions/reunion/outputs/${map.download.filename}`,
-            import.meta.url,
-          ),
+      assert.match(
+        map.download.src,
+        new RegExp(
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.4\\.0/${map.download.filename}$`,
         ),
-      ]);
-      assert.ok(
-        published.equals(canonical),
-        `${site.slug}: published ${map.view}/${map.style} download differs from ${map.download.filename}`,
+      );
+      assert.match(map.download.filename, /\.jpg$/);
+      const canonical = await readFile(
+        new URL(
+          `../../../regions/reunion/outputs/${map.download.filename}`,
+          import.meta.url,
+        ),
       );
       assert.equal(map.download.bytes, canonical.byteLength);
       assert.equal(

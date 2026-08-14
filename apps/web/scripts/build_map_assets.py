@@ -255,9 +255,6 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
                     output_height,
                 )
             )
-        download_path = site_root / "downloads" / f"{view}-{style}-full.jpg"
-        download_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copyfile(source_path, download_path)
         maps.append(
             {
                 "view": view,
@@ -268,12 +265,11 @@ def build_site(config: dict[str, Any], build_root: Path) -> dict[str, Any]:
                 },
                 "variants": variants,
                 "download": {
-                    **image_record(
-                        download_path,
-                        build_root,
-                        source_image.width,
-                        source_image.height,
-                    ),
+                    "src": f"{RELEASE_ASSET_BASE}/{source_path.name}",
+                    "width": source_image.width,
+                    "height": source_image.height,
+                    "bytes": source_path.stat().st_size,
+                    "sha256": sha256(source_path),
                     "filename": source_path.name,
                 },
             }

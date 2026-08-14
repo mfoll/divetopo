@@ -200,9 +200,18 @@ test("published autonomous-region asset paths resolve", async () => {
         for (const variant of map.variants) {
           await access(new URL(`../public${variant.src}`, import.meta.url));
         }
-        await access(
-          new URL(`../public${map.download.src}`, import.meta.url),
-        );
+        if (map.view === "3d") {
+          assert.match(
+            map.download.src,
+            new RegExp(
+              `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.4\\.0/${map.download.filename}$`,
+            ),
+          );
+        } else {
+          await access(
+            new URL(`../public${map.download.src.split("?")[0]}`, import.meta.url),
+          );
+        }
       }
       await access(
         new URL(`../public/terrain/${site.slug}/terrain.json`, import.meta.url),

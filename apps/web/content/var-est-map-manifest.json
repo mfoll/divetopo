@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-pyramides-cap-dramont-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 530089,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/les-pyramides-cap-dramont/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-pyramides-cap-dramont-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 538126,
@@ -371,7 +371,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-l-ile-d-or-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 558217,
@@ -410,7 +410,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/sec-de-l-ile-d-or/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-l-ile-d-or-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 577317,
@@ -598,7 +598,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/arche-du-dramont/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/arche-du-dramont-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 582413,
@@ -637,7 +637,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/arche-du-dramont/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/arche-du-dramont-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 603616,
@@ -825,7 +825,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/cathedrale-du-trayas/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cathedrale-du-trayas-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 569527,
@@ -864,7 +864,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/cathedrale-du-trayas/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cathedrale-du-trayas-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 678617,
@@ -1051,7 +1051,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/le-village/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/le-village-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 655462,
@@ -1090,7 +1090,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-est/le-village/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/le-village-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 717258,

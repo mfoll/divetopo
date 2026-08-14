@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-maire-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 648505,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/grotte-a-corail-maire/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-maire-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 810914,
@@ -376,7 +376,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pains-de-sucre-riou-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 480996,
@@ -415,7 +415,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pains-de-sucre-riou/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pains-de-sucre-riou-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 621048,
@@ -603,7 +603,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/imperial-de-terre-riou-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 458279,
@@ -642,7 +642,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/imperial-de-terre-riou/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/imperial-de-terre-riou-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 676795,
@@ -829,7 +829,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pierre-a-la-bague-plateau-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 612237,
@@ -868,7 +868,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/pierre-a-la-bague-plateau/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pierre-a-la-bague-plateau-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 627543,
@@ -1056,7 +1056,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/tiboulen-du-frioul-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 583834,
@@ -1095,7 +1095,7 @@
             }
           ],
           "download": {
-            "src": "/maps/bouches-du-rhone/tiboulen-du-frioul/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/tiboulen-du-frioul-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 632380,

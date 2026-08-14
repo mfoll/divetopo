@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-portissol/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 814540,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-portissol/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1068062,
@@ -371,7 +371,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 815736,
@@ -410,7 +410,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/deux-freres-cap-sicie/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 847597,
@@ -593,7 +593,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-de-la-cride/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-de-la-cride-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 733693,
@@ -632,7 +632,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/pointe-de-la-cride/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-de-la-cride-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 800867,
@@ -815,7 +815,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/les-magnons/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 736164,
@@ -854,7 +854,7 @@
             }
           ],
           "download": {
-            "src": "/maps/var-ouest/les-magnons/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 748437,

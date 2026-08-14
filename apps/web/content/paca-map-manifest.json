@@ -177,7 +177,7 @@
             }
           ],
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 722353,
@@ -216,7 +216,7 @@
             }
           ],
           "download": {
-            "src": "/maps/paca/pointe-portissol/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 877997,
@@ -383,7 +383,7 @@
             }
           ],
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 782488,
@@ -422,7 +422,7 @@
             }
           ],
           "download": {
-            "src": "/maps/paca/deux-freres-cap-sicie/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 793385,

@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 530785,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 577119,
@@ -372,7 +372,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-causiniere-cap-ferrat-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 561256,
@@ -411,7 +411,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/pointe-causiniere-cap-ferrat/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-causiniere-cap-ferrat-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 619482,
@@ -599,7 +599,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/la-vaquette/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-vaquette-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 595011,
@@ -638,7 +638,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/la-vaquette/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-vaquette-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 603067,
@@ -822,7 +822,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/la-tradeliere/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-tradeliere-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 772874,
@@ -861,7 +861,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/la-tradeliere/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-tradeliere-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 812487,
@@ -1045,7 +1045,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/downloads/3d-dynamic-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-villefranche-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 538575,
@@ -1084,7 +1084,7 @@
             }
           ],
           "download": {
-            "src": "/maps/alpes-maritimes/grotte-a-corail-villefranche/maps/downloads/3d-dynamic-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-villefranche-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 562168,

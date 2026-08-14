@@ -95,7 +95,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-la-houssaye/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1742485,
@@ -134,7 +134,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-la-houssaye/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2272774,
@@ -173,7 +173,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-la-houssaye/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1776825,
@@ -212,7 +212,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-la-houssaye/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-la-houssaye-pointe-westwide-rgealti-topo-bathy-final-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2513008,
@@ -328,7 +328,7 @@
             }
           ],
           "download": {
-            "src": "/maps/boucan-canot/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/boucan-canot-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2004944,
@@ -367,7 +367,7 @@
             }
           ],
           "download": {
-            "src": "/maps/boucan-canot/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/boucan-canot-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2615627,
@@ -406,7 +406,7 @@
             }
           ],
           "download": {
-            "src": "/maps/boucan-canot/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/boucan-canot-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1948559,
@@ -445,7 +445,7 @@
             }
           ],
           "download": {
-            "src": "/maps/boucan-canot/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/boucan-canot-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2885415,
@@ -561,7 +561,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-homard/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-homard-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1919845,
@@ -600,7 +600,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-homard/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-homard-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2986097,
@@ -639,7 +639,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-homard/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-homard-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1851022,
@@ -678,7 +678,7 @@
             }
           ],
           "download": {
-            "src": "/maps/cap-homard/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-homard-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2660366,
@@ -795,7 +795,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-des-aigrettes/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-des-aigrettes-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1996842,
@@ -834,7 +834,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-des-aigrettes/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-des-aigrettes-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 3209405,
@@ -873,7 +873,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-des-aigrettes/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-des-aigrettes-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1967594,
@@ -912,7 +912,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-des-aigrettes/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-des-aigrettes-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2948709,
@@ -1029,7 +1029,7 @@
             }
           ],
           "download": {
-            "src": "/maps/roches-noires/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/roches-noires-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1937959,
@@ -1068,7 +1068,7 @@
             }
           ],
           "download": {
-            "src": "/maps/roches-noires/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/roches-noires-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 3208143,
@@ -1107,7 +1107,7 @@
             }
           ],
           "download": {
-            "src": "/maps/roches-noires/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/roches-noires-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2038565,
@@ -1146,7 +1146,7 @@
             }
           ],
           "download": {
-            "src": "/maps/roches-noires/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/roches-noires-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2718975,
@@ -1266,7 +1266,7 @@
             }
           ],
           "download": {
-            "src": "/maps/passe-hermitage/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/passe-hermitage-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2141061,
@@ -1305,7 +1305,7 @@
             }
           ],
           "download": {
-            "src": "/maps/passe-hermitage/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/passe-hermitage-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 3123159,
@@ -1344,7 +1344,7 @@
             }
           ],
           "download": {
-            "src": "/maps/passe-hermitage/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/passe-hermitage-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2025448,
@@ -1383,7 +1383,7 @@
             }
           ],
           "download": {
-            "src": "/maps/passe-hermitage/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/passe-hermitage-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2496756,
@@ -1498,7 +1498,7 @@
             }
           ],
           "download": {
-            "src": "/maps/trois-bassins/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/trois-bassins-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2095684,
@@ -1537,7 +1537,7 @@
             }
           ],
           "download": {
-            "src": "/maps/trois-bassins/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/trois-bassins-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 3283857,
@@ -1576,7 +1576,7 @@
             }
           ],
           "download": {
-            "src": "/maps/trois-bassins/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/trois-bassins-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2100763,
@@ -1615,7 +1615,7 @@
             }
           ],
           "download": {
-            "src": "/maps/trois-bassins/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/trois-bassins-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2875773,
@@ -1730,7 +1730,7 @@
             }
           ],
           "download": {
-            "src": "/maps/souris-chaude/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/souris-chaude-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1901206,
@@ -1769,7 +1769,7 @@
             }
           ],
           "download": {
-            "src": "/maps/souris-chaude/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/souris-chaude-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2946921,
@@ -1808,7 +1808,7 @@
             }
           ],
           "download": {
-            "src": "/maps/souris-chaude/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/souris-chaude-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1954908,
@@ -1847,7 +1847,7 @@
             }
           ],
           "download": {
-            "src": "/maps/souris-chaude/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/souris-chaude-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2534010,
@@ -1967,7 +1967,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pont-rouge/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pont-rouge-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1684903,
@@ -2006,7 +2006,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pont-rouge/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pont-rouge-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2481926,
@@ -2045,7 +2045,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pont-rouge/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pont-rouge-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1847032,
@@ -2084,7 +2084,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pont-rouge/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pont-rouge-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2220513,
@@ -2199,7 +2199,7 @@
             }
           ],
           "download": {
-            "src": "/maps/plage-cimetiere-saint-leu/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/plage-cimetiere-saint-leu-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1629327,
@@ -2238,7 +2238,7 @@
             }
           ],
           "download": {
-            "src": "/maps/plage-cimetiere-saint-leu/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/plage-cimetiere-saint-leu-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2932769,
@@ -2277,7 +2277,7 @@
             }
           ],
           "download": {
-            "src": "/maps/plage-cimetiere-saint-leu/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/plage-cimetiere-saint-leu-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1734436,
@@ -2316,7 +2316,7 @@
             }
           ],
           "download": {
-            "src": "/maps/plage-cimetiere-saint-leu/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/plage-cimetiere-saint-leu-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2587721,
@@ -2431,7 +2431,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-au-sel-sec-jaune/downloads/2d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-au-sel-sec-jaune-topobathy-2d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1744166,
@@ -2470,7 +2470,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-au-sel-sec-jaune/downloads/2d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-au-sel-sec-jaune-topobathy-2d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2433099,
@@ -2509,7 +2509,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-au-sel-sec-jaune/downloads/3d-topographic-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-au-sel-sec-jaune-topobathy-3d.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1994311,
@@ -2548,7 +2548,7 @@
             }
           ],
           "download": {
-            "src": "/maps/pointe-au-sel-sec-jaune/downloads/3d-orthophoto-full.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-au-sel-sec-jaune-topobathy-3d-ortho.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 2790984,
