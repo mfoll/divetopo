@@ -1298,15 +1298,19 @@
         "longitude": 6.85048164
       },
       "westCoastLocatorPosition": {
-        "xPercent": 41.23564,
-        "yPercent": 60.19798
+        "xPercent": 44.0,
+        "yPercent": 66.3
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": 0.0,
-        "connectorAngleDeg": 309.0,
+        "shiftYRem": -4.8,
+        "connectorAngleDeg": 325.0,
         "connectorWidthRem": 1.4,
-        "labelOffsetRem": 2.3,
+        "labelOffsetRem": 4.5,
+        "lines": [
+          "Sec des",
+          "Suisses"
+        ],
         "widthRem": 5.8
       },
       "status": "preparing"
