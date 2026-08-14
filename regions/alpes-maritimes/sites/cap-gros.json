@@ -1,0 +1,137 @@
+{
+  "region": "alpes-maritimes",
+  "slug": "cap-gros",
+  "title": "Cap Gros, Antibes",
+  "web": {
+    "published": false,
+    "site_label_layout": {
+      "side": "right",
+      "shift_y_rem": -0.5,
+      "connector_angle_deg": -18,
+      "connector_width_rem": 2.2,
+      "label_offset_rem": 3.0,
+      "width_rem": 7.6
+    },
+    "interactive_initial_view": {
+      "zoom": 0.68,
+      "orbit_azimuth_deg": 0,
+      "camera_elevation_deg": 30,
+      "pan_right_m": 89.06,
+      "pan_up_m": 0,
+      "center_offset_east_m": 0,
+      "center_offset_south_m": 0,
+      "camera_position_m": [
+        -75.0,
+        1016.1365,
+        -1866.442
+      ],
+      "camera_target_m": [
+        -75.0,
+        0,
+        -106.442
+      ],
+      "isobath_label_focus_x_ndc": 0.25
+    }
+  },
+  "plate_relief_source": "static",
+  "paths": {
+    "output_2d": "regions/alpes-maritimes/outputs/cap-gros-topobathy-2d.jpg",
+    "output_2d_ortho": "regions/alpes-maritimes/outputs/cap-gros-topobathy-2d-ortho.jpg",
+    "output_3d": "regions/alpes-maritimes/outputs/cap-gros-topobathy-3d.jpg",
+    "output_3d_ortho": "regions/alpes-maritimes/outputs/cap-gros-topobathy-3d-ortho.jpg",
+    "output_locator": "regions/alpes-maritimes/outputs/cap-gros-locator-alpes-maritimes.jpg",
+    "output_plate": "regions/alpes-maritimes/outputs/cap-gros-planche.jpg",
+    "output_plate_topography": "regions/alpes-maritimes/outputs/cap-gros-planche-topographique.jpg"
+  },
+  "focus_bbox_utm40s": [
+    1034500.0,
+    6281000.0,
+    1035200.0,
+    6281800.0
+  ],
+  "context_bbox_utm40s": [
+    1034150.0,
+    6280650.0,
+    1035650.0,
+    6282150.0
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      1034900.0,
+      6281400.0
+    ],
+    "width_m": 650.0,
+    "depth_m": 800.0,
+    "look_bearing_deg": 180.0
+  },
+  "view_bearing_deg": 180.0,
+  "view_crop_width_m": 550.0,
+  "view_crop_depth_m": 650.0,
+  "view_visible_width_m": 500.0,
+  "interactive_view_visible_width_m": 500.0,
+  "coast_mode": "mask",
+  "coastline_visible": true,
+  "orthophoto_coastline_visible": false,
+  "max_depth_m": 45.0,
+  "plan_max_depth_m": 45.0,
+  "interactive_max_depth_m": 45.0,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathy. NCA · isobathes 1 m (2007) · interp. RGE",
+  "bathymetry_attribution": "Métropole Nice Côte d’Azur · isobathes tous les mètres · levé multifaisceaux 2007 · interpolation locale contrôlée par le 0 m RGE ALTI",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "relief_surface_draped_contours": true,
+  "relief_surface_contour_supersampling": 2,
+  "relief_suppressed_label_levels": [
+    10,
+    15,
+    20,
+    25,
+    30,
+    35
+  ],
+  "interactive_exposure": 1.55,
+  "topography_resolution_m": 1.0,
+  "context_topography_resolution_m": 1.0,
+  "max_land_elevation_m": 40.0,
+  "camera_tilt": 0.6,
+  "along_view_projection_scale": 1.1,
+  "coast_frame_fraction": 0.5,
+  "imagery_sea_full_depth_m": 0.0,
+  "imagery_sea_max_depth_m": 0.5,
+  "imagery_sea_smoothing_m": 5.0,
+  "final_output_size_px": [
+    1600,
+    1184
+  ],
+  "output_scale": 2.0,
+  "plan_output_scale": 2.0,
+  "relief_output_scale": 1.0,
+  "map_style_scale": 2.0,
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2023-07-10",
+  "orthophoto_resolution_m": 0.5,
+  "orthophoto_3d_resolution_m": 0.5,
+  "locator_map_enabled": false,
+  "locator_label": "Cap Gros",
+  "site_location_utm40s": [
+    1034914.520,
+    6281334.213
+  ],
+  "locator_marker_utm40s": [
+    1034914.520,
+    6281334.213
+  ],
+  "plate_site_name": "Cap Gros",
+  "plate_city": "Antibes",
+  "plate_city_detail": "Antibes · Cap d’Antibes",
+  "plate_title": "Cap Gros, Antibes",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 3.9935327405,
+  "deep_edge_nodata_terrain_fill": false,
+  "clip_rotated_outside": true
+}

@@ -1,0 +1,218 @@
+{
+  "schemaVersion": 2,
+  "slug": "cap-gros",
+  "title": "Cap Gros, Antibes",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 1034575.0,
+    "south": 6281000.0,
+    "east": 1035225.0,
+    "north": 6281800.0
+  },
+  "physicalSizeM": {
+    "width": 650.0,
+    "depth": 800.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 417,
+    "height": 513,
+    "triangleCount": 425984,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -45.0,
+      "scaleMPerUnit": 0.00110704499559962,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -45.0,
+    "max": 27.550193786621094
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        125,
+        29
+      ],
+      "10": [
+        135,
+        223,
+        109
+      ],
+      "15": [
+        40,
+        131,
+        212
+      ],
+      "20": [
+        12,
+        42,
+        120
+      ],
+      "25": [
+        6,
+        26,
+        91
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        15,
+        61
+      ],
+      "40": [
+        1,
+        9,
+        42
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 1,
+        "points": 242
+      },
+      "10": {
+        "polylines": 1,
+        "points": 260
+      },
+      "15": {
+        "polylines": 1,
+        "points": 313
+      },
+      "20": {
+        "polylines": 1,
+        "points": 247
+      },
+      "25": {
+        "polylines": 1,
+        "points": 261
+      },
+      "30": {
+        "polylines": 1,
+        "points": 235
+      },
+      "35": {
+        "polylines": 1,
+        "points": 145
+      },
+      "40": {
+        "polylines": 1,
+        "points": 129
+      },
+      "45": {
+        "polylines": 1,
+        "points": 294
+      }
+    },
+    "totals": {
+      "levels": 9,
+      "polylines": 9,
+      "points": 2126
+    },
+    "reprojectionResidualM": {
+      "samples": 2126,
+      "mean": 1.0156771479926882e-06,
+      "p95": 4.4389958375745664e-10,
+      "max": 0.00021117074348353526,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 3.9935327405,
+  "view": {
+    "lookBearingDeg": 180.0,
+    "gridLookBearingDeg": 180.0,
+    "cameraTilt": 0.6,
+    "alongViewProjectionScale": 1.1,
+    "visibleWidthM": 500.0,
+    "coastFrameFraction": 0.5
+  },
+  "textures": {
+    "width": 650,
+    "height": 800,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Métropole Nice Côte d’Azur · isobathes tous les mètres · levé multifaisceaux 2007 · interpolation locale contrôlée par le 0 m RGE ALTI · Topographie : IGN RGE ALTI, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2023-07-10",
+      "attribution": "Bathymétrie : Métropole Nice Côte d’Azur · isobathes tous les mètres · levé multifaisceaux 2007 · interpolation locale contrôlée par le 0 m RGE ALTI · Topographie : IGN RGE ALTI, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Métropole Nice Côte d’Azur · isobathes tous les mètres · levé multifaisceaux 2007 · interpolation locale contrôlée par le 0 m RGE ALTI · Topographie : IGN RGE ALTI, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 10-07-2023"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      1034900.0,
+      6281400.0
+    ],
+    "widthM": 650.0,
+    "depthM": 800.0,
+    "lookBearingDeg": 180.0,
+    "cornersUtm40s": [
+      [
+        1035225.0,
+        6281800.0
+      ],
+      [
+        1034575.0,
+        6281800.0
+      ],
+      [
+        1034575.0,
+        6281000.0
+      ],
+      [
+        1035225.0,
+        6281000.0
+      ]
+    ]
+  }
+}
