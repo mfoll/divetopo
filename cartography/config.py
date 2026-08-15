@@ -52,6 +52,7 @@ _ALLOWED_KEYS = frozenset(
         "bathymetry_palette",
         "bathymetry_attribution",
         "bathymetry_source_text",
+        "bathymetry_source_edge_feather_px",
         "bridge_decks",
         "cache_dir",
         "camera_tilt",
@@ -1058,6 +1059,15 @@ def validate_config(config: Mapping[str, Any]) -> None:
             "max_depth_m must be greater than 0 and at most "
             f"{maximum_depth:g} for region {region}"
         )
+    if "bathymetry_source_edge_feather_px" in config:
+        source_edge_feather = _number(
+            config,
+            "bathymetry_source_edge_feather_px",
+        )
+        if source_edge_feather < 0.0:
+            raise ValueError(
+                "bathymetry_source_edge_feather_px must be non-negative"
+            )
     if "plan_max_depth_m" in config:
         plan_max_depth = _number(config, "plan_max_depth_m")
         if not 0.0 < plan_max_depth <= max_depth:

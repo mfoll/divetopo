@@ -1716,16 +1716,33 @@ def extract_coastlines(land_surface: np.ndarray) -> list[list[tuple[float, float
     return coastlines
 
 
-def fuse_bathymetry(depth: np.ndarray, bathy_mask: np.ndarray, elev: np.ndarray, land_mask: np.ndarray, max_depth: float) -> tuple[np.ndarray, np.ndarray]:
-    """Blend HYSCORES into the negative-elevation surface without fake fills."""
+def fuse_bathymetry(
+    depth: np.ndarray,
+    bathy_mask: np.ndarray,
+    elev: np.ndarray,
+    land_mask: np.ndarray,
+    max_depth: float,
+    source_edge_feather_px: float = 10.0,
+) -> tuple[np.ndarray, np.ndarray]:
+    """Blend source bathymetry into the negative-elevation surface."""
     sea_mask = (np.isfinite(elev) | bathy_mask) & ~land_mask
     topo_depth = np.clip(-np.nan_to_num(elev, nan=-max_depth), 0.0, max_depth)
     source_mask = bathy_mask & sea_mask & np.isfinite(depth)
 
-    # Fade HYSCORES over its first 4 m instead of exposing its pixel boundary.
-    distance_inside_source = distance_from(~source_mask, 14)
-    source_weight = np.clip(distance_inside_source / 10.0, 0.0, 1.0)
-    source_weight *= source_mask
+    # HYSCORES normally needs a short fade at the boundary of its partial
+    # footprint. A complete coastal Litto3D MNT can opt out: fading it towards
+    # the deep fallback would manufacture a trench beside the measured coast.
+    if source_edge_feather_px > 0.0:
+        feather_steps = max(1, int(np.ceil(source_edge_feather_px)) + 4)
+        distance_inside_source = distance_from(~source_mask, feather_steps)
+        source_weight = np.clip(
+            distance_inside_source / source_edge_feather_px,
+            0.0,
+            1.0,
+        )
+        source_weight *= source_mask
+    else:
+        source_weight = source_mask.astype(np.float32)
     fused = topo_depth * (1.0 - source_weight) + np.nan_to_num(depth, nan=max_depth) * source_weight
     return np.clip(fused, 0.0, max_depth), sea_mask
 
@@ -2133,6 +2150,7 @@ def build_fused_surface(
     rotation_k: int = 0,
     coast_mode: str = "profile",
     land_sieve_threshold_px: int = 200,
+    source_edge_feather_px: float = 10.0,
 ) -> tuple[
     np.ndarray,
     np.ndarray,
@@ -2160,7 +2178,14 @@ def build_fused_surface(
         coastlines = extract_coastlines(land_weight)
     else:
         raise ValueError("coast_mode must be 'profile' or 'mask'")
-    fused_depth, sea_mask = fuse_bathymetry(source_depth, bathy_mask, elev, land_mask, contour_ceiling)
+    fused_depth, sea_mask = fuse_bathymetry(
+        source_depth,
+        bathy_mask,
+        elev,
+        land_mask,
+        contour_ceiling,
+        source_edge_feather_px,
+    )
     fused_depth = edge_preserving_bathy(fused_depth, sea_mask)
     if coast_mode == "profile":
         signed_coast_distance = np.arange(fused_depth.shape[0], dtype=np.float32)[:, None] - coast_y[None, :]
@@ -2212,6 +2237,7 @@ def make_clean_plan(
     deep_edge_nodata_min_depth_m: float | None = None,
     suppressed_label_levels: list[int] | tuple[int, ...] = (),
     isobath_geometry: str = "legacy",
+    source_edge_feather_px: float = 10.0,
 ) -> None:
     if output_scale <= 0.0:
         raise ValueError("output_scale must be positive")
@@ -2230,7 +2256,13 @@ def make_clean_plan(
             "isobath_geometry must be 'legacy' or 'depth_locked'"
         )
     elev, coast_y, land_mask, land_weight, surface_valid, fused_depth, contours, coastlines = build_fused_surface(
-        depth_path, elevation_path, max_depth, rotation_k, coast_mode, land_sieve_threshold_px
+        depth_path,
+        elevation_path,
+        max_depth,
+        rotation_k,
+        coast_mode,
+        land_sieve_threshold_px,
+        source_edge_feather_px,
     )
     ui = (
         depth_locked_plan_render_scale(
@@ -2652,6 +2684,7 @@ def make_pretty_3d_from_offshore(
     deep_edge_nodata_min_depth_m: float | None = None,
     sea_palette: str = "legacy",
     sea_depth_scale: str = "legacy_linear",
+    source_edge_feather_px: float = 10.0,
 ) -> None:
     (
         elev_full,
@@ -2663,7 +2696,13 @@ def make_pretty_3d_from_offshore(
         contours_full,
         coastlines_full,
     ) = build_fused_surface(
-        depth_path, elevation_path, max_depth, rotation_k, coast_mode, land_sieve_threshold_px
+        depth_path,
+        elevation_path,
+        max_depth,
+        rotation_k,
+        coast_mode,
+        land_sieve_threshold_px,
+        source_edge_feather_px,
     )
     step = 2
     d = np.clip(fused_depth[::step, ::step], 0.0, max_depth)

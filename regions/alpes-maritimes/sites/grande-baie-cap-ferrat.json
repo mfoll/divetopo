@@ -81,6 +81,7 @@
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": false,
   "coast_mode": "mask",
+  "bathymetry_source_edge_feather_px": 0.0,
   "coastline_visible": true,
   "max_depth_m": 45.0,
   "interactive_max_depth_m": 45.0,

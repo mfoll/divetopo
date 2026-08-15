@@ -350,6 +350,27 @@ class SurfaceValidityTests(unittest.TestCase):
         np.testing.assert_array_equal(sea, [[True, False], [False, False]])
         np.testing.assert_array_equal(land | sea, [[True, False], [True, False]])
 
+    def test_complete_source_can_disable_edge_feather_without_deepening(self) -> None:
+        depth = np.full((9, 12), np.nan, dtype=np.float32)
+        depth[:, :8] = np.linspace(8.0, 0.5, 8, dtype=np.float32)
+        bathymetry_valid = np.isfinite(depth)
+        elevation = np.full_like(depth, np.nan)
+        elevation[:, 8:] = 2.0
+        land = np.zeros_like(bathymetry_valid)
+        land[:, 8:] = True
+
+        fused, sea = fuse_bathymetry(
+            depth,
+            bathymetry_valid,
+            elevation,
+            land,
+            45.0,
+            source_edge_feather_px=0.0,
+        )
+
+        np.testing.assert_array_equal(sea, bathymetry_valid)
+        np.testing.assert_allclose(fused[sea], depth[sea])
+
     def test_invalid_neighbors_do_not_deepen_valid_bathymetry(self) -> None:
         depth = np.full((7, 7), 30.0, dtype=np.float32)
         sea = np.zeros((7, 7), dtype=bool)

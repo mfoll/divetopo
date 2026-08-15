@@ -8,13 +8,13 @@
       "files": {
         "metadata": {
           "path": "grande-baie-cap-ferrat/terrain.json",
-          "bytes": 5575,
-          "sha256": "cbf56ef050f695bac56d573633ef4372c6f64810fa45882cb621b30b1fa72511"
+          "bytes": 5595,
+          "sha256": "9a0e790228e0635907fb8b5ba53f86ed1c74144a16f097efc1807f3c981a7c35"
         },
         "height": {
           "path": "grande-baie-cap-ferrat/height.bin",
           "bytes": 297500,
-          "sha256": "3f56f1a83f6d1beef966ab9ca6c518bb1ce63bd0eb78e9c845e27815ff679d86"
+          "sha256": "fbf324df369f8916d2321769bffb65204abb1c4cceb06cec9eb1f119ccdf7b5a"
         },
         "validMask": {
           "path": "grande-baie-cap-ferrat/valid-mask.bin",
@@ -28,18 +28,18 @@
         },
         "vectorIsobaths": {
           "path": "grande-baie-cap-ferrat/isobaths-vector.json",
-          "bytes": 132248,
-          "sha256": "57a1996e9919b449ee3e9dca7cff7394bdddc0315da8724e769dffde816a3db4"
+          "bytes": 31699,
+          "sha256": "3229eb54134f42e661561107e78138c73380af0e907d5abd71fcf3c2c686eed6"
         },
         "topographicTexture": {
           "path": "grande-baie-cap-ferrat/topographic.webp",
-          "bytes": 10592,
-          "sha256": "3c85380eca4b26b76fdd9b0a75b71341ebb0a23d316993f4524857e4d2959609"
+          "bytes": 8240,
+          "sha256": "3729f84878bda9370a1113e4d3a0ed3e23e7bb8e419bd7dadee248be18c7cdca"
         },
         "orthophotoTexture": {
           "path": "grande-baie-cap-ferrat/orthophoto.webp",
-          "bytes": 30302,
-          "sha256": "d4da04ae45dc5e11bdd00a56e9f161b902f33eafef1efa702c208ec9ade9db28"
+          "bytes": 29064,
+          "sha256": "311dde86d7925c9b7a8bd0bf61e260ed5b12560b95e2e162530c5cb41fe392b0"
         }
       }
     },

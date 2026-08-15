@@ -1023,6 +1023,9 @@ def render(
             [],
         ),
         "isobath_geometry": plan_isobath_geometry(config),
+        "source_edge_feather_px": float(
+            config.get("bathymetry_source_edge_feather_px", 10.0)
+        ),
     }
     if not relief_only:
         make_clean_plan(
@@ -1159,6 +1162,9 @@ def render(
         "sea_palette": str(config.get("bathymetry_palette", "legacy")),
         "sea_depth_scale": str(
             config.get("bathymetry_depth_scale", "legacy_linear")
+        ),
+        "source_edge_feather_px": float(
+            config.get("bathymetry_source_edge_feather_px", 10.0)
         ),
     }
     if land_style in (None, "topography"):

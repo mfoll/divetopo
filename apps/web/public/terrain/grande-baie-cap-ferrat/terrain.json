@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -45.0,
-      "scaleMPerUnit": 0.0019073777370870527,
+      "offsetM": -43.16291046142578,
+      "scaleMPerUnit": 0.0018793455475917568,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -57,7 +57,7 @@
     }
   },
   "elevationRangeM": {
-    "min": -45.0,
+    "min": -43.16291046142578,
     "max": 80.0
   },
   "heightValues": "physical metres before vertical exaggeration",
@@ -111,52 +111,52 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 3,
-        "points": 523
+        "polylines": 1,
+        "points": 210
       },
       "10": {
-        "polylines": 11,
-        "points": 942
+        "polylines": 1,
+        "points": 133
       },
       "15": {
-        "polylines": 9,
-        "points": 660
+        "polylines": 1,
+        "points": 121
       },
       "20": {
-        "polylines": 5,
-        "points": 475
+        "polylines": 1,
+        "points": 104
       },
       "25": {
-        "polylines": 5,
-        "points": 440
+        "polylines": 2,
+        "points": 92
       },
       "30": {
         "polylines": 2,
-        "points": 144
+        "points": 72
       },
       "35": {
-        "polylines": 1,
-        "points": 90
+        "polylines": 2,
+        "points": 55
       },
       "40": {
         "polylines": 1,
-        "points": 82
+        "points": 26
       },
       "45": {
-        "polylines": 1,
-        "points": 38
+        "polylines": 0,
+        "points": 0
       }
     },
     "totals": {
       "levels": 9,
-      "polylines": 38,
-      "points": 3394
+      "polylines": 11,
+      "points": 813
     },
     "reprojectionResidualM": {
-      "samples": 3394,
-      "mean": 1.150417855658162e-05,
-      "p95": 2.155879395004931e-08,
-      "max": 0.009204575436619677,
+      "samples": 813,
+      "mean": 1.1427301152973369e-05,
+      "p95": 4.97621499562228e-11,
+      "max": 0.006899957094745446,
       "withinTolerance": true
     }
   },

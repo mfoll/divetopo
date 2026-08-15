@@ -290,6 +290,9 @@ def make_surface(
     rotation_k = int(config.get("rotation_k", 0))
     coast_mode = str(config.get("coast_mode", "profile"))
     sieve = int(config.get("land_sieve_threshold_px", 200))
+    source_edge_feather = float(
+        config.get("bathymetry_source_edge_feather_px", 10.0)
+    )
     (
         elevation,
         coast_y,
@@ -306,6 +309,7 @@ def make_surface(
         rotation_k,
         coast_mode,
         sieve,
+        source_edge_feather,
     )
 
     depth = np.clip(fused_depth, 0.0, max_depth)

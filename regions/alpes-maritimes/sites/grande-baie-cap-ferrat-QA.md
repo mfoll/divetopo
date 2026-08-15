@@ -20,6 +20,12 @@ Emprises finales, choisies dans la bande continue qui contient le mouillage et l
 
 Les avertissements de rendu mesurent 5,4 % de NoData en 2D et 4,0 % dans le crop 3D. Ces cellules restent visibles comme NoData ou sont omises du maillage ; elles ne sont ni comblées ni présentées comme un MNT continu.
 
+## Correctif du fossé côtier
+
+Le fossé profond auparavant visible en continu au pied de la côte n'existe pas dans le MNT Litto3D brut. Les profils source progressent normalement d'environ −4 m à 0 m vers le rivage. L'artefact venait du fondu générique de 10 pixels appliqué au bord de la source bathymétrique : sur ce MNT côtier complet, il mélangeait les cellules Litto3D peu profondes avec le fond de secours à 45 m.
+
+Avant correction, sur les cellules marines source valides, l'écart profondeur fusionnée moins profondeur brute atteignait 10,01 m au p95, 18,22 m au p99 et 34,98 m au maximum ; 4 113 cellules étaient artificiellement approfondies de plus de 5 m. Grande Baie désactive désormais ce seul fondu avec `bathymetry_source_edge_feather_px=0`, sans modifier le comportement par défaut des autres sites. Après correction, les mêmes écarts sont de 0,368 m au p95, 0,747 m au p99 et seules deux cellules dépassent 5 m sous l'effet du lissage conservateur existant. Les masques NoData sont inchangés et aucun raccord, remplissage marin ou interpolation supplémentaire n'a été introduit.
+
 ## Inventaire
 
 - plans : `grande-baie-cap-ferrat-topobathy-2d.jpg`, `-2d-ortho.jpg` ;
@@ -28,7 +34,7 @@ Les avertissements de rendu mesurent 5,4 % de NoData en 2D et 4,0 % dans le crop
 - terrain canonique et Web : `height.bin`, `valid-mask.bin`, `isobath-mask.bin`, `isobaths-vector.json`, `topographic.webp`, `orthophoto.webp`, `terrain.json` ;
 - Web : deux plans JPEG, six variantes 3D desktop, deux variantes mobiles, deux téléchargements JPEG et deux aperçus de planche.
 
-Le terrain final utilise une grille et des textures 425×350, avec 38 polylignes et 3394 points d’isobathes vectorielles source-dérivées de −5 à −45 m. Le contrôle de reprojection des 3394 points donne une moyenne de `0,0000115 m`, un p95 de `2,16e-8 m` et un maximum de `0,0092046 m`, dans la tolérance déclarée par `terrain.json`. La surface reste limitée aux cellules Litto3D officielles; les 5,4 % de NoData 2D et 4,0 % du crop 3D restent signalés et non comblés.
+Le terrain final utilise une grille et des textures 425×350, avec 11 polylignes et 813 points d’isobathes vectorielles source-dérivées de −5 à −40 m. Le contrôle de reprojection des 813 points donne une moyenne de `0,0000114 m`, un p95 de `4,98e-11 m` et un maximum de `0,0069000 m`, dans la tolérance déclarée par `terrain.json`. La surface reste limitée aux cellules Litto3D officielles ; les 5,4 % de NoData 2D et 4,0 % du crop 3D restent signalés et non comblés.
 
 ## Contrôles exécutés
 
@@ -36,9 +42,11 @@ Le terrain final utilise une grille et des textures 425×350, avec 38 polylignes
 - rendu des quatre JPEG avec `--render-only` : OK ;
 - export et validation interne du paquet interactif schema v2 : OK ;
 - composition des deux planches après captures propres hors mode calibration : OK, sans panneau de calibration dans les planches ;
-- suite Python complète : 134/134 tests `unittest` passés ; lint Web : OK, 11 avertissements préexistants et aucune erreur ; tests Web : 41/41 passés ; build Web vinext : OK, avec les avertissements existants de taille de chunk et de classification des routes dynamiques ;
+- suite Python complète : 136/136 tests `unittest` passés ; lint Web : OK, 11 avertissements préexistants et aucune erreur ; tests Web : 41/41 passés ; build Web vinext : OK, avec les avertissements existants de taille de chunk et de classification des routes dynamiques ;
 - inspection plein format des quatre JPEG 2474×1712, deux planches 5400×3250 et captures desktop/mobile : cadrage, échelle, nord, attributions, licence et textures lisibles ; rose nord et pied de source entièrement dans le cadre ; NoData limité au bord source ;
+- comparaison du MNT brut, des masques, des textures topographique/orthophoto et des rendus 2D/3D : aucun fossé dans la source, masque NoData inchangé, fossé artificiel absent des sorties régénérées ;
 - pose exportée vérifiée : zoom `0.65`, azimut `34.9°`, élévation `19.77°`, `pan_right=-23.82`, `pan_up=44.09`, décalage est `-20 m`, décalage sud `0 m`, focus isobathe `0.05`, caméra `[-903.2988, 314.6462, 599.6212]`, cible `[-84.1281, -44.4541, 28.0696]` ; emprises inchangées ;
 - provenance de la calibration groupée consignée sans copier le JSON brut : schéma `divetopo-camera-calibration-collection-v1`, export du `2026-08-15T06:21:38.384Z`, fichier local `/Users/follm/Downloads/divetopo-camera-calibrations-2.json`, SHA-256 `18269204b26988ad94ccb6decb60ff032d553492a74e3fa50a33ece70e5ae6ce` ;
 - QA interactive dans le navigateur local : canvas WebGL visible, bascule Orthophoto/Topographie effective, commandes terrain disponibles ; aucune erreur spécifique à la route sur le rechargement final. Un message HMR transitoire est survenu pendant le redémarrage du serveur de génération ;
+- contrôle d'équivalence des six captures 3D desktop/mobile : corrélations de `0,9938` à `0,9995`, erreurs absolues moyennes de `0,0037` à `0,0112` ; viewport mobile 390×844 sans débordement (`scrollWidth=390`) ;
 - `web.published` contrôlé à `true` ; routes FR/EN, terrain public, manifeste terrain et carte régionale Grande Baie vérifiés. Cap Gros reste absent des actifs Web, des routes et du manifeste terrain publié.
