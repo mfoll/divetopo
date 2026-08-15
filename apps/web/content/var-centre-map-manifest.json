@@ -1282,7 +1282,7 @@
     },
     {
       "slug": "pointe-escampobariou",
-      "displayName": "Pointe Escampobariou",
+      "displayName": "Escampobariou",
       "location": {
         "city": "Hyères · Giens",
         "latitude": 43.0281667,
@@ -1298,7 +1298,10 @@
         "connectorAngleDeg": -19,
         "connectorWidthRem": 3.2,
         "labelOffsetRem": 7.5,
-        "widthRem": 8.7
+        "widthRem": 8.7,
+        "lines": [
+          "Escampobariou"
+        ]
       },
       "status": "preparing"
     }
