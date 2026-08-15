@@ -26,10 +26,14 @@ from cartography.regions.reunion import (
     download_gebco_relief,
     download_orthophoto,
     plan_isobath_geometry,
+    recover_litto3d_land_elevation,
     render,
     resolve_hyscores_tiff,
     validate_raster,
     verify_orthophoto_capture_date,
+)
+from cartography.regions.mediterranean import (
+    recover_mediterranean_land_elevation,
 )
 
 
@@ -53,6 +57,49 @@ def write_raster(path: Path, *, resolution: float = 1.0, bands: int = 1) -> None
 
 
 class CacheContractTests(unittest.TestCase):
+    def test_litto3d_land_recovery_never_fills_marine_cells(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            source_path = root / "signed-litto3d.tif"
+            elevation_path = root / "elevation.tif"
+            driver = gdal.GetDriverByName("GTiff")
+            spatial_ref = osr.SpatialReference()
+            spatial_ref.ImportFromEPSG(2154)
+            for path, values in (
+                (
+                    source_path,
+                    np.asarray(
+                        [[-12.0, -99999.0], [8.5, 0.0]],
+                        dtype=np.float32,
+                    ),
+                ),
+                (
+                    elevation_path,
+                    np.asarray(
+                        [[-99999.0, -99999.0], [-99999.0, 0.0]],
+                        dtype=np.float32,
+                    ),
+                ),
+            ):
+                dataset = driver.Create(str(path), 2, 2, 1, gdal.GDT_Float32)
+                dataset.SetProjection(spatial_ref.ExportToWkt())
+                dataset.SetGeoTransform((100.0, 1.0, 0.0, 200.0, 0.0, -1.0))
+                band = dataset.GetRasterBand(1)
+                band.SetNoDataValue(-99999.0)
+                band.WriteArray(values)
+                dataset = None
+
+            self.assertEqual(
+                recover_litto3d_land_elevation(source_path, elevation_path),
+                1,
+            )
+            dataset = gdal.Open(str(elevation_path))
+            values = dataset.GetRasterBand(1).ReadAsArray()
+            self.assertEqual(float(values[1, 0]), 8.5)
+            self.assertEqual(float(values[0, 0]), -99999.0)
+            self.assertEqual(float(values[0, 1]), -99999.0)
+            self.assertEqual(float(values[1, 1]), 0.0)
+
     def test_reunion_keeps_legacy_static_isobaths(self) -> None:
         self.assertEqual(
             plan_isobath_geometry({"region": "reunion"}),

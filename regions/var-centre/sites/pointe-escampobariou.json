@@ -6,14 +6,14 @@
     "published": false,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": -3.5,
-      "connector_angle_deg": -19,
-      "connector_width_rem": 3.2,
+      "shift_y_rem": -0.2,
+      "connector_angle_deg": 0,
+      "connector_width_rem": 2.6,
       "lines": [
         "Escampobariou"
       ],
-      "label_offset_rem": 7.5,
-      "width_rem": 8.7
+      "label_offset_rem": 2.6,
+      "width_rem": 7.4
     },
     "interactive_initial_view": {
       "zoom": 0.861,
@@ -34,7 +34,7 @@
   ],
   "focus_bbox_utm40s": [
     952250,
-    6219000,
+    6219130,
     952950,
     6219635
   ],
@@ -57,13 +57,13 @@
     952635.5973,
     6219271.8268
   ],
-  "view_bearing_deg": 270,
+  "view_bearing_deg": 90,
   "view_visible_width_m": 500,
   "interactive_view_visible_width_m": 500,
   "view_center_offset_east_m": 0,
-  "view_center_offset_north_m": 0,
-  "view_crop_width_m": 700,
-  "view_crop_depth_m": 500,
+  "view_center_offset_north_m": 110,
+  "view_crop_width_m": 480,
+  "view_crop_depth_m": 450,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
   "max_depth_m": 40,
@@ -83,6 +83,7 @@
   "interactive_exposure": 1.55,
   "topography_resolution_m": 1,
   "context_topography_resolution_m": 1,
+  "litto3d_land_elevation_recovery": true,
   "max_land_elevation_m": 30,
   "camera_tilt": 0.65,
   "along_view_projection_scale": 1.2,

@@ -1294,11 +1294,11 @@
       },
       "siteLabelLayout": {
         "side": "right",
-        "shiftYRem": -3.5,
-        "connectorAngleDeg": -19,
-        "connectorWidthRem": 3.2,
-        "labelOffsetRem": 7.5,
-        "widthRem": 8.7,
+      "shiftYRem": -0.2,
+      "connectorAngleDeg": 0,
+      "connectorWidthRem": 2.6,
+      "labelOffsetRem": 2.6,
+      "widthRem": 7.4,
         "lines": [
           "Escampobariou"
         ]

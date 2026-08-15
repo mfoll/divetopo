@@ -310,6 +310,89 @@ def positive_depth(source: Path, output: Path) -> None:
     os.replace(temporary, output)
 
 
+def recover_litto3d_land_elevation(
+    signed_litto3d_path: Path,
+    elevation_path: Path,
+) -> int:
+    """Recover terrestrial WMS holes from measured positive Litto3D cells.
+
+    The signed Litto3D raster is only allowed to contribute strictly positive
+    elevations. Negative and NoData cells can therefore never create or extend
+    marine bathymetry. The operation is idempotent and returns the number of
+    topography cells replaced.
+    """
+    source = open_raster(signed_litto3d_path, "signed Litto3D raster")
+    elevation = open_raster(elevation_path, "RGE ALTI topography")
+    if (
+        source.RasterXSize != elevation.RasterXSize
+        or source.RasterYSize != elevation.RasterYSize
+        or not np.allclose(source.GetGeoTransform(), elevation.GetGeoTransform())
+        or source.GetProjection() != elevation.GetProjection()
+    ):
+        raise ValueError(
+            "Signed Litto3D and RGE ALTI rasters must share one aligned grid "
+            "for land-elevation recovery"
+        )
+
+    source_band = source.GetRasterBand(1)
+    elevation_band = elevation.GetRasterBand(1)
+    source_values = source_band.ReadAsArray().astype(np.float32)
+    elevation_values = elevation_band.ReadAsArray().astype(np.float32)
+    source_nodata = source_band.GetNoDataValue()
+    elevation_nodata = elevation_band.GetNoDataValue()
+    source_valid = np.isfinite(source_values)
+    if source_nodata is not None:
+        source_valid &= source_values != float(source_nodata)
+    elevation_valid = np.isfinite(elevation_values)
+    if elevation_nodata is not None:
+        elevation_valid &= elevation_values != float(elevation_nodata)
+    recovery = (
+        source_valid
+        & (source_values > 0.01)
+        & (~elevation_valid | (elevation_values <= 0.01))
+    )
+    recovered_cells = int(np.count_nonzero(recovery))
+    if recovered_cells == 0:
+        return 0
+
+    reconciled = elevation_values.copy()
+    reconciled[recovery] = source_values[recovery]
+    temporary = temporary_path(elevation_path)
+    temporary.unlink(missing_ok=True)
+    driver = gdal.GetDriverByName("GTiff")
+    target = driver.Create(
+        str(temporary),
+        elevation.RasterXSize,
+        elevation.RasterYSize,
+        1,
+        gdal.GDT_Float32,
+        options=["TILED=YES", "COMPRESS=DEFLATE", "PREDICTOR=3"],
+    )
+    target.SetGeoTransform(elevation.GetGeoTransform())
+    target.SetProjection(elevation.GetProjection())
+    target_band = target.GetRasterBand(1)
+    if elevation_nodata is not None:
+        target_band.SetNoDataValue(float(elevation_nodata))
+    target_band.WriteArray(reconciled)
+    target_band.FlushCache()
+    target = None
+    source = None
+    elevation = None
+    reconciled_dataset = open_raster(
+        temporary,
+        "RGE ALTI topography reconciled with terrestrial Litto3D",
+    )
+    validate_raster_content(
+        reconciled_dataset,
+        "RGE ALTI topography reconciled with terrestrial Litto3D",
+        temporary,
+        "elevation",
+    )
+    reconciled_dataset = None
+    os.replace(temporary, elevation_path)
+    return recovered_cells
+
+
 def download_rge_alti(extent: tuple[float, float, float, float], resolution: float, output: Path) -> None:
     min_x, min_y, max_x, max_y = extent
     width = int(round((max_x - min_x) / resolution))
@@ -664,6 +747,17 @@ def acquire(config: dict, paths: dict[str, Path], refresh: bool) -> set[str]:
             paths["context_elevation"],
         )
         rebuilt.add("context_elevation")
+    if config.get("litto3d_land_elevation_recovery", False):
+        recovered_cells = recover_litto3d_land_elevation(
+            paths["context_depth"],
+            paths["context_elevation"],
+        )
+        if recovered_cells:
+            print(
+                f"Recovered {recovered_cells} terrestrial RGE ALTI cells "
+                "from positive Litto3D elevations"
+            )
+            rebuilt.add("context_elevation")
     if refresh or "context_depth" in rebuilt or not paths["focus_depth"].exists():
         crop_raster(
             paths["context_depth"],

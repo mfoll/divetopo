@@ -106,16 +106,16 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 10,
-        "points": 852
+        "polylines": 6,
+        "points": 868
       },
       "10": {
-        "polylines": 7,
-        "points": 855
+        "polylines": 5,
+        "points": 853
       },
       "15": {
-        "polylines": 7,
-        "points": 800
+        "polylines": 5,
+        "points": 758
       },
       "20": {
         "polylines": 2,
@@ -140,26 +140,26 @@
     },
     "totals": {
       "levels": 8,
-      "polylines": 30,
-      "points": 3559
+      "polylines": 22,
+      "points": 3531
     },
     "reprojectionResidualM": {
-      "samples": 3559,
-      "mean": 1.3491536621107e-05,
-      "p95": 4.600592422576703e-08,
-      "max": 0.006383083975363135,
+      "samples": 3531,
+      "mean": 4.85732630623116e-06,
+      "p95": 3.837891338065447e-08,
+      "max": 0.005727983873075715,
       "withinTolerance": true
     }
   },
   "verticalExaggeration": 2.0,
   "view": {
-    "lookBearingDeg": 270.0,
-    "gridLookBearingDeg": 270.0,
+    "lookBearingDeg": 90.0,
+    "gridLookBearingDeg": 90.0,
     "cameraTilt": 0.65,
     "alongViewProjectionScale": 1.2,
     "visibleWidthM": 500.0,
     "coastFrameFraction": 0.52,
-    "horizontalCenterOffsetM": 0.0
+    "horizontalCenterOffsetM": -110.0
   },
   "textures": {
     "width": 551,

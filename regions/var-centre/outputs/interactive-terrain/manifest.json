@@ -218,38 +218,38 @@
       "files": {
         "metadata": {
           "path": "pointe-escampobariou/terrain.json",
-          "bytes": 4929,
-          "sha256": "de4b1d30aad939e96b1238f528db8f69c1159aa225a7e31fae899f4a029341f1"
+          "bytes": 4930,
+          "sha256": "3c6151bf89ac7429dad4d9b893b6c18eede28eadc02d89afc96082d2f1384b73"
         },
         "height": {
           "path": "pointe-escampobariou/height.bin",
           "bytes": 362178,
-          "sha256": "f967b93e796758053f0e424799382fe73b5d48d2c96268e21146a22e5b026211"
+          "sha256": "b0d792a9b688515aa552360e40120c5a30306d6e77d541e5048ed07dc63cc77f"
         },
         "validMask": {
           "path": "pointe-escampobariou/valid-mask.bin",
           "bytes": 22637,
-          "sha256": "5fa30ae3d8d17c23ad7f9874841d3e6db73d248cbb3d2ffd146b1793250e7b6a"
+          "sha256": "b241398cefe29a8d8cc24ad3c5ce3f180ad798ade029cc1a0c550a5bab8465c1"
         },
         "isobathMask": {
           "path": "pointe-escampobariou/isobath-mask.bin",
           "bytes": 22637,
-          "sha256": "5fa30ae3d8d17c23ad7f9874841d3e6db73d248cbb3d2ffd146b1793250e7b6a"
+          "sha256": "b241398cefe29a8d8cc24ad3c5ce3f180ad798ade029cc1a0c550a5bab8465c1"
         },
         "vectorIsobaths": {
           "path": "pointe-escampobariou/isobaths-vector.json",
-          "bytes": 138186,
-          "sha256": "8331c51e1b0b1519308b5ff84132b4d530022c47f1471e08f6a5d6c9d1a6f5f6"
+          "bytes": 137087,
+          "sha256": "1e59f514e4f4e9ebe823120ab9411a790b7d628629a37aab8be1c6d75766af5b"
         },
         "topographicTexture": {
           "path": "pointe-escampobariou/topographic.webp",
-          "bytes": 30384,
-          "sha256": "fc4d9e64684fd7d7f7b863fbb59e0da409a229da021405eaf4e3c3d55ceb04fe"
+          "bytes": 30272,
+          "sha256": "b0bfbafee32b0ba07285a9507fed39be1cc68498cb82dbbc17309575c90257a7"
         },
         "orthophotoTexture": {
           "path": "pointe-escampobariou/orthophoto.webp",
-          "bytes": 61892,
-          "sha256": "6d10b51c9d460d36ca15ee005f677d462e7e88bb071233ab0e5ae2f81624fd07"
+          "bytes": 62556,
+          "sha256": "edafc5914838a6428549548d4f11e046a1276fdd15eefdfec7ebed683eca813c"
         }
       }
     }
