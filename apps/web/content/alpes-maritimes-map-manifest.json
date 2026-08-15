@@ -130,30 +130,30 @@
               "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 52972,
-              "sha256": "bb70d70049ede55a1bb815d6c12b4e4579f9dd20a617e2d8cbea6482edf5c2c2"
+              "bytes": 57102,
+              "sha256": "9dab656fcdb34bef3b01ab7247f247450cc660c44953500d0e9dc125bd84ffe6"
             },
             {
               "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 100956,
-              "sha256": "26eaee19b8b5ce9b92a9d8d00b6d542cd9e8010b999fdfb0eb016d9afecc7e2f"
+              "bytes": 108538,
+              "sha256": "f970787206b21759bb29e0d255bb0c3717ba107f25e80ef842d3f15e3552bfc4"
             },
             {
               "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 176314,
-              "sha256": "bde7c4c15b541ed70c13779f95b7b12c53b2bc5cc91b1d877da9950df3e60d6d"
+              "bytes": 189420,
+              "sha256": "c666544c5fb586cfb62c4b859e3e2e04695fc3987f5dc4cc0e5830809e0d4e33"
             }
           ],
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 530785,
-            "sha256": "46087ead55a44b6321aaab7fecbdbaea9bab287ce388abd30e2c260626e8a773",
+            "bytes": 569046,
+            "sha256": "e98e1c43f4d1dec5dc093953a367957330a7ce18768a3d91c5188fa50312c3f3",
             "filename": "grande-baie-cap-ferrat-3d-dynamique-topographic.jpg"
           }
         },
@@ -169,30 +169,30 @@
               "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 60652,
-              "sha256": "9ca36095b782ebdf14a46faf7ac4567e8f57a429dc0f9b568993149db4ec179d"
+              "bytes": 64528,
+              "sha256": "c2d8475a26123dc832063b2e1bcc3bcf4f59183c0f59025436e69136bd683d22"
             },
             {
               "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 114966,
-              "sha256": "42c2ace8914b6028e55d3e9a349dd55aa15f4867f0f121526f6599e165c1c30b"
+              "bytes": 122658,
+              "sha256": "f58def30565add03bc401004a9c570e38f7e50fe62f13b69e158b5085f05f92b"
             },
             {
               "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 197206,
-              "sha256": "df566eacda990d61efa353b30002ff66ea8cf5a38082bb8518a951cec13d54c8"
+              "bytes": 209530,
+              "sha256": "5488360a318883caae1210d3eccbe3d8a7fb6b02ffd482e1fecec0b35eb059eb"
             }
           ],
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 577119,
-            "sha256": "a1c2994c3b75d9f7c71d0549989db6ac28d49ae09cf6fa94312ccb1774767273",
+            "bytes": 611757,
+            "sha256": "239681a2bfd1052084d4adf236d87a82056c9ace54bbf558edc41509fbb75d6c",
             "filename": "grande-baie-cap-ferrat-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -201,36 +201,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/planche-topographic-1800.webp?v=5a1b63a67962",
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/planche-topographic-1800.webp?v=5feaccad463e",
             "width": 1800,
             "height": 1083,
-            "bytes": 134550,
-            "sha256": "5a1b63a679625f769755bed671dd7788ed6de9b39607e956dedba75475b383ec"
+            "bytes": 137442,
+            "sha256": "5feaccad463e2e28687c1c1a20adee854fd0139765e0f10b5ec55213505d0124"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 3568462,
-            "sha256": "10d6e981c50e699cb77237133cfd0e92f49f492b20ba42f09935f3eff440b82b",
+            "bytes": 3614752,
+            "sha256": "69b74f86ff99b56c9a7df8683cd95d26228a4ce17be022177b7a2a9ed6a4d3f1",
             "filename": "grande-baie-cap-ferrat-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/planche-orthophoto-1800.webp?v=ee895b4d310c",
+            "src": "/maps/alpes-maritimes/grande-baie-cap-ferrat/maps/planche-orthophoto-1800.webp?v=b6a931f7e686",
             "width": 1800,
             "height": 1083,
-            "bytes": 174564,
-            "sha256": "ee895b4d310c6a9ac996577ba14aa636ed1966efbb3aa13e67af883e43362d84"
+            "bytes": 175388,
+            "sha256": "b6a931f7e686d1e969017b22d2216456ba06d6b5801fc7e74de23d16a64876fd"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4138322,
-            "sha256": "8843e24d16c41e8fe6e110c3de177155239856fd2e3e97a4737874ed79c7689d",
+            "bytes": 4186503,
+            "sha256": "13c6858f06e005a9d74f1ca6c9efa02addc3cec7552b2a9283216f679350d21c",
             "filename": "grande-baie-cap-ferrat-planche.jpg"
           }
         }
@@ -1285,7 +1285,7 @@
         "longitude": 7.145
       },
       "westCoastLocatorPosition": {
-        "xPercent": 46.0,
+        "xPercent": 50.61936,
         "yPercent": 61.13872
       },
       "siteLabelLayout": {

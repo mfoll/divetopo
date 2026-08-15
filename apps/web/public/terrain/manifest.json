@@ -16,38 +16,38 @@
       "files": {
         "metadata": {
           "path": "grande-baie-cap-ferrat/terrain.json",
-          "bytes": 5597,
-          "sha256": "c2688ccf54e0c9d7fa8e6ca8de0baeba58f42e54db2c79c91d0ac0ff01b5222a"
+          "bytes": 5575,
+          "sha256": "cbf56ef050f695bac56d573633ef4372c6f64810fa45882cb621b30b1fa72511"
         },
         "height": {
           "path": "grande-baie-cap-ferrat/height.bin",
-          "bytes": 299052,
-          "sha256": "4850bdb9b664df361cfa58c04b596c9e14133a8d52d2162b625a03c20cb286fe"
+          "bytes": 297500,
+          "sha256": "3f56f1a83f6d1beef966ab9ca6c518bb1ce63bd0eb78e9c845e27815ff679d86"
         },
         "validMask": {
           "path": "grande-baie-cap-ferrat/valid-mask.bin",
-          "bytes": 18691,
-          "sha256": "ab95a58530c1ad5c01ec14b7b9614cfbf1eeb76da284ccf2a60ecf5f10fe5673"
+          "bytes": 18594,
+          "sha256": "b7825d4aa93c325b39653ae2b2b7056fb31457f99bc8c8db53c5b0cc56bac343"
         },
         "isobathMask": {
           "path": "grande-baie-cap-ferrat/isobath-mask.bin",
-          "bytes": 18691,
-          "sha256": "ab95a58530c1ad5c01ec14b7b9614cfbf1eeb76da284ccf2a60ecf5f10fe5673"
+          "bytes": 18594,
+          "sha256": "b7825d4aa93c325b39653ae2b2b7056fb31457f99bc8c8db53c5b0cc56bac343"
         },
         "vectorIsobaths": {
           "path": "grande-baie-cap-ferrat/isobaths-vector.json",
-          "bytes": 31764,
-          "sha256": "b3ca36695c2d3ce9846ad26b94c6967b2d7aa405baf9c8c683ba70c207b05631"
+          "bytes": 132248,
+          "sha256": "57a1996e9919b449ee3e9dca7cff7394bdddc0315da8724e769dffde816a3db4"
         },
         "topographicTexture": {
           "path": "grande-baie-cap-ferrat/topographic.webp",
-          "bytes": 8376,
-          "sha256": "12e46dce0e2edd48b1006db25d6c7e7ab320cfe3addfc4a7f133e9a7ada6e879"
+          "bytes": 10592,
+          "sha256": "3c85380eca4b26b76fdd9b0a75b71341ebb0a23d316993f4524857e4d2959609"
         },
         "orthophotoTexture": {
           "path": "grande-baie-cap-ferrat/orthophoto.webp",
-          "bytes": 25968,
-          "sha256": "ad20f7a8d0cc3472a519f718172ac0a01a4ac8351da38798c2644d74c3797344"
+          "bytes": 30302,
+          "sha256": "d4da04ae45dc5e11bdd00a56e9f161b902f33eafef1efa702c208ec9ade9db28"
         }
       }
     },
