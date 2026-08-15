@@ -6,29 +6,29 @@
     "published": false,
     "site_label_layout": {
       "side": "right",
-      "shift_y_rem": 0.0,
-      "connector_angle_deg": 309.0,
+      "shift_y_rem": -4.8,
+      "connector_angle_deg": 325.0,
       "connector_width_rem": 1.4,
-      "label_offset_rem": 2.3,
+      "label_offset_rem": 5.4,
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.78,
-      "orbit_azimuth_deg": 0.0,
-      "camera_elevation_deg": 22.97,
-      "pan_right_m": 0.0,
-      "pan_up_m": 7.78,
+      "zoom": 0.65,
+      "orbit_azimuth_deg": -14.56,
+      "camera_elevation_deg": 22.61,
+      "pan_right_m": -34.44,
+      "pan_up_m": 48.59,
       "center_offset_east_m": 0.0,
       "center_offset_south_m": 0.0,
       "camera_position_m": [
-        0.0,
-        380.0,
-        920.0
+        -203.2828,
+        336.4402,
+        916.6475
       ],
       "camera_target_m": [
-        0.0,
-        -10.0,
-        0.0
+        28.5751,
+        -47.6519,
+        23.7785
       ]
     }
   },
@@ -40,33 +40,33 @@
     "1010_6265/LITTO3D_FRA_1012_6265_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1012_6265_MNT_20150529_LAMB93_RGF93_IGN69.asc"
   ],
   "focus_bbox_utm40s": [
-    1011700.0,
+    1011200.0,
     6264200.0,
-    1012100.0,
-    6264600.0
+    1012600.0,
+    6265000.0
   ],
   "context_bbox_utm40s": [
-    1011600.0,
+    1011200.0,
     6264100.0,
-    1012300.0,
-    6264700.0
+    1012600.0,
+    6265000.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
       1011905.0,
       6264395.0
     ],
-    "width_m": 260.0,
-    "depth_m": 360.0,
+    "width_m": 1200.0,
+    "depth_m": 500.0,
     "look_bearing_deg": 0.0
   },
   "view_bearing_deg": 0.0,
   "view_visible_width_m": 220.0,
   "interactive_view_visible_width_m": 220.0,
-  "view_crop_width_m": 260.0,
-  "view_crop_depth_m": 360.0,
-  "view_center_offset_east_m": 0.0,
-  "view_center_offset_north_m": 0.0,
+  "view_crop_width_m": 1200.0,
+  "view_crop_depth_m": 500.0,
+  "view_center_offset_east_m": 5.0,
+  "view_center_offset_north_m": -155.0,
   "interactive_match_static_horizontal_center": true,
   "interactive_match_static_along_center": true,
   "interactive_view_horizontal_center_offset_m": 0.0,

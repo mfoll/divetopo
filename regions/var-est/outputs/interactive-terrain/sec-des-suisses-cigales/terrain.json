@@ -4,14 +4,14 @@
   "title": "Sec des Suisses, Cap Dramont–Île d’Or",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 1011774.5,
-    "south": 6264214.5,
-    "east": 1012035.5,
-    "north": 6264575.5
+    "west": 1011305.0,
+    "south": 6264145.0,
+    "east": 1012505.0,
+    "north": 6264645.0
   },
   "physicalSizeM": {
-    "width": 261.0,
-    "depth": 361.0
+    "width": 1200.0,
+    "depth": 500.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 261,
-    "height": 361,
-    "triangleCount": 187200,
+    "width": 513,
+    "height": 214,
+    "triangleCount": 218112,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -40.0,
-      "scaleMPerUnit": 0.0008221259058554112,
+      "scaleMPerUnit": 0.0012754035612679532,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -40.0,
-    "max": 13.878021240234375
+    "max": 43.58357238769531
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -106,48 +106,48 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 2,
-        "points": 183
+        "polylines": 7,
+        "points": 920
       },
       "10": {
-        "polylines": 3,
-        "points": 344
+        "polylines": 9,
+        "points": 1143
       },
       "15": {
-        "polylines": 5,
-        "points": 457
+        "polylines": 12,
+        "points": 1301
       },
       "20": {
-        "polylines": 3,
-        "points": 291
+        "polylines": 5,
+        "points": 735
       },
       "25": {
-        "polylines": 2,
-        "points": 165
+        "polylines": 3,
+        "points": 521
       },
       "30": {
-        "polylines": 1,
-        "points": 94
+        "polylines": 3,
+        "points": 361
       },
       "35": {
-        "polylines": 1,
-        "points": 95
+        "polylines": 3,
+        "points": 476
       },
       "40": {
-        "polylines": 2,
-        "points": 96
+        "polylines": 4,
+        "points": 296
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 19,
-      "points": 1725
+      "polylines": 46,
+      "points": 5753
     },
     "reprojectionResidualM": {
-      "samples": 1725,
-      "mean": 3.0007631399262195e-06,
-      "p95": 3.273885695875812e-09,
-      "max": 0.00042214204644608344,
+      "samples": 5753,
+      "mean": 2.8769097294887647e-06,
+      "p95": 4.083889528772026e-08,
+      "max": 0.009432100665231147,
       "withinTolerance": true
     }
   },
@@ -161,11 +161,11 @@
     "coastFrameFraction": 0.4737,
     "reselectVectorLabelsOnCameraEnd": true,
     "horizontalCenterOffsetM": 0.0,
-    "alongCenterOffsetM": 5.0
+    "alongCenterOffsetM": 0.0
   },
   "textures": {
-    "width": 261,
-    "height": 361,
+    "width": 1200,
+    "height": 500,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -187,25 +187,25 @@
       1011905.0,
       6264395.0
     ],
-    "widthM": 260.0,
-    "depthM": 360.0,
+    "widthM": 1200.0,
+    "depthM": 500.0,
     "lookBearingDeg": 0.0,
     "cornersUtm40s": [
       [
-        1011775.0,
-        6264215.0
+        1011305.0,
+        6264145.0
       ],
       [
-        1012035.0,
-        6264215.0
+        1012505.0,
+        6264145.0
       ],
       [
-        1012035.0,
-        6264575.0
+        1012505.0,
+        6264645.0
       ],
       [
-        1011775.0,
-        6264575.0
+        1011305.0,
+        6264645.0
       ]
     ]
   }
