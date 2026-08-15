@@ -1,48 +1,46 @@
 # Pierre du Jas — QA v1.5
 
-Status : **paquet site-local défendable ; publication régionale volontairement désactivée** (`web.published=false`). Le périmètre ne contient que Pierre du Jas et ses sorties.
+Statut : **paquet site-local pending, régénéré et QA-able ; publication Web volontairement désactivée** (`web.published=false`). Ce commit ne synchronise aucun actif pending vers `apps/web/public`, les manifestes terrain publiés, les routes ou le sitemap.
 
-## Identité et provenance
+## Identité et décision de séparation
 
 - Site : Pierre du Jas, Six-Fours-les-Plages · Le Brusc.
 - Coordonnée primaire normalisée depuis la table officielle DREAL Natura : `43°04.879′ N, 5°45.109′ E`, soit `43.0813166667, 5.7518166667` ; position RGF93 / Lambert-93 EPSG:2154 `[924225.776, 6224132.648]`.
-- Le dossier officiel DREAL décrit le relief du secteur comme une arête culminant vers −28 m, sur un fond sableux à −34 / −36 m. Les fiches locales de plongée servent uniquement de contrôle d’identité et de profondeur : sommet autour de 26–38 m, base autour de 40 m.
+- Le dossier officiel DREAL décrit l’arête culminant vers `−28 m`, sur un fond sableux à `−34 / −36 m`. Le Brusc Plongée décrit Pierre du Jas comme une petite roche distincte autour de `26–38 m`, alors que Les Magnons sont des sites de `3–20 m`.
+- Contrôle direct des terrains au point DREAL : Pierre du Jas `z=-34,075 m`, voisinage 100 m `−40,000..−25,765 m` (relief `14,235 m`) ; Les Magnons, capés par `max_depth=30`, `−30,000..−25,758 m` (relief `4,242 m`). Le recouvrement géométrique ne couvre donc pas utilement le relief profond de Pierre du Jas : l’identité reste distincte.
+- Plate aux Mérous reste archivé sous `regions/var-ouest/`, regroupé dans l’emprise de Les Magnons et absent de l’inventaire/planning visible. Le nom affiché de Les Magnons est conservé.
 - Sources d’identité : [diagnostic écologique officiel DREAL](https://www.paca.developpement-durable.gouv.fr/IMG/pdf/f09317p0217_diag_eco.pdf), [Le Brusc Plongée](https://le-brusc-plongee.com/nos-sites-de-plongees/) et [GPES](https://www.gpes.fr/?page_id=530&lang=en).
+
+## Sources et couverture terrain
+
 - Bathymétrie et topographie : [Shom–IGN Litto3D PACA 2015](https://diffusion.shom.fr/donnees/litto3d-paca-2015.html), MNT à 1 m, RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69.
 - Archives officielles utilisées : `0920_6225.7z` SHA-256 `d3bd7beef4d8922c5be71f657cc1f7597099fb41584a84f6f171b8bb02176c81` et `0925_6225.7z` SHA-256 `d4fc38163c7c3e0ce1b1d0aff7b62c0e7fd3f7f8de10c5dd34301a373505485d`. Les cinq membres MNT1m sont déclarés dans la configuration ; les archives brutes restent hors Git.
 - Orthophoto : flux IGN BD ORTHO `HR.ORTHOIMAGERY.ORTHOPHOTOS`, extraction alignée EPSG:2154 à 1 m ; le `GetFeatureInfo` du point retourne la date de prise de vue `2023-07-13`. Le WKT de travail a été canonisé avant validation, sans modification de pixels.
+- Couverture de référence autour du point : Litto3D marine `50 / 150 / 300 m = 100 / 74,1 / 62,5 %` ; le recalcul sur l’union brute disponible donne `100,0 / 73,7 / 62,3 %`, écart de méthode et d’arrondi seulement.
+- Focus final élargi au sud selon la couverture des tuiles déclarées : `[924100, 6223300, 925300, 6224280]`, soit `1200 × 980 m`. Le MNT brut et le masque de profondeur positive contiennent `98,105 %` de cellules source valides ; plage brute `−41,06 à +7,37 m`.
+- Contexte final : `[923900, 6223000, 925500, 6224500]`, soit `1600 × 1500 m`, `79,592 %` de cellules source valides ; plage brute `−42,04 à +33,21 m`. La limite sud suit la couverture des cinq membres déclarés, sans ajout des cellules 6223 non déclarées.
+- Le rendu signale `1,9 %` de bord offshore sans bathymétrie ni élévation ; cette zone reste à la couleur de profondeur maximale mais est exclue des contours et du terrain. `deep_edge_nodata_terrain_fill` reste désactivé : aucun remplissage de profondeur, interpolation d’isobathe ou surface artificielle n’est utilisé.
 
-## Couverture et contrat terrain
+## Calibration locale et terrain interactif
 
-- Contrôle de référence autour du point : couverture marine Litto3D `50 / 150 / 300 m = 100 / 74,1 / 62,5 %`. Le recalcul sur l’union brute disponible donne `100,0 / 73,7 / 62,3 %`, écart de méthode et d’arrondi seulement.
-- Emprise focus finale : `[924100, 6223980, 925300, 6224280]`, soit `1200 × 300 m`. Le MNT d’élévation brut contient `94,108 %` de pixels source valides ; le masque profondeur marine positive contient `93,571 %` de cellules valides. Plage brute : `−41,06 à +7,37 m`.
-- Emprise contexte : `[923900, 6223700, 925500, 6224500]`, `1600 × 800 m`, `83,164 %` de pixels source valides. Le bord offshore NoData du focus, `5,9 %` dans le plan, est conservé visuellement à la couleur de profondeur maximale et exclu des isobathes et du maillage ; le crop 3D exclut `3,2 %` de facettes invalides.
-- `deep_edge_nodata_terrain_fill` reste désactivé. Aucun remplissage de profondeur, interpolation d’isobathe ou surface artificielle n’est utilisé.
-- Terrain interactif : grille `513 × 129`, `131072` triangles, élévation encodée `−40,0000 à +0,0059 m`, masque valide `62272 / 66177 = 94,099 %`. Les isobathes vectorielles couvrent 8 niveaux, 14 polylignes et 1531 points ; résidu de reprojection maximal `0,001944 m`, dans la tolérance.
-- Vue initiale déclarée et partagée entre statique/interactif : azimut de regard `90°`, largeur visible `260 m`, footprint `300 × 1200 m`, exagération verticale `3,9935327405`, sans décalage de pan. La pose locale réinitialisée et validée est `orbit_azimuth_deg=0`, `camera_elevation_deg=25,64°`, `zoom=1`, sans pan ; la paire diagnostique est conservée dans la configuration.
+- Pose initiale calibrée conservée dans la configuration : `zoom=0,65`, `orbit_azimuth_deg=-32,8°`, `camera_elevation_deg=17,56°`, `pan_right_m=-9,57`, `pan_up_m=39,59`, `center_offset_east_m=0`, `center_offset_south_m=0`.
+- Diagnostic associé : position caméra `[-2054.5109, 850.1384, -1482.8054]`, cible `[292.2841, -33.5874, 29.4704]`.
+- Provenance de calibration : collection `divetopo-camera-calibration-collection-v1`, `exportedAt=2026-08-15T06:21:38.384Z`, SHA-256 `18269204b26988ad94ccb6decb60ff032d553492a74e3fa50a33ece70e5ae6ce`. Le JSON brut reste hors Git.
+- Le mode local de calibration existant reste dev/local uniquement ; cette QA consigne la pose groupée sans ajouter de téléchargement JSON par site ni exposer de route publiée.
+- Paquet terrain : emprise physique `1200 × 980 m`, grille `513 × 419`, `428032` triangles, élévation encodée `−40,0000..+0,0108 m`, masque valide `210864 / 214947 = 98,100 %`.
+- Isobathes vectorielles : 8 niveaux, 69 polylignes et 8400 points ; résidu de reprojection maximal `0,007692 m`, `withinTolerance=true`. Les fichiers `terrain.json`, `height.bin`, `valid-mask.bin`, `isobath-mask.bin`, `isobaths-vector.json`, `topographic.webp` et `orthophoto.webp` sont cohérents avec la nouvelle emprise.
 
-## Livrables
+## Livrables régionaux pending
 
 - Quatre cartes canoniques en `2474 × 1712 px` : plans 2D topographique et orthophoto, vues 3D statiques topographique et orthophoto.
 - Deux planches en `5400 × 3250 px` : topographique et orthophoto.
-- Paquet terrain canonique de sept fichiers : `terrain.json`, `height.bin`, `valid-mask.bin`, `isobath-mask.bin`, `isobaths-vector.json`, `topographic.webp`, `orthophoto.webp`.
-- Copie Web bit-à-bit du paquet terrain sous `apps/web/public/terrain/pierre-du-jas/`.
-- Quatorze dérivés Web site-scoped sous `apps/web/public/maps/var-ouest/pierre-du-jas/maps/` : deux plans JPEG, deux aperçus de planche à 1800 px, six variantes desktop 3D à 960/1600/2474 px, deux variantes mobile 960 px et deux JPEG HD de téléchargement.
-- Les variantes Web 3D ont été dérivées des vues statiques canoniques correspondant à la vue initiale ; elles ne constituent pas une capture WebGL indépendante. Cette limite de production est conservée explicitement plutôt que masquée ; la session WebGL locale de contrôle a néanmoins été exécutée avec les dépendances déjà présentes dans le dépôt voisin.
+- Les sorties statiques, 3D, planches et le paquet terrain ont été régénérés à partir de la configuration et des rasters validés. Seuls les fichiers site-scoped sous `regions/var-ouest/` sont concernés.
+- Aucun dérivé Web pending n’a été généré ou copié sous `apps/web/public`. Le manifeste terrain régional publié reste limité aux quatre sites publiés ; le manifeste Web de planification reste à `sites=4`, `plannedSites=5`, avec Pierre du Jas en préparation et `web.published=false`.
 
-## QA visuelle et calibration locale
+## QA visuelle et contrôles
 
-- Inspection pleine résolution réalisée pour les quatre cartes, les deux planches, les deux textures interactives, les variantes Web desktop/mobile et les téléchargements HD : contours continus, labels −5/−10/−15/−25/−30/−35 m lisibles selon la vue, compas, échelle et crédits présents, aucune complétion de NoData visible ni artefact de couture.
-- Après validation de la pose initiale réinitialisée, les quatre JPEG statiques canoniques sont restés bit-identiques par SHA-256 ; le renderer Python complet n’a pas pu être relancé dans ce worktree faute de Pillow. Les planches et dérivés Web ont été régénérés à partir de ces mêmes vues, sans masquer cette limite.
-- Le plan 2D orthophoto reste très majoritairement bathymétrique : l’orthophoto n’est appliquée qu’au domaine terrestre/shallow documenté, jamais inventée sous l’eau. La différence orthophoto/topographique est visible sur les rochers terrestres dans les vues 3D et les textures interactives.
-- Le mode local de calibration existant est conservé hors bundle publié : activation par `?camera-calibration` uniquement sur `localhost`, déplacement via `OrbitControls`, stockage d’une pose par slug et export d’une collection JSON unique `divetopo-camera-calibrations.json` contenant les paramètres sémantiques et la pose diagnostique. La session locale Pierre du Jas a validé déplacement, enregistrement, visibilité des paramètres dans le JSON groupé et export ; `npm run camera-calibration:check-release` et le gestionnaire retournent `disabled` après la vérification.
-- La route régionale FR/EN n’a pas été substituée par une route publiée, puisque le site reste explicitement hors manifeste. La route de vérification locale temporaire a été testée en français sur desktop et mobile avec le paquet site-scoped, puis retirée avant staging. La variante EN et la validation du site régional publié restent hors périmètre tant que `web.published=false`.
-
-## Vérifications reproductibles
-
-- `cartography.config.validate_config` : pass pour `regions/var-ouest/sites/pierre-du-jas.json`.
-- Contrôles GDAL read-only des rasters : EPSG:2154, résolution 1 m, emprises exactes, NoData et plages de profondeur vérifiés ; orthophotos RGB vérifiées.
-- Validation structurelle du paquet interactif : pass ; tailles de grille, masques, encodage binaire, textures et payload vectoriel vérifiés.
-- `/opt/homebrew/bin/python3 -m unittest tests.test_config tests.test_vector_isobaths tests.test_var_est_region tests.test_regional_manifest` : `44/44` pass.
-- `tests.test_interactive` n’a pas pu être importé dans l’environnement Python courant (`Pillow` absent) ; build/lint/tests Web du worktree non exécutés. La QA navigateur locale a utilisé les dépendances déjà présentes dans le dépôt voisin, sans installation ni modification de ce dépôt. Aucun package n’a été installé.
-- Pierre du Jas reste la seule entrée pending de l’inventaire régional et du manifeste de planification (`sites=4`, `plannedSites=5`) ; `web.published=false` est conservé. Plate aux Mérous est archivé sous `regions/var-ouest/`, regroupé dans l’emprise Les Magnons et absent de toute surface visible. Aucun manifeste terrain publié, sitemap, route, composant Web partagé, autre site, autre région, release, push ou déploiement n’a été modifié.
+- Inspection pleine résolution des quatre cartes, des deux planches et des deux textures interactives : relief de l’arête et des fonds profonds visibles après l’extension sud, courbes `−5/−10/−15/−20/−25/−30/−35/−40 m` cohérentes avec le terrain, nord/compas, échelle, sources et licences présents ; pas de couture ni de débordement détecté. Les zones de bord NoData sont les zones documentées et masquées par les fichiers de validité.
+- Les vues 3D montrent la continuité du relief vers le sud ; les variantes orthophoto appliquent l’orthophoto uniquement au domaine terrestre/shallow documenté. Les textures topographique et orthophoto conservent le même alignement.
+- La carte régionale et ses surfaces partagées n’ont pas été modifiées ; le regroupement Les Magnons/La Merveilleuse reste inchangé et Plate n’est pas réintroduit comme doublon.
+- Contrôles exécutés : `python -m cartography.regions.var_ouest ... --check` (pass), rendu régional `--render-only` (pass, avertissement NoData documenté), génération terrain interactive site-only en répertoire temporaire puis copie des sept fichiers Pierre (pass), `python -m cartography.plate ... --land-style both` (pass), contrôles GDAL des dimensions, CRS, résolutions, validité et plages (pass).
+- Les tests Web partagés, le build/lint Web et les routes desktop/mobile FR/EN ne sont pas relancés pour ce paquet pending : aucune surface Web ne doit l’exposer avant autorisation globale. Aucun test partagé, manifeste global, route, sitemap, autre région, release, push ou déploiement n’a été modifié.

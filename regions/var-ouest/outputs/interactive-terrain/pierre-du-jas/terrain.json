@@ -5,13 +5,13 @@
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
     "west": 924100.0,
-    "south": 6223980.0,
+    "south": 6223300.0,
     "east": 925300.0,
     "north": 6224280.0
   },
   "physicalSizeM": {
     "width": 1200.0,
-    "depth": 300.0
+    "depth": 980.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 129,
-    "triangleCount": 131072,
+    "height": 419,
+    "triangleCount": 428032,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -40.0,
-      "scaleMPerUnit": 0.0006104512597751343,
+      "scaleMPerUnit": 0.000610525153211819,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -40.0,
-    "max": 0.005923309363424778
+    "max": 0.010765915736556053
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -106,48 +106,48 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 4,
-        "points": 348
+        "polylines": 20,
+        "points": 2032
       },
       "10": {
-        "polylines": 1,
-        "points": 250
+        "polylines": 12,
+        "points": 1251
       },
       "15": {
-        "polylines": 2,
-        "points": 197
+        "polylines": 8,
+        "points": 1179
       },
       "20": {
-        "polylines": 1,
-        "points": 146
+        "polylines": 11,
+        "points": 1636
       },
       "25": {
-        "polylines": 1,
-        "points": 89
+        "polylines": 11,
+        "points": 1332
       },
       "30": {
-        "polylines": 3,
-        "points": 240
+        "polylines": 4,
+        "points": 619
       },
       "35": {
-        "polylines": 1,
-        "points": 232
+        "polylines": 2,
+        "points": 324
       },
       "40": {
         "polylines": 1,
-        "points": 29
+        "points": 27
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 14,
-      "points": 1531
+      "polylines": 69,
+      "points": 8400
     },
     "reprojectionResidualM": {
-      "samples": 1531,
-      "mean": 4.788775354132847e-06,
-      "p95": 3.45364945530946e-08,
-      "max": 0.0019435469735658017,
+      "samples": 8400,
+      "mean": 3.694307297962115e-06,
+      "p95": 8.696176072575602e-08,
+      "max": 0.007691603138978209,
       "withinTolerance": true
     }
   },
@@ -159,11 +159,11 @@
     "alongViewProjectionScale": 1.2,
     "visibleWidthM": 260.0,
     "coastFrameFraction": 0.52,
-    "horizontalCenterOffsetM": 30.0
+    "horizontalCenterOffsetM": 40.0
   },
   "textures": {
     "width": 1200,
-    "height": 300,
+    "height": 980,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m, référentiel vertical IGN69 · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -183,9 +183,9 @@
     "shape": "oriented-rectangle",
     "centerUtm40s": [
       924700.0,
-      6224130.0
+      6223790.0
     ],
-    "widthM": 300.0,
+    "widthM": 980.0,
     "depthM": 1200.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
@@ -195,11 +195,11 @@
       ],
       [
         924100.0,
-        6223980.0
+        6223300.0
       ],
       [
         925300.0,
-        6223980.0
+        6223300.0
       ],
       [
         925300.0,

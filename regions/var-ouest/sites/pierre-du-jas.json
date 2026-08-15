@@ -13,15 +13,15 @@
       "width_rem": 6.0
     },
     "interactive_initial_view": {
-      "zoom": 1,
-      "orbit_azimuth_deg": 0,
-      "camera_elevation_deg": 25.64,
-      "pan_right_m": 0,
-      "pan_up_m": 0,
+      "zoom": 0.65,
+      "orbit_azimuth_deg": -32.8,
+      "camera_elevation_deg": 17.56,
+      "pan_right_m": -9.57,
+      "pan_up_m": 39.59,
       "center_offset_east_m": 0,
       "center_offset_south_m": 0,
-      "camera_position_m": [-2329.2214, 1270.1243, 30],
-      "camera_target_m": [310.7786, 2.9243, 30]
+      "camera_position_m": [-2054.5109, 850.1384, -1482.8054],
+      "camera_target_m": [292.2841, -33.5874, 29.4704]
     }
   },
   "plate_relief_source": "static",
@@ -51,22 +51,22 @@
   ],
   "focus_bbox_utm40s": [
     924100.0,
-    6223980.0,
+    6223300.0,
     925300.0,
     6224280.0
   ],
   "context_bbox_utm40s": [
     923900.0,
-    6223700.0,
+    6223000.0,
     925500.0,
     6224500.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
       924700.0,
-      6224130.0
+      6223790.0
     ],
-    "width_m": 300.0,
+    "width_m": 980.0,
     "depth_m": 1200.0,
     "look_bearing_deg": 90.0
   },
