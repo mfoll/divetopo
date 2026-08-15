@@ -6,10 +6,10 @@
     "published": false,
     "site_label_layout": {
       "side": "left",
-      "shift_y_rem": -1.0,
+      "shift_y_rem": -9.6,
       "connector_angle_deg": -10,
       "connector_width_rem": 1.25,
-      "label_offset_rem": 2.6,
+      "label_offset_rem": 7.2,
       "lines": [
         "Impérial du Milieu",
         "Riou"
@@ -17,22 +17,22 @@
       "width_rem": 5.8
     },
     "interactive_initial_view": {
-      "zoom": 0.65,
+      "zoom": 0.84,
       "orbit_azimuth_deg": 0.0,
       "camera_elevation_deg": 33.42,
-      "pan_right_m": 3.56,
-      "pan_up_m": 10.36,
+      "pan_right_m": 11.33,
+      "pan_up_m": 43.2,
       "center_offset_east_m": 0.0,
       "center_offset_south_m": 0.0,
       "camera_position_m": [
-        -3.5627,
-        575.0452,
-        893.7982
+        -11.3258,
+        547.6336,
+        911.8899
       ],
       "camera_target_m": [
-        -3.5627,
-        -5.7548,
-        13.7982
+        -11.3258,
+        -33.1664,
+        31.8899
       ]
     }
   },

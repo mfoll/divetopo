@@ -1,12 +1,12 @@
 # QA site-local v1.5 — Impérial du Milieu, Riou
 
-Date de contrôle : 2026-08-14
+Date de contrôle : 2026-08-15
 Slug : `imperial-du-milieu-riou`
 Région : `bouches-du-rhone`
 
 ## Périmètre et état de publication
 
-Ce paquet concerne uniquement `Impérial du Milieu – Riou`. La configuration conserve `web.published=false`. Aucun inventaire régional, manifeste régional ou global, sitemap, composant Web partagé, release, push ou déploiement n'a été modifié.
+Ce paquet concerne uniquement `Impérial du Milieu – Riou`. La configuration conserve `web.published=false`. Le manifeste régional de planning ne porte qu'une correction de layout pour ce slug; aucun inventaire, manifeste terrain publié ou global, route, sitemap, composant Web partagé, release, push ou déploiement n'a été modifié.
 
 La QA Web a utilisé une copie locale éphémère contenant uniquement ce site et ses actifs. La route réelle du dépôt n'a pas été rendue disponible par modification du manifeste publié.
 
@@ -52,31 +52,35 @@ Une lacune offshore de 4.2 % de l'emprise 2D ne contient ni bathymétrie ni alti
 
 Le gestionnaire prévu `tools/camera-calibration/manage.py` a réactivé l'interface uniquement dans la copie de développement locale, puis l'a retirée du worktree (`camera-calibration:check-release` doit rester désactivé pour le produit livré). La caméra a été déplacée et zoomée, le cadrage a été enregistré, puis exporté dans une collection JSON unique contenant exactement le slug demandé.
 
-Paramètres exportés et reportés dans la configuration : `zoom=0.65`, `orbitAzimuthDeg=0`, `cameraElevationDeg=33.42`, `panRightM=3.56`, `panUpM=10.36`, avec `cameraPositionM=[-3.5627,575.0452,893.7982]` et `cameraTargetM=[-3.5627,-5.7548,13.7982]`.
+Paramètres exportés et reportés dans la configuration : `zoom=0.84`, `orbitAzimuthDeg=0`, `cameraElevationDeg=33.42`, `panRightM=11.33`, `panUpM=43.2`, offsets `0/0`, avec `cameraPositionM=[-11.3258,547.6336,911.8899]` et `cameraTargetM=[-11.3258,-33.1664,31.8899]`.
+
+La calibration provient de `/Users/follm/Downloads/divetopo-camera-calibrations-2.json`, conservé hors dépôt. Schéma `divetopo-camera-calibration-collection-v1`, `exportedAt=2026-08-15T06:21:38.384Z`, SHA-256 `18269204b26988ad94ccb6decb60ff032d553492a74e3fa50a33ece70e5ae6ce`. L'entrée cible unique concorde avec la configuration; le JSON brut n'est pas copié dans Git.
 
 Le bouton utilisé est l'export groupé `Télécharger toutes les calibrations`; aucun téléchargement JSON par site n'a été ajouté. L'interface de calibration n'est pas présente sur la route locale normale et n'est pas présente dans le viewer publié.
 
 ## Paquet produit
 
 - Deux plans 2D canoniques : `2474 × 1712` px.
-- Deux vues 3D statiques canoniques : `2474 × 1712` px, recopiées depuis les captures de la pose initiale validée.
+- Deux vues 3D statiques canoniques : `2474 × 1712` px, régénérées depuis les captures de la nouvelle pose initiale validée.
 - Deux planches canoniques : `5400 × 4600` px.
 - Locator site-local : `1864 × 1440` px, avec le marqueur exact.
 - Terrain interactif canonique et Web : grille `360 × 400`, deux textures, hauteur 16 bits, masque de validité, masque d'isobathes et vecteurs; export validé, masque de validité final 100 %, payload vecteur `53,112` octets.
-- Dérivés Web : 2D topographique/orthophoto, captures 3D topographique/orthophoto en `960`, `1600` et `2474` px, variantes mobiles `960` px, téléchargements JPEG pleine taille et aperçus de planches `1800 × 1533` px.
+- Les sept artefacts canoniques du terrain (`terrain.json`, hauteurs, masques, vecteurs et deux textures) sont bit à bit identiques à l'emprise précédente : la calibration ne modifie pas la géométrie.
+- Les dérivés Web pending ont été générés et QA-ables dans un overlay local réversible uniquement, puis retirés. Aucun actif pending n'est conservé sous `apps/web/public`; aucun manifeste terrain publié, route ou sitemap n'a été modifié.
 
 Méthode : isobathes vectorielles méditerranéennes lissées et suréchantillonnées, verrouillées aux profondeurs canoniques de 5 m, avec séparation stricte des zones NoData et conservation du relief naturel.
 
 ## QA effectuée
 
-- Inspection pleine résolution des plans, des deux vues 3D statiques, des deux planches, du locator, des deux textures interactives et de tous les dérivés Web représentatifs desktop/mobile.
-- Route française locale : identité, absence d'écran blanc, absence d'overlay framework, terrain prêt, bascule `Vue aérienne` → `Topographie` vérifiée par changement d'état.
-- Route anglaise locale : titre et contenus anglais vérifiés.
-- Desktop et mobile vérifiés pour les routes FR et EN; le panneau de calibration reste absent sur les routes normales.
-- Vérification de cohérence des captures : corrélations `0.9985 / 0.9993` orthophoto desktop, `0.9946` orthophoto mobile, `0.9980 / 0.9990` topographique desktop, `0.9894` topographique mobile; toutes les comparaisons passent.
+- Inspection pleine résolution des plans 2D inchangés, des deux vues 3D statiques, des deux planches, du locator et du raster régional; nord, échelle, cartouches, traits, sources et licences restent visibles.
+- Overlay local FR à `1280 × 720` et `390 × 844` : terrain prêt, bascule `Vue aérienne` → `Topographie`, réinitialisation de vue, thème clair/sombre et navigation clavier vérifiés sans erreur console.
+- Route anglaise locale : titre, contenus anglais, thèmes clair/sombre, dropdown mobile et overflow `390` px vérifiés. La route propre régionale garde six repères, cinq liens publiés; le repère cible pending est un point inertiel sans lien, et la route pending cible répond `404` hors overlay.
+- Le cartouche régional corrigé est maintenant `side=left`, `shift_y_rem=-9.6`, `label_offset_rem=7.2`, angle `-10°`. Le calcul géométrique déterministe donne une marge minimale du cartouche cible de `11.39` px à `390 × 844` et `19.22` px à `1280 × 720` avec les cartouches, points, échelle et nord; les marges au cadre restent positives. Le connecteur est recalculé vers le rectangle et son extrémité arrive à environ `1.08` px de son bord aux deux viewports. Les six repères et le raster régional ont été inspectés pleine résolution.
+- Cohérence capture/dérivé Web, réduction `160 × 111` : orthophoto desktop `0.999463`, topographique desktop `0.998787`, orthophoto mobile `0.995115`, topographique mobile `0.983938`. Un second chargement stabilisé de la topographie mobile est identique au premier (`corrélation=1.000000`, MAE `0`); comparé au WebP généré par le même pipeline, il reste à `0.983938` (MAE `0.012955`). Le résidu sous le seuil historique `0.985` est donc stable et attribué à la réduction/encodage WebP, pas à une instabilité de pose.
 
 ## Défauts et incertitudes conservés
 
 - La lacune offshore de 4.2 % est explicitement conservée; elle n'est pas interpolée dans le terrain.
 - Le drapé orthophoto 3D est plus doux et étiré que la vue aérienne 2D, conformément à la projection du terrain interactif; il reste aligné avec les isobathes et la côte.
 - Les trois coordonnées officielles de mouillage sont un groupe de contexte; le point principal retenu ne doit pas être interprété comme une zone d'accès ou de sécurité.
+- Le seuil métrique WebP mobile reste un résidu QA à surveiller avant une éventuelle publication. La route propre laisse le pending inertiel sans cartouche ni lien, conformément au contrat de publication; aucun actif pending n'est conservé dans `apps/web/public`.
