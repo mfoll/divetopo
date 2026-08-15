@@ -9,27 +9,22 @@
       "shift_y_rem": -3.5,
       "connector_angle_deg": -19,
       "connector_width_rem": 3.2,
+      "lines": [
+        "Escampobariou"
+      ],
       "label_offset_rem": 7.5,
       "width_rem": 8.7
     },
     "interactive_initial_view": {
-      "zoom": 0.84,
-      "orbit_azimuth_deg": 0,
-      "camera_elevation_deg": 18,
-      "pan_right_m": 59.49,
-      "pan_up_m": -0.11,
+      "zoom": 0.861,
+      "orbit_azimuth_deg": -88.07,
+      "camera_elevation_deg": 22.52,
+      "pan_right_m": -62.1,
+      "pan_up_m": 49.81,
       "center_offset_east_m": 0,
       "center_offset_south_m": 0,
-      "camera_position_m": [
-        1363.1263,
-        469.039,
-        84.4923
-      ],
-      "camera_target_m": [
-        -66.8737,
-        4.4038,
-        84.4923
-      ]
+      "camera_position_m": [45.4934, 586.7364, 1556.6791],
+      "camera_target_m": [-1.2712, 10.8035, 168.5507]
     }
   },
   "plate_relief_source": "interactive",
@@ -39,22 +34,22 @@
   ],
   "focus_bbox_utm40s": [
     952250,
-    6219150,
+    6219000,
     952950,
     6219635
   ],
   "context_bbox_utm40s": [
     952200,
-    6219100,
+    6219000,
     952999,
     6219800
   ],
   "interactive_footprint_utm40s": {
     "center": [
       952635.6,
-      6219475
+      6219400
     ],
-    "width_m": 650,
+    "width_m": 800,
     "depth_m": 550,
     "look_bearing_deg": 90
   },
