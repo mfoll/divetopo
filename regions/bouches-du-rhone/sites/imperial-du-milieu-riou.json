@@ -6,15 +6,15 @@
     "published": false,
     "site_label_layout": {
       "side": "left",
-      "shift_y_rem": -9.6,
-      "connector_angle_deg": -10,
-      "connector_width_rem": 1.25,
-      "label_offset_rem": 7.2,
+      "shift_y_rem": -0.8,
+      "connector_angle_deg": 180,
+      "connector_width_rem": 2.0,
+      "label_offset_rem": 2.5,
       "lines": [
-        "Impérial du Milieu",
-        "Riou"
+        "Impérial du",
+        "Milieu – Riou"
       ],
-      "width_rem": 5.8
+      "width_rem": 6.5
     },
     "interactive_initial_view": {
       "zoom": 0.84,

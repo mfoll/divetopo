@@ -61,12 +61,10 @@ The terrain export itself completed with exit code 0 using the shared runtime an
 The pending entry remains outside `sites` and is represented only in `plannedSites`: `sites=5`, `plannedSites=6`, status `preparing`, `web.published=false`.
 
 - Locator: `xPercent=44.0`, `yPercent=66.3`.
-- Label layout: `side=right`, `lines=["Sec des", "Suisses"]`, `shiftYRem=-4.8`, `labelOffsetRem=5.4`, `widthRem=5.8`, `connectorAngleDeg=325`, `connectorWidthRem=1.4`.
-- Exact geometry simulation of the production connector/label algorithm at `1280 × 720`: Sec des Suisses has no rectangle intersection with Arche du Dramont or Cathédrale, with approximately `7.5 px` and `8.2 px` clearance respectively; the selected connector route intersects zero label obstacles.
-- Exact geometry simulation at `390 × 844`: no rectangle intersection with Arche du Dramont or Cathédrale, with approximately `6.5 px` and `12.8 px` clearance respectively; the selected connector route intersects zero label obstacles.
-- Full-format raster inspection covered all six regional marks, the frame, scale and north arrow. The Sec des Suisses cartouche no longer masks the Arche du Dramont cartouche or its point/connector.
-
-The browser control attempt was not reliable: the isolated preview returned a connection-refused/data-error page when reopened. Browser FR/EN desktop/mobile smoke QA is therefore **not claimed as passed**. Delivery is based on the full-resolution native renders plus the exact responsive geometry simulation above. No route was added; the normal pending UI remains dot-only until publication authorization.
+- Label layout: `side=left`, `lines=["Sec des", "Suisses"]`, `shiftYRem=1.6`, `labelOffsetRem=1.5`, `widthRem=5.8`, `connectorAngleDeg=165`, `connectorWidthRem=2.0`. Le cartouche est placé sous Les Pyramides, dans l’espace libre demandé.
+- Mesures navigateur à `1280 × 720`, carte `336 × 259.57 px` : aucune collision, aucun débordement et aucune intersection avec l’échelle ou le nord. L’écart vertical avec Les Pyramides est de `3.84 px`; le bord droit reste à `34.88 px` d’Arche du Dramont. Le connecteur est droit et court (`13.76 px`).
+- Mesures navigateur à `390 × 844`, carte `366 × 282.74 px` : aucune collision, aucun débordement et aucune intersection réservée. L’écart vertical avec Les Pyramides est de `3.77 px`; le cartouche reste distinct d’Arche du Dramont et du Village, et l’échelle comme le nord restent dégagés.
+- Captures navigateur réelles effectuées dans un worktree isolé, en desktop et mobile. Les deux cartouches cibles sont entièrement dans le cadre, les connecteurs touchent le point et le rectangle, la console ne contient ni erreur ni avertissement, et les cartouches publiés voisins restent sélectionnables. No route was added; the normal pending UI remains dot-only until publication authorization.
 
 ## Visual and page QA
 

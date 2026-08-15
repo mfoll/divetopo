@@ -1264,15 +1264,15 @@
       },
       "siteLabelLayout": {
         "side": "left",
-        "shiftYRem": -9.6,
-        "connectorAngleDeg": -10,
-        "connectorWidthRem": 1.25,
-        "labelOffsetRem": 7.2,
+        "shiftYRem": -0.8,
+        "connectorAngleDeg": 180,
+        "connectorWidthRem": 2.0,
+        "labelOffsetRem": 2.5,
         "lines": [
-          "Impérial du Milieu",
-          "Riou"
+          "Impérial du",
+          "Milieu – Riou"
         ],
-        "widthRem": 5.8
+        "widthRem": 6.5
       },
       "status": "preparing"
     },

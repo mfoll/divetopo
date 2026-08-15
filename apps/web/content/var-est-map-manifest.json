@@ -1302,11 +1302,11 @@
         "yPercent": 66.3
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -4.8,
-        "connectorAngleDeg": 325.0,
-        "connectorWidthRem": 1.4,
-        "labelOffsetRem": 5.4,
+        "side": "left",
+        "shiftYRem": 1.6,
+        "connectorAngleDeg": 165.0,
+        "connectorWidthRem": 2.0,
+        "labelOffsetRem": 1.5,
         "lines": [
           "Sec des",
           "Suisses"
