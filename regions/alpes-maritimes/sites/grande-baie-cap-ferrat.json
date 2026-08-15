@@ -118,6 +118,8 @@
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,
   "view_top_crop_fraction": 0.0,
+  "relief_compass_inset_px": 130.0,
+  "relief_footer_inset_px": 52.0,
   "final_output_size_px": [
     2474,
     1712

@@ -14,21 +14,21 @@
     },
     "interactive_initial_view": {
       "zoom": 0.68,
-      "orbit_azimuth_deg": 0,
-      "camera_elevation_deg": 30,
-      "pan_right_m": 89.06,
-      "pan_up_m": 0,
+      "orbit_azimuth_deg": -67.77,
+      "camera_elevation_deg": 14.4,
+      "pan_right_m": 80.13,
+      "pan_up_m": 60.09,
       "center_offset_east_m": 0,
       "center_offset_south_m": 0,
       "camera_position_m": [
-        -75.0,
-        1016.1365,
-        -1866.442
+        1773.8383,
+        467.0649,
+        -811.7817
       ],
       "camera_target_m": [
-        -75.0,
-        0,
-        -106.442
+        -48.3203,
+        -38.3408,
+        -67.177
       ],
       "isobath_label_focus_x_ndc": 0.25
     }

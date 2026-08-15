@@ -41,12 +41,13 @@ Ces chiffres valident la continuité opérationnelle et l’absence de NoData da
 ## Pose calibrée et QA visuelle
 
 - Mode de calibration utilisé uniquement sur serveur local avec `?camera-calibration`, caméra déplaçable et paramètres exportés dans un JSON groupé `divetopo-camera-calibration-collection-v1`; aucune interface de téléchargement JSON par site n’est livrée.
-- Pose finale : zoom 0,68, azimut orbital 0°, élévation 30°, `pan_right_m=89.06`, `pan_up_m=0`, offsets centre 0, focus d’étiquette NDC 0,25 ; caméra `[-75.0, 1016.1365, -1866.442]`, cible `[-75.0, 0, -106.442]`.
+- Pose finale exportée et appliquée : zoom `0.68`, azimut orbital `-67.77°`, élévation `14.4°`, `pan_right_m=80.13`, `pan_up_m=60.09`, offsets centre est/sud `0/0`, focus d’étiquette NDC `0.25` ; caméra `[1773.8383, 467.0649, -811.7817]`, cible `[-48.3203, -38.3408, -67.177]`. Les emprises et la continuité de la surface ne changent pas.
+- Provenance de la calibration groupée consignée sans copier le JSON brut : schéma `divetopo-camera-calibration-collection-v1`, export du `2026-08-15T06:21:38.384Z`, fichier local `/Users/follm/Downloads/divetopo-camera-calibrations-2.json`, SHA-256 `18269204b26988ad94ccb6decb60ff032d553492a74e3fa50a33ece70e5ae6ce`.
 - Quatre images statiques pleine résolution inspectées : 2D topographique, 2D orthophoto, 3D topographique et 3D orthophoto. Aucun artefact de relief ni pointe verticale observé avec la pose finale.
 - Deux planches pleine résolution et le locator Cap Gros inspectés après régénération depuis les quatre images finales.
-- Dérivés Web inspectés en desktop et mobile pour les deux textures. Vérification de cohérence des captures dynamiques : corrélations 0,9948 à 0,9996, MAE 0,0036 à 0,0114 selon le dérivé.
-- Page locale FR et EN contrôlée sur desktop ; les dérivés terrain mobile ont été contrôlés à pleine résolution. Les erreurs console bloquantes étaient absentes lors du contrôle local.
+- Captures dynamiques desktop/mobile produites temporairement sur le serveur local avec l’attribution Cap Gros correcte : corrélations directes PNG/WebP `0.99117` (orthophoto) et `0.99142` (topographique), MAE `0.01786` et `0.01739`. Le vérificateur de dépôt n’est pas déclaré passant pour Cap Gros, car il force `sourceAttribution=""` et remplace l’attribution RGE ALTI par l’attribution générique de région sur la capture mobile ; aucun dérivé Cap Gros n’a été copié sous `apps/web/public/`.
+- La page locale FR/EN avec `?camera-calibration` a été contrôlée uniquement pendant cette session de calibration ; la caméra est déplaçable, les paramètres sont visibles et l’export est groupé. Le serveur et l’UI de calibration ont ensuite été retirés du worktree avant QA publiée.
 
 ## Périmètre Git et publication
 
-Le commit ne doit contenir que la configuration `cap-gros`, ce QA, les sorties `cap-gros` sous `regions/alpes-maritimes/` et les dérivés Web strictement sous les chemins `cap-gros`. Aucun manifeste régional, `region.json`, sitemap, composant Web partagé, release, push ou déploiement n’est inclus. La calibration locale a été désactivée et retirée du code partagé avant staging.
+Le commit Cap Gros ne doit contenir que sa configuration, ce QA et ses sorties sous `regions/alpes-maritimes/`. `web.published=false` reste inchangé : aucun manifeste terrain publié, route, sitemap, actif Web ou test partagé Cap Gros n’est inclus. La calibration locale a été désactivée et retirée du code partagé avant staging.

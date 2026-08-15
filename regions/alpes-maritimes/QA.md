@@ -1,19 +1,23 @@
-# Alpes-Maritimes v1.4 regional QA
+# Alpes-Maritimes v1.5 regional QA
 
-Validated locally on 2026-08-08 after integrating the five autonomous site
-packages and the shared Web fixes `8947940` and `7b9cc30`.
+Validated locally on 2026-08-15 on the autonomous Alpes-Maritimes worktree.
+The current inventory contains five published packages and Cap Gros as a
+pending/preparing package. The older v1.4 measurements below remain historical
+where they are not superseded by the current checks.
 
 ## Inventory and artifacts
 
 - Exactly five configurations are published: Grande Baie, Pointe de la
   Causinière, La Vaquette, La Tradelière and Grotte à Corail.
-- The regional map manifest contains five published sites and five published
-  planning entries. The canonical terrain manifest contains five packages.
+- The regional map manifest contains six planning entries, with five published
+  sites and Cap Gros marked `preparing`. The regional and public terrain
+  manifests contain five packages; Cap Gros is absent from both.
 - Every site has topographic and orthophoto 2D maps, both static 3D styles, two
   planches, the complete seven-file terrain package and fourteen Web map
   derivatives.
-- Cap Gros, La Fourmigue d’Antibes and the five deferred sites are absent from
-  the published manifest.
+- Cap Gros remains QA-able only below `regions/alpes-maritimes/` with
+  `web.published=false`; it has no public route, sitemap entry, Web asset or
+  terrain-manifest entry.
 
 ## Full-resolution regional map
 
@@ -32,13 +36,14 @@ locations.
 
 ## Regional Web rendering
 
-Production rendering was inspected in French and English at desktop
-`1440 × 1000` and mobile `390 × 844`, in light and dark themes.
+Current rendering was inspected in French and English at desktop `1280 × 720`
+and mobile `390 × 844`, in light and dark themes.
 
 - Desktop map box: `302.4 × 233.6 px`; mobile map box:
   `346.8 × 267.9 px`.
-- Five labels visible, five inside the map, zero label-label collision and zero
-  collision with the north arrow or scale at both viewports.
+- Five published labels are visible and inside the map at both viewports, with
+  no label-label or label-dot collision. Cap Gros is represented only by the
+  preparing/planned state and has no public cartouche or link.
 - The Cap-Ferrat/Villefranche cluster uses three distinct left-hand cartouches
   and connectors. La Tradelière and La Vaquette use separate right-hand
   cartouches; La Vaquette is offset beyond the scale footprint.
@@ -50,7 +55,9 @@ Production rendering was inspected in French and English at desktop
 - The shared mobile fix places the terrain scale above the two-line
   attribution: `sourceScaleOverlap=false`,
   `copyrightScaleOverlap=false`, `horizontalOverflow=false` at `390 × 844`.
-- Browser console errors and warnings: zero.
+- No route-specific browser console errors were observed on the final local
+  reload; one transient HMR connection message occurred while the dev server
+  was being restarted during generation.
 
 ## Routes and publication state
 
@@ -62,16 +69,19 @@ also exercised. English links use the matching `/en/` routes. The geographic
 dots are deliberately non-interactive because three points overlap at regional
 scale; clicking their cluster does not open a wrong site.
 
-No `en préparation` or `in preparation` text is present in the French or
-English regional render. All five site configurations have
-`web.published=true`; no configuration in the regional inventory remains
-unpublished.
+The planned-site list contains Cap Gros in French and English. All five
+published site configurations have `web.published=true`; Cap Gros alone has
+`web.published=false`.
+The five published FR/EN routes return 200, while Cap Gros and its local
+calibration route remain 404 in the published app. The regional dropdown and
+keyboard activation were exercised on a published marker.
 
 ## Automated checks
 
-- Python suite: 124/124 tests passed after final publication assertions.
-- Web production build: passed.
-- Web suite: 37/37 tests passed after the shared Web fixes and regional
-  publication assertions.
+- Full Python suite: 134/134 tests passed via the repository's standalone
+  `unittest` files.
+- Web lint: passed with 11 pre-existing warnings and zero errors. Web tests:
+  41/41 passed; the production build also passed, with the existing chunk-size
+  and dynamic-route classification warnings.
 - Final `git diff --check`, manifest consistency and region-scope checks are
-  required immediately before the regional commit.
+  required immediately before the regional commits.
