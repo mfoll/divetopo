@@ -29,9 +29,10 @@ les paquets pending locaux et restaure les manifestes, assets et statuts à
 npm run camera-calibration -- --pending-sites --host localhost --port 3010
 ```
 
-Les cinq paquets pending de la v1.5 deviennent ainsi accessibles dans leur
-route locale de vérification. Plate aux Mérous n'est pas exposé séparément :
-il a été regroupé dans l'emprise de Les Magnons. Les paquets pending restent
+Les quatre paquets pending de la v1.5 deviennent ainsi accessibles dans leur
+route locale de vérification. Plate aux Mérous et Pierre du Jas ne sont pas
+exposés séparément : ils ont été regroupés dans l'emprise de Les Magnons. Les
+paquets pending restent
 `web.published: false`, absents du terrain public, du sitemap et du build de
 release. L'overlay réutilise les dérivés de page locaux archivés, mais copie
 toujours le terrain interactif depuis le paquet régional courant afin que les
