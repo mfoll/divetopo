@@ -50,7 +50,7 @@ test("redirects the merged La Merveilleuse route to Les Magnons", async () => {
 
 test("renders regional inventories and keeps remaining drafts non-clickable", async () => {
   const published = [
-    ["/var-ouest/fr", "topo-var-ouest-title", 4, 5],
+    ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
     ["/var-centre/en", "topo-var-centre-title", 5, 6],
     ["/var-est/fr", "topo-var-est-title", 5, 6],
     ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5, 6],
@@ -138,7 +138,7 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
 test("regional planning inventories contain the classified sites", async () => {
   for (const [region, expectedCount] of [
     ["bouches-du-rhone", 6],
-    ["var-ouest", 5],
+    ["var-ouest", 4],
     ["var-centre", 6],
     ["var-est", 6],
     ["alpes-maritimes", 6],

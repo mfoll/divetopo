@@ -51,10 +51,10 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 - Pointe de la Cride et Les Magnons complètent la première vague. Le secteur
   auparavant publié séparément comme La Merveilleuse est inclus dans l'emprise
   élargie des Magnons ; il n'apparaît plus comme une fiche autonome.
-- Plate aux Mérous est regroupé dans l'emprise élargie des Magnons : son paquet
-  v1.5 reste archivé sous `regions/var-ouest/` avec `web.published: false`, mais
-  il est absent de l'inventaire et du planning visibles. Pierre du Jas, Basses
-  Moulinières et Sèche Guenaud restent différés et hors de l'inventaire actif.
+- Plate aux Mérous et Pierre du Jas sont regroupés dans l'emprise élargie des
+  Magnons : leurs paquets v1.5 restent archivés sous `regions/var-ouest/` avec
+  `web.published: false`, mais ils sont absents de l'inventaire et du planning
+  visibles. Basses Moulinières et Sèche Guenaud restent différés.
 - Les quatre configurations actives ont `web.published: true`. La configuration
   historique de La Merveilleuse est conservée hors inventaire avec
   `web.published: false` afin de préserver la provenance des anciens rendus.
@@ -68,7 +68,7 @@ du jeu d'artefacts complet dans le manifeste Web généré.
 | Pointe de Portissol | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
 | Les Deux Frères | Publié | Plans 2D, vues 3D, planches, paquet interactif et 14 dérivés Web | Migration bit à bit validée ; les planches historiques restent inchangées. |
 | Pointe de la Cride | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Actifs natifs inspectés à pleine résolution ; fiche et terrain chargés en QA Web. |
-| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Emprise élargie pour inclure le relief auparavant présenté comme La Merveilleuse et Plate aux Mérous ; crédits, cadrages et terrain réinspectés. |
+| Les Magnons | Publié | Plans 2D topographique/orthophoto, vues 3D, deux planches, paquet interactif et 14 dérivés Web | Emprise élargie pour inclure La Merveilleuse, Plate aux Mérous et le relief de Pierre du Jas ; profondeur portée à 40 m ; crédits, cadrages et terrain réinspectés. |
 
 Le manifeste `outputs/interactive-terrain/manifest.json` indexe exactement les
 quatre paquets. Le builder régional partagé produit quatre entrées Web complètes et
@@ -79,28 +79,51 @@ propre à Var Ouest n'a été créé.
 ### Correctif de regroupement Plate aux Mérous — 2026-08-14
 
 Le point Plate aux Mérous (`924162.654, 6224032.917`) est maintenant couvert
-par l’emprise unique de Les Magnons, sans second marqueur ni fiche : focus
-`[924000, 6223320, 925200, 6224150]` (`1200 × 830 m`), contexte et terrain
-`[924000, 6223320, 925200, 6224300]` (`1200 × 980 m`), footprint interactif
-`980 × 1200 m` orienté à `90°`. Les sources Litto3D comprennent les cellules
+par l’emprise unique de Les Magnons, sans second marqueur ni fiche : focus,
+contexte et terrain `[924000, 6223300, 925300, 6224300]` (`1300 × 1000 m`),
+footprint interactif `1000 × 1300 m` orienté à `90°`. Les sources Litto3D comprennent les cellules
 `0924_6224`, `0924_6225`, `0925_6224` et `0925_6225` nécessaires à cette
-emprise. Le MNT brut présente `95,8565 %` de cellules finies dans le contexte
-(`95,4133 %` après masque bathymétrique positif) ; autour du point Plate, la
-couverture marine finie ≤ 40 m est `100,0 / 93,605 / 70,497 %` à `50 / 150 /
-300 m`. Le point reste dans les quatre marges de l’emprise et du paquet
-terrain.
+emprise. Le MNT brut présente `96,1688 %` de cellules finies dans le contexte ;
+autour du point Plate, la couverture source est `100,0 / 94,7648 / 81,0702 %`
+à `50 / 150 / 300 m`. Le point reste dans les quatre marges de l’emprise et du
+paquet terrain.
 
 Les quatre cartes canoniques `2474 × 1712`, les deux planches `5400 × 3250`,
 les deux textures et le paquet interactif de Magnons ont été régénérés et
-inspectés à pleine résolution. Le paquet contient `513 × 419` sommets, `75`
+inspectés à pleine résolution. Le paquet contient `513 × 395` sommets, `77`
 polylignes vectorielles d’isobathes et un résidu maximal de reprojection de
-`0,002691 m`, dans la tolérance. La carte régionale raster reste inchangée
+`0,005858 m`, dans la tolérance. La carte régionale raster reste inchangée
 (SHA-256 `da3fda2d64f67b52b3f5c80e6df1eaff4b23118fc4740e5c21d90a68506f1460`) :
 le regroupement est porté par l’inventaire et le manifeste, qui comptent
-désormais `sites=4` et `plannedSites=5` avec Pierre du Jas comme seul pending.
-Le build/lint Web post-correction n’a pas pu être relancé dans ce worktree,
-car `apps/web/node_modules` et `apps/web/dist/server/index.js` sont absents ;
-aucune dépendance n’a été installée.
+désormais `sites=4` et `plannedSites=4`.
+
+### Regroupement Pierre du Jas — 2026-08-15
+
+Pierre du Jas n'est plus un site planifié autonome. Son ancien terrain
+`[924100, 6223300, 925300, 6224280]` est intégralement contenu dans la nouvelle
+emprise Magnons `[924000, 6223300, 925300, 6224300]` : `1300 × 1000 m`, sans
+second repère, route ou manifeste. L'extension par rapport au terrain Magnons
+précédent est limitée à `100 m` à l'est et `20 m` au sud. La profondeur des
+plans et du terrain passe de `30` à `40 m` afin de conserver le point Pierre
+du Jas mesuré à environ `−34,4 m` et le relief source observé jusqu'à
+`−42,0 m` dans son voisinage.
+
+Le MNT brut unifié compte `1 250 194 / 1 300 000` cellules valides
+(`96,1688 %`). Le point Pierre du Jas est valide dans le paquet interactif
+(`−34,19 m`) ; la couverture source est `100,0 / 79,3566 / 77,5006 %` à
+`50 / 150 / 300 m`. Le terrain `513 × 395` compte `194 882 / 202 635`
+sommets valides (`96,1739 %`), huit niveaux d'isobathes de `5` à `40 m`,
+`77` polylignes et un résidu maximal de reprojection de `0,005858 m`, dans la
+tolérance. La pose initiale calibrée de Magnons est conservée : l'extension
+ajoute du contexte profond sans changer le site de référence de la vue.
+
+Les quatre cartes canoniques `2474 × 1712`, les deux planches `5400 × 3250`,
+le paquet interactif et les dérivés Web du seul site Les Magnons ont été
+régénérés. L'inventaire régional, le manifeste visible et le manifeste terrain
+restent à quatre sites publiés et ne contiennent plus Pierre du Jas. Les
+captures réelles du terrain unifié passent le contrôle d'équivalence des six
+posters/téléchargements desktop et mobile avec des corrélations de `0,9934` à
+`0,9995` (seuil `0,985`).
 
 ## Intégration des commits de sites
 

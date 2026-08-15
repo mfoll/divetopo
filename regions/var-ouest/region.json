@@ -114,12 +114,6 @@
         "webDerivatives": true
       },
       "config": "regions/var-ouest/sites/les-magnons.json"
-    },
-    {
-      "slug": "pierre-du-jas",
-      "name": "Pierre du Jas",
-      "municipality": "Six-Fours-les-Plages",
-      "config": "regions/var-ouest/sites/pierre-du-jas.json"
     }
   ],
   "regionalMap": {

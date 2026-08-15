@@ -5,13 +5,13 @@
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
     "west": 924000.0,
-    "south": 6223320.0,
-    "east": 925200.0,
+    "south": 6223300.0,
+    "east": 925300.0,
     "north": 6224300.0
   },
   "physicalSizeM": {
-    "width": 1200.0,
-    "depth": 980.0
+    "width": 1300.0,
+    "depth": 1000.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -21,8 +21,8 @@
   },
   "grid": {
     "width": 513,
-    "height": 419,
-    "triangleCount": 428032,
+    "height": 395,
+    "triangleCount": 403456,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -30,8 +30,8 @@
     "heightEncoding": {
       "type": "uint16",
       "byteOrder": "little-endian",
-      "offsetM": -30.0,
-      "scaleMPerUnit": 0.0004579266653339132,
+      "offsetM": -40.0,
+      "scaleMPerUnit": 0.0006105010159625754,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -57,8 +57,8 @@
     }
   },
   "elevationRangeM": {
-    "min": -30.0,
-    "max": 0.010224012657999992
+    "min": -40.0,
+    "max": 0.009184081107378006
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -68,68 +68,86 @@
     "isobathColorsRgb": {
       "5": [
         249,
-        128,
+        126,
         29
       ],
       "10": [
-        127,
-        221,
-        120
+        133,
+        222,
+        112
       ],
       "15": [
-        39,
-        123,
-        210
+        40,
+        129,
+        211
       ],
       "20": [
-        10,
-        37,
-        112
+        12,
+        41,
+        118
       ],
       "25": [
         6,
-        25,
-        89
+        26,
+        90
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        14,
+        60
       ]
     }
   },
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 19,
-        "points": 1773
+        "polylines": 18,
+        "points": 1679
       },
       "10": {
-        "polylines": 11,
-        "points": 1056
+        "polylines": 13,
+        "points": 1215
       },
       "15": {
         "polylines": 10,
-        "points": 1188
+        "points": 1335
       },
       "20": {
-        "polylines": 16,
-        "points": 2032
+        "polylines": 17,
+        "points": 2006
       },
       "25": {
-        "polylines": 12,
-        "points": 1426
+        "polylines": 11,
+        "points": 1531
       },
       "30": {
-        "polylines": 7,
-        "points": 625
+        "polylines": 5,
+        "points": 641
+      },
+      "35": {
+        "polylines": 2,
+        "points": 344
+      },
+      "40": {
+        "polylines": 1,
+        "points": 34
       }
     },
     "totals": {
-      "levels": 6,
-      "polylines": 75,
-      "points": 8100
+      "levels": 8,
+      "polylines": 77,
+      "points": 8785
     },
     "reprojectionResidualM": {
-      "samples": 8100,
-      "mean": 3.7763782030844595e-06,
-      "p95": 2.493884558418711e-07,
-      "max": 0.002690697381179774,
+      "samples": 8785,
+      "mean": 5.3295560077960805e-06,
+      "p95": 1.1840366624937518e-07,
+      "max": 0.005857518631833258,
       "withinTolerance": true
     }
   },
@@ -144,8 +162,8 @@
     "horizontalCenterOffsetM": 0.0
   },
   "textures": {
-    "width": 1200,
-    "height": 980,
+    "width": 1300,
+    "height": 1000,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -164,11 +182,11 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      924600.0,
-      6223810.0
+      924650.0,
+      6223800.0
     ],
-    "widthM": 980.0,
-    "depthM": 1200.0,
+    "widthM": 1000.0,
+    "depthM": 1300.0,
     "lookBearingDeg": 90.0,
     "cornersUtm40s": [
       [
@@ -177,14 +195,14 @@
       ],
       [
         924000.0,
-        6223320.0
+        6223300.0
       ],
       [
-        925200.0,
-        6223320.0
+        925300.0,
+        6223300.0
       ],
       [
-        925200.0,
+        925300.0,
         6224300.0
       ]
     ]
