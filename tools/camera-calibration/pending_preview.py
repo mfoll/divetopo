@@ -130,9 +130,13 @@ class PendingPreview:
                 f"Refusing to overwrite existing pending preview paths for "
                 f"{package.region}/{package.slug}"
             )
+        # The historical source commits keep the unpublished map derivatives
+        # needed to assemble a local site page.  The interactive terrain must
+        # always come from the current regional package, though: v1.5 may have
+        # changed its footprint, masks and calibrated initial view since that
+        # source commit was created.
         archive_paths = (
             f"apps/web/public/maps/{package.region}/{package.slug}",
-            f"apps/web/public/terrain/{package.slug}",
         )
         available_paths: list[str] = []
         for archive_path in archive_paths:
@@ -179,21 +183,20 @@ class PendingPreview:
             raise PendingPreviewError(
                 f"Could not unpack local assets for {package.region}/{package.slug}"
             ) from error
-        if not terrain_root.exists():
-            source_terrain = (
-                REPOSITORY_ROOT
-                / "regions"
-                / package.region
-                / "outputs"
-                / "interactive-terrain"
-                / package.slug
+        source_terrain = (
+            REPOSITORY_ROOT
+            / "regions"
+            / package.region
+            / "outputs"
+            / "interactive-terrain"
+            / package.slug
+        )
+        if not source_terrain.is_dir():
+            raise PendingPreviewError(
+                f"Missing local interactive terrain for {package.region}/{package.slug}"
             )
-            if not source_terrain.is_dir():
-                raise PendingPreviewError(
-                    f"Missing local interactive terrain for {package.region}/{package.slug}"
-                )
-            terrain_root.parent.mkdir(parents=True, exist_ok=True)
-            shutil.copytree(source_terrain, terrain_root)
+        terrain_root.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(source_terrain, terrain_root)
         self._staged_roots.extend((map_root, terrain_root))
 
     @staticmethod

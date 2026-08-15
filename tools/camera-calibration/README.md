@@ -33,7 +33,10 @@ Les cinq paquets pending de la v1.5 deviennent ainsi accessibles dans leur
 route locale de vérification. Plate aux Mérous n'est pas exposé séparément :
 il a été regroupé dans l'emprise de Les Magnons. Les paquets pending restent
 `web.published: false`, absents du terrain public, du sitemap et du build de
-release.
+release. L'overlay réutilise les dérivés de page locaux archivés, mais copie
+toujours le terrain interactif depuis le paquet régional courant afin que les
+emprises, masques et poses calibrées les plus récents soient effectivement
+affichés.
 
 À l'arrêt du serveur avec `Ctrl-C`, le gestionnaire retire automatiquement
 l'interface du working tree. Vérifier avant une release :
