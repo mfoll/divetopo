@@ -6,18 +6,18 @@ son inventaire, ses configurations, ses sorties, ses manifestes et sa route
 
 ## Périmètre v1.4
 
-La première vague contient exactement cinq sites publiés :
+La région contient désormais quatre sites publiés :
 
 - Les Fourmigues (`les-fourmigues`);
-- Sec de la Jeaune Garde (`sec-de-la-jeaune-garde`);
-- Sec du Langoustier (`sec-du-langoustier`), limité au secteur sud-est couvert
-  sans lacune par la source officielle;
+- Sec de la Jeaune Garde (`sec-de-la-jeaune-garde`), dont l'emprise élargie
+  couvre aussi l'ancien secteur publié comme Sec du Langoustier;
 - Cap des Mèdes (`cap-des-medes`);
 - La Gabinière (`la-gabiniere-port-cros`).
 
-Les cinq configurations portent `region: var-centre` et
-`web.published: true`. Le manifeste régional, le manifeste interactif et le
-sélecteur Web contiennent ces cinq sites, sans entrée « en préparation ».
+Les quatre configurations actives portent `region: var-centre` et
+`web.published: true`. Le paquet historique `sec-du-langoustier` a été retiré;
+ses anciennes routes FR et EN redirigent définitivement vers
+`sec-de-la-jeaune-garde`.
 
 Les sites suivants restent différés et sont absents de l'inventaire et des
 sorties de cette vague : Cimentier de la Jaume Garde, Pointe Escampobariou,
@@ -76,20 +76,22 @@ nominatifs, le clavier et le sélecteur ouvrent les fiches. Cette distinction
 évite qu'une paire de points très proches ouvre silencieusement le mauvais
 site.
 
-## QA finale du 8 août 2026
+## QA v1.5 — consolidation Jeaune Garde / Langoustier
 
 ### Actifs natifs et interactifs
 
-- Les cinq configurations concordent avec `region.json`, les manifestes et les
+- Les quatre configurations concordent avec `region.json`, les manifestes et les
   répertoires publics. Chaque fiche expose ses plans 2D, vues 3D statiques,
   planches et terrain interactif.
-- Les sorties canoniques des trois nouveaux sites ont été régénérées et
-  inspectées en pleine définition. Les deux sites migrés ont reçu uniquement
-  les vues statiques manquantes, sans régénération générale inutile.
-- Le secteur sud-est du Sec du Langoustier atteint `100 %` de couverture utile;
-  son nom Web explicite cette emprise. Les Fourmigues conservent leurs deux
-  îlots entièrement dans le cadre. Aucun bord gris ou NoData ne subsiste dans
-  les rendus acceptés.
+- Les deux points historiques sont distants de `383,327 m`. L'ancien contexte,
+  focus et footprint du Langoustier sont couverts à `100 %` par le contexte
+  Jeaune Garde de `1 000 × 1 000 m`; les cellules source correspondantes sont
+  toutes valides. Le focus Jeaune Garde est porté à `802 × 708 m` et son terrain
+  à `1 000 × 800 m`, sans interpolation de données absentes.
+- Les six sorties canoniques Jeaune Garde, ses quatorze dérivés Web et son
+  terrain interactif ont été régénérés puis inspectés en pleine définition.
+  Les paquets Fourmigues, Cap des Mèdes, Gabinière et Escampobariou ont été
+  conservés octet pour octet.
 
 ### Carte régionale plein format
 
@@ -97,35 +99,31 @@ site.
   triangle, diagonale, damier, raccord de tuile, zone grise ou trou NoData n'a
   été observé. Les transitions tonales bathymétriques au large restent des
   variations douces du relief source, sans couture géométrique.
-- Les cinq coordonnées projetées tombent au bon endroit. Les cartouches et
-  connecteurs sont associés sans ambiguïté aux cinq repères.
-- À `1280 × 720`, les cinq cartouches sont dans la carte, sans chevauchement.
-  Les marges les plus courtes restent de `14 px` à droite pour Cap des Mèdes et
-  `9 px` en bas pour La Gabinière.
+- Les quatre coordonnées publiées et le repère Escampobariou en préparation
+  tombent au bon endroit. Les cartouches et connecteurs publiés sont associés
+  sans ambiguïté aux quatre fiches.
+- À `1280 × 720`, les quatre cartouches publiés sont dans la carte et sans
+  chevauchement.
 - À `390 × 844`, la carte mesure environ `347 × 268 px`; les cinq noms restent
   entiers, sans chevauchement, collision avec les bords, la rose, l'échelle ou
   les crédits. Aucun débordement horizontal n'est mesuré.
-- Les thèmes clair et sombre conservent un contraste lisible pour les cinq
+- Les thèmes clair et sombre conservent un contraste lisible pour les quatre
   cartouches et leur état sélectionné.
 
 ### Navigation et terrains Web
 
 - Chaque cartouche visible ouvre la bonne route; chaque lien focalisé et activé
-  par `Entrée` conserve la bonne route; chacune des cinq options du sélecteur
+  par `Entrée` conserve la bonne route; chacune des quatre options du sélecteur
   ouvre la bonne fiche et le bon titre.
-- Les points proches de Jeaune Garde et Langoustier sont non interactifs. Deux
-  clics directs sur ces points ne changent ni route ni fiche.
-- Sur les cinq fiches, les bascules Plan 2D/Vue 3D et
+- Les anciennes routes Langoustier FR et EN répondent par une redirection
+  permanente vers Jeaune Garde.
+- Sur les quatre fiches, les bascules Plan 2D/Vue 3D et
   orthophoto/topographie, la commande d'isobathes et la remise à zéro du terrain
   répondent correctement.
-- À `390 × 844`, les cinq terrains sont prêts. Pour chacun,
+- À `390 × 844`, les quatre terrains sont prêts. Pour chacun,
   `sourceScaleOverlap=false`, `copyrightScaleOverlap=false` et
   `horizontalOverflow=false`; l'échelle est au-dessus de l'attribution.
-- La console ne contient aucune erreur ni aucun avertissement applicatif. La
-  page ne contient aucune mention « en préparation ».
-- Les `124` tests Python et les `37` tests Web passent. Le build Web termine
-  correctement; le lint compte `0` erreur et `11` avertissements préexistants
-  liés aux pages de test et au script de capture.
+- La console ne contient aucune erreur ni aucun avertissement applicatif.
 
 ## Garde-fous
 

@@ -278,8 +278,8 @@
         "xPercent": 34.2751,
         "yPercent": 51.01017
       },
-      "maxDepthM": 40.0,
-      "planMaxDepthM": 40.0,
+      "maxDepthM": 43.0,
+      "planMaxDepthM": 43.0,
       "verticalExaggeration": 3.9935327405,
       "orthophotoCaptureDate": "2023-07-13",
       "plateAuthor": "Matthieu Foll",
@@ -299,19 +299,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=370c63697a33",
+              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=f7bb71bc01f2",
               "width": 2474,
               "height": 1712,
-              "bytes": 1740541,
-              "sha256": "370c63697a33f4ac918cfbbc3b3b9f9785c4a9a59527834e61dad2e2e2921bc0"
+              "bytes": 1753164,
+              "sha256": "f7bb71bc01f26b29659eb941e12fa2c4454bf47d88b4758bca7b6299beaf3cbf"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=370c63697a33",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-topographic.jpg?v=f7bb71bc01f2",
             "width": 2474,
             "height": 1712,
-            "bytes": 1740541,
-            "sha256": "370c63697a33f4ac918cfbbc3b3b9f9785c4a9a59527834e61dad2e2e2921bc0",
+            "bytes": 1753164,
+            "sha256": "f7bb71bc01f26b29659eb941e12fa2c4454bf47d88b4758bca7b6299beaf3cbf",
             "filename": "sec-de-la-jeaune-garde-topobathy-2d.jpg"
           }
         },
@@ -324,19 +324,19 @@
           },
           "variants": [
             {
-              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=01cd1c1e7dfc",
+              "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=84902a9a0dae",
               "width": 2474,
               "height": 1712,
-              "bytes": 1772869,
-              "sha256": "01cd1c1e7dfc902d1cd947fb8affe6734493a209160ac2d31c007b213531e34b"
+              "bytes": 1776710,
+              "sha256": "84902a9a0daeb57cb451ed9c5ae9420f43bff2c0579d615abcd15bb22eba107e"
             }
           ],
           "download": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=01cd1c1e7dfc",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/2d-orthophoto.jpg?v=84902a9a0dae",
             "width": 2474,
             "height": 1712,
-            "bytes": 1772869,
-            "sha256": "01cd1c1e7dfc902d1cd947fb8affe6734493a209160ac2d31c007b213531e34b",
+            "bytes": 1776710,
+            "sha256": "84902a9a0daeb57cb451ed9c5ae9420f43bff2c0579d615abcd15bb22eba107e",
             "filename": "sec-de-la-jeaune-garde-topobathy-2d-ortho.jpg"
           }
         },
@@ -352,30 +352,30 @@
               "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/3d-dynamic-topographic-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 108908,
-              "sha256": "1d958247192189b70633a021fb7014578f71d3f72c97215f907379a1a4af7442"
+              "bytes": 106976,
+              "sha256": "b984daacfc7f01c311cc3f78cdffb1955318fe5317f27dbd2d52a5169d8d66c2"
             },
             {
               "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/3d-dynamic-topographic-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 213198,
-              "sha256": "8b60c3eb8587b61247ab75d5dbc5f1d417d2436165e8187346dc6f6ba90f49c6"
+              "bytes": 209294,
+              "sha256": "2e9404823eacbebf5f18eebc38143e397a9e3737de734db81a36f20b297ca1ac"
             },
             {
               "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/3d-dynamic-topographic-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 374348,
-              "sha256": "5285cdd16dece3bac29a85431e87f9493423f7ff9fcac0a53ee38aee0c58d4ca"
+              "bytes": 357842,
+              "sha256": "649e17793dba01717461a4a12b2b56bb5695ab0d47cf3eb523dc12e7e8954820"
             }
           ],
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 996272,
-            "sha256": "309791c8f7fc5cdfdc7daebae7cab29fbd8d1ae1a2f7facb34dfb28eed526d5c",
+            "bytes": 981622,
+            "sha256": "715b8b48c44940ea611252d3480895542e1e6aa11840e7fd63f7d389209b895d",
             "filename": "sec-de-la-jeaune-garde-3d-dynamique-topographic.jpg"
           }
         },
@@ -391,30 +391,30 @@
               "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/3d-dynamic-orthophoto-960.webp",
               "width": 960,
               "height": 664,
-              "bytes": 116728,
-              "sha256": "f7ea99631499e9e62f08bef85becce8d5ffad11df071f1d047cdd7929dcf64f4"
+              "bytes": 113770,
+              "sha256": "f59ae1195ea53c6dcec86486a668bec5269cf91ce53929d44c421484fb412c5f"
             },
             {
               "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/3d-dynamic-orthophoto-1600.webp",
               "width": 1600,
               "height": 1107,
-              "bytes": 230342,
-              "sha256": "d9f8d6476bd752052b3687bf02fc641fbd93a424472e3d41b4b7670647fe43e2"
+              "bytes": 226376,
+              "sha256": "ead7b3c8b3bf60acae805ea46b86bff0345a5f52fecbcab2ea1ff871bdd7827b"
             },
             {
               "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/3d-dynamic-orthophoto-2474.webp",
               "width": 2474,
               "height": 1712,
-              "bytes": 394424,
-              "sha256": "38b7795c0f2c5ad26fc9330bbba378527bce4af82ba63dbab8f016b4883a8de0"
+              "bytes": 386868,
+              "sha256": "7e01ee40be492d9f3c0b8a49752fc9d5724ef2440ad545b6a1dbab5339ebdbb3"
             }
           ],
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
-            "bytes": 1032697,
-            "sha256": "ed51dd0965374360cffd936d5ad9fe053b603716be77cb147181bbd5d6b57a1c",
+            "bytes": 1017337,
+            "sha256": "1513faa33495507196e02655cf52ee94ce5469743527bc3d812d93eb589d1e5a",
             "filename": "sec-de-la-jeaune-garde-3d-dynamique-orthophoto.jpg"
           }
         }
@@ -423,36 +423,36 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-topographic-1800.webp?v=561e3cd9c67a",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-topographic-1800.webp?v=0b78e69d30f8",
             "width": 1800,
             "height": 1083,
-            "bytes": 197646,
-            "sha256": "561e3cd9c67adbbda3eebda925064de3b1b99381fd97848c957de81fcce798c0"
+            "bytes": 196882,
+            "sha256": "0b78e69d30f8be8b9ffbc24eca23bc84c37c4b38ba20441e01955e94ae163c20"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4705219,
-            "sha256": "aefd034255a25f3c3a8b9c9d9726a1d453da7ef7f73aa6d07a7f50daf89f89ad",
+            "bytes": 4691822,
+            "sha256": "358def4d92753dbe9d79662fa654e29effbb04953dace8e250d4ed841cddc777",
             "filename": "sec-de-la-jeaune-garde-planche-topographique.jpg"
           }
         },
         {
           "style": "orthophoto",
           "preview": {
-            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-orthophoto-1800.webp?v=78542abf6b14",
+            "src": "/maps/var-centre/sec-de-la-jeaune-garde/maps/planche-orthophoto-1800.webp?v=1f82f384ee0f",
             "width": 1800,
             "height": 1083,
-            "bytes": 208804,
-            "sha256": "78542abf6b144fcba2b15cc6d3b5ea0372c1dce575b34d8ef755fae5316ba62e"
+            "bytes": 205204,
+            "sha256": "1f82f384ee0f957d2a2eb1daf979b6dc3fe94dbafa3e65720421517bcfa4ed10"
           },
           "download": {
             "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-planche.jpg",
             "width": 5400,
             "height": 3250,
-            "bytes": 4786556,
-            "sha256": "0c5575a6b3fcced0139d9e63e05a2ac8f7408b7d2702853383eed89f0b6d64dc",
+            "bytes": 4766713,
+            "sha256": "9ba09abede95e07d186f5a30b5ea69de20128434748928c2a04880ad0299e2b0",
             "filename": "sec-de-la-jeaune-garde-planche.jpg"
           }
         }
@@ -486,232 +486,6 @@
           383.7636,
           -162.6851,
           -64.018
-        ]
-      }
-    },
-    {
-      "slug": "sec-du-langoustier",
-      "displayName": "Sec du Langoustier (sud-est)",
-      "plateTitle": "Sec du Langoustier (sud-est), Porquerolles",
-      "config": "regions/var-centre/sites/sec-du-langoustier.json",
-      "assetBasePath": "/maps/var-centre/sec-du-langoustier",
-      "location": {
-        "city": "Hyères · Porquerolles",
-        "latitude": 42.999731,
-        "longitude": 6.155012
-      },
-      "westCoastLocatorPosition": {
-        "xPercent": 33.69826,
-        "yPercent": 52.19542
-      },
-      "maxDepthM": 43.0,
-      "planMaxDepthM": 43.0,
-      "verticalExaggeration": 3.9935327405,
-      "orthophotoCaptureDate": "2023-07-13",
-      "plateAuthor": "Matthieu Foll",
-      "copyrightYear": 2026,
-      "mapLicense": "CC BY-NC-SA 4.0",
-      "compactAttributions": {
-        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
-        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
-      },
-      "maps": [
-        {
-          "view": "2d",
-          "style": "topographic",
-          "sourceDimensions": {
-            "width": 2474,
-            "height": 1712
-          },
-          "variants": [
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/2d-topographic.jpg?v=13ed12c23fe1",
-              "width": 2474,
-              "height": 1712,
-              "bytes": 1442344,
-              "sha256": "13ed12c23fe1e70e701adb9f5a40612ddb7b20cbaa51d32d52a0e9b30d46ee7f"
-            }
-          ],
-          "download": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/2d-topographic.jpg?v=13ed12c23fe1",
-            "width": 2474,
-            "height": 1712,
-            "bytes": 1442344,
-            "sha256": "13ed12c23fe1e70e701adb9f5a40612ddb7b20cbaa51d32d52a0e9b30d46ee7f",
-            "filename": "sec-du-langoustier-topobathy-2d.jpg"
-          }
-        },
-        {
-          "view": "2d",
-          "style": "orthophoto",
-          "sourceDimensions": {
-            "width": 2474,
-            "height": 1712
-          },
-          "variants": [
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/2d-orthophoto.jpg?v=27cbe59466f5",
-              "width": 2474,
-              "height": 1712,
-              "bytes": 1452149,
-              "sha256": "27cbe59466f52a3b3fd27e2d63d866f5c9413e47546fac4b8afcb52b94eeb51b"
-            }
-          ],
-          "download": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/2d-orthophoto.jpg?v=27cbe59466f5",
-            "width": 2474,
-            "height": 1712,
-            "bytes": 1452149,
-            "sha256": "27cbe59466f52a3b3fd27e2d63d866f5c9413e47546fac4b8afcb52b94eeb51b",
-            "filename": "sec-du-langoustier-topobathy-2d-ortho.jpg"
-          }
-        },
-        {
-          "view": "3d",
-          "style": "topographic",
-          "sourceDimensions": {
-            "width": 2474,
-            "height": 1712
-          },
-          "variants": [
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-topographic-960.webp",
-              "width": 960,
-              "height": 664,
-              "bytes": 68932,
-              "sha256": "620f1562194a9a90c58e7cea1781aeb8f6968ef0c19dd2c79cb94254df2e3c33"
-            },
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-topographic-1600.webp",
-              "width": 1600,
-              "height": 1107,
-              "bytes": 134166,
-              "sha256": "b74d8a00e52a1fd77ff09bd8f2b037d79dea16e4d67acd5cd90034ad2b52d46e"
-            },
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-topographic-2474.webp",
-              "width": 2474,
-              "height": 1712,
-              "bytes": 236460,
-              "sha256": "1a7297f687570826d88a045cec30ce58ab9c12cdbf35dbbc4e5655c170e9cbbe"
-            }
-          ],
-          "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-du-langoustier-3d-dynamique-topographic.jpg",
-            "width": 2474,
-            "height": 1712,
-            "bytes": 642311,
-            "sha256": "4393ffce0cee3e89d4c9a5e29e700b588c96304792b5024205575fdfbc99663e",
-            "filename": "sec-du-langoustier-3d-dynamique-topographic.jpg"
-          }
-        },
-        {
-          "view": "3d",
-          "style": "orthophoto",
-          "sourceDimensions": {
-            "width": 2474,
-            "height": 1712
-          },
-          "variants": [
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-orthophoto-960.webp",
-              "width": 960,
-              "height": 664,
-              "bytes": 71284,
-              "sha256": "581ce2b9e122a95bd1f8a7e34c7b194926756b9fcee38550be39bafdc20f0558"
-            },
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-orthophoto-1600.webp",
-              "width": 1600,
-              "height": 1107,
-              "bytes": 141924,
-              "sha256": "8adcc98cad55f9c2ecfc3dddabc36507c2640ece940529e8b967b865a2f0357f"
-            },
-            {
-              "src": "/maps/var-centre/sec-du-langoustier/maps/3d-dynamic-orthophoto-2474.webp",
-              "width": 2474,
-              "height": 1712,
-              "bytes": 245272,
-              "sha256": "a9eedf95027b8ad8f9c5f9cc5b1ec15afd3dfabdebd67c82e4ca53f4cc0532f6"
-            }
-          ],
-          "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-du-langoustier-3d-dynamique-orthophoto.jpg",
-            "width": 2474,
-            "height": 1712,
-            "bytes": 656898,
-            "sha256": "3ebd721a11646b1a7b135bf19d7e7eaf1d482091566f788495bd93c2dc7bc305",
-            "filename": "sec-du-langoustier-3d-dynamique-orthophoto.jpg"
-          }
-        }
-      ],
-      "planches": [
-        {
-          "style": "topographic",
-          "preview": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-topographic-1800.webp?v=328de96e1f60",
-            "width": 1800,
-            "height": 1083,
-            "bytes": 155146,
-            "sha256": "328de96e1f60371c6dc2a2702cf452aecbfd62de8f62d2fd31d120888eb60013"
-          },
-          "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-du-langoustier-planche-topographique.jpg",
-            "width": 5400,
-            "height": 3250,
-            "bytes": 3804229,
-            "sha256": "02b904fac435980d973763c693417b703c87c093bf291c90f6a44b73562d35ed",
-            "filename": "sec-du-langoustier-planche-topographique.jpg"
-          }
-        },
-        {
-          "style": "orthophoto",
-          "preview": {
-            "src": "/maps/var-centre/sec-du-langoustier/maps/planche-orthophoto-1800.webp?v=33460f0a6ff4",
-            "width": 1800,
-            "height": 1083,
-            "bytes": 157962,
-            "sha256": "33460f0a6ff40965cec3e08d29a996810c0a50a8103d3fb012e1c77afc357f20"
-          },
-          "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-du-langoustier-planche.jpg",
-            "width": 5400,
-            "height": 3250,
-            "bytes": 3835498,
-            "sha256": "d6f5cb6404ae274ee5721fa7f2d7a2cd1cb2503fe857b63a95d5ac9367b8ce2e",
-            "filename": "sec-du-langoustier-planche.jpg"
-          }
-        }
-      ],
-      "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 3.45,
-        "connectorAngleDeg": 69,
-        "connectorWidthRem": 2.55,
-        "labelOffsetRem": 0.75,
-        "lines": [
-          "Sec du",
-          "Langoustier"
-        ],
-        "widthRem": 6.0
-      },
-      "interactiveInitialView": {
-        "zoom": 0.6679,
-        "orbitAzimuthDeg": 35.79,
-        "cameraElevationDeg": 14.4,
-        "panRightM": 98.19,
-        "panUpM": 34.37,
-        "centerOffsetEastM": 0,
-        "centerOffsetSouthM": 0,
-        "cameraPositionM": [
-          -961.7227,
-          263.242,
-          834.5821
-        ],
-        "cameraTargetM": [
-          146.9836,
-          -87.6819,
-          35.3333
         ]
       }
     },
@@ -1211,32 +985,6 @@
       "status": "published"
     },
     {
-      "slug": "sec-du-langoustier",
-      "displayName": "Sec du Langoustier (sud-est)",
-      "location": {
-        "city": "Hyères · Porquerolles",
-        "latitude": 42.999731,
-        "longitude": 6.155012
-      },
-      "westCoastLocatorPosition": {
-        "xPercent": 33.69826,
-        "yPercent": 52.19542
-      },
-      "siteLabelLayout": {
-        "side": "left",
-        "shiftYRem": 3.45,
-        "connectorAngleDeg": 69,
-        "connectorWidthRem": 2.55,
-        "labelOffsetRem": 0.75,
-        "lines": [
-          "Sec du",
-          "Langoustier"
-        ],
-        "widthRem": 6.0
-      },
-      "status": "published"
-    },
-    {
       "slug": "cap-des-medes",
       "displayName": "Cap des Mèdes",
       "location": {
@@ -1282,7 +1030,7 @@
     },
     {
       "slug": "pointe-escampobariou",
-      "displayName": "Escampobariou",
+      "displayName": "Pointe Escampobariou",
       "location": {
         "city": "Hyères · Giens",
         "latitude": 43.0281667,
@@ -1294,14 +1042,14 @@
       },
       "siteLabelLayout": {
         "side": "right",
-      "shiftYRem": -0.2,
-      "connectorAngleDeg": 0,
-      "connectorWidthRem": 2.6,
-      "labelOffsetRem": 2.6,
-      "widthRem": 6.2,
+        "shiftYRem": -0.2,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 2.6,
+        "labelOffsetRem": 2.6,
         "lines": [
           "Escampobariou"
-        ]
+        ],
+        "widthRem": 6.2
       },
       "status": "preparing"
     }

@@ -58,7 +58,10 @@ Le rendu signale une discontinuité profonde au bord offshore ; aucune profondeu
 ## Carte régionale Var Centre
 
 - Inspection pleine résolution du raster régional `regions/var-centre/outputs/var-centre-regional-relief.png` : `1864 × 1440 px`, RGB, `835021` octets, SHA-256 `1c07f7646681960aff423a2d50ac2f43afa6c29f0ef0f150ab4a0ae6aadb06fc`. L’emprise du manifeste reste `[6.0, 42.885, 6.46, 43.125]` (WGS84) ; le cadrage couvre la zone Var Centre sans artefact de bord observé.
-- Les six repères de `plannedSites` restent dans la carte et cohérents avec l’emprise : `les-fourmigues` `(15.05659, 35.44169)`, `pointe-escampobariou` `(21.26087, 40.34721)`, `sec-du-langoustier` `(33.69826, 52.19542)`, `sec-de-la-jeaune-garde` `(34.27510, 51.01017)`, `cap-des-medes` `(52.48926, 40.29875)`, `la-gabiniere-port-cros` `(85.45102, 56.80000)` en `(xPercent, yPercent)`.
+- Après consolidation du Langoustier dans Jeaune Garde, les cinq repères de
+  `plannedSites` restent dans la carte : `les-fourmigues`,
+  `pointe-escampobariou`, `sec-de-la-jeaune-garde`, `cap-des-medes` et
+  `la-gabiniere-port-cros`.
 - Le layout régional pending est `side=right`, `shiftYRem=-3.5`, `labelOffsetRem=7.5`, `widthRem=8.7`, `connectorAngleDeg=-19`, `connectorWidthRem=3.2`, ligne `Escampobariou`. Mesure DOM de l’overlay local : à `1280 × 720`, carte `[39,6797, 388,2344, 375,6797, 647,8047]`, cartouche `[209,6875, 417,5625, 348,8828, 454,3594]`, marge droite `26,80 px`; à `390 × 844`, carte `[12, 949,6406, 378, 1232,3828]`, cartouche `[188,3828, 988,3125, 327,5781, 1025,1094]`, marge droite `50,42 px`. Les routes de connecteur évitent les cinq cartouches publiés et touchent le bord du cartouche par recouvrement contrôlé du trait SVG. Les six cartouches ne se recouvrent pas dans l’overlay ; le pending final reste non cliquable et en préparation.
 
 ## Tests et périmètre Git

@@ -83,12 +83,6 @@
       "config": "regions/var-centre/sites/sec-de-la-jeaune-garde.json"
     },
     {
-      "slug": "sec-du-langoustier",
-      "name": "Sec du Langoustier",
-      "municipality": "Hyères",
-      "config": "regions/var-centre/sites/sec-du-langoustier.json"
-    },
-    {
       "slug": "cap-des-medes",
       "name": "Cap des Mèdes",
       "municipality": "Hyères",

@@ -655,8 +655,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 84);
-  assert.equal(imageLocations.length, 224);
+  assert.equal(locations.length, 82);
+  assert.equal(imageLocations.length, 218);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -733,7 +733,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    210,
+    204,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -931,7 +931,7 @@ test("interactive terrain manifest combines every published region", async () =>
     "var-est",
     "var-ouest",
   ]);
-  assert.equal(manifest.sites.length, 35);
+  assert.equal(manifest.sites.length, 34);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([

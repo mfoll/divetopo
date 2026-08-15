@@ -54,7 +54,6 @@ class RegionalManifestTests(unittest.TestCase):
             [
                 "les-fourmigues",
                 "sec-de-la-jeaune-garde",
-                "sec-du-langoustier",
                 "cap-des-medes",
                 "la-gabiniere-port-cros",
             ],

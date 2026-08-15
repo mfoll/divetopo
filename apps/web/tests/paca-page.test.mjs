@@ -48,10 +48,19 @@ test("redirects the merged La Merveilleuse route to Les Magnons", async () => {
   );
 });
 
+test("redirects the merged Sec du Langoustier route to Jeaune Garde", async () => {
+  const response = await render("/var-centre/fr/sites/sec-du-langoustier");
+  assert.equal(response.status, 308);
+  assert.equal(
+    response.headers.get("location"),
+    "http://localhost/var-centre/fr/sites/sec-de-la-jeaune-garde",
+  );
+});
+
 test("renders regional inventories and keeps remaining drafts non-clickable", async () => {
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
-    ["/var-centre/en", "topo-var-centre-title", 5, 6],
+    ["/var-centre/en", "topo-var-centre-title", 4, 5],
     ["/var-est/fr", "topo-var-est-title", 5, 6],
     ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5, 6],
   ];
@@ -71,7 +80,7 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
     const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/") || path.startsWith("/var-est/")
       ? []
       : path.endsWith("/en")
-        ? ["Sec de la Jeaune Garde", "Sec du Langoustier", "Les Fourmigues"]
+        ? ["Sec de la Jeaune Garde", "Les Fourmigues"]
         : ["Pointe de la Cride", "Les Magnons"];
     for (const name of preparingNames) {
       assert.match(html, new RegExp(name), path);
@@ -139,7 +148,7 @@ test("regional planning inventories contain the classified sites", async () => {
   for (const [region, expectedCount] of [
     ["bouches-du-rhone", 6],
     ["var-ouest", 4],
-    ["var-centre", 6],
+    ["var-centre", 5],
     ["var-est", 6],
     ["alpes-maritimes", 6],
   ]) {
@@ -184,7 +193,7 @@ test("published autonomous-region asset paths resolve", async () => {
 
   for (const [region, expectedSiteCount] of [
     ["var-ouest", 4],
-    ["var-centre", 5],
+    ["var-centre", 4],
     ["var-est", 5],
     ["alpes-maritimes", 5],
   ]) {

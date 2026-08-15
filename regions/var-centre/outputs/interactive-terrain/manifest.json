@@ -50,80 +50,38 @@
       "files": {
         "metadata": {
           "path": "sec-de-la-jeaune-garde/terrain.json",
-          "bytes": 4976,
-          "sha256": "4561b0518e2afced8a10708dc9baf30f58b4670aa69b5d333b4c16511772b32f"
+          "bytes": 5038,
+          "sha256": "06532ffe51e9f67a21b911c73fe52256297da3a6afcc61bf400020c9f7f550d1"
         },
         "height": {
           "path": "sec-de-la-jeaune-garde/height.bin",
-          "bytes": 526338,
-          "sha256": "080a219753a221ef649229a59a0508a09a5acb84e4301fbac88c48bbc748ba10"
+          "bytes": 420660,
+          "sha256": "0d9ce838184c500a7fb210a23132843a21f92886ec6217c93754344f02b56bfd"
         },
         "validMask": {
           "path": "sec-de-la-jeaune-garde/valid-mask.bin",
-          "bytes": 32897,
-          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+          "bytes": 26292,
+          "sha256": "7d7a62cc427adf52229a1714b60417951011ef311ffe1be886f9b9a2c8ab6f02"
         },
         "isobathMask": {
           "path": "sec-de-la-jeaune-garde/isobath-mask.bin",
-          "bytes": 32897,
-          "sha256": "9daf0cfed860cd7cc4b308331e559a1e1da7488bd0dc72ef0213f6d5052577c7"
+          "bytes": 26292,
+          "sha256": "7d7a62cc427adf52229a1714b60417951011ef311ffe1be886f9b9a2c8ab6f02"
         },
         "vectorIsobaths": {
           "path": "sec-de-la-jeaune-garde/isobaths-vector.json",
-          "bytes": 271158,
-          "sha256": "5cf5368a99b0d571ed2a64c7fc5e343ee5d2ca7d875dd982a44fa1923e5d1df1"
+          "bytes": 509409,
+          "sha256": "974abe106ca99b8d4fffd82dd88c63561825b98edccdc03184bb15bfd986999f"
         },
         "topographicTexture": {
           "path": "sec-de-la-jeaune-garde/topographic.webp",
-          "bytes": 53234,
-          "sha256": "7633b16f10064c40ade982b63836ce2ac18b9e45280b7ea88a9d89000d5cf1df"
+          "bytes": 52074,
+          "sha256": "6f5e95e7d736c545f17c48fd27e0fa98d696b9d156ef0297a0a82337a47658fa"
         },
         "orthophotoTexture": {
           "path": "sec-de-la-jeaune-garde/orthophoto.webp",
-          "bytes": 47440,
-          "sha256": "6dc63bb127efac62e6d7d584434c1780576b090e915076ec9ec8cff39b192285"
-        }
-      }
-    },
-    {
-      "slug": "sec-du-langoustier",
-      "title": "Sec du Langoustier (sud-est), Porquerolles",
-      "metadata": "sec-du-langoustier/terrain.json",
-      "files": {
-        "metadata": {
-          "path": "sec-du-langoustier/terrain.json",
-          "bytes": 5045,
-          "sha256": "72f2fb2d7a40a407a11532cbe61ce41366809eab91410eac5ae165483ac23b96"
-        },
-        "height": {
-          "path": "sec-du-langoustier/height.bin",
-          "bytes": 449388,
-          "sha256": "731f8b8000e7c402caf4081ff7e820e3d8e6b4c3e6d154ff9146b3f159e3abb8"
-        },
-        "validMask": {
-          "path": "sec-du-langoustier/valid-mask.bin",
-          "bytes": 28087,
-          "sha256": "bd321c7105902bc4916391abd89e6b14c58e7f3cd304660bc97a1d1b98b615f7"
-        },
-        "isobathMask": {
-          "path": "sec-du-langoustier/isobath-mask.bin",
-          "bytes": 28087,
-          "sha256": "bd321c7105902bc4916391abd89e6b14c58e7f3cd304660bc97a1d1b98b615f7"
-        },
-        "vectorIsobaths": {
-          "path": "sec-du-langoustier/isobaths-vector.json",
-          "bytes": 155269,
-          "sha256": "47951bd03160818c12aedb5bcf2c0c05e1a0659193228f39b4c6da02014b3b7a"
-        },
-        "topographicTexture": {
-          "path": "sec-du-langoustier/topographic.webp",
-          "bytes": 17402,
-          "sha256": "73f40bd5b147a4ee2c0e9da6c5d183aa22133a56523f32a0ce73715c9c958ad8"
-        },
-        "orthophotoTexture": {
-          "path": "sec-du-langoustier/orthophoto.webp",
-          "bytes": 13792,
-          "sha256": "9118401ce5d416cea008c38f8ef480cbf7a3762d721b81cf905f9968c8223223"
+          "bytes": 50128,
+          "sha256": "09af61386ed692347860a31e45800eff8a5dea0fa030b472b007ce9bde34a7bc"
         }
       }
     },
@@ -208,48 +166,6 @@
           "path": "la-gabiniere-port-cros/orthophoto.webp",
           "bytes": 25234,
           "sha256": "8deb8c6eda0383283fc65852cbdd5a085d160e8af4fdca66ffb71209d4234041"
-        }
-      }
-    },
-    {
-      "slug": "pointe-escampobariou",
-      "title": "Pointe Escampobariou, Giens",
-      "metadata": "pointe-escampobariou/terrain.json",
-      "files": {
-        "metadata": {
-          "path": "pointe-escampobariou/terrain.json",
-          "bytes": 4930,
-          "sha256": "3c6151bf89ac7429dad4d9b893b6c18eede28eadc02d89afc96082d2f1384b73"
-        },
-        "height": {
-          "path": "pointe-escampobariou/height.bin",
-          "bytes": 362178,
-          "sha256": "b0d792a9b688515aa552360e40120c5a30306d6e77d541e5048ed07dc63cc77f"
-        },
-        "validMask": {
-          "path": "pointe-escampobariou/valid-mask.bin",
-          "bytes": 22637,
-          "sha256": "b241398cefe29a8d8cc24ad3c5ce3f180ad798ade029cc1a0c550a5bab8465c1"
-        },
-        "isobathMask": {
-          "path": "pointe-escampobariou/isobath-mask.bin",
-          "bytes": 22637,
-          "sha256": "b241398cefe29a8d8cc24ad3c5ce3f180ad798ade029cc1a0c550a5bab8465c1"
-        },
-        "vectorIsobaths": {
-          "path": "pointe-escampobariou/isobaths-vector.json",
-          "bytes": 137087,
-          "sha256": "1e59f514e4f4e9ebe823120ab9411a790b7d628629a37aab8be1c6d75766af5b"
-        },
-        "topographicTexture": {
-          "path": "pointe-escampobariou/topographic.webp",
-          "bytes": 30272,
-          "sha256": "b0bfbafee32b0ba07285a9507fed39be1cc68498cb82dbbc17309575c90257a7"
-        },
-        "orthophotoTexture": {
-          "path": "pointe-escampobariou/orthophoto.webp",
-          "bytes": 62556,
-          "sha256": "edafc5914838a6428549548d4f11e046a1276fdd15eefdfec7ebed683eca813c"
         }
       }
     }

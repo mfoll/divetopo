@@ -46,8 +46,8 @@
   ],
   "focus_bbox_utm40s": [
     957099.5,
-    6216274.5,
-    957899.5,
+    6216120.5,
+    957901.5,
     6216828.5
   ],
   "context_bbox_utm40s": [
@@ -59,9 +59,9 @@
   "interactive_footprint_utm40s": {
     "center": [
       957499.5,
-      6216500.5
+      6216474.5
     ],
-    "width_m": 1000.0,
+    "width_m": 800.0,
     "depth_m": 1000.0,
     "look_bearing_deg": 90.0
   },
@@ -78,8 +78,8 @@
   "view_crop_depth_m": 700.0,
   "interactive_match_static_horizontal_center": true,
   "coast_mode": "mask",
-  "max_depth_m": 40.0,
-  "interactive_max_depth_m": 40.0,
+  "max_depth_m": 43.0,
+  "interactive_max_depth_m": 43.0,
   "bathymetry_palette": "legacy",
   "bathymetry_depth_scale": "legacy_linear",
   "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
