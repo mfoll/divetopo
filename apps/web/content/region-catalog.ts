@@ -102,33 +102,41 @@ export function regionCopy(region: RegionSlug) {
 
   const names = regionCatalog[region].names;
   const count = regionalMapManifests[region].sites.length;
+  const frenchInRegion =
+    region === "alpes-maritimes"
+      ? "dans les Alpes-Maritimes"
+      : "en " + names.fr;
+  const frenchOfRegion =
+    region === "alpes-maritimes"
+      ? "des Alpes-Maritimes"
+      : "de " + names.fr;
   return {
     fr: {
       ...pacaCopy.fr,
-      topoReunionTitle: "Plans des sites de plongée de " + names.fr,
+      topoReunionTitle: "Plans des sites de plongée " + frenchOfRegion,
       metadataDescription:
         "Plans topo-bathymétriques 2D, perspectives 3D et reliefs " +
-        "interactifs des sites publiés en " + names.fr + ".",
+        "interactifs des sites publiés " + frenchInRegion + ".",
       islandName: names.fr,
       picker: {
         ...pacaCopy.fr.picker,
-        chooseDiveSite: "Choisir un site en " + names.fr,
+        chooseDiveSite: "Choisir un site " + frenchInRegion,
         westCoastAlt:
-          "Relief terrestre et sous-marin de " + names.fr + ", avec " +
+          "Relief terrestre et sous-marin " + frenchOfRegion + ", avec " +
           count + " site" + (count > 1 ? "s" : "") + " publié" +
           (count > 1 ? "s" : "") + ".",
       },
       sources: {
         ...pacaCopy.fr.sources,
         lead:
-          "Les sites publiés en " + names.fr + " utilisent les sources " +
+          "Les sites publiés " + frenchInRegion + " utilisent les sources " +
           "déclarées dans leur configuration régionale.",
         cards: mediterraneanSourceCards(region, "fr"),
       },
       contact: {
         ...pacaCopy.fr.contact,
         question:
-          "Une question ou une remarque sur les cartes de " + names.fr + "\u00a0?",
+          "Une question ou une remarque sur les cartes " + frenchOfRegion + "\u00a0?",
       },
     },
     en: {
