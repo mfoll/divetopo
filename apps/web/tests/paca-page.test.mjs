@@ -73,12 +73,12 @@ test("redirects the merged Sec du Langoustier route to Jeaune Garde", async () =
   );
 });
 
-test("renders regional inventories and keeps remaining drafts non-clickable", async () => {
+test("renders complete regional inventories without release-target drafts", async () => {
   const published = [
     ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
-    ["/var-centre/en", "topo-var-centre-title", 4, 5],
-    ["/var-est/fr", "topo-var-est-title", 5, 6],
-    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 5, 6],
+    ["/var-centre/en", "topo-var-centre-title", 5, 5],
+    ["/var-est/fr", "topo-var-est-title", 6, 6],
+    ["/alpes-maritimes/fr", "topo-alpes-maritimes-title", 6, 6],
   ];
   for (const [path, titleId, siteCount, inventoryCount] of published) {
     const response = await render(path);
@@ -107,14 +107,13 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
       assert.match(html, new RegExp(name), path);
     }
     if (path.startsWith("/alpes-maritimes/")) {
-      assert.match(html, /Sites en préparation/);
-      assert.match(html, /Cap Gros/);
       for (const slug of [
         "grande-baie-cap-ferrat",
         "pointe-causiniere-cap-ferrat",
         "la-vaquette",
         "la-tradeliere",
         "grotte-a-corail-villefranche",
+        "cap-gros",
       ]) {
         assert.match(html, new RegExp(`/alpes-maritimes/fr/sites/${slug}`), path);
       }
@@ -141,20 +140,20 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
   assert.match(bouchesDuRhoneHtml, /id="topo-bouches-du-rhone-title"/);
   assert.equal(
     bouchesDuRhoneHtml.match(/class="site-map-marker label-/g)?.length,
-    5,
+    6,
   );
   assert.equal(
     bouchesDuRhoneHtml.match(/class="site-map-marker site-map-marker-preparing label-/g)?.length ?? 0,
-    1,
+    0,
   );
-  assert.match(bouchesDuRhoneHtml, /Sites en préparation/);
-  assert.match(bouchesDuRhoneHtml, /Impérial du Milieu/);
+  assert.doesNotMatch(bouchesDuRhoneHtml, /Sites en préparation/);
   for (const slug of [
     "grotte-a-corail-maire",
     "pains-de-sucre-riou",
     "imperial-de-terre-riou",
     "pierre-a-la-bague-plateau",
     "tiboulen-du-frioul",
+    "imperial-du-milieu-riou",
   ]) {
     assert.match(
       bouchesDuRhoneHtml,
@@ -254,9 +253,9 @@ test("published autonomous-region asset paths resolve", async () => {
 
   for (const [region, expectedSiteCount] of [
     ["var-ouest", 4],
-    ["var-centre", 4],
-    ["var-est", 5],
-    ["alpes-maritimes", 5],
+    ["var-centre", 5],
+    ["var-est", 6],
+    ["alpes-maritimes", 6],
   ]) {
     const manifest = JSON.parse(
       await readFile(

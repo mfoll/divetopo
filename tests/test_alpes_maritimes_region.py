@@ -14,13 +14,14 @@ from cartography.config import (
 
 REGION_ROOT = ROOT / "regions" / "alpes-maritimes"
 PUBLISHED_WAVE_ONE_SITES = {
+    "cap-gros",
     "grande-baie-cap-ferrat",
     "grotte-a-corail-villefranche",
     "la-tradeliere",
     "la-vaquette",
     "pointe-causiniere-cap-ferrat",
 }
-PENDING_WAVE_ONE_SITES = {"cap-gros"}
+PENDING_WAVE_ONE_SITES: set[str] = set()
 EXCLUDED_FROM_FIRST_WAVE = {"la-fourmigue-antibes"}
 
 
@@ -62,7 +63,7 @@ class AlpesMaritimesRegionTests(unittest.TestCase):
             self.assertTrue(pipeline[key].startswith("regions/alpes-maritimes/"))
             self.assertNotIn("regions/paca/", pipeline[key])
 
-    def test_wave_one_sites_are_complete_and_pending_stays_unpublished(self) -> None:
+    def test_wave_one_sites_are_complete_and_published(self) -> None:
         manifest = region_manifest({"region": "alpes-maritimes"})
 
         for site in manifest["sites"]:

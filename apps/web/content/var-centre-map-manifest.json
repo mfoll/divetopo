@@ -933,6 +933,231 @@
           37.9361
         ]
       }
+    },
+    {
+      "slug": "pointe-escampobariou",
+      "displayName": "Pointe Escampobariou",
+      "plateTitle": "Pointe Escampobariou, Giens",
+      "config": "regions/var-centre/sites/pointe-escampobariou.json",
+      "assetBasePath": "/maps/var-centre/pointe-escampobariou",
+      "location": {
+        "city": "Hyères · Giens",
+        "latitude": 43.0281667,
+        "longitude": 6.0978
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 21.26087,
+        "yPercent": 40.34721
+      },
+      "maxDepthM": 40,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 2,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/2d-topographic.jpg?v=b2cf6f532fc5",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1375509,
+              "sha256": "b2cf6f532fc5467c79ac1a7a9775809d30f4d5c28dee05ba2699e876e04ed22e"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/pointe-escampobariou/maps/2d-topographic.jpg?v=b2cf6f532fc5",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1375509,
+            "sha256": "b2cf6f532fc5467c79ac1a7a9775809d30f4d5c28dee05ba2699e876e04ed22e",
+            "filename": "pointe-escampobariou-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/2d-orthophoto.jpg?v=ed687ed39ae6",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2104489,
+              "sha256": "ed687ed39ae61938592a9145ca22b471b2790c12dc44d95ab8683909d902543f"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-centre/pointe-escampobariou/maps/2d-orthophoto.jpg?v=ed687ed39ae6",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2104489,
+            "sha256": "ed687ed39ae61938592a9145ca22b471b2790c12dc44d95ab8683909d902543f",
+            "filename": "pointe-escampobariou-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 75552,
+              "sha256": "1cd69b69126366b5d02aff49bac96866d6c61988a5d66f63af666058fbaadbcf"
+            },
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 150612,
+              "sha256": "59ca72c9df99d7c4474f55a8126a13bbde51717d43839a2e1341c001971d08c6"
+            },
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 255348,
+              "sha256": "05826ee7737d11c4ba496d5a64753b5cf92a3a8a793f8af8f9d4e7b36549ac31"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-escampobariou-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 733511,
+            "sha256": "81fdc2f240f266b2abeb25e74685579ec77da228739a3eda54ed9cbfb9379e24",
+            "filename": "pointe-escampobariou-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 102948,
+              "sha256": "ab277e2ff2b7ae2574f290bca155b6066790f890b2ce6723eeac320a9225df96"
+            },
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 202180,
+              "sha256": "0e2fee3abc8485bc1d574c0f033671bb863d6de3beab6ab8098cc79600e96363"
+            },
+            {
+              "src": "/maps/var-centre/pointe-escampobariou/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 341486,
+              "sha256": "ffd65620bc732960d39984cbf612c65373aee82cf688e40c8f925ed2f15754b9"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-escampobariou-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 894271,
+            "sha256": "da27c02341467344895d889c762c1bf8fe471c5d5e21a44c8ef6eda8bea4b2e1",
+            "filename": "pointe-escampobariou-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-centre/pointe-escampobariou/maps/planche-topographic-1800.webp?v=a80d7ca6e715",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 157652,
+            "sha256": "a80d7ca6e715e769a1f3d15f62685726b59724f88e00d7d370362e400c1ebea4"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-escampobariou-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 3823697,
+            "sha256": "5af82498397d334a30fb83da4fea130bf9c0ac0479ef067248ce8e004dfe3d67",
+            "filename": "pointe-escampobariou-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-centre/pointe-escampobariou/maps/planche-orthophoto-1800.webp?v=385cbf781a8d",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 240034,
+            "sha256": "385cbf781a8d2fd92554994247127604306b559efe3c60659021e5768fec1a22"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-escampobariou-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4933074,
+            "sha256": "e0c9035f050b5f2d8ef3350cdac04c04fb01971ea79dea95b51a4c06d1464bad",
+            "filename": "pointe-escampobariou-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 3.5,
+        "connectorAngleDeg": 0,
+        "connectorWidthRem": 2.6,
+        "labelOffsetRem": -1.15,
+        "lines": [
+          "Escampobariou"
+        ],
+        "widthRem": 5.8
+      },
+      "interactiveInitialView": {
+        "zoom": 0.861,
+        "orbitAzimuthDeg": -88.07,
+        "cameraElevationDeg": 22.52,
+        "panRightM": -62.1,
+        "panUpM": 49.81,
+        "centerOffsetEastM": 0,
+        "centerOffsetSouthM": 0,
+        "cameraPositionM": [
+          45.4934,
+          586.7364,
+          1556.6791
+        ],
+        "cameraTargetM": [
+          -1.2712,
+          10.8035,
+          168.5507
+        ]
+      }
     }
   ],
   "plannedSites": [
@@ -1051,7 +1276,7 @@
         ],
         "widthRem": 5.8
       },
-      "status": "preparing"
+      "status": "published"
     }
   ]
 }

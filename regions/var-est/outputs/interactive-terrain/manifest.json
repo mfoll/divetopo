@@ -210,6 +210,48 @@
           "sha256": "2be958400b60fe3bc72090f5f41e96be339b6a64d01ef2e075333c094d559fa9"
         }
       }
+    },
+    {
+      "slug": "sec-des-suisses-cigales",
+      "title": "Sec des Suisses, Cap Dramont–Île d’Or",
+      "metadata": "sec-des-suisses-cigales/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-des-suisses-cigales/terrain.json",
+          "bytes": 5138,
+          "sha256": "78df4cebced90b386af98ac217f81d05a00ff20851239326b2f08d9d533d9cb4"
+        },
+        "height": {
+          "path": "sec-des-suisses-cigales/height.bin",
+          "bytes": 219564,
+          "sha256": "6bd9f0a25b56b2eb0ac0d267baad5a443fc73d1d3a4960f4e0489b0b5c687020"
+        },
+        "validMask": {
+          "path": "sec-des-suisses-cigales/valid-mask.bin",
+          "bytes": 13723,
+          "sha256": "4a5b341d5b8e79b6f2f3f94b34838ef9f73e17fce6948691ac7efa6a62664acd"
+        },
+        "isobathMask": {
+          "path": "sec-des-suisses-cigales/isobath-mask.bin",
+          "bytes": 13723,
+          "sha256": "4a5b341d5b8e79b6f2f3f94b34838ef9f73e17fce6948691ac7efa6a62664acd"
+        },
+        "vectorIsobaths": {
+          "path": "sec-des-suisses-cigales/isobaths-vector.json",
+          "bytes": 223974,
+          "sha256": "702fce0639d6edc290232f98ee48e56d25f3b3aed2d25e71a9d847e6ec34b898"
+        },
+        "topographicTexture": {
+          "path": "sec-des-suisses-cigales/topographic.webp",
+          "bytes": 43974,
+          "sha256": "c576306d7112b7a8a90335fd2e11286ae24f20472de0c6dff7f1d6c6b6a3758a"
+        },
+        "orthophotoTexture": {
+          "path": "sec-des-suisses-cigales/orthophoto.webp",
+          "bytes": 43676,
+          "sha256": "96e20dbe3f62352355d85d7586fc2ee02efcc61f2fa6071af7be87fc7bfed0db"
+        }
+      }
     }
   ]
 }

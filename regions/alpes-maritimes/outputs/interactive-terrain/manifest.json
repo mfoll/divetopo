@@ -210,6 +210,48 @@
           "sha256": "4dc1b9b70c6aacfd4f2f6dc1de2cfb89849e0b9336902aba620bfdc432ca459f"
         }
       }
+    },
+    {
+      "slug": "cap-gros",
+      "title": "Cap Gros, Antibes",
+      "metadata": "cap-gros/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "cap-gros/terrain.json",
+          "bytes": 5270,
+          "sha256": "29a4e5ee8b397a9f2fac06702ab4dd27abd575a27a262cf6836e05082da71ebe"
+        },
+        "height": {
+          "path": "cap-gros/height.bin",
+          "bytes": 427842,
+          "sha256": "8033021da885711699f8080c6256369b26e828d311d1422ab419c0fc2397ad96"
+        },
+        "validMask": {
+          "path": "cap-gros/valid-mask.bin",
+          "bytes": 26741,
+          "sha256": "8359e6e820524ac3dc9f4d2dfa70dd9b9d5db44a4c054bc1378306890fa7ec47"
+        },
+        "isobathMask": {
+          "path": "cap-gros/isobath-mask.bin",
+          "bytes": 26741,
+          "sha256": "8359e6e820524ac3dc9f4d2dfa70dd9b9d5db44a4c054bc1378306890fa7ec47"
+        },
+        "vectorIsobaths": {
+          "path": "cap-gros/isobaths-vector.json",
+          "bytes": 82899,
+          "sha256": "e6b295e93d0daae4350cee3cae69ee8b4f3b51276aa95675ea79edfe0d128aae"
+        },
+        "topographicTexture": {
+          "path": "cap-gros/topographic.webp",
+          "bytes": 20978,
+          "sha256": "abdc95dba9958971bbf883e6047da69b011808ea686763be23c247e88e9da407"
+        },
+        "orthophotoTexture": {
+          "path": "cap-gros/orthophoto.webp",
+          "bytes": 34698,
+          "sha256": "5219b0d22cc115c4f0804117f6eb04b77d7bc506266073bdd697715c1593afb1"
+        }
+      }
     }
   ]
 }

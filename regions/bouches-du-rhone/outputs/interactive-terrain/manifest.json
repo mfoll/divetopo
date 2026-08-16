@@ -128,6 +128,48 @@
       }
     },
     {
+      "slug": "imperial-du-milieu-riou",
+      "title": "Impérial du Milieu, Riou",
+      "metadata": "imperial-du-milieu-riou/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "imperial-du-milieu-riou/terrain.json",
+          "bytes": 5122,
+          "sha256": "2d5720a6aed5f13b94dcd28a8df1376d397ef3ee050e217a6fde0c43c17ed1b5"
+        },
+        "height": {
+          "path": "imperial-du-milieu-riou/height.bin",
+          "bytes": 288000,
+          "sha256": "8b1bf62850a0f73d9b2006140081f4da4e1b8ac9e52143ed2988b07852a102ca"
+        },
+        "validMask": {
+          "path": "imperial-du-milieu-riou/valid-mask.bin",
+          "bytes": 18000,
+          "sha256": "a105f951252a1fed6aed3853c0687f7437d0de790f38b3068b168d282339a301"
+        },
+        "isobathMask": {
+          "path": "imperial-du-milieu-riou/isobath-mask.bin",
+          "bytes": 18000,
+          "sha256": "a105f951252a1fed6aed3853c0687f7437d0de790f38b3068b168d282339a301"
+        },
+        "vectorIsobaths": {
+          "path": "imperial-du-milieu-riou/isobaths-vector.json",
+          "bytes": 53112,
+          "sha256": "43a230b4227ff1702f32e246996e3e2b3701555a0babde6837d234567909f5a5"
+        },
+        "topographicTexture": {
+          "path": "imperial-du-milieu-riou/topographic.webp",
+          "bytes": 6888,
+          "sha256": "5679090c88ba61926d1d57a681fafe74db6e33e1fe4e40326c13221e54b32c13"
+        },
+        "orthophotoTexture": {
+          "path": "imperial-du-milieu-riou/orthophoto.webp",
+          "bytes": 38650,
+          "sha256": "5747bc6273d6eea47456bd88e79e7ac179bc3a2bc6186499b227bbe73e5d71b0"
+        }
+      }
+    },
+    {
       "slug": "pierre-a-la-bague-plateau",
       "title": "Pierre à la Bague – plateau, Planier",
       "metadata": "pierre-a-la-bague-plateau/terrain.json",

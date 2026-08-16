@@ -98,13 +98,13 @@
       "slug": "pointe-escampobariou",
       "name": "Pointe Escampobariou",
       "municipality": "Hyères",
-      "publication": "pending",
+      "publication": "published",
       "artifacts": {
-        "status": "pending",
+        "status": "complete",
         "staticMaps": true,
         "planches": true,
         "interactiveTerrain": true,
-        "webDerivatives": false
+        "webDerivatives": true
       },
       "config": "regions/var-centre/sites/pointe-escampobariou.json"
     }

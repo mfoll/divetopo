@@ -722,6 +722,232 @@
       }
     },
     {
+      "slug": "imperial-du-milieu-riou",
+      "displayName": "Impérial du Milieu",
+      "plateTitle": "Impérial du Milieu, Riou",
+      "config": "regions/bouches-du-rhone/sites/imperial-du-milieu-riou.json",
+      "assetBasePath": "/maps/bouches-du-rhone/imperial-du-milieu-riou",
+      "location": {
+        "city": "Marseille · Riou",
+        "latitude": 43.17206666,
+        "longitude": 5.39356666
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 63.62981,
+        "yPercent": 73.81939
+      },
+      "maxDepthM": 45.0,
+      "planMaxDepthM": 45.0,
+      "verticalExaggeration": 1.0,
+      "orthophotoCaptureDate": "2023-06-24",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/2d-topographic.jpg?v=722effd02a0e",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1072943,
+              "sha256": "722effd02a0e400c50bc5e5cf6d6362b1db095ee12cb7b09c754fb90c5ae9c4c"
+            }
+          ],
+          "download": {
+            "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/2d-topographic.jpg?v=722effd02a0e",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1072943,
+            "sha256": "722effd02a0e400c50bc5e5cf6d6362b1db095ee12cb7b09c754fb90c5ae9c4c",
+            "filename": "imperial-du-milieu-riou-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/2d-orthophoto.jpg?v=22fb34d9be37",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2675372,
+              "sha256": "22fb34d9be37f575a5ea899e80cb5df28188e4164ff662ab4af7f65e7eaf4aad"
+            }
+          ],
+          "download": {
+            "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/2d-orthophoto.jpg?v=22fb34d9be37",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2675372,
+            "sha256": "22fb34d9be37f575a5ea899e80cb5df28188e4164ff662ab4af7f65e7eaf4aad",
+            "filename": "imperial-du-milieu-riou-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 58146,
+              "sha256": "e3f8ff5ec4688ed6c484c316cb87cd7890a23f0323161e540687b4ccb60c9c19"
+            },
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 112734,
+              "sha256": "256f9a5f0879b69cffb4dbdea2eedb2c54d0f70cc861c77afbacaa4983d52e88"
+            },
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 201014,
+              "sha256": "de80f8cc3744cfde59eeaeca205b25f4eaf5c82f22d51c8b9fca92f6228ab8c6"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-du-milieu-riou-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 582842,
+            "sha256": "d52b902fc4c133d8c8f0ef02980b4852fcc245fc65b1d290fd11b8d948689964",
+            "filename": "imperial-du-milieu-riou-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 91920,
+              "sha256": "08366af7e53c1d6074006e5d6c5e5c974dc3251ef46d37a50e873136ebdbdd99"
+            },
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 175156,
+              "sha256": "ea556ef8aa930a95af916016bfa0bf53b7f806f3d8b2d6c5170a98fb370b33c9"
+            },
+            {
+              "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 298500,
+              "sha256": "5c15b41f2dd502d5212f8ccedff6544ede774fd2f36896d189f77e1564a9539e"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-du-milieu-riou-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 791524,
+            "sha256": "aa6ea60de66a9fb30f709b0794791bcbc1d85ca7760475304eba33b99448e5a2",
+            "filename": "imperial-du-milieu-riou-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/planche-topographic-1800.webp?v=caa7c2195597",
+            "width": 1800,
+            "height": 1533,
+            "bytes": 130180,
+            "sha256": "caa7c2195597e3189a8f36fda912d7fb82b1dac75ee5c1ca094758a98fd67158"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-du-milieu-riou-planche-topographique.jpg",
+            "width": 5400,
+            "height": 4600,
+            "bytes": 3551106,
+            "sha256": "86de5d5e880be4da37680bd62175ed156bdd262d32d14b99fd1639cd3a8717b7",
+            "filename": "imperial-du-milieu-riou-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/bouches-du-rhone/imperial-du-milieu-riou/maps/planche-orthophoto-1800.webp?v=38841a300aa1",
+            "width": 1800,
+            "height": 1533,
+            "bytes": 283400,
+            "sha256": "38841a300aa152ee7f6920b7a28b11b90ff646d9d1dafdbe6d301d41e73c39e1"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-du-milieu-riou-planche.jpg",
+            "width": 5400,
+            "height": 4600,
+            "bytes": 5692186,
+            "sha256": "a28eeceabaed37388574929320d40abcb339e64fdca61990307750a59d4f43d9",
+            "filename": "imperial-du-milieu-riou-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -0.8,
+        "connectorAngleDeg": 180,
+        "connectorWidthRem": 2.0,
+        "labelOffsetRem": 2.5,
+        "lines": [
+          "Impérial du",
+          "Milieu – Riou"
+        ],
+        "widthRem": 6.5
+      },
+      "interactiveInitialView": {
+        "zoom": 0.84,
+        "orbitAzimuthDeg": 0.0,
+        "cameraElevationDeg": 33.42,
+        "panRightM": 11.33,
+        "panUpM": 43.2,
+        "centerOffsetEastM": 0.0,
+        "centerOffsetSouthM": 0.0,
+        "cameraPositionM": [
+          -11.3258,
+          547.6336,
+          911.8899
+        ],
+        "cameraTargetM": [
+          -11.3258,
+          -33.1664,
+          31.8899
+        ]
+      }
+    },
+    {
       "slug": "pierre-a-la-bague-plateau",
       "displayName": "Pierre à la Bague – plateau",
       "plateTitle": "Pierre à la Bague – plateau, Planier",
@@ -1274,7 +1500,7 @@
         ],
         "widthRem": 6.5
       },
-      "status": "preparing"
+      "status": "published"
     },
     {
       "slug": "pierre-a-la-bague-plateau",

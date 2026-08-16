@@ -220,6 +220,48 @@
       }
     },
     {
+      "slug": "cap-gros",
+      "title": "Cap Gros, Antibes",
+      "metadata": "cap-gros/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "cap-gros/terrain.json",
+          "bytes": 5270,
+          "sha256": "29a4e5ee8b397a9f2fac06702ab4dd27abd575a27a262cf6836e05082da71ebe"
+        },
+        "height": {
+          "path": "cap-gros/height.bin",
+          "bytes": 427842,
+          "sha256": "8033021da885711699f8080c6256369b26e828d311d1422ab419c0fc2397ad96"
+        },
+        "validMask": {
+          "path": "cap-gros/valid-mask.bin",
+          "bytes": 26741,
+          "sha256": "8359e6e820524ac3dc9f4d2dfa70dd9b9d5db44a4c054bc1378306890fa7ec47"
+        },
+        "isobathMask": {
+          "path": "cap-gros/isobath-mask.bin",
+          "bytes": 26741,
+          "sha256": "8359e6e820524ac3dc9f4d2dfa70dd9b9d5db44a4c054bc1378306890fa7ec47"
+        },
+        "vectorIsobaths": {
+          "path": "cap-gros/isobaths-vector.json",
+          "bytes": 82899,
+          "sha256": "e6b295e93d0daae4350cee3cae69ee8b4f3b51276aa95675ea79edfe0d128aae"
+        },
+        "topographicTexture": {
+          "path": "cap-gros/topographic.webp",
+          "bytes": 20978,
+          "sha256": "abdc95dba9958971bbf883e6047da69b011808ea686763be23c247e88e9da407"
+        },
+        "orthophotoTexture": {
+          "path": "cap-gros/orthophoto.webp",
+          "bytes": 34698,
+          "sha256": "5219b0d22cc115c4f0804117f6eb04b77d7bc506266073bdd697715c1593afb1"
+        }
+      }
+    },
+    {
       "slug": "grotte-a-corail-maire",
       "title": "Grotte à Corail – Maïre",
       "metadata": "grotte-a-corail-maire/terrain.json",
@@ -342,6 +384,48 @@
           "path": "imperial-de-terre-riou/orthophoto.webp",
           "bytes": 35260,
           "sha256": "863c377caa3b8fa4035d62779b093be6979779c6d731f8f476206db29a3ac60f"
+        }
+      }
+    },
+    {
+      "slug": "imperial-du-milieu-riou",
+      "title": "Impérial du Milieu, Riou",
+      "metadata": "imperial-du-milieu-riou/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "imperial-du-milieu-riou/terrain.json",
+          "bytes": 5122,
+          "sha256": "2d5720a6aed5f13b94dcd28a8df1376d397ef3ee050e217a6fde0c43c17ed1b5"
+        },
+        "height": {
+          "path": "imperial-du-milieu-riou/height.bin",
+          "bytes": 288000,
+          "sha256": "8b1bf62850a0f73d9b2006140081f4da4e1b8ac9e52143ed2988b07852a102ca"
+        },
+        "validMask": {
+          "path": "imperial-du-milieu-riou/valid-mask.bin",
+          "bytes": 18000,
+          "sha256": "a105f951252a1fed6aed3853c0687f7437d0de790f38b3068b168d282339a301"
+        },
+        "isobathMask": {
+          "path": "imperial-du-milieu-riou/isobath-mask.bin",
+          "bytes": 18000,
+          "sha256": "a105f951252a1fed6aed3853c0687f7437d0de790f38b3068b168d282339a301"
+        },
+        "vectorIsobaths": {
+          "path": "imperial-du-milieu-riou/isobaths-vector.json",
+          "bytes": 53112,
+          "sha256": "43a230b4227ff1702f32e246996e3e2b3701555a0babde6837d234567909f5a5"
+        },
+        "topographicTexture": {
+          "path": "imperial-du-milieu-riou/topographic.webp",
+          "bytes": 6888,
+          "sha256": "5679090c88ba61926d1d57a681fafe74db6e33e1fe4e40326c13221e54b32c13"
+        },
+        "orthophotoTexture": {
+          "path": "imperial-du-milieu-riou/orthophoto.webp",
+          "bytes": 38650,
+          "sha256": "5747bc6273d6eea47456bd88e79e7ac179bc3a2bc6186499b227bbe73e5d71b0"
         }
       }
     },
@@ -1060,6 +1144,48 @@
       }
     },
     {
+      "slug": "pointe-escampobariou",
+      "title": "Pointe Escampobariou, Giens",
+      "metadata": "pointe-escampobariou/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "pointe-escampobariou/terrain.json",
+          "bytes": 4930,
+          "sha256": "3c6151bf89ac7429dad4d9b893b6c18eede28eadc02d89afc96082d2f1384b73"
+        },
+        "height": {
+          "path": "pointe-escampobariou/height.bin",
+          "bytes": 362178,
+          "sha256": "b0d792a9b688515aa552360e40120c5a30306d6e77d541e5048ed07dc63cc77f"
+        },
+        "validMask": {
+          "path": "pointe-escampobariou/valid-mask.bin",
+          "bytes": 22637,
+          "sha256": "b241398cefe29a8d8cc24ad3c5ce3f180ad798ade029cc1a0c550a5bab8465c1"
+        },
+        "isobathMask": {
+          "path": "pointe-escampobariou/isobath-mask.bin",
+          "bytes": 22637,
+          "sha256": "b241398cefe29a8d8cc24ad3c5ce3f180ad798ade029cc1a0c550a5bab8465c1"
+        },
+        "vectorIsobaths": {
+          "path": "pointe-escampobariou/isobaths-vector.json",
+          "bytes": 137087,
+          "sha256": "1e59f514e4f4e9ebe823120ab9411a790b7d628629a37aab8be1c6d75766af5b"
+        },
+        "topographicTexture": {
+          "path": "pointe-escampobariou/topographic.webp",
+          "bytes": 30272,
+          "sha256": "b0bfbafee32b0ba07285a9507fed39be1cc68498cb82dbbc17309575c90257a7"
+        },
+        "orthophotoTexture": {
+          "path": "pointe-escampobariou/orthophoto.webp",
+          "bytes": 62556,
+          "sha256": "edafc5914838a6428549548d4f11e046a1276fdd15eefdfec7ebed683eca813c"
+        }
+      }
+    },
+    {
       "slug": "les-pyramides-cap-dramont",
       "title": "Les Pyramides, Cap Dramont–Île d’Or",
       "metadata": "les-pyramides-cap-dramont/terrain.json",
@@ -1266,6 +1392,48 @@
           "path": "le-village/orthophoto.webp",
           "bytes": 14534,
           "sha256": "2be958400b60fe3bc72090f5f41e96be339b6a64d01ef2e075333c094d559fa9"
+        }
+      }
+    },
+    {
+      "slug": "sec-des-suisses-cigales",
+      "title": "Sec des Suisses, Cap Dramont–Île d’Or",
+      "metadata": "sec-des-suisses-cigales/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "sec-des-suisses-cigales/terrain.json",
+          "bytes": 5138,
+          "sha256": "78df4cebced90b386af98ac217f81d05a00ff20851239326b2f08d9d533d9cb4"
+        },
+        "height": {
+          "path": "sec-des-suisses-cigales/height.bin",
+          "bytes": 219564,
+          "sha256": "6bd9f0a25b56b2eb0ac0d267baad5a443fc73d1d3a4960f4e0489b0b5c687020"
+        },
+        "validMask": {
+          "path": "sec-des-suisses-cigales/valid-mask.bin",
+          "bytes": 13723,
+          "sha256": "4a5b341d5b8e79b6f2f3f94b34838ef9f73e17fce6948691ac7efa6a62664acd"
+        },
+        "isobathMask": {
+          "path": "sec-des-suisses-cigales/isobath-mask.bin",
+          "bytes": 13723,
+          "sha256": "4a5b341d5b8e79b6f2f3f94b34838ef9f73e17fce6948691ac7efa6a62664acd"
+        },
+        "vectorIsobaths": {
+          "path": "sec-des-suisses-cigales/isobaths-vector.json",
+          "bytes": 223974,
+          "sha256": "702fce0639d6edc290232f98ee48e56d25f3b3aed2d25e71a9d847e6ec34b898"
+        },
+        "topographicTexture": {
+          "path": "sec-des-suisses-cigales/topographic.webp",
+          "bytes": 43974,
+          "sha256": "c576306d7112b7a8a90335fd2e11286ae24f20472de0c6dff7f1d6c6b6a3758a"
+        },
+        "orthophotoTexture": {
+          "path": "sec-des-suisses-cigales/orthophoto.webp",
+          "bytes": 43676,
+          "sha256": "96e20dbe3f62352355d85d7586fc2ee02efcc61f2fa6071af7be87fc7bfed0db"
         }
       }
     },

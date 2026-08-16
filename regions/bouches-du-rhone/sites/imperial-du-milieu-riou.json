@@ -3,7 +3,7 @@
   "slug": "imperial-du-milieu-riou",
   "title": "Impérial du Milieu – Riou",
   "web": {
-    "published": false,
+    "published": true,
     "site_label_layout": {
       "side": "left",
       "shift_y_rem": -0.8,

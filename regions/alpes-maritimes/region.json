@@ -144,13 +144,13 @@
       "slug": "cap-gros",
       "name": "Cap Gros",
       "municipality": "Antibes",
-      "publication": "preparing",
+      "publication": "published",
       "artifacts": {
-        "status": "preparing",
+        "status": "complete",
         "staticMaps": true,
         "planches": true,
         "interactiveTerrain": true,
-        "webDerivatives": false
+        "webDerivatives": true
       },
       "config": "regions/alpes-maritimes/sites/cap-gros.json"
     }

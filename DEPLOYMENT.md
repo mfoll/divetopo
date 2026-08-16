@@ -52,6 +52,18 @@ publication derivatives before the application tree can be considered current.
 
 ## Release sequence
 
+Before tagging or deploying, run the machine-readable release gate:
+
+```bash
+.venv/bin/python tools/release/check_release.py
+```
+
+`release-contract.json` is the source of truth for the current release scope.
+Every announced site must be published in its configuration, regional
+manifest, Web assets and global terrain manifest. Release notes are tracked in
+English under `releases/` and must name every required site. Do not create or
+update a GitHub release when this check fails.
+
 1. Inspect the current branch and the complete task-scoped diff.
 2. Run the relevant regional configuration checks and the Python suite.
 3. When cartographic artifacts were moved rather than regenerated, verify their

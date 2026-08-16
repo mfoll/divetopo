@@ -1,0 +1,27 @@
+{
+  "version": "v1.5.0",
+  "releaseNotes": "releases/v1.5.0.md",
+  "requiredNotesHeading": "## New dive sites",
+  "requiredPublishedSites": [
+    {
+      "region": "bouches-du-rhone",
+      "slug": "imperial-du-milieu-riou",
+      "displayName": "Impérial du Milieu – Riou"
+    },
+    {
+      "region": "var-centre",
+      "slug": "pointe-escampobariou",
+      "displayName": "Pointe Escampobariou"
+    },
+    {
+      "region": "var-est",
+      "slug": "sec-des-suisses-cigales",
+      "displayName": "Sec des Suisses"
+    },
+    {
+      "region": "alpes-maritimes",
+      "slug": "cap-gros",
+      "displayName": "Cap Gros"
+    }
+  ]
+}

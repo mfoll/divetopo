@@ -28,13 +28,22 @@ class RegionalManifestTests(unittest.TestCase):
         ):
             for config in REGIONAL.load_published_configs(ROOT, region):
                 with self.subTest(region=region, slug=config["slug"]):
-                    self.assertEqual(
-                        config["bathymetry_source_text"], expected_source
-                    )
+                    if config["slug"] == "cap-gros":
+                        self.assertEqual(
+                            config["bathymetry_source_text"],
+                            "Bathy. NCA · isobathes 1 m (2007) · interp. RGE",
+                        )
+                    else:
+                        self.assertEqual(
+                            config["bathymetry_source_text"], expected_source
+                        )
                     self.assertEqual(config["map_style_scale"], 2.0)
-                    self.assertEqual(
-                        config["final_output_size_px"], [2474, 1712]
+                    expected_size = (
+                        [1600, 1184]
+                        if config["slug"] == "cap-gros"
+                        else [2474, 1712]
                     )
+                    self.assertEqual(config["final_output_size_px"], expected_size)
 
     def test_region_inventory_filters_unpublished_site_drafts(self) -> None:
         var_ouest = REGIONAL.load_published_configs(ROOT, "var-ouest")
@@ -56,6 +65,7 @@ class RegionalManifestTests(unittest.TestCase):
                 "sec-de-la-jeaune-garde",
                 "cap-des-medes",
                 "la-gabiniere-port-cros",
+                "pointe-escampobariou",
             ],
         )
         self.assertEqual(
@@ -66,6 +76,7 @@ class RegionalManifestTests(unittest.TestCase):
                 "arche-du-dramont",
                 "cathedrale-du-trayas",
                 "le-village",
+                "sec-des-suisses-cigales",
             ],
         )
 

@@ -1164,6 +1164,232 @@
           -30.1625
         ]
       }
+    },
+    {
+      "slug": "sec-des-suisses-cigales",
+      "displayName": "Sec des Suisses",
+      "plateTitle": "Sec des Suisses, Cap Dramont–Île d’Or",
+      "config": "regions/var-est/sites/sec-des-suisses-cigales.json",
+      "assetBasePath": "/maps/var-est/sec-des-suisses-cigales",
+      "location": {
+        "city": "Saint-Raphaël · Cap Dramont",
+        "latitude": 43.41021569,
+        "longitude": 6.85048164
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 41.23564,
+        "yPercent": 60.19798
+      },
+      "maxDepthM": 40.0,
+      "planMaxDepthM": 40.0,
+      "verticalExaggeration": 1.6,
+      "orthophotoCaptureDate": "2023-07-13",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/2d-topographic.jpg?v=e1d23b0ad294",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2084562,
+              "sha256": "e1d23b0ad294f87e738fd8002949584bba9f4ee9f3cef2521c41a365e1cb65ba"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-est/sec-des-suisses-cigales/maps/2d-topographic.jpg?v=e1d23b0ad294",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2084562,
+            "sha256": "e1d23b0ad294f87e738fd8002949584bba9f4ee9f3cef2521c41a365e1cb65ba",
+            "filename": "sec-des-suisses-cigales-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/2d-orthophoto.jpg?v=0d372be8dede",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2827776,
+              "sha256": "0d372be8dede478f4886bdea50618d91ec2b987e3f5c1e99cd97ceed48f19a30"
+            }
+          ],
+          "download": {
+            "src": "/maps/var-est/sec-des-suisses-cigales/maps/2d-orthophoto.jpg?v=0d372be8dede",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2827776,
+            "sha256": "0d372be8dede478f4886bdea50618d91ec2b987e3f5c1e99cd97ceed48f19a30",
+            "filename": "sec-des-suisses-cigales-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 63130,
+              "sha256": "9dfbcd8fc4cb485432f76b8683a57472b121a9f507f33a4186410263f71a617b"
+            },
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 124542,
+              "sha256": "a8048ce62fb4074d87570ef9e069ae524d6629b2ad7e97ad265215849a978eec"
+            },
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 219278,
+              "sha256": "f49ced64d01bc1706ac24a7442abfd955a40fbcab9cc07092e7f6ab661f565a3"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-des-suisses-cigales-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 603397,
+            "sha256": "c479f7467eb7dd9248820884690bd90cba5df1c086b401087fcc90c25fb27ba0",
+            "filename": "sec-des-suisses-cigales-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 64716,
+              "sha256": "b07a69a5bc0cd1004b2d562acd649d297e8b2ae8c249cc2bf8f2e10f8348d4cd"
+            },
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 128142,
+              "sha256": "dcefcc4e99b08941832fa918abc78f96e879336978d656ab486dbab8b3a186fe"
+            },
+            {
+              "src": "/maps/var-est/sec-des-suisses-cigales/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 225858,
+              "sha256": "ec2952fe26973063a12ad288d0e0bfc42eb1ecddf873fe1e1d59ab7a49f52ed4"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-des-suisses-cigales-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 615647,
+            "sha256": "e62bee21436a813e47fd4e5897aea838d2cd93025936e3ec9daab73e021e1c38",
+            "filename": "sec-des-suisses-cigales-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/var-est/sec-des-suisses-cigales/maps/planche-topographic-1800.webp?v=660807e1d969",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 198374,
+            "sha256": "660807e1d969d8df3535b60d0c2a04e012c7a9ab204f837d53a53c1c74219aae"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-des-suisses-cigales-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5008175,
+            "sha256": "45b017c131479681858b9373815dfae5156904c54b46328c1ef97241ea6320f3",
+            "filename": "sec-des-suisses-cigales-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/var-est/sec-des-suisses-cigales/maps/planche-orthophoto-1800.webp?v=59885c17ebd2",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 252580,
+            "sha256": "59885c17ebd225ae5f259407d8deeacdedf11febc6cacbfccb3eef989c8811cb"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-des-suisses-cigales-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 5775379,
+            "sha256": "3f642f4c1aec1cad2b614394641c4bb822d6e118fa9d29f8da7c5c7da72716d6",
+            "filename": "sec-des-suisses-cigales-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 1.6,
+        "connectorAngleDeg": 165.0,
+        "connectorWidthRem": 2.0,
+        "labelOffsetRem": 1.5,
+        "lines": [
+          "Sec des",
+          "Suisses"
+        ],
+        "widthRem": 5.8
+      },
+      "interactiveInitialView": {
+        "zoom": 0.65,
+        "orbitAzimuthDeg": -14.56,
+        "cameraElevationDeg": 22.61,
+        "panRightM": -34.44,
+        "panUpM": 48.59,
+        "centerOffsetEastM": 0.0,
+        "centerOffsetSouthM": 0.0,
+        "cameraPositionM": [
+          -203.2828,
+          336.4402,
+          916.6475
+        ],
+        "cameraTargetM": [
+          28.5751,
+          -47.6519,
+          23.7785
+        ]
+      }
     }
   ],
   "plannedSites": [
@@ -1313,7 +1539,7 @@
         ],
         "widthRem": 5.8
       },
-      "status": "preparing"
+      "status": "published"
     }
   ]
 }

@@ -16,11 +16,11 @@ EXPECTED_SITES = [
     "le-village",
     "sec-des-suisses-cigales",
 ]
-EXPECTED_PUBLISHED_SITES = EXPECTED_SITES[:-1]
+EXPECTED_PUBLISHED_SITES = EXPECTED_SITES
 
 
 class VarEstRegionTests(unittest.TestCase):
-    def test_inventory_is_exact_and_pending_site_stays_unpublished(self) -> None:
+    def test_inventory_is_exact_and_all_sites_are_published(self) -> None:
         region = json.loads(REGION_PATH.read_text(encoding="utf-8"))
         self.assertEqual(region["slug"], "var-est")
         self.assertEqual(region["route"], "/var-est")

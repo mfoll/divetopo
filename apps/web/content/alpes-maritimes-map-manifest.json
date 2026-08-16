@@ -1159,6 +1159,229 @@
           -11.5616
         ]
       }
+    },
+    {
+      "slug": "cap-gros",
+      "displayName": "Cap Gros",
+      "plateTitle": "Cap Gros, Antibes",
+      "config": "regions/alpes-maritimes/sites/cap-gros.json",
+      "assetBasePath": "/maps/alpes-maritimes/cap-gros",
+      "location": {
+        "city": "Antibes · Cap d’Antibes",
+        "latitude": 43.55194444,
+        "longitude": 7.145
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 50.61936,
+        "yPercent": 61.13872
+      },
+      "maxDepthM": 45.0,
+      "planMaxDepthM": 45.0,
+      "verticalExaggeration": 3.9935327405,
+      "orthophotoCaptureDate": "2023-07-10",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/2d-topographic.jpg?v=ec40196aa6ab",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 827313,
+              "sha256": "ec40196aa6ab496dd678ae2d45869c2e7b530d71a38252fd4c2624e256184303"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/cap-gros/maps/2d-topographic.jpg?v=ec40196aa6ab",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 827313,
+            "sha256": "ec40196aa6ab496dd678ae2d45869c2e7b530d71a38252fd4c2624e256184303",
+            "filename": "cap-gros-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 1600,
+            "height": 1184
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/2d-orthophoto.jpg?v=1165fc3b2b4b",
+              "width": 1600,
+              "height": 1184,
+              "bytes": 1046502,
+              "sha256": "1165fc3b2b4b677a5890175dd09424c2a98a5fed78d4601fe347070cc045befd"
+            }
+          ],
+          "download": {
+            "src": "/maps/alpes-maritimes/cap-gros/maps/2d-orthophoto.jpg?v=1165fc3b2b4b",
+            "width": 1600,
+            "height": 1184,
+            "bytes": 1046502,
+            "sha256": "1165fc3b2b4b677a5890175dd09424c2a98a5fed78d4601fe347070cc045befd",
+            "filename": "cap-gros-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 68342,
+              "sha256": "3832d80333318b670be43b439e1f7cb5648d425177ecb56b3c157d6b29beca5f"
+            },
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 133610,
+              "sha256": "fa65ae22384da41407017ad3a82abfce300564c66f493da76df0b30e4fc7436f"
+            },
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 233234,
+              "sha256": "eb6dd0dcf89845af489d296d8813e78e433efebc18fa34dbbe9b8d0489ef9423"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-gros-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 674709,
+            "sha256": "af7df8618b32cbf476e1b32cc406ad4734a6bc4f61404c426f7728b77dfb66e2",
+            "filename": "cap-gros-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 83114,
+              "sha256": "d54751f48f22f3892da2811ad0442caa294edb9fa18f0842fe939349ba104554"
+            },
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 168594,
+              "sha256": "9e907d830782018aed8d8bf2d291e872f2a302fd11bbeb1e472415b002499a8a"
+            },
+            {
+              "src": "/maps/alpes-maritimes/cap-gros/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 282658,
+              "sha256": "6cc3f1533788f47b5e728cd97b18b04e0778815b97ecbc892f627922dd706d17"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-gros-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 770937,
+            "sha256": "abd4d5e314e900572391903f563d6a7743eac3545ce7578d7c14df2be4150768",
+            "filename": "cap-gros-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/alpes-maritimes/cap-gros/maps/planche-topographic-1800.webp?v=5fb95473f5cc",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 166950,
+            "sha256": "5fb95473f5cc3beb330fa12e823db43d7a71b2b5e5bf43b50939de9f4ff2d38a"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-gros-planche-topographique.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4049505,
+            "sha256": "ddcdcb083fa62f902ab000a308ea5d9d8584644110d25a1caf62c9263575919f",
+            "filename": "cap-gros-planche-topographique.jpg"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/alpes-maritimes/cap-gros/maps/planche-orthophoto-1800.webp?v=98bc0267167c",
+            "width": 1800,
+            "height": 1083,
+            "bytes": 221036,
+            "sha256": "98bc0267167c42555788d599e0e7628a315a56d80235c090ae293df6e59b9961"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-gros-planche.jpg",
+            "width": 5400,
+            "height": 3250,
+            "bytes": 4656916,
+            "sha256": "bb2d0174049cd2b71101cd3c126d85e55ca13695931b8b27e3ce535382b22ca1",
+            "filename": "cap-gros-planche.jpg"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": -2.3,
+        "connectorAngleDeg": -18,
+        "connectorWidthRem": 2.2,
+        "labelOffsetRem": 3.0,
+        "widthRem": 7.6
+      },
+      "interactiveInitialView": {
+        "zoom": 0.68,
+        "orbitAzimuthDeg": -67.77,
+        "cameraElevationDeg": 14.4,
+        "panRightM": 80.13,
+        "panUpM": 60.09,
+        "centerOffsetEastM": 0,
+        "centerOffsetSouthM": 0,
+        "isobathLabelFocusXNdc": 0.25,
+        "cameraPositionM": [
+          1773.8383,
+          467.0649,
+          -811.7817
+        ],
+        "cameraTargetM": [
+          -48.3203,
+          -38.3408,
+          -67.177
+        ]
+      }
     }
   ],
   "plannedSites": [
@@ -1296,7 +1519,7 @@
         "labelOffsetRem": 3.0,
         "widthRem": 7.6
       },
-      "status": "preparing"
+      "status": "published"
     }
   ]
 }
