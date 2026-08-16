@@ -229,7 +229,7 @@ function RegionalSiteMarker({
   onSelect,
 }: {
   plannedSite: RegionalPlannedSite;
-  site: RegionalAssetSite;
+  site?: RegionalAssetSite;
   region: RegionSlug;
   selected: boolean;
   hasSiteRoute: boolean;
@@ -237,7 +237,7 @@ function RegionalSiteMarker({
   showSiteLabel: string;
   onSelect: (slug: string) => void;
 }) {
-  const markerRef = useRef<HTMLAnchorElement>(null);
+  const markerRef = useRef<HTMLElement>(null);
   const labelRef = useRef<HTMLSpanElement>(null);
   const connectorRef = useRef<SVGSVGElement>(null);
   const layout = plannedSite.siteLabelLayout;
@@ -383,29 +383,8 @@ function RegionalSiteMarker({
     "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
   } as CSSProperties;
 
-  return (
-    <a
-      ref={markerRef}
-      className={`site-map-marker label-${layout.side}`}
-      style={style}
-      aria-current={hasSiteRoute && selected ? "page" : undefined}
-      data-selected={selected}
-      aria-label={`${showSiteLabel} ${site.displayName}`}
-      href={localizedSitePath(language, site.slug, region)}
-      onClick={(event) => {
-        if (
-          event.button !== 0 ||
-          event.metaKey ||
-          event.ctrlKey ||
-          event.shiftKey ||
-          event.altKey
-        ) {
-          return;
-        }
-        event.preventDefault();
-        onSelect(site.slug);
-      }}
-    >
+  const markerContents = (
+    <>
       <span className="site-map-marker-dot" aria-hidden="true" />
       <svg
         ref={connectorRef}
@@ -424,6 +403,50 @@ function RegionalSiteMarker({
           ? layout.lines.map((line) => <span key={line}>{line}</span>)
           : plannedSite.displayName}
       </span>
+    </>
+  );
+
+  if (!site) {
+    return (
+      <span
+        ref={(node) => {
+          markerRef.current = node;
+        }}
+        className={`site-map-marker site-map-marker-preparing label-${layout.side}`}
+        style={style}
+        aria-label={`${plannedSite.displayName}, ${language === "fr" ? "en préparation" : "in preparation"}`}
+      >
+        {markerContents}
+      </span>
+    );
+  }
+
+  return (
+    <a
+      ref={(node) => {
+        markerRef.current = node;
+      }}
+      className={`site-map-marker label-${layout.side}`}
+      style={style}
+      aria-current={hasSiteRoute && selected ? "page" : undefined}
+      data-selected={selected}
+      aria-label={`${showSiteLabel} ${plannedSite.displayName}`}
+      href={localizedSitePath(language, site.slug, region)}
+      onClick={(event) => {
+        if (
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        event.preventDefault();
+        onSelect(site.slug);
+      }}
+    >
+      {markerContents}
     </a>
   );
 }
@@ -553,20 +576,10 @@ function SiteLocatorMap({
           (candidate) => candidate.slug === plannedSite.slug,
         );
         const selected = activeSlug === plannedSite.slug;
-        const layout = plannedSite.siteLabelLayout;
-        const style = {
-          "--site-x": `${plannedSite.westCoastLocatorPosition.xPercent}%`,
-          "--site-y": `${plannedSite.westCoastLocatorPosition.yPercent}%`,
-          "--label-shift-y": `${layout.shiftYRem}rem`,
-          "--label-width": layout.widthRem
-            ? `${layout.widthRem}rem`
-            : undefined,
-          "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
-        } as CSSProperties;
 
-        return site ? (
+        return (
           <RegionalSiteMarker
-            key={site.slug}
+            key={plannedSite.slug}
             plannedSite={plannedSite}
             site={site}
             region={region}
@@ -576,15 +589,6 @@ function SiteLocatorMap({
             showSiteLabel={text.showSite}
             onSelect={onSelect}
           />
-        ) : (
-          <span
-            key={plannedSite.slug}
-            className={`site-map-marker site-map-marker-preparing label-${layout.side}`}
-            style={style}
-            aria-label={`${plannedSite.displayName}, ${language === "fr" ? "en préparation" : "in preparation"}`}
-          >
-            <span className="site-map-marker-dot" aria-hidden="true" />
-          </span>
         );
       })}
 

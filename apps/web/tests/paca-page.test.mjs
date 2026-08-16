@@ -91,6 +91,11 @@ test("renders regional inventories and keeps remaining drafts non-clickable", as
       inventoryCount - siteCount,
       path,
     );
+    assert.equal(
+      html.match(/class="site-map-marker-label(?: is-multiline)?"/g)?.length ?? 0,
+      inventoryCount,
+      `${path}: every published or preparing marker keeps its visible label`,
+    );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
     assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < inventoryCount ? 1 : 0, path);
     const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/") || path.startsWith("/var-est/")
