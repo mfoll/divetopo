@@ -22,6 +22,22 @@ async function render(pathname) {
   );
 }
 
+function expectedScaleWidthPercent(manifest, distanceKm) {
+  const bounds = manifest.westCoastLocator.boundsWgs84;
+  const latitude = (bounds.south + bounds.north) / 2;
+  const mapWidthKm =
+    (bounds.east - bounds.west) *
+    111.32 *
+    Math.cos((latitude * Math.PI) / 180);
+  return Number(((distanceKm / mapWidthKm) * 100).toFixed(4));
+}
+
+function scaleWidthPercentFromHtml(html) {
+  const match = html.match(/--site-picker-scale-width:([0-9.]+)%/);
+  assert.ok(match, "regional scale width is rendered");
+  return Number(match[1]);
+}
+
 test("retires the PACA aggregate through localized redirects", async () => {
   for (const language of ["fr", "en"]) {
     const overview = await render(`/paca/${language}`);
@@ -173,6 +189,46 @@ test("regional planning inventories contain the classified sites", async () => {
       });
     }
   }
+});
+
+test("regional scale bars use each map's geographic extent", async () => {
+  const widths = [];
+  for (const region of [
+    "bouches-du-rhone",
+    "var-ouest",
+    "var-centre",
+    "var-est",
+    "alpes-maritimes",
+  ]) {
+    const manifest = JSON.parse(
+      await readFile(
+        new URL(`../content/${region}-map-manifest.json`, import.meta.url),
+        "utf8",
+      ),
+    );
+    const response = await render(`/${region}/fr`);
+    assert.equal(response.status, 200, region);
+    const html = await response.text();
+    const actual = scaleWidthPercentFromHtml(html);
+    const expected = expectedScaleWidthPercent(manifest, 10);
+    assert.ok(Math.abs(actual - expected) < 1e-9, `${region}: ${actual} != ${expected}`);
+    assert.match(html, />10 km</, region);
+    widths.push(actual.toFixed(4));
+  }
+  assert.ok(new Set(widths).size >= 4, "regional scale bars are not one shared width");
+});
+
+test("the Reunion scale bar still matches its projected map extent", async () => {
+  const manifest = JSON.parse(
+    await readFile(new URL("../content/map-manifest.json", import.meta.url), "utf8"),
+  );
+  const bounds = manifest.westCoastLocator.boundsUtm40s;
+  const mapWidthKm = (bounds.maxEasting - bounds.minEasting) / 1000;
+  const response = await render("/reunion/fr");
+  assert.equal(response.status, 200);
+  const html = await response.text();
+  assert.equal(scaleWidthPercentFromHtml(html), Number(((5 / mapWidthKm) * 100).toFixed(4)));
+  assert.match(html, />5 km</);
 });
 
 test("published autonomous-region asset paths resolve", async () => {

@@ -60,6 +60,24 @@ export type RegionExperienceConfig = {
   pickerScaleWidthPercent: number;
 };
 
+const KM_PER_LONGITUDE_DEGREE_AT_EQUATOR = 111.32;
+
+function wgs84ScaleWidthPercent(
+  manifest: RegionalMapManifest,
+  distanceKm: number,
+): number {
+  const bounds = manifest.westCoastLocator.boundsWgs84;
+  if (!bounds) {
+    throw new Error("A WGS84 regional-map extent is required for the scale bar");
+  }
+  const latitude = (bounds.south + bounds.north) / 2;
+  const mapWidthKm =
+    (bounds.east - bounds.west) *
+    KM_PER_LONGITUDE_DEGREE_AT_EQUATOR *
+    Math.cos((latitude * Math.PI) / 180);
+  return Number(((distanceKm / mapWidthKm) * 100).toFixed(4));
+}
+
 export const REUNION_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   region: "reunion",
   manifest: reunionMapManifest,
@@ -81,7 +99,7 @@ export const PACA_EXPERIENCE_CONFIG: RegionExperienceConfig = {
   titleId: "topo-paca-title",
   viewerTestId: "topo-paca-viewer",
   pickerScaleLabel: "20 km",
-  pickerScaleWidthPercent: 18.2769,
+  pickerScaleWidthPercent: wgs84ScaleWidthPercent(pacaMapManifest, 20),
 };
 
 export function regionalExperienceConfig(
@@ -98,7 +116,10 @@ export function regionalExperienceConfig(
     titleId: `topo-${region}-title`,
     viewerTestId: `topo-${region}-viewer`,
     pickerScaleLabel: "10 km",
-    pickerScaleWidthPercent: 24,
+    pickerScaleWidthPercent: wgs84ScaleWidthPercent(
+      regionalMapManifests[region],
+      10,
+    ),
   };
 }
 

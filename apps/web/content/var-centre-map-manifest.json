@@ -1045,7 +1045,7 @@
         "shiftYRem": 3.5,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 2.6,
-        "labelOffsetRem": -0.15,
+        "labelOffsetRem": -1.15,
         "lines": [
           "Escampobariou"
         ],

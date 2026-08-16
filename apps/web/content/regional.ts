@@ -13,6 +13,12 @@ export type AssetVariant = {
   src: string;
   width: number;
   height: number;
+  boundsWgs84?: {
+    west: number;
+    south: number;
+    east: number;
+    north: number;
+  };
 };
 
 export type MapAsset = {
