@@ -45,7 +45,8 @@
     {
       "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/1015_6275/file/1015_6275.7z",
       "members": [
-        "1015_6275/LITTO3D_FRA_1019_6273_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc"
+        "1015_6275/LITTO3D_FRA_1019_6273_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc",
+        "1015_6275/LITTO3D_FRA_1019_6274_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_1019_6274_MNT_20150529_LAMB93_RGF93_IGN69.asc"
       ]
     }
   ],
@@ -53,26 +54,28 @@
     1019200.0,
     6272150.0,
     1019980.0,
-    6272950.0
+    6273400.0
   ],
   "context_bbox_utm40s": [
-    1019200.0,
-    6272150.0,
-    1019980.0,
-    6272990.0
+    1019150.0,
+    6272100.0,
+    1019990.0,
+    6273500.0
   ],
   "interactive_footprint_utm40s": {
     "center": [
-      1019540.0,
-      6272570.0
+      1019590.0,
+      6272775.0
     ],
-    "width_m": 680.0,
-    "depth_m": 820.0,
+    "width_m": 740.0,
+    "depth_m": 1230.0,
     "look_bearing_deg": 0.0
   },
   "view_bearing_deg": 0.0,
-  "view_visible_width_m": 450.0,
-  "interactive_view_visible_width_m": 400.0,
+  "view_visible_width_m": 550.0,
+  "view_center_offset_east_m": -50.0,
+  "view_center_offset_north_m": -100.0,
+  "interactive_view_visible_width_m": 600.0,
   "interactive_match_static_horizontal_center": true,
   "interactive_view_horizontal_center_offset_m": 150.0,
   "coast_mode": "mask",
@@ -93,7 +96,7 @@
   "camera_tilt": 0.34,
   "along_view_projection_scale": 1.2,
   "view_crop_width_m": 760.0,
-  "view_crop_depth_m": 800.0,
+  "view_crop_depth_m": 1200.0,
   "coast_frame_fraction": 0.35,
   "view_left_crop_fraction": 0.0,
   "view_right_crop_fraction": 0.0,

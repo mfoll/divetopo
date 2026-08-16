@@ -62,3 +62,7 @@ La vraie route temporaire construite depuis le code Web `e9b38a036cdad5bb0d24e26
 Les dérivés site-spécifiques attendus sont présents : plans Web, aperçus des deux planches, WebP 960/1600/2474, WebP mobile et JPEG HD pour les deux styles. Aucun manifeste agrégé n’est inclus.
 
 `web.published` reste `false`. Aucun `region.json`, carte régionale, manifeste agrégé, accueil, version, release, autre site, push ou déploiement n’est modifié.
+
+## Audit d’extension v1.5
+
+Emprise actuelle conservée : focus 264×195 m, couverture 100 % ; contexte 350×440 m, couverture 91,634 %. L’essai 800×950 m (footprint 550×600 m, couverture 100 %, tuiles 1048/1049 × 6296/6297) a été refusé : le gain est principalement terrestre et la bordure marine crée des parois NoData visibles en 3D. Configuration et sorties ont été restaurées à l’identique.

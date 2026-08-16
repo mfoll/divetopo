@@ -50,3 +50,7 @@ Le terrain final utilise une grille et des textures 425×350, avec 11 polylignes
 - QA interactive dans le navigateur local : canvas WebGL visible, bascule Orthophoto/Topographie effective, commandes terrain disponibles ; aucune erreur spécifique à la route sur le rechargement final. Un message HMR transitoire est survenu pendant le redémarrage du serveur de génération ;
 - contrôle d'équivalence des six captures 3D desktop/mobile : corrélations de `0,9938` à `0,9995`, erreurs absolues moyennes de `0,0037` à `0,0112` ; viewport mobile 390×844 sans débordement (`scrollWidth=390`) ;
 - `web.published` contrôlé à `true` ; routes FR/EN, terrain public, manifeste terrain et carte régionale Grande Baie vérifiés. Cap Gros reste absent des actifs Web, des routes et du manifeste terrain publié.
+
+## Audit d’extension v1.5
+
+Emprise actuelle conservée : focus 400×350 m, couverture 94,601 % ; contexte 475×400 m, couverture 96,022 %. L’essai 700×800 m (footprint 700×660 m, couverture environ 97,3 %, tuiles 1048/1049 × 6297/6298) a été refusé : le faible NoData restant forme une coupure côtière continue et réintroduit en 3D le fossé artificiel déjà corrigé. Aucun remplissage ; actifs restaurés à l’identique.

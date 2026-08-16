@@ -4,14 +4,14 @@
   "title": "La Vaquette, Théoule-sur-Mer",
   "crs": "EPSG:2154",
   "sourceBboxUtm40s": {
-    "west": 1019200.0,
+    "west": 1019220.0,
     "south": 6272160.0,
-    "east": 1019880.0,
-    "north": 6272980.0
+    "east": 1019960.0,
+    "north": 6273390.0
   },
   "physicalSizeM": {
-    "width": 680.0,
-    "depth": 820.0
+    "width": 740.0,
+    "depth": 1230.0
   },
   "orientation": {
     "sourceRows": "north-to-south",
@@ -20,9 +20,9 @@
     "textureUvOrigin": "northwest"
   },
   "grid": {
-    "width": 425,
+    "width": 309,
     "height": 513,
-    "triangleCount": 434176,
+    "triangleCount": 315392,
     "layout": "row-major",
     "rowOrder": "north-to-south",
     "columnOrder": "west-to-east",
@@ -31,7 +31,7 @@
       "type": "uint16",
       "byteOrder": "little-endian",
       "offsetM": -42.0,
-      "scaleMPerUnit": 0.0009374033970919046,
+      "scaleMPerUnit": 0.0010986495765621424,
       "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
     },
     "validMaskFile": "valid-mask.bin",
@@ -58,7 +58,7 @@
   },
   "elevationRangeM": {
     "min": -42.0,
-    "max": 19.43273162841797
+    "max": 30.0
   },
   "heightValues": "physical metres before vertical exaggeration",
   "interactiveExposure": 1.55,
@@ -111,48 +111,48 @@
   "vectorIsobaths": {
     "levels": {
       "5": {
-        "polylines": 4,
-        "points": 375
+        "polylines": 5,
+        "points": 552
       },
       "10": {
         "polylines": 3,
-        "points": 406
+        "points": 597
       },
       "15": {
-        "polylines": 4,
-        "points": 580
+        "polylines": 6,
+        "points": 826
       },
       "20": {
-        "polylines": 2,
-        "points": 327
+        "polylines": 1,
+        "points": 363
       },
       "25": {
-        "polylines": 2,
-        "points": 400
+        "polylines": 3,
+        "points": 494
       },
       "30": {
-        "polylines": 1,
-        "points": 385
+        "polylines": 2,
+        "points": 413
       },
       "35": {
-        "polylines": 2,
-        "points": 335
+        "polylines": 5,
+        "points": 494
       },
       "40": {
-        "polylines": 1,
-        "points": 202
+        "polylines": 2,
+        "points": 194
       }
     },
     "totals": {
       "levels": 8,
-      "polylines": 19,
-      "points": 3010
+      "polylines": 27,
+      "points": 3933
     },
     "reprojectionResidualM": {
-      "samples": 3010,
-      "mean": 3.983595272682514e-08,
-      "p95": 4.4848573743649327e-10,
-      "max": 3.5493970633737604e-05,
+      "samples": 3933,
+      "mean": 6.884234053150839e-07,
+      "p95": 8.695218411958138e-09,
+      "max": 0.0011252512924784241,
       "withinTolerance": true
     }
   },
@@ -162,13 +162,13 @@
     "gridLookBearingDeg": 0.0,
     "cameraTilt": 0.34,
     "alongViewProjectionScale": 1.2,
-    "visibleWidthM": 400.0,
+    "visibleWidthM": 600.0,
     "coastFrameFraction": 0.35,
     "horizontalCenterOffsetM": 150.0
   },
   "textures": {
-    "width": 680,
-    "height": 820,
+    "width": 740,
+    "height": 1230,
     "topographic": {
       "file": "topographic.webp",
       "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, prépaquet 1015_6275, dalle 1019_6273, fichier LITTO3D_FRA_1019_6273_MNT_20150529_LAMB93_RGF93_IGN69.asc, MNT maillé à 1 m, RGF93 / Lambert-93 EPSG:2154, référentiel vertical IGN69 ; aucune interpolation d’isobathes · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
@@ -187,28 +187,28 @@
   "footprint": {
     "shape": "oriented-rectangle",
     "centerUtm40s": [
-      1019540.0,
-      6272570.0
+      1019590.0,
+      6272775.0
     ],
-    "widthM": 680.0,
-    "depthM": 820.0,
+    "widthM": 740.0,
+    "depthM": 1230.0,
     "lookBearingDeg": 0.0,
     "cornersUtm40s": [
       [
-        1019200.0,
+        1019220.0,
         6272160.0
       ],
       [
-        1019880.0,
+        1019960.0,
         6272160.0
       ],
       [
-        1019880.0,
-        6272980.0
+        1019960.0,
+        6273390.0
       ],
       [
-        1019200.0,
-        6272980.0
+        1019220.0,
+        6273390.0
       ]
     ]
   }

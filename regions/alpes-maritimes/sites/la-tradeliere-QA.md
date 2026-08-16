@@ -31,3 +31,7 @@
 ## Statut d’intégration
 
 `web.published` reste `false`. Aucun `region.json`, carte régionale, manifeste agrégé, accueil, version ou release n’est modifié ; aucun push ni déploiement n’est effectué. La publication reste une décision de la QA régionale.
+
+## Audit d’extension est v1.5
+
+Emprise actuelle conservée : focus 1 200×500 m, couverture 96,326 % ; contexte 1 300×600 m, couverture 97,174 %. L’essai jusqu’à 1 500×500 m (footprint 480×1 150 m, couverture 96,625 %, tuiles 1028/1029 × 6276–6278) a été refusé après deux cadrages : la limite est produit une paroi dentelée continue et une vue 3D moins lisible. Configuration et sorties ont été restaurées à l’identique.
