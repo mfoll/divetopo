@@ -52,3 +52,4 @@ Status: **site package complete; regional publication deliberately disabled** (`
 - Footprint interactif : 680×820 m → 740×1 230 m ; couverture mesurée environ 92,7 %. Ajout de la tuile officielle `1019_6274` ; aucun remplissage des cellules NoData.
 - Gain accepté : récif et relief au nord nettement étendus, isobathes cohérentes. Les trous de bord restent exclus des contours et du maillage. La pose interactive calibrée est inchangée ; seul le cadrage statique a été recentré pour éviter d’exposer la limite de source.
 - QA plein format : deux plans 2474×1712, deux vues 3D 2474×1712 et deux planches 5400×3250 inspectés ; nord, échelle et crédits présents.
+- Contrôle indépendant après intégration : les marges de la rose des vents et des crédits 3D ont été portées respectivement à 130 px et 52 px, puis les deux vues statiques ont été régénérées ; aucun élément n'est rogné par le cadre final.
