@@ -73,6 +73,16 @@ export default function HomepageExperience({
             <nav className="primary-nav" aria-label={text.navigationLabel}>
               <a href="#regions">{text.regionsNavigation}</a>
               <a href="#contact">{text.contactNavigation}</a>
+              <a
+                className="external-link"
+                href="https://github.com/mfoll/divetopo"
+                target="_blank"
+                rel="noreferrer"
+                aria-label={text.githubNewWindow}
+              >
+                <span>GitHub</span>
+                <span className="external-link-icon" aria-hidden="true" />
+              </a>
             </nav>
             <PreferenceControls
               language={language}

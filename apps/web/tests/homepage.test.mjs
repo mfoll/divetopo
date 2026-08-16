@@ -132,6 +132,10 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /<section[^>]*aria-label="Régions"[^>]*>/);
   assert.match(html, /Une page prête à accueillir d’autres régions\./);
   assert.match(html, /href="#contact">Contact<\/a>/);
+  assert.match(
+    html,
+    /href="https:\/\/github\.com\/mfoll\/divetopo"[^>]*target="_blank"[^>]*aria-label="GitHub \(nouvelle fenêtre\)"/,
+  );
   assert.match(html, /id="contact"/);
   assert.match(
     html,
