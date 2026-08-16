@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grande-baie-cap-ferrat-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 515878,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grande-baie-cap-ferrat-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 576460,
@@ -208,7 +208,7 @@
             "sha256": "9e2b5d468cc0de0c6640577f510cf3072dc216fdc81642e5c99ca18204ddbc6f"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grande-baie-cap-ferrat-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3330014,
@@ -226,7 +226,7 @@
             "sha256": "52f1b77bca6d9d599e25737e913b55c92ce0a3c20644bb348d65237f3dfdc2d0"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grande-baie-cap-ferrat-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grande-baie-cap-ferrat-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3907626,
@@ -372,7 +372,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-causiniere-cap-ferrat-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-causiniere-cap-ferrat-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 561256,
@@ -411,7 +411,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-causiniere-cap-ferrat-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-causiniere-cap-ferrat-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 619482,
@@ -431,7 +431,7 @@
             "sha256": "0b5eba2e59511c371ee502e339089594ba76a75f13daa7023d49c5f1a012ae34"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-causiniere-cap-ferrat-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-causiniere-cap-ferrat-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3937498,
@@ -449,7 +449,7 @@
             "sha256": "0b0418736f261b847eac5b5c56e88f10164c85d9efc7798ffd78af262693ce19"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-causiniere-cap-ferrat-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-causiniere-cap-ferrat-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4108360,
@@ -599,7 +599,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-vaquette-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-vaquette-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 595011,
@@ -638,7 +638,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-vaquette-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-vaquette-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 603067,
@@ -658,7 +658,7 @@
             "sha256": "00047bb55a96c9d02b5ef6f48c9fc67acd7596dbab4ce15f9cec7fbd9487ed8b"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-vaquette-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-vaquette-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4102470,
@@ -676,7 +676,7 @@
             "sha256": "69f9698b5e08ea339d1bcbbed57adfa4a1ef2ac6aa22a62e20864949586527f1"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-vaquette-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-vaquette-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4129712,
@@ -822,7 +822,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-tradeliere-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-tradeliere-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 772874,
@@ -861,7 +861,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-tradeliere-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-tradeliere-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 812487,
@@ -881,7 +881,7 @@
             "sha256": "0fc3e70c7100ce9eb24f2d05e2493eb46ec7c46c5b2c49414d5ede53cdca0933"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-tradeliere-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-tradeliere-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4407480,
@@ -899,7 +899,7 @@
             "sha256": "c59ffe017f303a5c0d61c323df825df086e67411491524424d18dc10301bd719"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-tradeliere-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-tradeliere-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4670061,
@@ -1045,7 +1045,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-villefranche-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-villefranche-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 538575,
@@ -1084,7 +1084,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-villefranche-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-villefranche-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 562168,
@@ -1104,7 +1104,7 @@
             "sha256": "2906ba4520fd676382f13c0b297f3d7e2df1aa74d9ec859d9f0c69170466c482"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-villefranche-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-villefranche-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3625702,
@@ -1122,7 +1122,7 @@
             "sha256": "c912ecaf862ffb0d79decc8265e1ccff61c3a550e4b34da28188bfb97cdd121a"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-villefranche-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-villefranche-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4138701,

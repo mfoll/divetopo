@@ -280,7 +280,7 @@ test("published autonomous-region asset paths resolve", async () => {
           assert.match(
             map.download.src,
             new RegExp(
-              `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.4\\.0/${map.download.filename}$`,
+              `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.5\\.0/${map.download.filename}$`,
             ),
           );
         } else {

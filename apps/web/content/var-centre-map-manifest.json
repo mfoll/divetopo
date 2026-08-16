@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-fourmigues-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-fourmigues-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 567542,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-fourmigues-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-fourmigues-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 590449,
@@ -208,7 +208,7 @@
             "sha256": "ca53fc946b97daf5a8c4dd63993daeb61bc0fbd94a61476093e8610c4e18e7fb"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-fourmigues-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-fourmigues-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3557930,
@@ -226,7 +226,7 @@
             "sha256": "61ed78bb3bc802ff8913a96f9490524ac05860039b16137e2ad15b21b6e2d9fa"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-fourmigues-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-fourmigues-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3621241,
@@ -371,7 +371,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-la-jeaune-garde-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 981622,
@@ -410,7 +410,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-la-jeaune-garde-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1017337,
@@ -430,7 +430,7 @@
             "sha256": "0b78e69d30f8be8b9ffbc24eca23bc84c37c4b38ba20441e01955e94ae163c20"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-la-jeaune-garde-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4691822,
@@ -448,7 +448,7 @@
             "sha256": "1f82f384ee0f957d2a2eb1daf979b6dc3fe94dbafa3e65720421517bcfa4ed10"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-la-jeaune-garde-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-la-jeaune-garde-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4766713,
@@ -597,7 +597,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-des-medes-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-des-medes-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 811700,
@@ -636,7 +636,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-des-medes-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-des-medes-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 850990,
@@ -656,7 +656,7 @@
             "sha256": "e1771b701b0a6201444a79a651399737fb0eb08771cde6e4c2f63bdc48a43c0e"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-des-medes-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-des-medes-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4383103,
@@ -674,7 +674,7 @@
             "sha256": "ef589f0d5b7df9dde899aaee6e3d106b1b7f695c4a1c127a5014e308d5248481"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cap-des-medes-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cap-des-medes-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4591696,
@@ -819,7 +819,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-gabiniere-port-cros-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-gabiniere-port-cros-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 614980,
@@ -858,7 +858,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-gabiniere-port-cros-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-gabiniere-port-cros-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 644111,
@@ -878,7 +878,7 @@
             "sha256": "90e899d735d3dbffa2c5821b230e7c42fa918d81ce5e81381b97c7d495ff05d5"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-gabiniere-port-cros-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-gabiniere-port-cros-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3839855,
@@ -896,7 +896,7 @@
             "sha256": "db96e35f39fc610b21b90d0aa515c3791bce668c6de4c06afd24916ef472b503"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/la-gabiniere-port-cros-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/la-gabiniere-port-cros-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4051470,

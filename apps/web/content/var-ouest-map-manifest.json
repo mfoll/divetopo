@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 814540,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 1068062,
@@ -208,7 +208,7 @@
             "sha256": "b4e846cb6f4d7098fabc1015e8f2789f399db801a7afbd90f46a793b98b1064f"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4510930,
@@ -226,7 +226,7 @@
             "sha256": "61355fd683f8754ec5fb98e1def27125ccbfb911d5238604ad5deb3acf455a38"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5637902,
@@ -371,7 +371,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 815736,
@@ -410,7 +410,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 847597,
@@ -430,7 +430,7 @@
             "sha256": "99f697e524c3985ad79348c6cb01690e8bc22766195e95af134fdd1a233a0081"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4675570,
@@ -448,7 +448,7 @@
             "sha256": "44d2acca1918c8a26da3e4f5827fa44954a806b7e47b76736f3ee02075c77db9"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5176696,
@@ -593,7 +593,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-de-la-cride-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-de-la-cride-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 733693,
@@ -632,7 +632,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-de-la-cride-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-de-la-cride-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 800867,
@@ -652,7 +652,7 @@
             "sha256": "5815612f8a7f02100802e7a33ae7fa70c57ef3acd9cf929853dd6dcd04909c8d"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-de-la-cride-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-de-la-cride-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4269050,
@@ -670,7 +670,7 @@
             "sha256": "48ca7fd1f3180a3c0d33f200e383704f3619a1a52030167f2de3b9218b9f56d3"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-de-la-cride-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-de-la-cride-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4747478,
@@ -815,7 +815,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-magnons-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 951256,
@@ -854,7 +854,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-magnons-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 961017,
@@ -874,7 +874,7 @@
             "sha256": "8fc05f9b78c46e11d10a1eaadcb3323f9b496672c8ab840ecd42809b8cee9693"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-magnons-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4770586,
@@ -892,7 +892,7 @@
             "sha256": "54073a84a7ed19333f65110acc7c6af107382d4eb4ba547f9e162f5481cd5630"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-magnons-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-magnons-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4744223,

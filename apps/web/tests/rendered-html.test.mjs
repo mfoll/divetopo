@@ -720,15 +720,15 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.match(sitemap, /hreflang="x-default"/);
   assert.match(
     sitemap,
-    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.4\.0\/cap-homard-topobathy-2d-ortho\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.5\.0\/cap-homard-topobathy-2d-ortho\.jpg/,
   );
   assert.match(
     sitemap,
-    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.4\.0\/cap-homard-topobathy-3d-ortho\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.5\.0\/cap-homard-topobathy-3d-ortho\.jpg/,
   );
   assert.match(
     sitemap,
-    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.4\.0\/cap-homard-planche\.jpg/,
+    /https:\/\/github\.com\/mfoll\/divetopo\/releases\/download\/v1\.5\.0\/cap-homard-planche\.jpg/,
   );
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
@@ -833,7 +833,7 @@ test("map manifest supports adding future sites without component changes", asyn
       assert.match(
         map.download.src,
         new RegExp(
-          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.4\\.0/${map.download.filename}$`,
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.5\\.0/${map.download.filename}$`,
         ),
       );
       assert.match(map.download.filename, /\.jpg$/);
@@ -858,7 +858,7 @@ test("map manifest supports adding future sites without component changes", asyn
       assert.match(
         planche.download.src,
         new RegExp(
-          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.4\\.0/${planche.download.filename}$`,
+          `^https://github\\.com/mfoll/divetopo/releases/download/v1\\.5\\.0/${planche.download.filename}$`,
         ),
       );
       assert.match(planche.download.filename, /\.jpg$/);

@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-maire-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-maire-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 648505,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-maire-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-maire-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 810914,
@@ -208,7 +208,7 @@
             "sha256": "9750ba71cab723a48cb22d99ef3fb9f3dbe5c4f630ba225555e04ec2773dc1dc"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-maire-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-maire-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3808426,
@@ -226,7 +226,7 @@
             "sha256": "89d3d22798e4f6fcb932022b243b1d5418277458163e58f61a624c66b3abcd16"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/grotte-a-corail-maire-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/grotte-a-corail-maire-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4794400,
@@ -376,7 +376,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pains-de-sucre-riou-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pains-de-sucre-riou-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 480996,
@@ -415,7 +415,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pains-de-sucre-riou-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pains-de-sucre-riou-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 621048,
@@ -435,7 +435,7 @@
             "sha256": "383de135fceaa0052bad331fe12c4e8969482b74550ac1904ed31aa3bb5a6602"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pains-de-sucre-riou-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pains-de-sucre-riou-planche-topographique.jpg",
             "width": 5400,
             "height": 4600,
             "bytes": 3234154,
@@ -453,7 +453,7 @@
             "sha256": "6bf145e8ba3aeeb11f3fc57318493e5dd533bda7961c37ac714c767e9c056c71"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pains-de-sucre-riou-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pains-de-sucre-riou-planche.jpg",
             "width": 5400,
             "height": 4600,
             "bytes": 4768788,
@@ -603,7 +603,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/imperial-de-terre-riou-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-de-terre-riou-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 458279,
@@ -642,7 +642,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/imperial-de-terre-riou-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-de-terre-riou-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 676795,
@@ -662,7 +662,7 @@
             "sha256": "d719ff382b128dcff12ce9983ec7071e812afa799c34b3ff9e19e72763a606d2"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/imperial-de-terre-riou-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-de-terre-riou-planche-topographique.jpg",
             "width": 5400,
             "height": 4000,
             "bytes": 2879555,
@@ -680,7 +680,7 @@
             "sha256": "830b11733df2761445a97a73d16897a6e4875903dc18f842fab86ea6dcee0027"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/imperial-de-terre-riou-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/imperial-de-terre-riou-planche.jpg",
             "width": 5400,
             "height": 4000,
             "bytes": 4281793,
@@ -829,7 +829,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pierre-a-la-bague-plateau-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pierre-a-la-bague-plateau-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 612237,
@@ -868,7 +868,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pierre-a-la-bague-plateau-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pierre-a-la-bague-plateau-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 627543,
@@ -888,7 +888,7 @@
             "sha256": "da5a0248176ac24273e596a4a324f195c930f6dd936acc529f3712b4cc93d6ec"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pierre-a-la-bague-plateau-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pierre-a-la-bague-plateau-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4299632,
@@ -906,7 +906,7 @@
             "sha256": "beeb62d01b82e9d490119f410516f82df4bef4ded9640d416fc88e522443d48b"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pierre-a-la-bague-plateau-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pierre-a-la-bague-plateau-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4340066,
@@ -1056,7 +1056,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/tiboulen-du-frioul-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/tiboulen-du-frioul-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 583834,
@@ -1095,7 +1095,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/tiboulen-du-frioul-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/tiboulen-du-frioul-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 632380,
@@ -1115,7 +1115,7 @@
             "sha256": "ec7078c0cf22164dc0fa5874eebbd4e2d21a92ed3395a81cef8350acc0ee1fd6"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/tiboulen-du-frioul-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/tiboulen-du-frioul-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3897673,
@@ -1133,7 +1133,7 @@
             "sha256": "be4e5297567315b5f8c8c50875248264633e1de99092b87e7a0429a638408229"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/tiboulen-du-frioul-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/tiboulen-du-frioul-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4068208,

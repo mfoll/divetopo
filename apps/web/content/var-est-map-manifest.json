@@ -149,7 +149,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-pyramides-cap-dramont-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-pyramides-cap-dramont-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 530089,
@@ -188,7 +188,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-pyramides-cap-dramont-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-pyramides-cap-dramont-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 538126,
@@ -208,7 +208,7 @@
             "sha256": "31e6fda2ecee496aa8426dd1edd481068ab2068e5a9271cd1987319e891aefb9"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-pyramides-cap-dramont-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-pyramides-cap-dramont-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3948441,
@@ -226,7 +226,7 @@
             "sha256": "411cfbb193a13598e909b7bff28fe329e9fb9b9fca966e067553a61943834b96"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/les-pyramides-cap-dramont-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/les-pyramides-cap-dramont-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3989536,
@@ -371,7 +371,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-l-ile-d-or-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-l-ile-d-or-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 558217,
@@ -410,7 +410,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-l-ile-d-or-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-l-ile-d-or-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 577317,
@@ -430,7 +430,7 @@
             "sha256": "bd32bbf4a6291cbed0eeeaee4c807f871ab6ce8b313723bf996a5d44733752cb"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-l-ile-d-or-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-l-ile-d-or-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4179125,
@@ -448,7 +448,7 @@
             "sha256": "c7137f6f4a69325d51613542b2b18cfba25c90f8b5075a1e71bfa83482fc44c8"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/sec-de-l-ile-d-or-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/sec-de-l-ile-d-or-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4249022,
@@ -598,7 +598,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/arche-du-dramont-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/arche-du-dramont-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 582413,
@@ -637,7 +637,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/arche-du-dramont-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/arche-du-dramont-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 603616,
@@ -657,7 +657,7 @@
             "sha256": "9128ea33a1df2564ebd2b294a520157e4d00af24cdcc9d59ca32b58f34e69127"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/arche-du-dramont-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/arche-du-dramont-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4164019,
@@ -675,7 +675,7 @@
             "sha256": "b44387630337d4cd90d64924e76f652a977ceb542d3a6e677aea22f3ab1a094c"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/arche-du-dramont-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/arche-du-dramont-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4237629,
@@ -825,7 +825,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cathedrale-du-trayas-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cathedrale-du-trayas-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 569527,
@@ -864,7 +864,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cathedrale-du-trayas-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cathedrale-du-trayas-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 678617,
@@ -884,7 +884,7 @@
             "sha256": "b874c485774b3dc03f666ec90c2c63c5d2bc3580166c32634a9da4073ad5d043"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cathedrale-du-trayas-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cathedrale-du-trayas-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 3655465,
@@ -902,7 +902,7 @@
             "sha256": "d67516cbdc970215d2cb999a91fc939a9de23aaa37dd677fe08338f0289394d2"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/cathedrale-du-trayas-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/cathedrale-du-trayas-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4598093,
@@ -1051,7 +1051,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/le-village-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/le-village-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 655462,
@@ -1090,7 +1090,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/le-village-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/le-village-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 717258,
@@ -1110,7 +1110,7 @@
             "sha256": "44aa00ca3fd8a6da608097ed0652d6b56a41aee18e0263d4a1ba9b1354f59441"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/le-village-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/le-village-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4207906,
@@ -1128,7 +1128,7 @@
             "sha256": "949144f761b3eb786753a09f80e9e7db9b032288f376167ff9353e2d5d5db019"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/le-village-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/le-village-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4503633,
@@ -1298,8 +1298,8 @@
         "longitude": 6.85048164
       },
       "westCoastLocatorPosition": {
-        "xPercent": 44.0,
-        "yPercent": 66.3
+        "xPercent": 41.23564,
+        "yPercent": 60.19798
       },
       "siteLabelLayout": {
         "side": "left",

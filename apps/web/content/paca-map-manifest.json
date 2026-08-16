@@ -177,7 +177,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 722353,
@@ -216,7 +216,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 877997,
@@ -236,7 +236,7 @@
             "sha256": "c143a5c7564a886f097819b9c857ff9e292d7d87fb109cd2bdc2d07be5e75687"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4557939,
@@ -254,7 +254,7 @@
             "sha256": "fc9b714eaf19ae984f6afe0cc7d16fe3e7062d7a2791c6d22f8601e677047334"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/pointe-portissol-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/pointe-portissol-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5556647,
@@ -383,7 +383,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-topographic.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-3d-dynamique-topographic.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 782488,
@@ -422,7 +422,7 @@
             }
           ],
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-3d-dynamique-orthophoto.jpg",
             "width": 2474,
             "height": 1712,
             "bytes": 793385,
@@ -442,7 +442,7 @@
             "sha256": "d00490ac4e7b87cfc7fb6a9e59b38bf56d1baf834db52d0d350daf7906c2fadc"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-planche-topographique.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-planche-topographique.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 4724526,
@@ -460,7 +460,7 @@
             "sha256": "1651866268898744c092ddf4aad4babab5ab668247aa521942b67846220f106c"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.4.0/deux-freres-cap-sicie-planche.jpg",
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.5.0/deux-freres-cap-sicie-planche.jpg",
             "width": 5400,
             "height": 3250,
             "bytes": 5146842,
