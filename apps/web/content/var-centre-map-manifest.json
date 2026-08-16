@@ -1041,15 +1041,15 @@
         "yPercent": 40.34721
       },
       "siteLabelLayout": {
-        "side": "right",
-        "shiftYRem": -0.2,
+        "side": "left",
+        "shiftYRem": 3.5,
         "connectorAngleDeg": 0,
         "connectorWidthRem": 2.6,
-        "labelOffsetRem": 2.6,
+        "labelOffsetRem": -0.15,
         "lines": [
           "Escampobariou"
         ],
-        "widthRem": 6.2
+        "widthRem": 5.8
       },
       "status": "preparing"
     }
