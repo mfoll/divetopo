@@ -871,7 +871,6 @@ img {
 
 .site-map-marker-preparing {
   cursor: default;
-  opacity: 0.82;
 }
 
 .site-map-marker-preparing .site-map-marker-dot {
@@ -885,10 +884,6 @@ img {
 }
 
 .site-map-marker-preparing .site-map-marker-label {
-  background: rgba(249, 253, 251, 0.83);
-  border-color: rgba(6, 46, 54, 0.22);
-  border-style: dashed;
-  color: var(--ink-soft);
   pointer-events: none;
 }
 
