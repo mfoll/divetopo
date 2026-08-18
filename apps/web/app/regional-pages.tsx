@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import {
   findRegionalSite,
   isLanguage,
@@ -96,4 +96,13 @@ export async function renderRegionalSite(
       />
     </>
   );
+}
+
+export async function redirectToRegionalSite(
+  slug: string,
+  region: AutonomousMediterraneanRegionSlug,
+) {
+  if (!findRegionalSite(region, slug)) notFound();
+  const { language } = await getPreferences();
+  redirect(`/${region}/${language}/sites/${slug}`);
 }

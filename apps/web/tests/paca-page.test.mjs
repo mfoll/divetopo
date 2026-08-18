@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import test from "node:test";
 
-async function render(pathname) {
+async function render(pathname, headers = {}) {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set(
     "test",
@@ -11,7 +11,7 @@ async function render(pathname) {
   const { default: worker } = await import(workerUrl.href);
   return worker.fetch(
     new Request(`http://localhost${pathname}`, {
-      headers: { accept: "text/html" },
+      headers: { accept: "text/html", ...headers },
     }),
     {
       ASSETS: {
@@ -70,6 +70,49 @@ test("redirects the merged Sec du Langoustier route to Jeaune Garde", async () =
   assert.equal(
     response.headers.get("location"),
     "http://localhost/var-centre/fr/sites/sec-de-la-jeaune-garde",
+  );
+});
+
+test("redirects every advertised Mediterranean x-default site URL", async () => {
+  const sitemapResponse = await render("/sitemap.xml");
+  assert.equal(sitemapResponse.status, 200);
+  const sitemap = await sitemapResponse.text();
+  const advertisedNeutralSiteUrls = [
+    ...sitemap.matchAll(
+      /hreflang="x-default" href="https:\/\/divetopo\.com\/(bouches-du-rhone|var-ouest|var-centre|var-est|alpes-maritimes)\/sites\/([^"]+)"/g,
+    ),
+  ];
+  const neutralSiteUrls = [
+    ...new Map(
+      advertisedNeutralSiteUrls.map((match) => [
+        `${match[1]}/${match[2]}`,
+        [match[1], match[2]],
+      ]),
+    ).values(),
+  ];
+
+  assert.equal(neutralSiteUrls.length, 27);
+  for (const [region, slug] of neutralSiteUrls) {
+    const response = await render(`/${region}/sites/${slug}`);
+    assert.equal(response.status, 307, `${region}/${slug}`);
+    assert.equal(
+      response.headers.get("location"),
+      `http://localhost/${region}/fr/sites/${slug}`,
+      `${region}/${slug}`,
+    );
+  }
+
+  const missing = await render("/var-ouest/sites/site-inconnu");
+  assert.equal(missing.status, 404);
+
+  const english = await render(
+    "/var-ouest/sites/deux-freres-cap-sicie",
+    { "accept-language": "en-GB,en;q=0.9" },
+  );
+  assert.equal(english.status, 307);
+  assert.equal(
+    english.headers.get("location"),
+    "http://localhost/var-ouest/en/sites/deux-freres-cap-sicie",
   );
 });
 
