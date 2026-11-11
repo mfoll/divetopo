@@ -76,7 +76,9 @@ def plan_source_for(slug: str, style: str) -> Path:
     return OUTPUT_ROOT / f"{slug}-topobathy-2d{suffix}.jpg"
 
 
-def publish_plan(slug: str, style: str) -> dict[str, object]:
+def publish_plan(
+    slug: str, style: str, release_base: str | None = None
+) -> dict[str, object]:
     source = plan_source_for(slug, style)
     if not source.is_file():
         raise FileNotFoundError(
@@ -102,12 +104,13 @@ def publish_plan(slug: str, style: str) -> dict[str, object]:
         "variants": [record],
         "download": {
             **record,
+            **({"src": f"{release_base}/{source.name}"} if release_base else {}),
             "filename": source.name,
         },
     }
 
 
-def build_planche(slug: str, style: str) -> dict[str, object]:
+def build_planche(slug: str, style: str, release_base: str) -> dict[str, object]:
     source = source_for(slug, style)
     if not source.is_file():
         raise FileNotFoundError(
@@ -140,7 +143,7 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
             preview_height,
         ),
         "download": {
-            "src": f"{RELEASE_ASSET_BASE}/{source.name}",
+            "src": f"{release_base}/{source.name}",
             "width": source_width,
             "height": source_height,
             "bytes": source.stat().st_size,
@@ -150,7 +153,7 @@ def build_planche(slug: str, style: str) -> dict[str, object]:
     }
 
 
-def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
+def build_dynamic_map(slug: str, style: str, release_base: str) -> dict[str, object]:
     site_root = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps"
     variants: list[dict[str, object]] = []
     for width in (960, 1600, 2474):
@@ -186,7 +189,7 @@ def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
         "variants": variants,
         "download": {
             "src": (
-                f"{RELEASE_ASSET_BASE}/{slug}-3d-dynamique-{style}.jpg"
+                f"{release_base}/{slug}-3d-dynamique-{style}.jpg"
             ),
             "width": source_width,
             "height": source_height,
@@ -197,10 +200,10 @@ def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
     }
 
 
-def build_printable_sheets(slug: str) -> list[dict[str, object]]:
+def build_printable_sheets(slug: str, release_base: str) -> list[dict[str, object]]:
     pdf = OUTPUT_ROOT / f"{slug}-a4.pdf"
     if not pdf.is_file():
-        return [build_planche(slug, "topographic"), build_planche(slug, "orthophoto")]
+        return [build_planche(slug, style, release_base) for style in ("topographic", "orthophoto")]
 
     source = OUTPUT_ROOT / f"{slug}-a4-preview.webp"
     preview = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps" / "plan-a4.webp"
@@ -211,7 +214,7 @@ def build_printable_sheets(slug: str) -> list[dict[str, object]]:
         "style": "topographic",
         "preview": image_record(preview, PUBLIC_ROOT, width, height),
         "download": {
-            "src": f"{RELEASE_ASSET_BASE}/{pdf.name}",
+            "src": f"{release_base}/{pdf.name}",
             "width": width,
             "height": height,
             "filename": pdf.name,
@@ -226,6 +229,11 @@ def build_site(
     locator_bounds: dict[str, float],
 ) -> dict[str, Any]:
     slug = str(config["slug"])
+    release_tag = config["web"].get("release_tag")
+    release_base = (
+        f"https://github.com/mfoll/divetopo/releases/download/{release_tag}"
+        if release_tag else RELEASE_ASSET_BASE
+    )
     marker = config.get("site_location_utm40s") or config.get(
         "locator_marker_utm40s"
     )
@@ -257,12 +265,12 @@ def build_site(
         "mapLicense": config["map_license"],
         "compactAttributions": MEDITERRANEAN_COMPACT_ATTRIBUTIONS,
         "maps": [
-            publish_plan(slug, "topographic"),
-            publish_plan(slug, "orthophoto"),
-            build_dynamic_map(slug, "topographic"),
-            build_dynamic_map(slug, "orthophoto"),
+            publish_plan(slug, "topographic", release_base if release_tag else None),
+            publish_plan(slug, "orthophoto", release_base if release_tag else None),
+            build_dynamic_map(slug, "topographic", release_base),
+            build_dynamic_map(slug, "orthophoto", release_base),
         ],
-        "planches": build_printable_sheets(slug),
+        "planches": build_printable_sheets(slug, release_base),
         **web_site_metadata(config),
     }
 

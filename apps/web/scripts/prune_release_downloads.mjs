@@ -19,15 +19,16 @@ async function findDownloadDirectories(directory) {
 }
 
 const downloadDirectories = await findDownloadDirectories(mapsRoot);
-const legacyPacaAssets = JSON.parse(
-  await readFile(new URL("../content/legacy-paca-assets.json", import.meta.url), "utf8"),
+const archivedMapAssets = JSON.parse(
+  await readFile(new URL("../content/archived-map-assets.json", import.meta.url), "utf8"),
 );
+const archivedPaths = archivedMapAssets.flatMap(({ paths }) => paths);
 await Promise.all(
   downloadDirectories.map((directory) => rm(directory, { recursive: true })),
 );
 await Promise.all(
-  legacyPacaAssets.paths.map((asset) => rm(path.resolve("dist/client", `.${asset}`))),
+  archivedPaths.map((asset) => rm(path.resolve("dist/client", `.${asset}`))),
 );
 console.log(
-  `Removed ${downloadDirectories.length} release-backed download directories and ${legacyPacaAssets.paths.length} archived PACA maps from the hosting build.`,
+  `Removed ${downloadDirectories.length} release-backed download directories and ${archivedPaths.length} archived maps from the hosting build.`,
 );

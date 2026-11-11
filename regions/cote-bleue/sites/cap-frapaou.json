@@ -1,0 +1,111 @@
+{
+  "region": "cote-bleue",
+  "slug": "cap-frapaou",
+  "title": "Le Cap Frapaou",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0880_6255/file/0880_6255.7z",
+      "members": [
+        "0880_6255/LITTO3D_FRA_0880_6251_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0880_6251_MNT_20150520_LAMB93_RGF93_IGN69.asc",
+        "0880_6255/LITTO3D_FRA_0881_6251_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0881_6251_MNT_20150520_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    880690,
+    6250160,
+    881220,
+    6250527
+  ],
+  "context_bbox_utm40s": [
+    880640,
+    6250120,
+    881270,
+    6250600
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      880955,
+      6250355
+    ],
+    "width_m": 575,
+    "depth_m": 450,
+    "look_bearing_deg": 0
+  },
+  "view_bearing_deg": 0,
+  "view_visible_width_m": 485,
+  "interactive_view_visible_width_m": 485,
+  "coast_mode": "mask",
+  "max_depth_m": 48,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 140,
+  "camera_tilt": 0.75,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "plan_output_scale": 5,
+  "map_style_scale": 2,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2026-04-16",
+  "orthophoto_resolution_m": 0.25,
+  "orthophoto_3d_resolution_m": 0.5,
+  "orthophoto_coastline_visible": false,
+  "plate_site_name": "Le Cap Frapaou",
+  "plate_city": "Ensuès-la-Redonne",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.5,
+  "plate_title": "Le Cap Frapaou",
+  "site_location_utm40s": [
+    880954.0331320661,
+    6250313.067779817
+  ],
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0,
+      "lines": [
+        "Le Cap",
+        "Frapaou"
+      ],
+      "width_rem": 5.5,
+      "position": {
+        "xPercent": 52,
+        "yPercent": 21
+      }
+    },
+    "interactive_initial_view": {
+      "camera_position_m": [
+        72,
+        425,
+        955
+      ],
+      "camera_target_m": [
+        0,
+        -11,
+        43
+      ],
+      "zoom": 0.84
+    },
+    "release_tag": "v1.7.0",
+    "coverage_note": {
+      "fr": "Le levé Litto3D atteint environ 47 m sur cette carte. Les zones sans mesure sont indiquées en gris sur le plan topographique.",
+      "en": "The Litto3D survey reaches about 47 m on this map. Areas without measurements are shown in grey on the topographic map."
+    }
+  },
+  "plan_max_depth_m": 47
+}

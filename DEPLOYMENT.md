@@ -93,9 +93,11 @@ update the release tag used by both map-asset builders, upload every assembled
 sheet, verify the public download links, and package from a clean worktree so
 ignored local generation outputs cannot leak into the deployment archive.
 
-The hosting build also omits the legacy aggregate PACA images listed in
-`apps/web/content/legacy-paca-assets.json`. The Worker redirects those URLs
-to the byte-identical files at the pinned GitHub tag.
+The hosting build omits the images listed in
+`apps/web/content/archived-map-assets.json`. The Worker redirects each URL
+to the byte-identical file at the listed GitHub tag. Publish and verify those
+tags before deploying. Site configurations can pin their HD downloads to a
+separate release, so older assets keep their existing URLs.
 
 ## Operational boundaries
 

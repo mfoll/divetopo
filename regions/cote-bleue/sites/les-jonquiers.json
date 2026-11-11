@@ -1,0 +1,108 @@
+{
+  "region": "cote-bleue",
+  "slug": "les-jonquiers",
+  "title": "Les Jonquiers",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0880_6255/file/0880_6255.7z",
+      "members": [
+        "0880_6255/LITTO3D_FRA_0882_6251_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0882_6251_MNT_20150520_LAMB93_RGF93_IGN69.asc",
+        "0880_6255/LITTO3D_FRA_0882_6252_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0882_6252_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0880_6255/LITTO3D_FRA_0883_6251_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0883_6251_MNT_20150128_LAMB93_RGF93_IGN69.asc",
+        "0880_6255/LITTO3D_FRA_0883_6252_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0883_6252_MNT_20150520_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    882545,
+    6250950,
+    883125,
+    6251350
+  ],
+  "context_bbox_utm40s": [
+    882495,
+    6250900,
+    883185,
+    6251480
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      882835,
+      6251190
+    ],
+    "width_m": 640,
+    "depth_m": 510,
+    "look_bearing_deg": 0
+  },
+  "view_bearing_deg": 0,
+  "view_visible_width_m": 495,
+  "interactive_view_visible_width_m": 495,
+  "coast_mode": "mask",
+  "max_depth_m": 45,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 160,
+  "camera_tilt": 0.75,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "plan_output_scale": 5,
+  "map_style_scale": 2,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2026-04-16",
+  "orthophoto_resolution_m": 0.25,
+  "orthophoto_3d_resolution_m": 0.5,
+  "orthophoto_coastline_visible": false,
+  "plate_site_name": "Les Jonquiers",
+  "plate_city": "Le Rove",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.5,
+  "plate_title": "Les Jonquiers",
+  "site_location_utm40s": [
+    882813.5672838476,
+    6251236.622953543
+  ],
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0,
+      "lines": [
+        "Les Jonquiers"
+      ],
+      "width_rem": 6.5,
+      "position": {
+        "xPercent": 83,
+        "yPercent": 18
+      }
+    },
+    "interactive_initial_view": {
+      "camera_position_m": [
+        30,
+        515,
+        1180
+      ],
+      "camera_target_m": [
+        0,
+        -12,
+        38
+      ],
+      "zoom": 0.86
+    },
+    "release_tag": "v1.7.0"
+  },
+  "plan_max_depth_m": 40
+}

@@ -1,33 +1,29 @@
 {
-  "version": "v1.6.0",
-  "releaseNotes": "releases/v1.6.0.md",
+  "version": "v1.7.0",
+  "releaseNotes": "releases/v1.7.0.md",
   "requiredNotesHeading": "## New dive sites",
   "assetVersionSources": [
-    "apps/web/scripts/build_regional_map_assets.py"
+    "regions/cote-bleue/sites/les-jonquiers.json",
+    "regions/cote-bleue/sites/le-moulon.json",
+    "regions/cote-bleue/sites/cap-frapaou.json"
   ],
   "requiredPublishedSites": [
     {
       "region": "cote-bleue",
-      "slug": "tombant-de-mejean",
-      "displayName": "Tombant de Méjean",
+      "slug": "les-jonquiers",
+      "displayName": "Les Jonquiers",
       "printableFormat": "pdf"
     },
     {
       "region": "cote-bleue",
-      "slug": "tombant-de-l-erevine",
-      "displayName": "Tombant de l’Érevine",
+      "slug": "le-moulon",
+      "displayName": "Le Moulon",
       "printableFormat": "pdf"
     },
     {
       "region": "cote-bleue",
-      "slug": "yeux-de-chat",
-      "displayName": "Les Yeux de Chat",
-      "printableFormat": "pdf"
-    },
-    {
-      "region": "cote-bleue",
-      "slug": "jardins-de-sausset",
-      "displayName": "Les Jardins de Sausset",
+      "slug": "cap-frapaou",
+      "displayName": "Le Cap Frapaou",
       "printableFormat": "pdf"
     }
   ]

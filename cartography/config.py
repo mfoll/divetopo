@@ -1159,12 +1159,23 @@ def validate_config(config: Mapping[str, Any]) -> None:
     elif not isinstance(web, Mapping):
         raise ValueError("web must be an object")
     unknown_web_keys = sorted(
-        set(web) - {"published", "site_label_layout", "interactive_initial_view"}
+        set(web) - {"published", "site_label_layout", "interactive_initial_view", "coverage_note", "release_tag"}
     )
     if unknown_web_keys:
         raise ValueError("Unknown web key(s): " + ", ".join(unknown_web_keys))
     if not isinstance(web.get("published"), bool):
         raise ValueError("web.published must be a boolean")
+    if "release_tag" in web and (
+        not isinstance(web["release_tag"], str)
+        or not re.fullmatch(r"v\d+\.\d+\.\d+", web["release_tag"])
+    ):
+        raise ValueError("web.release_tag must be a version tag such as v1.7.0")
+    if "coverage_note" in web:
+        note = web["coverage_note"]
+        if not isinstance(note, Mapping) or set(note) != {"fr", "en"} or any(
+            not isinstance(value, str) or not value.strip() for value in note.values()
+        ):
+            raise ValueError("web.coverage_note requires French and English text")
     layout = web.get("site_label_layout")
     if not isinstance(layout, Mapping):
         raise ValueError("web.site_label_layout must be an object")

@@ -1,0 +1,223 @@
+{
+  "schemaVersion": 2,
+  "slug": "le-moulon",
+  "title": "Le Moulon",
+  "crs": "EPSG:2154",
+  "sourceBboxUtm40s": {
+    "west": 881634.5,
+    "south": 6250249.5,
+    "east": 882235.5,
+    "north": 6250740.5
+  },
+  "physicalSizeM": {
+    "width": 601.0,
+    "depth": 491.0
+  },
+  "orientation": {
+    "sourceRows": "north-to-south",
+    "sourceColumns": "west-to-east",
+    "rotationQuarterTurnsCounterClockwise": 0,
+    "textureUvOrigin": "northwest"
+  },
+  "grid": {
+    "width": 513,
+    "height": 419,
+    "triangleCount": 428032,
+    "layout": "row-major",
+    "rowOrder": "north-to-south",
+    "columnOrder": "west-to-east",
+    "heightFile": "height.bin",
+    "heightEncoding": {
+      "type": "uint16",
+      "byteOrder": "little-endian",
+      "offsetM": -47.71147918701172,
+      "scaleMPerUnit": 0.0019433296653565365,
+      "formula": "elevationM = offsetM + rawUint16 * scaleMPerUnit"
+    },
+    "validMaskFile": "valid-mask.bin",
+    "validMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1"
+    },
+    "isobathMaskFile": "isobath-mask.bin",
+    "isobathMaskEncoding": {
+      "type": "bitset",
+      "bitOrder": "least-significant-bit-first",
+      "formula": "(byte[index >> 3] >> (index & 7)) & 1",
+      "meaning": "1 = source-derived contour-safe vertex; 0 = deep-edge completion or transition buffer"
+    },
+    "vectorIsobathsFile": "isobaths-vector.json",
+    "vectorIsobathsEncoding": {
+      "coordinateSpace": "grid-pixels",
+      "intervalM": 5,
+      "outlineWidthCssPx": 4.8,
+      "centreWidthCssPx": 2.6,
+      "fragmentDepthBias": 0.0002
+    }
+  },
+  "elevationRangeM": {
+    "min": -47.71147918701172,
+    "max": 79.6446304321289
+  },
+  "heightValues": "physical metres before vertical exaggeration",
+  "interactiveExposure": 1.55,
+  "bathymetryStyle": {
+    "palette": "legacy",
+    "depthScale": "legacy_linear",
+    "isobathColorsRgb": {
+      "5": [
+        249,
+        125,
+        29
+      ],
+      "10": [
+        136,
+        223,
+        108
+      ],
+      "15": [
+        40,
+        132,
+        212
+      ],
+      "20": [
+        12,
+        42,
+        121
+      ],
+      "25": [
+        6,
+        26,
+        91
+      ],
+      "30": [
+        4,
+        20,
+        79
+      ],
+      "35": [
+        2,
+        15,
+        62
+      ],
+      "40": [
+        1,
+        9,
+        43
+      ],
+      "45": [
+        1,
+        9,
+        42
+      ]
+    }
+  },
+  "vectorIsobaths": {
+    "levels": {
+      "5": {
+        "polylines": 3,
+        "points": 381
+      },
+      "10": {
+        "polylines": 2,
+        "points": 242
+      },
+      "15": {
+        "polylines": 1,
+        "points": 200
+      },
+      "20": {
+        "polylines": 2,
+        "points": 299
+      },
+      "25": {
+        "polylines": 1,
+        "points": 247
+      },
+      "30": {
+        "polylines": 1,
+        "points": 230
+      },
+      "35": {
+        "polylines": 1,
+        "points": 204
+      },
+      "40": {
+        "polylines": 1,
+        "points": 234
+      },
+      "45": {
+        "polylines": 5,
+        "points": 243
+      }
+    },
+    "totals": {
+      "levels": 9,
+      "polylines": 17,
+      "points": 2280
+    },
+    "reprojectionResidualM": {
+      "samples": 2280,
+      "mean": 1.5752296806620674e-05,
+      "p95": 1.026606355480908e-09,
+      "max": 0.008949400344057779,
+      "withinTolerance": true
+    }
+  },
+  "verticalExaggeration": 1.5,
+  "view": {
+    "lookBearingDeg": 0.0,
+    "gridLookBearingDeg": 0.0,
+    "cameraTilt": 0.75,
+    "alongViewProjectionScale": 1.2,
+    "visibleWidthM": 500.0,
+    "coastFrameFraction": 0.52
+  },
+  "textures": {
+    "width": 601,
+    "height": 491,
+    "topographic": {
+      "file": "topographic.webp",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "orthophoto": {
+      "file": "orthophoto.webp",
+      "captureDate": "2026-04-16",
+      "attribution": "Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 16-04-2026"
+    }
+  },
+  "credits": {
+    "copyright": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0",
+    "license": "CC BY-NC-SA 4.0",
+    "requiredDisplay": "© 2026 Matthieu Foll · CC BY-NC-SA 4.0 · Bathymétrie : Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m · Topographie : Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69 · Orthophoto : IGN BD ORTHO, prise de vue 16-04-2026"
+  },
+  "footprint": {
+    "shape": "oriented-rectangle",
+    "centerUtm40s": [
+      881935.0,
+      6250495.0
+    ],
+    "widthM": 600.0,
+    "depthM": 490.0,
+    "lookBearingDeg": 0.0,
+    "cornersUtm40s": [
+      [
+        881635.0,
+        6250250.0
+      ],
+      [
+        882235.0,
+        6250250.0
+      ],
+      [
+        882235.0,
+        6250740.0
+      ],
+      [
+        881635.0,
+        6250740.0
+      ]
+    ]
+  }
+}

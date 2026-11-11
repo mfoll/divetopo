@@ -226,8 +226,8 @@
           "de Méjean"
         ],
         "position": {
-          "xPercent": 72,
-          "yPercent": 24
+          "xPercent": 18,
+          "yPercent": 18
         },
         "widthRem": 5.5
       },
@@ -430,8 +430,8 @@
           "de l’Érevine"
         ],
         "position": {
-          "xPercent": 76,
-          "yPercent": 75
+          "xPercent": 51,
+          "yPercent": 80
         },
         "widthRem": 5.5
       },
@@ -634,8 +634,8 @@
           "de Chat"
         ],
         "position": {
-          "xPercent": 36,
-          "yPercent": 75
+          "xPercent": 19,
+          "yPercent": 73
         },
         "widthRem": 5.5
       },
@@ -838,8 +838,8 @@
           "de Sausset"
         ],
         "position": {
-          "xPercent": 23,
-          "yPercent": 24
+          "xPercent": 18,
+          "yPercent": 40
         },
         "widthRem": 5.5
       },
@@ -855,6 +855,624 @@
           -12,
           -10
         ]
+      }
+    },
+    {
+      "slug": "les-jonquiers",
+      "displayName": "Les Jonquiers",
+      "plateTitle": "Les Jonquiers",
+      "config": "regions/cote-bleue/sites/les-jonquiers.json",
+      "assetBasePath": "/maps/cote-bleue/les-jonquiers",
+      "location": {
+        "city": "Le Rove",
+        "latitude": 43.3368,
+        "longitude": 5.25338
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 92.26977,
+        "yPercent": 47.27273
+      },
+      "maxDepthM": 45,
+      "planMaxDepthM": 40,
+      "verticalExaggeration": 1.5,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/2d-topographic.jpg?v=4564f3c6e9a6",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1294807,
+              "sha256": "4564f3c6e9a6114b15e4b6debb5c0850d5f9a9be1b6f61a1c5c68b14f4145689"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/les-jonquiers-topobathy-2d.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1294807,
+            "sha256": "4564f3c6e9a6114b15e4b6debb5c0850d5f9a9be1b6f61a1c5c68b14f4145689",
+            "filename": "les-jonquiers-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/2d-orthophoto.jpg?v=8db4c5527a36",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1738448,
+              "sha256": "8db4c5527a362da040fc43a6a86b64e7901cabd277d5745d7de8c703ec907721"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/les-jonquiers-topobathy-2d-ortho.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1738448,
+            "sha256": "8db4c5527a362da040fc43a6a86b64e7901cabd277d5745d7de8c703ec907721",
+            "filename": "les-jonquiers-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 66948,
+              "sha256": "c144d2bf5c1fdd6c59bb22491dbad5581147d0e03a6c2f59497a7205ed94f169"
+            },
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 136916,
+              "sha256": "57e6ddbf3b375065ef2bca653f46ad788f4f200eecc1a84ca4bcb28afa647627"
+            },
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 236600,
+              "sha256": "93b09e96a1716fb5993edf0837ce7f394af53afc525409e2a0e0343701931f4d"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/les-jonquiers-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 668699,
+            "sha256": "18e0727121d2b4b57029822c9c2b5f1cb19677e3b43ce43e77dec89e15203a7c",
+            "filename": "les-jonquiers-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 98354,
+              "sha256": "1e9b89fc400aa952c91bb31ce67beac64e8e9fb58fe3541750c42b0ed66b6f47"
+            },
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 187590,
+              "sha256": "bacf6deabaf37da48bd3af320acbfe941ac43537d7bd0f7acbb2a1e3992ac6dd"
+            },
+            {
+              "src": "/maps/cote-bleue/les-jonquiers/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 326126,
+              "sha256": "fd042d31787670de8f5dc3b10bedf0362af2d0d7cd5bc967258a5dbb1b914fd8"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/les-jonquiers-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 842032,
+            "sha256": "8624336561903bbd8cb2b7fba4e1ba9870b51675d53bade02710e355ef607b63",
+            "filename": "les-jonquiers-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/les-jonquiers/maps/plan-a4.webp?v=eb981412c4eb",
+            "width": 900,
+            "height": 637,
+            "bytes": 53964,
+            "sha256": "eb981412c4eb789fbda0df314aa2ab99acdbbbcbe0a0b685364c061f3e3b99d2"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/les-jonquiers-a4.pdf",
+            "width": 900,
+            "height": 637,
+            "filename": "les-jonquiers-a4.pdf",
+            "bytes": 1621253,
+            "sha256": "6ed422f9b0771a6a02232fd0fb929aafe9e38c095eec7309c7767136c21c8a69"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Les Jonquiers"
+        ],
+        "position": {
+          "xPercent": 83,
+          "yPercent": 18
+        },
+        "widthRem": 6.5
+      },
+      "interactiveInitialView": {
+        "zoom": 0.86,
+        "cameraPositionM": [
+          30,
+          515,
+          1180
+        ],
+        "cameraTargetM": [
+          0,
+          -12,
+          38
+        ]
+      }
+    },
+    {
+      "slug": "le-moulon",
+      "displayName": "Le Moulon",
+      "plateTitle": "Le Moulon",
+      "config": "regions/cote-bleue/sites/le-moulon.json",
+      "assetBasePath": "/maps/cote-bleue/le-moulon",
+      "location": {
+        "city": "Le Rove",
+        "latitude": 43.33123616,
+        "longitude": 5.24325586
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 87.56087,
+        "yPercent": 51.87094
+      },
+      "maxDepthM": 48,
+      "planMaxDepthM": 47,
+      "verticalExaggeration": 1.5,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/2d-topographic.jpg?v=2fdfb4b53287",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1384209,
+              "sha256": "2fdfb4b532878a9d4c61813a59c8a5fb23250a6d529b78973899aea084934d31"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/le-moulon-topobathy-2d.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1384209,
+            "sha256": "2fdfb4b532878a9d4c61813a59c8a5fb23250a6d529b78973899aea084934d31",
+            "filename": "le-moulon-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/2d-orthophoto.jpg?v=b255bb6e58a6",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1508719,
+              "sha256": "b255bb6e58a671f2c0a6f5b6449f164f0b1617e52feeeb676faa9f4716daeb45"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/le-moulon-topobathy-2d-ortho.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1508719,
+            "sha256": "b255bb6e58a671f2c0a6f5b6449f164f0b1617e52feeeb676faa9f4716daeb45",
+            "filename": "le-moulon-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 71844,
+              "sha256": "e54cfb24c14b5565f03d3383873cf11ea320e94fedc67eddb9bf40c8f57eaa58"
+            },
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 144384,
+              "sha256": "1a0d161197de9da4cc931ef9389875254751df3758e3926988591bdd319d9da2"
+            },
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 251892,
+              "sha256": "b2b6fe2bfd33f209bc8c2d2bb894f42ba8e7e46caded9a3b7c89180483d3c4a8"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/le-moulon-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 653205,
+            "sha256": "8436b944f74a401fa404a7ca00cb8d8f7c54e8192e48056c7fb47c714287b4c1",
+            "filename": "le-moulon-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 83098,
+              "sha256": "0f00a61482fdedd7edfabc755b79771cf2efd4954ba70b84701caa04d5638e21"
+            },
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 168016,
+              "sha256": "2215c06379be915aafe7615491248bc8a2e84951c9e5792c4062bf13dcb54982"
+            },
+            {
+              "src": "/maps/cote-bleue/le-moulon/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 286552,
+              "sha256": "bbb59697e2994d5226da26730fe741e301fd2c1f9c405beed7fffeeaa5e5d9c4"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/le-moulon-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 714548,
+            "sha256": "5a107634dd9f6160f3abb839650d3035346ea61827738dc36e9e5a9fba2d11d2",
+            "filename": "le-moulon-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/le-moulon/maps/plan-a4.webp?v=30558a1504a9",
+            "width": 900,
+            "height": 636,
+            "bytes": 60102,
+            "sha256": "30558a1504a9b4e421de87db7a92d06153c5a0719d57e168af027e46ef8dcdb7"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/le-moulon-a4.pdf",
+            "width": 900,
+            "height": 636,
+            "filename": "le-moulon-a4.pdf",
+            "bytes": 1733335,
+            "sha256": "0faa91709695e01b4b9c622b3b59d3efd0470716405f6e90dab3b3b3f97badd4"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Le Moulon"
+        ],
+        "position": {
+          "xPercent": 82,
+          "yPercent": 70
+        },
+        "widthRem": 5.5
+      },
+      "interactiveInitialView": {
+        "zoom": 0.85,
+        "cameraPositionM": [
+          105,
+          505,
+          1120
+        ],
+        "cameraTargetM": [
+          28,
+          -10,
+          20
+        ]
+      },
+      "coverageNote": {
+        "fr": "Les données de surface décrivent le cap et son tombant. L’intérieur de l’arche est hors du modèle.",
+        "en": "The surface data describe the headland and its drop-off. The interior of the arch lies outside the model."
+      }
+    },
+    {
+      "slug": "cap-frapaou",
+      "displayName": "Le Cap Frapaou",
+      "plateTitle": "Le Cap Frapaou",
+      "config": "regions/cote-bleue/sites/cap-frapaou.json",
+      "assetBasePath": "/maps/cote-bleue/cap-frapaou",
+      "location": {
+        "city": "Ensuès-la-Redonne",
+        "latitude": 43.32897,
+        "longitude": 5.23015
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 81.46512,
+        "yPercent": 53.7438
+      },
+      "maxDepthM": 48,
+      "planMaxDepthM": 47,
+      "verticalExaggeration": 1.5,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/2d-topographic.jpg?v=2e555b3546a0",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1572257,
+              "sha256": "2e555b3546a036e96d4ed518cbc0f70eb07f886c919ef55cb112d788949690b7"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/cap-frapaou-topobathy-2d.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1572257,
+            "sha256": "2e555b3546a036e96d4ed518cbc0f70eb07f886c919ef55cb112d788949690b7",
+            "filename": "cap-frapaou-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/2d-orthophoto.jpg?v=3d7db785e39b",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2275654,
+              "sha256": "3d7db785e39b6cfd1dfa0c56d5a94ae0bbc92c18daa22f8a151f2b68600cb015"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/cap-frapaou-topobathy-2d-ortho.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2275654,
+            "sha256": "3d7db785e39b6cfd1dfa0c56d5a94ae0bbc92c18daa22f8a151f2b68600cb015",
+            "filename": "cap-frapaou-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 74896,
+              "sha256": "d70d32d271de7707beaf1f73b0087ff60d765d8cc51a0474adb425ab6f10ead5"
+            },
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 151216,
+              "sha256": "b0e38d90857d6b7526bafcf7e1b3e66a3d9fa7b3229e9146c1e4d8ce28d8f1fa"
+            },
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 262300,
+              "sha256": "19e04817c9a979384c0c3165dbe71e70c4f37efb27852614610b8d117fc7f699"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/cap-frapaou-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 724925,
+            "sha256": "f9014aaf384d0f41edfbfb6c9c9e86ce426c5597be578d03292b32e19d07ebd3",
+            "filename": "cap-frapaou-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 109028,
+              "sha256": "84824fd378b7bc961985990d71dc74ef67e45c2cc9029fa96005486c3c564120"
+            },
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 213518,
+              "sha256": "b8bf669a12437f2acbab2f8c060a0d85afb149d1e170e570f8fe5b05439f6a89"
+            },
+            {
+              "src": "/maps/cote-bleue/cap-frapaou/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 362690,
+              "sha256": "c31220802849de76dcfe3b78bdef51a595b9dac41a01f25c59e526344fcfa4d0"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/cap-frapaou-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 913208,
+            "sha256": "152bc2b1bc1a9e1fdc8057cccc8bb51c8247de9c2dc287c107b0c50a5dc8b452",
+            "filename": "cap-frapaou-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/cap-frapaou/maps/plan-a4.webp?v=a06cc55cf2c7",
+            "width": 900,
+            "height": 637,
+            "bytes": 65152,
+            "sha256": "a06cc55cf2c734dba1f1da038ec1f0753a3fd1bc95f2783c6f947da5e5df4dbe"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/cap-frapaou-a4.pdf",
+            "width": 900,
+            "height": 637,
+            "filename": "cap-frapaou-a4.pdf",
+            "bytes": 1968384,
+            "sha256": "0aa32075b0f8b471641107e279de870ebbb6bb42a55b177a8e214206978e5486"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Le Cap",
+          "Frapaou"
+        ],
+        "position": {
+          "xPercent": 52,
+          "yPercent": 21
+        },
+        "widthRem": 5.5
+      },
+      "interactiveInitialView": {
+        "zoom": 0.84,
+        "cameraPositionM": [
+          72,
+          425,
+          955
+        ],
+        "cameraTargetM": [
+          0,
+          -11,
+          43
+        ]
+      },
+      "coverageNote": {
+        "fr": "Le levé Litto3D atteint environ 47 m sur cette carte. Les zones sans mesure sont indiquées en gris sur le plan topographique.",
+        "en": "The Litto3D survey reaches about 47 m on this map. Areas without measurements are shown in grey on the topographic map."
       }
     }
   ],
@@ -880,8 +1498,8 @@
           "de Méjean"
         ],
         "position": {
-          "xPercent": 72,
-          "yPercent": 24
+          "xPercent": 18,
+          "yPercent": 18
         },
         "widthRem": 5.5
       },
@@ -908,8 +1526,8 @@
           "de l’Érevine"
         ],
         "position": {
-          "xPercent": 76,
-          "yPercent": 75
+          "xPercent": 51,
+          "yPercent": 80
         },
         "widthRem": 5.5
       },
@@ -936,8 +1554,8 @@
           "de Chat"
         ],
         "position": {
-          "xPercent": 36,
-          "yPercent": 75
+          "xPercent": 19,
+          "yPercent": 73
         },
         "widthRem": 5.5
       },
@@ -964,8 +1582,90 @@
           "de Sausset"
         ],
         "position": {
-          "xPercent": 23,
-          "yPercent": 24
+          "xPercent": 18,
+          "yPercent": 40
+        },
+        "widthRem": 5.5
+      },
+      "status": "published"
+    },
+    {
+      "slug": "les-jonquiers",
+      "displayName": "Les Jonquiers",
+      "location": {
+        "city": "Le Rove",
+        "latitude": 43.3368,
+        "longitude": 5.25338
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 92.26977,
+        "yPercent": 47.27273
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Les Jonquiers"
+        ],
+        "position": {
+          "xPercent": 83,
+          "yPercent": 18
+        },
+        "widthRem": 6.5
+      },
+      "status": "published"
+    },
+    {
+      "slug": "le-moulon",
+      "displayName": "Le Moulon",
+      "location": {
+        "city": "Le Rove",
+        "latitude": 43.33123616,
+        "longitude": 5.24325586
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 87.56087,
+        "yPercent": 51.87094
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Le Moulon"
+        ],
+        "position": {
+          "xPercent": 82,
+          "yPercent": 70
+        },
+        "widthRem": 5.5
+      },
+      "status": "published"
+    },
+    {
+      "slug": "cap-frapaou",
+      "displayName": "Le Cap Frapaou",
+      "location": {
+        "city": "Ensuès-la-Redonne",
+        "latitude": 43.32897,
+        "longitude": 5.23015
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 81.46512,
+        "yPercent": 53.7438
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Le Cap",
+          "Frapaou"
+        ],
+        "position": {
+          "xPercent": 52,
+          "yPercent": 21
         },
         "widthRem": 5.5
       },

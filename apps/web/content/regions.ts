@@ -43,8 +43,8 @@ export const regions = publicRegions.map((region) => {
     location: catalog.location,
     href: `/${region}`,
     description: region === "cote-bleue" ? {
-      fr: "Méjean, l’Érevine, les Yeux de Chat et les Jardins de Sausset.",
-      en: "Méjean, Érevine, Yeux de Chat and Jardins de Sausset.",
+      fr: "Les reliefs sous-marins de la Côte Bleue, de Sausset-les-Pins à Niolon.",
+      en: "Underwater terrain along the Côte Bleue, from Sausset-les-Pins to Niolon.",
     } : {
       fr:
         count > 0

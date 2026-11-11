@@ -69,6 +69,24 @@
       "name": "Les Jardins de Sausset",
       "municipality": "Sausset-les-Pins",
       "config": "regions/cote-bleue/sites/jardins-de-sausset.json"
+    },
+    {
+      "slug": "les-jonquiers",
+      "name": "Les Jonquiers",
+      "municipality": "Le Rove",
+      "config": "regions/cote-bleue/sites/les-jonquiers.json"
+    },
+    {
+      "slug": "le-moulon",
+      "name": "Le Moulon",
+      "municipality": "Le Rove",
+      "config": "regions/cote-bleue/sites/le-moulon.json"
+    },
+    {
+      "slug": "cap-frapaou",
+      "name": "Le Cap Frapaou",
+      "municipality": "Ensuès-la-Redonne",
+      "config": "regions/cote-bleue/sites/cap-frapaou.json"
     }
   ],
   "regionalMap": {

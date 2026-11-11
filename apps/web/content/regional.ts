@@ -72,6 +72,7 @@ export type RegionalAssetSite = {
   plateAuthor: string;
   copyrightYear: number;
   mapLicense: string;
+  coverageNote?: { fr: string; en: string };
   compactAttributions?: Record<SurfaceStyle, string>;
   interactiveInitialView?: {
     zoom?: number;

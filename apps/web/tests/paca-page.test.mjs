@@ -91,7 +91,7 @@ test("redirects every advertised Mediterranean x-default site URL", async () => 
     ).values(),
   ];
 
-  assert.equal(neutralSiteUrls.length, 31);
+  assert.equal(neutralSiteUrls.length, 34);
   for (const [region, slug] of neutralSiteUrls) {
     const response = await render(`/${region}/sites/${slug}`);
     assert.equal(response.status, 307, `${region}/${slug}`);
@@ -118,7 +118,7 @@ test("redirects every advertised Mediterranean x-default site URL", async () => 
 
 test("renders complete regional inventories without release-target drafts", async () => {
   const published = [
-    ["/cote-bleue/fr", "topo-cote-bleue-title", 4, 4],
+    ["/cote-bleue/fr", "topo-cote-bleue-title", 7, 7],
     ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
     ["/var-centre/en", "topo-var-centre-title", 5, 5],
     ["/var-est/fr", "topo-var-est-title", 6, 6],

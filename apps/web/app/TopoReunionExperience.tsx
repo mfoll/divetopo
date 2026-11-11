@@ -282,12 +282,14 @@ function RegionalSiteMarker({
     };
 
     const map = marker.closest(".site-picker-map");
+    const dot = layout.position ? marker.querySelector(".site-map-marker-dot") : null;
     const updateConnector = () => {
       const markerRect = marker.getBoundingClientRect();
       const labelRect = label.getBoundingClientRect();
+      const dotRect = dot?.getBoundingClientRect() ?? markerRect;
       const point = {
-        x: markerRect.left + markerRect.width / 2,
-        y: markerRect.top + markerRect.height / 2,
+        x: dotRect.left + dotRect.width / 2,
+        y: dotRect.top + dotRect.height / 2,
       };
       const labelCenter = {
         x: labelRect.left + labelRect.width / 2,
@@ -360,8 +362,8 @@ function RegionalSiteMarker({
         )
         .join(" ");
 
-      connector.style.left = `${markerRect.width / 2}px`;
-      connector.style.top = `${markerRect.height / 2}px`;
+      connector.style.left = `${point.x - markerRect.left}px`;
+      connector.style.top = `${point.y - markerRect.top}px`;
       connector.querySelector("path")?.setAttribute("d", routePath);
       connector.dataset.connectorReady = "true";
       connector.dataset.connectorRoute = route.length === 2 ? "straight" : "detour";
@@ -1168,7 +1170,9 @@ export function TopoRegionExperience({
               >
                 <span>{text.map.interactionHelp}</span>
               </div>
-
+              {activeSite.coverageNote && (
+                <p className="viewer-coverage-note">{activeSite.coverageNote[language]}</p>
+              )}
             </article>
 
             <SitePickerMaps

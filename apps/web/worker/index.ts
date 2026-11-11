@@ -1,7 +1,7 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
-import legacyPacaAssets from "../content/legacy-paca-assets.json";
+import archivedMapAssets from "../content/archived-map-assets.json";
 
 interface AssetFetcher {
   fetch(request: Request): Promise<Response>;
@@ -23,7 +23,9 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
-const legacyPacaPaths = new Set(legacyPacaAssets.paths);
+const archivedMapTags = new Map(archivedMapAssets.flatMap(({ sourceTag, paths }) =>
+  paths.map((assetPath) => [assetPath, sourceTag] as const),
+));
 
 // Image security config. SVG sources with .svg extension auto-skip the
 // optimization endpoint on the client side (served directly, no proxy).
@@ -35,9 +37,10 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if (legacyPacaPaths.has(url.pathname)) {
+    const sourceTag = archivedMapTags.get(url.pathname);
+    if (sourceTag) {
       return Response.redirect(
-        `https://raw.githubusercontent.com/mfoll/divetopo/${legacyPacaAssets.sourceTag}/apps/web/public${url.pathname}`,
+        `https://raw.githubusercontent.com/mfoll/divetopo/${sourceTag}/apps/web/public${url.pathname}`,
         307,
       );
     }

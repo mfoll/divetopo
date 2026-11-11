@@ -141,6 +141,8 @@ def web_site_metadata(config: dict[str, Any]) -> dict[str, Any]:
             for input_key, output_key in INITIAL_VIEW_KEYS.items()
             if input_key in initial_view
         }
+    if "coverage_note" in web:
+        metadata["coverageNote"] = web["coverage_note"]
     return metadata
 
 
