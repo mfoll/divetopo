@@ -93,6 +93,10 @@ update the release tag used by both map-asset builders, upload every assembled
 sheet, verify the public download links, and package from a clean worktree so
 ignored local generation outputs cannot leak into the deployment archive.
 
+The hosting build also omits the legacy aggregate PACA images listed in
+`apps/web/content/legacy-paca-assets.json`. The Worker redirects those URLs
+to the byte-identical files at the pinned GitHub tag.
+
 ## Operational boundaries
 
 - `apps/web/.openai/hosting.json` identifies the existing DiveTopo Sites

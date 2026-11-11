@@ -1,6 +1,7 @@
 /** Cloudflare Worker entry point for the vinext-starter template. */
 import { handleImageOptimization, DEFAULT_DEVICE_SIZES, DEFAULT_IMAGE_SIZES } from "vinext/server/image-optimization";
 import handler from "vinext/server/app-router-entry";
+import legacyPacaAssets from "../content/legacy-paca-assets.json";
 
 interface AssetFetcher {
   fetch(request: Request): Promise<Response>;
@@ -22,6 +23,8 @@ interface ExecutionContext {
   passThroughOnException(): void;
 }
 
+const legacyPacaPaths = new Set(legacyPacaAssets.paths);
+
 // Image security config. SVG sources with .svg extension auto-skip the
 // optimization endpoint on the client side (served directly, no proxy).
 // To route SVGs through the optimizer (with security headers), set
@@ -31,6 +34,13 @@ interface ExecutionContext {
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    if (legacyPacaPaths.has(url.pathname)) {
+      return Response.redirect(
+        `https://raw.githubusercontent.com/mfoll/divetopo/${legacyPacaAssets.sourceTag}/apps/web/public${url.pathname}`,
+        307,
+      );
+    }
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];

@@ -1,0 +1,22 @@
+{
+  "sourceTag": "v1.6.0",
+  "paths": [
+    "/maps/paca/cap-des-medes/maps/2d-orthophoto.jpg",
+    "/maps/paca/cap-des-medes/maps/2d-topographic.jpg",
+    "/maps/paca/cap-des-medes/maps/planche-orthophoto-1800.webp",
+    "/maps/paca/cap-des-medes/maps/planche-topographic-1800.webp",
+    "/maps/paca/deux-freres-cap-sicie/maps/2d-orthophoto.jpg",
+    "/maps/paca/deux-freres-cap-sicie/maps/2d-topographic.jpg",
+    "/maps/paca/deux-freres-cap-sicie/maps/planche-orthophoto-1800.webp",
+    "/maps/paca/deux-freres-cap-sicie/maps/planche-topographic-1800.webp",
+    "/maps/paca/la-gabiniere-port-cros/maps/2d-orthophoto.jpg",
+    "/maps/paca/la-gabiniere-port-cros/maps/2d-topographic.jpg",
+    "/maps/paca/la-gabiniere-port-cros/maps/planche-orthophoto-1800.webp",
+    "/maps/paca/la-gabiniere-port-cros/maps/planche-topographic-1800.webp",
+    "/maps/paca/paca-regional-relief.png",
+    "/maps/paca/pointe-portissol/maps/2d-orthophoto.jpg",
+    "/maps/paca/pointe-portissol/maps/2d-topographic.jpg",
+    "/maps/paca/pointe-portissol/maps/planche-orthophoto-1800.webp",
+    "/maps/paca/pointe-portissol/maps/planche-topographic-1800.webp"
+  ]
+}
