@@ -869,6 +869,25 @@ img {
   color: white;
 }
 
+.site-picker-map.is-cote-bleue {
+  container-type: inline-size;
+}
+
+.is-cote-bleue .site-map-marker .site-map-marker-label {
+  left: calc(50% + var(--label-dx));
+  right: auto;
+  top: calc(50% + var(--label-dy) * 720 / 932);
+  translate: -50% -50%;
+}
+
+.is-cote-bleue [data-site="tombant-de-mejean"] .site-map-marker-dot {
+  translate: -0.08rem -0.48rem;
+}
+
+.is-cote-bleue [data-site="yeux-de-chat"] .site-map-marker-dot {
+  translate: -0.4rem 0.22rem;
+}
+
 .site-map-marker-preparing {
   cursor: default;
 }
@@ -2591,6 +2610,7 @@ img {
   box-shadow: var(--shadow-sm);
   display: grid;
   grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
   max-width: 20rem;
   min-width: 0;
   overflow: hidden;
@@ -2607,6 +2627,7 @@ img {
 }
 
 .homepage-main .region-visual {
+  aspect-ratio: 1864 / 1440;
   background: #178cab;
   overflow: hidden;
   position: relative;

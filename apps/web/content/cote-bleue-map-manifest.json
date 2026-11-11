@@ -1,0 +1,975 @@
+{
+  "schemaVersion": 2,
+  "reunionOverview": {
+    "src": "/maps/cote-bleue/situation.png",
+    "width": 1000,
+    "height": 840
+  },
+  "westCoastLocator": {
+    "src": "/maps/cote-bleue/cote-bleue-regional-relief.png",
+    "width": 1864,
+    "height": 1440,
+    "boundsWgs84": {
+      "west": 5.055,
+      "south": 43.273,
+      "east": 5.27,
+      "north": 43.394
+    },
+    "bytes": 1252850,
+    "sha256": "e3396d9e1f7c13ecdec938f6963b3d5880905c4a84b60ff0150d55324d3e3aa4",
+    "source": "Shom–IGN Limite terre-mer for the visible cote-bleue coastline; Shom–IGN Litto3D PACA 2015 MNT5m for nearshore bathymetry; EMODnet Bathymetry DTM 2024 for offshore bathymetry; GEBCO Compilation Group (2024), GEBCO 2024 Grid, WMS layer GEBCO_2024 only as no-data fallback; IGN RGE ALTI for land relief",
+    "sourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "layer": "emodnet:mean",
+    "marineSourceUrl": "https://ows.emodnet-bathymetry.eu/wcs",
+    "marineLayer": "emodnet:mean",
+    "marineResolution": "1/16 arc minute native DTM grid (~115 m)",
+    "detailSourceUrl": "https://data.geopf.fr/wmts",
+    "detailLayer": "ELEVATION.ELEVATIONGRIDCOVERAGE.HIGHRES",
+    "detailTileMatrixSet": "WGS84G_6_14",
+    "detailZoom": 11,
+    "detailBathymetrySourceUrl": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL",
+    "detailBathymetryLayer": "LITTO3D PACA 2015 MNT5m",
+    "detailBathymetryCrs": "EPSG:2154",
+    "detailBathymetryResolutionM": 5.0,
+    "detailBathymetryArchiveCount": 4,
+    "detailBathymetryTileCount": 60,
+    "coastlineSource": "Shom–IGN Limite terre-mer official land polygons, LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones; Natural Earth 10m Admin 0 Countries v5.1.1 is used only for sanity checking",
+    "coastlineSourceUrl": "https://services.data.shom.fr/INSPIRE/wfs",
+    "coastlineLayer": "LIMTM_2154_WFS:limite_terre_mer_france_metropolitaine_polygones",
+    "coastlineFeatureTypes": "official land polygons",
+    "coastlineResolution": "1–7 m product resolution",
+    "render": "EMODnet DTM 2024 offshore bathymetry resampled with cubic interpolation; Shom–IGN Litto3D nearshore bathymetry; one Shom–IGN polygon land mask for fill and coastline edge; IGN RGE ALTI land hillshade; no cross-coast blur"
+  },
+  "sites": [
+    {
+      "slug": "tombant-de-mejean",
+      "displayName": "Tombant de Méjean",
+      "plateTitle": "Tombant de Méjean",
+      "config": "regions/cote-bleue/sites/tombant-de-mejean.json",
+      "assetBasePath": "/maps/cote-bleue/tombant-de-mejean",
+      "location": {
+        "city": "Ensuès-la-Redonne",
+        "latitude": 43.3284,
+        "longitude": 5.21772
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 75.68372,
+        "yPercent": 54.21488
+      },
+      "maxDepthM": 50,
+      "planMaxDepthM": 50,
+      "verticalExaggeration": 1.5,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/2d-topographic.jpg?v=078b03bf0d8e",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1683864,
+              "sha256": "078b03bf0d8e82732962fafc98160d64f2288cebe1407d44bd87d7b9da425dd4"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/tombant-de-mejean/maps/2d-topographic.jpg?v=078b03bf0d8e",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1683864,
+            "sha256": "078b03bf0d8e82732962fafc98160d64f2288cebe1407d44bd87d7b9da425dd4",
+            "filename": "tombant-de-mejean-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/2d-orthophoto.jpg?v=ee8968650258",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1899729,
+              "sha256": "ee89686502586ec200bc8411cbfe199b3bfbd04a785de9d139d86f69f927df56"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/tombant-de-mejean/maps/2d-orthophoto.jpg?v=ee8968650258",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1899729,
+            "sha256": "ee89686502586ec200bc8411cbfe199b3bfbd04a785de9d139d86f69f927df56",
+            "filename": "tombant-de-mejean-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 80368,
+              "sha256": "a7f615686f45888e6eb3584b1eaa341aa5ff602dc943ee8489037e4514441cd5"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 161120,
+              "sha256": "c18ac5ce838e658cdcdd3936fbf3715aa700752e8e8205ae21fa3a0a0af254c9"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 278136,
+              "sha256": "5d26feb10e10235257232852811922df433d340417567bbd16c06017aac517af"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-mejean-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 588581,
+            "sha256": "20c5abfc0047d496ff20c21a7941744f20374436cc0f903177acd32492f76431",
+            "filename": "tombant-de-mejean-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 86750,
+              "sha256": "d919c364b232d670f1ad276a144c0b652c394fc55d23f064980442cacad4710e"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 172470,
+              "sha256": "48fd0a7ce73fd75575d429f50ab456e3009ef52b8b5d361a1a57e1cb921c2978"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-mejean/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 294262,
+              "sha256": "88e29a69d884fabf1b181283bff59187973e3693e1482eb47ec8e99af2ce1388"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-mejean-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 617329,
+            "sha256": "881fff05e334412ae59a1919303216c66603e3c58dbb6edf6acb7c181194caa7",
+            "filename": "tombant-de-mejean-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/tombant-de-mejean/maps/plan-a4.webp?v=6936e970668e",
+            "width": 900,
+            "height": 637,
+            "bytes": 66884,
+            "sha256": "6936e970668e66ec31f59ecd49049c611abdffea44e3e34f09cf593b644fedcd"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-mejean-a4.pdf",
+            "width": 900,
+            "height": 637,
+            "filename": "tombant-de-mejean-a4.pdf",
+            "bytes": 2107662,
+            "sha256": "bfaa48276f36a61391f7fe195d4b235aabdf3f12c5dc86b302050c4711880439"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Tombant",
+          "de Méjean"
+        ],
+        "position": {
+          "xPercent": 72,
+          "yPercent": 24
+        },
+        "widthRem": 5.5
+      },
+      "interactiveInitialView": {
+        "zoom": 1,
+        "cameraPositionM": [
+          180,
+          460,
+          1020
+        ],
+        "cameraTargetM": [
+          -15,
+          -12,
+          100
+        ]
+      }
+    },
+    {
+      "slug": "tombant-de-l-erevine",
+      "displayName": "Tombant de l’Érevine",
+      "plateTitle": "Tombant de l’Érevine",
+      "config": "regions/cote-bleue/sites/tombant-de-l-erevine.json",
+      "assetBasePath": "/maps/cote-bleue/tombant-de-l-erevine",
+      "location": {
+        "city": "Le Rove",
+        "latitude": 43.3293,
+        "longitude": 5.23632
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 84.33488,
+        "yPercent": 53.47107
+      },
+      "maxDepthM": 50,
+      "planMaxDepthM": 50,
+      "verticalExaggeration": 1.5,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/2d-topographic.jpg?v=ba17ebac75e0",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1681783,
+              "sha256": "ba17ebac75e0c92c5c0fc1474b6551bb2fd1df72861a634a73c8f49e244d9cc4"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/2d-topographic.jpg?v=ba17ebac75e0",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1681783,
+            "sha256": "ba17ebac75e0c92c5c0fc1474b6551bb2fd1df72861a634a73c8f49e244d9cc4",
+            "filename": "tombant-de-l-erevine-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/2d-orthophoto.jpg?v=411f8ea8b473",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1727529,
+              "sha256": "411f8ea8b4736571c008a362cc279907030501ba32978bb86cf90b2f48805b3c"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/2d-orthophoto.jpg?v=411f8ea8b473",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1727529,
+            "sha256": "411f8ea8b4736571c008a362cc279907030501ba32978bb86cf90b2f48805b3c",
+            "filename": "tombant-de-l-erevine-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 56618,
+              "sha256": "7ccf341a37e24e7917cac03e995f9f78a09e80757e6b59abf84ce555aa14aefe"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 114468,
+              "sha256": "570f7f6982c281047f73e95442fbaa3cd0ba0a5a762a235cdc8389c0619c4253"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 200276,
+              "sha256": "257c3cecdfee51b7b8118708bd4f1a1821ab779e407bc6c98ff66dbffcd74c78"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-l-erevine-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 454347,
+            "sha256": "55db1289e0a93509f9fa99455ca88c131e3753143f06e39c95c8ca84c3a225c3",
+            "filename": "tombant-de-l-erevine-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 64312,
+              "sha256": "4a0b2b875189a147034d363bccba6e519e275499a35ee8f87f617f6e2a105e51"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 128204,
+              "sha256": "d59496f5cf4052cb0b74e693c0beef9603aefca03f8dda2a2bb8aec2aa22bea2"
+            },
+            {
+              "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 221682,
+              "sha256": "733c9d621bb05a02e9a621f6cb17ae25abb35c374ce41a10d1752dff85e5c2fa"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-l-erevine-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 492356,
+            "sha256": "8a26cc060555d0aaaa0d5a4f2fdcc06f4d4a3a235ac5ebfd23bd6f63ba6b2ceb",
+            "filename": "tombant-de-l-erevine-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/plan-a4.webp?v=6b519c684562",
+            "width": 900,
+            "height": 637,
+            "bytes": 69850,
+            "sha256": "6b519c6845621c2552d08456fe988d881a41a16978b1f1e72fc0d3922da035c6"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-l-erevine-a4.pdf",
+            "width": 900,
+            "height": 637,
+            "filename": "tombant-de-l-erevine-a4.pdf",
+            "bytes": 2105057,
+            "sha256": "bc73f44c6a75de98d92159603d408dd6be1207692d850202e32d1883ee5a0796"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Tombant",
+          "de l’Érevine"
+        ],
+        "position": {
+          "xPercent": 76,
+          "yPercent": 75
+        },
+        "widthRem": 5.5
+      },
+      "interactiveInitialView": {
+        "zoom": 0.84,
+        "cameraPositionM": [
+          65,
+          420,
+          955
+        ],
+        "cameraTargetM": [
+          0,
+          -12,
+          44
+        ]
+      }
+    },
+    {
+      "slug": "yeux-de-chat",
+      "displayName": "Les Yeux de Chat",
+      "plateTitle": "Les Yeux de Chat",
+      "config": "regions/cote-bleue/sites/yeux-de-chat.json",
+      "assetBasePath": "/maps/cote-bleue/yeux-de-chat",
+      "location": {
+        "city": "Ensuès-la-Redonne",
+        "latitude": 43.32803,
+        "longitude": 5.22252
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 77.91628,
+        "yPercent": 54.52066
+      },
+      "maxDepthM": 50,
+      "planMaxDepthM": 50,
+      "verticalExaggeration": 1.5,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/2d-topographic.jpg?v=5e722b2cb6de",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1386333,
+              "sha256": "5e722b2cb6de9a122fce94270a6ab17cff2c24c811b0668120772a18be51abf6"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/yeux-de-chat/maps/2d-topographic.jpg?v=5e722b2cb6de",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1386333,
+            "sha256": "5e722b2cb6de9a122fce94270a6ab17cff2c24c811b0668120772a18be51abf6",
+            "filename": "yeux-de-chat-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/2d-orthophoto.jpg?v=298588ea0175",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 2017460,
+              "sha256": "298588ea0175b467e44ea36624b288075d73bbc00666e10930037d8b1c9921ba"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/yeux-de-chat/maps/2d-orthophoto.jpg?v=298588ea0175",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 2017460,
+            "sha256": "298588ea0175b467e44ea36624b288075d73bbc00666e10930037d8b1c9921ba",
+            "filename": "yeux-de-chat-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 70524,
+              "sha256": "e7c506b8b794bc5592c903b22e89aa3c78486c510731950c243197b15f08dda2"
+            },
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 142586,
+              "sha256": "02536fb47044f3f2cd1e64c4586b5d5112e1140b35f785268fbccc3fe3520ffb"
+            },
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 249904,
+              "sha256": "f392d876ec17bac95f0b6cd62adc6c10142e855274eb8a37f2d0857ec8c49328"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/yeux-de-chat-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 542309,
+            "sha256": "88df3b0fe974db90dddf76b1994182837d37e96671f44611662a43de61746484",
+            "filename": "yeux-de-chat-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 90760,
+              "sha256": "bfe1942435b394dc2ba2647d56f48d41215ccddb285cd6cf31d192a5c8ad4baa"
+            },
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 172860,
+              "sha256": "9846b375828b6892f33aaf8b91e5e576ece0d07ca767ece65717325b8eb225c6"
+            },
+            {
+              "src": "/maps/cote-bleue/yeux-de-chat/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 302420,
+              "sha256": "47a3b035a1615ff451de8ffae2d8c509cade3a9089ad2be02bb96bac4ab2b2de"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/yeux-de-chat-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 631462,
+            "sha256": "6bbe51c758a21ca7a8f2161dba0d9e7cc10ae79d2fa70f2e7ed706e7699f9607",
+            "filename": "yeux-de-chat-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/yeux-de-chat/maps/plan-a4.webp?v=046844daa389",
+            "width": 900,
+            "height": 637,
+            "bytes": 59936,
+            "sha256": "046844daa389cd1f23cfdaf3676b259e5ba6f9c6e700265be622675d4c13e979"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/yeux-de-chat-a4.pdf",
+            "width": 900,
+            "height": 637,
+            "filename": "yeux-de-chat-a4.pdf",
+            "bytes": 1735874,
+            "sha256": "8e21e58000b03d89545da5f64d20dd1c1a0e73382f6213d1f5b855f1a1b51ec6"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Les Yeux",
+          "de Chat"
+        ],
+        "position": {
+          "xPercent": 36,
+          "yPercent": 75
+        },
+        "widthRem": 5.5
+      },
+      "interactiveInitialView": {
+        "zoom": 1,
+        "cameraPositionM": [
+          90,
+          360,
+          910
+        ],
+        "cameraTargetM": [
+          -40,
+          -22,
+          65
+        ]
+      }
+    },
+    {
+      "slug": "jardins-de-sausset",
+      "displayName": "Les Jardins de Sausset",
+      "plateTitle": "Les Jardins de Sausset",
+      "config": "regions/cote-bleue/sites/jardins-de-sausset.json",
+      "assetBasePath": "/maps/cote-bleue/jardins-de-sausset",
+      "location": {
+        "city": "Sausset-les-Pins",
+        "latitude": 43.328606,
+        "longitude": 5.100405
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 21.1186,
+        "yPercent": 54.04463
+      },
+      "maxDepthM": 20,
+      "planMaxDepthM": 20,
+      "verticalExaggeration": 2,
+      "orthophotoCaptureDate": "2026-04-16",
+      "plateAuthor": "Matthieu Foll",
+      "copyrightYear": 2026,
+      "mapLicense": "CC BY-NC-SA 4.0",
+      "compactAttributions": {
+        "topographic": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+        "orthophoto": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69 · Orthophoto : IGN BD ORTHO"
+      },
+      "maps": [
+        {
+          "view": "2d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/2d-topographic.jpg?v=aba89dbf1468",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1298434,
+              "sha256": "aba89dbf1468a9f14c9ce6ced04f7f7ad028196689d0dd9aafbe52037386f01b"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/jardins-de-sausset/maps/2d-topographic.jpg?v=aba89dbf1468",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1298434,
+            "sha256": "aba89dbf1468a9f14c9ce6ced04f7f7ad028196689d0dd9aafbe52037386f01b",
+            "filename": "jardins-de-sausset-topobathy-2d.jpg"
+          }
+        },
+        {
+          "view": "2d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/2d-orthophoto.jpg?v=2851a125cfc4",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 1360133,
+              "sha256": "2851a125cfc49e94d067a7544a9971b092cfd23b29d0bdc37a9d4108dd535a15"
+            }
+          ],
+          "download": {
+            "src": "/maps/cote-bleue/jardins-de-sausset/maps/2d-orthophoto.jpg?v=2851a125cfc4",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 1360133,
+            "sha256": "2851a125cfc49e94d067a7544a9971b092cfd23b29d0bdc37a9d4108dd535a15",
+            "filename": "jardins-de-sausset-topobathy-2d-ortho.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "topographic",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/3d-dynamic-topographic-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 53450,
+              "sha256": "bf55906e064ebcfe139d45d39bdc0cf11d6d10c07b078c5994b0469089570c77"
+            },
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/3d-dynamic-topographic-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 104878,
+              "sha256": "667ab751b3169056f86b2edc8c0a26697a8c798cb06e798e1072d58d06ec735a"
+            },
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/3d-dynamic-topographic-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 182460,
+              "sha256": "06e8af406bdd5e180a9da63420028c9452e3e0ac5ebebff9b32ca787fbd3e14d"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/jardins-de-sausset-3d-dynamique-topographic.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 436243,
+            "sha256": "71d5169e2d8e8cbd5390d970a883416e4a0f0899a4d5bd72883397249a14e06f",
+            "filename": "jardins-de-sausset-3d-dynamique-topographic.jpg"
+          }
+        },
+        {
+          "view": "3d",
+          "style": "orthophoto",
+          "sourceDimensions": {
+            "width": 2474,
+            "height": 1712
+          },
+          "variants": [
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/3d-dynamic-orthophoto-960.webp",
+              "width": 960,
+              "height": 664,
+              "bytes": 61842,
+              "sha256": "bd4d22aa9550fd4d8d3b465690c945641f8017416542ed9899246b4f8871e52c"
+            },
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/3d-dynamic-orthophoto-1600.webp",
+              "width": 1600,
+              "height": 1107,
+              "bytes": 116410,
+              "sha256": "916d29efd3a4f952a1e630a428d6991c2c1247ec91f640c1ab63278a77c05343"
+            },
+            {
+              "src": "/maps/cote-bleue/jardins-de-sausset/maps/3d-dynamic-orthophoto-2474.webp",
+              "width": 2474,
+              "height": 1712,
+              "bytes": 202000,
+              "sha256": "8cf0ac4459c29ed2a0c89e8d5600f7283f9e9b9e72b83d9629cd5e502cfe32bb"
+            }
+          ],
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/jardins-de-sausset-3d-dynamique-orthophoto.jpg",
+            "width": 2474,
+            "height": 1712,
+            "bytes": 472150,
+            "sha256": "15e3d4bb22b7b81b6defe692d7786ec4d166a9f1991f57f73c91fee5b5e4c00e",
+            "filename": "jardins-de-sausset-3d-dynamique-orthophoto.jpg"
+          }
+        }
+      ],
+      "planches": [
+        {
+          "style": "topographic",
+          "preview": {
+            "src": "/maps/cote-bleue/jardins-de-sausset/maps/plan-a4.webp?v=7af90a216839",
+            "width": 900,
+            "height": 637,
+            "bytes": 49694,
+            "sha256": "7af90a21683974e984714ffdfce339ce0e57b1221731deef7609e78638fdec35"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/jardins-de-sausset-a4.pdf",
+            "width": 900,
+            "height": 637,
+            "filename": "jardins-de-sausset-a4.pdf",
+            "bytes": 1625842,
+            "sha256": "77bd9bf49af0375b4e5835c1ae70416bc4333f8c6fb4e843c69f4ed1494cfcb0"
+          }
+        }
+      ],
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Les Jardins",
+          "de Sausset"
+        ],
+        "position": {
+          "xPercent": 23,
+          "yPercent": 24
+        },
+        "widthRem": 5.5
+      },
+      "interactiveInitialView": {
+        "zoom": 1,
+        "cameraPositionM": [
+          110,
+          340,
+          780
+        ],
+        "cameraTargetM": [
+          0,
+          -12,
+          -10
+        ]
+      }
+    }
+  ],
+  "plannedSites": [
+    {
+      "slug": "tombant-de-mejean",
+      "displayName": "Tombant de Méjean",
+      "location": {
+        "city": "Ensuès-la-Redonne",
+        "latitude": 43.3284,
+        "longitude": 5.21772
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 75.68372,
+        "yPercent": 54.21488
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Tombant",
+          "de Méjean"
+        ],
+        "position": {
+          "xPercent": 72,
+          "yPercent": 24
+        },
+        "widthRem": 5.5
+      },
+      "status": "published"
+    },
+    {
+      "slug": "tombant-de-l-erevine",
+      "displayName": "Tombant de l’Érevine",
+      "location": {
+        "city": "Le Rove",
+        "latitude": 43.3293,
+        "longitude": 5.23632
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 84.33488,
+        "yPercent": 53.47107
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Tombant",
+          "de l’Érevine"
+        ],
+        "position": {
+          "xPercent": 76,
+          "yPercent": 75
+        },
+        "widthRem": 5.5
+      },
+      "status": "published"
+    },
+    {
+      "slug": "yeux-de-chat",
+      "displayName": "Les Yeux de Chat",
+      "location": {
+        "city": "Ensuès-la-Redonne",
+        "latitude": 43.32803,
+        "longitude": 5.22252
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 77.91628,
+        "yPercent": 54.52066
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Les Yeux",
+          "de Chat"
+        ],
+        "position": {
+          "xPercent": 36,
+          "yPercent": 75
+        },
+        "widthRem": 5.5
+      },
+      "status": "published"
+    },
+    {
+      "slug": "jardins-de-sausset",
+      "displayName": "Les Jardins de Sausset",
+      "location": {
+        "city": "Sausset-les-Pins",
+        "latitude": 43.328606,
+        "longitude": 5.100405
+      },
+      "westCoastLocatorPosition": {
+        "xPercent": 21.1186,
+        "yPercent": 54.04463
+      },
+      "siteLabelLayout": {
+        "side": "left",
+        "shiftYRem": 0,
+        "connectorAngleDeg": 0,
+        "lines": [
+          "Les Jardins",
+          "de Sausset"
+        ],
+        "position": {
+          "xPercent": 23,
+          "yPercent": 24
+        },
+        "widthRem": 5.5
+      },
+      "status": "published"
+    }
+  ]
+}

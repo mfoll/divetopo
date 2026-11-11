@@ -1,27 +1,34 @@
 {
-  "version": "v1.5.0",
-  "releaseNotes": "releases/v1.5.0.md",
+  "version": "v1.6.0",
+  "releaseNotes": "releases/v1.6.0.md",
   "requiredNotesHeading": "## New dive sites",
+  "assetVersionSources": [
+    "apps/web/scripts/build_regional_map_assets.py"
+  ],
   "requiredPublishedSites": [
     {
-      "region": "bouches-du-rhone",
-      "slug": "imperial-du-milieu-riou",
-      "displayName": "Impérial du Milieu – Riou"
+      "region": "cote-bleue",
+      "slug": "tombant-de-mejean",
+      "displayName": "Tombant de Méjean",
+      "printableFormat": "pdf"
     },
     {
-      "region": "var-centre",
-      "slug": "pointe-escampobariou",
-      "displayName": "Pointe Escampobariou"
+      "region": "cote-bleue",
+      "slug": "tombant-de-l-erevine",
+      "displayName": "Tombant de l’Érevine",
+      "printableFormat": "pdf"
     },
     {
-      "region": "var-est",
-      "slug": "sec-des-suisses-cigales",
-      "displayName": "Sec des Suisses"
+      "region": "cote-bleue",
+      "slug": "yeux-de-chat",
+      "displayName": "Les Yeux de Chat",
+      "printableFormat": "pdf"
     },
     {
-      "region": "alpes-maritimes",
-      "slug": "cap-gros",
-      "displayName": "Cap Gros"
+      "region": "cote-bleue",
+      "slug": "jardins-de-sausset",
+      "displayName": "Les Jardins de Sausset",
+      "printableFormat": "pdf"
     }
   ]
 }

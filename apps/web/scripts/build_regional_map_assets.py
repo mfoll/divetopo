@@ -19,6 +19,8 @@ def configure(region_slug: str) -> None:
     builder.MANIFEST_PATH = (
         WEB_ROOT / "content" / f"{region_slug}-map-manifest.json"
     )
+    if region_slug == "cote-bleue":
+        builder.RELEASE_ASSET_BASE = "https://github.com/mfoll/divetopo/releases/download/v1.6.0"
 
 
 def main() -> None:

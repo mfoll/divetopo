@@ -8,6 +8,7 @@ import {
 
 export const autonomousMediterraneanRegions = [
   "bouches-du-rhone",
+  "cote-bleue",
   "var-ouest",
   "var-centre",
   "var-est",
@@ -34,6 +35,10 @@ export const regionCatalog = {
       fr: "Marseille, Frioul, Riou et Calanques",
       en: "Marseille, Frioul, Riou and Calanques",
     },
+  },
+  "cote-bleue": {
+    names: { fr: "Côte Bleue", en: "Côte Bleue" },
+    location: { fr: "Bouches-du-Rhône", en: "Bouches-du-Rhône" },
   },
   "var-ouest": {
     names: { fr: "Var Ouest", en: "Western Var" },
@@ -105,11 +110,11 @@ export function regionCopy(region: RegionSlug) {
   const frenchInRegion =
     region === "alpes-maritimes"
       ? "dans les Alpes-Maritimes"
-      : "en " + names.fr;
+      : region === "cote-bleue" ? "sur la Côte Bleue" : "en " + names.fr;
   const frenchOfRegion =
     region === "alpes-maritimes"
       ? "des Alpes-Maritimes"
-      : "de " + names.fr;
+      : region === "cote-bleue" ? "de la Côte Bleue" : "de " + names.fr;
   return {
     fr: {
       ...pacaCopy.fr,

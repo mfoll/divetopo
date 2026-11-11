@@ -107,6 +107,7 @@ export function regionalExperienceConfig(
 ): RegionExperienceConfig {
   if (region === "reunion") return REUNION_EXPERIENCE_CONFIG;
   if (region === "paca") return PACA_EXPERIENCE_CONFIG;
+  const scaleKm = region === "cote-bleue" ? 5 : 10;
   return {
     region,
     manifest: regionalMapManifests[region],
@@ -115,10 +116,10 @@ export function regionalExperienceConfig(
     sectionId: `topo-${region}`,
     titleId: `topo-${region}-title`,
     viewerTestId: `topo-${region}-viewer`,
-    pickerScaleLabel: "10 km",
+    pickerScaleLabel: `${scaleKm} km`,
     pickerScaleWidthPercent: wgs84ScaleWidthPercent(
       regionalMapManifests[region],
-      10,
+      scaleKm,
     ),
   };
 }
@@ -180,8 +181,9 @@ function selectedMap(
 
 function selectedPlanche(site: RegionalAssetSite, style: SurfaceStyle) {
   const asset = site.planches?.find(
-    (candidate) => candidate.style === style,
+    (candidate) => candidate.style === style || candidate.download.filename.endsWith(".pdf"),
   );
+  if (asset?.download.filename.endsWith(".pdf")) return asset;
   return asset
     ? {
         ...asset,
@@ -241,6 +243,7 @@ function RegionalSiteMarker({
   const labelRef = useRef<HTMLSpanElement>(null);
   const connectorRef = useRef<SVGSVGElement>(null);
   const layout = plannedSite.siteLabelLayout;
+  const { xPercent, yPercent } = plannedSite.westCoastLocatorPosition;
 
   useLayoutEffect(() => {
     const marker = markerRef.current;
@@ -278,6 +281,7 @@ function RegionalSiteMarker({
       return true;
     };
 
+    const map = marker.closest(".site-picker-map");
     const updateConnector = () => {
       const markerRect = marker.getBoundingClientRect();
       const labelRect = label.getBoundingClientRect();
@@ -304,7 +308,6 @@ function RegionalSiteMarker({
         x: edge.x + ((edge.x - point.x) / edgeDistance) * overlap,
         y: edge.y + ((edge.y - point.y) / edgeDistance) * overlap,
       };
-      const map = marker.closest(".site-picker-map");
       const otherMarkers = map
         ? Array.from(map.querySelectorAll<HTMLElement>(".site-map-marker")).filter(
             (candidate) => candidate !== marker,
@@ -368,16 +371,19 @@ function RegionalSiteMarker({
     const observer = new ResizeObserver(updateConnector);
     observer.observe(marker);
     observer.observe(label);
+    if (layout.position && map) observer.observe(map);
     window.addEventListener("resize", updateConnector);
     return () => {
       observer.disconnect();
       window.removeEventListener("resize", updateConnector);
     };
-  }, [layout.labelOffsetRem, layout.shiftYRem, layout.widthRem]);
+  }, [layout.labelOffsetRem, layout.position, layout.shiftYRem, layout.widthRem]);
 
   const style = {
-    "--site-x": `${plannedSite.westCoastLocatorPosition.xPercent}%`,
-    "--site-y": `${plannedSite.westCoastLocatorPosition.yPercent}%`,
+    "--site-x": `${xPercent}%`,
+    "--site-y": `${yPercent}%`,
+    "--label-dx": layout.position ? `${layout.position.xPercent - xPercent}cqw` : undefined,
+    "--label-dy": layout.position ? `${layout.position.yPercent - yPercent}cqw` : undefined,
     "--label-shift-y": `${layout.shiftYRem}rem`,
     "--label-width": layout.widthRem ? `${layout.widthRem}rem` : undefined,
     "--label-offset": `${layout.labelOffsetRem ?? 2.3}rem`,
@@ -430,6 +436,7 @@ function RegionalSiteMarker({
       style={style}
       aria-current={hasSiteRoute && selected ? "page" : undefined}
       data-selected={selected}
+      data-site={plannedSite.slug}
       aria-label={`${showSiteLabel} ${plannedSite.displayName}`}
       href={localizedSitePath(language, site.slug, region)}
       onClick={(event) => {
@@ -555,7 +562,7 @@ function SiteLocatorMap({
   const text = copy[language].picker;
 
   return (
-    <div className={`site-picker-map${region !== "reunion" ? " is-paca" : ""}`}>
+    <div className={`site-picker-map${region !== "reunion" ? " is-paca" : ""}${region === "cote-bleue" ? " is-cote-bleue" : ""}`}>
       <img
         src={manifest.westCoastLocator.src}
         width={manifest.westCoastLocator.width}
@@ -851,7 +858,7 @@ export function TopoRegionExperience({
 
   const staticView: MapView = viewMode === "2d" ? "2d" : "3d";
   const mapAsset =
-    usesUnified3D && staticView === "3d"
+    usesUnified3D && staticView === "3d" && region !== "cote-bleue"
       ? dynamicCaptureAsset(activeSite, surfaceStyle)
       : selectedMap(activeSite, staticView, surfaceStyle);
   const mapLargest = mapAsset.variants.at(-1) ?? mapAsset.variants[0];
@@ -866,10 +873,15 @@ export function TopoRegionExperience({
     if (event.target === dialogRef.current) dialogRef.current.close();
   }
 
+  const threeDAltEnd = region === "cote-bleue"
+    ? language === "fr"
+      ? `, relief vertical ×${activeSite.verticalExaggeration.toLocaleString("fr")}.`
+      : ` with ×${activeSite.verticalExaggeration} vertical exaggeration.`
+    : text.map.threeDAltEnd;
   const mapAlt =
     staticView === "2d"
       ? `${text.map.twoDAltStart} ${activeSite.displayName}, ${text.map.twoDAltMiddle} ${surfaceText.description}, ${text.map.depthsShownTo} −${activeSite.planMaxDepthM} m.`
-      : `${text.map.threeDAltStart} ${activeSite.displayName}, ${text.map.threeDAltMiddle} ${surfaceText.description}${text.map.threeDAltEnd}`;
+      : `${text.map.threeDAltStart} ${activeSite.displayName}, ${text.map.threeDAltMiddle} ${surfaceText.description}${threeDAltEnd}`;
   const mapDownloadLabel =
     language === "fr"
       ? `${staticView === "2d" ? text.map.downloadTwoD : text.map.downloadThreeD} de ${activeSite.displayName}, avec ${surfaceText.description}`
@@ -1089,7 +1101,11 @@ export function TopoRegionExperience({
                         siteName={activeSite.displayName}
                         style={surfaceStyle}
                         language={language}
-                        vectorIsobathsPath={`/terrain/${activeSite.slug}/isobaths-vector.json`}
+                        vectorIsobathsPath={
+                          activeSite.slug === "tombant-de-l-erevine"
+                            ? undefined
+                            : `/terrain/${activeSite.slug}/isobaths-vector.json`
+                        }
                         initialZoom={
                           activeSite.interactiveInitialView?.zoom ??
                           (activeSite.slug === "cap-la-houssaye" ? 1.12 : 1)
@@ -1176,7 +1192,7 @@ export function TopoRegionExperience({
                 <div>
                   <strong>{text.plate.printable}</strong>
                   <span>
-                    {activeSite.displayName} · {surfaceText.label}
+                    {activeSite.displayName} · {planche.download.filename.endsWith(".pdf") ? "PDF A4" : surfaceText.label}
                   </span>
                 </div>
                 <a

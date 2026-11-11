@@ -1,0 +1,104 @@
+{
+  "region": "cote-bleue",
+  "slug": "yeux-de-chat",
+  "title": "Les Yeux de Chat",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0880_6255/file/0880_6255.7z",
+      "members": [
+        "0880_6255/LITTO3D_FRA_0880_6251_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0880_6251_MNT_20150520_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    880118,
+    6250085,
+    880518,
+    6250361
+  ],
+  "context_bbox_utm40s": [
+    880038,
+    6250006,
+    880638,
+    6250476
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      880338,
+      6250241
+    ],
+    "width_m": 600,
+    "depth_m": 470,
+    "look_bearing_deg": 0
+  },
+  "view_bearing_deg": 0,
+  "view_visible_width_m": 465,
+  "interactive_view_visible_width_m": 465,
+  "coast_mode": "mask",
+  "max_depth_m": 50,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 80,
+  "camera_tilt": 0.75,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "plan_output_scale": 5,
+  "map_style_scale": 2,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2026-04-16",
+  "orthophoto_resolution_m": 0.25,
+  "orthophoto_3d_resolution_m": 0.5,
+  "orthophoto_coastline_visible": false,
+  "plate_site_name": "Les Yeux de Chat",
+  "plate_city": "Ensuès-la-Redonne",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 1.5,
+  "plate_title": "Les Yeux de Chat",
+  "site_location_utm40s": [
+    880338.0405799164,
+    6250191.161301886
+  ],
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0,
+      "lines": [
+        "Les Yeux",
+        "de Chat"
+      ],
+      "width_rem": 5.5,
+      "position": {
+        "xPercent": 36,
+        "yPercent": 75
+      }
+    },
+    "interactive_initial_view": {
+      "camera_position_m": [
+        90,
+        360,
+        910
+      ],
+      "camera_target_m": [
+        -40,
+        -22,
+        65
+      ],
+      "zoom": 1
+    }
+  }
+}

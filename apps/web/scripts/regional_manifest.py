@@ -19,6 +19,7 @@ LABEL_LAYOUT_KEYS = {
     "connector_width_rem": "connectorWidthRem",
     "label_offset_rem": "labelOffsetRem",
     "lines": "lines",
+    "position": "position",
     "width_rem": "widthRem",
 }
 INITIAL_VIEW_KEYS = {

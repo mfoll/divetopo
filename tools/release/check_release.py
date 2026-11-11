@@ -64,12 +64,13 @@ def validate_release(root: Path = ROOT) -> list[str]:
     if required_heading not in notes:
         errors.append(f"release notes missing heading: {required_heading}")
 
-    version_sources = (
-        root / "apps/web/content/routing.ts",
-        root / "apps/web/scripts/build_map_assets.py",
-        root / "apps/web/scripts/build_paca_map_assets.py",
-    )
-    for source in version_sources:
+    version_sources = contract.get("assetVersionSources", [
+        "apps/web/content/routing.ts",
+        "apps/web/scripts/build_map_assets.py",
+        "apps/web/scripts/build_paca_map_assets.py",
+    ])
+    for source_path in version_sources:
+        source = root / source_path
         if version not in source.read_text(encoding="utf-8"):
             errors.append(f"{source.relative_to(root)} does not target {version}")
 
@@ -110,9 +111,7 @@ def validate_release(root: Path = ROOT) -> list[str]:
         manifest = load_json(
             root / "apps" / "web" / "content" / f"{region}-map-manifest.json"
         )
-        published = {
-            str(site.get("slug")) for site in manifest.get("sites", [])
-        }
+        published = {str(site.get("slug")): site for site in manifest.get("sites", [])}
         planned = {
             str(site.get("slug")): site
             for site in manifest.get("plannedSites", [])
@@ -123,7 +122,18 @@ def validate_release(root: Path = ROOT) -> list[str]:
             errors.append(f"{identity}: planned-site status is not published")
 
         map_root = root / "apps" / "web" / "public" / "maps" / region / slug
-        missing_maps = sorted(REQUIRED_MAP_FILES - relative_files(map_root))
+        required_maps = REQUIRED_MAP_FILES
+        if target.get("printableFormat") == "pdf":
+            required_maps = (REQUIRED_MAP_FILES - {
+                "maps/planche-orthophoto-1800.webp", "maps/planche-topographic-1800.webp",
+            }) | {"maps/plan-a4.webp"}
+            filename = f"{slug}-a4.pdf"
+            if not (root / "regions" / region / "outputs" / filename).is_file():
+                errors.append(f"{identity}: missing canonical A4 PDF")
+            downloads = [sheet["download"]["src"] for sheet in published.get(slug, {}).get("planches", [])]
+            if f"https://github.com/mfoll/divetopo/releases/download/{version}/{filename}" not in downloads:
+                errors.append(f"{identity}: missing A4 PDF download for {version}")
+        missing_maps = sorted(required_maps - relative_files(map_root))
         if missing_maps:
             errors.append(f"{identity}: missing Web maps: {missing_maps}")
 

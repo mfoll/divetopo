@@ -79,7 +79,7 @@ test("redirects every advertised Mediterranean x-default site URL", async () => 
   const sitemap = await sitemapResponse.text();
   const advertisedNeutralSiteUrls = [
     ...sitemap.matchAll(
-      /hreflang="x-default" href="https:\/\/divetopo\.com\/(bouches-du-rhone|var-ouest|var-centre|var-est|alpes-maritimes)\/sites\/([^"]+)"/g,
+      /hreflang="x-default" href="https:\/\/divetopo\.com\/(bouches-du-rhone|cote-bleue|var-ouest|var-centre|var-est|alpes-maritimes)\/sites\/([^"]+)"/g,
     ),
   ];
   const neutralSiteUrls = [
@@ -91,7 +91,7 @@ test("redirects every advertised Mediterranean x-default site URL", async () => 
     ).values(),
   ];
 
-  assert.equal(neutralSiteUrls.length, 27);
+  assert.equal(neutralSiteUrls.length, 31);
   for (const [region, slug] of neutralSiteUrls) {
     const response = await render(`/${region}/sites/${slug}`);
     assert.equal(response.status, 307, `${region}/${slug}`);
@@ -118,6 +118,7 @@ test("redirects every advertised Mediterranean x-default site URL", async () => 
 
 test("renders complete regional inventories without release-target drafts", async () => {
   const published = [
+    ["/cote-bleue/fr", "topo-cote-bleue-title", 4, 4],
     ["/var-ouest/fr", "topo-var-ouest-title", 4, 4],
     ["/var-centre/en", "topo-var-centre-title", 5, 5],
     ["/var-est/fr", "topo-var-est-title", 6, 6],
@@ -141,7 +142,7 @@ test("renders complete regional inventories without release-target drafts", asyn
     );
     const preparingHeading = path.endsWith("/en") ? /Sites in preparation/g : /Sites en préparation/g;
     assert.equal(html.match(preparingHeading)?.length ?? 0, siteCount < inventoryCount ? 1 : 0, path);
-    const preparingNames = path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/") || path.startsWith("/var-est/")
+    const preparingNames = path.startsWith("/cote-bleue/") || path.startsWith("/alpes-maritimes/") || path.startsWith("/var-ouest/") || path.startsWith("/var-est/")
       ? []
       : path.endsWith("/en")
         ? ["Sec de la Jeaune Garde", "Les Fourmigues"]

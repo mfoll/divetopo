@@ -1,0 +1,86 @@
+{
+  "schemaVersion": 1,
+  "defaultLanguage": "fr",
+  "languages": [
+    "fr",
+    "en"
+  ],
+  "crs": {
+    "code": "EPSG:2154",
+    "name": "RGF93 v1 / Lambert-93"
+  },
+  "sources": {
+    "bathymetry": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m"
+    },
+    "landElevation": {
+      "id": "shom-ign-litto3d-paca-2015",
+      "name": "Shom–IGN Litto3D PACA 2015",
+      "url": "https://diffusion.shom.fr/donnees/litto3d-paca-2015.html",
+      "attribution": "Shom–IGN Litto3D PACA 2015, référentiel vertical IGN69"
+    },
+    "aerialImagery": {
+      "id": "ign-bd-ortho",
+      "name": "IGN BD ORTHO",
+      "url": "https://cartes.gouv.fr/rechercher-une-donnee/dataset/IGNF_BD-ORTHO"
+    },
+    "regionalRelief": {
+      "id": "emodnet-bathymetry-dtm-2024",
+      "name": "EMODnet Bathymetry DTM 2024",
+      "url": "https://emodnet.ec.europa.eu/en/bathymetry"
+    }
+  },
+  "slug": "cote-bleue",
+  "route": "/cote-bleue",
+  "names": {
+    "fr": "Côte Bleue",
+    "en": "Côte Bleue"
+  },
+  "pipeline": {
+    "module": "cartography.regions.cote_bleue",
+    "siteConfigDirectory": "regions/cote-bleue/sites",
+    "outputDirectory": "regions/cote-bleue/outputs",
+    "interactiveTerrainDirectory": "regions/cote-bleue/outputs/interactive-terrain"
+  },
+  "sites": [
+    {
+      "slug": "tombant-de-mejean",
+      "name": "Tombant de Méjean",
+      "municipality": "Ensuès-la-Redonne",
+      "config": "regions/cote-bleue/sites/tombant-de-mejean.json"
+    },
+    {
+      "slug": "tombant-de-l-erevine",
+      "name": "Tombant de l’Érevine",
+      "municipality": "Le Rove",
+      "config": "regions/cote-bleue/sites/tombant-de-l-erevine.json"
+    },
+    {
+      "slug": "yeux-de-chat",
+      "name": "Les Yeux de Chat",
+      "municipality": "Ensuès-la-Redonne",
+      "config": "regions/cote-bleue/sites/yeux-de-chat.json"
+    },
+    {
+      "slug": "jardins-de-sausset",
+      "name": "Les Jardins de Sausset",
+      "municipality": "Sausset-les-Pins",
+      "config": "regions/cote-bleue/sites/jardins-de-sausset.json"
+    }
+  ],
+  "regionalMap": {
+    "status": "generated",
+    "output": "regions/cote-bleue/outputs/cote-bleue-regional-relief.png",
+    "webDerivative": "apps/web/public/maps/cote-bleue/cote-bleue-regional-relief.png",
+    "boundsWgs84": [
+      5.055,
+      43.273,
+      5.27,
+      43.394
+    ],
+    "sha256": "e3396d9e1f7c13ecdec938f6963b3d5880905c4a84b60ff0150d55324d3e3aa4"
+  }
+}

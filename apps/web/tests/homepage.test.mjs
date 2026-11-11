@@ -126,6 +126,8 @@ test("server-renders the French homepage with Auto theme by default", async () =
   assert.match(html, /<li>11 sites<\/li>/);
   assert.match(html, /src="\/reunion-overview\.webp"/);
   assert.match(html, /href="\/reunion\/fr"/);
+  assert.match(html, /href="\/cote-bleue\/fr"/);
+  assert.doesNotMatch(html, /Publication après QA|Plans A4 annotés/);
   assert.match(html, /aria-label="Explorer La Réunion"/);
   assert.doesNotMatch(html, /region-arrow|↗/);
   assert.doesNotMatch(html, /brand-home-cue/);
@@ -325,7 +327,7 @@ test("keeps regions data-driven and bundles the exact island relief", async () =
   assert.match(regionsSource, /sitePositions:\s*manifest\.sites\.map/);
   assert.match(regionsSource, /site\.reunionOverviewPosition/);
   assert.match(homepageSource, /className="region-site-points"/);
-  assert.match(homepageSource, /spreadNearbyPoints\(region\.sitePositions\)/);
+  assert.match(homepageSource, /spreadNearbyPoints\(\s*region\.sitePositions\.map\(/);
   assert.match(regionalManifestSource, /"detailBathymetryLayer":\s*"LITTO3D PACA 2015 MNT5m"/);
   assert.match(regionalManifestSource, /"detailBathymetryCrs":\s*"EPSG:2154"/);
   assert.match(regionalManifestSource, /"detailBathymetryResolutionM":\s*5/);

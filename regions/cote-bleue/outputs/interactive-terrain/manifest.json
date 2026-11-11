@@ -1,0 +1,173 @@
+{
+  "schemaVersion": 2,
+  "sites": [
+    {
+      "slug": "tombant-de-mejean",
+      "title": "Tombant de Méjean",
+      "metadata": "tombant-de-mejean/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "tombant-de-mejean/terrain.json",
+          "bytes": 5167,
+          "sha256": "ee6a40515119120cebe2102f1e647aa0c9c91bafe5108e6c74c7d4a112d1851d"
+        },
+        "height": {
+          "path": "tombant-de-mejean/height.bin",
+          "bytes": 421686,
+          "sha256": "eb0427619ff4567cb0b1df8ffa17e9af10a313ae3a6c711e5061640568be16b4"
+        },
+        "validMask": {
+          "path": "tombant-de-mejean/valid-mask.bin",
+          "bytes": 26356,
+          "sha256": "1b2e3d78583ce5a13e690d42ad5bc35c5f6601d040a078ff9f1e1430c97e7f21"
+        },
+        "isobathMask": {
+          "path": "tombant-de-mejean/isobath-mask.bin",
+          "bytes": 26356,
+          "sha256": "1b2e3d78583ce5a13e690d42ad5bc35c5f6601d040a078ff9f1e1430c97e7f21"
+        },
+        "vectorIsobaths": {
+          "path": "tombant-de-mejean/isobaths-vector.json",
+          "bytes": 105515,
+          "sha256": "5aa0130b64e7e5bea85e21334aada30760342c47ac6571b0063eea7018a338c8"
+        },
+        "topographicTexture": {
+          "path": "tombant-de-mejean/topographic.webp",
+          "bytes": 25050,
+          "sha256": "91ff3ac1882fc150e3dc577c642ee2dcd96886eb19b0889b43e59635dac9088d"
+        },
+        "orthophotoTexture": {
+          "path": "tombant-de-mejean/orthophoto.webp",
+          "bytes": 38892,
+          "sha256": "6b457319c8897c4ff36ddcd600322585469c358f3fb0dbd03f5a002c077b7fab"
+        }
+      }
+    },
+    {
+      "slug": "tombant-de-l-erevine",
+      "title": "Tombant de l’Érevine",
+      "metadata": "tombant-de-l-erevine/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "tombant-de-l-erevine/terrain.json",
+          "bytes": 5175,
+          "sha256": "548d536ca48384223fa894e711ee4923a5d5aa7354033295fe86bf70ff059370"
+        },
+        "height": {
+          "path": "tombant-de-l-erevine/height.bin",
+          "bytes": 366522,
+          "sha256": "07450421135c75bc4a7f8200a4d7844985ad187eea311d8451c4d29c67c57c17"
+        },
+        "validMask": {
+          "path": "tombant-de-l-erevine/valid-mask.bin",
+          "bytes": 22908,
+          "sha256": "6d0c38d19429f3ae73bc7d8a5500f7a7e3c3cdfa485670c82c9166e58cf13fad"
+        },
+        "isobathMask": {
+          "path": "tombant-de-l-erevine/isobath-mask.bin",
+          "bytes": 22908,
+          "sha256": "6d0c38d19429f3ae73bc7d8a5500f7a7e3c3cdfa485670c82c9166e58cf13fad"
+        },
+        "vectorIsobaths": {
+          "path": "tombant-de-l-erevine/isobaths-vector.json",
+          "bytes": 88577,
+          "sha256": "6316a5892fb224100212178dd138b48c72fea86d01c62f151134620f304fdda4"
+        },
+        "topographicTexture": {
+          "path": "tombant-de-l-erevine/topographic.webp",
+          "bytes": 15054,
+          "sha256": "67b04b0a0e39d15b7ba3f997306a1ccab4dbb7104ed7d4a582599039e62de0bf"
+        },
+        "orthophotoTexture": {
+          "path": "tombant-de-l-erevine/orthophoto.webp",
+          "bytes": 16906,
+          "sha256": "fba80f0e233ab727afd82193c40ee301f544bcc0dcce0a47110374b510115d1a"
+        }
+      }
+    },
+    {
+      "slug": "yeux-de-chat",
+      "title": "Les Yeux de Chat",
+      "metadata": "yeux-de-chat/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "yeux-de-chat/terrain.json",
+          "bytes": 5148,
+          "sha256": "a716fe55dd43e3075de3341e3fdc136cb9734378c4c3c509e1efde51cc3c1190"
+        },
+        "height": {
+          "path": "yeux-de-chat/height.bin",
+          "bytes": 412452,
+          "sha256": "09a16f5e2582601b0baf239d42351c5a017d7b38edd7b5c62f3b4a2e316c21b6"
+        },
+        "validMask": {
+          "path": "yeux-de-chat/valid-mask.bin",
+          "bytes": 25779,
+          "sha256": "85d820225c3c26a8a1b18fe2c9e873df25790c2a4cf019670a4c38f70d29b48c"
+        },
+        "isobathMask": {
+          "path": "yeux-de-chat/isobath-mask.bin",
+          "bytes": 25779,
+          "sha256": "85d820225c3c26a8a1b18fe2c9e873df25790c2a4cf019670a4c38f70d29b48c"
+        },
+        "vectorIsobaths": {
+          "path": "yeux-de-chat/isobaths-vector.json",
+          "bytes": 96866,
+          "sha256": "e5e4b9031a45a74b141b4de9ab62cfe1148db20ba2d86324e5e6c6aa5532e83c"
+        },
+        "topographicTexture": {
+          "path": "yeux-de-chat/topographic.webp",
+          "bytes": 17874,
+          "sha256": "11e98135c43c235e1871a4da6ba96d3fae2def4dadc8493c52faf78c9509b3bd"
+        },
+        "orthophotoTexture": {
+          "path": "yeux-de-chat/orthophoto.webp",
+          "bytes": 45696,
+          "sha256": "e59b04a251e93cc584bbeb6c9a547aecda190ae0a5d6afdcd0ff2653ef0f4b88"
+        }
+      }
+    },
+    {
+      "slug": "jardins-de-sausset",
+      "title": "Jardins de Sausset",
+      "metadata": "jardins-de-sausset/terrain.json",
+      "files": {
+        "metadata": {
+          "path": "jardins-de-sausset/terrain.json",
+          "bytes": 4412,
+          "sha256": "6e0251056407fda5097cb827dd89c651ba6cb9b8a585e4de71d0c12ee9dfb0de"
+        },
+        "height": {
+          "path": "jardins-de-sausset/height.bin",
+          "bytes": 415822,
+          "sha256": "2d22d31c409f0d1e927da73b2ef17d8ec0fde5cc25cba4623ced5e912c694d07"
+        },
+        "validMask": {
+          "path": "jardins-de-sausset/valid-mask.bin",
+          "bytes": 25989,
+          "sha256": "05fc861022dce950cda73fbc76f7cd4c217c2331a94ccde9e1e9e51896a74d04"
+        },
+        "isobathMask": {
+          "path": "jardins-de-sausset/isobath-mask.bin",
+          "bytes": 25989,
+          "sha256": "05fc861022dce950cda73fbc76f7cd4c217c2331a94ccde9e1e9e51896a74d04"
+        },
+        "vectorIsobaths": {
+          "path": "jardins-de-sausset/isobaths-vector.json",
+          "bytes": 44412,
+          "sha256": "e29fb4701ab33b4d37a796646b96e44eb9baf49babe1692664fef4ba89d45860"
+        },
+        "topographicTexture": {
+          "path": "jardins-de-sausset/topographic.webp",
+          "bytes": 16168,
+          "sha256": "de9062ea7867789df4fe6243c68a17d4156c8382a698e2566e949fae8ab0c30d"
+        },
+        "orthophotoTexture": {
+          "path": "jardins-de-sausset/orthophoto.webp",
+          "bytes": 19486,
+          "sha256": "651ff6be1856d78d2731a4ff08ee2451d6a6975b5f4e7c2689267fec8addf2f0"
+        }
+      }
+    }
+  ]
+}

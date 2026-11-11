@@ -6,6 +6,8 @@ import { regions } from "../content/regions";
 import InstallPrompt from "./InstallPrompt";
 import PreferenceControls from "./PreferenceControls";
 
+const THUMBNAIL_ASPECT_RATIO = 1864 / 1440;
+
 type HomepageSitePosition = {
   slug: string;
   position: { xPercent: number; yPercent: number };
@@ -116,24 +118,27 @@ export default function HomepageExperience({
                   href={`${region.href}/${language}`}
                   key={region.slug}
                 >
-                  <div
-                    className="region-visual"
-                    style={{
-                      aspectRatio: `${region.image.width} / ${region.image.height}`,
-                    }}
-                  >
+                  <div className="region-visual">
                     <img
                       src={region.image.src}
                       width={region.image.width}
                       height={region.image.height}
-                      style={{
-                        aspectRatio: `${region.image.width} / ${region.image.height}`,
-                      }}
                       alt={region.image.alt[language]}
                       fetchPriority="high"
                     />
                     <span className="region-site-points" aria-hidden="true">
-                      {spreadNearbyPoints(region.sitePositions).map((site) => (
+                      {spreadNearbyPoints(
+                        region.sitePositions.map((site) => {
+                          const sourceRatio = region.image.width / region.image.height;
+                          return {
+                            ...site,
+                            position: {
+                              xPercent: 50 + (site.position.xPercent - 50) * Math.max(1, sourceRatio / THUMBNAIL_ASPECT_RATIO),
+                              yPercent: 50 + (site.position.yPercent - 50) * Math.max(1, THUMBNAIL_ASPECT_RATIO / sourceRatio),
+                            },
+                          };
+                        }),
+                      ).map((site) => (
                         <span
                           className="region-site-point"
                           data-source-x={site.position.xPercent}

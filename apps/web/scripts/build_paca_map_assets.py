@@ -197,6 +197,30 @@ def build_dynamic_map(slug: str, style: str) -> dict[str, object]:
     }
 
 
+def build_printable_sheets(slug: str) -> list[dict[str, object]]:
+    pdf = OUTPUT_ROOT / f"{slug}-a4.pdf"
+    if not pdf.is_file():
+        return [build_planche(slug, "topographic"), build_planche(slug, "orthophoto")]
+
+    source = OUTPUT_ROOT / f"{slug}-a4-preview.webp"
+    preview = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps" / "plan-a4.webp"
+    shutil.copyfile(source, preview)
+    with Image.open(preview) as image:
+        width, height = image.size
+    return [{
+        "style": "topographic",
+        "preview": image_record(preview, PUBLIC_ROOT, width, height),
+        "download": {
+            "src": f"{RELEASE_ASSET_BASE}/{pdf.name}",
+            "width": width,
+            "height": height,
+            "filename": pdf.name,
+            "bytes": pdf.stat().st_size,
+            "sha256": sha256(pdf),
+        },
+    }]
+
+
 def build_site(
     config: dict[str, Any],
     locator_bounds: dict[str, float],
@@ -238,10 +262,7 @@ def build_site(
             build_dynamic_map(slug, "topographic"),
             build_dynamic_map(slug, "orthophoto"),
         ],
-        "planches": [
-            build_planche(slug, "topographic"),
-            build_planche(slug, "orthophoto"),
-        ],
+        "planches": build_printable_sheets(slug),
         **web_site_metadata(config),
     }
 

@@ -1175,6 +1175,7 @@ def validate_config(config: Mapping[str, Any]) -> None:
         "connector_width_rem",
         "label_offset_rem",
         "lines",
+        "position",
         "width_rem",
     }
     unknown_layout_keys = sorted(set(layout) - allowed_layout_keys)
@@ -1185,6 +1186,13 @@ def validate_config(config: Mapping[str, Any]) -> None:
         )
     if layout.get("side") not in {"left", "right"}:
         raise ValueError("web.site_label_layout.side must be left or right")
+    if "position" in layout:
+        position = layout["position"]
+        if not isinstance(position, Mapping) or set(position) != {"xPercent", "yPercent"} or any(
+            isinstance(value, bool) or not isinstance(value, (int, float)) or not 0 <= value <= 100
+            for value in position.values()
+        ):
+            raise ValueError("web.site_label_layout.position requires xPercent and yPercent between 0 and 100")
     for key in ("shift_y_rem", "connector_angle_deg"):
         value = layout.get(key)
         if (

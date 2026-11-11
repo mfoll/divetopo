@@ -1,0 +1,110 @@
+{
+  "region": "cote-bleue",
+  "slug": "jardins-de-sausset",
+  "title": "Jardins de Sausset",
+  "litto3d_archives": [
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0870_6255/file/0870_6255.7z",
+      "members": [
+        "0870_6255/LITTO3D_FRA_0870_6251_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0870_6251_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    },
+    {
+      "url": "https://services.data.shom.fr/INSPIRE/telechargement/prepackageGroup/LITTO3D_PACA_2015_PACK_DL/prepackage/0870_6250/file/0870_6250.7z",
+      "members": [
+        "0870_6250/LITTO3D_FRA_0870_6250_20150529_LAMB93_RGF93_IGN69/MNT1m/LITTO3D_FRA_0870_6250_MNT_20150128_LAMB93_RGF93_IGN69.asc"
+      ]
+    }
+  ],
+  "focus_bbox_utm40s": [
+    870315,
+    6249800,
+    870735,
+    6250090
+  ],
+  "context_bbox_utm40s": [
+    870270,
+    6249680,
+    870780,
+    6250160
+  ],
+  "interactive_footprint_utm40s": {
+    "center": [
+      870525,
+      6249910
+    ],
+    "width_m": 460,
+    "depth_m": 450,
+    "look_bearing_deg": 0
+  },
+  "view_bearing_deg": 0,
+  "view_visible_width_m": 370,
+  "interactive_view_visible_width_m": 370,
+  "coast_mode": "mask",
+  "max_depth_m": 20,
+  "bathymetry_palette": "legacy",
+  "bathymetry_depth_scale": "legacy_linear",
+  "bathymetry_source_text": "Bathymétrie / topographie : Shom–IGN Litto3D PACA 2015 · MNT 1 m · IGN69",
+  "bathymetry_attribution": "Shom–IGN Litto3D PACA 2015, MNT maillé à 1 m",
+  "plan_sea_shading": "local_slope",
+  "plan_land_shading": "local_slope",
+  "topography_resolution_m": 1,
+  "context_topography_resolution_m": 1,
+  "max_land_elevation_m": 25,
+  "camera_tilt": 0.75,
+  "along_view_projection_scale": 1.2,
+  "coast_frame_fraction": 0.52,
+  "plan_output_scale": 5,
+  "map_style_scale": 2,
+  "final_output_size_px": [
+    2474,
+    1712
+  ],
+  "orthophoto_enabled": true,
+  "orthophoto_layer": "HR.ORTHOIMAGERY.ORTHOPHOTOS",
+  "orthophoto_capture_date": "2026-04-16",
+  "orthophoto_resolution_m": 0.25,
+  "orthophoto_3d_resolution_m": 0.5,
+  "orthophoto_coastline_visible": false,
+  "plate_site_name": "Les Jardins de Sausset",
+  "plate_city": "Sausset-les-Pins",
+  "plate_author": "Matthieu Foll",
+  "copyright_year": 2026,
+  "map_license": "CC BY-NC-SA 4.0",
+  "vertical_exaggeration": 2,
+  "plate_title": "Les Jardins de Sausset",
+  "site_location_utm40s": [
+    870430.1794671861,
+    6249983.9362277705
+  ],
+  "web": {
+    "published": true,
+    "site_label_layout": {
+      "side": "left",
+      "shift_y_rem": 0,
+      "connector_angle_deg": 0,
+      "lines": [
+        "Les Jardins",
+        "de Sausset"
+      ],
+      "width_rem": 5.5,
+      "position": {
+        "xPercent": 23,
+        "yPercent": 24
+      }
+    },
+    "interactive_initial_view": {
+      "camera_position_m": [
+        110,
+        340,
+        780
+      ],
+      "camera_target_m": [
+        0,
+        -12,
+        -10
+      ],
+      "zoom": 1
+    }
+  }
+}

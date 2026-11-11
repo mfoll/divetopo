@@ -42,24 +42,27 @@ export const regions = publicRegions.map((region) => {
     name: catalog.names,
     location: catalog.location,
     href: `/${region}`,
-    description: {
+    description: region === "cote-bleue" ? {
+      fr: "Méjean, l’Érevine, les Yeux de Chat et les Jardins de Sausset.",
+      en: "Méjean, Érevine, Yeux de Chat and Jardins de Sausset.",
+    } : {
       fr:
         count > 0
-          ? `Explorez les ${count} sites actuellement publiés dans cette zone. Les nouveaux rendus restent masqués jusqu’à leur validation.`
+          ? `Explorez les ${count} sites actuellement publiés dans cette zone.`
           : "Découvrez la zone et suivez la préparation des cinq premières cartographies, encore masquées jusqu’à leur validation.",
       en:
         count > 0
-          ? `Explore the ${count} sites currently published in this area. New renders remain hidden until validation.`
+          ? `Explore the ${count} sites currently published in this area.`
           : "Discover the area and follow the preparation of its first five maps, still hidden until validation.",
     },
     features: [
       {
-        fr: count > 0 ? `${count} sites publiés` : "5 sites en préparation",
-        en: count > 0 ? `${count} published sites` : "5 sites in preparation",
+        fr: `${count} sites`,
+        en: `${count} sites`,
       },
       { fr: "Plans 2D", en: "2D maps" },
       { fr: "Vues 3D", en: "3D views" },
-      { fr: "Publication après QA", en: "Published after QA" },
+      { fr: "Reliefs interactifs", en: "Interactive terrain" },
     ],
     image: {
       src: manifest.westCoastLocator.src,

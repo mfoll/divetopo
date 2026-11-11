@@ -655,8 +655,8 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   const imageLocations = [
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
-  assert.equal(locations.length, 90);
-  assert.equal(imageLocations.length, 242);
+  assert.equal(locations.length, 100);
+  assert.equal(imageLocations.length, 260);
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));
@@ -733,7 +733,7 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
   assert.equal(
     imageLocations.filter((location) => new URL(location).pathname.endsWith(".jpg"))
       .length,
-    228,
+    244,
     "expected the regional sitemap entries to use JPEG downloads",
   );
   assert.equal(
@@ -891,6 +891,7 @@ test("interactive terrain manifest combines every published region", async () =>
   const [
     manifest,
     bouchesDuRhoneManifest,
+    coteBleueManifest,
     varCentreManifest,
     varOuestManifest,
     varEstManifest,
@@ -902,6 +903,10 @@ test("interactive terrain manifest combines every published region", async () =>
     ),
     readFile(
       new URL("../content/bouches-du-rhone-map-manifest.json", import.meta.url),
+      "utf8",
+    ),
+    readFile(
+      new URL("../content/cote-bleue-map-manifest.json", import.meta.url),
       "utf8",
     ),
     readFile(
@@ -926,17 +931,19 @@ test("interactive terrain manifest combines every published region", async () =>
   assert.deepEqual(manifest.regions, [
     "alpes-maritimes",
     "bouches-du-rhone",
+    "cote-bleue",
     "reunion",
     "var-centre",
     "var-est",
     "var-ouest",
   ]);
-  assert.equal(manifest.sites.length, 38);
+  assert.equal(manifest.sites.length, 42);
   assert.deepEqual(
     new Set(manifest.sites.map((site) => site.slug)),
     new Set([
       ...publishedSiteSlugs,
       ...bouchesDuRhoneManifest.sites.map((site) => site.slug),
+      ...coteBleueManifest.sites.map((site) => site.slug),
       ...varCentreManifest.sites.map((site) => site.slug),
       ...varOuestManifest.sites.map((site) => site.slug),
       ...varEstManifest.sites.map((site) => site.slug),

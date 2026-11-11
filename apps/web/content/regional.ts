@@ -1,3 +1,4 @@
+import coteBleueMapManifestJson from "./cote-bleue-map-manifest.json";
 import reunionMapManifestJson from "./map-manifest.json";
 import pacaMapManifestJson from "./paca-map-manifest.json";
 import alpesMaritimesMapManifestJson from "./alpes-maritimes-map-manifest.json";
@@ -44,6 +45,7 @@ export type SiteLocation = {
 export type SiteLabelLayout = {
   side: "left" | "right";
   shiftYRem: number;
+  position?: { xPercent: number; yPercent: number };
   connectorAngleDeg: number;
   connectorWidthRem?: number;
   labelOffsetRem?: number;
@@ -109,6 +111,7 @@ export type RegionalMapManifest = {
 export type RegionSlug =
   | "reunion"
   | "paca"
+  | "cote-bleue"
   | "bouches-du-rhone"
   | "var-ouest"
   | "var-centre"
@@ -140,6 +143,7 @@ export const regionalMapManifests: Record<
   reunion: reunionMapManifest,
   paca: pacaMapManifest,
   "bouches-du-rhone": bouchesDuRhoneMapManifest,
+  "cote-bleue": coteBleueMapManifestJson as unknown as RegionalMapManifest,
   "var-ouest": varOuestMapManifest,
   "var-centre": varCentreMapManifest,
   "var-est": varEstMapManifest,
