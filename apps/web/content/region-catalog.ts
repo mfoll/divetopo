@@ -118,6 +118,7 @@ export function regionCopy(region: RegionSlug) {
   return {
     fr: {
       ...pacaCopy.fr,
+      footer: region === "cote-bleue" ? topoReunionCopy.fr.footer : pacaCopy.fr.footer,
       topoReunionTitle: "Plans des sites de plongée " + frenchOfRegion,
       metadataDescription:
         "Plans topo-bathymétriques 2D, perspectives 3D et reliefs " +
@@ -146,6 +147,7 @@ export function regionCopy(region: RegionSlug) {
     },
     en: {
       ...pacaCopy.en,
+      footer: region === "cote-bleue" ? topoReunionCopy.en.footer : pacaCopy.en.footer,
       topoReunionTitle: "Dive site maps in " + names.en,
       metadataDescription:
         "2D topographic-bathymetric maps, 3D views and interactive terrain " +
