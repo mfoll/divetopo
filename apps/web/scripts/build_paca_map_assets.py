@@ -205,23 +205,32 @@ def build_printable_sheets(slug: str, release_base: str) -> list[dict[str, objec
     if not pdf.is_file():
         return [build_planche(slug, style, release_base) for style in ("topographic", "orthophoto")]
 
-    source = OUTPUT_ROOT / f"{slug}-a4-preview.webp"
-    preview = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps" / "plan-a4.webp"
-    shutil.copyfile(source, preview)
-    with Image.open(preview) as image:
-        width, height = image.size
-    return [{
-        "style": "topographic",
-        "preview": image_record(preview, PUBLIC_ROOT, width, height),
-        "download": {
-            "src": f"{release_base}/{pdf.name}",
-            "width": width,
-            "height": height,
-            "filename": pdf.name,
-            "bytes": pdf.stat().st_size,
-            "sha256": sha256(pdf),
-        },
-    }]
+    sheets = []
+    for style, basename, preview_name in (
+        ("topographic", f"{slug}-a4", "plan-a4.webp"),
+        ("orthophoto", f"{slug}-orthophoto-a4", "plan-orthophoto-a4.webp"),
+    ):
+        pdf = OUTPUT_ROOT / f"{basename}.pdf"
+        if not pdf.is_file():
+            continue
+        source = OUTPUT_ROOT / f"{basename}-preview.webp"
+        preview = PUBLIC_ROOT / "maps" / REGION_SLUG / slug / "maps" / preview_name
+        shutil.copyfile(source, preview)
+        with Image.open(preview) as image:
+            width, height = image.size
+        sheets.append({
+            "style": style,
+            "preview": image_record(preview, PUBLIC_ROOT, width, height),
+            "download": {
+                "src": f"{release_base}/{pdf.name}",
+                "width": width,
+                "height": height,
+                "filename": pdf.name,
+                "bytes": pdf.stat().st_size,
+                "sha256": sha256(pdf),
+            },
+        })
+    return sheets
 
 
 def build_site(
@@ -233,6 +242,11 @@ def build_site(
     release_base = (
         f"https://github.com/mfoll/divetopo/releases/download/{release_tag}"
         if release_tag else RELEASE_ASSET_BASE
+    )
+    printable_tag = config["web"].get("printable_release_tag")
+    printable_base = (
+        f"https://github.com/mfoll/divetopo/releases/download/{printable_tag}"
+        if printable_tag else release_base
     )
     marker = config.get("site_location_utm40s") or config.get(
         "locator_marker_utm40s"
@@ -270,7 +284,7 @@ def build_site(
             build_dynamic_map(slug, "topographic", release_base),
             build_dynamic_map(slug, "orthophoto", release_base),
         ],
-        "planches": build_printable_sheets(slug, release_base),
+        "planches": build_printable_sheets(slug, printable_base),
         **web_site_metadata(config),
     }
 

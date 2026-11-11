@@ -228,7 +228,7 @@ export function SiteStructuredData({
       url: absoluteUrl(image.src),
       width: image.width,
       height: image.height,
-      encodingFormat: "image/jpeg",
+      encodingFormat: new URL(image.src, "https://divetopo.com").pathname.endsWith(".webp") ? "image/webp" : "image/jpeg",
       caption: image.caption,
       creator: {
         "@type": "Person",

@@ -180,9 +180,8 @@ function selectedMap(
 }
 
 function selectedPlanche(site: RegionalAssetSite, style: SurfaceStyle) {
-  const asset = site.planches?.find(
-    (candidate) => candidate.style === style || candidate.download.filename.endsWith(".pdf"),
-  );
+  const asset = site.planches?.find((candidate) => candidate.style === style)
+    ?? site.planches?.find((candidate) => candidate.download.filename.endsWith(".pdf"));
   if (asset?.download.filename.endsWith(".pdf")) return asset;
   return asset
     ? {
@@ -1103,11 +1102,7 @@ export function TopoRegionExperience({
                         siteName={activeSite.displayName}
                         style={surfaceStyle}
                         language={language}
-                        vectorIsobathsPath={
-                          activeSite.slug === "tombant-de-l-erevine"
-                            ? undefined
-                            : `/terrain/${activeSite.slug}/isobaths-vector.json`
-                        }
+                        vectorIsobathsPath={`/terrain/${activeSite.slug}/isobaths-vector.json`}
                         initialZoom={
                           activeSite.interactiveInitialView?.zoom ??
                           (activeSite.slug === "cap-la-houssaye" ? 1.12 : 1)
@@ -1196,7 +1191,8 @@ export function TopoRegionExperience({
                 <div>
                   <strong>{text.plate.printable}</strong>
                   <span>
-                    {activeSite.displayName} · {planche.download.filename.endsWith(".pdf") ? "PDF A4" : surfaceText.label}
+                    {activeSite.displayName} · {surfaceText.label}
+                    {planche.download.filename.endsWith(".pdf") ? " · PDF A4" : ""}
                   </span>
                 </div>
                 <a

@@ -1,8 +1,12 @@
 {
-  "version": "v1.7.0",
-  "releaseNotes": "releases/v1.7.0.md",
-  "requiredNotesHeading": "## New dive sites",
+  "version": "v1.7.1",
+  "releaseNotes": "releases/v1.7.1.md",
+  "requiredNotesHeading": "## Côte Bleue print sheets",
   "assetVersionSources": [
+    "regions/cote-bleue/sites/tombant-de-mejean.json",
+    "regions/cote-bleue/sites/tombant-de-l-erevine.json",
+    "regions/cote-bleue/sites/yeux-de-chat.json",
+    "regions/cote-bleue/sites/jardins-de-sausset.json",
     "regions/cote-bleue/sites/les-jonquiers.json",
     "regions/cote-bleue/sites/le-moulon.json",
     "regions/cote-bleue/sites/cap-frapaou.json"
@@ -10,21 +14,52 @@
   "requiredPublishedSites": [
     {
       "region": "cote-bleue",
+      "slug": "tombant-de-mejean",
+      "displayName": "Tombant de Méjean",
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
+    },
+    {
+      "region": "cote-bleue",
+      "slug": "tombant-de-l-erevine",
+      "displayName": "Tombant de l’Érevine",
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
+    },
+    {
+      "region": "cote-bleue",
+      "slug": "yeux-de-chat",
+      "displayName": "Les Yeux de Chat",
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
+    },
+    {
+      "region": "cote-bleue",
+      "slug": "jardins-de-sausset",
+      "displayName": "Les Jardins de Sausset",
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
+    },
+    {
+      "region": "cote-bleue",
       "slug": "les-jonquiers",
       "displayName": "Les Jonquiers",
-      "printableFormat": "pdf"
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
     },
     {
       "region": "cote-bleue",
       "slug": "le-moulon",
       "displayName": "Le Moulon",
-      "printableFormat": "pdf"
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
     },
     {
       "region": "cote-bleue",
       "slug": "cap-frapaou",
       "displayName": "Le Cap Frapaou",
-      "printableFormat": "pdf"
+      "printableFormat": "pdf",
+      "printableOrthophoto": true
     }
   ]
 }

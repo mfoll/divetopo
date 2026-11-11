@@ -656,7 +656,11 @@ test("publishes crawlable robots and multilingual sitemap metadata routes", asyn
     ...sitemap.matchAll(/<image:loc>([^<]+)<\/image:loc>/g),
   ].map((match) => match[1]);
   assert.equal(locations.length, 106);
-  assert.equal(imageLocations.length, 272);
+  assert.equal(imageLocations.length, 286);
+  assert.equal(
+    imageLocations.filter((url) => url.includes("/cote-bleue/") && new URL(url).pathname.endsWith("/plan-orthophoto-a4.webp")).length,
+    14,
+  );
   assert.ok(locations.includes("https://divetopo.com/fr"));
   assert.ok(locations.includes("https://divetopo.com/en"));
   assert.ok(locations.includes("https://divetopo.com/reunion/fr"));

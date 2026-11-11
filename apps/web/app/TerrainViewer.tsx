@@ -14,6 +14,7 @@ import {
   bathymetryColorRgb,
 } from "./bathymetryPalette.mjs";
 import { coveredOrthographicHalfExtents } from "./terrainCamera.mjs";
+import { createDrapedDepthLabels } from "./drapedDepthLabels";
 
 type SurfaceStyle = "topographic" | "orthophoto";
 
@@ -261,6 +262,8 @@ function installAnalyticIsobaths(
   enabledUniform: NumberUniform,
   pixelRatioUniform: NumberUniform,
   maximumDepthM: number,
+  drapedLabels: THREE.CanvasTexture | null,
+  drapedMode: NumberUniform,
 ) {
   material.onBeforeCompile = (shader) => {
     shader.uniforms.uIsobathsEnabled = enabledUniform;
@@ -271,6 +274,10 @@ function installAnalyticIsobaths(
     shader.uniforms.uIsobathMaximumDepthM = {
       value: maximumDepthM,
     };
+    if (drapedLabels) {
+      shader.uniforms.uDrapedLabels = { value: drapedLabels };
+      shader.uniforms.uDrapedMode = drapedMode;
+    }
     shader.uniforms.uIsobathOutlineColor = {
       value: new THREE.Color("#05070a"),
     };
@@ -301,13 +308,15 @@ function installAnalyticIsobaths(
 attribute float terrainElevationM;
 attribute float isobathSource;
 varying float vTerrainElevationM;
-varying float vIsobathSource;`,
+varying float vIsobathSource;
+${drapedLabels ? "varying vec2 vDrapedUv;" : ""}`,
       )
       .replace(
         "#include <begin_vertex>",
         `#include <begin_vertex>
 vTerrainElevationM = terrainElevationM;
-vIsobathSource = isobathSource;`,
+vIsobathSource = isobathSource;
+${drapedLabels ? "vDrapedUv = uv;" : ""}`,
       );
 
     shader.fragmentShader = shader.fragmentShader
@@ -321,7 +330,8 @@ uniform float uIsobathPixelRatio;
 uniform vec3 uIsobathOutlineColor;
 uniform vec3 uIsobathLevelColors[8];
 varying float vTerrainElevationM;
-varying float vIsobathSource;`,
+varying float vIsobathSource;
+${drapedLabels ? "uniform sampler2D uDrapedLabels; uniform float uDrapedMode; varying vec2 vDrapedUv;" : ""}`,
       )
       .replace(
         "#include <opaque_fragment>",
@@ -345,6 +355,20 @@ isobathMask *= step(0.000001, isobathPixelSpanM);
 isobathMask *= step(0.999, vIsobathSource);
 isobathMask *= uIsobathsEnabled;
 
+${drapedLabels ? `
+if (uDrapedMode > 0.5) {
+vec3 labels = texture2D(uDrapedLabels, vDrapedUv).rgb;
+float major = 1.0 - mod(isobathLevelIndex, 2.0);
+float lineAlpha = 1.0 - smoothstep(mix(0.25, 0.6, major), mix(0.65, 1.15, major), isobathDistanceCssPx);
+lineAlpha *= isobathMask * (1.0 - labels.g) * mix(0.48, 0.82, major);
+float terrainLightness = dot(gl_FragColor.rgb, vec3(0.2126, 0.7152, 0.0722));
+vec3 lineInk = mix(vec3(0.28, 0.33, 0.42), vec3(0.018, 0.026, 0.045), smoothstep(0.08, 0.25, terrainLightness));
+gl_FragColor.rgb = mix(gl_FragColor.rgb, lineInk, lineAlpha);
+float labelMask = step(0.999, vIsobathSource) * uIsobathsEnabled;
+gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.01, 0.015, 0.025), labelMask * labels.b);
+gl_FragColor.rgb = mix(gl_FragColor.rgb, vec3(0.78, 0.76, 0.66), labelMask * labels.r);
+} else {
+` : ""}
 float isobathOutlineCoverage =
   1.0 - smoothstep(1.35, 1.75, isobathDistanceCssPx);
 float isobathCenterCoverage =
@@ -370,10 +394,11 @@ gl_FragColor.rgb = mix(
   gl_FragColor.rgb,
   isobathCenterColor,
   isobathCenterCoverage * 0.97
-);`,
+);
+${drapedLabels ? "}" : ""}`,
       );
   };
-  material.customProgramCacheKey = () => ISOBATH_SHADER_CACHE_KEY;
+  material.customProgramCacheKey = () => `${ISOBATH_SHADER_CACHE_KEY}-${Boolean(drapedLabels)}`;
 }
 
 export default function TerrainViewer({
@@ -444,6 +469,9 @@ export default function TerrainViewer({
   const scaleLabelRef = useRef<HTMLSpanElement>(null);
   const isobathsEnabledUniformRef = useRef<NumberUniform>({ value: 1 });
   const isobathsEnabledRef = useRef(true);
+  const drapedModeUniformRef = useRef<NumberUniform>({ value: 0 });
+  const refreshDrapedLabelsRef = useRef<(() => void) | null>(null);
+  const [drapedMode, setDrapedMode] = useState(false);
   const styleRef = useRef(style);
   const [isobathsEnabled, setIsobathsEnabled] = useState(true);
   const [isNativeFullscreen, setIsNativeFullscreen] = useState(false);
@@ -527,6 +555,8 @@ export default function TerrainViewer({
     let mesh: THREE.Mesh | null = null;
     let rendererCanvas: HTMLCanvasElement | null = null;
     let contextWasLost = false;
+    let drapedLabels: ReturnType<typeof createDrapedDepthLabels> | null = null;
+    let labelRefreshTimer: number | undefined;
     const vectorLineGeometries: LineGeometry[] = [];
     const vectorLineMaterials: LineMaterial[] = [];
     const vectorLabels: VectorLabel[] = [];
@@ -597,7 +627,8 @@ export default function TerrainViewer({
       }
 
       metadataRef.current = metadata;
-      setUsesVectorIsobaths(Boolean(vectorIsobaths));
+      const useClassicVectors = Boolean(vectorIsobaths && slug !== "tombant-de-l-erevine");
+      setUsesVectorIsobaths(useClassicVectors);
       setTerrainAttribution({
         copyright: metadata.credits.copyright,
         requiredDisplay: metadata.credits.requiredDisplay,
@@ -720,14 +751,38 @@ export default function TerrainViewer({
       const pixelRatioUniform: NumberUniform = {
         value: Math.min(window.devicePixelRatio, 1.75),
       };
-      if (!vectorIsobaths) {
-        installAnalyticIsobaths(
-          material,
-          isobathsEnabledUniformRef.current,
-          pixelRatioUniform,
-          maximumDepthM,
+      const elevationAt = (x: number, z: number) => {
+        const column = (x + metadata.physicalSizeM.width / 2) / cellWidthM;
+        const row = (z + metadata.physicalSizeM.depth / 2) / cellDepthM;
+        const c = Math.floor(column);
+        const r = Math.floor(row);
+        const u = column - c;
+        const v = row - r;
+        const a = r * width + c;
+        const b = a + 1;
+        const d = a + width;
+        const e = d + 1;
+        // Match PlaneGeometry's two triangles and use the same bathymetry mask as the shader.
+        const indices = u + v <= 1 ? [a, b, d] : [e, d, b];
+        if (c < 0 || r < 0 || c >= width - 1 || r >= height - 1 ||
+            indices.some((i) => !validAt(mask, i) || !validAt(isobathMask, i))) return NaN;
+        const y = u + v <= 1
+          ? elevations[a] * (1 - u - v) + elevations[b] * u + elevations[d] * v
+          : elevations[e] * (u + v - 1) + elevations[d] * (1 - u) + elevations[b] * (1 - v);
+        return y * metadata.verticalExaggeration;
+      };
+      if (vectorIsobaths) {
+        drapedLabels = createDrapedDepthLabels(
+          vectorIsobaths.levels, visibleIsobathLevels(maximumDepthM), cellWidthM, cellDepthM,
+          metadata.physicalSizeM.width, metadata.physicalSizeM.depth, elevationAt, reliefSlopeAt,
         );
       }
+      isobathsEnabledUniformRef.current.value =
+        isobathsEnabledRef.current && (drapedModeUniformRef.current.value || !useClassicVectors) ? 1 : 0;
+      installAnalyticIsobaths(
+        material, isobathsEnabledUniformRef.current, pixelRatioUniform,
+        maximumDepthM, drapedLabels?.texture ?? null, drapedModeUniformRef.current,
+      );
       materialRef.current = material;
       mesh = new THREE.Mesh(geometry, material);
       scene.add(mesh);
@@ -738,10 +793,10 @@ export default function TerrainViewer({
         polylineKey: string;
         score: number;
       }> = [];
-      if (vectorIsobaths) {
+      if (vectorIsobaths && useClassicVectors) {
         const vectorGroup = new THREE.Group();
         vectorGroup.renderOrder = 2;
-        vectorGroup.visible = isobathsEnabledRef.current;
+        vectorGroup.visible = isobathsEnabledRef.current && !drapedModeUniformRef.current.value;
         vectorIsobathGroupRef.current = vectorGroup;
         scene.add(vectorGroup);
 
@@ -1376,6 +1431,19 @@ export default function TerrainViewer({
       };
       updateVectorLabels(true);
 
+      const labelRay = new THREE.Raycaster();
+      const updateDrapedLabels = () => {
+        if (!drapedLabels || !mesh || !drapedModeUniformRef.current.value || !isobathsEnabledRef.current) return;
+        const terrainMesh = mesh;
+        const count = drapedLabels.update(camera, Math.max(mount.clientWidth, 1), Math.max(mount.clientHeight, 1), (point) => {
+          const projected = point.clone().project(camera);
+          labelRay.setFromCamera(new THREE.Vector2(projected.x, projected.y), camera);
+          const hit = labelRay.intersectObject(terrainMesh, false)[0];
+          return !hit || hit.distance >= labelRay.ray.origin.distanceTo(point) - 0.5;
+        });
+        renderer.domElement.dataset.drapedLabels = String(count);
+      };
+
       const render = () => {
         if (scene && rendererRef.current && cameraRef.current) {
           updateVectorLabels(false);
@@ -1397,7 +1465,15 @@ export default function TerrainViewer({
           rendererRef.current.render(scene, cameraRef.current);
         }
       };
+      refreshDrapedLabelsRef.current = updateDrapedLabels;
       controls.addEventListener("change", render);
+      controls.addEventListener("end", () => {
+        window.clearTimeout(labelRefreshTimer);
+        labelRefreshTimer = window.setTimeout(() => {
+          updateDrapedLabels();
+          render();
+        }, 150);
+      });
       if (metadata.view.reselectVectorLabelsOnCameraEnd) {
         controls.addEventListener("end", () => {
           updateVectorLabels(true, true);
@@ -1449,6 +1525,7 @@ export default function TerrainViewer({
         currentCamera.bottom = -resized.halfHeight;
         currentCamera.updateProjectionMatrix();
         updateVectorLabels(true);
+        updateDrapedLabels();
         render();
       };
       resizeObserver = new ResizeObserver(() => {
@@ -1458,6 +1535,7 @@ export default function TerrainViewer({
       resizeObserver.observe(mount);
       resize();
 
+      updateDrapedLabels();
       await setTexture(styleRef.current);
       render();
       if (!cancelled) {
@@ -1525,6 +1603,9 @@ export default function TerrainViewer({
         texture.dispose();
       });
       materialRef.current?.dispose();
+      window.clearTimeout(labelRefreshTimer);
+      refreshDrapedLabelsRef.current = null;
+      drapedLabels?.texture.dispose();
       Object.values(textureCacheRef.current).forEach((texture) =>
         texture?.dispose(),
       );
@@ -1613,15 +1694,26 @@ export default function TerrainViewer({
     if (renderer && camera && scene) renderer.render(scene, camera);
   }
 
+  function updateIsobathDisplay(enabled: boolean, draped: boolean) {
+    isobathsEnabledRef.current = enabled;
+    drapedModeUniformRef.current.value = draped ? 1 : 0;
+    isobathsEnabledUniformRef.current.value = enabled && (draped || !usesVectorIsobaths) ? 1 : 0;
+    if (vectorIsobathGroupRef.current) {
+      vectorIsobathGroupRef.current.visible = enabled && !draped;
+    }
+    if (enabled && draped) refreshDrapedLabelsRef.current?.();
+    renderCurrentScene();
+  }
+
   function toggleIsobaths() {
     const nextValue = !isobathsEnabled;
-    isobathsEnabledRef.current = nextValue;
-    isobathsEnabledUniformRef.current.value = nextValue ? 1 : 0;
-    if (vectorIsobathGroupRef.current) {
-      vectorIsobathGroupRef.current.visible = nextValue;
-    }
     setIsobathsEnabled(nextValue);
-    renderCurrentScene();
+    updateIsobathDisplay(nextValue, drapedMode);
+  }
+
+  function toggleDepthStyle() {
+    setDrapedMode(!drapedMode);
+    updateIsobathDisplay(isobathsEnabled, !drapedMode);
   }
 
   function resetView() {
@@ -1635,6 +1727,8 @@ export default function TerrainViewer({
     camera.updateProjectionMatrix();
     controls.target.copy(initial.target);
     controls.update();
+    refreshDrapedLabelsRef.current?.();
+    renderCurrentScene();
   }
 
   async function toggleFullscreen() {
@@ -1740,7 +1834,8 @@ export default function TerrainViewer({
       {status === "ready" &&
       isobathsEnabled &&
       isobathLevels.length > 0 &&
-      !usesVectorIsobaths ? (
+      !usesVectorIsobaths &&
+      !(drapedMode && vectorIsobathsPath) ? (
         <div
           className="terrain-depth-legend"
           data-testid="terrain-depth-legend"
@@ -1780,6 +1875,24 @@ export default function TerrainViewer({
         </div>
       ) : null}
       <div className="terrain-actions">
+        {status === "ready" && vectorIsobathsPath ? (
+          <button
+            type="button"
+            className="terrain-icon-button"
+            aria-pressed={drapedMode}
+            aria-label={language === "fr" ? "Cotes drapées" : "Draped depth labels"}
+            title={language === "fr"
+              ? (drapedMode ? "Passer aux cotes classiques" : "Passer aux cotes drapées")
+              : (drapedMode ? "Switch to classic depth labels" : "Switch to draped depth labels")}
+            onClick={toggleDepthStyle}
+          >
+            <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" strokeWidth="1.4"
+              strokeLinecap="round" strokeLinejoin="round">
+              <path d="m5 7 2-2v7m4-5a2 2 0 0 1 4 0c0 2-4 3-4 5h4M3 18c3-2 6-3 9-1s6 1 9-2m-18 6c3-2 6-3 9-1s6 1 9-2" />
+            </svg>
+          </button>
+        ) : null}
         <button
           type="button"
           className="terrain-icon-button"

@@ -127,12 +127,16 @@ def validate_release(root: Path = ROOT) -> list[str]:
             required_maps = (REQUIRED_MAP_FILES - {
                 "maps/planche-orthophoto-1800.webp", "maps/planche-topographic-1800.webp",
             }) | {"maps/plan-a4.webp"}
-            filename = f"{slug}-a4.pdf"
-            if not (root / "regions" / region / "outputs" / filename).is_file():
-                errors.append(f"{identity}: missing canonical A4 PDF")
+            filenames = [f"{slug}-a4.pdf"]
+            if target.get("printableOrthophoto"):
+                filenames.append(f"{slug}-orthophoto-a4.pdf")
+                required_maps.add("maps/plan-orthophoto-a4.webp")
             downloads = [sheet["download"]["src"] for sheet in published.get(slug, {}).get("planches", [])]
-            if f"https://github.com/mfoll/divetopo/releases/download/{version}/{filename}" not in downloads:
-                errors.append(f"{identity}: missing A4 PDF download for {version}")
+            for filename in filenames:
+                if not (root / "regions" / region / "outputs" / filename).is_file():
+                    errors.append(f"{identity}: missing canonical A4 PDF {filename}")
+                if f"https://github.com/mfoll/divetopo/releases/download/{version}/{filename}" not in downloads:
+                    errors.append(f"{identity}: missing {filename} download for {version}")
         missing_maps = sorted(required_maps - relative_files(map_root))
         if missing_maps:
             errors.append(f"{identity}: missing Web maps: {missing_maps}")

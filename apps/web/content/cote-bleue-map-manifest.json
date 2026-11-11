@@ -201,19 +201,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/tombant-de-mejean/maps/plan-a4.webp?v=6936e970668e",
-            "width": 900,
-            "height": 637,
-            "bytes": 66884,
-            "sha256": "6936e970668e66ec31f59ecd49049c611abdffea44e3e34f09cf593b644fedcd"
+            "src": "/maps/cote-bleue/tombant-de-mejean/maps/plan-a4.webp?v=12406e1ce8ca",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 146770,
+            "sha256": "12406e1ce8cad0ffdf3aa48d3f53f46179339b271d4801655bd93b62fa93e2aa"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-mejean-a4.pdf",
-            "width": 900,
-            "height": 637,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/tombant-de-mejean-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "tombant-de-mejean-a4.pdf",
-            "bytes": 2107662,
-            "sha256": "bfaa48276f36a61391f7fe195d4b235aabdf3f12c5dc86b302050c4711880439"
+            "bytes": 5478341,
+            "sha256": "fe86f8c4fb6fe8a757cbbd89443462cf3b0f8c947f01138ec2117f7c88c87dc6"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/tombant-de-mejean/maps/plan-orthophoto-a4.webp?v=b8633a5c3244",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 164976,
+            "sha256": "b8633a5c32443c43956fed2ccfd326555e7f4c29210cd8e79083d945e0dc826c"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/tombant-de-mejean-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "tombant-de-mejean-orthophoto-a4.pdf",
+            "bytes": 5824072,
+            "sha256": "ef1e70c12d0e2fbd653dabc1b40e9e37c9b18a83e88154b44d26bc926cfbbf08"
           }
         }
       ],
@@ -405,19 +423,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/plan-a4.webp?v=6b519c684562",
-            "width": 900,
-            "height": 637,
-            "bytes": 69850,
-            "sha256": "6b519c6845621c2552d08456fe988d881a41a16978b1f1e72fc0d3922da035c6"
+            "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/plan-a4.webp?v=263c23b61150",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 132302,
+            "sha256": "263c23b611509a6f53eda3e54f6b0a8fff17733c71bd5a47e80d04edf36d4b19"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/tombant-de-l-erevine-a4.pdf",
-            "width": 900,
-            "height": 637,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/tombant-de-l-erevine-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "tombant-de-l-erevine-a4.pdf",
-            "bytes": 2105057,
-            "sha256": "bc73f44c6a75de98d92159603d408dd6be1207692d850202e32d1883ee5a0796"
+            "bytes": 5090475,
+            "sha256": "72dead483d3276417745c0c317b19f6c3984269e4b2ea53670ef40666cb3a925"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/tombant-de-l-erevine/maps/plan-orthophoto-a4.webp?v=beaf0275d720",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 142522,
+            "sha256": "beaf0275d720e2decc055ddd9355e580fe75722dbe061a720a440f16722e1786"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/tombant-de-l-erevine-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "tombant-de-l-erevine-orthophoto-a4.pdf",
+            "bytes": 5228056,
+            "sha256": "b41e38e7a5d2a8e947f5b4283afbd51d84684008c54559d0f7383262ea9ba1fc"
           }
         }
       ],
@@ -609,19 +645,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/yeux-de-chat/maps/plan-a4.webp?v=046844daa389",
-            "width": 900,
-            "height": 637,
-            "bytes": 59936,
-            "sha256": "046844daa389cd1f23cfdaf3676b259e5ba6f9c6e700265be622675d4c13e979"
+            "src": "/maps/cote-bleue/yeux-de-chat/maps/plan-a4.webp?v=7a7874b2fadb",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 132604,
+            "sha256": "7a7874b2fadbd11f0db08e993ae94bc67d623e2ed597d3307860a3775925f25a"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/yeux-de-chat-a4.pdf",
-            "width": 900,
-            "height": 637,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/yeux-de-chat-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "yeux-de-chat-a4.pdf",
-            "bytes": 1735874,
-            "sha256": "8e21e58000b03d89545da5f64d20dd1c1a0e73382f6213d1f5b855f1a1b51ec6"
+            "bytes": 4822216,
+            "sha256": "0c346b7949703dbcf9ca2e6775273c19749fb65fc85634effc23c0bd9711ca4f"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/yeux-de-chat/maps/plan-orthophoto-a4.webp?v=80d35ed0db74",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 192340,
+            "sha256": "80d35ed0db7440d7349e8e6540ad786d14b3cb7f42b05c98ef86300eddef18fd"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/yeux-de-chat-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "yeux-de-chat-orthophoto-a4.pdf",
+            "bytes": 5891418,
+            "sha256": "81f01cf540cfe22b9d6eee1066899fb08d30d5c2231d183fbf1460a586c4fcc6"
           }
         }
       ],
@@ -813,19 +867,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/jardins-de-sausset/maps/plan-a4.webp?v=7af90a216839",
-            "width": 900,
-            "height": 637,
-            "bytes": 49694,
-            "sha256": "7af90a21683974e984714ffdfce339ce0e57b1221731deef7609e78638fdec35"
+            "src": "/maps/cote-bleue/jardins-de-sausset/maps/plan-a4.webp?v=d252312360f9",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 113824,
+            "sha256": "d252312360f9cf8e230d44863ce02fae90cf038ae549125213862198be55c995"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.6.0/jardins-de-sausset-a4.pdf",
-            "width": 900,
-            "height": 637,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/jardins-de-sausset-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "jardins-de-sausset-a4.pdf",
-            "bytes": 1625842,
-            "sha256": "77bd9bf49af0375b4e5835c1ae70416bc4333f8c6fb4e843c69f4ed1494cfcb0"
+            "bytes": 4651825,
+            "sha256": "c24b7fa4b52f55ac04a2f83a547004615f8d2219febbca3c4f7b3948e7b3357f"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/jardins-de-sausset/maps/plan-orthophoto-a4.webp?v=09569f0922f8",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 122100,
+            "sha256": "09569f0922f88da116b372143a85e3fd3262bbc6096b23aa60e0e3c7ab236199"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/jardins-de-sausset-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "jardins-de-sausset-orthophoto-a4.pdf",
+            "bytes": 4813225,
+            "sha256": "60967ccffa99dc779d2107f9d3e1be229f40b0c0dcd2ac2626bceb1e4ab5d9fd"
           }
         }
       ],
@@ -1017,19 +1089,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/les-jonquiers/maps/plan-a4.webp?v=eb981412c4eb",
-            "width": 900,
-            "height": 637,
-            "bytes": 53964,
-            "sha256": "eb981412c4eb789fbda0df314aa2ab99acdbbbcbe0a0b685364c061f3e3b99d2"
+            "src": "/maps/cote-bleue/les-jonquiers/maps/plan-a4.webp?v=1ad50e65f342",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 122176,
+            "sha256": "1ad50e65f34248e415ea9ac67f5af6bbd3a4a2df058b59f40dba0b697008acbe"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/les-jonquiers-a4.pdf",
-            "width": 900,
-            "height": 637,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/les-jonquiers-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "les-jonquiers-a4.pdf",
-            "bytes": 1621253,
-            "sha256": "6ed422f9b0771a6a02232fd0fb929aafe9e38c095eec7309c7767136c21c8a69"
+            "bytes": 4544091,
+            "sha256": "b7695ad2c95b1b8b154ae9523e192f5a4e1d9b1f907ad4ef7c908ba4950773de"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/les-jonquiers/maps/plan-orthophoto-a4.webp?v=3125488dba4c",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 166738,
+            "sha256": "3125488dba4c2e0a248950236c7a510efa6172e454f432d0fdd0eb2272b765b6"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/les-jonquiers-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "les-jonquiers-orthophoto-a4.pdf",
+            "bytes": 5497113,
+            "sha256": "3a17fc5fa75cd8dc817433b3b28d4d20bd74b4b17f34ad8f196dd8dfa3174296"
           }
         }
       ],
@@ -1220,19 +1310,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/le-moulon/maps/plan-a4.webp?v=30558a1504a9",
-            "width": 900,
-            "height": 636,
-            "bytes": 60102,
-            "sha256": "30558a1504a9b4e421de87db7a92d06153c5a0719d57e168af027e46ef8dcdb7"
+            "src": "/maps/cote-bleue/le-moulon/maps/plan-a4.webp?v=b9990fed89cb",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 129974,
+            "sha256": "b9990fed89cb4850e13125c257826de3d52fd4a47ebb2173c570f895b9901eeb"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/le-moulon-a4.pdf",
-            "width": 900,
-            "height": 636,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/le-moulon-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "le-moulon-a4.pdf",
-            "bytes": 1733335,
-            "sha256": "0faa91709695e01b4b9c622b3b59d3efd0470716405f6e90dab3b3b3f97badd4"
+            "bytes": 4606722,
+            "sha256": "be85b04ff70db5ca5671b49f04f3def139c9defcf023cef1dac83078f667f6e9"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/le-moulon/maps/plan-orthophoto-a4.webp?v=3cb7db0ebeca",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 146152,
+            "sha256": "3cb7db0ebecab6d7a95b72f8150df0cc7be4a65b6f4cdd6afc605a97befd01c3"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/le-moulon-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "le-moulon-orthophoto-a4.pdf",
+            "bytes": 4896131,
+            "sha256": "0eee4997d40f5ff06d9f40f909d39a1ac0c6290f7df92de6cf85677169fd7c04"
           }
         }
       ],
@@ -1427,19 +1535,37 @@
         {
           "style": "topographic",
           "preview": {
-            "src": "/maps/cote-bleue/cap-frapaou/maps/plan-a4.webp?v=a06cc55cf2c7",
-            "width": 900,
-            "height": 637,
-            "bytes": 65152,
-            "sha256": "a06cc55cf2c734dba1f1da038ec1f0753a3fd1bc95f2783c6f947da5e5df4dbe"
+            "src": "/maps/cote-bleue/cap-frapaou/maps/plan-a4.webp?v=c4ddf1e7a8cc",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 139064,
+            "sha256": "c4ddf1e7a8cc19966be4677b331851a7715c7bc1ebd3ccaa2d836a8a55a9d0df"
           },
           "download": {
-            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.0/cap-frapaou-a4.pdf",
-            "width": 900,
-            "height": 637,
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/cap-frapaou-a4.pdf",
+            "width": 1500,
+            "height": 1061,
             "filename": "cap-frapaou-a4.pdf",
-            "bytes": 1968384,
-            "sha256": "0aa32075b0f8b471641107e279de870ebbb6bb42a55b177a8e214206978e5486"
+            "bytes": 5130116,
+            "sha256": "c581af50f319d01fa4cf8cdb7f06690af047fc5de83219fec42f36c2b822d6e1"
+          }
+        },
+        {
+          "style": "orthophoto",
+          "preview": {
+            "src": "/maps/cote-bleue/cap-frapaou/maps/plan-orthophoto-a4.webp?v=fe579c24dbd3",
+            "width": 1500,
+            "height": 1061,
+            "bytes": 208728,
+            "sha256": "fe579c24dbd338f3c4454236ebefbcb44fb398107d7800857fade3a9edf5876c"
+          },
+          "download": {
+            "src": "https://github.com/mfoll/divetopo/releases/download/v1.7.1/cap-frapaou-orthophoto-a4.pdf",
+            "width": 1500,
+            "height": 1061,
+            "filename": "cap-frapaou-orthophoto-a4.pdf",
+            "bytes": 6466776,
+            "sha256": "c89da953bb23be97380fc799dcee51e641a47858a4967b6ae5197467e8832ff0"
           }
         }
       ],

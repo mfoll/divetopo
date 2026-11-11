@@ -221,10 +221,10 @@ export function siteRepresentativeImages(
   const threeD = mapImage(site, "3d");
   const plate = site.planches?.find(
     (candidate) => candidate.style === "orthophoto",
-  )?.download;
-  const releasedPlate = plate
-    ? { ...plate, src: releaseAssetUrl(plate.filename) }
-    : undefined;
+  );
+  const releasedPlate = plate?.download.filename.endsWith(".pdf")
+    ? plate.preview
+    : plate && { ...plate.download, src: releaseAssetUrl(plate.download.filename) };
 
   if (!twoD || !threeD) {
     throw new Error(`Missing representative images for ${site.slug}`);
